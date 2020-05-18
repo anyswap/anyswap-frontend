@@ -277,7 +277,7 @@ function Migrate() {
                 <TextBlock fontSize={24} fontWeight={500} color={[...V2Shares].length > 0 ? 'text1' : 'text4'}>
                   Your Uniswap V2 Liquidity
                 </TextBlock>
-                {[...V2Shares].length > 0 && <Link href="https://v2.uniswap.exchange/pool">Manage V2 Liquidity</Link>}
+                {[...V2Shares].length > 0 && <Link href="https://uniswap.exchange/pool">Manage V2 Liquidity</Link>}
               </Row>
 
               {V2Shares &&
