@@ -118,7 +118,7 @@ const VersionToggle = styled.a`
 export default function Header() {
   return (
     <HeaderFrame>
-      <MigrateBannerSmall>
+      {/* <MigrateBannerSmall>
         <b>V2 is here!&nbsp;</b> <Link href="https://migrate.uniswap.exchange/">Migrate your liquidity&nbsp;</Link>or{' '}
         <Link href="https://uniswap.exchange"> &nbsp;use V2 ↗</Link>
       </MigrateBannerSmall>
@@ -131,10 +131,10 @@ export default function Header() {
         <Link href="https://uniswap.exchange">
           <b>Uniswap V2 Interface ↗</b>
         </Link>
-      </MigrateBannerLarge>
+      </MigrateBannerLarge> */}
       <HeaderSpan>
         <HeaderElement>
-          <Title>
+          {/* <Title>
             <Nod>
               <Link id="link" href="https://uniswap.io">
                 <span role="img" aria-label="unicorn">
@@ -145,13 +145,13 @@ export default function Header() {
             <Link id="link" href="https://uniswap.io">
               <h1 id="title">Uniswap</h1>
             </Link>
-          </Title>
-          <TestnetWrapper>
+          </Title> */}
+          {/* <TestnetWrapper>
             <VersionToggle target="_self" href="https://v2.uniswap.exchange">
               <VersionLabel isV1={false}>V2</VersionLabel>
               <VersionLabel isV1={true}>V1</VersionLabel>
             </VersionToggle>
-          </TestnetWrapper>
+          </TestnetWrapper> */}
         </HeaderElement>
         <HeaderElement>
           <Web3Status />
