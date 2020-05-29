@@ -78,13 +78,16 @@ export default function Footer() {
     <FooterFrame>
       <FooterElement>
         <Title>
-          <Link id="link" href="https://uniswap.io/">
+          <Link id="link" href="http://smpcwallet.com">
             <h1 id="title">About</h1>
           </Link>
-          <Link id="link" href="https://docs.uniswap.io/">
+          {/* <Link id="link" href="https://docs.uniswap.io/">
             <h1 id="title">Docs</h1>
+          </Link> */}
+          <Link id="link" href="https://t.me/smpcwallet">
+            <h1 id="title">Telegram</h1>
           </Link>
-          <Link id="link" href="https://github.com/Uniswap">
+          <Link id="link" href="https://github.com/fsn-dev/uniswap-frontend">
             <h1 id="title">Code</h1>
           </Link>
         </Title>

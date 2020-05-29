@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Link } from '../../theme'
+// import { Link } from '../../theme'
 import Web3Status from '../Web3Status'
-import { darken } from 'polished'
+// import { darken } from 'polished'
 
 const HeaderFrame = styled.div`
   display: flex;
@@ -20,32 +20,32 @@ const HeaderSpan = styled.span`
   justify-content: space-between;
 `
 
-const MigrateBanner = styled.div`
-  width: 100%;
-  padding: 12px 0;
-  display: flex;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.uniswapPink};
-  color: ${({ theme }) => theme.inputBackground};
-  font-weight: 400;
-  text-align: center;
-  a {
-    color: ${({ theme }) => theme.inputBackground};
-    text-decoration: underline;
-  }
-`
+// const MigrateBanner = styled.div`
+//   width: 100%;
+//   padding: 12px 0;
+//   display: flex;
+//   justify-content: center;
+//   background-color: ${({ theme }) => theme.uniswapPink};
+//   color: ${({ theme }) => theme.inputBackground};
+//   font-weight: 400;
+//   text-align: center;
+//   a {
+//     color: ${({ theme }) => theme.inputBackground};
+//     text-decoration: underline;
+//   }
+// `
 
-const MigrateBannerSmall = styled(MigrateBanner)`
-  @media (min-width: 960px) {
-    display: none;
-  }
-`
+// const MigrateBannerSmall = styled(MigrateBanner)`
+//   @media (min-width: 960px) {
+//     display: none;
+//   }
+// `
 
-const MigrateBannerLarge = styled(MigrateBanner)`
-  @media (max-width: 960px) {
-    display: none;
-  }
-`
+// const MigrateBannerLarge = styled(MigrateBanner)`
+//   @media (max-width: 960px) {
+//     display: none;
+//   }
+// `
 
 const HeaderElement = styled.div`
   margin: 1.25rem;
@@ -54,66 +54,66 @@ const HeaderElement = styled.div`
   align-items: center;
 `
 
-const Nod = styled.span`
-  transform: rotate(0deg);
-  transition: transform 150ms ease-out;
-  margin-right: 4px;
+// const Nod = styled.span`
+//   transform: rotate(0deg);
+//   transition: transform 150ms ease-out;
+//   margin-right: 4px;
 
-  :hover {
-    transform: rotate(-10deg);
-  }
-`
+//   :hover {
+//     transform: rotate(-10deg);
+//   }
+// `
 
-const Title = styled.div`
-  display: flex;
-  align-items: center;
+// const Title = styled.div`
+//   display: flex;
+//   align-items: center;
 
-  :hover {
-    cursor: pointer;
-  }
+//   :hover {
+//     cursor: pointer;
+//   }
 
-  #link {
-    text-decoration-color: ${({ theme }) => theme.UniswapPink};
-  }
+//   #link {
+//     text-decoration-color: ${({ theme }) => theme.UniswapPink};
+//   }
 
-  #title {
-    display: inline;
-    font-size: 1rem;
-    font-weight: 500;
-    color: ${({ theme }) => theme.wisteriaPurple};
-    :hover {
-      color: ${({ theme }) => darken(0.1, theme.wisteriaPurple)};
-    }
-  }
-`
+//   #title {
+//     display: inline;
+//     font-size: 1rem;
+//     font-weight: 500;
+//     color: ${({ theme }) => theme.wisteriaPurple};
+//     :hover {
+//       color: ${({ theme }) => darken(0.1, theme.wisteriaPurple)};
+//     }
+//   }
+// `
 
-const TestnetWrapper = styled.div`
-  white-space: nowrap;
-  width: fit-content;
-  margin-left: 10px;
-`
+// const TestnetWrapper = styled.div`
+//   white-space: nowrap;
+//   width: fit-content;
+//   margin-left: 10px;
+// `
 
-const VersionLabel = styled.span`
-  padding: ${({ isV1 }) => (isV1 ? '0.15rem 0.5rem 0.15rem 0.5rem' : '0.15rem 0.25rem 0.13rem 0.5rem')};
-  border-radius: 14px;
-  background: ${({ theme, isV1 }) => (isV1 ? theme.uniswapPink : 'none')};
-  color: ${({ theme, isV1 }) => (isV1 ? theme.inputBackground : theme.uniswapPink)};
-  font-size: 0.825rem;
-  font-weight: 400;
-`
+// const VersionLabel = styled.span`
+//   padding: ${({ isV1 }) => (isV1 ? '0.15rem 0.5rem 0.15rem 0.5rem' : '0.15rem 0.25rem 0.13rem 0.5rem')};
+//   border-radius: 14px;
+//   background: ${({ theme, isV1 }) => (isV1 ? theme.uniswapPink : 'none')};
+//   color: ${({ theme, isV1 }) => (isV1 ? theme.inputBackground : theme.uniswapPink)};
+//   font-size: 0.825rem;
+//   font-weight: 400;
+// `
 
-const VersionToggle = styled.a`
-  border-radius: 16px;
-  border: 1px solid ${({ theme }) => theme.uniswapPink};
-  color: ${({ theme }) => theme.uniswapPink};
-  display: flex;
-  width: fit-content;
-  cursor: pointer;
-  text-decoration: none;
-  :hover {
-    text-decoration: none;
-  }
-`
+// const VersionToggle = styled.a`
+//   border-radius: 16px;
+//   border: 1px solid ${({ theme }) => theme.uniswapPink};
+//   color: ${({ theme }) => theme.uniswapPink};
+//   display: flex;
+//   width: fit-content;
+//   cursor: pointer;
+//   text-decoration: none;
+//   :hover {
+//     text-decoration: none;
+//   }
+// `
 
 export default function Header() {
   return (
