@@ -39,11 +39,13 @@ export function getEtherscanLink(networkId, data, type) {
 
   switch (type) {
     case 'transaction': {
-      return `${prefix}/tx/${data}`
+      // return `${prefix}/tx/${data}`
+      return `https://block.fusionnetwork.io/#!/transaction/${data}`
     }
     case 'address':
     default: {
-      return `${prefix}/address/${data}`
+      // return `${prefix}/address/${data}`
+      return `https://block.fusionnetwork.io/#!/address/${data}`
     }
   }
 }
@@ -62,8 +64,8 @@ export function getAllQueryParams() {
     : ''
   params.outputCurrency = isAddress(getQueryParam(window.location, 'outputCurrency'))
     ? isAddress(getQueryParam(window.location, 'outputCurrency'))
-    : getQueryParam(window.location, 'outputCurrency') === 'ETH'
-    ? 'ETH'
+    : getQueryParam(window.location, 'outputCurrency') === 'FSN'
+    ? 'FSN'
     : ''
   params.slippage = !isNaN(getQueryParam(window.location, 'slippage')) ? getQueryParam(window.location, 'slippage') : ''
   params.exactField = getQueryParam(window.location, 'exactField')
@@ -114,7 +116,7 @@ export function checkSupportedTheme(themeName) {
 export function getNetworkName(networkId) {
   switch (networkId) {
     case 1: {
-      return 'the Main Ethereum Network'
+      return 'the Main Fusion Network'
     }
     case 3: {
       return 'the Ropsten Test Network'

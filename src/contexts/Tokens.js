@@ -17,10 +17,19 @@ const EXCHANGE_ADDRESS = 'exchangeAddress'
 
 const UPDATE = 'UPDATE'
 
-const ETH = {
-  ETH: {
-    [NAME]: 'Ethereum',
-    [SYMBOL]: 'ETH',
+// const FSN = {
+//   FSN: {
+//     [NAME]: 'Fusion',
+//     [SYMBOL]: 'FSN',
+//     [DECIMALS]: 18,
+//     [EXCHANGE_ADDRESS]: null
+//   }
+// }
+
+const FSN = {
+  FSN: {
+    [NAME]: 'Fusion',
+    [SYMBOL]: 'FSN',
     [DECIMALS]: 18,
     [EXCHANGE_ADDRESS]: null
   }
@@ -676,11 +685,17 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xaE76c84C9262Cdb9abc0C2c8888e62Db8E22A0bF'
     },
-    '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64': {
+    // '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64': { // ETH
+    //   [NAME]: 'SMPC Bitcoin',
+    //   [SYMBOL]: 'mBTC',
+    //   [DECIMALS]: 8,
+    //   [EXCHANGE_ADDRESS]: '0x5d90c7a9770c39aa2d7b4248ac91c7324bb641a9'
+    // },
+    '0x309f6c1ebff14a7231e7d9ff78a5199b6810d946': { // FSN
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0x5d90c7a9770c39aa2d7b4248ac91c7324bb641a9'
+      [EXCHANGE_ADDRESS]: '0xb8bcd17a1a5e9317b2d15cd5fec33bb163c17cae'
     }
   },
   4: {
@@ -690,15 +705,21 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xaF51BaAA766b65E8B3Ee0C2c33186325ED01eBD5'
     },
-    '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64': {
+    // '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64': { // ETH
+    //   [NAME]: 'SMPC Bitcoin',
+    //   [SYMBOL]: 'mBTC',
+    //   [DECIMALS]: 8,
+    //   [EXCHANGE_ADDRESS]: '0x5d90c7a9770c39aa2d7b4248ac91c7324bb641a9'
+    // },
+    '0x309f6c1ebff14a7231e7d9ff78a5199b6810d946': { // FSN
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0x5d90c7a9770c39aa2d7b4248ac91c7324bb641a9'
+      [EXCHANGE_ADDRESS]: '0xb8bcd17a1a5e9317b2d15cd5fec33bb163c17cae'
     }
   },
   46688: {
-    '0x309f6c1ebff14a7231e7d9ff78a5199b6810d946': {
+    '0x309f6c1ebff14a7231e7d9ff78a5199b6810d946': { // FSN
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
@@ -754,7 +775,8 @@ export function useTokenDetails(tokenAddress) {
   const { library, chainId } = useWeb3React()
 
   const [state, { update }] = useTokensContext()
-  const allTokensInNetwork = { ...ETH, ...(safeAccess(state, [chainId]) || {}) }
+  // const allTokensInNetwork = { ...FSN, ...(safeAccess(state, [chainId]) || {}) }
+  const allTokensInNetwork = { ...FSN, ...(safeAccess(state, [chainId]) || {}) }
   const { [NAME]: name, [SYMBOL]: symbol, [DECIMALS]: decimals, [EXCHANGE_ADDRESS]: exchangeAddress } =
     safeAccess(allTokensInNetwork, [tokenAddress]) || {}
 
@@ -794,5 +816,6 @@ export function useAllTokenDetails() {
 
   const [state] = useTokensContext()
 
-  return useMemo(() => ({ ...ETH, ...(safeAccess(state, [chainId]) || {}) }), [state, chainId])
+  // return useMemo(() => ({ ...FSN, ...(safeAccess(state, [chainId]) || {}) }), [state, chainId])
+  return useMemo(() => ({ ...FSN, ...(safeAccess(state, [chainId]) || {}) }), [state, chainId])
 }

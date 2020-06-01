@@ -283,7 +283,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
           <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the main Ethereum network.</h5>
+              <h5>Please connect to the main Fusion network.</h5>
             ) : (
               'Error connecting. Try refreshing the page.'
             )}
@@ -338,8 +338,8 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
           )}
           {walletView !== WALLET_VIEWS.PENDING && (
             <Blurb>
-              <span>New to Ethereum? &nbsp;</span>{' '}
-              <Link href="https://ethereum.org/use/#3-what-is-a-wallet-and-which-one-should-i-use">
+              <span>New to Fusion? &nbsp;</span>{' '}
+              <Link href="https://myfusionwallet.com">
                 Learn more about wallets
               </Link>
             </Blurb>

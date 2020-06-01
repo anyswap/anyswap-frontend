@@ -224,10 +224,10 @@ export function Updater() {
     }
   }>({})
 
-  // generic balances fetcher abstracting away difference between fetching ETH + token balances
+  // generic balances fetcher abstracting away difference between fetching FSN + token balances
   const fetchBalance = useCallback(
     (address: string, tokenAddress: string) =>
-      (tokenAddress === 'ETH' ? getEtherBalance(address, library) : getTokenBalance(tokenAddress, address, library))
+      (tokenAddress === 'FSN' ? getEtherBalance(address, library) : getTokenBalance(tokenAddress, address, library))
         .then(value => {
           return value.toString()
         })
@@ -332,7 +332,7 @@ export function Updater() {
   const allExchanges = useMemo(
     () =>
       Object.keys(allTokenDetails)
-        .filter(tokenAddress => tokenAddress !== 'ETH')
+        .filter(tokenAddress => tokenAddress !== 'FSN')
         .map(tokenAddress => ({
           tokenAddress,
           exchangeAddress: allTokenDetails[tokenAddress].exchangeAddress
@@ -345,15 +345,15 @@ export function Updater() {
         allExchanges
           .filter(({ exchangeAddress, tokenAddress }) => {
             const hasValueToken = !!stateRef.current?.[chainId]?.[exchangeAddress]?.[tokenAddress]?.value
-            const hasValueETH = !!stateRef.current?.[chainId]?.[exchangeAddress]?.['ETH']?.value
+            const hasValueETH = !!stateRef.current?.[chainId]?.[exchangeAddress]?.['FSN']?.value
 
             const cachedFetchedAsOfToken = fetchedAsOfCache.current?.[chainId]?.[exchangeAddress]?.[tokenAddress]
-            const cachedFetchedAsOfETH = fetchedAsOfCache.current?.[chainId]?.[exchangeAddress]?.['ETH']
+            const cachedFetchedAsOfETH = fetchedAsOfCache.current?.[chainId]?.[exchangeAddress]?.['FSN']
 
             const fetchedAsOfToken =
               stateRef.current?.[chainId]?.[exchangeAddress]?.[tokenAddress]?.blockNumber ?? cachedFetchedAsOfToken
             const fetchedAsOfETH =
-              stateRef.current?.[chainId]?.[exchangeAddress]?.['ETH']?.blockNumber ?? cachedFetchedAsOfETH
+              stateRef.current?.[chainId]?.[exchangeAddress]?.['FSN']?.blockNumber ?? cachedFetchedAsOfETH
 
             // if there's no values, and they're not being fetched, we need to fetch!
             if (
@@ -383,20 +383,20 @@ export function Updater() {
                 [exchangeAddress]: {
                   ...fetchedAsOfCache.current?.[chainId]?.[exchangeAddress],
                   [tokenAddress]: blockNumber,
-                  ETH: blockNumber
+                  FSN: blockNumber
                 }
               }
             }
             return Promise.all([
               fetchBalance(exchangeAddress, tokenAddress),
-              fetchBalance(exchangeAddress, 'ETH')
+              fetchBalance(exchangeAddress, 'FSN')
             ]).then(([valueToken, valueETH]) => ({ exchangeAddress, tokenAddress, valueToken, valueETH }))
           })
       ).then(results => {
         batchUpdateExchanges(
           chainId,
           results.flatMap(result => [result.exchangeAddress, result.exchangeAddress]),
-          results.flatMap(result => [result.tokenAddress, 'ETH']),
+          results.flatMap(result => [result.tokenAddress, 'FSN']),
           results.flatMap(result => [result.valueToken, result.valueETH]),
           blockNumber
         )
@@ -434,7 +434,7 @@ export function useAddressBalance(address: string, tokenAddress: string): ethers
 export function useExchangeReserves(tokenAddress: string) {
   const { exchangeAddress } = useTokenDetails(tokenAddress)
 
-  const reserveETH = useAddressBalance(exchangeAddress, 'ETH')
+  const reserveETH = useAddressBalance(exchangeAddress, 'FSN')
   const reserveToken = useAddressBalance(exchangeAddress, tokenAddress)
 
   return { reserveETH, reserveToken }
@@ -477,11 +477,11 @@ const tusdExchangeAddress = '0x5048b9d01097498Fd72F3F14bC9Bc74A5aAc8fA7'
 export function useETHPriceInUSD() {
   const { chainId } = useWeb3React()
 
-  let daiReserveETH = useAddressBalance(daiExchangeAddress, 'ETH')
+  let daiReserveETH = useAddressBalance(daiExchangeAddress, 'FSN')
   let daiReserveToken = useAddressBalance(daiExchangeAddress, daiTokenAddress)
-  let usdcReserveETH = useAddressBalance(usdcExchangeAddress, 'ETH')
+  let usdcReserveETH = useAddressBalance(usdcExchangeAddress, 'FSN')
   let usdcReserveToken = useAddressBalance(usdcExchangeAddress, usdcTokenAddress)
-  let tusdReserveETH = useAddressBalance(tusdExchangeAddress, 'ETH')
+  let tusdReserveETH = useAddressBalance(tusdExchangeAddress, 'FSN')
   let tusdReserveToken = useAddressBalance(tusdExchangeAddress, tusdTokenAddress)
 
   const [price, setPrice] = useState<undefined | null>()

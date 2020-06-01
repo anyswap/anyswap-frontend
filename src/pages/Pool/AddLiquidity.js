@@ -219,7 +219,7 @@ export default function AddLiquidity({ params }) {
     initialAddLiquidityState
   )
   const { inputValue, outputValue, lastEditedField, outputCurrency } = addLiquidityState
-  const inputCurrency = 'ETH'
+  const inputCurrency = 'FSN'
 
   const [inputValueParsed, setInputValueParsed] = useState()
   const [outputValueParsed, setOutputValueParsed] = useState()
@@ -251,7 +251,7 @@ export default function AddLiquidity({ params }) {
   }, [fetchPoolTokens, library])
 
   const poolTokenBalance = useAddressBalance(account, exchangeAddress)
-  const exchangeETHBalance = useAddressBalance(exchangeAddress, 'ETH')
+  const exchangeETHBalance = useAddressBalance(exchangeAddress, 'FSN')
   const exchangeTokenBalance = useAddressBalance(exchangeAddress, outputCurrency)
 
   const { reserveETH, reserveToken } = useExchangeReserves(outputCurrency)
@@ -311,12 +311,12 @@ export default function AddLiquidity({ params }) {
       return (
         <div>
           <div>
-            {t('youAreAdding')} {b(`${inputValue} ETH`)} {t('and')} {b(`${outputValue} ${symbol}`)} {t('intoPool')}
+            {t('youAreAdding')} {b(`${inputValue} FSN`)} {t('and')} {b(`${outputValue} ${symbol}`)} {t('intoPool')}
           </div>
           <LastSummaryText>
             {t('youAreSettingExRate')}{' '}
             {b(
-              `1 ETH = ${amountFormatter(
+              `1 FSN = ${amountFormatter(
                 getMarketRate(inputValueParsed, outputValueParsed, decimals),
                 18,
                 4,
@@ -335,7 +335,7 @@ export default function AddLiquidity({ params }) {
       return (
         <>
           <div>
-            {t('youAreAdding')} {b(`${amountFormatter(inputValueParsed, 18, 4)} ETH`)} {t('and')} {'at most'}{' '}
+            {t('youAreAdding')} {b(`${amountFormatter(inputValueParsed, 18, 4)} FSN`)} {t('and')} {'at most'}{' '}
             {b(`${amountFormatter(outputValueMax, decimals, Math.min(decimals, 4))} ${symbol}`)} {t('intoPool')}
           </div>
           <LastSummaryText>
@@ -345,7 +345,7 @@ export default function AddLiquidity({ params }) {
             {t('totalSupplyIs')} {b(amountFormatter(totalPoolTokens, 18, 4))}
           </LastSummaryText>
           <LastSummaryText>
-            {t('tokenWorth')} {b(amountFormatter(ethPerLiquidityToken, 18, 4))} ETH {t('and')}{' '}
+            {t('tokenWorth')} {b(amountFormatter(ethPerLiquidityToken, 18, 4))} FSN {t('and')}{' '}
             {b(amountFormatter(tokenPerLiquidityToken, decimals, Math.min(decimals, 4)))} {symbol}
           </LastSummaryText>
         </>
@@ -390,7 +390,7 @@ export default function AddLiquidity({ params }) {
   const addTransaction = useTransactionAdder()
 
   async function onAddLiquidity() {
-    // take ETH amount, multiplied by ETH rate and 2 for total tx size
+    // take FSN amount, multiplied by FSN rate and 2 for total tx size
     let ethTransactionSize = (inputValueParsed / 1e18) * 2
 
     const deadline = Math.ceil(Date.now() / 1000) + DEADLINE_FROM_NOW
@@ -601,7 +601,7 @@ export default function AddLiquidity({ params }) {
     (inputError === null || outputError === null) && !zeroDecimalError && !showUnlock && !brokenTokenWarning
 
   const newOutputDetected =
-    outputCurrency !== 'ETH' && outputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(outputCurrency)
+    outputCurrency !== 'FSN' && outputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(outputCurrency)
 
   const [showOutputWarning, setShowOutputWarning] = useState(false)
 
@@ -640,7 +640,7 @@ export default function AddLiquidity({ params }) {
             }
           }
         }}
-        selectedTokenAddress="ETH"
+        selectedTokenAddress="FSN"
         value={inputValue}
         errorMessage={inputError}
         disableTokenSelect
@@ -683,13 +683,13 @@ export default function AddLiquidity({ params }) {
         <SummaryPanel>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('exchangeRate')}</ExchangeRate>
-            <span>{marketRate ? `1 ETH = ${amountFormatter(marketRate, 18, 4)} ${symbol}` : ' - '}</span>
+            <span>{marketRate ? `1 FSN = ${amountFormatter(marketRate, 18, 4)} ${symbol}` : ' - '}</span>
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('currentPoolSize')}</ExchangeRate>
             <span>
               {exchangeETHBalance && exchangeTokenBalance
-                ? `${amountFormatter(exchangeETHBalance, 18, 4)} ETH + ${amountFormatter(
+                ? `${amountFormatter(exchangeETHBalance, 18, 4)} FSN + ${amountFormatter(
                     exchangeTokenBalance,
                     decimals,
                     Math.min(4, decimals)
@@ -703,7 +703,7 @@ export default function AddLiquidity({ params }) {
             </ExchangeRate>
             <span>
               {ethShare && tokenShare
-                ? `${amountFormatter(ethShare, 18, 4)} ETH + ${amountFormatter(
+                ? `${amountFormatter(ethShare, 18, 4)} FSN + ${amountFormatter(
                     tokenShare,
                     decimals,
                     Math.min(4, decimals)

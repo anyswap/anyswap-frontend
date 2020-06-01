@@ -310,7 +310,7 @@ export default function CurrencyInputPanel({
   const userTokenBalance = useAddressBalance(account, selectedTokenAddress)
 
   function renderUnlockButton() {
-    if (disableUnlock || !showUnlock || selectedTokenAddress === 'ETH' || !selectedTokenAddress) {
+    if (disableUnlock || !showUnlock || selectedTokenAddress === 'FSN' || !selectedTokenAddress) {
       return null
     } else {
       if (!pendingApproval) {
@@ -465,18 +465,18 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
 
   const _usdAmounts = Object.keys(allTokens).map(k => {
     if (ethPrice && allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
-      let ethRate = 1 // default for ETH
+      let ethRate = 1 // default for FSN
       let exchangeDetails = allBalances[allTokens[k].exchangeAddress]
 
       if (
         exchangeDetails &&
         exchangeDetails[k] &&
         exchangeDetails[k].value &&
-        exchangeDetails['ETH'] &&
-        exchangeDetails['ETH'].value
+        exchangeDetails['FSN'] &&
+        exchangeDetails['FSN'].value
       ) {
         const tokenBalance = new BigNumber(exchangeDetails[k].value)
-        const ethBalance = new BigNumber(exchangeDetails['ETH'].value)
+        const ethBalance = new BigNumber(exchangeDetails['FSN'].value)
         ethRate = ethBalance
           .times(new BigNumber(10).pow(allTokens[k].decimals))
           .div(tokenBalance)
@@ -506,9 +506,9 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
           const aSymbol = allTokens[a].symbol.toLowerCase()
           const bSymbol = allTokens[b].symbol.toLowerCase()
 
-          // pin ETH to top
-          if (aSymbol === 'ETH'.toLowerCase() || bSymbol === 'ETH'.toLowerCase()) {
-            return aSymbol === bSymbol ? 0 : aSymbol === 'ETH'.toLowerCase() ? -1 : 1
+          // pin FSN to top
+          if (aSymbol === 'FSN'.toLowerCase() || bSymbol === 'FSN'.toLowerCase()) {
+            return aSymbol === bSymbol ? 0 : aSymbol === 'FSN'.toLowerCase() ? -1 : 1
           }
 
           // then tokens with balance
@@ -536,7 +536,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
         let balance
         let usdBalance
         // only update if we have data
-        if (k === 'ETH' && allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
+        if (k === 'FSN' && allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
           balance = formatEthBalance(ethers.utils.bigNumberify(allBalances[account][k].value))
           usdBalance = usdAmounts[k]
         } else if (allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
@@ -608,12 +608,12 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
     return filteredTokenList.map(({ address, symbol, name, balance, usdBalance }) => {
       const urlAdded = urlAddedTokens && urlAddedTokens.hasOwnProperty(address)
       const customAdded =
-        address !== 'ETH' &&
+        address !== 'FSN' &&
         INITIAL_TOKENS_CONTEXT[chainId] &&
         !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(address) &&
         !urlAdded
 
-      if (hideETH && address === 'ETH') {
+      if (hideETH && address === 'FSN') {
         return null
       }
 

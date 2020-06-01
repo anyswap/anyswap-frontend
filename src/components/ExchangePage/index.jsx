@@ -96,11 +96,13 @@ function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, all
 }
 
 function getSwapType(inputCurrency, outputCurrency) {
+  // console.log(inputCurrency)
+  // console.log(outputCurrency)
   if (!inputCurrency || !outputCurrency) {
     return null
-  } else if (inputCurrency === 'ETH') {
+  } else if (inputCurrency === 'FSN') {
     return ETH_TO_TOKEN
-  } else if (outputCurrency === 'ETH') {
+  } else if (outputCurrency === 'FSN') {
     return TOKEN_TO_ETH
   } else {
     return TOKEN_TO_TOKEN
@@ -127,11 +129,11 @@ function getInitialSwapState(state) {
     independentValue: state.exactFieldURL && state.exactAmountURL ? state.exactAmountURL : '', // this is a user input
     dependentValue: '', // this is a calculated number
     independentField: state.exactFieldURL === 'output' ? OUTPUT : INPUT,
-    inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : state.outputCurrencyURL === 'ETH' ? '' : 'ETH',
+    inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : state.outputCurrencyURL === 'FSN' ? '' : 'FSN',
     outputCurrency: state.outputCurrencyURL
-      ? state.outputCurrencyURL === 'ETH'
-        ? !state.inputCurrencyURL || (state.inputCurrencyURL && state.inputCurrencyURL !== 'ETH')
-          ? 'ETH'
+      ? state.outputCurrencyURL === 'FSN'
+        ? !state.inputCurrencyURL || (state.inputCurrencyURL && state.inputCurrencyURL !== 'FSN')
+          ? 'FSN'
           : ''
         : state.outputCurrencyURL
       : state.initialCurrency
@@ -247,6 +249,7 @@ function getMarketRate(
 }
 
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
+  // console.log(initialCurrency)
   const { t } = useTranslation()
   const { account, chainId, error } = useWeb3React()
 
@@ -412,10 +415,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [showUnlock, setShowUnlock] = useState(false)
   useEffect(() => {
     const inputValueCalculation = independentField === INPUT ? independentValueParsed : dependentValueMaximum
-    if (inputBalance && (inputAllowance || inputCurrency === 'ETH') && inputValueCalculation) {
+    if (inputBalance && (inputAllowance || inputCurrency === 'FSN') && inputValueCalculation) {
       if (inputBalance.lt(inputValueCalculation)) {
         setInputError(t('insufficientBalance'))
-      } else if (inputCurrency !== 'ETH' && inputAllowance.lt(inputValueCalculation)) {
+      } else if (inputCurrency !== 'FSN' && inputAllowance.lt(inputValueCalculation)) {
         setInputError(t('unlockTokenCont'))
         setShowUnlock(true)
       } else {
@@ -626,7 +629,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let estimate, method, args, value
 
     let inputEthPerToken = 1
-    if (inputCurrency !== 'ETH') {
+    if (inputCurrency !== 'FSN') {
       inputEthPerToken = inputReserveToken && inputReserveETH ? inputReserveETH / inputReserveToken : null
     }
     let ethTransactionSize = inputEthPerToken * inputValueFormatted
@@ -727,10 +730,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const toggleWalletModal = useWalletModalToggle()
 
   const newInputDetected =
-    inputCurrency !== 'ETH' && inputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(inputCurrency)
+    inputCurrency !== 'FSN' && inputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(inputCurrency)
 
   const newOutputDetected =
-    outputCurrency !== 'ETH' && outputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(outputCurrency)
+    outputCurrency !== 'FSN' && outputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(outputCurrency)
 
   const [showInputWarning, setShowInputWarning] = useState(false)
   const [showOutputWarning, setShowOutputWarning] = useState(false)
@@ -778,7 +781,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         extraText={inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
         extraTextClickHander={() => {
           if (inputBalance && inputDecimals) {
-            const valueToSet = inputCurrency === 'ETH' ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
+            const valueToSet = inputCurrency === 'FSN' ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
             if (valueToSet.gt(ethers.constants.Zero)) {
               dispatchSwapState({
                 type: 'UPDATE_INDEPENDENT',

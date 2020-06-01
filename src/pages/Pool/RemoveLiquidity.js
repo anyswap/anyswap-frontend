@@ -192,7 +192,7 @@ export default function RemoveLiquidity({ params }) {
 
   const [totalPoolTokens, setTotalPoolTokens] = useState()
   const poolTokenBalance = useAddressBalance(account, exchangeAddress)
-  const exchangeETHBalance = useAddressBalance(exchangeAddress, 'ETH')
+  const exchangeETHBalance = useAddressBalance(exchangeAddress, 'FSN')
   const exchangeTokenBalance = useAddressBalance(exchangeAddress, outputCurrency)
 
   const urlAddedTokens = {}
@@ -269,7 +269,7 @@ export default function RemoveLiquidity({ params }) {
   }, [fetchPoolTokens, library])
 
   async function onRemoveLiquidity() {
-    // take ETH amount, multiplied by ETH rate and 2 for total tx size
+    // take FSN amount, multiplied by FSN rate and 2 for total tx size
     let ethTransactionSize = (ethWithdrawn / 1e18) * 2
 
     const deadline = Math.ceil(Date.now() / 1000) + DEADLINE_FROM_NOW
@@ -309,7 +309,7 @@ export default function RemoveLiquidity({ params }) {
     return (
       <div>
         <div>
-          {t('youAreRemoving')} {b(`${amountFormatter(ethWithdrawn, 18, 4)} ETH`)} {t('and')}{' '}
+          {t('youAreRemoving')} {b(`${amountFormatter(ethWithdrawn, 18, 4)} FSN`)} {t('and')}{' '}
           {b(`${amountFormatter(tokenWithdrawn, decimals, Math.min(decimals, 4))} ${symbol}`)} {t('outPool')}
         </div>
         <LastSummaryText>
@@ -319,7 +319,7 @@ export default function RemoveLiquidity({ params }) {
           {t('totalSupplyIs')} {b(amountFormatter(totalPoolTokens, 18, 4))}
         </LastSummaryText>
         <LastSummaryText>
-          {t('tokenWorth')} {b(amountFormatter(ETHPer.div(totalPoolTokens), 18, 4))} ETH {t('and')}{' '}
+          {t('tokenWorth')} {b(amountFormatter(ETHPer.div(totalPoolTokens), 18, 4))} FSN {t('and')}{' '}
           {b(amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(4, decimals)))} {symbol}
         </LastSummaryText>
       </div>
@@ -335,7 +335,7 @@ export default function RemoveLiquidity({ params }) {
     } else if (inputError) {
       contextualInfo = inputError
       isError = true
-    } else if (!outputCurrency || outputCurrency === 'ETH') {
+    } else if (!outputCurrency || outputCurrency === 'FSN') {
       contextualInfo = t('selectTokenCont')
     } else if (!valueParsed) {
       contextualInfo = t('enterValueCont')
@@ -366,7 +366,7 @@ export default function RemoveLiquidity({ params }) {
   const marketRate = getMarketRate(exchangeETHBalance, exchangeTokenBalance, decimals)
 
   const newOutputDetected =
-    outputCurrency !== 'ETH' && outputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(outputCurrency)
+    outputCurrency !== 'FSN' && outputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(outputCurrency)
 
   const [showCustomTokenWarning, setShowCustomTokenWarning] = useState(false)
 
@@ -421,7 +421,7 @@ export default function RemoveLiquidity({ params }) {
           !!(ethWithdrawn && tokenWithdrawn) ? (
             <RemoveLiquidityOutput>
               <RemoveLiquidityOutputText>
-                {`${amountFormatter(ethWithdrawn, 18, 4, false)} ETH`}
+                {`${amountFormatter(ethWithdrawn, 18, 4, false)} FSN`}
               </RemoveLiquidityOutputText>
               <RemoveLiquidityOutputPlus> + </RemoveLiquidityOutputPlus>
               <RemoveLiquidityOutputText>
@@ -439,12 +439,12 @@ export default function RemoveLiquidity({ params }) {
         <SummaryPanel>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('exchangeRate')}</ExchangeRate>
-            {marketRate ? <span>{`1 ETH = ${amountFormatter(marketRate, 18, 4)} ${symbol}`}</span> : ' - '}
+            {marketRate ? <span>{`1 FSN = ${amountFormatter(marketRate, 18, 4)} ${symbol}`}</span> : ' - '}
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('currentPoolSize')}</ExchangeRate>
             {exchangeETHBalance && exchangeTokenBalance && (decimals || decimals === 0) ? (
-              <span>{`${amountFormatter(exchangeETHBalance, 18, 4)} ETH + ${amountFormatter(
+              <span>{`${amountFormatter(exchangeETHBalance, 18, 4)} FSN + ${amountFormatter(
                 exchangeTokenBalance,
                 decimals,
                 Math.min(decimals, 4)
@@ -459,7 +459,7 @@ export default function RemoveLiquidity({ params }) {
             </ExchangeRate>
             {ETHOwnShare && TokenOwnShare ? (
               <span>
-                {`${amountFormatter(ETHOwnShare, 18, 4)} ETH + ${amountFormatter(
+                {`${amountFormatter(ETHOwnShare, 18, 4)} FSN + ${amountFormatter(
                   TokenOwnShare,
                   decimals,
                   Math.min(decimals, 4)

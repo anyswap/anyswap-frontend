@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/Uniswap/uniswap-frontend.svg)](https://travis-ci.org/Uniswap/uniswap-frontend)
 [![Styled With Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io/)
 
-This an an open source interface for Uniswap - a protocol for decentralized exchange of Ethereum tokens.
+This an an open source interface for Uniswap - a protocol for decentralized exchange of Fusion tokens.
 
 - Website: [uniswap.io](https://uniswap.io/)
 - Docs: [docs.uniswap.io](https://docs.uniswap.io/)
