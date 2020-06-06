@@ -691,11 +691,11 @@ export const INITIAL_TOKENS_CONTEXT = {
     //   [DECIMALS]: 8,
     //   [EXCHANGE_ADDRESS]: '0x5d90c7a9770c39aa2d7b4248ac91c7324bb641a9'
     // },
-    '0x309f6c1ebff14a7231e7d9ff78a5199b6810d946': { // FSN
+    '0x6d85398c9245955ba420ccf879d45118de15b855': { // FSN
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0xb8bcd17a1a5e9317b2d15cd5fec33bb163c17cae'
+      [EXCHANGE_ADDRESS]: '0x20411af206c28f69eaa1d16257488fb1668b8505'
     }
   },
   4: {
@@ -711,19 +711,19 @@ export const INITIAL_TOKENS_CONTEXT = {
     //   [DECIMALS]: 8,
     //   [EXCHANGE_ADDRESS]: '0x5d90c7a9770c39aa2d7b4248ac91c7324bb641a9'
     // },
-    '0x309f6c1ebff14a7231e7d9ff78a5199b6810d946': { // FSN
+    '0x6d85398c9245955ba420ccf879d45118de15b855': { // FSN
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0xb8bcd17a1a5e9317b2d15cd5fec33bb163c17cae'
+      [EXCHANGE_ADDRESS]: '0x20411af206c28f69eaa1d16257488fb1668b8505'
     }
   },
   46688: {
-    '0x309f6c1ebff14a7231e7d9ff78a5199b6810d946': { // FSN
+    '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74': { // FSN
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0xb8bcd17a1a5e9317b2d15cd5fec33bb163c17cae'
+      [EXCHANGE_ADDRESS]: '0x20411af206c28f69eaa1d16257488fb1668b8505'
     }
   }
 }

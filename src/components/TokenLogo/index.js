@@ -55,7 +55,7 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
     // return <StyledEthereumLogo size={size} />
     path = require('../../assets/images/fsn.svg')
   } else if (!error && !BAD_IMAGES[address]) {
-    if (address === '0x309f6c1ebff14a7231e7d9ff78a5199b6810d946' || address === '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64') {
+    if (address === '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74' || address === '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64') {
       // console.log('BTC')
       // console.log(address)
       // return <StyledEthereumLogo size={size} />

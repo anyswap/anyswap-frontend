@@ -8,7 +8,7 @@
 
 # production
 /build
-
+/uniswap-frontend
 # misc
 .DS_Store
 .env.local
@@ -26,5 +26,6 @@ notes.txt
 .idea/
 
 .vscode/
+*.zip
 
 package-lock.json
