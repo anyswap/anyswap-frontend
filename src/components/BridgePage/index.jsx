@@ -552,7 +552,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const inputBalance = useAddressBalance(account, inputCurrency)
   // const outputBalance = useAddressBalance(account, outputCurrency)
   const inputBalanceFormatted = !!(inputBalance && Number.isInteger(inputDecimals))
-    ? amountFormatter(inputBalance, inputDecimals, Math.min(4, inputDecimals))
+    ? amountFormatter(inputBalance, inputDecimals, inputDecimals)
     : ''
   // const outputBalanceFormatted = !!(outputBalance && Number.isInteger(outputDecimals))
   //   ? amountFormatter(outputBalance, outputDecimals, Math.min(4, outputDecimals))
