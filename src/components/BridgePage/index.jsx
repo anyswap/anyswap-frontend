@@ -1,17 +1,18 @@
 import React, { useState, useReducer, useEffect } from 'react'
 import ReactGA from 'react-ga'
-import { createBrowserHistory } from 'history'
+// import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
-import { useWeb3React } from '../../hooks'
+import { useWeb3React, useSwapTokenContract } from '../../hooks'
 import { brokenTokens } from '../../constants'
 import { amountFormatter, calculateGasMargin, isAddress } from '../../utils'
+import { GetServerInfo, RegisterAddress, GetBTCtxnsAll } from '../../utils/axios'
 
-import { useExchangeContract } from '../../hooks'
+// import { useExchangeContract } from '../../hooks'
 import { useTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
-import { useTransactionAdder } from '../../contexts/Transactions'
+// import { useTransactionAdder } from '../../contexts/Transactions'
 import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useAddressAllowance } from '../../contexts/Allowances'
 import { useWalletModalToggle } from '../../contexts/Application'
@@ -20,9 +21,13 @@ import { Button } from '../../theme'
 import CurrencyInputPanel from '../CurrencyInputPanel'
 import AddressInputPanel from '../AddressInputPanel'
 import OversizedPanel from '../OversizedPanel'
-import TransactionDetails from '../TransactionDetails'
+// import TransactionDetails from '../TransactionDetails'
 import ArrowDown from '../../assets/svg/SVGArrowDown'
 import WarningCard from '../WarningCard'
+import { transparentize } from 'polished'
+import WalletConnectData from '../WalletModal/WalletConnectData'
+import Modal from '../Modal'
+import { ReactComponent as BTCLogo } from '../../assets/images/btc.svg'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -37,9 +42,6 @@ const TOKEN_ALLOWED_SLIPPAGE_DEFAULT = 50
 
 // 15 minutes, denominated in seconds
 const DEFAULT_DEADLINE_FROM_NOW = 60 * 15
-
-// % above the calculated gas cost that we actually send, denominated in bips
-const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const DownArrowBackground = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -80,6 +82,124 @@ const Flex = styled.div`
     max-width: 20rem;
   }
 `
+const InputPanel = styled.div`
+  ${({ theme }) => theme.flexColumnNoWrap}
+  box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
+  position: relative;
+  border-radius: 1.25rem;
+  background-color: ${({ theme }) => theme.inputBackground};
+  z-index: 1;
+`
+
+const ContainerRow = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.25rem;
+  border: 1px solid ${({ error, theme }) => (error ? theme.salmonRed : theme.mercuryGray)};
+
+  background-color: ${({ theme }) => theme.inputBackground};
+`
+
+const InputContainer = styled.div`
+  flex: 1;
+`
+
+const LabelRow = styled.div`
+  ${({ theme }) => theme.flexRowNoWrap}
+  align-items: center;
+  color: ${({ theme }) => theme.doveGray};
+  font-size: 0.75rem;
+  line-height: 1rem;
+  padding: 0.75rem 1rem;
+`
+
+const LabelContainer = styled.div`
+  flex: 1 1 auto;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
+
+const InputRow = styled.div`
+  ${({ theme }) => theme.flexRowNoWrap}
+  align-items: center;
+  padding: 0.25rem 0.85rem 0.75rem;
+`
+
+const Input = styled.input`
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  flex: 1 1 auto;
+  width: 0;
+  background-color: ${({ theme }) => theme.inputBackground};
+
+  color: ${({ error, theme }) => (error ? theme.salmonRed : theme.royalBlue)};
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  ::placeholder {
+    color: ${({ theme }) => theme.placeholderGray};
+  }
+`
+
+const MintDiv = styled.div`
+  width: 100%;
+  padding: 20px 15px;
+`
+
+const MintList = styled.div`
+  border-bottom: 1px  solid ${({ error, theme }) => (error ? theme.salmonRed : theme.mercuryGray)};
+  padding: 15px 8px;
+  font-size: 14px;
+`
+const MintListCenter = styled(MintList)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+`
+
+const MintListLabel = styled.div`
+  width: 100%;
+`
+
+const MintListVal = styled.div`
+  width: 100%;
+`
+
+const StyledBTCLogo = styled(BTCLogo)`
+  width: ${({ size }) => size};
+  height: ${({ size }) => size};
+  padding: 10px;
+`
+
+const MintTip = styled.div`
+  position: fixed;
+  top: 100px;
+  right: 80px;
+  border-radius: 4px;
+  box-shadow:0 0 5px 0px #E1902E;
+  z-index: 99;
+  cursor:pointer;
+  .txt {
+    width: 0;height: 100%;white-space: nowrap;overflow: hidden;transition: width 0.5s;
+  }
+  &:hover {
+    .txt {
+      width: 150px;padding: 0 20px;
+    }
+  }
+`
+
+const FlexCneter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 
 function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, allowedSlippage) {
   if (value) {
@@ -96,13 +216,18 @@ function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, all
 }
 
 function getSwapType(inputCurrency, outputCurrency) {
+  inputCurrency = inputCurrency ? inputCurrency : 'FSN'
+  // console.log(inputCurrency)
+  // console.log(outputCurrency)
   if (!inputCurrency || !outputCurrency) {
     return null
   } else if (inputCurrency === 'FSN') {
     return ETH_TO_TOKEN
-  } else if (outputCurrency === 'FSN') {
-    return TOKEN_TO_ETH
-  } else {
+  }
+  //  else if (outputCurrency === 'FSN') {
+  //   return TOKEN_TO_ETH
+  // } 
+  else {
     return TOKEN_TO_TOKEN
   }
 }
@@ -127,7 +252,8 @@ function getInitialSwapState(state) {
     independentValue: state.exactFieldURL && state.exactAmountURL ? state.exactAmountURL : '', // this is a user input
     dependentValue: '', // this is a calculated number
     independentField: state.exactFieldURL === 'output' ? OUTPUT : INPUT,
-    inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : state.outputCurrencyURL === 'FSN' ? '' : 'FSN',
+    // inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : state.outputCurrencyURL === 'FSN' ? '' : 'FSN',
+    inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74',
     outputCurrency: state.outputCurrencyURL
       ? state.outputCurrencyURL === 'FSN'
         ? !state.inputCurrencyURL || (state.inputCurrencyURL && state.inputCurrencyURL !== 'FSN')
@@ -189,67 +315,116 @@ function swapStateReducer(state, action) {
         dependentValue: action.payload
       }
     }
-    default: {
+    case 'UPDATE_BREDGETYPE': {
+      return {
+        ...state,
+        bridgeType: action.payload
+      }
+    }
+    case 'UPDATE_SWAPINFO': {
+      return {
+        ...state,
+        swapInfo: action.payload
+      }
+    }
+    case 'UPDATE_SWAPREGISTER': {
+      return {
+        ...state,
+        registerAddress: action.payload
+      }
+    }
+    case 'UPDATE_MINTTYPE': {
+      return {
+        ...state,
+        isViewMintModel: action.payload
+      }
+    }
+    case 'UPDATE_MINTHISTORY': {
+      return {
+        ...state,
+        mintHistory: action.payload
+      }
+    }
+    case 'UPDATE_MINTINFOTYPE': {
+      return {
+        ...state,
+        isViewMintInfo: action.payload
+      }
+    }
+    default: { //UPDATE_MINTINFOTYPE
       return getInitialSwapState()
     }
   }
 }
 
-function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
-  try {
-    if (
-      inputValue &&
-      (inputDecimals || inputDecimals === 0) &&
-      outputValue &&
-      (outputDecimals || outputDecimals === 0)
-    ) {
-      const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
+// function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
+//   try {
+//     if (
+//       inputValue &&
+//       (inputDecimals || inputDecimals === 0) &&
+//       outputValue &&
+//       (outputDecimals || outputDecimals === 0)
+//     ) {
+//       const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
+//       // console.log(factor)
+//       // console.log(inputValue)
+//       // console.log(outputValue)
+//       if (invert) {
+//         return inputValue
+//           .mul(factor)
+//           .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
+//           .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
+//           .div(outputValue)
+//       } else {
+//         return outputValue
+//           .mul(factor)
+//           .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
+//           .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
+//           .div(inputValue)
+//       }
+//     }
+//   } catch {}
+// }
 
-      if (invert) {
-        return inputValue
-          .mul(factor)
-          .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
-          .div(outputValue)
-      } else {
-        return outputValue
-          .mul(factor)
-          .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
-          .div(inputValue)
-      }
-    }
-  } catch {}
-}
+// function getMarketRate(
+//   swapType,
+//   inputReserveETH,
+//   inputReserveToken,
+//   inputDecimals,
+//   outputReserveETH,
+//   outputReserveToken,
+//   outputDecimals,
+//   invert = false
+// ) {
+//   if (swapType === ETH_TO_TOKEN) {
+//     return getExchangeRate(outputReserveETH, 18, outputReserveToken, outputDecimals, invert)
+//   } else if (swapType === TOKEN_TO_ETH) {
+//     return getExchangeRate(inputReserveToken, inputDecimals, inputReserveETH, 18, invert)
+//   } else if (swapType === TOKEN_TO_TOKEN) {
+//     const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
+//     const firstRate = getExchangeRate(inputReserveToken, inputDecimals, inputReserveETH, 18)
+//     const secondRate = getExchangeRate(outputReserveETH, 18, outputReserveToken, outputDecimals)
+//     try {
+//       return !!(firstRate && secondRate) ? firstRate.mul(secondRate).div(factor) : undefined
+//     } catch {}
+//   }
+// }
 
-function getMarketRate(
-  swapType,
-  inputReserveETH,
-  inputReserveToken,
-  inputDecimals,
-  outputReserveETH,
-  outputReserveToken,
-  outputDecimals,
-  invert = false
-) {
-  if (swapType === ETH_TO_TOKEN) {
-    return getExchangeRate(outputReserveETH, 18, outputReserveToken, outputDecimals, invert)
-  } else if (swapType === TOKEN_TO_ETH) {
-    return getExchangeRate(inputReserveToken, inputDecimals, inputReserveETH, 18, invert)
-  } else if (swapType === TOKEN_TO_TOKEN) {
-    const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
-    const firstRate = getExchangeRate(inputReserveToken, inputDecimals, inputReserveETH, 18)
-    const secondRate = getExchangeRate(outputReserveETH, 18, outputReserveToken, outputDecimals)
-    try {
-      return !!(firstRate && secondRate) ? firstRate.mul(secondRate).div(factor) : undefined
-    } catch {}
-  }
-}
+let OneGetFlag = true
+let GetBTCflag = true
 
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
+  if (OneGetFlag) {
+    OneGetFlag = false
+    GetServerInfo().then(res => {
+      console.log(res)
+      dispatchSwapState({ type: 'UPDATE_SWAPINFO', payload: res.swapInfo })
+    })
+  }
   const { t } = useTranslation()
   const { account, chainId, error } = useWeb3React()
-
+  // console.log(useWeb3React())
+  
   const urlAddedTokens = {}
   if (params.inputCurrency) {
     urlAddedTokens[params.inputCurrency] = true
@@ -260,8 +435,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   if (isAddress(initialCurrency)) {
     urlAddedTokens[initialCurrency] = true
   }
-
-  const addTransaction = useTransactionAdder()
 
   // check if URL specifies valid slippage, if so use as default
   const initialSlippage = (token = false) => {
@@ -283,7 +456,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   const [brokenTokenWarning, setBrokenTokenWarning] = useState()
 
-  const [deadlineFromNow, setDeadlineFromNow] = useState(DEFAULT_DEADLINE_FROM_NOW)
+  // const [deadlineFromNow, setDeadlineFromNow] = useState(DEFAULT_DEADLINE_FROM_NOW)
 
   const [rawSlippage, setRawSlippage] = useState(() => initialSlippage())
   const [rawTokenSlippage, setRawTokenSlippage] = useState(() => initialSlippage(true))
@@ -308,8 +481,31 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     },
     getInitialSwapState
   )
-
-  const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency } = swapState
+  
+  const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency, bridgeType, swapInfo, registerAddress, isViewMintModel, mintHistory, isViewMintInfo } = swapState
+  if (account && !registerAddress) {
+    RegisterAddress(account).then(res => {
+      // console.log(res)
+      if (res && res.result) {
+        dispatchSwapState({
+          type: 'UPDATE_SWAPREGISTER',
+          payload: res.result.P2shAddress
+        })
+      }
+    })
+  }
+  if (GetBTCflag && registerAddress) {
+    GetBTCflag = false
+    setInterval(() => {
+      GetBTCtxnsAll(registerAddress).then(res => {
+        // console.log(res)
+        dispatchSwapState({
+          type: 'UPDATE_MINTHISTORY',
+          payload: res
+        })
+      })
+    }, 1000 * 30)
+  }
 
   useEffect(() => {
     setBrokenTokenWarning(false)
@@ -340,9 +536,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     outputCurrency
   )
 
-  const inputExchangeContract = useExchangeContract(inputExchangeAddress)
-  const outputExchangeContract = useExchangeContract(outputExchangeAddress)
-  const contract = swapType === ETH_TO_TOKEN ? outputExchangeContract : inputExchangeContract
+  // const inputExchangeContract = useExchangeContract(inputExchangeAddress)
+  // const outputExchangeContract = useExchangeContract(outputExchangeAddress)
+  // const contract = swapType === ETH_TO_TOKEN ? outputExchangeContract : inputExchangeContract
+  // const contract = outputExchangeContract
 
   // get input allowance
   const inputAllowance = useAddressAllowance(account, inputCurrency, inputExchangeAddress)
@@ -353,13 +550,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   // get balances for each of the currency types
   const inputBalance = useAddressBalance(account, inputCurrency)
-  const outputBalance = useAddressBalance(account, outputCurrency)
+  // const outputBalance = useAddressBalance(account, outputCurrency)
   const inputBalanceFormatted = !!(inputBalance && Number.isInteger(inputDecimals))
     ? amountFormatter(inputBalance, inputDecimals, Math.min(4, inputDecimals))
     : ''
-  const outputBalanceFormatted = !!(outputBalance && Number.isInteger(outputDecimals))
-    ? amountFormatter(outputBalance, outputDecimals, Math.min(4, outputDecimals))
-    : ''
+  // const outputBalanceFormatted = !!(outputBalance && Number.isInteger(outputDecimals))
+  //   ? amountFormatter(outputBalance, outputDecimals, Math.min(4, outputDecimals))
+  //   : ''
 
   // compute useful transforms of the data above
   const independentDecimals = independentField === INPUT ? inputDecimals : outputDecimals
@@ -370,10 +567,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const dependentValueFormatted = !!(dependentValue && (dependentDecimals || dependentDecimals === 0))
     ? amountFormatter(dependentValue, dependentDecimals, Math.min(4, dependentDecimals), false)
     : ''
-  const inputValueParsed = independentField === INPUT ? independentValueParsed : dependentValue
+  // const inputValueParsed = independentField === INPUT ? independentValueParsed : dependentValue
   const inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
-  const outputValueParsed = independentField === OUTPUT ? independentValueParsed : dependentValue
-  const outputValueFormatted = independentField === OUTPUT ? independentValue : dependentValueFormatted
+  // const outputValueParsed = independentField === OUTPUT ? independentValueParsed : dependentValue
+  // const outputValueFormatted = independentField === OUTPUT ? independentValue : dependentValueFormatted
 
   // validate + parse independent value
   const [independentError, setIndependentError] = useState()
@@ -553,177 +750,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   //   history.push(window.location.pathname + '')
   // }, [])
 
-  const [inverted, setInverted] = useState(false)
-  const exchangeRate = getExchangeRate(inputValueParsed, inputDecimals, outputValueParsed, outputDecimals)
-  const exchangeRateInverted = getExchangeRate(inputValueParsed, inputDecimals, outputValueParsed, outputDecimals, true)
-
-  const marketRate = getMarketRate(
-    swapType,
-    inputReserveETH,
-    inputReserveToken,
-    inputDecimals,
-    outputReserveETH,
-    outputReserveToken,
-    outputDecimals
-  )
-
-  const percentSlippage =
-    exchangeRate && marketRate && !marketRate.isZero()
-      ? exchangeRate
-          .sub(marketRate)
-          .abs()
-          .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-          .div(marketRate)
-          .sub(ethers.utils.bigNumberify(3).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(15))))
-      : undefined
-  const percentSlippageFormatted = percentSlippage && amountFormatter(percentSlippage, 16, 2)
-  const slippageWarning =
-    percentSlippage &&
-    percentSlippage.gte(ethers.utils.parseEther('.05')) &&
-    percentSlippage.lt(ethers.utils.parseEther('.2')) // [5% - 20%)
-  const highSlippageWarning = percentSlippage && percentSlippage.gte(ethers.utils.parseEther('.2')) // [20+%
-
-  const isValid = sending
-    ? exchangeRate && inputError === null && independentError === null && recipientError === null && deadlineFromNow
-    : exchangeRate && inputError === null && independentError === null && deadlineFromNow
-
-  const estimatedText = `(${t('estimated')})`
   function formatBalance(value) {
     return `Balance: ${value}`
   }
-
-  async function onSwap() {
-    //if user changed deadline, log new one in minutes
-    if (deadlineFromNow !== DEFAULT_DEADLINE_FROM_NOW) {
-      ReactGA.event({
-        category: 'Advanced Interaction',
-        action: 'Set Custom Deadline',
-        value: deadlineFromNow / 60
-      })
-    }
-
-    const deadline = Math.ceil(Date.now() / 1000) + deadlineFromNow
-
-    // if user has changed slippage, log
-    if (swapType === TOKEN_TO_TOKEN) {
-      if (parseInt(tokenAllowedSlippageBig.toString()) !== TOKEN_ALLOWED_SLIPPAGE_DEFAULT) {
-        ReactGA.event({
-          category: 'Advanced Interaction',
-          action: 'Set Custom Slippage',
-          value: parseInt(tokenAllowedSlippageBig.toString())
-        })
-      }
-    } else {
-      if (parseInt(allowedSlippageBig.toString()) !== ALLOWED_SLIPPAGE_DEFAULT) {
-        ReactGA.event({
-          category: 'Advanced Interaction',
-          action: 'Set Custom Slippage',
-          value: parseInt(allowedSlippageBig.toString())
-        })
-      }
-    }
-
-    let estimate, method, args, value
-
-    let inputEthPerToken = 1
-    if (inputCurrency !== 'FSN') {
-      inputEthPerToken = inputReserveToken && inputReserveETH ? inputReserveETH / inputReserveToken : null
-    }
-    let ethTransactionSize = inputEthPerToken * inputValueFormatted
-
-    // params for GA event
-    let action = ''
-    let label = ''
-
-    if (independentField === INPUT) {
-      // set GA params
-      action = sending ? 'SendInput' : 'SwapInput'
-      label = outputCurrency
-
-      if (swapType === ETH_TO_TOKEN) {
-        estimate = sending ? contract.estimate.ethToTokenTransferInput : contract.estimate.ethToTokenSwapInput
-        method = sending ? contract.ethToTokenTransferInput : contract.ethToTokenSwapInput
-        args = sending ? [dependentValueMinumum, deadline, recipient.address] : [dependentValueMinumum, deadline]
-        value = independentValueParsed
-      } else if (swapType === TOKEN_TO_ETH) {
-        estimate = sending ? contract.estimate.tokenToEthTransferInput : contract.estimate.tokenToEthSwapInput
-        method = sending ? contract.tokenToEthTransferInput : contract.tokenToEthSwapInput
-        args = sending
-          ? [independentValueParsed, dependentValueMinumum, deadline, recipient.address]
-          : [independentValueParsed, dependentValueMinumum, deadline]
-        value = ethers.constants.Zero
-      } else if (swapType === TOKEN_TO_TOKEN) {
-        estimate = sending ? contract.estimate.tokenToTokenTransferInput : contract.estimate.tokenToTokenSwapInput
-        method = sending ? contract.tokenToTokenTransferInput : contract.tokenToTokenSwapInput
-        args = sending
-          ? [
-              independentValueParsed,
-              dependentValueMinumum,
-              ethers.constants.One,
-              deadline,
-              recipient.address,
-              outputCurrency
-            ]
-          : [independentValueParsed, dependentValueMinumum, ethers.constants.One, deadline, outputCurrency]
-        value = ethers.constants.Zero
-      }
-    } else if (independentField === OUTPUT) {
-      // set GA params
-      action = sending ? 'SendOutput' : 'SwapOutput'
-      label = outputCurrency
-
-      if (swapType === ETH_TO_TOKEN) {
-        estimate = sending ? contract.estimate.ethToTokenTransferOutput : contract.estimate.ethToTokenSwapOutput
-        method = sending ? contract.ethToTokenTransferOutput : contract.ethToTokenSwapOutput
-        args = sending ? [independentValueParsed, deadline, recipient.address] : [independentValueParsed, deadline]
-        value = dependentValueMaximum
-      } else if (swapType === TOKEN_TO_ETH) {
-        estimate = sending ? contract.estimate.tokenToEthTransferOutput : contract.estimate.tokenToEthSwapOutput
-        method = sending ? contract.tokenToEthTransferOutput : contract.tokenToEthSwapOutput
-        args = sending
-          ? [independentValueParsed, dependentValueMaximum, deadline, recipient.address]
-          : [independentValueParsed, dependentValueMaximum, deadline]
-        value = ethers.constants.Zero
-      } else if (swapType === TOKEN_TO_TOKEN) {
-        estimate = sending ? contract.estimate.tokenToTokenTransferOutput : contract.estimate.tokenToTokenSwapOutput
-        method = sending ? contract.tokenToTokenTransferOutput : contract.tokenToTokenSwapOutput
-        args = sending
-          ? [
-              independentValueParsed,
-              dependentValueMaximum,
-              ethers.constants.MaxUint256,
-              deadline,
-              recipient.address,
-              outputCurrency
-            ]
-          : [independentValueParsed, dependentValueMaximum, ethers.constants.MaxUint256, deadline, outputCurrency]
-        value = ethers.constants.Zero
-      }
-    }
-    console.log(args)
-    console.log(value)
-    const estimatedGasLimit = await estimate(...args, { value })
-    method(...args, {
-      value,
-      gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN)
-    }).then(response => {
-      console.log(response)
-      addTransaction(response)
-      ReactGA.event({
-        category: 'Transaction',
-        action: action,
-        label: label,
-        value: ethTransactionSize,
-        dimension1: response.hash
-      })
-      ReactGA.event({
-        category: 'Hash',
-        action: response.hash,
-        label: ethTransactionSize.toString()
-      })
-    })
-  }
-
   const [customSlippageError, setcustomSlippageError] = useState('')
 
   const toggleWalletModal = useWalletModalToggle()
@@ -731,12 +760,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const newInputDetected =
     inputCurrency !== 'FSN' && inputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(inputCurrency)
 
-  const newOutputDetected =
-    outputCurrency !== 'FSN' && outputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(outputCurrency)
-
   const [showInputWarning, setShowInputWarning] = useState(false)
-  const [showOutputWarning, setShowOutputWarning] = useState(false)
-
+  // const [showOutputWarning, setShowOutputWarning] = useState(false)
+  // console.log(inputDecimals)
   useEffect(() => {
     if (newInputDetected) {
       setShowInputWarning(true)
@@ -745,14 +771,30 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
   }, [newInputDetected, setShowInputWarning])
 
-  useEffect(() => {
-    if (newOutputDetected) {
-      setShowOutputWarning(true)
-    } else {
-      setShowOutputWarning(false)
-    }
-  }, [newOutputDetected, setShowOutputWarning])
-
+  const tokenContract = useSwapTokenContract(inputCurrency)
+  function sendTxns () {
+    let amountVal = Number(independentValue) * Math.pow(10, inputDecimals)
+    amountVal = amountVal.toFixed(0)
+    console.log(amountVal)
+    console.log(recipient.address)
+    tokenContract.Swapout(amountVal, recipient.address).then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+  function MintModelView () {
+    dispatchSwapState({
+      type: 'UPDATE_MINTTYPE',
+      payload: isViewMintModel ? false : true
+    })
+  }
+  function MintInfoModelView () {
+    dispatchSwapState({
+      type: 'UPDATE_MINTINFOTYPE',
+      payload: isViewMintInfo ? false : true
+    })
+  }
   return (
     <>
       {showInputWarning && (
@@ -764,34 +806,74 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           currency={inputCurrency}
         />
       )}
-      {showOutputWarning && (
-        <WarningCard
-          onDismiss={() => {
-            setShowOutputWarning(false)
-          }}
-          urlAddedTokens={urlAddedTokens}
-          currency={outputCurrency}
-        />
-      )}
+      <Modal isOpen={isViewMintModel} maxHeight={800}>
+        <MintDiv>
+          <MintList>
+            <MintListLabel>BTC AMOUNT:</MintListLabel>
+            <MintListVal>{independentValue}</MintListVal>
+          </MintList>
+          <MintList>
+            <MintListLabel>BTC ADDRESS:</MintListLabel>
+            <MintListVal>{registerAddress ? registerAddress : ''}</MintListVal>
+          </MintList>
+          <MintListCenter>
+            <WalletConnectData size={160} uri={registerAddress} style="marginTop:120"/>
+          </MintListCenter>
+          <Button onClick={MintModelView} >Close</Button>
+        </MintDiv>
+      </Modal>
+      <Modal isOpen={isViewMintInfo} maxHeight={800}>
+        <MintDiv>
+          <MintList>
+            <MintListLabel>Hash:</MintListLabel>
+            <MintListVal>{mintHistory && mintHistory.mintHash ? mintHistory.mintHash : ''}</MintListVal>
+          </MintList>
+          <MintList>
+            <MintListLabel>From:</MintListLabel>
+            <MintListVal>{mintHistory && mintHistory.from ? mintHistory.from : ''}</MintListVal>
+          </MintList>
+          <MintList>
+            <MintListLabel>To:</MintListLabel>
+            <MintListVal>{registerAddress ? registerAddress : ''}</MintListVal>
+          </MintList>
+          <MintList>
+            <MintListLabel>Value:</MintListLabel>
+            <MintListVal>{mintHistory && mintHistory.mintValue ? mintHistory.mintValue : ''}</MintListVal>
+          </MintList>
+          <MintList>
+            <MintListLabel>Fee:</MintListLabel>
+            <MintListVal>{mintHistory && mintHistory.mintValue && swapInfo && swapInfo.SwapFeeRate ? Number(mintHistory.mintValue) * Number(swapInfo.SwapFeeRate) : 0}</MintListVal>
+          </MintList>
+          <MintList>
+            <MintListLabel>Receive:</MintListLabel>
+            <MintListVal>{mintHistory && mintHistory.mintValue && swapInfo && swapInfo.SwapFeeRate ? Number(mintHistory.mintValue) * (1 - Number(swapInfo.SwapFeeRate)) : ''}</MintListVal>
+          </MintList>
+          <MintList>
+            <MintListLabel>Receive FSN Address:</MintListLabel>
+            <MintListVal>{account}</MintListVal>
+          </MintList>
+          <Button onClick={MintInfoModelView} >Close</Button>
+        </MintDiv>
+      </Modal>
+      { (mintHistory && mintHistory.mintTip) ?  
+          (
+            <>
+              <MintTip onClick={MintInfoModelView}>
+                <FlexCneter>
+                  <FlexCneter><StyledBTCLogo size={'34px'}></StyledBTCLogo></FlexCneter>
+                  <span className="txt"><FlexCneter>Waiting for deposit</FlexCneter></span>
+                </FlexCneter>
+              </MintTip>
+            </>
+          )
+          :
+          ''
+      }
       <CurrencyInputPanel
-        title={t('input')}
+        // title={t('input')}
+        title={t(bridgeType ? bridgeType : 'redeem')}
         urlAddedTokens={urlAddedTokens}
-        description={inputValueFormatted && independentField === OUTPUT ? estimatedText : ''}
         extraText={inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
-        extraTextClickHander={() => {
-          if (inputBalance && inputDecimals) {
-            const valueToSet = inputCurrency === 'FSN' ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
-            if (valueToSet.gt(ethers.constants.Zero)) {
-              dispatchSwapState({
-                type: 'UPDATE_INDEPENDENT',
-                payload: {
-                  value: amountFormatter(valueToSet, inputDecimals, inputDecimals, false),
-                  field: INPUT
-                }
-              })
-            }
-          }
-        }}
         onCurrencySelected={inputCurrency => {
           dispatchSwapState({
             type: 'SELECT_CURRENCY',
@@ -799,6 +881,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           })
         }}
         onValueChange={inputValue => {
+          console.log(inputBalanceFormatted)
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
             payload: { value: inputValue, field: INPUT }
@@ -808,129 +891,107 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         selectedTokens={[inputCurrency, outputCurrency]}
         selectedTokenAddress={inputCurrency}
         value={inputValueFormatted}
-        errorMessage={inputError ? inputError : independentField === INPUT ? independentError : ''}
+        hideETH={true}
+        errorMessage={inputError && bridgeType !== 'mint' ? inputError : independentField === INPUT ? independentError : ''}
       />
       <OversizedPanel>
         <DownArrowBackground>
           <DownArrow
             onClick={() => {
-              dispatchSwapState({ type: 'FLIP_INDEPENDENT' })
+              let bt = ''
+              if (bridgeType === 'mint') {
+                bt = 'redeem'
+              } else {
+                bt = 'mint'
+              }
+              dispatchSwapState({ type: 'UPDATE_BREDGETYPE', payload: bt })
             }}
             clickable
             alt="swap"
-            active={isValid}
+            // active={isValid}
           />
         </DownArrowBackground>
       </OversizedPanel>
-      <CurrencyInputPanel
-        title={t('output')}
-        description={outputValueFormatted && independentField === INPUT ? estimatedText : ''}
-        extraText={outputBalanceFormatted && formatBalance(outputBalanceFormatted)}
-        urlAddedTokens={urlAddedTokens}
-        onCurrencySelected={outputCurrency => {
-          dispatchSwapState({
-            type: 'SELECT_CURRENCY',
-            payload: { currency: outputCurrency, field: OUTPUT }
-          })
-        }}
-        onValueChange={outputValue => {
-          dispatchSwapState({
-            type: 'UPDATE_INDEPENDENT',
-            payload: { value: outputValue, field: OUTPUT }
-          })
-        }}
-        selectedTokens={[inputCurrency, outputCurrency]}
-        selectedTokenAddress={outputCurrency}
-        value={outputValueFormatted}
-        errorMessage={independentField === OUTPUT ? independentError : ''}
-        disableUnlock
-      />
-      {sending ? (
+      {bridgeType !== 'mint' ? (
         <>
-          <OversizedPanel>
-            <DownArrowBackground>
-              <DownArrow active={isValid} alt="arrow" />
-            </DownArrowBackground>
+          <AddressInputPanel onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
+        </>
+      ) : (
+        <>
+          <InputPanel>
+            <ContainerRow>
+              <InputContainer>
+                <LabelRow>
+                  <LabelContainer>
+                    <span>{t('address')}</span>
+                  </LabelContainer>
+                </LabelRow>
+                <InputRow>
+                  <Input
+                    type="text"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    spellCheck="false"
+                    placeholder=""
+                    value={registerAddress ? registerAddress : ''}
+                    readOnly
+                  />
+                </InputRow>
+              </InputContainer>
+            </ContainerRow>
+          </InputPanel>
+        </>
+      )}
+      {bridgeType !== 'mint' ? (
+        <>
+          <OversizedPanel hideBottom>
+            <ExchangeRateWrapper>
+              <ExchangeRate>{t('fee')}</ExchangeRate>
+              <span>
+                {independentValue && swapInfo && swapInfo.SwapFeeRate
+                  ? `${Number(independentValue) * Number(swapInfo.SwapFeeRate)} ${outputSymbol}`
+                  : ' - '}
+              </span>
+            </ExchangeRateWrapper>
           </OversizedPanel>
-          <AddressInputPanel onChange={setRecipient} onError={setRecipientError} initialInput={recipient} />
         </>
       ) : (
         ''
       )}
-      <OversizedPanel hideBottom>
-        <ExchangeRateWrapper
-          onClick={() => {
-            setInverted(inverted => !inverted)
-          }}
-        >
-          <ExchangeRate>{t('exchangeRate')}</ExchangeRate>
-          {inverted ? (
-            <span>
-              {exchangeRate
-                ? `1 ${inputSymbol} = ${amountFormatter(exchangeRate, 18, 6, false)} ${outputSymbol}`
-                : ' - '}
-            </span>
-          ) : (
-            <span>
-              {exchangeRate
-                ? `1 ${outputSymbol} = ${amountFormatter(exchangeRateInverted, 18, 6, false)} ${inputSymbol}`
-                : ' - '}
-            </span>
-          )}
-        </ExchangeRateWrapper>
-      </OversizedPanel>
-      <TransactionDetails
-        account={account}
-        setRawSlippage={setRawSlippage}
-        setRawTokenSlippage={setRawTokenSlippage}
-        rawSlippage={rawSlippage}
-        slippageWarning={slippageWarning}
-        highSlippageWarning={highSlippageWarning}
-        brokenTokenWarning={brokenTokenWarning}
-        setDeadline={setDeadlineFromNow}
-        deadline={deadlineFromNow}
-        inputError={inputError}
-        independentError={independentError}
-        inputCurrency={inputCurrency}
-        outputCurrency={outputCurrency}
-        independentValue={independentValue}
-        independentValueParsed={independentValueParsed}
-        independentField={independentField}
-        INPUT={INPUT}
-        inputValueParsed={inputValueParsed}
-        outputValueParsed={outputValueParsed}
-        inputSymbol={inputSymbol}
-        outputSymbol={outputSymbol}
-        dependentValueMinumum={dependentValueMinumum}
-        dependentValueMaximum={dependentValueMaximum}
-        dependentDecimals={dependentDecimals}
-        independentDecimals={independentDecimals}
-        percentSlippageFormatted={percentSlippageFormatted}
-        setcustomSlippageError={setcustomSlippageError}
-        recipientAddress={recipient.address}
-        sending={sending}
-      />
+
       <Flex>
-        <Button
-          disabled={
-            brokenTokenWarning ? true : !account && !error ? false : !isValid || customSlippageError === 'invalid'
-          }
-          onClick={account && !error ? onSwap : toggleWalletModal}
-          warning={highSlippageWarning || customSlippageError === 'warning'}
-          loggedOut={!account}
-        >
-          {brokenTokenWarning
-            ? 'Swap'
-            : !account
-            ? t('connectToWallet')
-            : sending
-            ? highSlippageWarning || customSlippageError === 'warning'
-              ? t('sendAnyway')
-              : t('send')
-            : highSlippageWarning || customSlippageError === 'warning'
-            ? t('swapAnyway')
-            : t('swap')}
-        </Button>
+        {bridgeType !== 'mint' ? (
+          <>
+            <Button
+              disabled={
+                !account && !error ? false : !independentValue || !recipient.address
+              }
+              onClick={account && !error ? sendTxns : toggleWalletModal}
+              warning={Number(inputBalanceFormatted) < Number(independentValue) || customSlippageError === 'warning'}
+              loggedOut={!account}
+            >
+              {!account
+                ? t('connectToWallet')
+                : t('redeem')}
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              disabled={
+                !account && !error ? false : !independentValue || !registerAddress || !swapInfo || Number(independentValue) > swapInfo.MaximumSwap || Number(independentValue) < swapInfo.MinimumSwap
+              }
+              onClick={account && !error ? MintModelView : toggleWalletModal}
+              warning={account && (!independentValue || !swapInfo || Number(independentValue) > swapInfo.MaximumSwap || Number(independentValue) < swapInfo.MinimumSwap)}
+              loggedOut={!account}
+            >
+              {!account
+                ? t('connectToWallet')
+                : t('mint')}
+            </Button>
+          </>
+        )}
       </Flex>
     </>
   )

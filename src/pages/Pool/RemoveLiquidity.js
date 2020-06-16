@@ -152,10 +152,10 @@ export default function RemoveLiquidity({ params }) {
   const [brokenTokenWarning, setBrokenTokenWarning] = useState()
 
   // clear url of query
-  useEffect(() => {
-    const history = createBrowserHistory()
-    history.push(window.location.pathname + '')
-  }, [])
+  // useEffect(() => {
+  //   const history = createBrowserHistory()
+  //   history.push(window.location.pathname + '')
+  // }, [])
 
   const [outputCurrency, setOutputCurrency] = useState(params.poolTokenAddress)
   const [value, setValue] = useState(params.poolTokenAmount ? params.poolTokenAmount : '')

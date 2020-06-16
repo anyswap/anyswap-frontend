@@ -69,7 +69,7 @@ const Input = styled.input`
   }
 `
 
-export default function AddressInputPanel({ title, initialInput = '', onChange = () => {}, onError = () => {} }) {
+export default function AddressInputPanel({ title, initialInput = '', onChange = () => {}, onError = () => {}, isValid = false, disabled = false }) {
   const { t } = useTranslation()
 
   const { library } = useWeb3React()
@@ -77,7 +77,7 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
   const [input, setInput] = useState(initialInput.address ? initialInput.address : '')
 
   const debouncedInput = useDebounce(input, 150)
-
+  // console.log(debouncedInput)
   const [data, setData] = useState({ address: undefined, name: undefined })
   const [error, setError] = useState(false)
 
@@ -92,8 +92,9 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
   // run parser on debounced input
   useEffect(() => {
     let stale = false
-
-    if (isAddress(debouncedInput)) {
+    // console.log('isAddress', isAddress(debouncedInput))
+    // console.log('isValid', isValid)
+    if (isAddress(debouncedInput) || isValid) {
       try {
         library
           .lookupAddress(debouncedInput)
@@ -178,10 +179,11 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck="false"
-              placeholder="0x1234..."
+              placeholder=""
               error={input !== '' && error}
               onChange={onInput}
               value={input}
+              disabled={disabled}
             />
           </InputRow>
         </InputContainer>

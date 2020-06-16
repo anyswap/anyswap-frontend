@@ -208,10 +208,10 @@ export default function AddLiquidity({ params }) {
   }
 
   // clear url of query
-  useEffect(() => {
-    const history = createBrowserHistory()
-    history.push(window.location.pathname + '')
-  }, [])
+  // useEffect(() => {
+  //   const history = createBrowserHistory()
+  //   history.push(window.location.pathname + '')
+  // }, [])
 
   const [addLiquidityState, dispatchAddLiquidityState] = useReducer(
     addLiquidityStateReducer,

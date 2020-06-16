@@ -29,6 +29,21 @@ const tabOrder = [
     path: '/add-liquidity',
     textKey: 'pool',
     regex: /\/add-liquidity|\/remove-liquidity|\/create-exchange.*/
+  },
+  // {
+  //   path: '/mint',
+  //   textKey: 'mint',
+  //   regex: /\/mint/
+  // },
+  // {
+  //   path: '/redeem',
+  //   textKey: 'redeem',
+  //   regex: /\/redeem/
+  // },
+  {
+    path: '/bridge',
+    textKey: 'bridge',
+    regex: /\/bridge/
   }
 ]
 
