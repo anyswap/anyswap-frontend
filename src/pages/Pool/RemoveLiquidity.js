@@ -19,6 +19,7 @@ import ContextualInfo from '../../components/ContextualInfo'
 import OversizedPanel from '../../components/OversizedPanel'
 import ArrowDown from '../../assets/svg/SVGArrowDown'
 import WarningCard from '../../components/WarningCard'
+import { useWalletModalToggle } from '../../contexts/Application'
 
 // denominated in bips
 const ALLOWED_SLIPPAGE = ethers.utils.bigNumberify(200)
@@ -369,6 +370,8 @@ export default function RemoveLiquidity({ params }) {
     outputCurrency !== 'FSN' && outputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(outputCurrency)
 
   const [showCustomTokenWarning, setShowCustomTokenWarning] = useState(false)
+  
+  const toggleWalletModal = useWalletModalToggle()
 
   useEffect(() => {
     if (newOutputDetected) {
@@ -473,9 +476,24 @@ export default function RemoveLiquidity({ params }) {
       </OversizedPanel>
       {renderSummary()}
       <Flex>
-        <Button disabled={!isValid} onClick={onRemoveLiquidity}>
+        {/* <Button disabled={!isValid} onClick={onRemoveLiquidity}>
           {t('removeLiquidity')}
-        </Button>
+        </Button> */}
+        {
+          account ? (
+            <>
+              <Button disabled={!isValid} onClick={onRemoveLiquidity}>
+                {t('addLiquidity')}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button onClick={toggleWalletModal}>
+                {t('connectToWallet')}
+              </Button>
+            </>
+          )
+        }
       </Flex>
     </>
   )

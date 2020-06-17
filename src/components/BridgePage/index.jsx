@@ -9,6 +9,7 @@ import { useWeb3React, useSwapTokenContract } from '../../hooks'
 import { brokenTokens } from '../../constants'
 import { amountFormatter, calculateGasMargin, isAddress } from '../../utils'
 import { GetServerInfo, RegisterAddress, GetBTCtxnsAll } from '../../utils/axios'
+import { copyTxt } from '../../utils/tools'
 
 // import { useExchangeContract } from '../../hooks'
 import { useTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
@@ -27,7 +28,7 @@ import WarningCard from '../WarningCard'
 import { transparentize } from 'polished'
 import WalletConnectData from '../WalletModal/WalletConnectData'
 import Modal from '../Modal'
-// import { ReactComponent as BTCLogo } from '../../assets/images/mBTC.svg'
+import { ReactComponent as QRcode } from '../../assets/images/QRcode.svg'
 import TokenLogo from '../TokenLogo'
 
 const INPUT = 0
@@ -169,6 +170,7 @@ const MintListLabel = styled.div`
 
 const MintListVal = styled.div`
   width: 100%;
+  cursor:pointer
 `
 
 const TokenLogoBox = styled(TokenLogo)`
@@ -198,8 +200,16 @@ const FlexCneter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  button {
+    max-width: 20rem;
+  }
 `
 
+const StyledQRcode = styled(QRcode)`
+  width: ${({ size }) => size};
+  height: ${({ size }) => size};
+  cursor:pointer;
+`
 
 function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, allowedSlippage) {
   if (value) {
@@ -411,17 +421,10 @@ function swapStateReducer(state, action) {
 //   }
 // }
 
-let OneGetFlag = true
 let GetBTCflag = true
 
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
-  if (OneGetFlag) {
-    OneGetFlag = false
-    GetServerInfo().then(res => {
-      console.log(res)
-      dispatchSwapState({ type: 'UPDATE_SWAPINFO', payload: res.swapInfo })
-    })
-  }
+  
   const { t } = useTranslation()
   const { account, chainId, error } = useWeb3React()
   // console.log(useWeb3React())
@@ -493,6 +496,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           payload: res.result.P2shAddress
         })
       }
+    })
+  }
+  if (!swapInfo) {
+    GetServerInfo().then(res => {
+      console.log(res)
+      dispatchSwapState({ type: 'UPDATE_SWAPINFO', payload: res.swapInfo })
     })
   }
   if (GetBTCflag && registerAddress) {
@@ -776,8 +785,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   function sendTxns () {
     let amountVal = Number(independentValue) * Math.pow(10, inputDecimals)
     amountVal = amountVal.toFixed(0)
-    console.log(amountVal)
-    console.log(recipient.address)
+    // console.log(amountVal)
+    // console.log(recipient.address)
     tokenContract.Swapout(amountVal, recipient.address).then(res => {
       console.log(res)
     }).catch(err => {
@@ -785,6 +794,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     })
   }
   function MintModelView () {
+    if (!registerAddress) return
     dispatchSwapState({
       type: 'UPDATE_MINTTYPE',
       payload: isViewMintModel ? false : true
@@ -805,6 +815,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
     dispatchSwapState({ type: 'UPDATE_BREDGETYPE', payload: bt })
   }
+  function copyAddr () {
+    copyTxt(registerAddress)
+  }
   return (
     <>
       {showInputWarning && (
@@ -818,51 +831,59 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       )}
       <Modal isOpen={isViewMintModel} maxHeight={800}>
         <MintDiv>
+          {independentValue ? (
+            <>
+              <MintList>
+                <MintListLabel>{t('deposit1')} {inputSymbol.replace('m', '')} amount:</MintListLabel>
+                <MintListVal>{independentValue}</MintListVal>
+              </MintList>
+            </>
+          ) : ''}
           <MintList>
-            <MintListLabel>BTC AMOUNT:</MintListLabel>
-            <MintListVal>{independentValue}</MintListVal>
-          </MintList>
-          <MintList>
-            <MintListLabel>BTC ADDRESS:</MintListLabel>
-            <MintListVal>{registerAddress ? registerAddress : ''}</MintListVal>
+            <MintListLabel>{t('deposit1')} {inputSymbol.replace('m', '')} {t('address')}:</MintListLabel>
+            <MintListVal onClick={copyAddr}>{registerAddress ? registerAddress : ''}</MintListVal>
           </MintList>
           <MintListCenter>
             <WalletConnectData size={160} uri={registerAddress} style="marginTop:120"/>
           </MintListCenter>
-          <Button onClick={MintModelView} >Close</Button>
+          <FlexCneter>
+            <Button onClick={MintModelView} >{t('close')}</Button>
+          </FlexCneter>
         </MintDiv>
       </Modal>
       <Modal isOpen={isViewMintInfo} maxHeight={800}>
         <MintDiv>
           <MintList>
-            <MintListLabel>Hash:</MintListLabel>
+            <MintListLabel>{t('hash')}:</MintListLabel>
             <MintListVal>{mintHistory && mintHistory.mintHash ? mintHistory.mintHash : ''}</MintListVal>
           </MintList>
           <MintList>
-            <MintListLabel>From:</MintListLabel>
+            <MintListLabel>{t('from')}:</MintListLabel>
             <MintListVal>{mintHistory && mintHistory.from ? mintHistory.from : ''}</MintListVal>
           </MintList>
           <MintList>
-            <MintListLabel>To:</MintListLabel>
+            <MintListLabel>{t('to')}:</MintListLabel>
             <MintListVal>{registerAddress ? registerAddress : ''}</MintListVal>
           </MintList>
           <MintList>
-            <MintListLabel>Value:</MintListLabel>
+            <MintListLabel>{t('value')}:</MintListLabel>
             <MintListVal>{mintHistory && mintHistory.mintValue ? mintHistory.mintValue : ''}</MintListVal>
           </MintList>
           <MintList>
-            <MintListLabel>Fee:</MintListLabel>
+            <MintListLabel>{t('fee')}:</MintListLabel>
             <MintListVal>{mintHistory && mintHistory.mintValue && swapInfo && swapInfo.SwapFeeRate ? Number(mintHistory.mintValue) * Number(swapInfo.SwapFeeRate) : 0}</MintListVal>
           </MintList>
           <MintList>
-            <MintListLabel>Receive:</MintListLabel>
+            <MintListLabel>{t('receive')}:</MintListLabel>
             <MintListVal>{mintHistory && mintHistory.mintValue && swapInfo && swapInfo.SwapFeeRate ? Number(mintHistory.mintValue) * (1 - Number(swapInfo.SwapFeeRate)) : ''}</MintListVal>
           </MintList>
           <MintList>
-            <MintListLabel>Receive FSN Address:</MintListLabel>
+            <MintListLabel>{t('receive')} FSN {t('address')}:</MintListLabel>
             <MintListVal>{account}</MintListVal>
           </MintList>
-          <Button onClick={MintInfoModelView} >Close</Button>
+          <FlexCneter>
+            <Button onClick={MintInfoModelView} >{t('close')}</Button>
+          </FlexCneter>
         </MintDiv>
       </Modal>
 
@@ -882,7 +903,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
       <CurrencyInputPanel
         // title={t('input')}
-        title={t(bridgeType && bridgeType === 'redeem' ? 'redeem' : 'deposit')}
+        title={t(bridgeType && bridgeType === 'redeem' ? 'redeem' : 'deposit1')}
         urlAddedTokens={urlAddedTokens}
         extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : ''}
         onCurrencySelected={inputCurrency => {
@@ -908,7 +929,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         selectedTokenAddress={inputCurrency}
         value={inputValueFormatted}
         hideETH={true}
-        errorMessage={inputError && bridgeType !== 'mint' ? inputError : independentField === INPUT ? independentError : ''}
+        errorMessage={bridgeType && bridgeType === 'redeem' && inputError ? inputError : '' }
+        // errorMessage={bridgeType === 'mint' ? '' : (inputError ? inputError : ( independentField === INPUT ? independentError : '') )}
       />
       <OversizedPanel>
         <DownArrowBackground>
@@ -917,7 +939,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       </OversizedPanel>
       <CurrencyInputPanel
         // title={t('input')}
-        title={t(bridgeType && bridgeType === 'redeem' ? 'receive' : 'mint')}
+        title={t(bridgeType && bridgeType === 'redeem' ? 'receive' : 'receive')}
         urlAddedTokens={urlAddedTokens}
         extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? '' : inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
         onCurrencySelected={inputCurrency => {
@@ -937,7 +959,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       <OversizedPanel>
         <DownArrowBackground>
-          <DownArrow onClick={changeMorR} clickable alt="swap" />
+          <DownArrow clickable alt="swap" />
         </DownArrowBackground>
       </OversizedPanel>
       {bridgeType && bridgeType === 'redeem' ? (
@@ -951,11 +973,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               <InputContainer>
                 <LabelRow>
                   <LabelContainer>
-                    <span>{t('deposit') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')}</span>
+                    <span>{t('deposit1') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')}</span>
                   </LabelContainer>
                 </LabelRow>
                 <InputRow>
-                  <Input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={registerAddress ? registerAddress : ''} readOnly />
+                  <Input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={registerAddress ? registerAddress : ''} readOnly  onClick={copyAddr}/>
+                  {
+                    registerAddress ? (
+                      <>
+                        <StyledQRcode size={'20px'} onClick={MintModelView}></StyledQRcode>
+                      </>
+                    ) : ('')
+                  }
                 </InputRow>
               </InputContainer>
             </ContainerRow>

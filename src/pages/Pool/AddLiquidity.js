@@ -19,6 +19,7 @@ import { useTransactionAdder } from '../../contexts/Transactions'
 import { useTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
 import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useAddressAllowance } from '../../contexts/Allowances'
+import { useWalletModalToggle } from '../../contexts/Application'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -130,7 +131,7 @@ function initialAddLiquidityState(state) {
     inputValue: state.ethAmountURL ? state.ethAmountURL : '',
     outputValue: state.tokenAmountURL && !state.ethAmountURL ? state.tokenAmountURL : '',
     lastEditedField: state.tokenAmountURL && state.ethAmountURL === '' ? OUTPUT : INPUT,
-    outputCurrency: state.tokenURL ? state.tokenURL : ''
+    outputCurrency: state.tokenURL ? state.tokenURL : '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74'
   }
 }
 
@@ -605,6 +606,8 @@ export default function AddLiquidity({ params }) {
 
   const [showOutputWarning, setShowOutputWarning] = useState(false)
 
+  const toggleWalletModal = useWalletModalToggle()
+
   useEffect(() => {
     if (newOutputDetected) {
       setShowOutputWarning(true)
@@ -733,9 +736,24 @@ export default function AddLiquidity({ params }) {
         </NewExchangeWarningText>
       )}
       <Flex>
-        <Button disabled={!isValid} onClick={onAddLiquidity}>
+        {/* <Button disabled={!isValid} onClick={onAddLiquidity}>
           {t('addLiquidity')}
-        </Button>
+        </Button> */}
+        {
+          account ? (
+            <>
+              <Button disabled={!isValid} onClick={onAddLiquidity}>
+                {t('addLiquidity')}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button onClick={toggleWalletModal}>
+                {t('connectToWallet')}
+              </Button>
+            </>
+          )
+        }
       </Flex>
     </>
   )

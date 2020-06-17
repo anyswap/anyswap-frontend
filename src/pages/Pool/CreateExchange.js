@@ -12,6 +12,7 @@ import AddressInputPanel from '../../components/AddressInputPanel'
 import OversizedPanel from '../../components/OversizedPanel'
 import { useTokenDetails } from '../../contexts/Tokens'
 import { useTransactionAdder } from '../../contexts/Transactions'
+import { useWalletModalToggle } from '../../contexts/Application'
 
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
@@ -112,6 +113,8 @@ function CreateExchange({ location, params }) {
     })
   }
 
+  const toggleWalletModal = useWalletModalToggle()
+
   const isValid = errorMessage === null
 
   return (
@@ -146,9 +149,24 @@ function CreateExchange({ location, params }) {
         <SummaryText>{errorMessage ? errorMessage : t('enterTokenCont')}</SummaryText>
       </CreateExchangeWrapper>
       <Flex>
-        <Button disabled={!isValid} onClick={createExchange}>
+        {/* <Button disabled={!isValid} onClick={createExchange}>
           {t('createExchange')}
-        </Button>
+        </Button> */}
+        {
+          account ? (
+            <>
+              <Button disabled={!isValid} onClick={createExchange}>
+                {t('addLiquidity')}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button onClick={toggleWalletModal}>
+                {t('connectToWallet')}
+              </Button>
+            </>
+          )
+        }
       </Flex>
     </>
   )
