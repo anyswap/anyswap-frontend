@@ -121,7 +121,7 @@ export default function App() {
                           }
                         }}
                       />
-                      <Redirect to="/bridge" />
+                      <Redirect to="/swap" />
                     </Switch>
                   </Suspense>
                 </HashRouter>

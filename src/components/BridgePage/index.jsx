@@ -795,6 +795,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       payload: isViewMintInfo ? false : true
     })
   }
+  function changeMorR () {
+    let bt = ''
+    if (bridgeType === 'mint') {
+      bt = 'redeem'
+    } else {
+      bt = 'mint'
+    }
+    dispatchSwapState({ type: 'UPDATE_BREDGETYPE', payload: bt })
+  }
   return (
     <>
       {showInputWarning && (
@@ -896,20 +905,28 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       <OversizedPanel>
         <DownArrowBackground>
-          <DownArrow
-            onClick={() => {
-              let bt = ''
-              if (bridgeType === 'mint') {
-                bt = 'redeem'
-              } else {
-                bt = 'mint'
-              }
-              dispatchSwapState({ type: 'UPDATE_BREDGETYPE', payload: bt })
-            }}
-            clickable
-            alt="swap"
-            // active={isValid}
-          />
+          <DownArrow onClick={changeMorR} clickable alt="swap" />
+        </DownArrowBackground>
+      </OversizedPanel>
+      <InputPanel>
+        <ContainerRow>
+          <InputContainer>
+            <LabelRow>
+              <LabelContainer>
+                <span>{t(bridgeType ? bridgeType : 'redeem')}</span>
+              </LabelContainer>
+            </LabelRow>
+            <InputRow>
+              {independentValue && swapInfo && swapInfo.SwapFeeRate
+                ? `${Number(independentValue) * (1 - Number(swapInfo.SwapFeeRate))} ${outputSymbol}`
+                : ' - '}
+            </InputRow>
+          </InputContainer>
+        </ContainerRow>
+      </InputPanel>
+      <OversizedPanel>
+        <DownArrowBackground>
+          <DownArrow onClick={changeMorR} clickable alt="swap" />
         </DownArrowBackground>
       </OversizedPanel>
       {bridgeType !== 'mint' ? (
@@ -923,43 +940,27 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               <InputContainer>
                 <LabelRow>
                   <LabelContainer>
-                    <span>{t('address')}</span>
+                    <span>{t(bridgeType ? bridgeType : 'redeem') + (bridgeType ? '' : ' ') + t('address')}</span>
                   </LabelContainer>
                 </LabelRow>
                 <InputRow>
-                  <Input
-                    type="text"
-                    autoComplete="off"
-                    autoCorrect="off"
-                    autoCapitalize="off"
-                    spellCheck="false"
-                    placeholder=""
-                    value={registerAddress ? registerAddress : ''}
-                    readOnly
-                  />
+                  <Input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={registerAddress ? registerAddress : ''} readOnly />
                 </InputRow>
               </InputContainer>
             </ContainerRow>
           </InputPanel>
         </>
       )}
-      {bridgeType !== 'mint' ? (
-        <>
-          <OversizedPanel hideBottom>
-            <ExchangeRateWrapper>
-              <ExchangeRate>{t('fee')}</ExchangeRate>
-              <span>
-                {independentValue && swapInfo && swapInfo.SwapFeeRate
-                  ? `${Number(independentValue) * Number(swapInfo.SwapFeeRate)} ${outputSymbol}`
-                  : ' - '}
-              </span>
-            </ExchangeRateWrapper>
-          </OversizedPanel>
-        </>
-      ) : (
-        ''
-      )}
-
+      <OversizedPanel hideBottom>
+        <ExchangeRateWrapper>
+          <ExchangeRate>{t('fee')}</ExchangeRate>
+          <span>
+            {independentValue && swapInfo && swapInfo.SwapFeeRate
+              ? `${Number(independentValue) * Number(swapInfo.SwapFeeRate)} ${outputSymbol}`
+              : ' - '}
+          </span>
+        </ExchangeRateWrapper>
+      </OversizedPanel>
       <Flex>
         {bridgeType !== 'mint' ? (
           <>
