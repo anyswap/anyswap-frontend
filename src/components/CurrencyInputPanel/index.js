@@ -290,7 +290,9 @@ export default function CurrencyInputPanel({
   showUnlock,
   value,
   urlAddedTokens,
-  hideETH = false
+  hideETH = false,
+  isSelfSymbol,
+  isSelfLogo,
 }) {
   const { t } = useTranslation()
 
@@ -386,6 +388,28 @@ export default function CurrencyInputPanel({
           }}
         >
           <Aligner>
+            {
+              isSelfSymbol ? (
+                <>
+                  {selectedTokenAddress ? (isSelfLogo ? <TokenLogo address={isSelfLogo} /> : <TokenLogo address={selectedTokenAddress} />) : null}
+                  <StyledTokenName>
+                    {/* {allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol} */}
+                    {isSelfSymbol || t('selectToken')}
+                  </StyledTokenName>
+                </>
+              ) :  (
+                <>
+                  {selectedTokenAddress ? <TokenLogo address={selectedTokenAddress} /> : null}
+                  <StyledTokenName>
+                    {/* {allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol} */}
+                    {(allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol) || t('selectToken')}
+                  </StyledTokenName>
+                </>
+              )
+            }
+            {!disableTokenSelect && <StyledDropDown selected={!!selectedTokenAddress} />}
+          </Aligner>
+          {/* <Aligner>
             {selectedTokenAddress ? <TokenLogo address={selectedTokenAddress} /> : null}
             {
               <StyledTokenName>
@@ -393,7 +417,7 @@ export default function CurrencyInputPanel({
               </StyledTokenName>
             }
             {!disableTokenSelect && <StyledDropDown selected={!!selectedTokenAddress} />}
-          </Aligner>
+          </Aligner> */}
         </CurrencySelect>
       </InputRow>
     )

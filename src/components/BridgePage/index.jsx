@@ -27,7 +27,8 @@ import WarningCard from '../WarningCard'
 import { transparentize } from 'polished'
 import WalletConnectData from '../WalletModal/WalletConnectData'
 import Modal from '../Modal'
-import { ReactComponent as BTCLogo } from '../../assets/images/btc.svg'
+// import { ReactComponent as BTCLogo } from '../../assets/images/mBTC.svg'
+import TokenLogo from '../TokenLogo'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -170,10 +171,9 @@ const MintListVal = styled.div`
   width: 100%;
 `
 
-const StyledBTCLogo = styled(BTCLogo)`
-  width: ${({ size }) => size};
-  height: ${({ size }) => size};
+const TokenLogoBox = styled(TokenLogo)`
   padding: 10px;
+  background: none;
 `
 
 const MintTip = styled.div`
@@ -300,13 +300,14 @@ function swapStateReducer(state, action) {
       }
     }
     case 'UPDATE_INDEPENDENT': {
-      const { field, value } = action.payload
+      const { field, value, realyValue } = action.payload
       const { dependentValue, independentValue } = state
       return {
         ...state,
         independentValue: value,
         dependentValue: value === independentValue ? dependentValue : '',
-        independentField: field
+        independentField: field,
+        realyValue: realyValue
       }
     }
     case 'UPDATE_DEPENDENT': {
@@ -318,7 +319,7 @@ function swapStateReducer(state, action) {
     case 'UPDATE_BREDGETYPE': {
       return {
         ...state,
-        bridgeType: action.payload
+        bridgeType: action.payload ? action.payload : 'mint'
       }
     }
     case 'UPDATE_SWAPINFO': {
@@ -482,7 +483,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     getInitialSwapState
   )
   
-  const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency, bridgeType, swapInfo, registerAddress, isViewMintModel, mintHistory, isViewMintInfo } = swapState
+  const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency, bridgeType, swapInfo, registerAddress, isViewMintModel, mintHistory, isViewMintInfo, realyValue } = swapState
   if (account && !registerAddress) {
     RegisterAddress(account).then(res => {
       // console.log(res)
@@ -797,10 +798,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
   function changeMorR () {
     let bt = ''
-    if (bridgeType === 'mint') {
-      bt = 'redeem'
-    } else {
+    if (bridgeType && bridgeType === 'redeem') {
       bt = 'mint'
+    } else {
+      bt = 'redeem'
     }
     dispatchSwapState({ type: 'UPDATE_BREDGETYPE', payload: bt })
   }
@@ -864,12 +865,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           <Button onClick={MintInfoModelView} >Close</Button>
         </MintDiv>
       </Modal>
+
       { (mintHistory && mintHistory.mintTip) ?  
           (
             <>
               <MintTip onClick={MintInfoModelView}>
                 <FlexCneter>
-                  <FlexCneter><StyledBTCLogo size={'34px'}></StyledBTCLogo></FlexCneter>
+                  <FlexCneter><TokenLogoBox size={'34px'} address={inputSymbol ? 'BTC' : inputSymbol.replace('m', '')} /></FlexCneter>
                   <span className="txt"><FlexCneter>Waiting for deposit</FlexCneter></span>
                 </FlexCneter>
               </MintTip>
@@ -880,9 +882,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
       <CurrencyInputPanel
         // title={t('input')}
-        title={t(bridgeType ? bridgeType : 'redeem')}
+        title={t(bridgeType && bridgeType === 'redeem' ? 'redeem' : 'deposit')}
         urlAddedTokens={urlAddedTokens}
-        extraText={inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
+        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : ''}
         onCurrencySelected={inputCurrency => {
           dispatchSwapState({
             type: 'SELECT_CURRENCY',
@@ -891,11 +893,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         onValueChange={inputValue => {
           console.log(inputBalanceFormatted)
+          let inputVal = inputValue && swapInfo && swapInfo.SwapFeeRate
+            ? Number(( Number(inputValue) * (1 - Number(swapInfo.SwapFeeRate)) ).toFixed(inputDecimals))
+            : 0
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
-            payload: { value: inputValue, field: INPUT }
+            payload: { value: inputValue, field: INPUT, realyValue: inputVal }
           })
         }}
+        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : inputSymbol.replace('m', '')}
+        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : inputSymbol.replace('m', '')}
         showUnlock={showUnlock}
         selectedTokens={[inputCurrency, outputCurrency]}
         selectedTokenAddress={inputCurrency}
@@ -908,30 +915,34 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           <DownArrow onClick={changeMorR} clickable alt="swap" />
         </DownArrowBackground>
       </OversizedPanel>
-      <InputPanel>
-        <ContainerRow>
-          <InputContainer>
-            <LabelRow>
-              <LabelContainer>
-                <span>{t(bridgeType ? bridgeType : 'redeem')}</span>
-              </LabelContainer>
-            </LabelRow>
-            <InputRow>
-              {independentValue && swapInfo && swapInfo.SwapFeeRate
-                ? `${Number(independentValue) * (1 - Number(swapInfo.SwapFeeRate))} ${outputSymbol}`
-                : ' - '}
-            </InputRow>
-          </InputContainer>
-        </ContainerRow>
-      </InputPanel>
+      <CurrencyInputPanel
+        // title={t('input')}
+        title={t(bridgeType && bridgeType === 'redeem' ? 'receive' : 'mint')}
+        urlAddedTokens={urlAddedTokens}
+        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? '' : inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
+        onCurrencySelected={inputCurrency => {
+          dispatchSwapState({
+            type: 'SELECT_CURRENCY',
+            payload: { currency: inputCurrency, field: INPUT }
+          })
+        }}
+        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace('m', '') : inputSymbol}
+        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace('m', '') : ''}
+        showUnlock={false}
+        disableUnlock={true}
+        selectedTokens={[inputCurrency, outputCurrency]}
+        selectedTokenAddress={inputCurrency}
+        value={realyValue ? realyValue : ''}
+        hideETH={true}
+      />
       <OversizedPanel>
         <DownArrowBackground>
           <DownArrow onClick={changeMorR} clickable alt="swap" />
         </DownArrowBackground>
       </OversizedPanel>
-      {bridgeType !== 'mint' ? (
+      {bridgeType && bridgeType === 'redeem' ? (
         <>
-          <AddressInputPanel onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
+          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
         </>
       ) : (
         <>
@@ -940,7 +951,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               <InputContainer>
                 <LabelRow>
                   <LabelContainer>
-                    <span>{t(bridgeType ? bridgeType : 'redeem') + (bridgeType ? '' : ' ') + t('address')}</span>
+                    <span>{t('deposit') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')}</span>
                   </LabelContainer>
                 </LabelRow>
                 <InputRow>
@@ -956,13 +967,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           <ExchangeRate>{t('fee')}</ExchangeRate>
           <span>
             {independentValue && swapInfo && swapInfo.SwapFeeRate
-              ? `${Number(independentValue) * Number(swapInfo.SwapFeeRate)} ${outputSymbol}`
+              ? `${Number(independentValue) * Number(swapInfo.SwapFeeRate)} ${bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace('m', '') : inputSymbol}`
               : ' - '}
           </span>
         </ExchangeRateWrapper>
       </OversizedPanel>
       <Flex>
-        {bridgeType !== 'mint' ? (
+        {bridgeType && bridgeType === 'redeem' ? (
           <>
             <Button
               disabled={
@@ -989,7 +1000,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             >
               {!account
                 ? t('connectToWallet')
-                : t('mint')}
+                : t('confirm')}
             </Button>
           </>
         )}

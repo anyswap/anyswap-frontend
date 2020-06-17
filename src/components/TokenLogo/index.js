@@ -49,18 +49,22 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
   const [error, setError] = useState(false)
   let path = ''
   // console.log(address)
-  if (address === 'FSN') {
-    // console.log('FSN1')
+  if (['FSN', 'BTC'].includes(address)) {
+    // console.log(address)
     // console.log(<StyledEthereumLogo size={size} />)
     // return <StyledEthereumLogo size={size} />
-    path = require('../../assets/images/fsn.svg')
+    try {
+      path = require('../../assets/images/' + address + '.svg')
+    } catch (error) {
+      path = require('../../assets/images/' + address + '.png')
+    }
   } else if (!error && !BAD_IMAGES[address]) {
-    if (address === '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74' || address === '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64') {
+    if (address === '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74') {
       // console.log('BTC')
       // console.log(address)
       // return <StyledEthereumLogo size={size} />
       // return <StyledBTCLogo size={size} />
-      path = require('../../assets/images/btc.svg')
+      path = require('../../assets/images/mBTC.svg')
     } else {
       path = TOKEN_ICON_API(address.toLowerCase())
     }
