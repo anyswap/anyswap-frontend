@@ -29,6 +29,7 @@ import { transparentize } from 'polished'
 import WalletConnectData from '../WalletModal/WalletConnectData'
 import Modal from '../Modal'
 import { ReactComponent as QRcode } from '../../assets/images/QRcode.svg'
+import { ReactComponent as copyICON } from '../../assets/images/copy.svg'
 import TokenLogo from '../TokenLogo'
 
 const INPUT = 0
@@ -138,7 +139,7 @@ const Input = styled.input`
   width: 0;
   background-color: ${({ theme }) => theme.inputBackground};
 
-  color: ${({ error, theme }) => (error ? theme.salmonRed : theme.royalBlue)};
+  color: ${({ theme }) => theme.textColor};
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -210,6 +211,14 @@ const StyledQRcode = styled(QRcode)`
   height: ${({ size }) => size};
   cursor:pointer;
 `
+
+const StyledCopyICON = styled(copyICON)`
+  width: ${({ size }) => size};
+  height: ${({ size }) => size};
+  margin: 0 10px;
+  cursor:pointer;
+`
+
 
 function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, allowedSlippage) {
   if (value) {
@@ -834,7 +843,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           {independentValue ? (
             <>
               <MintList>
-                <MintListLabel>{t('deposit1')} {inputSymbol.replace('m', '')} amount:</MintListLabel>
+                <MintListLabel>{t('deposit1')} {inputSymbol.replace('m', '')} {t('amount')}:</MintListLabel>
                 <MintListVal>{independentValue}</MintListVal>
               </MintList>
             </>
@@ -977,10 +986,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   </LabelContainer>
                 </LabelRow>
                 <InputRow>
-                  <Input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={registerAddress ? registerAddress : ''} readOnly  onClick={copyAddr}/>
+                  <Input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={registerAddress ? registerAddress : ''} readOnly/>
                   {
                     registerAddress ? (
                       <>
+                        {/* <StyledCopyICON size={'20px'} onClick={copyAddr}></StyledCopyICON> */}
                         <StyledQRcode size={'20px'} onClick={MintModelView}></StyledQRcode>
                       </>
                     ) : ('')
