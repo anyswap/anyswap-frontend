@@ -293,6 +293,7 @@ export default function CurrencyInputPanel({
   hideETH = false,
   isSelfSymbol,
   isSelfLogo,
+  selfUseAllToken = []
 }) {
   const { t } = useTranslation()
 
@@ -305,8 +306,13 @@ export default function CurrencyInputPanel({
 
   const addTransaction = useTransactionAdder()
 
-  const allTokens = useAllTokenDetails()
-
+  let allTokens = useAllTokenDetails(), useTokens = {}
+  if (selfUseAllToken.length > 0) {
+    for (let obj of selfUseAllToken) {
+      useTokens[obj] = allTokens[obj]
+    }
+    allTokens = useTokens
+  }
   const { account } = useWeb3React()
 
   const userTokenBalance = useAddressBalance(account, selectedTokenAddress)
@@ -465,20 +471,27 @@ export default function CurrencyInputPanel({
           onTokenSelect={onCurrencySelected}
           allBalances={allBalances}
           hideETH={hideETH}
+          selfUseAllToken={selfUseAllToken}
         />
       )}
     </InputPanel>
   )
 }
 
-function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens, hideETH }) {
+function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens, hideETH, selfUseAllToken }) {
   const { t } = useTranslation()
 
   const [searchQuery, setSearchQuery] = useState('')
   const { exchangeAddress } = useTokenDetails(searchQuery)
 
-  const allTokens = useAllTokenDetails()
-
+  // const allTokens = useAllTokenDetails()
+  let allTokens = useAllTokenDetails(), useTokens = {}
+  if (selfUseAllToken.length > 0) {
+    for (let obj of selfUseAllToken) {
+      useTokens[obj] = allTokens[obj]
+    }
+    allTokens = useTokens
+  }
   const { account, chainId } = useWeb3React()
 
   // BigNumber.js instance

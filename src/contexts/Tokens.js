@@ -724,6 +724,12 @@ export const INITIAL_TOKENS_CONTEXT = {
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0x20411af206c28f69eaa1d16257488fb1668b8505'
+    },
+    '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4': { // ANY
+      [NAME]: 'Anyswap',
+      [SYMBOL]: 'ANY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x4dee5f0705ff478b452419375610155b5873ef5b'
     }
   }
 }

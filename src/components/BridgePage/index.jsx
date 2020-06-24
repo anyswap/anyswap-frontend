@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 import { useWeb3React, useSwapTokenContract } from '../../hooks'
 import { brokenTokens } from '../../constants'
-import { amountFormatter, calculateGasMargin, isAddress } from '../../utils'
+import { amountFormatter, isAddress } from '../../utils'
 import { GetServerInfo, RegisterAddress, GetBTCtxnsAll } from '../../utils/axios'
 import { copyTxt } from '../../utils/tools'
 
@@ -938,6 +938,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         selectedTokenAddress={inputCurrency}
         value={inputValueFormatted}
         hideETH={true}
+        selfUseAllToken={['0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74']}
         errorMessage={bridgeType && bridgeType === 'redeem' && inputError ? inputError : '' }
         // errorMessage={bridgeType === 'mint' ? '' : (inputError ? inputError : ( independentField === INPUT ? independentError : '') )}
       />
@@ -965,6 +966,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         selectedTokenAddress={inputCurrency}
         value={realyValue ? realyValue : ''}
         hideETH={true}
+        selfUseAllToken={['0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74']}
       />
       <OversizedPanel>
         <DownArrowBackground>
