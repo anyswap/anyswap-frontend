@@ -136,7 +136,7 @@ function getInitialSwapState(state) {
         : state.outputCurrencyURL
       : state.initialCurrency
       ? state.initialCurrency
-      : '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74'
+      : '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
   }
 }
 

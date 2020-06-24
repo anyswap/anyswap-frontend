@@ -15,6 +15,10 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.fusion.env
+.fusion.env.production
+.eth.env
+.eth.env.production
 
 /.netlify
 

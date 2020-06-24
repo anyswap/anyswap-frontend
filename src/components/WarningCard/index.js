@@ -154,7 +154,7 @@ function WarningCard({ onDismiss, urlAddedTokens, currency }) {
         {showPopup ? (
           <Popup>
             <Text>
-              The Uniswap smart contracts are designed to support any ERC20 token on Fusion. Any token can be loaded
+              The Anyswap smart contracts are designed to support any ERC20 token on Fusion. Any token can be loaded
               into the interface by entering its Fusion address into the search field or passing it as a URL
               parameter. Be careful when interacting with imported tokens as they have not been verified.
             </Text>

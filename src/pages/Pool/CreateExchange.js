@@ -156,7 +156,7 @@ function CreateExchange({ location, params }) {
           account ? (
             <>
               <Button disabled={!isValid} onClick={createExchange}>
-                {t('addLiquidity')}
+                {t('createExchange')}
               </Button>
             </>
           ) : (

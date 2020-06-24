@@ -483,7 +483,7 @@ export default function RemoveLiquidity({ params }) {
           account ? (
             <>
               <Button disabled={!isValid} onClick={onRemoveLiquidity}>
-                {t('addLiquidity')}
+                {t('removeLiquidity')}
               </Button>
             </>
           ) : (

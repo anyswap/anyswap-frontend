@@ -123,13 +123,13 @@ export default function Header() {
         <Link href="https://uniswap.exchange"> &nbsp;use V2 ↗</Link>
       </MigrateBannerSmall>
       <MigrateBannerLarge>
-        <b>Uniswap V2 is here!&nbsp;</b> Move your liquidity now using the&nbsp;
+        <b>Anyswap V2 is here!&nbsp;</b> Move your liquidity now using the&nbsp;
         <Link href="https://migrate.uniswap.exchange/">
           <b>migration helper</b>
         </Link>
         &nbsp;or use the&nbsp;
         <Link href="https://uniswap.exchange">
-          <b>Uniswap V2 Interface ↗</b>
+          <b>Anyswap V2 Interface ↗</b>
         </Link>
       </MigrateBannerLarge> */}
       <HeaderSpan>
@@ -143,7 +143,7 @@ export default function Header() {
               </Link>
             </Nod>
             <Link id="link" href="https://uniswap.io">
-              <h1 id="title">Uniswap</h1>
+              <h1 id="title">Anyswap</h1>
             </Link>
           </Title> */}
           {/* <TestnetWrapper>

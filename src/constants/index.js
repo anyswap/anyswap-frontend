@@ -3,9 +3,8 @@ import { injected, walletconnect, walletlink, fortmatic, portis, torus } from '.
 export const FACTORY_ADDRESSES = {
   1: '0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95',
   3: '0x9c83dCE8CA20E9aAF9D3efc003b2ea62aBC08351',
-  // 4: '0xf5D915570BC477f9B8D6C0E980aA81757A3AaC36',
-  4: '0x6d85398c9245955ba420ccf879d45118de15b855', //mBTC
-  46688: '0x6d85398c9245955ba420ccf879d45118de15b855', //mBTC
+  4: '0xd374780c499082ed489aaaef6879cfdd86f703a5', //ETH
+  46688: '0x421d35f8f8fd822f898e75db43f057f7ea448298', //Fusion
   42: '0xD3E51Ef092B2845f10401a0159B2B96e8B6c3D30'
 }
 

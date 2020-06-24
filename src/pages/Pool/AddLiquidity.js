@@ -131,7 +131,7 @@ function initialAddLiquidityState(state) {
     inputValue: state.ethAmountURL ? state.ethAmountURL : '',
     outputValue: state.tokenAmountURL && !state.ethAmountURL ? state.tokenAmountURL : '',
     lastEditedField: state.tokenAmountURL && state.ethAmountURL === '' ? OUTPUT : INPUT,
-    outputCurrency: state.tokenURL ? state.tokenURL : '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74'
+    outputCurrency: state.tokenURL ? state.tokenURL : '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
   }
 }
 

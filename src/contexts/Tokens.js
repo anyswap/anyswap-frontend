@@ -685,12 +685,6 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xaE76c84C9262Cdb9abc0C2c8888e62Db8E22A0bF'
     },
-    // '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64': { // ETH
-    //   [NAME]: 'SMPC Bitcoin',
-    //   [SYMBOL]: 'mBTC',
-    //   [DECIMALS]: 8,
-    //   [EXCHANGE_ADDRESS]: '0x5d90c7a9770c39aa2d7b4248ac91c7324bb641a9'
-    // },
     '0x6d85398c9245955ba420ccf879d45118de15b855': { // FSN
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
@@ -705,21 +699,33 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xaF51BaAA766b65E8B3Ee0C2c33186325ED01eBD5'
     },
-    // '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64': { // ETH
-    //   [NAME]: 'SMPC Bitcoin',
-    //   [SYMBOL]: 'mBTC',
-    //   [DECIMALS]: 8,
-    //   [EXCHANGE_ADDRESS]: '0x5d90c7a9770c39aa2d7b4248ac91c7324bb641a9'
-    // },
-    '0x6d85398c9245955ba420ccf879d45118de15b855': { // FSN
+    '0x72778a05fc72dd56d5b5a6bac2f045a2a1eb78f2': {
+      [NAME]: 'RMBTToken',
+      [SYMBOL]: 'RMBT',
+      [DECIMALS]: 5,
+      [EXCHANGE_ADDRESS]: '0xa157aA373DDA0D6d48A151aA630af986Cc8a7F26'
+    },
+    '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64': {
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0x20411af206c28f69eaa1d16257488fb1668b8505'
+      [EXCHANGE_ADDRESS]: '0x3fe85d9ddc82adfad81eac73f9f21e05cdf76f21'
+    },
+    '0x2f915d8c6d8340e1291492df153706c1beca50e8': {
+      [NAME]: 'USDTERC20',
+      [SYMBOL]: 'USDT',
+      [DECIMALS]: 2,
+      [EXCHANGE_ADDRESS]: '0xef2a905135c66fa04bdb41356ecf64e7df8ba776'
+    },
+    '0x6ca8f5eea9ff47386a7af20acd4b0257f58fba39': { // ANY
+      [NAME]: 'Anyswap',
+      [SYMBOL]: 'ANY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x2fe489c50166bde402f940b86dcb707e0a4505d2'
     }
   },
   46688: {
-    '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74': { // FSN
+    '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74': { // mBTC
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
