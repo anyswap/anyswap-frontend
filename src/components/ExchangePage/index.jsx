@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useEffect } from 'react'
 import ReactGA from 'react-ga'
-import { createBrowserHistory } from 'history'
+// import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
@@ -204,7 +204,10 @@ function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals,
       (outputDecimals || outputDecimals === 0)
     ) {
       const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
-
+      // console.log(invert)
+      // console.log(factor)
+      // console.log(inputValue)
+      // console.log(outputValue)
       if (invert) {
         return inputValue
           .mul(factor)
@@ -374,7 +377,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
   const outputValueParsed = independentField === OUTPUT ? independentValueParsed : dependentValue
   const outputValueFormatted = independentField === OUTPUT ? independentValue : dependentValueFormatted
-
+    // console.log(inputValueParsed)
+    // console.log(INPUT)
+    // console.log(independentField)
+    // console.log(independentValueParsed)
   // validate + parse independent value
   const [independentError, setIndependentError] = useState()
   useEffect(() => {

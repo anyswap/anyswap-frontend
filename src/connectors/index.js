@@ -7,6 +7,8 @@ import { TorusConnector } from '@web3-react/torus-connector'
 import { NetworkConnector } from './Network'
 import { FortmaticConnector } from './Fortmatic'
 
+import {LedgerConnect} from '../utils/wallets/ledger/ledgerConnect'
+
 const POLLING_INTERVAL = 10000
 const NETWORK_URL =
   process.env.REACT_APP_IS_PRODUCTION_DEPLOY === 'true'
@@ -55,4 +57,8 @@ export const walletlink = new WalletLinkConnector({
   appName: 'Anyswap',
   appLogoUrl:
     'https://mpng.pngfly.com/20181202/bex/kisspng-emoji-domain-unicorn-pin-badges-sticker-unicorn-tumblr-emoji-unicorn-iphoneemoji-5c046729264a77.5671679315437924251569.jpg'
+})
+
+export const ledger = new LedgerConnect({
+  chainId: 46688
 })

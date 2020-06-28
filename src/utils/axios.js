@@ -99,11 +99,11 @@ export const GetBTCtxnsAll = (address) => {
   }
   return new Promise(resolve => {
     GetBTCTxnsAPI(url).then(res => {
-      console.log(res)
+      // console.log(res)
       if (res.status === "success" && res.data && res.data.txs.length > 0) {
         let useTxns = res.data.txs[res.data.txs.length - 1]
         GetTxnStatusAPI(useTxns.txid).then(txns => {
-          console.log(txns)
+          // console.log(txns)
           if (txns.result) {
             // cbData.mintValue = useTxns.value
             // cbData.mintTip = true

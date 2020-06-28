@@ -6,11 +6,13 @@ const chainIdToNetwork = {
   1: 'mainnet',
   3: 'ropsten',
   4: 'rinkeby',
+  46688: 'fusion',
   42: 'kovan'
 }
 
 export class FortmaticConnector extends FortmaticConnectorCore {
   async activate() {
+    console.log(this)
     if (!this.fortmatic) {
       const { default: Fortmatic } = await import('fortmatic')
       this.fortmatic = new Fortmatic(

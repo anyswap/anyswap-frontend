@@ -212,12 +212,12 @@ const StyledQRcode = styled(QRcode)`
   cursor:pointer;
 `
 
-const StyledCopyICON = styled(copyICON)`
-  width: ${({ size }) => size};
-  height: ${({ size }) => size};
-  margin: 0 10px;
-  cursor:pointer;
-`
+// const StyledCopyICON = styled(copyICON)`
+//   width: ${({ size }) => size};
+//   height: ${({ size }) => size};
+//   margin: 0 10px;
+//   cursor:pointer;
+// `
 
 
 function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, allowedSlippage) {

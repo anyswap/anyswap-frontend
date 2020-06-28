@@ -35,17 +35,24 @@ const ETHERSCAN_PREFIXES = {
 }
 
 export function getEtherscanLink(networkId, data, type) {
-  const prefix = `https://${ETHERSCAN_PREFIXES[networkId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
-
+  let prefix = `https://${ETHERSCAN_PREFIXES[networkId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
   switch (type) {
     case 'transaction': {
+      let url = `${prefix}/tx/${data}`
+      if (networkId === 46688 || networkId === 32659) {
+        url = `https://block.fusionnetwork.io/#!/transaction/${data}`
+      }
       // return `${prefix}/tx/${data}`
-      return `https://block.fusionnetwork.io/#!/transaction/${data}`
+      return url
     }
     case 'address':
     default: {
+      let url = `${prefix}/address/${data}`
+      if (networkId === 46688 || networkId === 32659) {
+        url = `https://block.fusionnetwork.io/#!/address/${data}`
+      }
+      return url
       // return `${prefix}/address/${data}`
-      return `https://block.fusionnetwork.io/#!/address/${data}`
     }
   }
 }
@@ -116,7 +123,7 @@ export function checkSupportedTheme(themeName) {
 export function getNetworkName(networkId) {
   switch (networkId) {
     case 1: {
-      return 'the Main Fusion Network'
+      return 'the Main Etherscan Network'
     }
     case 3: {
       return 'the Ropsten Test Network'
@@ -126,6 +133,12 @@ export function getNetworkName(networkId) {
     }
     case 5: {
       return 'the Görli Test Network'
+    }
+    case 32659: {
+      return 'the Main Fusion Network'
+    }
+    case 46688: {
+      return 'the Fusion Test Network'
     }
     case 42: {
       return 'the Kovan Test Network'

@@ -15,9 +15,11 @@ import { usePrevious } from '../../hooks'
 import { Link } from '../../theme'
 import MetamaskIcon from '../../assets/images/metamask.png'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
-import { injected, walletconnect, fortmatic, portis } from '../../connectors'
+import { injected, walletconnect, fortmatic, portis, ledger } from '../../connectors'
 import { useWalletModalToggle, useWalletModalOpen } from '../../contexts/Application'
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
+
+import {getAddressArr} from '../../utils/wallets/ledger'
 
 const CloseIcon = styled.div`
   position: absolute;
@@ -116,9 +118,7 @@ const WALLET_VIEWS = {
 
 export default function WalletModal({ pendingTransactions, confirmedTransactions, ENSName }) {
   const { active, account, connector, activate, error } = useWeb3React()
-
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
-
   const [pendingWallet, setPendingWallet] = useState()
 
   const [pendingError, setPendingError] = useState()
@@ -190,11 +190,20 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     })
   }, [toggleWalletModal])
 
+  function getHardwareAccount () {
+    getAddressArr("m/44'/60'/0'", 0).then(res => {
+      console.log(res)
+    })
+  }
+
   // get wallets user can switch too, depending on device/browser
   function getOptions() {
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
+    // console.log(window.ethereum)
     return Object.keys(SUPPORTED_WALLETS).map(key => {
       const option = SUPPORTED_WALLETS[key]
+      // console.log(key)
+      // console.log(option)
       // check for mobile options
       if (isMobile) {
         // disable portis on mobile for now
@@ -251,14 +260,24 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
       }
 
       // return rest of options
+      // console.log(12)
       return (
         !isMobile &&
         !option.mobileOnly && (
           <Option
             onClick={() => {
-              option.connector === connector
-                ? setWalletView(WALLET_VIEWS.ACCOUNT)
-                : !option.href && tryActivation(option.connector)
+              console.log('option')
+              console.log(option)
+              console.log(connector)
+              console.log(activate)
+              console.log(account)
+              if (['Ledger'].includes(option.name)) {
+                getHardwareAccount(option)
+              } else {
+                option.connector === connector
+                  ? setWalletView(WALLET_VIEWS.ACCOUNT)
+                  : !option.href && tryActivation(option.connector)
+              }
             }}
             key={key}
             active={option.connector === connector}

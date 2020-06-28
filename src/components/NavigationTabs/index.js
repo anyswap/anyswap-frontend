@@ -30,11 +30,11 @@ const tabOrder = [
     textKey: 'pool',
     regex: /\/add-liquidity|\/remove-liquidity|\/create-exchange.*/
   },
-  // {
-  //   path: '/bridge',
-  //   textKey: 'bridge',
-  //   regex: /\/bridge/
-  // }
+  {
+    path: '/bridge',
+    textKey: 'bridge',
+    regex: /\/bridge/
+  }
 ]
 
 const BetaMessage = styled.div`
