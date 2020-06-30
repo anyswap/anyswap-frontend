@@ -736,6 +736,18 @@ export const INITIAL_TOKENS_CONTEXT = {
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x4dee5f0705ff478b452419375610155b5873ef5b'
+    },
+    '0xbe4c389770e07bd10b21561d3fd0513d5ad8fe00': { // mUSDT
+      [NAME]: 'Tether',
+      [SYMBOL]: 'mUSDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x689639b4479e77b09e2ff98606d3f7d63944fdac'
+    },
+    '0x708751fa3be6ad90a09521202c85aa74d9ac2081': { // mETH
+      [NAME]: 'Ethereum',
+      [SYMBOL]: 'mETH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x0d79cfa20d64b6e8275af09916e81b92287c2480'
     }
   }
 }

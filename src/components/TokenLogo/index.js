@@ -49,7 +49,7 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
   const [error, setError] = useState(false)
   let path = ''
   // console.log(address)
-  if (['FSN', 'BTC'].includes(address)) {
+  if (['FSN', 'BTC', 'ETH', 'USDT'].includes(address)) {
     // console.log(address)
     // console.log(<StyledEthereumLogo size={size} />)
     // return <StyledEthereumLogo size={size} />
@@ -60,11 +60,11 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
     }
   } else if (!error && !BAD_IMAGES[address]) {
     if (address === '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74') {
-      // console.log('BTC')
-      // console.log(address)
-      // return <StyledEthereumLogo size={size} />
-      // return <StyledBTCLogo size={size} />
       path = require('../../assets/images/mBTC.svg')
+    } else if (address === '0xbe4c389770e07bd10b21561d3fd0513d5ad8fe00') {
+      path = require('../../assets/images/USDT.png')
+    } else if (address === '0x708751fa3be6ad90a09521202c85aa74d9ac2081') {
+      path = require('../../assets/images/ethereum-logo.svg')
     } else {
       path = TOKEN_ICON_API(address.toLowerCase())
     }

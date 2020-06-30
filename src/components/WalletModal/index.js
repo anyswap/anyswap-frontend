@@ -405,6 +405,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
   }
 
   function getHardwareAccount (option) {
+    if (walletType !== 'Ledger') return
     let path = HDPathArr[selectHDPathIndex].path ? HDPathArr[selectHDPathIndex].path : selfHDPathVal
     // console.log(path)
     getAddressArr(path, pageSize).then(res => {

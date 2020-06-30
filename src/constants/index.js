@@ -36,14 +36,14 @@ export const SUPPORTED_WALLETS =
   process.env.REACT_APP_CHAIN_ID !== '1'
     ? {
         ...MAINNET_WALLETS,
-        LEDGER: {
-          connector: ledger,
-          name: 'Ledger',
-          iconName: 'ledger.png',
-          description: 'Easy-to-use browser extension.',
-          href: null,
-          color: '#E8831D'
-        }
+        // LEDGER: {
+        //   connector: ledger,
+        //   name: 'Ledger',
+        //   iconName: 'ledger.png',
+        //   description: 'Easy-to-use browser extension.',
+        //   href: null,
+        //   color: '#E8831D'
+        // }
       }
     : {
         ...MAINNET_WALLETS,

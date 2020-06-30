@@ -24,6 +24,7 @@ import TransactionDetails from '../TransactionDetails'
 import ArrowDown from '../../assets/svg/SVGArrowDown'
 import WarningCard from '../WarningCard'
 
+
 const INPUT = 0
 const OUTPUT = 1
 
@@ -373,12 +374,29 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   // declare/get parsed and formatted versions of input/output values
   const [independentValueParsed, setIndependentValueParsed] = useState()
   const dependentValueFormatted = !!(dependentValue && (dependentDecimals || dependentDecimals === 0))
-    ? amountFormatter(dependentValue, dependentDecimals, Math.min(4, dependentDecimals), false)
+    ? amountFormatter(dependentValue, dependentDecimals, dependentDecimals, false)
+    // ? amountFormatter(dependentValue, dependentDecimals, Math.min(4, dependentDecimals), false)
     : ''
   const inputValueParsed = independentField === INPUT ? independentValueParsed : dependentValue
-  const inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
   const outputValueParsed = independentField === OUTPUT ? independentValueParsed : dependentValue
-  const outputValueFormatted = independentField === OUTPUT ? independentValue : dependentValueFormatted
+  let inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
+  let outputValueFormatted = independentField === OUTPUT ? independentValue : dependentValueFormatted
+  if (independentField) {
+    // console.log(1)
+    // inputValueFormatted = independentField === INPUT ? (independentValue * (1 - 0.001)) : (dependentValueFormatted * (1 - 0.001))
+    // console.log(inputValueFormatted)
+    inputValueFormatted *= 1 + 0.001
+    // console.log(inputValueFormatted)
+    // outputValueFormatted = independentField === OUTPUT ? independentValue : dependentValueFormatted
+  } else {
+    // console.log(0)
+    // inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
+    // outputValueFormatted = independentField === OUTPUT ? (independentValue * (1 - 0.001)) : (dependentValueFormatted * (1 - 0.001))
+    outputValueFormatted *= 1 - 0.001
+  }
+  // const inputValueFormatted = independentField === INPUT ? (independentValue * (1 - 0.001)) : dependentValueFormatted
+  // const outputValueFormatted = independentField === OUTPUT ? (independentValue * (1 + 0.001)) : dependentValueFormatted
+  // console.log(independentField)
     // console.log(inputValueParsed)
     // console.log(INPUT)
     // console.log(independentField)
