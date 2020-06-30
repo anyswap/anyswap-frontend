@@ -251,8 +251,10 @@ function getMarketRate(
 
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
-  const { account, chainId, error } = useWeb3React()
-
+  let { account, chainId, error } = useWeb3React()
+  let walletType = sessionStorage.getItem('walletType')
+  let HDPath = sessionStorage.getItem('HDPath')
+  account = account ? account : sessionStorage.getItem('account')
   const urlAddedTokens = {}
   if (params.inputCurrency) {
     urlAddedTokens[params.inputCurrency] = true

@@ -201,8 +201,10 @@ function getMarketRate(reserveETH, reserveToken, decimals, invert = false) {
 
 export default function AddLiquidity({ params }) {
   const { t } = useTranslation()
-  const { library, account, active, chainId } = useWeb3React()
-
+  let { library, account, active, chainId } = useWeb3React()
+  let walletType = sessionStorage.getItem('walletType')
+  let HDPath = sessionStorage.getItem('HDPath')
+  account = account ? account : sessionStorage.getItem('account')
   const urlAddedTokens = {}
   if (params.token) {
     urlAddedTokens[params.token] = true

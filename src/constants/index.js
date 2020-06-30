@@ -1,5 +1,4 @@
 import { injected, walletconnect, walletlink, fortmatic, portis, torus, ledger } from '../connectors'
-import {ledgerConnect} from '../utils/wallets/ledger'
 export const FACTORY_ADDRESSES = {
   1: '0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95',
   3: '0x9c83dCE8CA20E9aAF9D3efc003b2ea62aBC08351',

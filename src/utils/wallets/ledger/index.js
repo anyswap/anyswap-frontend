@@ -2,7 +2,10 @@ import walletCreate from '../public/walletCreate.js'
 
 // import React, { useState, useReducer, useEffect, useContext, createContext } from 'react'
 // import { AbstractConnector } from '@web3-react/abstract-connector';
-import {LedgerConnect} from './ledgerConnect'
+// import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
+// import { NetworkContextName } from '../../constants'
+// import {setAccount} from '../../../hooks'
+// import {LedgerConnect} from './ledgerConnect'
 // const ethUtil = require('ethereumjs-util')
 const Tx  = require("ethereumjs-tx")
 const Ledger3 = require("./ledger3")
@@ -93,13 +96,22 @@ function toSign (HDPath, rawTx) {
   })
 }
 
-
+var abstractConnector = require('@web3-react/abstract-connector').AbstractConnector
 // const Context = createContext(123)
 function ledgerConnect () {
+  
+  const test = new abstractConnector({supportedChainIds: 46688})
+  console.log(test)
+  test.emitUpdate({
+    account: 123
+  })
   // const {count} = useContext(Context)
   // console.log(useContext)
   // let _this3 = AbstractConnector.call(this, {})
-  console.log(LedgerConnect())
+  // console.log(LedgerConnect())
+  // const contextNetwork = useWeb3ReactCore(NetworkContextName)
+  // contextNetwork.account = 123
+  // setAccount(123)
   // AbstractConnector.emitUpdate({
   //   account: 123
   // })

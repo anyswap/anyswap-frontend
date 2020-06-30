@@ -57,8 +57,10 @@ const Flex = styled.div`
 
 function CreateExchange({ location, params }) {
   const { t } = useTranslation()
-  const { account } = useWeb3React()
-
+  let { account } = useWeb3React()
+  let walletType = sessionStorage.getItem('walletType')
+  let HDPath = sessionStorage.getItem('HDPath')
+  account = account ? account : sessionStorage.getItem('account')
   const factory = useFactoryContract()
 
   const [tokenAddress, setTokenAddress] = useState({

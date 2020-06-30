@@ -18,9 +18,15 @@ import './i18n'
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
+sessionStorage.setItem('walletType', '')
+sessionStorage.setItem('account', '')
+sessionStorage.setItem('HDPath', '')
+
 function getLibrary(provider) {
   const library = new ethers.providers.Web3Provider(provider)
   library.pollingInterval = 10000
+  // console.log(provider)
+  // console.log(library)
   return library
 }
 

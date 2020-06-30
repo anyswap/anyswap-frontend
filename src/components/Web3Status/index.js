@@ -18,6 +18,7 @@ import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
 import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
 import PortisIcon from '../../assets/images/portisIcon.png'
 import TorusIcon from '../../assets/images/torus.png'
+import Ledger from '../../assets/images/ledger.png'
 import { NetworkContextName } from '../../constants'
 import Identicon from '../Identicon'
 
@@ -121,7 +122,11 @@ const IconWrapper = styled.div`
 
 export default function Web3Status() {
   const { t } = useTranslation()
-  const { active, account, connector, error } = useWeb3React()
+  let { active, account, connector, error } = useWeb3React()
+
+  let walletType = sessionStorage.getItem('walletType')
+  let HDPath = sessionStorage.getItem('HDPath')
+  account = account ? account : sessionStorage.getItem('account')
   const contextNetwork = useWeb3React(NetworkContextName)
 
   const ENSName = useENSName(account)
@@ -166,6 +171,12 @@ export default function Web3Status() {
       return (
         <IconWrapper size={16}>
           <img src={TorusIcon} alt={''} />
+        </IconWrapper>
+      )
+    } else if (walletType === 'Ledger') {
+      return (
+        <IconWrapper size={16}>
+          <img src={Ledger} alt={''} />
         </IconWrapper>
       )
     }

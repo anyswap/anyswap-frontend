@@ -146,8 +146,10 @@ function calculateSlippageBounds(value) {
 
 export default function RemoveLiquidity({ params }) {
   const { t } = useTranslation()
-  const { library, account, active, chainId } = useWeb3React()
-
+  let { library, account, active, chainId } = useWeb3React()
+  let walletType = sessionStorage.getItem('walletType')
+  let HDPath = sessionStorage.getItem('HDPath')
+  account = account ? account : sessionStorage.getItem('account')
   const addTransaction = useTransactionAdder()
 
   const [brokenTokenWarning, setBrokenTokenWarning] = useState()

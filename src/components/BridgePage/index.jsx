@@ -341,12 +341,12 @@ function swapStateReducer(state, action) {
         bridgeType: action.payload ? action.payload : 'mint'
       }
     }
-    case 'UPDATE_SWAPINFO': {
-      return {
-        ...state,
-        swapInfo: action.payload
-      }
-    }
+    // case 'UPDATE_SWAPINFO': {
+    //   return {
+    //     ...state,
+    //     swapInfo: action.payload
+    //   }
+    // }
     case 'UPDATE_SWAPREGISTER': {
       return {
         ...state,
@@ -430,12 +430,19 @@ function swapStateReducer(state, action) {
 //   }
 // }
 
-let GetBTCflag = true
-
+let GetBTCflag = true, swapInfo = ''
+GetServerInfo().then(res => {
+  console.log(res)
+  swapInfo = res.swapInfo
+  // dispatchSwapState({ type: 'UPDATE_SWAPINFO', payload: res.swapInfo })
+})
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   
   const { t } = useTranslation()
-  const { account, chainId, error } = useWeb3React()
+  let { account, chainId, error } = useWeb3React()
+  let walletType = sessionStorage.getItem('walletType')
+  let HDPath = sessionStorage.getItem('HDPath')
+  account = account ? account : sessionStorage.getItem('account')
   // console.log(useWeb3React())
   
   const urlAddedTokens = {}
@@ -495,7 +502,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     getInitialSwapState
   )
   
-  const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency, bridgeType, swapInfo, registerAddress, isViewMintModel, mintHistory, isViewMintInfo, realyValue } = swapState
+  const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency, bridgeType, registerAddress, isViewMintModel, mintHistory, isViewMintInfo, realyValue } = swapState
   if (account && !registerAddress) {
     RegisterAddress(account).then(res => {
       // console.log(res)
@@ -507,12 +514,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
     })
   }
-  if (!swapInfo) {
-    GetServerInfo().then(res => {
-      console.log(res)
-      dispatchSwapState({ type: 'UPDATE_SWAPINFO', payload: res.swapInfo })
-    })
-  }
+  // if (!swapInfo) {
+  //   // GetServerInfo().then(res => {
+  //   //   // console.log(res)
+  //   //   dispatchSwapState({ type: 'UPDATE_SWAPINFO', payload: res.swapInfo })
+  //   // })
+  // }
   if (GetBTCflag && registerAddress) {
     GetBTCflag = false
     setInterval(() => {

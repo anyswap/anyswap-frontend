@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer, useContext } from 'react'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import { isMobile } from 'react-device-detect'
 import { useTranslation } from 'react-i18next'
-import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
+import { useWeb3React, UnsupportedChainIdError, getWeb3ReactContext } from '@web3-react/core'
 import { URI_AVAILABLE } from '@web3-react/walletconnect-connector'
 
 import Modal from '../Modal'
@@ -20,7 +20,20 @@ import { useWalletModalToggle, useWalletModalOpen } from '../../contexts/Applica
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
 
 import {getAddressArr} from '../../utils/wallets/ledger'
-
+import web3Fn from '../../utils/web3'
+import { darken } from 'polished'
+// import { ethers } from 'ethers'
+// console.log(ethers)
+// console.log(web3Fn)
+// console.log(ethers.getDefaultProvider())
+// let provider = new ethers.providers.Web3Provider(web3Fn.currentProvider)
+// console.log(provider)
+// var abstractConnector = require('@web3-react/abstract-connector').AbstractConnector
+// const test = new abstractConnector({supportedChainIds: 46688})
+// console.log(test)
+// test.emitUpdate({
+//   account: 123
+// })
 const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
@@ -109,6 +122,108 @@ const HoverText = styled.div`
   }
 `
 
+const SelectContainer = styled.div`
+  width:100%;
+  display:flex;
+  justify-content: space-between;
+  align-item:center;
+  margin: 20px 0;
+  height: 40px;
+`
+
+const SelectStyle = styled.select`
+  font-size: 1rem;
+  outline: none;
+  border: 1px solid ${({ theme }) => theme.shadowColor};
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 200px;
+  height: 100%;
+  background-color: ${({ theme }) => theme.inputBackground};
+
+  color: ${({ theme }) => theme.textColor};
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  ::placeholder {
+    color: ${({ theme }) => theme.placeholderGray};
+  }
+`
+
+const SelfInput = styled.input`
+  font-size: 1rem;
+  outline: none;
+  border: 1px solid ${({ theme }) => theme.shadowColor};
+  flex: 1 1 auto;
+  min-width: 200px;
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  background-color: ${({ theme }) => theme.inputBackground};
+
+  color: ${({ theme }) => theme.textColor};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left:10px;
+  ::placeholder {
+    color: ${({ theme }) => theme.placeholderGray};
+  }
+`
+
+const SelfButton = styled.button.attrs(({ warning, theme }) => ({
+  backgroundColor: warning ? theme.salmonRed : theme.royalBlue
+}))`
+  padding: 0 25px;
+  border-radius: 3rem;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  color: ${({ theme }) => theme.white};
+  height: 100%;
+  width: ${({ size }) => size};
+  margin-left:10px;
+
+  :hover,
+  :focus {
+    background-color: ${({ backgroundColor }) => darken(0.05, backgroundColor)};
+  }
+
+  :active {
+    background-color: ${({ backgroundColor }) => darken(0.1, backgroundColor)};
+  }
+
+  :disabled {
+    background-color: ${({ theme }) => theme.concreteGray};
+    color: ${({ theme }) => theme.silverGray};
+    cursor: auto;
+  }
+`
+
+const AddrList = styled.li`
+padding:8px 10px;
+cursor:pointer;
+border: 1px solid transparent;
+`
+
+const AddrListSelect = styled(AddrList)`
+border: 1px solid ${({ theme }) => theme.shadowColor};
+`
+
+const ArrowBox = styled.div`
+  width: 30px;
+  height: 30px;
+  line-height: 28px;
+  display:flex;
+  justify-content: center;
+  align-item:center;
+  margin-right: 20px;
+  border: 1px solid ${({ theme }) => theme.shadowColor};
+  cursor:pointer;
+`
+
 const WALLET_VIEWS = {
   OPTIONS: 'options',
   OPTIONS_SECONDARY: 'options_secondary',
@@ -116,11 +231,22 @@ const WALLET_VIEWS = {
   PENDING: 'pending'
 }
 
+const trezorPath = "m/44'/60'/0'/0", ledgerPath = "m/44'/60'/0'"
+const HDPathArr = [
+  {name: "Ledger(ETH)(" + ledgerPath + ")", path: ledgerPath},
+  {name: "TREZOR(ETH)(" + trezorPath + ")", path: trezorPath},
+  {name: "Custom", path: 0},
+]
+
+
 export default function WalletModal({ pendingTransactions, confirmedTransactions, ENSName }) {
-  const { active, account, connector, activate, error } = useWeb3React()
+
+  let { active, account, connector, activate, error, provider } = useWeb3React()
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingWallet, setPendingWallet] = useState()
-
+  // const test = useContext(useWeb3React())
+// console.log(useWeb3React())
+// console.log(test)
   const [pendingError, setPendingError] = useState()
 
   const walletModalOpen = useWalletModalOpen()
@@ -157,8 +283,26 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
       setWalletView(WALLET_VIEWS.ACCOUNT)
     }
   }, [setWalletView, active, error, connector, walletModalOpen, activePrevious, connectorPrevious])
+  
+  useEffect(() => {
+    if (walletView === WALLET_VIEWS.OPTIONS) {
+      sessionStorage.setItem('walletType', '')
+      sessionStorage.setItem('account', '')
+      sessionStorage.setItem('HDPath', '')
+      setWalletType('')
+      setPageSize(0)
+      setSelectHDPathIndex(0)
+      setSelfHDPathVal(ledgerPath)
+      setSelectAddrObjs({
+        addr: '',
+        path: ''
+      })
+      setIsUseSelectAddr(false)
+    }
+  }, [walletView])
 
   const tryActivation = async connector => {
+    setIsUseSelectAddr(1)
     let name = ''
     Object.keys(SUPPORTED_WALLETS).map(key => {
       if (connector === SUPPORTED_WALLETS[key].connector) {
@@ -166,7 +310,6 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
       }
       return true
     })
-    // log selected wallet
     ReactGA.event({
       category: 'Wallet',
       action: 'Change Wallet',
@@ -176,6 +319,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     setWalletView(WALLET_VIEWS.PENDING)
     activate(connector, undefined, true).catch(error => {
       if (error instanceof UnsupportedChainIdError) {
+        // console.log(error)
         activate(connector) // a little janky...can't use setError because the connector isn't set
       } else {
         setPendingError(true)
@@ -190,21 +334,100 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     })
   }, [toggleWalletModal])
 
-  function getHardwareAccount () {
-    getAddressArr("m/44'/60'/0'", 0).then(res => {
-      console.log(res)
+
+  // console.log(process.env.NODE_ENV)
+  const [walletType, setWalletType] = useState('')
+  const [pageSize, setPageSize] = useState(0)
+  const [selectHDPathIndex, setSelectHDPathIndex] = useState(0)
+  const [selfHDPathVal, setSelfHDPathVal] = useState(ledgerPath)
+  const [selectAddrObj, setSelectAddrObjs] = useState({
+    addr: '',
+    path: ''
+  })
+  const [addressObj, setAddressObj] = useState({
+    list: []
+  })
+  const [isUseSelectAddr, setIsUseSelectAddr] = useState(false)
+  
+  useEffect(() => {
+    getHardwareAccount()
+  }, [pageSize, selectHDPathIndex])
+
+  function changeSelectPath (index) {
+    setSelectHDPathIndex(index)
+    setPageSize(0)
+    if (HDPathArr[selectHDPathIndex].path) {
+      setSelfHDPathVal(HDPathArr[selectHDPathIndex].path)
+    }
+  }
+  function changeReducePage () {
+    if (!pageSize) return
+    let page = pageSize
+    page -=1
+    setPageSize(page)
+  }
+  function changeAddPage () {
+    let page = pageSize
+    page += 1
+    setPageSize(page)
+  }
+  function selectAddress(e, index) {
+    // console.log(addressObj.list[index])
+    setSelectAddrObjs({
+      addr: addressObj.list[index].addr,
+      path: addressObj.list[index].path,
     })
   }
 
+  function setAccountData () {
+    // console.log(123)
+    account = selectAddrObj.addr
+    console.log(account)
+    sessionStorage.setItem('walletType', walletType)
+    sessionStorage.setItem('account', selectAddrObj.addr)
+    sessionStorage.setItem('HDPath', selectAddrObj.path)
+    setIsUseSelectAddr(true)
+    setWalletView(WALLET_VIEWS.ACCOUNT)
+  }
+
+  function showHardwareAddr () {
+    // console.log(addressObj)
+    return addressObj.list.map((item, index) => {
+      return (
+        selectAddrObj.addr === item.addr ?
+        (
+          <AddrListSelect key={index} onClick={e => selectAddress(e, index)}>{item.addr}</AddrListSelect>
+        ) : (
+          <AddrList key={index} onClick={e => selectAddress(e, index)}>{item.addr}</AddrList>
+        )
+      )
+    })
+  }
+
+  function getHardwareAccount (option) {
+    let path = HDPathArr[selectHDPathIndex].path ? HDPathArr[selectHDPathIndex].path : selfHDPathVal
+    // console.log(path)
+    getAddressArr(path, pageSize).then(res => {
+      console.log(res)
+      if (res.msg === 'Success') {
+        setAddressObj({
+          list: res.info
+        })
+      } else {
+        if (option) {
+          tryActivation(option.connector)
+        } else  {
+          tryActivation()
+        }
+      }
+    })
+  }
   // get wallets user can switch too, depending on device/browser
   function getOptions() {
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
     // console.log(window.ethereum)
     return Object.keys(SUPPORTED_WALLETS).map(key => {
       const option = SUPPORTED_WALLETS[key]
-      // console.log(key)
-      // console.log(option)
-      // check for mobile options
       if (isMobile) {
         // disable portis on mobile for now
         if (option.connector === portis) {
@@ -268,9 +491,10 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
             onClick={() => {
               console.log('option')
               console.log(option)
-              console.log(connector)
-              console.log(activate)
-              console.log(account)
+              // console.log(connector)
+              // console.log(activate)
+              // console.log(account)
+              setWalletType(option ? option.name : walletType)
               if (['Ledger'].includes(option.name)) {
                 getHardwareAccount(option)
               } else {
@@ -278,6 +502,9 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
                   ? setWalletView(WALLET_VIEWS.ACCOUNT)
                   : !option.href && tryActivation(option.connector)
               }
+              // option.connector === connector
+              //     ? setWalletView(WALLET_VIEWS.ACCOUNT)
+              //     : !option.href && tryActivation(option.connector)
             }}
             key={key}
             active={option.connector === connector}
@@ -310,7 +537,70 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
         </UpperSection>
       )
     }
-    if (account && walletView === WALLET_VIEWS.ACCOUNT) {
+
+    if (['Ledger'].includes(walletType) && !isUseSelectAddr) {
+      return (
+        <UpperSection>
+          <CloseIcon onClick={toggleWalletModal}>
+            <CloseColor alt={'close icon'} />
+          </CloseIcon>
+          {walletView !== WALLET_VIEWS.ACCOUNT ? (
+            <HeaderRow color="blue">
+              <HoverText
+                onClick={() => {
+                  setPendingError(false)
+                  setWalletView(WALLET_VIEWS.ACCOUNT)
+                  setWalletType('')
+                }}
+              >
+                Back
+              </HoverText>
+            </HeaderRow>
+          ) : (
+            <HeaderRow>
+              <HoverText>{t('connectToWallet')}</HoverText>
+            </HeaderRow>
+          )}
+          <ContentWrapper>
+            <SelectContainer>
+              <SelectStyle onChange={e => changeSelectPath(e.target.value)} value={selectHDPathIndex}>
+                {HDPathArr.map((item, index) => {
+                  return (
+                    <option value={index}  key={item.name}>{item.name}</option>
+                  )
+                })}
+              </SelectStyle>
+              {
+                HDPathArr[selectHDPathIndex].path ? (
+                  <>
+                  </>
+                ) : (
+                  <>
+                    <SelfInput value={selfHDPathVal} onChange={e => {
+                      console.log(e.target.value)
+                      setSelfHDPathVal(e.target.value)
+                    }}></SelfInput>
+                    <SelfButton size={'100px'} onClick={e => {getHardwareAccount()}}>Select</SelfButton>
+                  </>
+                )
+              }
+            </SelectContainer>
+            {showHardwareAddr()}
+            <SelectContainer>
+              <ArrowBox onClick={changeReducePage}>{'<'}</ArrowBox>
+              <ArrowBox onClick={changeAddPage}>{'>'}</ArrowBox>
+            </SelectContainer>
+            <SelectContainer>
+              <SelfButton size={'100%'} onClick={setAccountData}>Use</SelfButton>
+            </SelectContainer>
+          </ContentWrapper>
+        </UpperSection>
+      )
+    }
+    // console.log(account)
+    // console.log(walletView)
+    // console.log(WALLET_VIEWS.ACCOUNT)
+    if ((account || (isUseSelectAddr && selectAddrObj.addr)) && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <AccountDetails
           toggleWalletModal={toggleWalletModal}

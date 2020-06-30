@@ -14,6 +14,7 @@ import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
 import PortisIcon from '../../assets/images/portisIcon.png'
 import TorusIcon from '../../assets/images/torus.png'
 import Identicon from '../Identicon'
+import Ledger from '../../assets/images/ledger.png'
 
 import { Link } from '../../theme'
 
@@ -244,16 +245,20 @@ export default function AccountDetails({
   ENSName,
   openOptions
 }) {
-  const { chainId, account, connector } = useWeb3React()
+  let { chainId, account, connector } = useWeb3React()
 
+  let walletType = sessionStorage.getItem('walletType')
+  let HDPath = sessionStorage.getItem('HDPath')
+  account = account ? account : sessionStorage.getItem('account')
   function formatConnectorName() {
     const isMetaMask = window.ethereum && window.ethereum.isMetaMask ? true : false
-    const name = Object.keys(SUPPORTED_WALLETS)
+    let name = Object.keys(SUPPORTED_WALLETS)
       .filter(
         k =>
           SUPPORTED_WALLETS[k].connector === connector && (connector !== injected || isMetaMask === (k === 'METAMASK'))
       )
       .map(k => SUPPORTED_WALLETS[k].name)[0]
+    name = walletType ? walletType : name
     return <WalletName>{name}</WalletName>
   }
 
@@ -303,6 +308,12 @@ export default function AccountDetails({
           <img src={TorusIcon} alt={''} /> {formatConnectorName()}
         </IconWrapper>
       )
+    } else if (walletType === 'Ledger') {
+      return (
+        <IconWrapper size={16}>
+          <img src={Ledger} alt={''} /> {formatConnectorName()}
+        </IconWrapper>
+      )
     }
   }
 
@@ -319,7 +330,7 @@ export default function AccountDetails({
               <AccountGroupingRow>
                 {getStatusIcon()}
                 <div>
-                  {connector !== injected && connector !== walletlink && (
+                  {connector !== injected && connector !== walletlink &&  !['Ledger'].includes(walletType) && (
                     <WalletAction
                       onClick={() => {
                         connector.close()
@@ -360,6 +371,9 @@ export default function AccountDetails({
               <OptionButton
                 onClick={() => {
                   openOptions()
+                  sessionStorage.setItem('walletType', '')
+                  sessionStorage.setItem('account', '')
+                  sessionStorage.setItem('HDPath', '')
                 }}
               >
                 Connect to a different wallet
