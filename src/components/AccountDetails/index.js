@@ -18,6 +18,8 @@ import Ledger from '../../assets/images/ledger.png'
 
 import { Link } from '../../theme'
 
+import config from '../../config'
+
 const OptionButton = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   justify-content: center;
@@ -249,7 +251,7 @@ export default function AccountDetails({
 
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
-  account = account ? account : sessionStorage.getItem('account')
+  // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   function formatConnectorName() {
     const isMetaMask = window.ethereum && window.ethereum.isMetaMask ? true : false
     let name = Object.keys(SUPPORTED_WALLETS)

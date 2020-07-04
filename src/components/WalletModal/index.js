@@ -19,21 +19,12 @@ import { injected, walletconnect, fortmatic, portis, ledger } from '../../connec
 import { useWalletModalToggle, useWalletModalOpen } from '../../contexts/Application'
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
 
-import {getAddressArr} from '../../utils/wallets/ledger'
-import web3Fn from '../../utils/web3'
+import {getLedgerAddressArr} from '../../utils/wallets/ledger'
+
 import { darken } from 'polished'
-// import { ethers } from 'ethers'
-// console.log(ethers)
-// console.log(web3Fn)
-// console.log(ethers.getDefaultProvider())
-// let provider = new ethers.providers.Web3Provider(web3Fn.currentProvider)
-// console.log(provider)
-// var abstractConnector = require('@web3-react/abstract-connector').AbstractConnector
-// const test = new abstractConnector({supportedChainIds: 46688})
-// console.log(test)
-// test.emitUpdate({
-//   account: 123
-// })
+
+import {LedgerConnector} from '../../utils/wallets/ledger/ledgerConnect'
+
 const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
@@ -241,12 +232,11 @@ const HDPathArr = [
 
 export default function WalletModal({ pendingTransactions, confirmedTransactions, ENSName }) {
 
-  let { active, account, connector, activate, error, provider } = useWeb3React()
+  let { active, account, connector, activate, error, deactivate } = useWeb3React()
+  // console.log(useWeb3React())
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingWallet, setPendingWallet] = useState()
-  // const test = useContext(useWeb3React())
-// console.log(useWeb3React())
-// console.log(test)
+
   const [pendingError, setPendingError] = useState()
 
   const walletModalOpen = useWalletModalOpen()
@@ -318,8 +308,8 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     setPendingWallet(connector) // set wallet for pending view
     setWalletView(WALLET_VIEWS.PENDING)
     activate(connector, undefined, true).catch(error => {
+      console.log(error)
       if (error instanceof UnsupportedChainIdError) {
-        // console.log(error)
         activate(connector) // a little janky...can't use setError because the connector isn't set
       } else {
         setPendingError(true)
@@ -345,6 +335,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     path: ''
   })
   const [addressObj, setAddressObj] = useState({
+    size: 0,
     list: []
   })
   const [isUseSelectAddr, setIsUseSelectAddr] = useState(false)
@@ -381,17 +372,36 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
 
   function setAccountData () {
     // console.log(123)
-    account = selectAddrObj.addr
-    console.log(account)
+    if (!selectAddrObj.addr) {
+      alert('Account is null!')
+    }
+    // deactivate()
+    let index = 0 
+    for (let i = 0, len = addressObj.list.length; i < len; i++) {
+      if (addressObj.list[i].addr === selectAddrObj.addr) {
+        index = i
+        break
+      }
+    }
+    let path = HDPathArr[selectHDPathIndex].path ? HDPathArr[selectHDPathIndex].path : selfHDPathVal
+    let params = {
+      baseDerivationPath: path,
+      address: selectAddrObj.addr,
+      pageSize: pageSize * 5 + index + 1
+    }
+    console.log(params)
+    let ledgerConnector = new LedgerConnector(params)
+    tryActivation(ledgerConnector)
+    // account = selectAddrObj.addr
+    // console.log(account)
     sessionStorage.setItem('walletType', walletType)
-    sessionStorage.setItem('account', selectAddrObj.addr)
     sessionStorage.setItem('HDPath', selectAddrObj.path)
-    setIsUseSelectAddr(true)
-    setWalletView(WALLET_VIEWS.ACCOUNT)
+    // sessionStorage.setItem('account', selectAddrObj.addr)
+    // setIsUseSelectAddr(true)
+    // setWalletView(WALLET_VIEWS.ACCOUNT)
   }
 
   function showHardwareAddr () {
-    // console.log(addressObj)
     return addressObj.list.map((item, index) => {
       return (
         selectAddrObj.addr === item.addr ?
@@ -404,14 +414,23 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     })
   }
 
-  function getHardwareAccount (option) {
-    if (walletType !== 'Ledger') return
+  function getHardwareAccount (option, wt) {
+    console.log(walletType)
+    setAddressObj({
+      size: 0,
+      list: []
+    })
+    wt = wt ? wt : walletType
+    if (wt !== 'Ledger') return
+    console.log(wt)
     let path = HDPathArr[selectHDPathIndex].path ? HDPathArr[selectHDPathIndex].path : selfHDPathVal
     // console.log(path)
-    getAddressArr(path, pageSize).then(res => {
+    // setWalletView(WALLET_VIEWS.PENDING)
+    getLedgerAddressArr(path, pageSize).then(res => {
       console.log(res)
       if (res.msg === 'Success') {
         setAddressObj({
+          size: res.info.length,
           list: res.info
         })
       } else {
@@ -490,22 +509,17 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
         !option.mobileOnly && (
           <Option
             onClick={() => {
-              console.log('option')
-              console.log(option)
-              // console.log(connector)
-              // console.log(activate)
-              // console.log(account)
               setWalletType(option ? option.name : walletType)
+              setIsUseSelectAddr(false)
+              // console.log(walletType)
               if (['Ledger'].includes(option.name)) {
-                getHardwareAccount(option)
+                getHardwareAccount(option, option.name)
+                // activate(option.connector)
               } else {
                 option.connector === connector
                   ? setWalletView(WALLET_VIEWS.ACCOUNT)
                   : !option.href && tryActivation(option.connector)
               }
-              // option.connector === connector
-              //     ? setWalletView(WALLET_VIEWS.ACCOUNT)
-              //     : !option.href && tryActivation(option.connector)
             }}
             key={key}
             active={option.connector === connector}
@@ -586,7 +600,9 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
                 )
               }
             </SelectContainer>
-            {showHardwareAddr()}
+            {addressObj.size > 0 ? showHardwareAddr() : (
+              <AddrList>Loading...</AddrList>
+            )}
             <SelectContainer>
               <ArrowBox onClick={changeReducePage}>{'<'}</ArrowBox>
               <ArrowBox onClick={changeAddPage}>{'>'}</ArrowBox>

@@ -1,4 +1,4 @@
-import { injected, walletconnect, walletlink, fortmatic, portis, torus, ledger } from '../connectors'
+import { injected, walletconnect, walletlink, fortmatic, portis, torus } from '../connectors'
 export const FACTORY_ADDRESSES = {
   1: '0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95',
   3: '0x9c83dCE8CA20E9aAF9D3efc003b2ea62aBC08351',
@@ -36,14 +36,15 @@ export const SUPPORTED_WALLETS =
   process.env.REACT_APP_CHAIN_ID !== '1'
     ? {
         ...MAINNET_WALLETS,
-        // LEDGER: {
-        //   connector: ledger,
-        //   name: 'Ledger',
-        //   iconName: 'ledger.png',
-        //   description: 'Easy-to-use browser extension.',
-        //   href: null,
-        //   color: '#E8831D'
-        // }
+        LEDGER: {
+          // connector: ledger,
+          connector: '',
+          name: 'Ledger',
+          iconName: 'ledger.png',
+          description: 'Easy-to-use browser extension.',
+          href: null,
+          color: '#E8831D'
+        }
       }
     : {
         ...MAINNET_WALLETS,

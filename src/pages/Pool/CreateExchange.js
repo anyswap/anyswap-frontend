@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router'
-// import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +13,13 @@ import OversizedPanel from '../../components/OversizedPanel'
 import { useTokenDetails } from '../../contexts/Tokens'
 import { useTransactionAdder } from '../../contexts/Transactions'
 import { useWalletModalToggle } from '../../contexts/Application'
+
+
+import config from '../../config'
+import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
+// import factory from '../../constants/abis/factory'
+import factory_abi from '../../constants/abis/factory.json'
+import { FACTORY_ADDRESSES } from '../../constants'
 
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
@@ -57,10 +64,10 @@ const Flex = styled.div`
 
 function CreateExchange({ location, params }) {
   const { t } = useTranslation()
-  let { account } = useWeb3React()
+  let { account, chainId } = useWeb3React()
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
-  account = account ? account : sessionStorage.getItem('account')
+  // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   const factory = useFactoryContract()
 
   const [tokenAddress, setTokenAddress] = useState({
@@ -73,10 +80,10 @@ function CreateExchange({ location, params }) {
   const addTransaction = useTransactionAdder()
 
   // clear url of query
-  // useEffect(() => {
-  //   const history = createBrowserHistory()
-  //   history.push(window.location.pathname + '')
-  // }, [])
+  useEffect(() => {
+    const history = createBrowserHistory()
+    history.push(window.location.pathname + '')
+  }, [])
 
   // validate everything
   const [errorMessage, setErrorMessage] = useState(!account && t('noWallet'))
@@ -103,6 +110,24 @@ function CreateExchange({ location, params }) {
   }, [tokenAddress.address, symbol, decimals, exchangeAddress, account, t, tokenAddressError])
 
   async function createExchange() {
+    if (config.supportWallet.includes(walletType)) {
+      let web3Contract = getWeb3ConTract(factory_abi, FACTORY_ADDRESSES[chainId])
+      let data = web3Contract.createExchange.getData(tokenAddress.address)
+      getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
+        console.log(res)
+        if (res.msg === 'Success') {
+          addTransaction(res.info)
+          ReactGA.event({
+            category: 'Transaction',
+            action: 'Create Exchange'
+          })
+        } else {
+          alert(res.error)
+        }
+        // addTransaction(response)
+      })
+      return
+    }
     const estimatedGasLimit = await factory.estimate.createExchange(tokenAddress.address)
 
     factory.createExchange(tokenAddress.address, { gasLimit: estimatedGasLimit }).then(response => {

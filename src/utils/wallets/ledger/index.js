@@ -13,7 +13,7 @@ const LedgerEth = require("./ledger-eth")
 const ledger = new Ledger3("w0w")
 const app = new LedgerEth(ledger)
 const rlp = require('rlp')
-function getAddressArr (HDPath, page) {
+function getLedgerAddressArr (HDPath, page) {
   return new Promise(resolve => {
     let data = { msg: 'Error', info: []}
     app.getAddress(HDPath, (res, err) => {
@@ -115,13 +115,13 @@ function ledgerConnect () {
   // AbstractConnector.emitUpdate({
   //   account: 123
   // })
-  // return getAddressArr("m/44'/60'/0'", 0)
+  // return getLedgerAddressArr("m/44'/60'/0'", 0)
   // return (
   //   <div>{count}</div>
   // )
 }
 export {
-  getAddressArr,
+  getLedgerAddressArr,
   toSign,
   ledgerConnect
 }

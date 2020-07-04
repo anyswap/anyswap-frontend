@@ -21,7 +21,7 @@ import TorusIcon from '../../assets/images/torus.png'
 import Ledger from '../../assets/images/ledger.png'
 import { NetworkContextName } from '../../constants'
 import Identicon from '../Identicon'
-
+import config from '../../config'
 const Web3StatusGeneric = styled.button`
   ${({ theme }) => theme.flexRowNoWrap}
   width: 100%;
@@ -126,7 +126,7 @@ export default function Web3Status() {
 
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
-  account = account ? account : sessionStorage.getItem('account')
+  // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   const contextNetwork = useWeb3React(NetworkContextName)
 
   const ENSName = useENSName(account)

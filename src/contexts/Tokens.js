@@ -725,11 +725,11 @@ export const INITIAL_TOKENS_CONTEXT = {
     }
   },
   46688: {
-    '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74': { // mBTC
+    '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947': { // mBTC
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0x20411af206c28f69eaa1d16257488fb1668b8505'
+      [EXCHANGE_ADDRESS]: '0x0e711afa0da54bc718c777ae404386d3ad4774bc'
     },
     '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4': { // ANY
       [NAME]: 'Anyswap',

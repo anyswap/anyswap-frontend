@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react'
 import styled from 'styled-components'
-// import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
-import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Router,Redirect, Route, Switch } from 'react-router-dom'
+// import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 import Web3ReactManager from '../components/Web3ReactManager'
 import Header from '../components/Header'
@@ -9,6 +9,9 @@ import Footer from '../components/Footer'
 
 import NavigationTabs from '../components/NavigationTabs'
 import { isAddress, getAllQueryParams } from '../utils'
+
+import { createBrowserHistory } from 'history';
+const browserHistory = createBrowserHistory()
 
 const Swap = lazy(() => import('./Swap'))
 const Send = lazy(() => import('./Send'))
@@ -61,7 +64,7 @@ export default function App() {
           <BodyWrapper>
             <Body>
               <Web3ReactManager>
-                <HashRouter>
+                <BrowserRouter  history={ browserHistory }>
                   <NavigationTabs />
                   {/* this Suspense is for route code-splitting */}
                   <Suspense fallback={null}>
@@ -124,7 +127,7 @@ export default function App() {
                       <Redirect to="/swap" />
                     </Switch>
                   </Suspense>
-                </HashRouter>
+                </BrowserRouter>
               </Web3ReactManager>
             </Body>
           </BodyWrapper>

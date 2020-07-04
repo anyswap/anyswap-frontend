@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useEffect } from 'react'
 import ReactGA from 'react-ga'
-// import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
@@ -23,7 +23,10 @@ import OversizedPanel from '../OversizedPanel'
 import TransactionDetails from '../TransactionDetails'
 import ArrowDown from '../../assets/svg/SVGArrowDown'
 import WarningCard from '../WarningCard'
+import config from '../../config'
 
+import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
+import EXCHANGE_ABI from '../../constants/abis/exchange'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -255,7 +258,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   let { account, chainId, error } = useWeb3React()
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
-  account = account ? account : sessionStorage.getItem('account')
+  // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   const urlAddedTokens = {}
   if (params.inputCurrency) {
     urlAddedTokens[params.inputCurrency] = true
@@ -382,25 +385,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   let inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
   let outputValueFormatted = independentField === OUTPUT ? independentValue : dependentValueFormatted
   if (independentField) {
-    // console.log(1)
-    // inputValueFormatted = independentField === INPUT ? (independentValue * (1 - 0.001)) : (dependentValueFormatted * (1 - 0.001))
-    // console.log(inputValueFormatted)
     inputValueFormatted *= 1 + 0.001
-    // console.log(inputValueFormatted)
-    // outputValueFormatted = independentField === OUTPUT ? independentValue : dependentValueFormatted
+    inputValueFormatted = Number(inputValueFormatted.toFixed(dependentDecimals))
   } else {
-    // console.log(0)
-    // inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
-    // outputValueFormatted = independentField === OUTPUT ? (independentValue * (1 - 0.001)) : (dependentValueFormatted * (1 - 0.001))
     outputValueFormatted *= 1 - 0.001
+    outputValueFormatted = Number(outputValueFormatted.toFixed(dependentDecimals))
   }
-  // const inputValueFormatted = independentField === INPUT ? (independentValue * (1 - 0.001)) : dependentValueFormatted
-  // const outputValueFormatted = independentField === OUTPUT ? (independentValue * (1 + 0.001)) : dependentValueFormatted
-  // console.log(independentField)
-    // console.log(inputValueParsed)
-    // console.log(INPUT)
-    // console.log(independentField)
-    // console.log(independentValueParsed)
   // validate + parse independent value
   const [independentError, setIndependentError] = useState()
   useEffect(() => {
@@ -574,10 +564,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     t
   ])
 
-  // useEffect(() => {
-  //   const history = createBrowserHistory()
-  //   history.push(window.location.pathname + '')
-  // }, [])
+  useEffect(() => {
+    const history = createBrowserHistory()
+    history.push(window.location.pathname + '')
+  }, [])
 
   const [inverted, setInverted] = useState(false)
   const exchangeRate = getExchangeRate(inputValueParsed, inputDecimals, outputValueParsed, outputDecimals)
@@ -660,6 +650,137 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     // params for GA event
     let action = ''
     let label = ''
+    // if (config.supportWallet.includes(walletType)) {
+    if (config.supportWallet.includes(walletType)) {
+      let contractAddress = swapType === ETH_TO_TOKEN ? outputExchangeAddress : inputExchangeAddress
+      let web3Contract = getWeb3ConTract(EXCHANGE_ABI, contractAddress)
+      let data = ''
+      if (independentField === INPUT) {
+        // set GA params
+        action = sending ? 'SendInput' : 'SwapInput'
+        label = outputCurrency
+  
+        if (swapType === ETH_TO_TOKEN) {
+          console.log(1)
+          //   estimate = sending ? contract.estimate.ethToTokenTransferInput : contract.estimate.ethToTokenSwapInput
+          // method = sending ? contract.ethToTokenTransferInput : contract.ethToTokenSwapInput
+          // args = sending ? [dependentValueMinumum, deadline, recipient.address] : [dependentValueMinumum, deadline]
+          value = independentValueParsed
+          data = sending ? web3Contract.ethToTokenTransferInput.getData(dependentValueMinumum.toHexString(), deadline, recipient.address) : web3Contract.ethToTokenSwapInput.getData(dependentValueMinumum.toHexString(), deadline)
+        } else if (swapType === TOKEN_TO_ETH) {
+          console.log(2)
+          estimate = sending ? contract.estimate.tokenToEthTransferInput : contract.estimate.tokenToEthSwapInput
+          method = sending ? contract.tokenToEthTransferInput : contract.tokenToEthSwapInput
+          args = sending
+            ? [independentValueParsed, dependentValueMinumum, deadline, recipient.address]
+            : [independentValueParsed, dependentValueMinumum, deadline]
+          value = ethers.constants.Zero
+          // console.log(web3Contract.tokenToEthSwapInput(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), deadline).request())
+          // console.log(web3Contract.tokenToEthSwapInput().call(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), deadline))
+          data = sending ? 
+                    web3Contract.tokenToEthTransferInput.getData(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), deadline, recipient.address, {
+                      value: value.toHexString(),
+                      gasLimit: GAS_MARGIN
+                    }) 
+                    : 
+                    web3Contract.tokenToEthSwapInput.getData(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), deadline, {
+                      value: value.toHexString(),
+                      gasLimit: GAS_MARGIN
+                    })
+        } else if (swapType === TOKEN_TO_TOKEN) {
+          console.log(3)
+          // estimate = sending ? contract.estimate.tokenToTokenTransferInput : contract.estimate.tokenToTokenSwapInput
+          // method = sending ? contract.tokenToTokenTransferInput : contract.tokenToTokenSwapInput
+          // args = sending
+          //   ? [
+          //       independentValueParsed,
+          //       dependentValueMinumum,
+          //       ethers.constants.One,
+          //       deadline,
+          //       recipient.address,
+          //       outputCurrency
+          //     ]
+          //   : [independentValueParsed, dependentValueMinumum, ethers.constants.One, deadline, outputCurrency]
+          console.log(ethers.constants.One)
+          value = ethers.constants.Zero
+          data = sending ? web3Contract.tokenToTokenTransferInput.getData(
+                  independentValueParsed.toHexString(),
+                  dependentValueMinumum.toHexString(),
+                  ethers.constants.One.toHexString(),
+                  deadline,
+                  recipient.address,
+                  outputCurrency) : web3Contract.tokenToTokenSwapInput.getData(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), ethers.constants.One.toHexString(), deadline, outputCurrency)
+        }
+      } else if (independentField === OUTPUT) {
+        // set GA params
+        action = sending ? 'SendOutput' : 'SwapOutput'
+        label = outputCurrency
+  
+        if (swapType === ETH_TO_TOKEN) {
+          console.log(4)
+          // estimate = sending ? contract.estimate.ethToTokenTransferOutput : contract.estimate.ethToTokenSwapOutput
+          // method = sending ? contract.ethToTokenTransferOutput : contract.ethToTokenSwapOutput
+          // args = sending ? [independentValueParsed, deadline, recipient.address] : [independentValueParsed, deadline]
+          value = dependentValueMaximum
+          data = sending ? web3Contract.ethToTokenTransferOutput.getData(independentValueParsed.toHexString(), deadline, recipient.address) : web3Contract.ethToTokenSwapOutput.getData(independentValueParsed.toHexString(), deadline)
+        } else if (swapType === TOKEN_TO_ETH) {
+          console.log(5)
+          // estimate = sending ? contract.estimate.tokenToEthTransferOutput : contract.estimate.tokenToEthSwapOutput
+          // method = sending ? contract.tokenToEthTransferOutput : contract.tokenToEthSwapOutput
+          // args = sending
+          //   ? [independentValueParsed, dependentValueMaximum, deadline, recipient.address]
+          //   : [independentValueParsed, dependentValueMaximum, deadline]
+          value = ethers.constants.Zero
+          data = sending ? web3Contract.tokenToEthTransferOutput.getData(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), deadline, recipient.address) : web3Contract.tokenToEthSwapOutput.getData(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), deadline)
+        } else if (swapType === TOKEN_TO_TOKEN) {
+          console.log(6)
+          // estimate = sending ? contract.estimate.tokenToTokenTransferOutput : contract.estimate.tokenToTokenSwapOutput
+          // method = sending ? contract.tokenToTokenTransferOutput : contract.tokenToTokenSwapOutput
+          // args = sending
+          //   ? [
+          //       independentValueParsed,
+          //       dependentValueMaximum,
+          //       ethers.constants.MaxUint256,
+          //       deadline,
+          //       recipient.address,
+          //       outputCurrency
+          //     ]
+          //   : [independentValueParsed, dependentValueMaximum, ethers.constants.MaxUint256, deadline, outputCurrency]
+          value = ethers.constants.Zero
+          data = sending ? web3Contract.tokenToTokenTransferOutput.getData(
+                independentValueParsed.toHexString(),
+                dependentValueMaximum.toHexString(),
+                ethers.constants.MaxUint256.toHexString(),
+                deadline,
+                recipient.address,
+                outputCurrency
+          ) : web3Contract.tokenToTokenSwapOutput.getData(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), ethers.constants.MaxUint256.toHexString(), deadline, outputCurrency)
+        }
+      }
+      console.log(data)
+      getWeb3BaseInfo(contractAddress, contractAddress, data, account, value.toHexString()).then(res => {
+        console.log(res)
+        if (res.msg === 'Success') {
+          addTransaction(res.info)
+          ReactGA.event({
+            category: 'Transaction',
+            action: action,
+            label: label,
+            value: ethTransactionSize,
+            dimension1: res.info.hash
+          })
+          ReactGA.event({
+            category: 'Hash',
+            action: res.info.hash,
+            label: ethTransactionSize.toString()
+          })
+        } else {
+          alert(res.error)
+        }
+        // addTransaction(response)
+      })
+      return
+    }
 
     if (independentField === INPUT) {
       // set GA params

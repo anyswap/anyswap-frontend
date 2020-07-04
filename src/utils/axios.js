@@ -1,4 +1,10 @@
 import axios from 'axios'
+
+const NETWORK_URL =
+  process.env.REACT_APP_IS_PRODUCTION_DEPLOY === 'true'
+    ? process.env.REACT_APP_NETWORK_URL_PROD
+    : process.env.REACT_APP_NETWORK_URL
+
 export const GetServerInfo = (url) => {
   return new Promise(resolve => {
     axios.post(url, {
@@ -157,6 +163,23 @@ export const GetBTCtxnsAll = (url, address, coin, dec) => {
         cbData.mintTip = false
         resolve(cbData)
       }
+    })
+  })
+}
+
+export const getAxiosData = (method, params) => {
+  return new Promise(resolve => {
+    axios.post(NETWORK_URL, {
+      id:0,
+      jsonrpc:"2.0",
+      method:method,
+      params:params
+    }).then(res => {
+      // console.log(res)
+      resolve(res.data)
+    }).catch(err => {
+      console.log(err)
+      resolve(err)
     })
   })
 }

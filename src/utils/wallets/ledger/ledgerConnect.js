@@ -1,98 +1,124 @@
 'use strict';
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var abstractConnector = require('@web3-react/abstract-connector');
+var Web3ProviderEngine = _interopDefault(require('web3-provider-engine'));
+var src = require('@0x/subproviders/lib/src');
+var ledger = require('@0x/subproviders/lib/src/subproviders/ledger');
+var CacheSubprovider = _interopDefault(require('web3-provider-engine/subproviders/cache.js'));
+var rpc_subprovider = require('@0x/subproviders/lib/src/subproviders/rpc_subprovider');
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+const POLLING_INTERVAL = 10000
 const NETWORK_URL =
   process.env.REACT_APP_IS_PRODUCTION_DEPLOY === 'true'
     ? process.env.REACT_APP_NETWORK_URL_PROD
     : process.env.REACT_APP_NETWORK_URL
-const Web3 = require('web3')
-const web3 = new Web3(new Web3.providers.HttpProvider(NETWORK_URL))
-var abstractConnector = require('@web3-react/abstract-connector');
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    
+var LedgerConnector = /*#__PURE__*/function (_AbstractConnector) {
+  _inheritsLoose(LedgerConnector, _AbstractConnector);
+
+  function LedgerConnector(_ref) {
+    var _this;
+
+    var chainId = 46688,
+        url = NETWORK_URL,
+        pageSize = _ref.pageSize,
+        pollingInterval = POLLING_INTERVAL,
+        requestTimeoutMs = _ref.requestTimeoutMs,
+        accountFetchingConfigs = _ref.accountFetchingConfigs,
+        baseDerivationPath = _ref.baseDerivationPath;
+    _this = _AbstractConnector.call(this, {
+      supportedChainIds: [chainId]
+    }) || this;
+    _this.chainId = chainId;
+    _this.url = url;
+    _this.pageSize = pageSize;
+    _this.pollingInterval = pollingInterval;
+    _this.requestTimeoutMs = requestTimeoutMs;
+    _this.accountFetchingConfigs = accountFetchingConfigs;
+    _this.baseDerivationPath = baseDerivationPath;
+    return _this;
   }
 
-  return self;
-}
-var LedgerConnect =
-/*#__PURE__*/
-function (_AbstractConnector) {
+  var _proto = LedgerConnector.prototype;
 
-  function LedgerConnect(_ref) {
+  _proto.activate = function activate() {
+    try {
+      var _this3 = this;
 
-    var _this3;
+      if (!_this3.provider) {
+        var engine = new Web3ProviderEngine({
+          pollingInterval: _this3.pollingInterval
+        });
+        engine.addProvider(new ledger.LedgerSubprovider({
+          networkId: _this3.chainId,
+          ledgerEthereumClientFactoryAsync: src.ledgerEthereumBrowserClientFactoryAsync,
+          accountFetchingConfigs: _this3.accountFetchingConfigs,
+          baseDerivationPath: _this3.baseDerivationPath
+        }));
+        engine.addProvider(new CacheSubprovider());
+        engine.addProvider(new rpc_subprovider.RPCSubprovider(_this3.url, _this3.requestTimeoutMs));
+        _this3.provider = engine;
+      }
 
-    _this3 = _AbstractConnector.call(this, {
-      supportedChainIds: [46688]
-    }) || this
-    // _this3.handleNetworkChanged = _this3.handleNetworkChanged.bind(_assertThisInitialized(_this3));
-    // _this3.handleChainChanged = _this3.handleChainChanged.bind(_assertThisInitialized(_this3));
-    // _this3.handleAccountsChanged = _this3.handleAccountsChanged.bind(_assertThisInitialized(_this3));
-    // _this3.handleClose = _this3.handleClose.bind(_assertThisInitialized(_this3));
-    return _this3;
-  }
+      _this3.provider.start();
 
-  // var _proto = LedgerConnect.prototype;
+      return Promise.resolve({
+        provider: _this3.provider,
+        chainId: _this3.chainId
+      });
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  };
 
-  // // _proto.handleChainChanged = function handleChainChanged() {
-  // //   console.log('activate')
-  // //   this.emitUpdate({
-  // //     chainId: 46688
-  // //   })
-  // // };
+  _proto.getProvider = function getProvider() {
+    try {
+      var _this5 = this;
 
-  // _proto.getProvider = function getProvider() {
-  //   console.log('getProvider')
-  //   console.log(web3)
-  //   return Promise.resolve(web3.currentProvider)
-  // };
+      return Promise.resolve(_this5.provider);
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  };
 
-  // _proto.activate = function activate() {
-  //   // console.log('getChainId')
-  //   // return this.getAccount()
-  //   // console.log(this)
-  //   return new Promise(resolve => {
-  //     resolve({
-  //       account: '0x76c2ae4281fe1ee1a79ccbdda2516d4d7eb0eb37',
-  //       chainId: 46688
-  //     })
-  //   })
-  // };
+  _proto.getChainId = function getChainId() {
+    try {
+      var _this7 = this;
 
-  // // _proto.handleAccountsChanged = function handleAccountsChanged () {
-  // //   console.log('getAccount')
-  // //   // this.emitUpdate({
-  // //   //   account: '0x76c2ae4281fe1ee1a79ccbdda2516d4d7eb0eb37'
-  // //   // })
-  // //   return new Promise(resolve => {
-  // //     resolve(4)
-  // //   })
-  // // }
-  // _proto.getChainId = function getChainId () {
-  //   console.log('getChainId')
-  //   // this.emitUpdate({
-  //   //   account: '0x76c2ae4281fe1ee1a79ccbdda2516d4d7eb0eb37'
-  //   // })
-  //   return new Promise(resolve => {
-  //     resolve(46688)
-  //   })
-  // }
-  // _proto.getAccount = function getAccount () {
-  //   console.log('getAccount')
-  //   // this.emitUpdate({
-  //   //   account: '0x76c2ae4281fe1ee1a79ccbdda2516d4d7eb0eb37'
-  //   // })
-  //   return new Promise(resolve => {
-  //     resolve('0x76c2ae4281fe1ee1a79ccbdda2516d4d7eb0eb37')
-  //   })
-  // }
-  // _proto.deactivate = function deactivate() {};
+      return Promise.resolve(_this7.chainId);
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  };
 
-  // _proto.close = function close() {
-  //   console.log('close')
-  // };
+  _proto.getAccount = function getAccount() {
+    try {
+      var _this9 = this;
+      // console.log(_this9)
+      // console.log(_this9.provider)
+      // console.log(_this9.provider._providers[0])
+      // console.log(_this9.provider._providers[0].getAccountsAsync(20))
+      return Promise.resolve(_this9.provider._providers[0].getAccountsAsync(_this9.pageSize).then(function (accounts) {
+        return accounts[_this9.pageSize - 1];
+      }));
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  };
 
-  return LedgerConnect;
+  _proto.deactivate = function deactivate() {
+    this.provider.stop();
+  };
+
+  return LedgerConnector;
 }(abstractConnector.AbstractConnector);
 
-exports.LedgerConnect = LedgerConnect;
-//# sourceMappingURL=fortmatic-connector.cjs.development.js.map
+exports.LedgerConnector = LedgerConnector;
+//# sourceMappingURL=ledger-connector.cjs.development.js.map

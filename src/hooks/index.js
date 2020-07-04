@@ -5,7 +5,6 @@ import { isMobile } from 'react-device-detect'
 
 import { NetworkContextName } from '../constants'
 import ERC20_ABI from '../constants/abis/erc20'
-import swapABI from '../constants/abis/swapABI'
 import { getContract, getFactoryContract, getExchangeContract, isAddress } from '../utils'
 import { injected } from '../connectors'
 
@@ -203,12 +202,12 @@ export function useTokenContract(tokenAddress, withSignerIfPossible = true) {
   }, [tokenAddress, library, withSignerIfPossible, account])
 }
 
-export function useSwapTokenContract(tokenAddress, withSignerIfPossible = true) {
+export function useSwapTokenContract(tokenAddress, ABI, withSignerIfPossible = true) {
   const { library, account } = useWeb3React()
 
   return useMemo(() => {
     try {
-      return getContract(tokenAddress, swapABI, library, withSignerIfPossible ? account : undefined)
+      return getContract(tokenAddress, ABI, library, withSignerIfPossible ? account : undefined)
     } catch {
       return null
     }

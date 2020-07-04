@@ -1,6 +1,6 @@
 import React, { useReducer, useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-// import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
@@ -20,6 +20,10 @@ import { useTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
 import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useAddressAllowance } from '../../contexts/Allowances'
 import { useWalletModalToggle } from '../../contexts/Application'
+
+import config from '../../config'
+import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
+import EXCHANGE_ABI from '../../constants/abis/exchange'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -204,17 +208,17 @@ export default function AddLiquidity({ params }) {
   let { library, account, active, chainId } = useWeb3React()
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
-  account = account ? account : sessionStorage.getItem('account')
+  // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   const urlAddedTokens = {}
   if (params.token) {
     urlAddedTokens[params.token] = true
   }
 
   // clear url of query
-  // useEffect(() => {
-  //   const history = createBrowserHistory()
-  //   history.push(window.location.pathname + '')
-  // }, [])
+  useEffect(() => {
+    const history = createBrowserHistory()
+    history.push(window.location.pathname + '')
+  }, [])
 
   const [addLiquidityState, dispatchAddLiquidityState] = useReducer(
     addLiquidityStateReducer,
@@ -397,6 +401,36 @@ export default function AddLiquidity({ params }) {
     let ethTransactionSize = (inputValueParsed / 1e18) * 2
 
     const deadline = Math.ceil(Date.now() / 1000) + DEADLINE_FROM_NOW
+
+    if (config.supportWallet.includes(walletType)) {
+      let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
+      let data = web3Contract.addLiquidity.getData(
+        isNewExchange ? ethers.constants.Zero.toHexString() : liquidityTokensMin.toHexString(),
+        isNewExchange ? outputValueParsed.toHexString() : outputValueMax.toHexString(),
+        deadline)
+      getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account, inputValueParsed.toHexString()).then(res => {
+        console.log(res)
+        if (res.msg === 'Success') {
+          addTransaction(res.info)
+          ReactGA.event({
+            category: 'Transaction',
+            action: 'Add Liquidity',
+            label: outputCurrency,
+            value: ethTransactionSize,
+            dimension1: res.info.hash
+          })
+          ReactGA.event({
+            category: 'Hash',
+            action: res.info.hash,
+            label: ethTransactionSize.toString()
+          })
+        } else {
+          alert(res.error)
+        }
+        // addTransaction(response)
+      })
+      return
+    }
 
     const estimatedGasLimit = await exchangeContract.estimate.addLiquidity(
       isNewExchange ? ethers.constants.Zero : liquidityTokensMin,

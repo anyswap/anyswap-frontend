@@ -29,7 +29,6 @@ function getLibrary(provider) {
   // console.log(library)
   return library
 }
-
 if (process.env.NODE_ENV === 'production') {
   ReactGA.initialize('UA-128182339-1')
   ReactGA.set({

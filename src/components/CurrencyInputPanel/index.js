@@ -26,6 +26,10 @@ import { Spinner } from '../../theme'
 import Circle from '../../assets/images/circle-grey.svg'
 import { useETHPriceInUSD, useAllBalances } from '../../contexts/Balances'
 
+import config from '../../config'
+import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
+import erc20 from '../../constants/abis/erc20'
+
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const SubCurrencySelect = styled.button`
@@ -296,6 +300,9 @@ export default function CurrencyInputPanel({
   selfUseAllToken = []
 }) {
   const { t } = useTranslation()
+  
+  let walletType = sessionStorage.getItem('walletType')
+  let HDPath = sessionStorage.getItem('HDPath')
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
@@ -327,6 +334,23 @@ export default function CurrencyInputPanel({
             onClick={async () => {
               let estimatedGas
               let useUserBalance = false
+              if (config.supportWallet.includes(walletType)) {
+                let web3Contract = getWeb3ConTract(erc20, selectedTokenAddress)
+                let _userTokenBalance = Number(userTokenBalance.toString()) > 100000 ? userTokenBalance.toString() : ethers.constants.MaxUint256.toString()
+
+                let data = web3Contract.approve.getData(selectedTokenExchangeAddress, _userTokenBalance, {
+                  gasLimit: GAS_MARGIN.toString()
+                })
+                getWeb3BaseInfo(selectedTokenAddress, selectedTokenExchangeAddress, data, account).then(res => {
+                  console.log(res)
+                  if (res.msg === 'Success') {
+                    addTransaction(res.info, { approval: selectedTokenAddress })
+                  } else {
+                    alert(res.error)
+                  }
+                })
+                return
+              }
               estimatedGas = await tokenContract.estimate
                 .approve(selectedTokenExchangeAddress, ethers.constants.MaxUint256)
                 .catch(e => {

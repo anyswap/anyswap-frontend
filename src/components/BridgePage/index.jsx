@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useEffect } from 'react'
 import ReactGA from 'react-ga'
-// import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
@@ -11,7 +11,7 @@ import { amountFormatter, isAddress } from '../../utils'
 
 // import { useExchangeContract } from '../../hooks'
 import { useTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
-// import { useTransactionAdder } from '../../contexts/Transactions'
+import { useTransactionAdder } from '../../contexts/Transactions'
 import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useAddressAllowance } from '../../contexts/Allowances'
 import { useWalletModalToggle } from '../../contexts/Application'
@@ -32,7 +32,12 @@ import TokenLogo from '../TokenLogo'
 
 import { GetServerInfo, RegisterAddress, GetBTCtxnsAll } from '../../utils/axios'
 import { copyTxt } from '../../utils/tools'
+
 import config from '../../config'
+import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
+import swapABI from '../../constants/abis/swapABI'
+import swapETHABI from '../../constants/abis/swapETHABI'
+
 
 const INPUT = 0
 const OUTPUT = 1
@@ -274,7 +279,7 @@ function getInitialSwapState(state) {
     dependentValue: '', // this is a calculated number
     independentField: state.exactFieldURL === 'output' ? OUTPUT : INPUT,
     // inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : state.outputCurrencyURL === 'FSN' ? '' : 'FSN',
-    inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74',
+    inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947',
     outputCurrency: state.outputCurrencyURL
       ? state.outputCurrencyURL === 'FSN'
         ? !state.inputCurrencyURL || (state.inputCurrencyURL && state.inputCurrencyURL !== 'FSN')
@@ -283,7 +288,7 @@ function getInitialSwapState(state) {
         : state.outputCurrencyURL
       : state.initialCurrency
       ? state.initialCurrency
-      : '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74'
+      : '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947'
   }
 }
 
@@ -372,62 +377,8 @@ function swapStateReducer(state, action) {
     }
   }
 }
-
-// function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
-//   try {
-//     if (
-//       inputValue &&
-//       (inputDecimals || inputDecimals === 0) &&
-//       outputValue &&
-//       (outputDecimals || outputDecimals === 0)
-//     ) {
-//       const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
-//       // console.log(factor)
-//       // console.log(inputValue)
-//       // console.log(outputValue)
-//       if (invert) {
-//         return inputValue
-//           .mul(factor)
-//           .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
-//           .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
-//           .div(outputValue)
-//       } else {
-//         return outputValue
-//           .mul(factor)
-//           .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
-//           .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
-//           .div(inputValue)
-//       }
-//     }
-//   } catch {}
-// }
-
-// function getMarketRate(
-//   swapType,
-//   inputReserveETH,
-//   inputReserveToken,
-//   inputDecimals,
-//   outputReserveETH,
-//   outputReserveToken,
-//   outputDecimals,
-//   invert = false
-// ) {
-//   if (swapType === ETH_TO_TOKEN) {
-//     return getExchangeRate(outputReserveETH, 18, outputReserveToken, outputDecimals, invert)
-//   } else if (swapType === TOKEN_TO_ETH) {
-//     return getExchangeRate(inputReserveToken, inputDecimals, inputReserveETH, 18, invert)
-//   } else if (swapType === TOKEN_TO_TOKEN) {
-//     const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
-//     const firstRate = getExchangeRate(inputReserveToken, inputDecimals, inputReserveETH, 18)
-//     const secondRate = getExchangeRate(outputReserveETH, 18, outputReserveToken, outputDecimals)
-//     try {
-//       return !!(firstRate && secondRate) ? firstRate.mul(secondRate).div(factor) : undefined
-//     } catch {}
-//   }
-// }
-
 const selfUseAllToken=[
-  '0xbd8d4dcdc017ea031a46754b0b74b2de0cd5eb74',
+  '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947',
   '0xbe4c389770e07bd10b21561d3fd0513d5ad8fe00',
   '0x708751fa3be6ad90a09521202c85aa74d9ac2081'
 ]
@@ -438,7 +389,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   let { account, chainId, error } = useWeb3React()
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
-  account = account ? account : sessionStorage.getItem('account')
+  // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   // console.log(useWeb3React())
   
   const urlAddedTokens = {}
@@ -534,6 +485,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     // console.log(CoinInfo[inputSymbol])
     GetServerInfo(config.CoinInfo[inputSymbol].url).then(res => {
       console.log(res)
+      // console.log(getWeb3ConTract(res.swapInfo.DestToken.ContractAddress))
       if (bridgeType && bridgeType === 'redeem') {
         swapInfo = res.swapInfo.DestToken
       } else {
@@ -646,27 +598,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     allowedSlippageBig
   )
 
-  // validate input allowance + balance
-  const [inputError, setInputError] = useState()
-  const [showUnlock, setShowUnlock] = useState(false)
-  useEffect(() => {
-    const inputValueCalculation = independentField === INPUT ? independentValueParsed : dependentValueMaximum
-    if (inputBalance && (inputAllowance || inputCurrency === 'FSN') && inputValueCalculation) {
-      if (inputBalance.lt(inputValueCalculation)) {
-        setInputError(t('insufficientBalance'))
-      } else if (inputCurrency !== 'FSN' && inputAllowance.lt(inputValueCalculation)) {
-        setInputError(t('unlockTokenCont'))
-        setShowUnlock(true)
-      } else {
-        setInputError(null)
-        setShowUnlock(false)
-      }
-      return () => {
-        setInputError()
-        setShowUnlock(false)
-      }
-    }
-  }, [independentField, independentValueParsed, dependentValueMaximum, inputBalance, inputCurrency, inputAllowance, t])
 
   // calculate dependent value
   useEffect(() => {
@@ -787,10 +718,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     t
   ])
 
-  // useEffect(() => {
-  //   const history = createBrowserHistory()
-  //   history.push(window.location.pathname + '')
-  // }, [])
+  useEffect(() => {
+    const history = createBrowserHistory()
+    history.push(window.location.pathname + '')
+  }, [])
 
   function formatBalance(value) {
     return `Balance: ${value}`
@@ -813,17 +744,46 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
   }, [newInputDetected, setShowInputWarning])
 
-  const tokenContract = useSwapTokenContract(inputCurrency)
+  const addTransaction = useTransactionAdder()
+
+  const tokenContract = useSwapTokenContract(inputCurrency, swapABI)
+  const tokenETHContract = useSwapTokenContract(inputCurrency, swapETHABI)
   function sendTxns () {
     let amountVal = Number(independentValue) * Math.pow(10, inputDecimals)
     amountVal = amountVal.toFixed(0)
-    // console.log(amountVal)
-    // console.log(recipient.address)
-    tokenContract.Swapout(amountVal, recipient.address).then(res => {
-      console.log(res)
-    }).catch(err => {
-      console.log(err)
-    })
+    let address = inputSymbol === 'mBTC' ? recipient.address : ''
+    if (config.supportWallet.includes(walletType)) {
+      console.log(swapInfo)
+      console.log(amountVal)
+      let web3Contract = getWeb3ConTract(swapABI, swapInfo.ContractAddress)
+      let data = web3Contract.Swapout.getData(amountVal, address)
+      if (inputSymbol !== 'mBTC') {
+        web3Contract = getWeb3ConTract(swapETHABI, swapInfo.ContractAddress)
+        data = web3Contract.Swapout.getData(amountVal)
+      }
+      getWeb3BaseInfo(swapInfo.ContractAddress, swapInfo.ContractAddress, data, account).then(res => {
+        if (res.msg === 'Success') {
+          addTransaction(res.info)
+        } else {
+          alert(res.error)
+        }
+      })
+      return
+    }
+
+    if (inputSymbol !== 'mBTC') {
+      tokenETHContract.Swapout(amountVal).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    } else {
+      tokenContract.Swapout(amountVal, address).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   }
   function MintModelView () {
     if (!registerAddress) return
@@ -866,13 +826,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           {independentValue ? (
             <>
               <MintList>
-                <MintListLabel>{t('deposit1')} {inputSymbol.replace('m', '')} {t('amount')}:</MintListLabel>
+                <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace('m', '')} {t('amount')}:</MintListLabel>
                 <MintListVal>{independentValue}</MintListVal>
               </MintList>
             </>
           ) : ''}
           <MintList>
-            <MintListLabel>{t('deposit1')} {inputSymbol.replace('m', '')} {t('address')}:</MintListLabel>
+            <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace('m', '')} {t('address')}:</MintListLabel>
             <MintListVal onClick={copyAddr}>{registerAddress ? registerAddress : ''}</MintListVal>
           </MintList>
           <MintListCenter>
@@ -954,15 +914,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             payload: { value: inputValue, field: INPUT, realyValue: inputVal }
           })
         }}
-        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : inputSymbol.replace('m', '')}
-        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : inputSymbol.replace('m', '')}
-        showUnlock={showUnlock}
+        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && inputSymbol.replace('m', ''))}
+        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && inputSymbol.replace('m', ''))}
+        showUnlock={false}
         selectedTokens={[inputCurrency, outputCurrency]}
         selectedTokenAddress={inputCurrency}
         value={inputValueFormatted}
         hideETH={true}
         selfUseAllToken={selfUseAllToken}
-        errorMessage={bridgeType && bridgeType === 'redeem' && inputError ? inputError : '' }
+        errorMessage={bridgeType && bridgeType === 'redeem' && Number(inputValueFormatted) > Number(inputBalanceFormatted) ? 'Error' : '' }
         // errorMessage={bridgeType === 'mint' ? '' : (inputError ? inputError : ( independentField === INPUT ? independentError : '') )}
       />
       <OversizedPanel>
@@ -1011,9 +971,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   </LabelContainer>
                 </LabelRow>
                 <InputRow>
-                  <Input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={registerAddress ? registerAddress : ''} readOnly/>
+                  <Input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={account && registerAddress ? registerAddress : ''} readOnly/>
                   {
-                    registerAddress ? (
+                    account && registerAddress ? (
                       <>
                         {/* <StyledCopyICON size={'20px'} onClick={copyAddr}></StyledCopyICON> */}
                         <StyledQRcode size={'20px'} onClick={MintModelView}></StyledQRcode>

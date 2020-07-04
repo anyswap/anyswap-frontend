@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import ReactGA from 'react-ga'
-// import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 
@@ -20,6 +20,10 @@ import OversizedPanel from '../../components/OversizedPanel'
 import ArrowDown from '../../assets/svg/SVGArrowDown'
 import WarningCard from '../../components/WarningCard'
 import { useWalletModalToggle } from '../../contexts/Application'
+
+import config from '../../config'
+import EXCHANGE_ABI from '../../constants/abis/exchange'
+import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 
 // denominated in bips
 const ALLOWED_SLIPPAGE = ethers.utils.bigNumberify(200)
@@ -149,16 +153,16 @@ export default function RemoveLiquidity({ params }) {
   let { library, account, active, chainId } = useWeb3React()
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
-  account = account ? account : sessionStorage.getItem('account')
+  // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   const addTransaction = useTransactionAdder()
 
   const [brokenTokenWarning, setBrokenTokenWarning] = useState()
 
   // clear url of query
-  // useEffect(() => {
-  //   const history = createBrowserHistory()
-  //   history.push(window.location.pathname + '')
-  // }, [])
+  useEffect(() => {
+    const history = createBrowserHistory()
+    history.push(window.location.pathname + '')
+  }, [])
 
   const [outputCurrency, setOutputCurrency] = useState(params.poolTokenAddress)
   const [value, setValue] = useState(params.poolTokenAmount ? params.poolTokenAmount : '')
@@ -276,6 +280,34 @@ export default function RemoveLiquidity({ params }) {
     let ethTransactionSize = (ethWithdrawn / 1e18) * 2
 
     const deadline = Math.ceil(Date.now() / 1000) + DEADLINE_FROM_NOW
+
+    if (config.supportWallet.includes(walletType)) {
+      let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
+      let data = web3Contract.removeLiquidity.getData(valueParsed, ethWithdrawnMin, tokenWithdrawnMin, deadline)
+      getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
+        console.log(res)
+        if (res.msg === 'Success') {
+          addTransaction(res.info)
+          ReactGA.event({
+            category: 'Transaction',
+            action: 'Remove Liquidity',
+            label: outputCurrency,
+            value: ethTransactionSize,
+            dimension1: res.info.hash
+          })
+          ReactGA.event({
+            category: 'Hash',
+            action: res.info.hash,
+            label: ethTransactionSize.toString(),
+            value: ethTransactionSize
+          })
+        } else {
+          alert(res.error)
+        }
+        // addTransaction(response)
+      })
+      return
+    }
 
     const estimatedGasLimit = await exchange.estimate.removeLiquidity(
       valueParsed,

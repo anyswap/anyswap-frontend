@@ -7,7 +7,7 @@ import { TorusConnector } from '@web3-react/torus-connector'
 import { NetworkConnector } from './Network'
 import { FortmaticConnector } from './Fortmatic'
 
-import {LedgerConnect} from '../utils/wallets/ledger/ledgerConnect'
+import {LedgerConnector} from '../utils/wallets/ledger/ledgerConnect'
 
 const POLLING_INTERVAL = 10000
 const NETWORK_URL =
@@ -59,6 +59,6 @@ export const walletlink = new WalletLinkConnector({
     'https://mpng.pngfly.com/20181202/bex/kisspng-emoji-domain-unicorn-pin-badges-sticker-unicorn-tumblr-emoji-unicorn-iphoneemoji-5c046729264a77.5671679315437924251569.jpg'
 })
 
-export const ledger = new LedgerConnect({
-  chainId: 46688
+export const ledger = new LedgerConnector({
+  chainId: 46688, url: 'https://testnet.fsn.dev/api', pollingInterval: 12000
 })
