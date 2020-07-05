@@ -336,7 +336,8 @@ export default function CurrencyInputPanel({
               let useUserBalance = false
               if (config.supportWallet.includes(walletType)) {
                 let web3Contract = getWeb3ConTract(erc20, selectedTokenAddress)
-                let _userTokenBalance = Number(userTokenBalance.toString()) > 100000 ? userTokenBalance.toString() : ethers.constants.MaxUint256.toString()
+                // let _userTokenBalance = Number(userTokenBalance.toString()) > 100000 ? userTokenBalance.toString() : ethers.constants.MaxUint256.toString()
+                let _userTokenBalance = ethers.constants.MaxUint256.toString()
 
                 let data = web3Contract.approve.getData(selectedTokenExchangeAddress, _userTokenBalance, {
                   gasLimit: GAS_MARGIN.toString()

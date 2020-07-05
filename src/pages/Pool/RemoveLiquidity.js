@@ -283,7 +283,10 @@ export default function RemoveLiquidity({ params }) {
 
     if (config.supportWallet.includes(walletType)) {
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
-      let data = web3Contract.removeLiquidity.getData(valueParsed, ethWithdrawnMin, tokenWithdrawnMin, deadline)
+      console.log(valueParsed)
+      console.log(ethWithdrawnMin)
+      console.log(tokenWithdrawnMin)
+      let data = web3Contract.removeLiquidity.getData(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline)
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
         console.log(res)
         if (res.msg === 'Success') {

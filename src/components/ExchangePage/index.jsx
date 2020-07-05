@@ -386,10 +386,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   let outputValueFormatted = independentField === OUTPUT ? independentValue : dependentValueFormatted
   if (independentField) {
     inputValueFormatted *= 1 + 0.001
-    inputValueFormatted = Number(inputValueFormatted.toFixed(dependentDecimals))
+    inputValueFormatted = Number(inputValueFormatted.toFixed(dependentDecimals)) ? Number(inputValueFormatted.toFixed(dependentDecimals)) : ''
   } else {
     outputValueFormatted *= 1 - 0.001
-    outputValueFormatted = Number(outputValueFormatted.toFixed(dependentDecimals))
+    outputValueFormatted = Number(outputValueFormatted.toFixed(dependentDecimals)) ? Number(outputValueFormatted.toFixed(dependentDecimals)) : ''
   }
   // validate + parse independent value
   const [independentError, setIndependentError] = useState()
@@ -669,24 +669,26 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           data = sending ? web3Contract.ethToTokenTransferInput.getData(dependentValueMinumum.toHexString(), deadline, recipient.address) : web3Contract.ethToTokenSwapInput.getData(dependentValueMinumum.toHexString(), deadline)
         } else if (swapType === TOKEN_TO_ETH) {
           console.log(2)
-          estimate = sending ? contract.estimate.tokenToEthTransferInput : contract.estimate.tokenToEthSwapInput
-          method = sending ? contract.tokenToEthTransferInput : contract.tokenToEthSwapInput
-          args = sending
-            ? [independentValueParsed, dependentValueMinumum, deadline, recipient.address]
-            : [independentValueParsed, dependentValueMinumum, deadline]
+          // estimate = sending ? contract.estimate.tokenToEthTransferInput : contract.estimate.tokenToEthSwapInput
+          // method = sending ? contract.tokenToEthTransferInput : contract.tokenToEthSwapInput
+          // args = sending
+          //   ? [independentValueParsed, dependentValueMinumum, deadline, recipient.address]
+          //   : [independentValueParsed, dependentValueMinumum, deadline]
           value = ethers.constants.Zero
+          console.log(independentValueParsed)
+          console.log(independentValueParsed.toString())
+          // console.log(independentValueParsed.toNumber())
+          console.log(independentValueParsed.toHexString())
+          console.log(dependentValueMinumum)
+          console.log(dependentValueMinumum.toString())
+          // console.log(dependentValueMinumum.toNumber())
+          console.log(dependentValueMinumum.toHexString())
           // console.log(web3Contract.tokenToEthSwapInput(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), deadline).request())
           // console.log(web3Contract.tokenToEthSwapInput().call(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), deadline))
           data = sending ? 
-                    web3Contract.tokenToEthTransferInput.getData(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), deadline, recipient.address, {
-                      value: value.toHexString(),
-                      gasLimit: GAS_MARGIN
-                    }) 
+                    web3Contract.tokenToEthTransferInput.getData(independentValueParsed.toString(), dependentValueMinumum.toString(), deadline, recipient.address) 
                     : 
-                    web3Contract.tokenToEthSwapInput.getData(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), deadline, {
-                      value: value.toHexString(),
-                      gasLimit: GAS_MARGIN
-                    })
+                    web3Contract.tokenToEthSwapInput.getData(independentValueParsed.toString(), dependentValueMinumum.toString(), deadline)
         } else if (swapType === TOKEN_TO_TOKEN) {
           console.log(3)
           // estimate = sending ? contract.estimate.tokenToTokenTransferInput : contract.estimate.tokenToTokenSwapInput
@@ -799,6 +801,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           ? [independentValueParsed, dependentValueMinumum, deadline, recipient.address]
           : [independentValueParsed, dependentValueMinumum, deadline]
         value = ethers.constants.Zero
+        
       } else if (swapType === TOKEN_TO_TOKEN) {
         estimate = sending ? contract.estimate.tokenToTokenTransferInput : contract.estimate.tokenToTokenSwapInput
         method = sending ? contract.tokenToTokenTransferInput : contract.tokenToTokenSwapInput

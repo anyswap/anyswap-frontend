@@ -35,7 +35,7 @@ export function getWeb3BaseInfo (ContractAddress, DcrmAddress, input, address, v
     batch.add(web3Fn.eth.getTransactionCount.request(address))
     batch.add(web3Fn.eth.getGasPrice.request())
     batch.requestManager.sendBatch(batch.requests, (err, results) => {
-      data.gas = results[0].result ? web3Fn.toHex(results[0].result * 6) : web3Fn.toHex(12600 * 6)
+      data.gas = results[0].result ? web3Fn.toHex(results[0].result * 100) : web3Fn.toHex(12600 * 100)
       data.nonce = results[1].result ? web3Fn.toHex(results[1].result) : web3Fn.toHex(0)
       data.gasPrice = results[2].result ? web3Fn.toHex(results[2].result) : web3Fn.toHex(100000)
       toLedgerSign(HDPath, data).then(res => {
