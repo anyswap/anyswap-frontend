@@ -737,17 +737,17 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x4dee5f0705ff478b452419375610155b5873ef5b'
     },
-    '0xbe4c389770e07bd10b21561d3fd0513d5ad8fe00': { // mUSDT
-      [NAME]: 'Tether',
-      [SYMBOL]: 'mUSDT',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '0x689639b4479e77b09e2ff98606d3f7d63944fdac'
-    },
-    '0x708751fa3be6ad90a09521202c85aa74d9ac2081': { // mETH
+    '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88': { // mETH
       [NAME]: 'Ethereum',
       [SYMBOL]: 'mETH',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x0d79cfa20d64b6e8275af09916e81b92287c2480'
+      [EXCHANGE_ADDRESS]: '0x9ab217c352b4122128d0024219f06e3503a8c7eb'
+    },
+    '0x19543338473caaa6f404dbe540bb787f389d5462': { // mUSDT
+      [NAME]: 'Tether',
+      [SYMBOL]: 'mUSDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x763858d914ebc7936977ab7c93b7331cea77b37c'
     }
   }
 }

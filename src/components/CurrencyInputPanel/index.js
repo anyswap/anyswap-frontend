@@ -30,6 +30,8 @@ import config from '../../config'
 import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 import erc20 from '../../constants/abis/erc20'
 
+import HardwareTip from '../HardwareTip'
+
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const SubCurrencySelect = styled.button`
@@ -324,6 +326,10 @@ export default function CurrencyInputPanel({
 
   const userTokenBalance = useAddressBalance(account, selectedTokenAddress)
 
+  const [isHardwareTip, setIsHardwareTip] = useState(false)
+  const [isHardwareError, setIsHardwareError] = useState(false)
+  const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
+
   function renderUnlockButton() {
     if (disableUnlock || !showUnlock || selectedTokenAddress === 'FSN' || !selectedTokenAddress) {
       return null
@@ -335,6 +341,10 @@ export default function CurrencyInputPanel({
               let estimatedGas
               let useUserBalance = false
               if (config.supportWallet.includes(walletType)) {
+                
+                setIsHardwareError(false)
+                setIsHardwareTip(true)
+                setHardwareTxnsInfo('')
                 let web3Contract = getWeb3ConTract(erc20, selectedTokenAddress)
                 // let _userTokenBalance = Number(userTokenBalance.toString()) > 100000 ? userTokenBalance.toString() : ethers.constants.MaxUint256.toString()
                 let _userTokenBalance = ethers.constants.MaxUint256.toString()
@@ -346,8 +356,9 @@ export default function CurrencyInputPanel({
                   console.log(res)
                   if (res.msg === 'Success') {
                     addTransaction(res.info, { approval: selectedTokenAddress })
+                    setIsHardwareTip(false)
                   } else {
-                    alert(res.error)
+                    setIsHardwareError(true)
                   }
                 })
                 return
@@ -455,51 +466,61 @@ export default function CurrencyInputPanel({
   }
 
   return (
-    <InputPanel>
-      <Container error={!!errorMessage}>
-        <LabelRow>
-          <LabelContainer>
-            <span>{title}</span> <span>{description}</span>
-          </LabelContainer>
+    <>
+      <HardwareTip
+        HardwareTipOpen={isHardwareTip}
+        closeHardwareTip={() => {
+          setIsHardwareTip(false)
+        }}
+        error={isHardwareError}
+        txnsInfo={hardwareTxnsInfo}
+      ></HardwareTip>
+      <InputPanel>
+        <Container error={!!errorMessage}>
+          <LabelRow>
+            <LabelContainer>
+              <span>{title}</span> <span>{description}</span>
+            </LabelContainer>
 
-          <ErrorSpan
-            data-tip={'Enter max'}
-            error={!!errorMessage}
-            onClick={() => {
-              extraTextClickHander()
-            }}
-          >
-            <Tooltip
-              label="Enter Max"
-              style={{
-                background: 'hsla(0, 0%, 0%, 0.75)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '24px',
-                padding: '0.5em 1em',
-                marginTop: '-64px'
+            <ErrorSpan
+              data-tip={'Enter max'}
+              error={!!errorMessage}
+              onClick={() => {
+                extraTextClickHander()
               }}
             >
-              <span>{extraText}</span>
-            </Tooltip>
-          </ErrorSpan>
-        </LabelRow>
-        {_renderInput()}
-      </Container>
-      {!disableTokenSelect && (
-        <CurrencySelectModal
-          isOpen={modalIsOpen}
-          onDismiss={() => {
-            setModalIsOpen(false)
-          }}
-          urlAddedTokens={urlAddedTokens}
-          onTokenSelect={onCurrencySelected}
-          allBalances={allBalances}
-          hideETH={hideETH}
-          selfUseAllToken={selfUseAllToken}
-        />
-      )}
-    </InputPanel>
+              <Tooltip
+                label="Enter Max"
+                style={{
+                  background: 'hsla(0, 0%, 0%, 0.75)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '24px',
+                  padding: '0.5em 1em',
+                  marginTop: '-64px'
+                }}
+              >
+                <span>{extraText}</span>
+              </Tooltip>
+            </ErrorSpan>
+          </LabelRow>
+          {_renderInput()}
+        </Container>
+        {!disableTokenSelect && (
+          <CurrencySelectModal
+            isOpen={modalIsOpen}
+            onDismiss={() => {
+              setModalIsOpen(false)
+            }}
+            urlAddedTokens={urlAddedTokens}
+            onTokenSelect={onCurrencySelected}
+            allBalances={allBalances}
+            hideETH={hideETH}
+            selfUseAllToken={selfUseAllToken}
+          />
+        )}
+      </InputPanel>
+    </>
   )
 }
 

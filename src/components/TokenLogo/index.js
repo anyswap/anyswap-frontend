@@ -61,9 +61,9 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
   } else if (!error && !BAD_IMAGES[address]) {
     if (address === '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947') {
       path = require('../../assets/images/mBTC.svg')
-    } else if (address === '0xbe4c389770e07bd10b21561d3fd0513d5ad8fe00') {
+    } else if (address === '0x19543338473caaa6f404dbe540bb787f389d5462') {
       path = require('../../assets/images/USDT.png')
-    } else if (address === '0x708751fa3be6ad90a09521202c85aa74d9ac2081') {
+    } else if (address === '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88') {
       path = require('../../assets/images/ethereum-logo.svg')
     } else if (address === '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4') {
       path = require('../../assets/images/ANY.png')

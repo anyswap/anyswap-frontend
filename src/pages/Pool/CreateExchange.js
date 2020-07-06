@@ -21,6 +21,8 @@ import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 import factory_abi from '../../constants/abis/factory.json'
 import { FACTORY_ADDRESSES } from '../../constants'
 
+import HardwareTip from '../../components/HardwareTip'
+
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
   padding: 1rem 0;
@@ -111,6 +113,9 @@ function CreateExchange({ location, params }) {
 
   async function createExchange() {
     if (config.supportWallet.includes(walletType)) {
+      setIsHardwareError(false)
+      setIsHardwareTip(true)
+      setHardwareTxnsInfo('')
       let web3Contract = getWeb3ConTract(factory_abi, FACTORY_ADDRESSES[chainId])
       let data = web3Contract.createExchange.getData(tokenAddress.address)
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
@@ -121,8 +126,9 @@ function CreateExchange({ location, params }) {
             category: 'Transaction',
             action: 'Create Exchange'
           })
+          setIsHardwareTip(false)
         } else {
-          alert(res.error)
+          setIsHardwareError(true)
         }
         // addTransaction(response)
       })
@@ -144,8 +150,20 @@ function CreateExchange({ location, params }) {
 
   const isValid = errorMessage === null
 
+  const [isHardwareTip, setIsHardwareTip] = useState(false)
+  const [isHardwareError, setIsHardwareError] = useState(false)
+  const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
+
   return (
     <>
+    <HardwareTip
+        HardwareTipOpen={isHardwareTip}
+        closeHardwareTip={() => {
+          setIsHardwareTip(false)
+        }}
+        error={isHardwareError}
+        txnsInfo={hardwareTxnsInfo}
+      ></HardwareTip>
       <AddressInputPanel
         title={t('tokenAddress')}
         initialInput={

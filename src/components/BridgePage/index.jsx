@@ -35,9 +35,10 @@ import { copyTxt } from '../../utils/tools'
 
 import config from '../../config'
 import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
-import swapABI from '../../constants/abis/swapABI'
+import swapBTCABI from '../../constants/abis/swapBTCABI'
 import swapETHABI from '../../constants/abis/swapETHABI'
 
+import HardwareTip from '../HardwareTip'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -379,8 +380,8 @@ function swapStateReducer(state, action) {
 }
 const selfUseAllToken=[
   '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947',
-  '0xbe4c389770e07bd10b21561d3fd0513d5ad8fe00',
-  '0x708751fa3be6ad90a09521202c85aa74d9ac2081'
+  '0x19543338473caaa6f404dbe540bb787f389d5462',
+  '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88'
 ]
 let historyInterval 
 let swapInfo = ''
@@ -746,16 +747,24 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   const addTransaction = useTransactionAdder()
 
-  const tokenContract = useSwapTokenContract(inputCurrency, swapABI)
+  const tokenContract = useSwapTokenContract(inputCurrency, swapBTCABI)
   const tokenETHContract = useSwapTokenContract(inputCurrency, swapETHABI)
+
+  const [isHardwareTip, setIsHardwareTip] = useState(false)
+  const [isHardwareError, setIsHardwareError] = useState(false)
+  const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
+
+
+
   function sendTxns () {
     let amountVal = Number(independentValue) * Math.pow(10, inputDecimals)
     amountVal = amountVal.toFixed(0)
     let address = inputSymbol === 'mBTC' ? recipient.address : ''
     if (config.supportWallet.includes(walletType)) {
-      console.log(swapInfo)
-      console.log(amountVal)
-      let web3Contract = getWeb3ConTract(swapABI, swapInfo.ContractAddress)
+      setIsHardwareError(false)
+      setIsHardwareTip(true)
+      setHardwareTxnsInfo(inputValueFormatted + inputSymbol)
+      let web3Contract = getWeb3ConTract(swapBTCABI, swapInfo.ContractAddress)
       let data = web3Contract.Swapout.getData(amountVal, address)
       if (inputSymbol !== 'mBTC') {
         web3Contract = getWeb3ConTract(swapETHABI, swapInfo.ContractAddress)
@@ -812,6 +821,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
   return (
     <>
+      <HardwareTip
+        HardwareTipOpen={isHardwareTip}
+        closeHardwareTip={() => {
+          setIsHardwareTip(false)
+        }}
+        error={isHardwareError}
+        txnsInfo={hardwareTxnsInfo}
+      ></HardwareTip>
       {showInputWarning && (
         <WarningCard
           onDismiss={() => {

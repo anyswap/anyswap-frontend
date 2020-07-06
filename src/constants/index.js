@@ -41,7 +41,7 @@ export const SUPPORTED_WALLETS =
           connector: '',
           name: 'Ledger',
           iconName: 'ledger.png',
-          description: 'Easy-to-use browser extension.',
+          description: 'The world’s popular hardware wallet.',
           href: null,
           color: '#E8831D'
         }

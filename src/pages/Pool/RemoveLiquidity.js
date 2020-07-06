@@ -25,6 +25,8 @@ import config from '../../config'
 import EXCHANGE_ABI from '../../constants/abis/exchange'
 import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 
+import HardwareTip from '../../components/HardwareTip'
+
 // denominated in bips
 const ALLOWED_SLIPPAGE = ethers.utils.bigNumberify(200)
 
@@ -282,6 +284,9 @@ export default function RemoveLiquidity({ params }) {
     const deadline = Math.ceil(Date.now() / 1000) + DEADLINE_FROM_NOW
 
     if (config.supportWallet.includes(walletType)) {
+      setIsHardwareError(false)
+      setIsHardwareTip(true)
+      setHardwareTxnsInfo('')
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
       console.log(valueParsed)
       console.log(ethWithdrawnMin)
@@ -304,8 +309,9 @@ export default function RemoveLiquidity({ params }) {
             label: ethTransactionSize.toString(),
             value: ethTransactionSize
           })
+          setIsHardwareTip(false)
         } else {
-          alert(res.error)
+          setIsHardwareError(true)
         }
         // addTransaction(response)
       })
@@ -418,8 +424,20 @@ export default function RemoveLiquidity({ params }) {
     }
   }, [newOutputDetected])
 
+  const [isHardwareTip, setIsHardwareTip] = useState(false)
+  const [isHardwareError, setIsHardwareError] = useState(false)
+  const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
+
   return (
     <>
+    <HardwareTip
+        HardwareTipOpen={isHardwareTip}
+        closeHardwareTip={() => {
+          setIsHardwareTip(false)
+        }}
+        error={isHardwareError}
+        txnsInfo={hardwareTxnsInfo}
+      ></HardwareTip>
       {showCustomTokenWarning && (
         <WarningCard
           onDismiss={() => {

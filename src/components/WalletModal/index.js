@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useReducer, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import { isMobile } from 'react-device-detect'
 import { useTranslation } from 'react-i18next'
-import { useWeb3React, UnsupportedChainIdError, getWeb3ReactContext } from '@web3-react/core'
+import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
 import { URI_AVAILABLE } from '@web3-react/walletconnect-connector'
 
 import Modal from '../Modal'
@@ -15,13 +15,14 @@ import { usePrevious } from '../../hooks'
 import { Link } from '../../theme'
 import MetamaskIcon from '../../assets/images/metamask.png'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
-import { injected, walletconnect, fortmatic, portis, ledger } from '../../connectors'
+import { injected, walletconnect, fortmatic, portis } from '../../connectors'
 import { useWalletModalToggle, useWalletModalOpen } from '../../contexts/Application'
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
 
 import {getLedgerAddressArr} from '../../utils/wallets/ledger'
 
 import { darken } from 'polished'
+import { transparentize } from 'polished'
 
 import {LedgerConnector} from '../../utils/wallets/ledger/ledgerConnect'
 
@@ -122,6 +123,10 @@ const SelectContainer = styled.div`
   height: 40px;
 `
 
+const SelectContainerCenter = styled(SelectContainer)`
+  justify-content: center;
+`
+
 const SelectStyle = styled.select`
   font-size: 1rem;
   outline: none;
@@ -192,11 +197,28 @@ const SelfButton = styled.button.attrs(({ warning, theme }) => ({
     cursor: auto;
   }
 `
+const AddrListBox = styled.ul`
+  height: 248px;
+  margin-bottom: 20px;
+  padding: 0 0px;
+`
 
 const AddrList = styled.li`
-padding:8px 10px;
-cursor:pointer;
-border: 1px solid transparent;
+  padding:8px 10px;
+  cursor:pointer;
+  border: 1px solid transparent;
+  box-shadow: 0px 0px 8px 0 ${({ theme }) => transparentize(0.9, theme.shadowColor)};
+  margin:10px 0;
+  list-style-type:none;
+  color:#666;
+  background:#eee;
+  border-radius: 5px;
+
+  :hover,
+  :focus {
+    box-shadow: 0px 0px 5px 0 ${({ theme }) => transparentize(0.5, theme.royalBlue)};
+  }
+  
 `
 
 const AddrListSelect = styled(AddrList)`
@@ -213,6 +235,7 @@ const ArrowBox = styled.div`
   margin-right: 20px;
   border: 1px solid ${({ theme }) => theme.shadowColor};
   cursor:pointer;
+  border-radius: 100%;
 `
 
 const WALLET_VIEWS = {
@@ -224,8 +247,8 @@ const WALLET_VIEWS = {
 
 const trezorPath = "m/44'/60'/0'/0", ledgerPath = "m/44'/60'/0'"
 const HDPathArr = [
-  {name: "Ledger(ETH)(" + ledgerPath + ")", path: ledgerPath},
-  {name: "TREZOR(ETH)(" + trezorPath + ")", path: trezorPath},
+  {name: "Legacy", path: ledgerPath},
+  {name: "Ledger live", path: trezorPath},
   {name: "Custom", path: 0},
 ]
 
@@ -283,10 +306,6 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
       setPageSize(0)
       setSelectHDPathIndex(0)
       setSelfHDPathVal(ledgerPath)
-      setSelectAddrObjs({
-        addr: '',
-        path: ''
-      })
       setIsUseSelectAddr(false)
     }
   }, [walletView])
@@ -330,10 +349,6 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
   const [pageSize, setPageSize] = useState(0)
   const [selectHDPathIndex, setSelectHDPathIndex] = useState(0)
   const [selfHDPathVal, setSelfHDPathVal] = useState(ledgerPath)
-  const [selectAddrObj, setSelectAddrObjs] = useState({
-    addr: '',
-    path: ''
-  })
   const [addressObj, setAddressObj] = useState({
     size: 0,
     list: []
@@ -362,54 +377,29 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     page += 1
     setPageSize(page)
   }
-  function selectAddress(e, index) {
-    // console.log(addressObj.list[index])
-    setSelectAddrObjs({
-      addr: addressObj.list[index].addr,
-      path: addressObj.list[index].path,
-    })
-  }
 
-  function setAccountData () {
+  function setAccountData (e, index) {
     // console.log(123)
-    if (!selectAddrObj.addr) {
+    if (!addressObj.list[index].addr) {
       alert('Account is null!')
-    }
-    // deactivate()
-    let index = 0 
-    for (let i = 0, len = addressObj.list.length; i < len; i++) {
-      if (addressObj.list[i].addr === selectAddrObj.addr) {
-        index = i
-        break
-      }
     }
     let path = HDPathArr[selectHDPathIndex].path ? HDPathArr[selectHDPathIndex].path : selfHDPathVal
     let params = {
       baseDerivationPath: path,
-      address: selectAddrObj.addr,
+      address: addressObj.list[index].addr,
       pageSize: pageSize * 5 + index + 1
     }
     console.log(params)
     let ledgerConnector = new LedgerConnector(params)
     tryActivation(ledgerConnector)
-    // account = selectAddrObj.addr
-    // console.log(account)
     sessionStorage.setItem('walletType', walletType)
-    sessionStorage.setItem('HDPath', selectAddrObj.path)
-    // sessionStorage.setItem('account', selectAddrObj.addr)
-    // setIsUseSelectAddr(true)
-    // setWalletView(WALLET_VIEWS.ACCOUNT)
+    sessionStorage.setItem('HDPath', addressObj.list[index].path)
   }
 
   function showHardwareAddr () {
     return addressObj.list.map((item, index) => {
       return (
-        selectAddrObj.addr === item.addr ?
-        (
-          <AddrListSelect key={index} onClick={e => selectAddress(e, index)}>{item.addr}</AddrListSelect>
-        ) : (
-          <AddrList key={index} onClick={e => selectAddress(e, index)}>{item.addr}</AddrList>
-        )
+        <AddrList key={index} onClick={e => setAccountData(e, index)}>{item.addr}</AddrList>
       )
     })
   }
@@ -422,7 +412,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     })
     wt = wt ? wt : walletType
     if (wt !== 'Ledger') return
-    console.log(wt)
+    // console.log(wt)
     let path = HDPathArr[selectHDPathIndex].path ? HDPathArr[selectHDPathIndex].path : selfHDPathVal
     // console.log(path)
     // setWalletView(WALLET_VIEWS.PENDING)
@@ -600,16 +590,15 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
                 )
               }
             </SelectContainer>
-            {addressObj.size > 0 ? showHardwareAddr() : (
-              <AddrList>Loading...</AddrList>
-            )}
-            <SelectContainer>
+            <AddrListBox>
+              {addressObj.size > 0 ? showHardwareAddr() : (
+                <AddrList>Loading...</AddrList>
+              )}
+            </AddrListBox>
+            <SelectContainerCenter>
               <ArrowBox onClick={changeReducePage}>{'<'}</ArrowBox>
               <ArrowBox onClick={changeAddPage}>{'>'}</ArrowBox>
-            </SelectContainer>
-            <SelectContainer>
-              <SelfButton size={'100%'} onClick={setAccountData}>Use</SelfButton>
-            </SelectContainer>
+            </SelectContainerCenter>
           </ContentWrapper>
         </UpperSection>
       )
@@ -617,7 +606,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     // console.log(account)
     // console.log(walletView)
     // console.log(WALLET_VIEWS.ACCOUNT)
-    if ((account || (isUseSelectAddr && selectAddrObj.addr)) && walletView === WALLET_VIEWS.ACCOUNT) {
+    if (account && isUseSelectAddr && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <AccountDetails
           toggleWalletModal={toggleWalletModal}
@@ -658,6 +647,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
               error={pendingError}
               setPendingError={setPendingError}
               tryActivation={tryActivation}
+              walletType={walletType}
             />
           ) : (
             <OptionGrid>{getOptions()}</OptionGrid>

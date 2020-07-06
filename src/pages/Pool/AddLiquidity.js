@@ -25,6 +25,8 @@ import config from '../../config'
 import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 import EXCHANGE_ABI from '../../constants/abis/exchange'
 
+import HardwareTip from '../../components/HardwareTip'
+
 const INPUT = 0
 const OUTPUT = 1
 
@@ -403,6 +405,9 @@ export default function AddLiquidity({ params }) {
     const deadline = Math.ceil(Date.now() / 1000) + DEADLINE_FROM_NOW
 
     if (config.supportWallet.includes(walletType)) {
+      setIsHardwareError(false)
+      setIsHardwareTip(true)
+      setHardwareTxnsInfo('')
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
       let data = web3Contract.addLiquidity.getData(
         isNewExchange ? ethers.constants.Zero.toHexString() : liquidityTokensMin.toHexString(),
@@ -424,8 +429,9 @@ export default function AddLiquidity({ params }) {
             action: res.info.hash,
             label: ethTransactionSize.toString()
           })
+          setIsHardwareTip(false)
         } else {
-          alert(res.error)
+          setIsHardwareError(true)
         }
         // addTransaction(response)
       })
@@ -620,6 +626,11 @@ export default function AddLiquidity({ params }) {
   const allowance = useAddressAllowance(account, outputCurrency, exchangeAddress)
 
   const [showUnlock, setShowUnlock] = useState(false)
+
+  const [isHardwareTip, setIsHardwareTip] = useState(false)
+  const [isHardwareError, setIsHardwareError] = useState(false)
+  const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
+
   useEffect(() => {
     if (outputValueParsed && allowance) {
       if (allowance.lt(outputValueParsed)) {
@@ -653,6 +664,14 @@ export default function AddLiquidity({ params }) {
   }, [newOutputDetected, setShowOutputWarning])
   return (
     <>
+    <HardwareTip
+        HardwareTipOpen={isHardwareTip}
+        closeHardwareTip={() => {
+          setIsHardwareTip(false)
+        }}
+        error={isHardwareError}
+        txnsInfo={hardwareTxnsInfo}
+      ></HardwareTip>
       {showOutputWarning && (
         <WarningCard
           onDismiss={() => {

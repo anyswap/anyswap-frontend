@@ -28,6 +28,8 @@ import config from '../../config'
 import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 import EXCHANGE_ABI from '../../constants/abis/exchange'
 
+import HardwareTip from '../HardwareTip'
+
 const INPUT = 0
 const OUTPUT = 1
 
@@ -652,6 +654,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let label = ''
     // if (config.supportWallet.includes(walletType)) {
     if (config.supportWallet.includes(walletType)) {
+      setIsHardwareError(false)
+      setIsHardwareTip(true)
+      setHardwareTxnsInfo(inputValueFormatted + inputSymbol)
       let contractAddress = swapType === ETH_TO_TOKEN ? outputExchangeAddress : inputExchangeAddress
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, contractAddress)
       let data = ''
@@ -776,8 +781,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             action: res.info.hash,
             label: ethTransactionSize.toString()
           })
+          setIsHardwareTip(false)
         } else {
-          alert(res.error)
+          setIsHardwareError(true)
         }
         // addTransaction(response)
       })
@@ -886,6 +892,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   const [showInputWarning, setShowInputWarning] = useState(false)
   const [showOutputWarning, setShowOutputWarning] = useState(false)
+  
+  const [isHardwareTip, setIsHardwareTip] = useState(false)
+  const [isHardwareError, setIsHardwareError] = useState(false)
+  const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
 
   useEffect(() => {
     if (newInputDetected) {
@@ -905,6 +915,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   return (
     <>
+      <HardwareTip
+        HardwareTipOpen={isHardwareTip}
+        closeHardwareTip={() => {
+          setIsHardwareTip(false)
+        }}
+        error={isHardwareError}
+        txnsInfo={hardwareTxnsInfo}
+      ></HardwareTip>
       {showInputWarning && (
         <WarningCard
           onDismiss={() => {

@@ -8,6 +8,8 @@ import { Spinner } from '../../theme'
 import Circle from '../../assets/images/circle.svg'
 import { darken } from 'polished'
 
+import config from '../../config/index'
+
 const PendingSection = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
   align-items: center;
@@ -57,6 +59,7 @@ const ErrorButton = styled.div`
   padding: 0.5rem;
   font-weight: 600;
   user-select: none;
+  white-space:nowrap;
 
   &:hover {
     cursor: pointer;
@@ -70,8 +73,9 @@ const LoadingWrapper = styled.div`
   justify-content: center;
 `
 
-export default function PendingView({ uri = '', size, connector, error = false, setPendingError, tryActivation }) {
+export default function PendingView({ uri = '', size, connector, error = false, setPendingError, tryActivation, walletType }) {
   const isMetamask = window.ethereum && window.ethereum.isMetaMask
+  // let walletType = sessionStorage.getItem('walletType')
 
   return (
     <PendingSection>
@@ -81,7 +85,15 @@ export default function PendingView({ uri = '', size, connector, error = false, 
           {!error && <SpinnerWrapper src={Circle} />}
           {error ? (
             <ErrorGroup>
-              <div>Error connecting.</div>
+              <div>
+                {
+                  config.supportWallet.includes(walletType) ? (
+                    `Make sure open the ethereum app on your ${walletType} and Contract Data enabled.`
+                  ) : (
+                    'Error connecting.'
+                  )
+                }
+              </div>
               <ErrorButton
                 onClick={() => {
                   setPendingError(false)
