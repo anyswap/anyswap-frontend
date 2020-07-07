@@ -424,6 +424,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
           list: res.info
         })
       } else {
+        setIsUseSelectAddr(0)
         if (option) {
           tryActivation(option.connector)
         } else  {
@@ -549,7 +550,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
           <CloseIcon onClick={toggleWalletModal}>
             <CloseColor alt={'close icon'} />
           </CloseIcon>
-          {walletView !== WALLET_VIEWS.ACCOUNT ? (
+          {walletView !== WALLET_VIEWS.ACCOUNT || ['Ledger'].includes(walletType) ? (
             <HeaderRow color="blue">
               <HoverText
                 onClick={() => {
@@ -606,7 +607,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     // console.log(account)
     // console.log(walletView)
     // console.log(WALLET_VIEWS.ACCOUNT)
-    if (account && isUseSelectAddr && walletView === WALLET_VIEWS.ACCOUNT) {
+    if (account && (isUseSelectAddr || !['Ledger'].includes(walletType)) && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <AccountDetails
           toggleWalletModal={toggleWalletModal}
