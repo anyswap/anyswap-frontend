@@ -759,7 +759,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   function sendTxns () {
     let amountVal = Number(independentValue) * Math.pow(10, inputDecimals)
     amountVal = amountVal.toFixed(0)
-    let address = inputSymbol === 'mBTC' ? recipient.address : ''
+    let address = recipient.address
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
@@ -781,8 +781,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
 
     if (inputSymbol !== 'mBTC') {
-      tokenETHContract.Swapout(amountVal).then(res => {
+      console.log(amountVal)
+      tokenETHContract.Swapout(amountVal, address).then(res => {
         console.log(res)
+        addTransaction(res)
       }).catch(err => {
         console.log(err)
       })
