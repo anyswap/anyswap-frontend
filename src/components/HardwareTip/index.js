@@ -7,7 +7,7 @@ import { useWalletModalToggle } from '../../contexts/Application'
 import { Spinner } from '../../theme'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import Circle from '../../assets/images/circle.svg'
-import ANYLogo from '../../assets/images/ANY.png'
+import ANYLogo from '../../assets/images/ANY.svg'
 
 const CloseIcon = styled.div`
   position: absolute;

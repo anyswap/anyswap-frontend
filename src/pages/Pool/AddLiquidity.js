@@ -152,6 +152,7 @@ function addLiquidityStateReducer(state, action) {
     case 'UPDATE_VALUE': {
       const { inputValue, outputValue } = state
       const { field, value } = action.payload
+      console.log(value)
       return {
         ...state,
         inputValue: field === INPUT ? value : inputValue,
@@ -724,6 +725,7 @@ export default function AddLiquidity({ params }) {
         }}
         extraTextClickHander={() => {
           if (outputBalance) {
+            console.log(outputBalance)
             dispatchAddLiquidityState({
               type: 'UPDATE_VALUE',
               payload: {

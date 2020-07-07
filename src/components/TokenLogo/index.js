@@ -66,7 +66,7 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
     } else if (address === '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88') {
       path = require('../../assets/images/ethereum-logo.svg')
     } else if (address === '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4') {
-      path = require('../../assets/images/ANY.png')
+      path = require('../../assets/images/ANY.svg')
     } else {
       path = TOKEN_ICON_API(address.toLowerCase())
     }

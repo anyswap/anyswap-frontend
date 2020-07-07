@@ -3,21 +3,34 @@ import styled from 'styled-components'
 
 // import { Link } from '../../theme'
 import Web3Status from '../Web3Status'
-// import { darken } from 'polished'
+import { transparentize } from 'polished'
+import { darken } from 'polished'
+
+import {ReactComponent as ANYLogo} from '../../assets/images/logo.svg'
 
 const HeaderFrame = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-direction: column;
-  width: 100%;
+  marginn:auto;
   z-index: 2;
+  width:100%;
+  
+  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
 `
 
 const HeaderSpan = styled.span`
-  width: 100%;
   display: flex;
+  width: 100%;
+  max-width: 1440px;
+  height: 80px;
+  object-fit: contain;
   justify-content: space-between;
+`
+
+const StyleAnyLogo = styled(ANYLogo)`
+  height: 100%;
 `
 
 // const MigrateBanner = styled.div`
@@ -134,6 +147,7 @@ export default function Header() {
       </MigrateBannerLarge> */}
       <HeaderSpan>
         <HeaderElement>
+          <StyleAnyLogo></StyleAnyLogo>
           {/* <Title>
             <Nod>
               <Link id="link" href="https://uniswap.io">

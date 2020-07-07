@@ -207,7 +207,7 @@ const AddrList = styled.li`
   padding:8px 10px;
   cursor:pointer;
   border: 1px solid transparent;
-  box-shadow: 0px 0px 8px 0 ${({ theme }) => transparentize(0.9, theme.shadowColor)};
+  box-shadow: 0px 0px 8px 0 ${({ theme }) => transparentize(0.5, theme.backgroundColor)};
   margin:10px 0;
   list-style-type:none;
   color:#666;
@@ -216,7 +216,7 @@ const AddrList = styled.li`
 
   :hover,
   :focus {
-    box-shadow: 0px 0px 5px 0 ${({ theme }) => transparentize(0.5, theme.royalBlue)};
+    box-shadow: 0px 0px 8px 0 ${({ theme }) => darken(0.2, theme.backgroundColor)};
   }
   
 `
@@ -405,7 +405,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
   }
 
   function getHardwareAccount (option, wt) {
-    console.log(walletType)
+    // console.log(walletType)
     setAddressObj({
       size: 0,
       list: []

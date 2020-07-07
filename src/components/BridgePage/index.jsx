@@ -924,7 +924,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         onValueChange={inputValue => {
           console.log(inputBalanceFormatted)
           let inputVal = inputValue && swapInfo && (swapInfo.SwapFeeRate || swapInfo.SwapFeeRate === 0)
-            ? Number(( Number(inputValue) * (1 - Number(swapInfo.SwapFeeRate)) ).toFixed(inputDecimals))
+            ? Number(( Number(inputValue) - (Number(inputValue) * Number(swapInfo.SwapFeeRate)) ).toFixed(inputDecimals))
             : 0
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
