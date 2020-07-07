@@ -74,7 +74,7 @@ Ledger3.prototype.exchange = function(apduHex, callback) {
   key["keyHandle"] = Ledger3.webSafe64(keyHandle.toString("base64"));
   var self = this;
   var localCallback = function(result) {
-    console.log(result)
+    // console.log(result)
     self.u2fCallback(result, callback);
   };
   u2f.sign([key], this.timeoutSeconds).then(localCallback).catch(err => {
