@@ -680,14 +680,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           //   ? [independentValueParsed, dependentValueMinumum, deadline, recipient.address]
           //   : [independentValueParsed, dependentValueMinumum, deadline]
           value = ethers.constants.Zero
-          console.log(independentValueParsed)
-          console.log(independentValueParsed.toString())
-          // console.log(independentValueParsed.toNumber())
-          console.log(independentValueParsed.toHexString())
-          console.log(dependentValueMinumum)
-          console.log(dependentValueMinumum.toString())
-          // console.log(dependentValueMinumum.toNumber())
-          console.log(dependentValueMinumum.toHexString())
           // console.log(web3Contract.tokenToEthSwapInput(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), deadline).request())
           // console.log(web3Contract.tokenToEthSwapInput().call(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), deadline))
           data = sending ? 
@@ -765,7 +757,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       }
       console.log(data)
-      getWeb3BaseInfo(contractAddress, contractAddress, data, account, value.toHexString()).then(res => {
+      value = swapType === ETH_TO_TOKEN ? value.toHexString() : 0
+      console.log(value)
+      getWeb3BaseInfo(contractAddress, contractAddress, data, account, value).then(res => {
         console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
