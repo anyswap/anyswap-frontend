@@ -405,7 +405,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
   }
 
   function getHardwareAccount (option, wt) {
-    console.log(walletType)
+    // console.log(walletType)
     setAddressObj({
       size: 0,
       list: []
