@@ -268,7 +268,7 @@ const StyledNavLink = styled(NavLink).attrs({
       height: 38px;
       width: 38px;
       margin-right: 16px;
-      background:#f8f8f9;
+      background: rgba(0,0,0,.05);
       border-radius:100%;
       display: flex;
       justify-content: center;
