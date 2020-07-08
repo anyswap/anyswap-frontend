@@ -53,15 +53,18 @@ const SubCurrencySelect = styled.button`
 const InputRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
-
-  padding: 0.25rem 0.85rem 0.75rem;
+  background:none;
+  padding: 0.75rem 0.85rem 0.75rem;
 `
 
 const Input = styled(BorderlessInput)`
-  font-size: 1.5rem;
-  color: ${({ error, theme }) => error && theme.salmonRed};
-  background-color: ${({ theme }) => theme.inputBackground};
+  font-size: 44px;
+  height: 70px;
+  color: ${({ error, theme }) => error ? theme.salmonRed : theme.textColorBold};
+  background: none;
+  border-bottom: 1px solid #000;
   -moz-appearance: textfield;
+  margin-right: 30px;
 `
 
 const StyledBorderlessInput = styled(BorderlessInput)`
@@ -76,10 +79,13 @@ const CurrencySelect = styled.button`
   align-items: center;
   font-size: 1rem;
   color: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
-  height: 2rem;
-  border: 1px solid ${({ selected, theme }) => (selected ? theme.mercuryGray : theme.royalBlue)};
-  border-radius: 2.5rem;
-  background-color: ${({ selected, theme }) => (selected ? theme.concreteGray : theme.zumthorBlue)};
+  height: 70px;
+  width: 30%;
+  min-width: 190px;
+  max-width: 251px;
+  border: 1px solid ${({ selected, theme }) => (selected ? theme.selectedBorder : theme.selectedBorderNo)};
+  border-radius: 12px;
+  background-color: ${({ selected, theme }) => (selected ? theme.selectedBg : theme.selectedBgNo)};
   outline: none;
   cursor: pointer;
   user-select: none;
@@ -102,6 +108,14 @@ const Aligner = styled.span`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`
+
+const StyledDropDownBox = styled.div`
+  ${({ theme }) => theme.FlexC}
+  width: 26px;
+  height: 26px;
+  background: ${({ theme }) => theme.backgroundColor};
+  border-radius: 100%;
 `
 
 const StyledDropDown = styled(DropDown)`
@@ -271,13 +285,46 @@ const TokenRowRight = styled.div`
 `
 
 const StyledTokenName = styled.span`
-  margin: 0 0.25rem 0 0.25rem;
+  text-align:left;
+  width: 60%;
+  h3 {
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    color: #031a6e;
+    margin:0;
+  }
+  p {
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    color: #031a6e;
+    margin:0;
+  }
 `
 
 const SpinnerWrapper = styled(Spinner)`
   margin: 0 0.25rem 0 0.25rem;
   color: ${({ theme }) => theme.chaliceGray};
   opacity: 0.6;
+`
+
+const TokenLogoBox = styled.div`
+  width: 46px;
+  height: 46px;
+  padding: 10px;
+  background: ${ ({theme}) => theme.backgroundColor};
+  box-sizing:border-box;
+  border-radius: 100%;
+  margin-right: 20px
 `
 
 export default function CurrencyInputPanel({
@@ -433,23 +480,41 @@ export default function CurrencyInputPanel({
             {
               isSelfSymbol ? (
                 <>
-                  {selectedTokenAddress ? (isSelfLogo ? <TokenLogo address={isSelfLogo} /> : <TokenLogo address={selectedTokenAddress} />) : null}
+                  {selectedTokenAddress ? (isSelfLogo ? <TokenLogoBox><TokenLogo address={isSelfLogo} size={'26px'} /></TokenLogoBox> : <TokenLogoBox><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox>) : null}
                   <StyledTokenName>
-                    {/* {allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol} */}
-                    {isSelfSymbol || t('selectToken')}
+                    {
+                      isSelfSymbol ? (
+                        <>
+                          <h3>{isSelfSymbol}</h3>
+                          <p>{allTokens[selectedTokenAddress].name}</p>
+                        </>
+                      ) : (
+                        t('selectToken')
+                      )
+                    }
+                    {/* {isSelfSymbol || t('selectToken')} */}
                   </StyledTokenName>
                 </>
               ) :  (
                 <>
-                  {selectedTokenAddress ? <TokenLogo address={selectedTokenAddress} /> : null}
+                  {selectedTokenAddress ? <TokenLogoBox><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox> : null}
                   <StyledTokenName>
-                    {/* {allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol} */}
-                    {(allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol) || t('selectToken')}
+                    {
+                      allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol ? (
+                        <>
+                          <h3>{allTokens[selectedTokenAddress].symbol}</h3>
+                          <p>{allTokens[selectedTokenAddress].name}</p>
+                        </>
+                      ) : (
+                        t('selectToken')
+                      ) 
+                    }
+                    {/* {(allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol) || t('selectToken')} */}
                   </StyledTokenName>
                 </>
               )
             }
-            {!disableTokenSelect && <StyledDropDown selected={!!selectedTokenAddress} />}
+            {!disableTokenSelect && <StyledDropDownBox><StyledDropDown selected={!!selectedTokenAddress} /></StyledDropDownBox>}
           </Aligner>
           {/* <Aligner>
             {selectedTokenAddress ? <TokenLogo address={selectedTokenAddress} /> : null}

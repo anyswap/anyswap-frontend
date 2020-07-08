@@ -44,6 +44,7 @@ const theme = darkMode => ({
   white,
   black,
   textColor: darkMode ? white : '#010101',
+  textColorBold: darkMode ? white : '#062536',
   greyText: darkMode ? white : '#6C7284',
 
   // for setting css on <html>
@@ -51,6 +52,10 @@ const theme = darkMode => ({
 
   modalBackground: darkMode ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.5)',
   inputBackground: darkMode ? '#202124' : white,
+  selectedBg: darkMode ? '#202124' : '#ecf6ff',
+  selectedBgNo: darkMode ? '#202124' : '#f8f8f9',
+  selectedBorder: darkMode ? '#202124' : '#c0d6ea',
+  selectedBorderNo: darkMode ? '#202124' : '#d9d9e2',
   placeholderGray: darkMode ? '#5F5F5F' : '#E1E1E1',
   shadowColor: darkMode ? '#000' : '#2F80ED',
 
@@ -105,6 +110,11 @@ const theme = darkMode => ({
   flexRowNoWrap: css`
     display: flex;
     flex-flow: row nowrap;
+  `,
+  FlexC: css`
+    display:flex;
+    justify-content: center;
+    align-items: center
   `
 })
 
@@ -114,14 +124,15 @@ export const GlobalStyle = createGlobalStyle`
   @supports (font-variation-settings: normal) {
     html { font-family: 'Inter var', sans-serif; }
   }
-  
+  *{box-sizing: border-box;}
   html,
   body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;    
+    overflow: hidden;
+     
   }
 
   body > div {

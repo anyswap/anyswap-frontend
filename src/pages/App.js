@@ -161,9 +161,9 @@ export default function App() {
               </Web3ReactManager>
             </Body>
           </BodyWrapper>
-          {/* <FooterWrapper>
+          <FooterWrapper>
             <Footer />
-          </FooterWrapper> */}
+          </FooterWrapper>
         </AppWrapper>
       </Suspense>
     </>

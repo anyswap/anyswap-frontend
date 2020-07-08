@@ -30,6 +30,18 @@ export const Button = styled.button.attrs(({ warning, theme }) => ({
     cursor: auto;
   }
 `
+export const TitleBox = styled.h3`
+  width: 65px;
+  height: 24px;
+  font-family: Manrope;
+  font-size: 24px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: ${({ theme }) => theme.textColorBold};
+`
 
 export const Link = styled.a.attrs({
   target: '_blank',

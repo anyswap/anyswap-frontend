@@ -262,7 +262,7 @@ const StyledNavLink = styled(NavLink).attrs({
     padding: 15px 14px;
     font-size: 14px;
     font-weight: 600;
-    color: #062536;
+    color: ${({ theme }) => theme.textColorBold};
     border-bottom:none;
     .icon {
       height: 38px;

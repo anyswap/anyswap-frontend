@@ -16,7 +16,7 @@ import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useAddressAllowance } from '../../contexts/Allowances'
 import { useWalletModalToggle } from '../../contexts/Application'
 
-import { Button } from '../../theme'
+import { Button, TitleBox } from '../../theme'
 import CurrencyInputPanel from '../CurrencyInputPanel'
 import AddressInputPanel from '../AddressInputPanel'
 import OversizedPanel from '../OversizedPanel'
@@ -86,6 +86,8 @@ const Flex = styled.div`
     max-width: 20rem;
   }
 `
+
+
 
 function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, allowedSlippage) {
   if (value) {
@@ -934,6 +936,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           urlAddedTokens={urlAddedTokens}
           currency={outputCurrency}
         />
+      )}
+      {sending ? (
+        <>
+          <TitleBox>Send</TitleBox>
+        </>
+      ) : (
+        <>
+          <TitleBox>Swap</TitleBox>
+        </>
       )}
       <CurrencyInputPanel
         title={t('input')}
