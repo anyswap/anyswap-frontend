@@ -14,8 +14,7 @@ export const copyTxt = (cont) => {
   const range = document.createRange();
   window.getSelection().removeAllRanges(); //清楚页面中已有的selection
   range.selectNode(activeCodeSapn);
-  window.getSelection().addRange(range);
-  const tag = document.execCommand("Copy")
+  window.getSelection().addRange(range)
   window.getSelection().removeAllRanges()
   document.getElementById(id).remove()
   _input = null
