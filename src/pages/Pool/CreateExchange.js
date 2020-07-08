@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import ReactGA from 'react-ga'
+// import ReactGA from 'react-ga'
 
 import { useWeb3React, useFactoryContract } from '../../hooks'
 import { Button } from '../../theme'
@@ -122,10 +122,10 @@ function CreateExchange({ location, params }) {
         console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
-          ReactGA.event({
-            category: 'Transaction',
-            action: 'Create Exchange'
-          })
+          // ReactGA.event({
+          //   category: 'Transaction',
+          //   action: 'Create Exchange'
+          // })
           setIsHardwareTip(false)
         } else {
           setIsHardwareError(true)
@@ -137,10 +137,10 @@ function CreateExchange({ location, params }) {
     const estimatedGasLimit = await factory.estimate.createExchange(tokenAddress.address)
 
     factory.createExchange(tokenAddress.address, { gasLimit: estimatedGasLimit }).then(response => {
-      ReactGA.event({
-        category: 'Transaction',
-        action: 'Create Exchange'
-      })
+      // ReactGA.event({
+      //   category: 'Transaction',
+      //   action: 'Create Exchange'
+      // })
 
       addTransaction(response)
     })

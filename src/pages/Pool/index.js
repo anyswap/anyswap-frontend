@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect } from 'react'
-import ReactGA from 'react-ga'
+// import ReactGA from 'react-ga'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import ModeSelector from './ModeSelector'
 
@@ -8,9 +8,9 @@ const RemoveLiquidity = lazy(() => import('./RemoveLiquidity'))
 const CreateExchange = lazy(() => import('./CreateExchange'))
 
 export default function Pool({ params }) {
-  useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search)
-  }, [])
+  // useEffect(() => {
+  //   ReactGA.pageview(window.location.pathname + window.location.search)
+  // }, [])
 
   const AddLiquidityParams = () => <AddLiquidity params={params} />
 

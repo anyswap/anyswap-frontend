@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react'
-import ReactGA from 'react-ga'
+// import ReactGA from 'react-ga'
 import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
@@ -305,9 +305,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const tokenAllowedSlippageBig = ethers.utils.bigNumberify(rawTokenSlippage)
 
   // analytics
-  useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search)
-  }, [])
+  // useEffect(() => {
+  //   ReactGA.pageview(window.location.pathname + window.location.search)
+  // }, [])
 
   // core swap state
   const [swapState, dispatchSwapState] = useReducer(
@@ -614,34 +614,34 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   async function onSwap() {
     //if user changed deadline, log new one in minutes
-    if (deadlineFromNow !== DEFAULT_DEADLINE_FROM_NOW) {
-      ReactGA.event({
-        category: 'Advanced Interaction',
-        action: 'Set Custom Deadline',
-        value: deadlineFromNow / 60
-      })
-    }
+    // if (deadlineFromNow !== DEFAULT_DEADLINE_FROM_NOW) {
+    //   ReactGA.event({
+    //     category: 'Advanced Interaction',
+    //     action: 'Set Custom Deadline',
+    //     value: deadlineFromNow / 60
+    //   })
+    // }
 
     const deadline = Math.ceil(Date.now() / 1000) + deadlineFromNow
 
     // if user has changed slippage, log
-    if (swapType === TOKEN_TO_TOKEN) {
-      if (parseInt(tokenAllowedSlippageBig.toString()) !== TOKEN_ALLOWED_SLIPPAGE_DEFAULT) {
-        ReactGA.event({
-          category: 'Advanced Interaction',
-          action: 'Set Custom Slippage',
-          value: parseInt(tokenAllowedSlippageBig.toString())
-        })
-      }
-    } else {
-      if (parseInt(allowedSlippageBig.toString()) !== ALLOWED_SLIPPAGE_DEFAULT) {
-        ReactGA.event({
-          category: 'Advanced Interaction',
-          action: 'Set Custom Slippage',
-          value: parseInt(allowedSlippageBig.toString())
-        })
-      }
-    }
+    // if (swapType === TOKEN_TO_TOKEN) {
+    //   if (parseInt(tokenAllowedSlippageBig.toString()) !== TOKEN_ALLOWED_SLIPPAGE_DEFAULT) {
+    //     ReactGA.event({
+    //       category: 'Advanced Interaction',
+    //       action: 'Set Custom Slippage',
+    //       value: parseInt(tokenAllowedSlippageBig.toString())
+    //     })
+    //   }
+    // } else {
+    //   if (parseInt(allowedSlippageBig.toString()) !== ALLOWED_SLIPPAGE_DEFAULT) {
+    //     ReactGA.event({
+    //       category: 'Advanced Interaction',
+    //       action: 'Set Custom Slippage',
+    //       value: parseInt(allowedSlippageBig.toString())
+    //     })
+    //   }
+    // }
 
     let estimate, method, args, value
 
@@ -765,18 +765,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
-          ReactGA.event({
-            category: 'Transaction',
-            action: action,
-            label: label,
-            value: ethTransactionSize,
-            dimension1: res.info.hash
-          })
-          ReactGA.event({
-            category: 'Hash',
-            action: res.info.hash,
-            label: ethTransactionSize.toString()
-          })
+          // ReactGA.event({
+          //   category: 'Transaction',
+          //   action: action,
+          //   label: label,
+          //   value: ethTransactionSize,
+          //   dimension1: res.info.hash
+          // })
+          // ReactGA.event({
+          //   category: 'Hash',
+          //   action: res.info.hash,
+          //   label: ethTransactionSize.toString()
+          // })
           setIsHardwareTip(false)
         } else {
           setIsHardwareError(true)
@@ -861,18 +861,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }).then(response => {
       console.log(response)
       addTransaction(response)
-      ReactGA.event({
-        category: 'Transaction',
-        action: action,
-        label: label,
-        value: ethTransactionSize,
-        dimension1: response.hash
-      })
-      ReactGA.event({
-        category: 'Hash',
-        action: response.hash,
-        label: ethTransactionSize.toString()
-      })
+      // ReactGA.event({
+      //   category: 'Transaction',
+      //   action: action,
+      //   label: label,
+      //   value: ethTransactionSize,
+      //   dimension1: response.hash
+      // })
+      // ReactGA.event({
+      //   category: 'Hash',
+      //   action: response.hash,
+      //   label: ethTransactionSize.toString()
+      // })
     })
   }
 

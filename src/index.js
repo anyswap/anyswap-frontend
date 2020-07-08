@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ReactGA from 'react-ga'
+// import ReactGA from 'react-ga'
 import { Web3ReactProvider, createWeb3ReactRoot } from '@web3-react/core'
 import { ethers } from 'ethers'
 
@@ -29,16 +29,16 @@ function getLibrary(provider) {
   // console.log(library)
   return library
 }
-if (process.env.NODE_ENV === 'production') {
-  ReactGA.initialize('UA-128182339-1')
-  ReactGA.set({
-    customBrowserType: !isMobile ? 'desktop' : window.web3 || window.ethereum ? 'mobileWeb3' : 'mobileRegular'
-  })
-} else {
-  ReactGA.initialize('test', { testMode: true })
-}
+// if (process.env.NODE_ENV === 'production') {
+//   ReactGA.initialize('UA-128182339-1')
+//   ReactGA.set({
+//     customBrowserType: !isMobile ? 'desktop' : window.web3 || window.ethereum ? 'mobileWeb3' : 'mobileRegular'
+//   })
+// } else {
+//   ReactGA.initialize('test', { testMode: true })
+// }
 
-ReactGA.pageview(window.location.pathname + window.location.search)
+// ReactGA.pageview(window.location.pathname + window.location.search)
 
 function ContextProviders({ children }) {
   return (
