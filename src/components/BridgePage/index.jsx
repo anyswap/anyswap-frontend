@@ -536,9 +536,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   // const contract = swapType === ETH_TO_TOKEN ? outputExchangeContract : inputExchangeContract
   // const contract = outputExchangeContract
 
-  // get input allowance
-  const inputAllowance = useAddressAllowance(account, inputCurrency, inputExchangeAddress)
-
   // fetch reserves for each of the currency types
   const { reserveETH: inputReserveETH, reserveToken: inputReserveToken } = useExchangeReserves(inputCurrency)
   const { reserveETH: outputReserveETH, reserveToken: outputReserveToken } = useExchangeReserves(outputCurrency)
@@ -590,14 +587,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
     }
   }, [independentValue, independentDecimals, t])
-
-  // calculate slippage from target rate
-  const { minimum: dependentValueMinumum, maximum: dependentValueMaximum } = calculateSlippageBounds(
-    dependentValue,
-    swapType === TOKEN_TO_TOKEN,
-    tokenAllowedSlippageBig,
-    allowedSlippageBig
-  )
 
 
   // calculate dependent value

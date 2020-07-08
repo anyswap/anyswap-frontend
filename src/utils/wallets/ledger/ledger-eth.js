@@ -15,21 +15,19 @@
 *  limitations under the License.
 ********************************************************************************/
 
-'use strict';
-
-var LedgerEth = function(comm) {
+let LedgerEth = function(comm) {
 	this.comm = comm;
 }
 
 LedgerEth.splitPath = function(path) {
-	var result = [];
-	var components = path.split('/');
+	let result = [];
+	let components = path.split('/');
 	components.forEach(function (element, index) {
-		var number = parseInt(element, 10);
+		let number = parseInt(element, 10);
 		if (isNaN(number)) {
 			return;
 		}
-		if ((element.length > 1) && (element[element.length - 1] == "'")) {
+		if ((element.length > 1) && (element[element.length - 1] === "'")) {
 			number += 0x80000000;
 		}
 		result.push(number);
@@ -39,8 +37,8 @@ LedgerEth.splitPath = function(path) {
 
 // callback is function(response, error)
 LedgerEth.prototype.getAddress = function(path, callback, boolDisplay, boolChaincode) {
-	var splitPath = LedgerEth.splitPath(path);
-	var buffer = new Buffer(5 + 1 + splitPath.length * 4);
+	let splitPath = LedgerEth.splitPath(path);
+	let buffer = new Buffer(5 + 1 + splitPath.length * 4);
 	buffer[0] = 0xe0;
 	buffer[1] = 0x02;
 	buffer[2] = (boolDisplay ? 0x01 : 0x00);
@@ -50,21 +48,21 @@ LedgerEth.prototype.getAddress = function(path, callback, boolDisplay, boolChain
 	splitPath.forEach(function (element, index) {
 		buffer.writeUInt32BE(element, 6 + 4 * index);
 	});
-	var self = this;
-	var localCallback = function(response, error) {
-		if (typeof error != "undefined") {
+	let self = this;
+	let localCallback = function(response, error) {
+		if (typeof error !== "undefined") {
 			callback(undefined, error);
 		}
 		else {
-			var result = {};
+			let result = {};
 			response = new Buffer(response, 'hex');
-			var sw = response.readUInt16BE(response.length - 2);
-			if (sw != 0x9000) {
+			let sw = response.readUInt16BE(response.length - 2);
+			if (sw !== 0x9000) {
 				callback(undefined, "Invalid status " + sw.toString(16) + ". Check to make sure the right application is selected ?");
 				return;
 			}
-			var publicKeyLength = response[0];
-			var addressLength = response[1 + publicKeyLength];
+			let publicKeyLength = response[0];
+			let addressLength = response[1 + publicKeyLength];
 			result['publicKey'] = response.slice(1, 1 + publicKeyLength).toString('hex');
 			result['address'] = "0x" + response.slice(1 + publicKeyLength + 1, 1 + publicKeyLength + 1 + addressLength).toString('ascii');
 			if (boolChaincode) {
@@ -78,20 +76,20 @@ LedgerEth.prototype.getAddress = function(path, callback, boolDisplay, boolChain
 
 // callback is function(response, error)
 LedgerEth.prototype.signTransaction = function(path, rawTxHex, callback) {
-	var splitPath = LedgerEth.splitPath(path);
-	var offset = 0;
-	var rawTx = new Buffer(rawTxHex, 'hex');
-	var apdus = [];
-	while (offset != rawTx.length) {
-		var maxChunkSize = (offset == 0 ? (150 - 1 - splitPath.length * 4) : 150)
-		var chunkSize = (offset + maxChunkSize > rawTx.length ? rawTx.length - offset : maxChunkSize);
-		var buffer = new Buffer(offset == 0 ? 5 + 1 + splitPath.length * 4 + chunkSize : 5 + chunkSize);
+	let splitPath = LedgerEth.splitPath(path);
+	let offset = 0;
+	let rawTx = new Buffer(rawTxHex, 'hex');
+	let apdus = [];
+	while (offset !== rawTx.length) {
+		let maxChunkSize = (offset === 0 ? (150 - 1 - splitPath.length * 4) : 150)
+		let chunkSize = (offset + maxChunkSize > rawTx.length ? rawTx.length - offset : maxChunkSize);
+		let buffer = new Buffer(offset === 0 ? 5 + 1 + splitPath.length * 4 + chunkSize : 5 + chunkSize);
 		buffer[0] = 0xe0;
 		buffer[1] = 0x04;
-		buffer[2] = (offset == 0 ? 0x00 : 0x80);
+		buffer[2] = (offset === 0 ? 0x00 : 0x80);
 		buffer[3] = 0x00;
-		buffer[4] = (offset == 0 ? 1 + splitPath.length * 4 + chunkSize : chunkSize);
-		if (offset == 0) {
+		buffer[4] = (offset === 0 ? 1 + splitPath.length * 4 + chunkSize : chunkSize);
+		if (offset === 0) {
 			buffer[5] = splitPath.length;
 			splitPath.forEach(function (element, index) {
 				buffer.writeUInt32BE(element, 6 + 4 * index);
@@ -104,20 +102,20 @@ LedgerEth.prototype.signTransaction = function(path, rawTxHex, callback) {
 		apdus.push(buffer.toString('hex'));
 		offset += chunkSize;
 	}
-	var self = this;
-	var localCallback = function(response, error) {
-		if (typeof error != "undefined") {
+	let self = this;
+	let localCallback = function(response, error) {
+		if (typeof error !== "undefined") {
 			callback(undefined, error);
 		}
 		else {
 			response = new Buffer(response, 'hex');
-			var sw = response.readUInt16BE(response.length - 2);
-			if (sw != 0x9000) {
+			let sw = response.readUInt16BE(response.length - 2);
+			if (sw !== 0x9000) {
         callback(undefined, "Invalid status " + sw.toString(16) + ". Check to make sure contract data is on ?");
 				return;
 			}
-			if (apdus.length == 0) {
-					var result = {};
+			if (apdus.length === 0) {
+					let result = {};
 					result['v'] = response.slice(0, 1).toString('hex');
 					result['r'] = response.slice(1, 1 + 32).toString('hex');
 					result['s'] = response.slice(1 + 32, 1 + 32 + 32).toString('hex');
@@ -133,21 +131,21 @@ LedgerEth.prototype.signTransaction = function(path, rawTxHex, callback) {
 
 // callback is function(response, error)
 LedgerEth.prototype.getAppConfiguration = function(callback) {
-	var buffer = new Buffer(5);
+	let buffer = new Buffer(5);
 	buffer[0] = 0xe0;
 	buffer[1] = 0x06;
 	buffer[2] = 0x00;
 	buffer[3] = 0x00;
 	buffer[4] = 0x00;
-	var localCallback = function(response, error) {
-		if (typeof error != "undefined") {
+	let localCallback = function(response, error) {
+		if (typeof error !== "undefined") {
 			callback(undefined, error);
 		}
 		else {
 			response = new Buffer(response, 'hex');
-			var result = {};
-			var sw = response.readUInt16BE(response.length - 2);
-			if (sw != 0x9000) {
+			let result = {};
+			let sw = response.readUInt16BE(response.length - 2);
+			if (sw !== 0x9000) {
 				callback(undefined, "Invalid status " + sw.toString(16) + ". Check to make sure the right application is selected ?");
 				return;
 			}
@@ -160,22 +158,22 @@ LedgerEth.prototype.getAppConfiguration = function(callback) {
 }
 
 LedgerEth.prototype.signPersonalMessage_async = function(path, messageHex, callback) {
-  var splitPath = LedgerEth.splitPath(path);
-  var offset = 0;
-  var message = new Buffer(messageHex, 'hex');
-  var apdus = [];
-  var response = [];
-  var self = this;
-  while (offset != message.length) {
-    var maxChunkSize = (offset == 0 ? (150 - 1 - splitPath.length * 4 - 4) : 150)
-    var chunkSize = (offset + maxChunkSize > message.length ? message.length - offset : maxChunkSize);
-    var buffer = new Buffer(offset == 0 ? 5 + 1 + splitPath.length * 4 + 4 + chunkSize : 5 + chunkSize);
+  let splitPath = LedgerEth.splitPath(path);
+  let offset = 0;
+  let message = new Buffer(messageHex, 'hex');
+  let apdus = [];
+  let response = [];
+  let self = this;
+  while (offset !== message.length) {
+    let maxChunkSize = (offset === 0 ? (150 - 1 - splitPath.length * 4 - 4) : 150)
+    let chunkSize = (offset + maxChunkSize > message.length ? message.length - offset : maxChunkSize);
+    let buffer = new Buffer(offset === 0 ? 5 + 1 + splitPath.length * 4 + 4 + chunkSize : 5 + chunkSize);
     buffer[0] = 0xe0;
     buffer[1] = 0x08;
-    buffer[2] = (offset == 0 ? 0x00 : 0x80);
+    buffer[2] = (offset === 0 ? 0x00 : 0x80);
     buffer[3] = 0x00;
-    buffer[4] = (offset == 0 ? 1 + splitPath.length * 4 + 4 + chunkSize : chunkSize);
-    if (offset == 0) {
+    buffer[4] = (offset === 0 ? 1 + splitPath.length * 4 + 4 + chunkSize : chunkSize);
+    if (offset === 0) {
       buffer[5] = splitPath.length;
       splitPath.forEach(function (element, index) {
         buffer.writeUInt32BE(element, 6 + 4 * index);
@@ -189,20 +187,19 @@ LedgerEth.prototype.signPersonalMessage_async = function(path, messageHex, callb
     apdus.push(buffer.toString('hex'));
     offset += chunkSize;
   }
-  var self = this;
-  var localCallback = function(response, error) {
-    if (typeof error != "undefined") {
+  let localCallback = function(response, error) {
+    if (typeof error !== "undefined") {
       callback(undefined, error);
     }
     else {
       response = new Buffer(response, 'hex');
-      var sw = response.readUInt16BE(response.length - 2);
-      if (sw != 0x9000) {
+      let sw = response.readUInt16BE(response.length - 2);
+      if (sw !== 0x9000) {
         callback(undefined, "Invalid status " + sw.toString(16) + ". Check to make sure the right application is selected ?");
         return;
       }
-      if (apdus.length == 0) {
-          var result = {};
+      if (apdus.length === 0) {
+          let result = {};
           result['v'] = response.slice(0, 1).toString('hex');
           result['r'] = response.slice(1, 1 + 32).toString('hex');
           result['s'] = response.slice(1 + 32, 1 + 32 + 32).toString('hex');

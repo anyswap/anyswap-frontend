@@ -139,7 +139,7 @@ export default function HardwareTip({
           </HeaderRow>
           <ContentWrapper>
             <LogoBox>
-              <img src={ANYLogo} />
+              <img src={ANYLogo} alt={'logo'} />
             </LogoBox>
             {
               error ? (

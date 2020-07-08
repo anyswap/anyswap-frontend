@@ -1,4 +1,4 @@
-'use strict';
+
 // var ethUtil = require('ethereumjs-util')
 var ethUtil = require('../ethUtil')
 ethUtil.crypto = require("crypto");
@@ -7,7 +7,7 @@ ethUtil.scrypt = require("scryptsy");
 ethUtil.uuid = require("uuid");
 var Wallet = function (priv, pub, path, hwType, hwTransport) {
   if (typeof priv != "undefined") {
-    this.privKey = priv.length == 32 ? priv : Buffer(priv, 'hex')
+    this.privKey = priv.length === 32 ? priv : Buffer(priv, 'hex')
   }
   this.pubKey = pub;
   this.path = path;
@@ -28,119 +28,6 @@ Wallet.generate = function (icapDirect) {
   }
 }
 
-// Wallet.prototype.setTokens = function () {
-//   this.tokenObjs = [];
-//   var defaultTokensAndNetworkType = globalFuncs.getDefaultTokensAndNetworkType();
-//   var tokens = Token.popTokens;
-
-//   for (var i = 0; i < tokens.length; i++) {
-//     this.tokenObjs.push(
-//     new Token(
-//       tokens[i].address,
-//       this.getAddressString(),
-//       tokens[i].symbol,
-//       tokens[i].decimal,
-//       tokens[i].type
-//     )
-//     );
-
-//     var autoTokens = globalFuncs.localStorage.getItem('autoLoadTokens')
-//     var autoLoadTokens = autoTokens ? autoTokens : [];
-//     var thisAddr = tokens[i].address
-
-//     if ( autoLoadTokens.indexOf( thisAddr ) > -1 ) {
-//     this.tokenObjs[this.tokenObjs.length - 1].setBalance();
-//     }
-//   }
-
-//   var storedTokens = globalFuncs.localStorage.getItem('localTokens', null) != null ? JSON.parse(globalFuncs.localStorage.getItem('localTokens')) : [];
-
-//   var conflictWithDefaultTokens = [];
-//   for (var e = 0; e < storedTokens.length; e++) {
-//     if (globalFuncs.doesTokenExistInDefaultTokens(storedTokens[e], defaultTokensAndNetworkType)) {
-//       conflictWithDefaultTokens.push(storedTokens[e]);
-//       // don't push to tokenObjs if token is default; continue to next element
-//       continue;
-//     }
-
-//     this.tokenObjs.push(
-//       new Token(
-//       storedTokens[e].contractAddress,
-//       this.getAddressString(),
-//       globalFuncs.stripTags(storedTokens[e].symbol),
-//       storedTokens[e].decimal,
-//       storedTokens[e].type,
-//       )
-//     );
-//     this.tokenObjs[this.tokenObjs.length - 1].setBalance();
-//   }
-//   removeAllTokenConflicts(conflictWithDefaultTokens, storedTokens)
-// };
-
-// function saveToLocalStorage(key, value) {
-//   globalFuncs.localStorage.setItem(key, JSON.stringify(value))
-// }
-
-function removeConflictingTokensFromLocalStorage(conflictLocalTokens, localTokens) {
-  for (var i = 0; i < conflictLocalTokens.length; i++) {
-  for (var e = 0; e < localTokens.length; e++) {
-    if (conflictLocalTokens[i] === localTokens[e]) {
-    localTokens.splice(e, 1);
-    }
-  }
-  }
-  return localTokens;
-}
-
-// https://stackoverflow.com/questions/32238602/javascript-remove-duplicates-of-objects-sharing-same-property-value
-function removeDuplicates(originalArray, objKey) {
-  var trimmedArray = [];
-  var values = [];
-  var value;
-
-  for(var i = 0; i < originalArray.length; i++) {
-  value = originalArray[i][objKey];
-
-  if(values.indexOf(value) === -1) {
-    trimmedArray.push(originalArray[i]);
-    values.push(value);
-  }
-  }
-  return trimmedArray;
-}
-
-// function removeAllTokenConflicts(conflictWithDefaultTokens, localTokens) {
-//   var deConflictedTokens = removeConflictingTokensFromLocalStorage(conflictWithDefaultTokens, localTokens);
-//   var deDuplicatedTokens = removeDuplicates(deConflictedTokens, 'symbol');
-//   saveToLocalStorage("localTokens", deDuplicatedTokens)
-// }
-
-// Wallet.prototype.setBalance = function (callback) {
-//   var parentObj = this;
-//   this.balance = this.usdBalance = this.eurBalance = this.btcBalance = this.chfBalance = this.repBalance =  this.gbpBalance = 'loading';
-//   ajaxReq.getBalance(parentObj.getAddressString(), function (data) {
-//     if (data.error) parentObj.balance = data.msg;
-//     else {
-//       parentObj.balance = etherUnits.toEther(data.data.balance, 'wei');
-//       ajaxReq.getETHvalue(function (data) {
-//         parentObj.usdPrice   = etherUnits.toFiat('1', 'ether', data.usd);
-//         parentObj.gbpPrice   = etherUnits.toFiat('1', 'ether', data.gbp);
-//         parentObj.eurPrice   = etherUnits.toFiat('1', 'ether', data.eur);
-//         parentObj.btcPrice   = etherUnits.toFiat('1', 'ether', data.btc);
-//         parentObj.chfPrice   = etherUnits.toFiat('1', 'ether', data.chf);
-//         parentObj.repPrice   = etherUnits.toFiat('1', 'ether', data.rep);
-
-//         parentObj.usdBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.usd);
-//         parentObj.gbpBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.gbp);
-//         parentObj.eurBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.eur);
-//         parentObj.btcBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.btc);
-//         parentObj.chfBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.chf);
-//         parentObj.repBalance = etherUnits.toFiat(parentObj.balance, 'ether', data.rep);
-//         if(callback) callback();
-//       });
-//     }
-//   });
-// }
 Wallet.prototype.getBalance = function () {
   return this.balance;
 }
@@ -196,7 +83,7 @@ Wallet.fromPrivateKey = function (priv) {
 Wallet.fromParityPhrase = function (phrase) {
   var hash = ethUtil.sha3(new Buffer(phrase));
   for (var i = 0; i < 16384; i++) hash = ethUtil.sha3(hash);
-  while (ethUtil.privateToAddress(hash)[0] != 0) hash = ethUtil.sha3(hash);
+  while (ethUtil.privateToAddress(hash)[0] !== 0) hash = ethUtil.sha3(hash);
   return new Wallet(hash);
 }
 Wallet.prototype.toV3 = function (password, opts) {
@@ -433,7 +320,7 @@ Wallet.getWalletFromPrivKeyFile = function (strjson, password) {
   if (jsonArr.encseed != null) return Wallet.fromEthSale(strjson, password);
   else if (jsonArr.Crypto != null || jsonArr.crypto != null) return Wallet.fromV3(strjson, password, true);
   else if (jsonArr.hash != null) return Wallet.fromMyEtherWallet(strjson, password);
-  else if (jsonArr.publisher == '') return Wallet.fromMyEtherWalletV2(strjson);
+  else if (jsonArr.publisher === '') return Wallet.fromMyEtherWalletV2(strjson);
   else {
     let errtxt2 = 'Sorry! We don\'t recognize this type of wallet file. '
     throw errtxt2

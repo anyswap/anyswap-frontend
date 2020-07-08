@@ -42,7 +42,6 @@ function signTxLedger (app, eTx, rawTx, HDPath, old) {
       // console.log(error)
       if (typeof error != "undefined") {
         // error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error
-        error = error
         data = { error: error}
       } else {
         let v = result['v'].toString(16);

@@ -81,6 +81,7 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
   const [data, setData] = useState({ address: undefined, name: undefined })
   const [error, setError] = useState(false)
 
+
   // keep data and errors in sync
   useEffect(() => {
     onChange({ address: data.address, name: data.name })

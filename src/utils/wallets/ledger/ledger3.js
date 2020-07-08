@@ -15,7 +15,6 @@
  *  limitations under the License.
  ********************************************************************************/
 
-"use strict";
 const u2f = require("u2f-api");
 var Ledger3 = function(scrambleKey, timeoutSeconds) {
   this.scrambleKey = new Buffer(scrambleKey, "ascii");
@@ -42,7 +41,7 @@ Ledger3.webSafe64 = function(base64) {
 // Convert from web-safe to normal, add trailing "="s
 Ledger3.normal64 = function(base64) {
   return (
-    base64.replace(/\-/g, "+").replace(/_/g, "/") +
+    base64.replace(/-/g, "+").replace(/_/g, "/") +
     "==".substring(0, (3 * base64.length) % 4)
   );
 };

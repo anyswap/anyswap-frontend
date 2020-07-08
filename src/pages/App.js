@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react'
 import styled from 'styled-components'
-import { BrowserRouter, Router,Redirect, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 // import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 import Web3ReactManager from '../components/Web3ReactManager'
