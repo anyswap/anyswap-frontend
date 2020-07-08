@@ -26,6 +26,8 @@ import { transparentize } from 'polished'
 
 import {LedgerConnector} from '../../utils/wallets/ledger/ledgerConnect'
 
+import config  from '../../config/index'
+
 const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
@@ -416,6 +418,8 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     let path = HDPathArr[selectHDPathIndex].path ? HDPathArr[selectHDPathIndex].path : selfHDPathVal
     // console.log(path)
     // setWalletView(WALLET_VIEWS.PENDING)
+    // tryActivation(option.connector)
+    // return
     getLedgerAddressArr(path, pageSize).then(res => {
       console.log(res)
       if (res.msg === 'Success') {
@@ -425,11 +429,15 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
         })
       } else {
         setIsUseSelectAddr(0)
-        if (option) {
-          tryActivation(option.connector)
-        } else  {
-          tryActivation()
-        }
+        // if (option) {
+        tryActivation(option.connector)
+        // tryActivation(() => {
+        //   setPendingError(false)
+        //   setWalletView(WALLET_VIEWS.ACCOUNT)
+        // })
+        // } else  {
+        //   tryActivation()
+        // }
       }
     })
   }
@@ -649,6 +657,14 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
               setPendingError={setPendingError}
               tryActivation={tryActivation}
               walletType={walletType}
+              onHardware={() => {
+                // getHardwareAccount(SUPPORTED_WALLETS['LEDGER'], walletType)
+                setSelectHDPathIndex(0)
+                setPageSize(0)
+                setIsUseSelectAddr(0)
+                setPendingError(false)
+                setWalletView(WALLET_VIEWS.ACCOUNT)
+              }}
             />
           ) : (
             <OptionGrid>{getOptions()}</OptionGrid>

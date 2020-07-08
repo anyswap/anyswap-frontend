@@ -73,7 +73,7 @@ const LoadingWrapper = styled.div`
   justify-content: center;
 `
 
-export default function PendingView({ uri = '', size, connector, error = false, setPendingError, tryActivation, walletType }) {
+export default function PendingView({ uri = '', size, connector, error = false, setPendingError, tryActivation, walletType, onHardware = () => {} }) {
   const isMetamask = window.ethereum && window.ethereum.isMetaMask
   // let walletType = sessionStorage.getItem('walletType')
 
@@ -97,7 +97,11 @@ export default function PendingView({ uri = '', size, connector, error = false, 
               <ErrorButton
                 onClick={() => {
                   setPendingError(false)
-                  tryActivation(connector)
+                  if (config.supportWallet.includes(walletType)) {
+                    onHardware()
+                  } else {
+                    tryActivation(connector)
+                  }
                 }}
               >
                 Try Again

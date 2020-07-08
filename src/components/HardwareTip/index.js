@@ -145,7 +145,7 @@ export default function HardwareTip({
               error ? (
                 <ErrorTip>
                   <h3>Sign Failed!</h3>
-                  <p>Please make sure your Ledgeris unlocked, on Fusion app with contract data setting allowed</p>
+                  <p>Please make sure your Ledger unlocked, on Ethereum app with contract data setting allowed</p>
                 </ErrorTip>
               ) : (
                 <ConfirmContent>
