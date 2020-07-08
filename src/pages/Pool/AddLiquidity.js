@@ -418,18 +418,6 @@ export default function AddLiquidity({ params }) {
         console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
-          // ReactGA.event({
-          //   category: 'Transaction',
-          //   action: 'Add Liquidity',
-          //   label: outputCurrency,
-          //   value: ethTransactionSize,
-          //   dimension1: res.info.hash
-          // })
-          // ReactGA.event({
-          //   category: 'Hash',
-          //   action: res.info.hash,
-          //   label: ethTransactionSize.toString()
-          // })
           setIsHardwareTip(false)
         } else {
           setIsHardwareError(true)
@@ -438,7 +426,6 @@ export default function AddLiquidity({ params }) {
       })
       return
     }
-
     const estimatedGasLimit = await exchangeContract.estimate.addLiquidity(
       isNewExchange ? ethers.constants.Zero : liquidityTokensMin,
       isNewExchange ? outputValueParsed : outputValueMax,
