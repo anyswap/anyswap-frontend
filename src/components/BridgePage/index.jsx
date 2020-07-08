@@ -220,6 +220,30 @@ const StyledQRcode = styled(QRcode)`
   cursor:pointer;
 `
 
+const WarningTip = styled.div`
+  padding: 10px 15px;
+  color:red;
+  font-size:14px;
+  cursor: pointer;
+  flex: 1 0 auto;
+  align-items: center;
+  position: relative;
+  padding: 0.5rem 1rem;
+  padding-right: 2rem;
+  margin-bottom: 1rem;
+  border: 1px solid ${({ theme }) => transparentize(0.6, 'red')};
+  background-color: ${({ theme }) => transparentize(0.9, 'red')};
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: red;
+  margin-top: 20px;
+`
+
 // const StyledCopyICON = styled(copyICON)`
 //   width: ${({ size }) => size};
 //   height: ${({ size }) => size};
@@ -1004,6 +1028,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           </span>
         </ExchangeRateWrapper>
       </OversizedPanel>
+      {
+        bridgeType && bridgeType === 'redeem' ? '' : (
+          <>
+            <WarningTip>
+            💀 ONLY the deposits from your current wallet 0xD1234...abcde will be credited!!!
+            </WarningTip>
+          </>
+        )
+      }
       <Flex>
         {bridgeType && bridgeType === 'redeem' ? (
           <>
