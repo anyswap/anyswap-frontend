@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ReactGA from 'react-ga'
+// import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import { isMobile } from 'react-device-detect'
 import { useTranslation } from 'react-i18next'
@@ -321,11 +321,11 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
       }
       return true
     })
-    ReactGA.event({
-      category: 'Wallet',
-      action: 'Change Wallet',
-      label: name
-    })
+    // ReactGA.event({
+    //   category: 'Wallet',
+    //   action: 'Change Wallet',
+    //   label: name
+    // })
     setPendingWallet(connector) // set wallet for pending view
     setWalletView(WALLET_VIEWS.PENDING)
     activate(connector, undefined, true).catch(error => {

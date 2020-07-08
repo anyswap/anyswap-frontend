@@ -2,7 +2,7 @@ import React, { useReducer, useState, useCallback, useEffect, useMemo } from 're
 import { useTranslation } from 'react-i18next'
 import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
-import ReactGA from 'react-ga'
+// import ReactGA from 'react-ga'
 import styled from 'styled-components'
 
 import { Button } from '../../theme'
@@ -417,18 +417,18 @@ export default function AddLiquidity({ params }) {
         console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
-          ReactGA.event({
-            category: 'Transaction',
-            action: 'Add Liquidity',
-            label: outputCurrency,
-            value: ethTransactionSize,
-            dimension1: res.info.hash
-          })
-          ReactGA.event({
-            category: 'Hash',
-            action: res.info.hash,
-            label: ethTransactionSize.toString()
-          })
+          // ReactGA.event({
+          //   category: 'Transaction',
+          //   action: 'Add Liquidity',
+          //   label: outputCurrency,
+          //   value: ethTransactionSize,
+          //   dimension1: res.info.hash
+          // })
+          // ReactGA.event({
+          //   category: 'Hash',
+          //   action: res.info.hash,
+          //   label: ethTransactionSize.toString()
+          // })
           setIsHardwareTip(false)
         } else {
           setIsHardwareError(true)
@@ -461,18 +461,18 @@ export default function AddLiquidity({ params }) {
       )
       .then(response => {
         // log pool added to and total usd amount
-        ReactGA.event({
-          category: 'Transaction',
-          action: 'Add Liquidity',
-          label: outputCurrency,
-          value: ethTransactionSize,
-          dimension1: response.hash
-        })
-        ReactGA.event({
-          category: 'Hash',
-          action: response.hash,
-          label: ethTransactionSize.toString()
-        })
+        // ReactGA.event({
+        //   category: 'Transaction',
+        //   action: 'Add Liquidity',
+        //   label: outputCurrency,
+        //   value: ethTransactionSize,
+        //   dimension1: response.hash
+        // })
+        // ReactGA.event({
+        //   category: 'Hash',
+        //   action: response.hash,
+        //   label: ethTransactionSize.toString()
+        // })
         addTransaction(response)
       })
   }

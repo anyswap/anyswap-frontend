@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react'
-import ReactGA from 'react-ga'
+// import ReactGA from 'react-ga'
 import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
@@ -237,9 +237,6 @@ const WarningTip = styled.div`
   font-size: 0.75rem;
   line-height: 1rem;
   text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   color: red;
   margin-top: 20px;
 `
@@ -457,9 +454,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const tokenAllowedSlippageBig = ethers.utils.bigNumberify(rawTokenSlippage)
 
   // analytics
-  useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search)
-  }, [])
+  // useEffect(() => {
+  //   ReactGA.pageview(window.location.pathname + window.location.search)
+  // }, [])
 
   // core swap state
   const [swapState, dispatchSwapState] = useReducer(
@@ -1029,10 +1026,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         </ExchangeRateWrapper>
       </OversizedPanel>
       {
-        bridgeType && bridgeType === 'redeem' ? '' : (
+        (bridgeType && bridgeType === 'redeem') || !account || !registerAddress || inputSymbol === 'mBTC' ? '' : (
           <>
             <WarningTip>
-            💀 ONLY the deposits from your current wallet 0xD1234...abcde will be credited!!!
+            💀 ONLY the deposits from your ETH wallet {account} will be credited!!!
             </WarningTip>
           </>
         )

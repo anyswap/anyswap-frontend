@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import ReactGA from 'react-ga'
+// import ReactGA from 'react-ga'
 import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
@@ -296,19 +296,19 @@ export default function RemoveLiquidity({ params }) {
         console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
-          ReactGA.event({
-            category: 'Transaction',
-            action: 'Remove Liquidity',
-            label: outputCurrency,
-            value: ethTransactionSize,
-            dimension1: res.info.hash
-          })
-          ReactGA.event({
-            category: 'Hash',
-            action: res.info.hash,
-            label: ethTransactionSize.toString(),
-            value: ethTransactionSize
-          })
+          // ReactGA.event({
+          //   category: 'Transaction',
+          //   action: 'Remove Liquidity',
+          //   label: outputCurrency,
+          //   value: ethTransactionSize,
+          //   dimension1: res.info.hash
+          // })
+          // ReactGA.event({
+          //   category: 'Hash',
+          //   action: res.info.hash,
+          //   label: ethTransactionSize.toString(),
+          //   value: ethTransactionSize
+          // })
           setIsHardwareTip(false)
         } else {
           setIsHardwareError(true)
@@ -330,19 +330,19 @@ export default function RemoveLiquidity({ params }) {
         gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN)
       })
       .then(response => {
-        ReactGA.event({
-          category: 'Transaction',
-          action: 'Remove Liquidity',
-          label: outputCurrency,
-          value: ethTransactionSize,
-          dimension1: response.hash
-        })
-        ReactGA.event({
-          category: 'Hash',
-          action: response.hash,
-          label: ethTransactionSize.toString(),
-          value: ethTransactionSize
-        })
+        // ReactGA.event({
+        //   category: 'Transaction',
+        //   action: 'Remove Liquidity',
+        //   label: outputCurrency,
+        //   value: ethTransactionSize,
+        //   dimension1: response.hash
+        // })
+        // ReactGA.event({
+        //   category: 'Hash',
+        //   action: response.hash,
+        //   label: ethTransactionSize.toString(),
+        //   value: ethTransactionSize
+        // })
         addTransaction(response)
       })
   }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
 import { transparentize } from 'polished'
-import ReactGA from 'react-ga'
+// import ReactGA from 'react-ga'
 import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
 
@@ -103,11 +103,11 @@ export default function ContextualInfo({
       <SummaryWrapperContainer
         onClick={() => {
           !showDetails &&
-            ReactGA.event({
-              category: 'Advanced Interaction',
-              action: 'Open Advanced Details',
-              label: 'Swap/Send Page Details'
-            })
+            // ReactGA.event({
+            //   category: 'Advanced Interaction',
+            //   action: 'Open Advanced Details',
+            //   label: 'Swap/Send Page Details'
+            // })
           setShowDetails(s => !s)
         }}
       >
