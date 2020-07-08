@@ -119,7 +119,6 @@ const StyledDropDownBox = styled.div`
 `
 
 const StyledDropDown = styled(DropDown)`
-  margin: 0 0.5rem 0 0.5rem;
   height: 35%;
 
   path {
@@ -132,15 +131,13 @@ const InputPanel = styled.div`
   box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
   position: relative;
   border-radius: 1.25rem;
-  background-color: ${({ theme }) => theme.inputBackground};
+  background-color: ${({theme}) => theme.bgColor};
   z-index: 1;
 `
 
 const Container = styled.div`
   border-radius: 1.25rem;
-  border: 1px solid ${({ error, theme }) => (error ? theme.salmonRed : theme.mercuryGray)};
 
-  background-color: ${({ theme }) => theme.inputBackground};
   :focus-within {
     border: 1px solid ${({ theme }) => theme.malibuBlue};
   }
@@ -286,7 +283,7 @@ const TokenRowRight = styled.div`
 
 const StyledTokenName = styled.span`
   text-align:left;
-  width: 60%;
+  width: 50%;
   h3 {
     font-family: Manrope;
     font-size: 16px;
@@ -295,7 +292,7 @@ const StyledTokenName = styled.span`
     font-style: normal;
     line-height: 1.25;
     letter-spacing: normal;
-    color: #031a6e;
+    color: ${({theme}) => theme.selectTextColor};
     margin:0;
   }
   p {
@@ -306,7 +303,7 @@ const StyledTokenName = styled.span`
     font-style: normal;
     line-height: 1;
     letter-spacing: normal;
-    color: #031a6e;
+    color: ${({theme}) => theme.selectTextColor};
     margin:0;
   }
 `
@@ -516,16 +513,8 @@ export default function CurrencyInputPanel({
             }
             {!disableTokenSelect && <StyledDropDownBox><StyledDropDown selected={!!selectedTokenAddress} /></StyledDropDownBox>}
           </Aligner>
-          {/* <Aligner>
-            {selectedTokenAddress ? <TokenLogo address={selectedTokenAddress} /> : null}
-            {
-              <StyledTokenName>
-                {(allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol) || t('selectToken')}
-              </StyledTokenName>
-            }
-            {!disableTokenSelect && <StyledDropDown selected={!!selectedTokenAddress} />}
-          </Aligner> */}
         </CurrencySelect>
+        
       </InputRow>
     )
   }

@@ -45,19 +45,24 @@ const theme = darkMode => ({
   black,
   textColor: darkMode ? white : '#010101',
   textColorBold: darkMode ? white : '#062536',
+  selectTextColor: darkMode ? white : '#031a6e',
   greyText: darkMode ? white : '#6C7284',
 
   // for setting css on <html>
   backgroundColor: darkMode ? '#333639' : white,
+  backgroundColorCont: darkMode ? '#333639' : '#f1f6fa',
+
 
   modalBackground: darkMode ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.5)',
   inputBackground: darkMode ? '#202124' : white,
-  selectedBg: darkMode ? '#202124' : '#ecf6ff',
-  selectedBgNo: darkMode ? '#202124' : '#f8f8f9',
-  selectedBorder: darkMode ? '#202124' : '#c0d6ea',
-  selectedBorderNo: darkMode ? '#202124' : '#d9d9e2',
   placeholderGray: darkMode ? '#5F5F5F' : '#E1E1E1',
   shadowColor: darkMode ? '#000' : '#2F80ED',
+
+  selectedBg: darkMode ? 'rgba(0,0,0,0.6)' : '#ecf6ff',
+  selectedBgNo: darkMode ? 'rgba(0,0,0,0.6)' : '#f8f8f9',
+  selectedBorder: darkMode ? 'rgba(0,0,0,0.6)' : '#c0d6ea',
+  selectedBorderNo: darkMode ? 'rgba(0,0,0,0.6)' : '#d9d9e2',
+  bgColor: darkMode ? 'rgba(0,0,0,0.1)' : white,
 
   // grays
   concreteGray: darkMode ? '#292C2F' : '#FAFAFA',
@@ -112,9 +117,9 @@ const theme = darkMode => ({
     flex-flow: row nowrap;
   `,
   FlexC: css`
-    display:flex;
-    justify-content: center;
-    align-items: center
+    display: flex;
+    justify-content:  center;
+    align-items:center;
   `
 })
 
@@ -131,8 +136,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
-     
+    overflow: hidden;    
   }
 
   body > div {

@@ -29,6 +29,7 @@ const HeaderWrapper = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   width: 100%;
   justify-content: space-between;
+  background: ${({theme}) => theme.bgColor};
 `
 const FooterWrapper = styled.div`
   width: 100%;
@@ -67,6 +68,7 @@ const NavTabBox = styled.div`
   height: 100%;
   overflow:auto;
   box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  background: ${({theme}) => theme.bgColor};
 `
 
 const ContentBox = styled.div`
@@ -76,6 +78,7 @@ const ContentBox = styled.div`
   bottom: 0;
   right: 0;
   padding: 40px 97px;
+  background: ${({theme}) => theme.backgroundColorCont}
 `
 
 export default function App() {
