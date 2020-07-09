@@ -25,6 +25,10 @@ import { darken } from 'polished'
 import { transparentize } from 'polished'
 
 import {LedgerConnector} from '../../utils/wallets/ledger/ledgerConnect'
+import MintIcon from '../../assets/images/icon/mint.svg'
+import NextkIcon from '../../assets/images/icon/Next.svg'
+import PreviouskIcon from '../../assets/images/icon/Previous.svg'
+import DoneIcon from '../../assets/images/icon/done.svg'
 
 import config  from '../../config/index'
 
@@ -64,13 +68,12 @@ const HeaderRow = styled.div`
 
 const ContentWrapper = styled.div`
   background-color: ${({ theme }) => theme.backgroundColor};
-  padding: 2rem;
+  padding: 0 10px 10px;
   ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1rem`};
 `
 
 const UpperSection = styled.div`
   position: relative;
-  background-color: ${({ theme }) => theme.concreteGray};
 
   h5 {
     margin: 0;
@@ -101,14 +104,15 @@ const Blurb = styled.div`
 `
 
 const OptionGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    grid-template-columns: 1fr;
-    grid-gap: 10px;
-  `};
+
 `
+// display: grid;
+// grid-template-columns: 1fr 1fr;
+// grid-gap: 10px;
+// ${({ theme }) => theme.mediaWidth.upToMedium`
+//   grid-template-columns: 1fr;
+//   grid-gap: 10px;
+// `};
 
 const HoverText = styled.div`
   :hover {
@@ -125,44 +129,55 @@ const SelectContainer = styled.div`
   height: 40px;
 `
 
-const SelectContainerCenter = styled(SelectContainer)`
-  justify-content: center;
+const SelectHDPathPage = styled.div`
+  ${({ theme }) => theme.FlexBC};
+  height: 34px;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: #f9fafb;
+  padding: 0 20px;
 `
-
-const SelectStyle = styled.select`
-  font-size: 1rem;
-  outline: none;
-  border: 1px solid ${({ theme }) => theme.shadowColor};
-  flex: 1 1 auto;
-  width: 100%;
-  min-width: 200px;
-  height: 100%;
-  background-color: ${({ theme }) => theme.inputBackground};
-
-  color: ${({ theme }) => theme.textColor};
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  ::placeholder {
-    color: ${({ theme }) => theme.placeholderGray};
-  }
+const SelfText = styled.div`
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  color: #062536;
+  margin-bottom: 12px
 `
-
+const SelfInputBox = styled.div`
+${({ theme }) => theme.FlexSC};
+  width: 236px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 9px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  border: solid 0.5px rgba(0, 0, 0, 0.1);
+  padding: 2px;
+`
 const SelfInput = styled.input`
-  font-size: 1rem;
   outline: none;
-  border: 1px solid ${({ theme }) => theme.shadowColor};
+  border: none;
   flex: 1 1 auto;
-  min-width: 200px;
   width: 100%;
-  height: 38px;
-  padding: 0 10px;
-  background-color: ${({ theme }) => theme.inputBackground};
+  height: 100%;
+  padding: 0 12px;
+  background-color: none;
 
-  color: ${({ theme }) => theme.textColor};
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.67;
+  letter-spacing: normal;
+  color: #062536;
+
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-left:10px;
   ::placeholder {
     color: ${({ theme }) => theme.placeholderGray};
   }
@@ -171,26 +186,35 @@ const SelfInput = styled.input`
 const SelfButton = styled.button.attrs(({ warning, theme }) => ({
   backgroundColor: warning ? theme.salmonRed : theme.royalBlue
 }))`
-  padding: 0 25px;
-  border-radius: 3rem;
+${({ theme }) => theme.FlexC};
   cursor: pointer;
   user-select: none;
-  font-size: 1rem;
   border: none;
   outline: none;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-  color: ${({ theme }) => theme.white};
-  height: 100%;
-  width: ${({ size }) => size};
-  margin-left:10px;
+
+  
+  width: 74px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: #f6f4ff;
+
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #734be2;
 
   :hover,
   :focus {
-    background-color: ${({ backgroundColor }) => darken(0.05, backgroundColor)};
+    background-color: ${() => darken(0.05, '#f6f4ff')};
   }
 
   :active {
-    background-color: ${({ backgroundColor }) => darken(0.1, backgroundColor)};
+    background-color: ${() => darken(0.1, '#f6f4ff')};
   }
 
   :disabled {
@@ -200,8 +224,8 @@ const SelfButton = styled.button.attrs(({ warning, theme }) => ({
   }
 `
 const AddrListBox = styled.ul`
-  height: 248px;
-  margin-bottom: 20px;
+  height: 320px;
+  margin-bottom: 0px;
   padding: 0 0px;
 `
 
@@ -228,16 +252,93 @@ border: 1px solid ${({ theme }) => theme.shadowColor};
 `
 
 const ArrowBox = styled.div`
-  width: 30px;
-  height: 30px;
-  line-height: 28px;
-  display:flex;
-  justify-content: center;
-  align-item:center;
-  margin-right: 20px;
-  border: 1px solid ${({ theme }) => theme.shadowColor};
+${({theme}) => theme.FlexC}
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #062536;
   cursor:pointer;
-  border-radius: 100%;
+`
+
+const HDpathListBox = styled.ul`
+  ${({theme}) => theme.FlexSC}
+  list-style: none;
+  margin: 0;
+  padding:0;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  li {
+    padding: 14px 15px;
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    color: #96989e;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    border-left: 1px solid rgba(0, 0, 0, 0.04);
+    cursor:pointer;
+
+    
+    &.active {
+      border: 1px solid #734be2;
+      color: #734be2;
+      font-weight: bold;
+    }
+    &:first-child {
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      &.active {
+        border: 1px solid #734be2;
+      }
+    }
+    &:last-child {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      border-right: 1px solid rgba(0, 0, 0, 0.04);
+      &.active {
+        border: 1px solid #734be2;
+      }
+    }
+  }
+`
+
+const HardwareAddrBox = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding:0;
+  li {
+    ${({theme}) => theme.FlexBC};
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #96989e;
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    .left {
+      ${({theme}) => theme.FlexSC};
+      .icon {
+        ${({theme}) => theme.FlexC};
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+        border: solid 0.5px rgba(0, 0, 0, 0.1);
+        border-radius:100%;
+        margin-right: 18px;
+      }
+    }
+  }
 `
 
 const WALLET_VIEWS = {
@@ -380,7 +481,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     setPageSize(page)
   }
 
-  function setAccountData (e, index) {
+  function setAccountData (index) {
     // console.log(123)
     if (!addressObj.list[index].addr) {
       alert('Account is null!')
@@ -396,14 +497,6 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     tryActivation(ledgerConnector)
     sessionStorage.setItem('walletType', walletType)
     sessionStorage.setItem('HDPath', addressObj.list[index].path)
-  }
-
-  function showHardwareAddr () {
-    return addressObj.list.map((item, index) => {
-      return (
-        <AddrList key={index} onClick={e => setAccountData(e, index)}>{item.addr}</AddrList>
-      )
-    })
   }
 
   function getHardwareAccount (option, wt) {
@@ -429,15 +522,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
         })
       } else {
         setIsUseSelectAddr(0)
-        // if (option) {
         tryActivation(option.connector)
-        // tryActivation(() => {
-        //   setPendingError(false)
-        //   setWalletView(WALLET_VIEWS.ACCOUNT)
-        // })
-        // } else  {
-        //   tryActivation()
-        // }
       }
     })
   }
@@ -533,6 +618,43 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     })
   }
 
+  function HDpathList () {
+    return (
+      <HDpathListBox>
+        {
+          HDPathArr.map((item, index) => {
+            return (
+              <li key={index} className={index === selectHDPathIndex ? 'active' : ''} onClick={() => {
+                changeSelectPath(index)
+              }}>{item.name}</li>
+            )
+          })
+        }
+      </HDpathListBox>
+    )
+  }
+
+  function showHardwareAddr () {
+    return (
+      <HardwareAddrBox>
+        {
+          addressObj.list.map((item, index) => {
+            return (
+              <li key={index} onClick={() => {
+                setAccountData(index)
+              }}>
+                <div className={'left'}>
+                  <div className={'icon'}><img src={MintIcon}/></div>
+                  {item.addr}
+                </div>
+              </li>
+            )
+          })
+        }
+      </HardwareAddrBox>
+    )
+  }
+
   function getModalContent() {
     if (error) {
       return (
@@ -577,37 +699,41 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
           )}
           <ContentWrapper>
             <SelectContainer>
-              <SelectStyle onChange={e => changeSelectPath(e.target.value)} value={selectHDPathIndex}>
+              {/* <SelectStyle onChange={e => changeSelectPath(e.target.value)} value={selectHDPathIndex}>
                 {HDPathArr.map((item, index) => {
                   return (
                     <option value={index}  key={item.name}>{item.name}</option>
                   )
                 })}
-              </SelectStyle>
-              {
-                HDPathArr[selectHDPathIndex].path ? (
-                  <>
-                  </>
-                ) : (
-                  <>
+              </SelectStyle> */}
+              {HDpathList()}
+            </SelectContainer>
+            {
+              HDPathArr[selectHDPathIndex].path ? (
+                <>
+                </>
+              ) : (
+                <>
+                  <SelfText>Please add the custom path</SelfText>
+                  <SelfInputBox>
                     <SelfInput value={selfHDPathVal} onChange={e => {
                       console.log(e.target.value)
                       setSelfHDPathVal(e.target.value)
                     }}></SelfInput>
-                    <SelfButton size={'100px'} onClick={e => {getHardwareAccount()}}>Select</SelfButton>
-                  </>
-                )
-              }
-            </SelectContainer>
+                    <SelfButton size={'100px'} onClick={e => {getHardwareAccount()}}><img src={DoneIcon} style={{marginRight: '10px'}} />Done</SelfButton>
+                  </SelfInputBox>
+                </>
+              )
+            }
             <AddrListBox>
               {addressObj.size > 0 ? showHardwareAddr() : (
                 <AddrList>Loading...</AddrList>
               )}
             </AddrListBox>
-            <SelectContainerCenter>
-              <ArrowBox onClick={changeReducePage}>{'<'}</ArrowBox>
-              <ArrowBox onClick={changeAddPage}>{'>'}</ArrowBox>
-            </SelectContainerCenter>
+            <SelectHDPathPage>
+              <ArrowBox onClick={changeReducePage}><img src={PreviouskIcon} style={{marginRight: '10px'}}/>Previous</ArrowBox>
+              <ArrowBox onClick={changeAddPage}>Next<img src={NextkIcon} style={{marginLeft: '10px'}} /></ArrowBox>
+            </SelectHDPathPage>
           </ContentWrapper>
         </UpperSection>
       )
@@ -669,14 +795,14 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
           ) : (
             <OptionGrid>{getOptions()}</OptionGrid>
           )}
-          {walletView !== WALLET_VIEWS.PENDING && (
+          {/* {walletView !== WALLET_VIEWS.PENDING && (
             <Blurb>
               <span>New to Fusion? &nbsp;</span>{' '}
               <Link href="https://myfusionwallet.com">
                 Learn more about wallets
               </Link>
             </Blurb>
-          )}
+          )} */}
         </ContentWrapper>
       </UpperSection>
     )
