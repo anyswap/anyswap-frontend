@@ -388,10 +388,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   let outputValueFormatted = independentField === OUTPUT ? independentValue : dependentValueFormatted
   if (independentField) {
     inputValueFormatted *= 1 + 0.001
-    inputValueFormatted = Number(inputValueFormatted.toFixed(dependentDecimals)) ? Number(inputValueFormatted.toFixed(dependentDecimals)) : ''
+    inputValueFormatted = Number(inputValueFormatted.toFixed(dependentDecimals)) ? Number(inputValueFormatted.toFixed(Math.min(8, dependentDecimals))) : ''
   } else {
     outputValueFormatted *= 1 - 0.001
-    outputValueFormatted = Number(outputValueFormatted.toFixed(dependentDecimals)) ? Number(outputValueFormatted.toFixed(dependentDecimals)) : ''
+    outputValueFormatted = Number(outputValueFormatted.toFixed(dependentDecimals)) ? Number(outputValueFormatted.toFixed(Math.min(8, dependentDecimals))) : ''
   }
   // validate + parse independent value
   const [independentError, setIndependentError] = useState()
