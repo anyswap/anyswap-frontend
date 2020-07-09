@@ -645,9 +645,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, contractAddress)
       let data = ''
       if (independentField === INPUT) {
-        // set GA params
-        action = sending ? 'SendInput' : 'SwapInput'
-        label = outputCurrency
   
         if (swapType === ETH_TO_TOKEN) {
           value = independentValueParsed
@@ -669,9 +666,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   outputCurrency) : web3Contract.tokenToTokenSwapInput.getData(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), ethers.constants.One.toHexString(), deadline, outputCurrency)
         }
       } else if (independentField === OUTPUT) {
-        // set GA params
-        action = sending ? 'SendOutput' : 'SwapOutput'
-        label = outputCurrency
   
         if (swapType === ETH_TO_TOKEN) {
           value = dependentValueMaximum
@@ -708,9 +702,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
 
     if (independentField === INPUT) {
-      // set GA params
-      action = sending ? 'SendInput' : 'SwapInput'
-      label = outputCurrency
 
       if (swapType === ETH_TO_TOKEN) {
         estimate = sending ? contract.estimate.ethToTokenTransferInput : contract.estimate.ethToTokenSwapInput
@@ -741,9 +732,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         value = ethers.constants.Zero
       }
     } else if (independentField === OUTPUT) {
-      // set GA params
-      action = sending ? 'SendOutput' : 'SwapOutput'
-      label = outputCurrency
 
       if (swapType === ETH_TO_TOKEN) {
         estimate = sending ? contract.estimate.ethToTokenTransferOutput : contract.estimate.ethToTokenSwapOutput

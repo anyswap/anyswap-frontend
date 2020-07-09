@@ -13,31 +13,50 @@ import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
 import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
 import PortisIcon from '../../assets/images/portisIcon.png'
 import TorusIcon from '../../assets/images/torus.png'
+import MetamaskIcon from '../../assets/images/metamask.png'
 import Identicon from '../Identicon'
 import Ledger from '../../assets/images/ledger.png'
 
 import { Link } from '../../theme'
 
+
+import EditIcon from '../../assets/images/icon/edit.svg'
 import config from '../../config'
 
 const OptionButton = styled.div`
-  ${({ theme }) => theme.flexColumnNoWrap}
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  border: 1px solid ${({ theme }) => theme.royalBlue};
-  color: ${({ theme }) => theme.royalBlue};
-  padding: 8px 24px;
-
-  &:hover {
-    border: 1px solid ${({ theme }) => theme.malibuBlue};
-    cursor: pointer;
-  }
-
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    font-size: 12px;
-  `};
+${({ theme }) => theme.FlexC}
+  width: 89px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: #f6f4ff;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: right;
+  color: #734be2;
+  cursor:pointer;
 `
+// ${({ theme }) => theme.flexColumnNoWrap}
+// justify-content: center;
+// align-items: center;
+// border-radius: 20px;
+// border: 1px solid ${({ theme }) => theme.royalBlue};
+// color: ${({ theme }) => theme.royalBlue};
+// padding: 8px 24px;
+
+// &:hover {
+//   border: 1px solid ${({ theme }) => theme.malibuBlue};
+//   cursor: pointer;
+// }
+
+// ${({ theme }) => theme.mediaWidth.upToMedium`
+//   font-size: 12px;
+// `};
 
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
@@ -71,9 +90,6 @@ const UpperSection = styled.div`
 `
 
 const InfoCard = styled.div`
-  padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.placeholderGray};
-  border-radius: 20px;
 `
 
 const AccountGroupingRow = styled.div`
@@ -91,6 +107,14 @@ const AccountGroupingRow = styled.div`
   &:first-of-type {
     margin-bottom: 20px;
   }
+`
+
+const AccountGroupingRowTop =  styled.div`
+${({ theme }) => theme.FlexBC};
+margin-bottom: 10px;
+border-bottom: 1px solid #ededed;
+margin-bottom: 20px;
+padding-bottom: 10px;
 `
 
 const AccountSection = styled.div`
@@ -150,6 +174,7 @@ const AccountControl = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   align-items: center;
   min-width: 0;
+  width: 100%;
 
   font-weight: ${({ hasENS, isENS }) => (hasENS ? (isENS ? 500 : 400) : 500)};
   font-size: ${({ hasENS, isENS }) => (hasENS ? (isENS ? '1rem' : '0.8rem') : '1rem')};
@@ -167,14 +192,30 @@ const AccountControl = styled.div`
 `
 
 const ConnectButtonRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: center;
-  justify-content: center;
-  margin: 30px;
+  ${({ theme }) => theme.FlexC}
 `
 
 const StyledLink = styled(Link)`
+  ${({ theme }) => theme.FlexSC};
   color: ${({ hasENS, isENS, theme }) => (hasENS ? (isENS ? theme.royalBlue : theme.doveGray) : theme.royalBlue)};
+  width: 100%;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 9px;
+  background-color: #ecf6ff;
+  padding: 0 15px;
+
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #031a6e;
+  span{
+    font-weight: normal;
+  }
 `
 
 const CloseIcon = styled.div`
@@ -196,12 +237,18 @@ const CloseColor = styled(Close)`
 const WalletName = styled.div`
   padding-left: 0.5rem;
   width: initial;
+  font-family: Manrope;
+  font-size: 16px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  color: #031a6e;
 `
 
 const IconWrapper = styled.div`
-  ${({ theme }) => theme.flexColumnNoWrap};
-  align-items: center;
-  justify-content: center;
+  ${({ theme }) => theme.FlexSC};
   & > img,
   span {
     height: ${({ size }) => (size ? size + 'px' : '32px')};
@@ -210,6 +257,19 @@ const IconWrapper = styled.div`
   ${({ theme }) => theme.mediaWidth.upToMedium`
     align-items: flex-end;
   `};
+  .WalletLogo  {
+    ${({ theme }) => theme.FlexC};
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+    border: solid 0.5px rgba(0, 0, 0, 0.1);
+    border-radius: 100%;
+    padding: 10px;
+    img {
+      width:100%;
+    }
+  }
 `
 
 const TransactionListWrapper = styled.div`
@@ -261,39 +321,42 @@ export default function AccountDetails({
       )
       .map(k => SUPPORTED_WALLETS[k].name)[0]
     name = walletType ? walletType : name
-    return <WalletName>{name}</WalletName>
+    return <WalletName>Connected with {name}</WalletName>
   }
 
   function getStatusIcon() {
     if (connector === injected) {
       return (
         <IconWrapper size={16}>
-          <Identicon /> {formatConnectorName()}
+          <div className={'WalletLogo'}><img src={MetamaskIcon} alt={''} /></div> {formatConnectorName()}
         </IconWrapper>
+        // <IconWrapper size={16}>
+        //   <Identicon /> {formatConnectorName()}
+        // </IconWrapper>
       )
     } else if (connector === walletconnect) {
       return (
         <IconWrapper size={16}>
-          <img src={WalletConnectIcon} alt={''} /> {formatConnectorName()}
+          <div className={'WalletLogo'}><img src={WalletConnectIcon} alt={''} /></div> {formatConnectorName()}
         </IconWrapper>
       )
     } else if (connector === walletlink) {
       return (
         <IconWrapper size={16}>
-          <img src={CoinbaseWalletIcon} alt={''} /> {formatConnectorName()}
+          <div className={'WalletLogo'}><img src={CoinbaseWalletIcon} alt={''} /> </div>{formatConnectorName()}
         </IconWrapper>
       )
     } else if (connector === fortmatic) {
       return (
         <IconWrapper size={16}>
-          <img src={FortmaticIcon} alt={''} /> {formatConnectorName()}
+          <div className={'WalletLogo'}><img src={FortmaticIcon} alt={''} /></div> {formatConnectorName()}
         </IconWrapper>
       )
     } else if (connector === portis) {
       return (
         <>
           <IconWrapper size={16}>
-            <img src={PortisIcon} alt={''} /> {formatConnectorName()}
+          <div className={'WalletLogo'}><img src={PortisIcon} alt={''} /></div> {formatConnectorName()}
             <MainWalletAction
               onClick={() => {
                 portis.portis.showPortis()
@@ -307,13 +370,13 @@ export default function AccountDetails({
     } else if (connector === torus) {
       return (
         <IconWrapper size={16}>
-          <img src={TorusIcon} alt={''} /> {formatConnectorName()}
+          <div className={'WalletLogo'}><img src={TorusIcon} alt={''} /></div> {formatConnectorName()}
         </IconWrapper>
       )
     } else if (walletType === 'Ledger') {
       return (
         <IconWrapper size={16}>
-          <img src={Ledger} alt={''} /> {formatConnectorName()}
+          <div className={'WalletLogo'}><img src={Ledger} alt={''} /></div> {formatConnectorName()}
         </IconWrapper>
       )
     }
@@ -329,7 +392,7 @@ export default function AccountDetails({
         <AccountSection>
           <YourAccount>
             <InfoCard>
-              <AccountGroupingRow>
+              <AccountGroupingRowTop>
                 {getStatusIcon()}
                 <div>
                   {connector !== injected && connector !== walletlink &&  !['Ledger'].includes(walletType) && (
@@ -347,28 +410,48 @@ export default function AccountDetails({
                     </GreenCircle>
                   </CircleWrapper>
                 </div>
-              </AccountGroupingRow>
+                {!(isMobile && (window.web3 || window.ethereum)) && (
+                  <ConnectButtonRow>
+                    <OptionButton
+                      onClick={() => {
+                        openOptions()
+                        sessionStorage.setItem('walletType', '')
+                        sessionStorage.setItem('account', '')
+                        sessionStorage.setItem('HDPath', '')
+                      }}
+                    >
+                      <img src={EditIcon} style={{marginRight: '8px'}}/>Change
+                    </OptionButton>
+                  </ConnectButtonRow>
+                )}
+              </AccountGroupingRowTop>
               <AccountGroupingRow>
                 {ENSName ? (
                   <AccountControl hasENS={!!ENSName} isENS={true}>
                     <StyledLink hasENS={!!ENSName} isENS={true} href={getEtherscanLink(chainId, ENSName, 'address')}>
-                      {ENSName} ↗{' '}
+                      <Identicon size={26} /><span style={{marginLeft: '15px'}}>My public address: </span>{ENSName ? (
+                        ENSName.substr(0, 6) + '...' + ENSName.substr(ENSName.length - 6)
+                      ) : ('')} ↗{' '}
+                      <Copy toCopy={ENSName} />
                     </StyledLink>
-                    <Copy toCopy={ENSName} />
                   </AccountControl>
                 ) : (
                   <AccountControl hasENS={!!ENSName} isENS={false}>
                     <StyledLink hasENS={!!ENSName} isENS={false} href={getEtherscanLink(chainId, account, 'address')}>
-                      {account} ↗{' '}
+                      <Identicon size={26} />
+                      <span style={{marginLeft: '15px'}}>My public address: </span>
+                      {account ? (
+                        account.substr(0, 6) + '...' + account.substr(account.length - 6)
+                      ) : ('')} ↗{' '}
+                      <Copy toCopy={account} />
                     </StyledLink>
-                    <Copy toCopy={account} />
                   </AccountControl>
                 )}
               </AccountGroupingRow>
             </InfoCard>
           </YourAccount>
 
-          {!(isMobile && (window.web3 || window.ethereum)) && (
+          {/* {!(isMobile && (window.web3 || window.ethereum)) && (
             <ConnectButtonRow>
               <OptionButton
                 onClick={() => {
@@ -381,7 +464,7 @@ export default function AccountDetails({
                 Connect to a different wallet
               </OptionButton>
             </ConnectButtonRow>
-          )}
+          )} */}
         </AccountSection>
       </UpperSection>
       {!!pendingTransactions.length || !!confirmedTransactions.length ? (
