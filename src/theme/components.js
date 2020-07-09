@@ -68,7 +68,7 @@ export const BorderlessInput = styled.input`
   border: none;
   flex: 1 1 auto;
   width: 0;
-  background-color: ${({ theme }) => theme.inputBackground};
+  background-color: transparent;
 
   [type='number'] {
     -moz-appearance: textfield;

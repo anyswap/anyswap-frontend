@@ -32,28 +32,27 @@ import erc20 from '../../constants/abis/erc20'
 
 import HardwareTip from '../HardwareTip'
 
-import {ReactComponent as Paste} from '../../assets/images/icon/paste.svg'
+import Paste from '../../assets/images/icon/paste.svg'
+import Unlock from '../../assets/images/icon/unlock.svg'
 
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const SubCurrencySelect = styled.button`
-  ${({ theme }) => theme.flexRowNoWrap}
-  padding: 4px 50px 4px 15px;
-  margin-right: -40px;
-  line-height: 0;
+  ${({ theme }) => theme.FlexC}
+  padding: 4px 25px 4px 25px;
   height: 2rem;
-  align-items: center;
-  border-radius: 2.5rem;
+  border-radius: 6px;
   outline: none;
   cursor: pointer;
   user-select: none;
-  background: ${({ theme }) => theme.zumthorBlue};
-  border: 1px solid ${({ theme }) => theme.royalBlue};
-  color: ${({ theme }) => theme.royalBlue};
+  background: #734be2;
+  border: #734be2;
+  color: #fff;
 `
 
 const InputRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
+  width: 100%;
   align-items: center;
   background:none;
   padding: 0.75rem 0.85rem 0.75rem;
@@ -64,7 +63,7 @@ const Input = styled(BorderlessInput)`
   height: 70px;
   color: ${({ error, theme }) => error ? theme.salmonRed : theme.textColorBold};
   background: none;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid ${({theme}) => theme.textColorBold};
   -moz-appearance: textfield;
   margin-right: 30px;
 `
@@ -83,6 +82,8 @@ const CurrencySelect = styled.button`
   outline: none;
   cursor: pointer;
   user-select: none;
+  padding: 0 20px;
+  position: relative;
 
   :hover {
     border: 1px solid
@@ -101,7 +102,7 @@ const CurrencySelect = styled.button`
 const Aligner = styled.span`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 `
 
 const StyledDropDownBox = styled.div`
@@ -110,6 +111,9 @@ const StyledDropDownBox = styled.div`
   height: 26px;
   background: ${({ theme }) => theme.backgroundColor};
   border-radius: 100%;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 `
 
 const StyledDropDown = styled(DropDown)`
@@ -127,6 +131,7 @@ const InputPanel = styled.div`
   border-radius: 1.25rem;
   background-color: ${({theme}) => theme.bgColor};
   z-index: 1;
+  padding: 25px 40px;
 `
 
 const Container = styled.div`
@@ -140,33 +145,13 @@ const LabelRow = styled.div`
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
   line-height: 1rem;
-  padding: 0.75rem 1rem;
+  height: 56px;
+  padding: 0 1rem;
   span:hover {
     cursor: pointer;
     color: ${({ theme }) => darken(0.2, theme.doveGray)};
   }
 `
-  // align-items: center;
-  // font-size: 1rem;
-  // color: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
-  // min-width: 190px;
-  // max-width: 251px;
-  // border: 1px solid ${({ theme }) => theme.selectedBorderNo};
-  // border-radius: 12px;
-  // background-color: ${({ theme }) => theme.selectedBgNo};
-  // outline: none;
-  // cursor: pointer;
-  // user-select: none;
-// ${({ theme }) => theme.flexRowNoWrap}
-// align-items: center;
-// color: ${({ theme }) => theme.doveGray};
-// font-size: 0.75rem;
-// line-height: 1rem;
-// padding: 0.75rem 1rem;
-// span:hover {
-//   cursor: pointer;
-//   color: ${({ theme }) => darken(0.2, theme.doveGray)};
-// }
 
 const LabelContainer = styled.div`
   flex: 1 1 auto;
@@ -179,21 +164,20 @@ const LabelContainer = styled.div`
 const ErrorSpanBox = styled.div`
   height: 70px;
   width: 30%;
+  min-width: 190px;
+  max-width: 251px;
   margin-left: 10px;
 `
 const ErrorSpan = styled.span`
-  height: 70px;
-  width: 30%;
   display:flex;
   align-items: center;
   padding: 15px 20px;
   font-size: 1rem;
+  height: 100%;
   color: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
-  min-width: 190px;
-  max-width: 251px;
   border: 1px solid ${({ theme }) => theme.selectedBorderNo};
   border-radius: 12px;
-  background-color: ${({ theme }) => theme.selectedBgNo};
+  background-color: rgba(0,0,0,0.06);
   outline: none;
   cursor: pointer;
   user-select: none;
@@ -226,13 +210,12 @@ const ExtraText = styled.div`
   }
 `
 
-const PasteStyle = styled(Paste)`
+const PasteStyle = styled.div`
   width: 16px;
   height: 16px;
   position: absolute;
   top: 12px;
   right: 0;
-  background:#000;
 `
 
 const TokenModal = styled.div`
@@ -559,6 +542,7 @@ export default function CurrencyInputPanel({
                 })
             }}
           >
+            <img src={Unlock} style={{marginRight: '10px'}}/>
             {t('unlock')}
           </SubCurrencySelect>
         )
@@ -593,7 +577,6 @@ export default function CurrencyInputPanel({
           }}
           value={value}
         />
-        {renderUnlockButton()}
         <CurrencySelect
           selected={!!selectedTokenAddress}
           onClick={() => {
@@ -673,7 +656,9 @@ export default function CurrencyInputPanel({
                     ) : (
                       <p>{extraText}</p>
                     )}
-                    <PasteStyle></PasteStyle>
+                    <PasteStyle>
+                      <img src={Paste} />
+                    </PasteStyle>
                   </ExtraText>
                 </Tooltip>
               </ErrorSpan>
@@ -702,6 +687,7 @@ export default function CurrencyInputPanel({
             <LabelContainer>
               <span>{title}</span> <span>{description}</span>
             </LabelContainer>
+            {renderUnlockButton()}
           </LabelRow>
           {_renderInput()}
         </Container>

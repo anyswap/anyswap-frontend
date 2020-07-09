@@ -30,6 +30,8 @@ import EXCHANGE_ABI from '../../constants/abis/exchange'
 
 import HardwareTip from '../HardwareTip'
 
+import ResertSvg from '../../assets/images/icon/revert.svg'
+
 const INPUT = 0
 const OUTPUT = 1
 
@@ -53,17 +55,30 @@ const DownArrowBackground = styled.div`
   align-items: center;
 `
 
-const WrappedArrowDown = ({ clickable, active, ...rest }) => <ArrowDown {...rest} />
-const DownArrow = styled(WrappedArrowDown)`
-  color: ${({ theme, active }) => (active ? theme.royalBlue : theme.chaliceGray)};
-  width: 0.625rem;
-  height: 0.625rem;
-  position: relative;
-  padding: 0.875rem;
-  cursor: ${({ clickable }) => clickable && 'pointer'};
+// const WrappedArrowDown = ({ clickable, active, ...rest }) => <ArrowDown {...rest} />
+// const DownArrow = styled(WrappedArrowDown)`
+//   color: ${({ theme, active }) => (active ? theme.textColorBold : theme.textColorBold)};
+//   width: 0.625rem;
+//   height: 0.625rem;
+//   position: relative;
+//   padding: 0.875rem;
+//   cursor: ${({ clickable }) => clickable && 'pointer'};
+// `
+const DownArrow = styled.div`
+  width: 32px;
+  height: 32px;
+  padding:8px;
+  background: ${({theme}) => theme.bgColor};
+  margin: 10px auto;
+  cursor: pointer;
+  img {
+    height: 100%;
+    display: block;
+  }
 `
 
 const ExchangeRateWrapper = styled.div`
+  ${({ theme }) => theme.FlexC}
   ${({ theme }) => theme.flexRowNoWrap};
   align-items: center;
   color: ${({ theme }) => theme.doveGray};
@@ -886,7 +901,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             clickable
             alt="swap"
             active={isValid}
-          />
+          >
+          <img src={ResertSvg} />
+          </DownArrow>
         </DownArrowBackground>
       </OversizedPanel>
       <CurrencyInputPanel
@@ -914,11 +931,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       {sending ? (
         <>
-          <OversizedPanel>
+          {/* <OversizedPanel>
             <DownArrowBackground>
               <DownArrow active={isValid} alt="arrow" />
             </DownArrowBackground>
-          </OversizedPanel>
+          </OversizedPanel> */}
           <AddressInputPanel onChange={setRecipient} onError={setRecipientError} initialInput={recipient} />
         </>
       ) : (

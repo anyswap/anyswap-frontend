@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 const Panel = styled.div`
   position: relative;
-  background-color: ${({ theme }) => theme.concreteGray};
   width: calc(100% - 1rem);
   margin: 0 auto;
   border-radius: 0.625rem;
@@ -31,9 +30,9 @@ const PanelBottom = styled.div`
 export default function OversizedPanel({ hideTop, hideBottom, children }) {
   return (
     <Panel>
-      {hideTop || <PanelTop />}
+      {/* {hideTop || <PanelTop />} */}
       {children}
-      {hideBottom || <PanelBottom />}
+      {/* {hideBottom || <PanelBottom />} */}
     </Panel>
   )
 }

@@ -98,18 +98,16 @@ const InputPanel = styled.div`
   box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
   position: relative;
   border-radius: 1.25rem;
-  background-color: ${({ theme }) => theme.inputBackground};
+  background-color: ${({theme}) => theme.bgColor};
   z-index: 1;
+  padding: 25px 40px;
+  margin-top: 10px;
 `
 
 const ContainerRow = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 1.25rem;
-  border: 1px solid ${({ error, theme }) => (error ? theme.salmonRed : theme.mercuryGray)};
-
-  background-color: ${({ theme }) => theme.inputBackground};
 `
 
 const InputContainer = styled.div`
@@ -145,7 +143,8 @@ const Input = styled.input`
   border: none;
   flex: 1 1 auto;
   width: 0;
-  background-color: ${({ theme }) => theme.inputBackground};
+  background-color: transparent;
+  border-bottom: 1px solid ${({theme}) => theme.textColorBold};
 
   color: ${({ theme }) => theme.textColor};
   overflow: hidden;
@@ -218,6 +217,7 @@ const StyledQRcode = styled(QRcode)`
   width: ${({ size }) => size};
   height: ${({ size }) => size};
   cursor:pointer;
+  margin-left: 10px;
 `
 
 const WarningTip = styled.div`

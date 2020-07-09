@@ -78,7 +78,8 @@ const ContentBox = styled.div`
   bottom: 0;
   right: 0;
   padding: 40px 97px;
-  background: ${({theme}) => theme.backgroundColorCont}
+  background: ${({theme}) => theme.backgroundColorCont};
+  overflow:auto;
 `
 
 export default function App() {
