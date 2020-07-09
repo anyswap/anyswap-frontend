@@ -8,6 +8,7 @@ import { Spinner } from '../../theme'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import Circle from '../../assets/images/circle.svg'
 import ANYLogo from '../../assets/images/ANY.svg'
+import PathIcon from '../../assets/images/icon/path.svg'
 
 const CloseIcon = styled.div`
   position: absolute;
@@ -49,6 +50,7 @@ const HoverText = styled.div`
 `
 
 const ContentWrapper = styled.div`
+width: 100%;
   background-color: ${({ theme }) => theme.backgroundColor};
   padding: 2rem;
   ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1rem`};
@@ -56,7 +58,7 @@ const ContentWrapper = styled.div`
 
 const UpperSection = styled.div`
   position: relative;
-  background-color: ${({ theme }) => theme.concreteGray};
+  width: 100%;
 
   h5 {
     margin: 0;
@@ -81,12 +83,18 @@ const SpinnerWrapper = styled(Spinner)`
 `
 
 const LogoBox = styled.div`
-  width: 80px;
-  height: 80px;
-  margin: 0px auto 20px;
+${({ theme }) => theme.FlexC};
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  border: solid 0.5px rgba(0, 0, 0, 0.1);
+  border-radius:100%;
+  margin: auto;
 
   img{
-    height: 100%;
+    height: 24px;
+    width: 24px;
     display:block;
   }
 `
@@ -96,18 +104,47 @@ const ErrorTip = styled.div`
 `
 
 const ConfirmContent = styled.div`
-  display:flex;
-  justify-content: center;
-  align-item: center;
-  flex-wrap: wrap;;
+width: 100%;
+`
+const TxnsInfoText = styled.div`
+font-family: Manrope;
+  font-size: 22px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #062536;
+  margin-top: 15px;
+`
+const CoinTypeText = styled.div`
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.83;
+  letter-spacing: normal;
+  text-align: center;
+  color: #062536;
+  margin-top:5px;
 `
 
 const ConfirmText = styled.div`
-  width:100%;
-  text-align:center;
-  color:#999;
-  margin-bottom:20px;
-  font-size: ${({ size }) => size}
+width: 100%;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #734be2;
+  padding: 20px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin-top:20px
 `
 
 
@@ -115,9 +152,9 @@ export default function HardwareTip({
   HardwareTipOpen,
   closeHardwareTip = () => {},
   error = false,
-  txnsInfo
+  txnsInfo,
+  coinType
 }) {
-  const toggleWalletModal = useWalletModalToggle()
 
 
   return (
@@ -139,7 +176,7 @@ export default function HardwareTip({
           </HeaderRow>
           <ContentWrapper>
             <LogoBox>
-              <img src={ANYLogo} alt={'logo'} />
+              <img src={PathIcon} alt={'logo'} />
             </LogoBox>
             {
               error ? (
@@ -150,12 +187,15 @@ export default function HardwareTip({
               ) : (
                 <ConfirmContent>
                   {txnsInfo ? (
-                    <h3>{txnsInfo}</h3>
+                    <TxnsInfoText>{txnsInfo}</TxnsInfoText>
                   ) : (<></>)}
-                  <SpinnerWrapper src={Circle} alt="loader" />
-                  <ConfirmText size={'16px'}>Confirm the transaction.</ConfirmText>
+                  {/* <SpinnerWrapper src={Circle} alt="loader" /> */}
+                  {coinType ? (
+                    <CoinTypeText size={'16px'}>Collecting {coinType}</CoinTypeText>
+                  ) : (<></>)}
+                  
                   <ConfirmText size={'12px'}>
-                    Make sure open the ethereum app on your ledger and Contract Data enabled.
+                    Please confirm transaction on your Ledger
                   </ConfirmText>
                 </ConfirmContent>
               )

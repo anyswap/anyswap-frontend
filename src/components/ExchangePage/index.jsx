@@ -827,6 +827,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         error={isHardwareError}
         txnsInfo={hardwareTxnsInfo}
+        coinType={inputSymbol}
       ></HardwareTip>
       {showInputWarning && (
         <WarningCard
