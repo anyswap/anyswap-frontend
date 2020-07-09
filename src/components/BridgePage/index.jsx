@@ -936,7 +936,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         onValueChange={inputValue => {
           console.log(inputBalanceFormatted)
           let inputVal = inputValue && swapInfo && (swapInfo.SwapFeeRate || swapInfo.SwapFeeRate === 0)
+<<<<<<< HEAD
             ? Number(( Number(inputValue) - (Number(inputValue) * Number(swapInfo.SwapFeeRate)) ).toFixed(inputDecimals))
+=======
+            ? Number(( Number(inputValue) * (1 - Number(swapInfo.SwapFeeRate)) ).toFixed(Math.min(8, inputDecimals)))
+>>>>>>> v1
             : 0
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
@@ -1020,7 +1024,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           <ExchangeRate>{t('fee')}</ExchangeRate>
           <span>
             {independentValue && swapInfo && (swapInfo.SwapFeeRate || swapInfo.SwapFeeRate === 0) && bridgeType && bridgeType === 'redeem'
-              ? `${Number(independentValue) * Number(swapInfo.SwapFeeRate)} ${inputSymbol}`
+              ? `${Number((Number(independentValue) * Number(swapInfo.SwapFeeRate)).toFixed(Math.min(8, inputDecimals)))} ${inputSymbol}`
               : ' - '}
           </span>
         </ExchangeRateWrapper>
