@@ -7,6 +7,6 @@
             <use xlink:href="#prefix__a"/>
         </mask>
         <use fill="#000" fill-rule="nonzero" xlink:href="#prefix__a"/>
-        <path fill="#062536" d="M0 0H18V18H0z" mask="url(#prefix__b)"/>
+        <path fill="#96989E" d="M0 0H18V18H0z" mask="url(#prefix__b)"/>
     </g>
 </svg>

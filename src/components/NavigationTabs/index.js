@@ -14,14 +14,11 @@ import {
 } from '../../contexts/LocalStorage'
 import { Link } from '../../theme/components'
 
-import {ReactComponent as SwapIcon} from '../../assets/images/icon/swap.svg'
-import {ReactComponent as SwapActiveIcon} from '../../assets/images/icon/swap-purpl.svg'
-import {ReactComponent as SendIcon} from '../../assets/images/icon/send.svg'
-import {ReactComponent as SendActiveIcon} from '../../assets/images/icon/send-purpl.svg'
-import {ReactComponent as PoolIcon} from '../../assets/images/icon/pool.svg'
-import {ReactComponent as PoolActiveIcon} from '../../assets/images/icon/pool-purpl.svg'
-import {ReactComponent as BridgeIcon} from '../../assets/images/icon/bridge.svg'
-import {ReactComponent as BridgeActiveIcon} from '../../assets/images/icon/bridge-purpl.svg'
+import TelegramIcon from '../../assets/images/icon/telegram.svg'
+import MediumIcon from '../../assets/images/icon/medium.svg'
+import TwitterIcon from '../../assets/images/icon/twitter.svg'
+import CodeIcon from '../../assets/images/icon/code.svg'
+import ArrowRight from '../../assets/images/icon/arrowRight.svg'
 
 const tabOrder = [
   {
@@ -30,15 +27,7 @@ const tabOrder = [
     icon: require('../../assets/images/icon/application.svg'),
     iconActive: require('../../assets/images/icon/application.svg'),
     regex: /\/dashboard/,
-    className: 'otherInfo mb20'
-  },
-  {
-    path: '',
-    textKey: 'Markets',
-    icon: require('../../assets/images/icon/markets.svg'),
-    iconActive: require('../../assets/images/icon/markets.svg'),
-    regex: /\/markets/,
-    className: 'markets mb20'
+    className: ''
   },
   {
     path: '/swap',
@@ -68,13 +57,16 @@ const tabOrder = [
     iconActive: require('../../assets/images/icon/bridge-purpl.svg'),
     regex: /\/bridge/
   },
+]
+
+const tabOrder2 = [
   {
     path: '',
-    textKey: 'Information',
-    icon: require('../../assets/images/icon/inventory.svg'),
-    iconActive: require('../../assets/images/icon/inventory.svg'),
-    regex: /\/information/,
-    className: 'otherInfo mt20'
+    textKey: 'Markets',
+    icon: require('../../assets/images/icon/markets.svg'),
+    iconActive: require('../../assets/images/icon/markets.svg'),
+    regex: /\/markets/,
+    className: 'otherInfo'
   },
   {
     path: '',
@@ -98,7 +90,7 @@ const tabOrder = [
     icon: require('../../assets/images/icon/documents.svg'),
     iconActive: require('../../assets/images/icon/documents.svg'),
     regex: /\/documents/,
-    className: 'otherInfo'
+    className: 'otherInfo noBB'
   },
 ]
 
@@ -177,10 +169,21 @@ const WarningFooter = styled.div`
 const Tabs = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
   width:100%;
-  padding: 40px 25px;
+  padding: 40px 25px 15px;
   box-sizing: border-box;
+`
+
+const Tabs2  = styled.div`
+  ${({ theme }) => theme.flexColumnNoWrap}
+  align-items: center;
+  margin-bottom: 25px;
+  width:100%;
+  padding: 15px 25px;
+  box-sizing: border-box;
+  border-top: 1px solid  rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 `
 
 const activeClassName = 'ACTIVE'
@@ -196,35 +199,47 @@ const StyledNavLink = styled(NavLink).attrs({
   outline: none;
   cursor: pointer;
   text-decoration: none;
-  color: #96989e;
+  color: ${({theme}) => theme.textColorBold};
   font-size: 14px;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  padding: 20px 24px;
+  padding: 15px 14px;
   line-height: 16px;
+  margin: 10px 0;
+  height: 48px;
+  border-radius: 9px;
+  position:relative;
 
-  &.${activeClassName} {
-    font-weight: 800;
-    box-sizing: border-box;
-    color: ${({ theme }) => theme.royalBlue};
-    :hover {
-      background-color: ${({ theme }) => darken(0.01, theme.inputBackground)};
-    }
-  }
-
-  :hover,
-  :focus {
-    color: ${({ theme }) => darken(0.1, theme.royalBlue)};
-  }
+  
   .icon {
-    height: 18px;
-    margin-right: 26px;
+    height: 38px;
+    width: 38px;
+    margin-right: 16px;
+    background:rgba(0,0,0,0.05);
+    border-radius:100%;
+    display: flex;
+    justify-content: center;
+    align-items:center;
     img {
       display:block;
-      height: 100%;
+      height: 18px;
     }
   }
-  
+
+  &.${activeClassName} {
+    color: #ffffff;
+    background: ${({theme}) => theme.bgColorLinear};
+    border-bottom: none;
+    font-weight: 800;
+    box-shadow: 0 4px 12px 0 rgba(115, 75, 226, 0.51);
+    .icon {
+      background:#031a6e;
+      box-shadow: 0 4px 12px 0 rgba(115, 75, 226, 0.51);
+    }
+  }
+
+  &.mt15 {
+    margin-top: 15px;
+  }
   &.mt20 {
     margin-top: 20px;
   }
@@ -232,55 +247,78 @@ const StyledNavLink = styled(NavLink).attrs({
     margin-bottom: 20px;
   }
 
-  &.markets {
-    height: 48px;
-    padding: 15px 14px;
-    border-radius: 9px;
-    color: #ffffff;
-    font-weight: 800;
-    background: ${({theme}) => theme.bgColorLinear};
-    border-bottom: none;
-    box-shadow: 0 4px 12px 0 rgba(115, 75, 226, 0.51);
+  &.otherInfo {
+    font-size: 14px;
+    font-weight: normal;
+    color: #96989e;
+    border-bottom:none;
+    margin: 0;
+    padding: 11px 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     .icon {
       height: 38px;
       width: 38px;
       margin-right: 16px;
-      background:#031a6e;
-      border-radius:100%;
       display: flex;
       justify-content: center;
       align-items:center;
-      box-shadow: 0 4px 12px 0 rgba(115, 75, 226, 0.51);
+      background:none;
       img {
         display:block;
         height: 18px;
       }
     }
   }
-
-  &.otherInfo {
-    padding: 15px 14px;
-    font-size: 14px;
-    font-weight: 600;
-    color: ${({ theme }) => theme.textColorBold};
+  &.noBB {
     border-bottom:none;
-    .icon {
-      height: 38px;
-      width: 38px;
-      margin-right: 16px;
-      background: rgba(0,0,0,.05);
-      border-radius:100%;
-      display: flex;
-      justify-content: center;
-      align-items:center;
-      img {
-        display:block;
-        height: 18px;
-      }
-    }
+  }
+  .arrow {
+    position: absolute;
+    top: 18px;
+    right:15px;
   }
 `
 
+const OutLink = styled.div`
+padding-left: 44px;
+`
+const OutLinkImgBox = styled.div`
+  ${({theme}) => theme.FlexSC};
+`
+const OutLinkImg = styled.div`
+  ${({theme}) => theme.FlexC};
+  width: 38px;
+  height: 38px;
+  background-color: #ecf6ff;
+  border-radius: 100%;
+  margin-right: 10px;
+`
+const CopyRightBox = styled.div`
+  h5 {
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+    color: #062536;
+    margin: 15px 0 0px;
+    span { 
+      font-weight: bold;
+    }
+  }
+  p {
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+    color: #96989e;
+  }
+`
 const NavListTab =  styled(NavLink).attrs({
   activeClassName
 })`
@@ -336,49 +374,43 @@ function NavigationTabs({ location: { pathname }, history }) {
           </StyledNavLink>
         ))}
       </Tabs>
-      {/* {providerMessage && (
-        <DaiMessage>
-          <CloseIcon onClick={dismissSaiHolderMessage}>✕</CloseIcon>
-          <WarningHeader>Missing your DAI?</WarningHeader>
-          <div>
-            Don’t worry, check the{' '}
-            <Link href={'/remove-liquidity?poolTokenAddress=0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359'}>
-              SAI liquidity pool.
-            </Link>{' '}
-            Your old DAI is now SAI. If you want to migrate,{' '}
-            <Link href="/remove-liquidity?poolTokenAddress=0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359">
-              remove your SAI liquidity,
-            </Link>{' '}
-            migrate using the <Link href="https://migrate.makerdao.com/">migration tool</Link> then add your migrated
-            DAI to the{' '}
-            <Link href="add-liquidity?token=0x6B175474E89094C44Da98b954EedeAC495271d0F">new DAI liquidity pool.</Link>
-          </div>
-          <WarningFooter>
-            <Link href="https://blog.makerdao.com/looking-ahead-how-to-upgrade-to-multi-collateral-dai/">
-              Read more
-            </Link>{' '}
-            about this change on the official Maker blog.
-          </WarningFooter>
-        </DaiMessage>
-      )}
-      {generalMessage && !providerMessage && (
-        <DaiMessage>
-          <CloseIcon onClick={dismissGeneralDaiMessage}>✕</CloseIcon>
-          <WarningHeader>DAI has upgraded!</WarningHeader>
-          <div>
-            Your old DAI is now SAI. To upgrade use the{' '}
-            <Link href="https://migrate.makerdao.com/">migration tool.</Link>
-          </div>
-        </DaiMessage>
-      )}
-      {showBetaMessage && (
-        <BetaMessage onClick={dismissBetaMessage}>
-          <span role="img" aria-label="warning">
-            💀
-          </span>{' '}
-          {t('betaWarning')}
-        </BetaMessage>
-      )} */}
+      <Tabs2>
+        {tabOrder2.map(({ path, textKey, regex, icon, iconActive, className }, index) => (
+          <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={className ? className : ''}>
+            <div className={'icon'}><img src={pathname.match(regex) ? iconActive : icon}/></div>
+            {t(textKey)}
+            <div className='arrow'><img src={ArrowRight}/></div>
+          </StyledNavLink>
+        ))}
+      </Tabs2>
+      <OutLink>
+        <OutLinkImgBox>
+          <Link id="link" href="https://anyswap.network">
+            <OutLinkImg>
+              <img src={TelegramIcon} />
+            </OutLinkImg>
+          </Link>
+          <Link id="link" href="https://anyswap.network/docs">
+            <OutLinkImg>
+              <img src={MediumIcon} />
+            </OutLinkImg>
+          </Link>
+          <Link id="link" href="https://t.me/anyswap">
+            <OutLinkImg>
+              <img src={TwitterIcon} />
+            </OutLinkImg>
+          </Link>
+          <Link id="link" href="https://github.com/anyswap">
+            <OutLinkImg>
+              <img src={CodeIcon} />
+            </OutLinkImg>
+          </Link>
+        </OutLinkImgBox>
+        <CopyRightBox>
+          <h5>Powered by <span>Fusion DCRM</span></h5>
+          <p>© 2020 Anyswap. All rights reserved.</p>
+        </CopyRightBox>
+      </OutLink>
     </>
   )
 }
