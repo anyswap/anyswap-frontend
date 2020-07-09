@@ -50,7 +50,7 @@ const theme = darkMode => ({
 
   // for setting css on <html>
   backgroundColor: darkMode ? '#333639' : white,
-  backgroundColorCont: darkMode ? '#333639' : '#f1f6fa',
+  backgroundColorCont: darkMode ? '#333639' : '#f9fafb',
 
 
   modalBackground: darkMode ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.5)',

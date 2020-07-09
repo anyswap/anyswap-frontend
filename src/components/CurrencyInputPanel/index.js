@@ -16,7 +16,7 @@ import { isAddress, calculateGasMargin, formatToUsd, formatTokenBalance, formatE
 import { ReactComponent as DropDown } from '../../assets/images/dropdown.svg'
 import Modal from '../Modal'
 import TokenLogo from '../TokenLogo'
-import SearchIcon from '../../assets/images/magnifying-glass.svg'
+import SearchIcon from '../../assets/images/icon/search.svg'
 import { useTransactionAdder, usePendingApproval } from '../../contexts/Transactions'
 import { useTokenDetails, useAllTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
 import { useAddressBalance } from '../../contexts/Balances'
@@ -31,6 +31,8 @@ import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 import erc20 from '../../constants/abis/erc20'
 
 import HardwareTip from '../HardwareTip'
+
+import {ReactComponent as Paste} from '../../assets/images/icon/paste.svg'
 
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
@@ -67,14 +69,6 @@ const Input = styled(BorderlessInput)`
   margin-right: 30px;
 `
 
-const StyledBorderlessInput = styled(BorderlessInput)`
-  min-height: 2.5rem;
-  flex-shrink: 0;
-  text-align: left;
-  padding-left: 1.6rem;
-  background-color: ${({ theme }) => theme.concreteGray};
-`
-
 const CurrencySelect = styled.button`
   align-items: center;
   font-size: 1rem;
@@ -92,15 +86,15 @@ const CurrencySelect = styled.button`
 
   :hover {
     border: 1px solid
-      ${({ selected, theme }) => (selected ? darken(0.1, theme.mercuryGray) : darken(0.1, theme.royalBlue))};
+      ${({ selected, theme }) => (selected ? darken(0.1, theme.selectedBorder) : darken(0.1, theme.selectedBorder))};
   }
 
   :focus {
-    border: 1px solid ${({ theme }) => darken(0.1, theme.royalBlue)};
+    border: 1px solid ${({ theme }) => darken(0.1, theme.selectedBorder)};
   }
 
   :active {
-    background-color: ${({ theme }) => theme.zumthorBlue};
+    background-color: ${({ theme }) => darken(0.1, theme.selectedBorder)};
   }
 `
 
@@ -138,9 +132,6 @@ const InputPanel = styled.div`
 const Container = styled.div`
   border-radius: 1.25rem;
 
-  :focus-within {
-    border: 1px solid ${({ theme }) => theme.malibuBlue};
-  }
 `
 
 const LabelRow = styled.div`
@@ -155,6 +146,27 @@ const LabelRow = styled.div`
     color: ${({ theme }) => darken(0.2, theme.doveGray)};
   }
 `
+  // align-items: center;
+  // font-size: 1rem;
+  // color: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
+  // min-width: 190px;
+  // max-width: 251px;
+  // border: 1px solid ${({ theme }) => theme.selectedBorderNo};
+  // border-radius: 12px;
+  // background-color: ${({ theme }) => theme.selectedBgNo};
+  // outline: none;
+  // cursor: pointer;
+  // user-select: none;
+// ${({ theme }) => theme.flexRowNoWrap}
+// align-items: center;
+// color: ${({ theme }) => theme.doveGray};
+// font-size: 0.75rem;
+// line-height: 1rem;
+// padding: 0.75rem 1rem;
+// span:hover {
+//   cursor: pointer;
+//   color: ${({ theme }) => darken(0.2, theme.doveGray)};
+// }
 
 const LabelContainer = styled.div`
   flex: 1 1 auto;
@@ -164,17 +176,69 @@ const LabelContainer = styled.div`
   text-overflow: ellipsis;
 `
 
+const ErrorSpanBox = styled.div`
+  height: 70px;
+  width: 30%;
+  margin-left: 10px;
+`
 const ErrorSpan = styled.span`
-  color: ${({ error, theme }) => error && theme.salmonRed};
+  height: 70px;
+  width: 30%;
+  display:flex;
+  align-items: center;
+  padding: 15px 20px;
+  font-size: 1rem;
+  color: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
+  min-width: 190px;
+  max-width: 251px;
+  border: 1px solid ${({ theme }) => theme.selectedBorderNo};
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.selectedBgNo};
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+
   :hover {
     cursor: pointer;
     color: ${({ error, theme }) => error && darken(0.1, theme.salmonRed)};
   }
 `
 
+const ExtraText = styled.div`
+  width: 100%;
+  font-family: Manrope;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  position:relative;
+  color: ${({theme}) => theme.textColorBold};
+  h5 {
+    font-weight: normal;
+    line-height: 1;
+    font-size: 12px;
+    margin: 4px 0;
+  }
+  p  {
+    font-size: 14px;
+    line-height: 1.43;
+    margin:0;
+    font-weight: 800;
+  }
+`
+
+const PasteStyle = styled(Paste)`
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 12px;
+  right: 0;
+  background:#000;
+`
+
 const TokenModal = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   width: 100%;
+  padding: 15px;
 `
 
 const ModalHeader = styled.div`
@@ -184,6 +248,12 @@ const ModalHeader = styled.div`
   align-items: center;
   padding: 0px 0px 0px 1rem;
   height: 60px;
+  p {
+    color: ${({theme}) => theme.textColorBold};
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Manrope;
+  }
 `
 
 const CloseColor = styled(Close)`
@@ -205,8 +275,27 @@ const CloseIcon = styled.div`
 const SearchContainer = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   justify-content: flex-start;
-  padding: 0.5rem 1.5rem;
-  background-color: ${({ theme }) => theme.concreteGray};
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 9px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  border: solid 0.5px rgba(0, 0, 0, 0.1);
+  overflow:hidden;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+`
+
+const StyledBorderlessInput = styled(BorderlessInput)`
+  height: 100%;
+  flex-shrink: 0;
+  text-align: left;
+  padding-left: 0.8rem;
+  background-color: none;
+  color: ${({theme}) => theme.textColorBold};
+  ::placeholder {
+    font-size: 12px;
+    color: ${({theme}) => theme.textColorBold};
+  }
 `
 
 const TokenModalInfo = styled.div`
@@ -232,6 +321,7 @@ const TokenModalRow = styled.div`
   padding: 1rem;
   cursor: pointer;
   user-select: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 
   #symbol {
     color: ${({ theme }) => theme.doveGrey};
@@ -255,19 +345,58 @@ const TokenRowLeft = styled.div`
 const TokenSymbolGroup = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
   margin-left: 1rem;
+  span {
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    color: ${({theme}) => theme.selectTextColor};
+  }
 `
 
 const TokenFullName = styled.div`
   color: ${({ theme }) => theme.chaliceGray};
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: ${({theme}) => theme.selectTextColor};
+  margin-top: 2px;
 `
 
 const FadedSpan = styled.span`
   color: ${({ theme }) => theme.royalBlue};
 `
-
+const TokenRowBalanceText = styled.span`
+  width: 100%;
+  display:block;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: right;
+  margin-bottom: 5px;
+  color: ${({theme}) => theme.textColorBold};
+`
 const TokenRowBalance = styled.div`
-  font-size: 1rem;
-  line-height: 20px;
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: right;
+  color: ${({theme}) => theme.textColorBold};
 `
 
 const TokenRowUsd = styled.div`
@@ -315,13 +444,13 @@ const SpinnerWrapper = styled(Spinner)`
 `
 
 const TokenLogoBox = styled.div`
+  ${({ theme }) => theme.FlexC};
   width: 46px;
   height: 46px;
-  padding: 10px;
   background: ${ ({theme}) => theme.backgroundColor};
   box-sizing:border-box;
   border-radius: 100%;
-  margin-right: 20px
+  margin-right: 20px;
 `
 
 export default function CurrencyInputPanel({
@@ -514,7 +643,45 @@ export default function CurrencyInputPanel({
             {!disableTokenSelect && <StyledDropDownBox><StyledDropDown selected={!!selectedTokenAddress} /></StyledDropDownBox>}
           </Aligner>
         </CurrencySelect>
-        
+        <ErrorSpanBox>
+          {extraText ? (
+            <>
+              <ErrorSpan
+                data-tip={'Enter max'}
+                error={!!errorMessage}
+                onClick={() => {
+                  extraTextClickHander()
+                }}
+              >
+                <Tooltip
+                  label="Enter Max"
+                  style={{
+                    background: 'hsla(0, 0%, 0%, 0.75)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '24px',
+                    padding: '0.5em 1em',
+                    marginTop: '-64px'
+                  }}
+                >
+                  <ExtraText>
+                    {extraText.indexOf('Balance:') === 0 ? (
+                      <>
+                        <h5>Balance:</h5>
+                        <p>{extraText.replace('Balance:', '')}</p>
+                      </>
+                    ) : (
+                      <p>{extraText}</p>
+                    )}
+                    <PasteStyle></PasteStyle>
+                  </ExtraText>
+                </Tooltip>
+              </ErrorSpan>
+            </>
+          ) : (
+            ''
+          )}
+        </ErrorSpanBox>
       </InputRow>
     )
   }
@@ -535,28 +702,6 @@ export default function CurrencyInputPanel({
             <LabelContainer>
               <span>{title}</span> <span>{description}</span>
             </LabelContainer>
-
-            <ErrorSpan
-              data-tip={'Enter max'}
-              error={!!errorMessage}
-              onClick={() => {
-                extraTextClickHander()
-              }}
-            >
-              <Tooltip
-                label="Enter Max"
-                style={{
-                  background: 'hsla(0, 0%, 0%, 0.75)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '24px',
-                  padding: '0.5em 1em',
-                  marginTop: '-64px'
-                }}
-              >
-                <span>{extraText}</span>
-              </Tooltip>
-            </ErrorSpan>
           </LabelRow>
           {_renderInput()}
         </Container>
@@ -757,7 +902,9 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
       return (
         <TokenModalRow key={address} onClick={() => _onTokenSelect(address)}>
           <TokenRowLeft>
-            <TokenLogo address={address} size={'2rem'} />
+            <TokenLogoBox style={ {'border': '1px solid rgba(0, 0, 0, 0.1)'}}>
+              <TokenLogo address={address} size={'2rem'} />
+            </TokenLogoBox>
             <TokenSymbolGroup>
               <div>
                 <span id="symbol">{symbol}</span>
@@ -770,7 +917,10 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
           </TokenRowLeft>
           <TokenRowRight>
             {balance ? (
-              <TokenRowBalance>{balance && (balance > 0 || balance === '<0.0001') ? balance : '-'}</TokenRowBalance>
+              <>
+                <TokenRowBalanceText>Balance</TokenRowBalanceText>
+                <TokenRowBalance>{balance && (balance > 0 || balance === '<0.0001') ? (balance + ' ' + symbol) : '-'}</TokenRowBalance>
+              </>
             ) : account ? (
               <SpinnerWrapper src={Circle} alt="loader" />
             ) : (
