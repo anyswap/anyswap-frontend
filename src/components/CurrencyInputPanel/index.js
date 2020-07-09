@@ -34,13 +34,15 @@ import HardwareTip from '../HardwareTip'
 
 import Paste from '../../assets/images/icon/paste.svg'
 import Unlock from '../../assets/images/icon/unlock.svg'
+import UnlockBlack from '../../assets/images/icon/unlockBlack.svg'
+import Warning from '../../assets/images/icon/warning.svg'
 
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const SubCurrencySelect = styled.button`
   ${({ theme }) => theme.FlexC}
-  padding: 4px 25px 4px 25px;
-  height: 2rem;
+  width: 110px;
+  height: 30px;
   border-radius: 6px;
   outline: none;
   cursor: pointer;
@@ -48,6 +50,37 @@ const SubCurrencySelect = styled.button`
   background: #734be2;
   border: #734be2;
   color: #fff;
+
+  &.otherView {
+    background:#fff;
+    color: ${({ theme }) => theme.textColorBold}
+  }
+`
+
+const SubCurrencySelectBox = styled.div`
+  ${({ theme }) => theme.FlexBC}
+  width: 100%;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 9px;
+  border: solid 0.5px #b398f9;
+  background-color: #f2edff;
+  padding: 0 40px;
+  margin-top: 10px;
+  div {
+    ${({ theme }) => theme.FlexSC}
+    p {
+      font-family: Manrope;
+      font-size: 12px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+      color: #734be2;
+      margin-left:8px;
+    }
+  }
 `
 
 const InputRow = styled.div`
@@ -55,7 +88,7 @@ const InputRow = styled.div`
   width: 100%;
   align-items: center;
   background:none;
-  padding: 0.75rem 0.85rem 0.75rem;
+  padding: 10px 0 0;
 `
 
 const Input = styled(BorderlessInput)`
@@ -126,12 +159,13 @@ const StyledDropDown = styled(DropDown)`
 
 const InputPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
-  box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
   position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
   border-radius: 1.25rem;
   background-color: ${({theme}) => theme.bgColor};
-  z-index: 1;
-  padding: 25px 40px;
+  height:154px;
+  padding: 20px 40px;
 `
 
 const Container = styled.div`
@@ -140,13 +174,13 @@ const Container = styled.div`
 `
 
 const LabelRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
+  ${({ theme }) => theme.FlexBC}
   align-items: center;
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
   line-height: 1rem;
-  height: 56px;
-  padding: 0 1rem;
+  height: 30px;
+  padding: 0;
   span:hover {
     cursor: pointer;
     color: ${({ theme }) => darken(0.2, theme.doveGray)};
@@ -154,11 +188,14 @@ const LabelRow = styled.div`
 `
 
 const LabelContainer = styled.div`
-  flex: 1 1 auto;
-  width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  color: #96989e;
 `
 
 const ErrorSpanBox = styled.div`
@@ -486,7 +523,7 @@ export default function CurrencyInputPanel({
   const [isHardwareError, setIsHardwareError] = useState(false)
   const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
 
-  function renderUnlockButton() {
+  function renderUnlockButton(classType) {
     if (disableUnlock || !showUnlock || selectedTokenAddress === 'FSN' || !selectedTokenAddress) {
       return null
     } else {
@@ -539,15 +576,18 @@ export default function CurrencyInputPanel({
                 )
                 .then(response => {
                   addTransaction(response, { approval: selectedTokenAddress })
+                }).catch(err => {
+                  console.log(err)
                 })
             }}
+            className={classType}
           >
-            <img src={Unlock} style={{marginRight: '10px'}}/>
+            <img src={classType ? UnlockBlack : Unlock} style={{marginRight: '10px'}}/>
             {t('unlock')}
           </SubCurrencySelect>
         )
       } else {
-        return <SubCurrencySelect>{t('pending')}</SubCurrencySelect>
+        return <SubCurrencySelect className={classType}>{t('pending')}</SubCurrencySelect>
       }
     }
   }
@@ -558,116 +598,118 @@ export default function CurrencyInputPanel({
     }
 
     return (
-      <InputRow>
-        <Input
-          type="number"
-          min="0"
-          step="0.000000000000000001"
-          error={!!errorMessage}
-          placeholder="0.0"
-          onChange={e => onValueChange(e.target.value)}
-          onKeyPress={e => {
-            const charCode = e.which ? e.which : e.keyCode
+      <>
+        <InputRow>
+          <Input
+            type="number"
+            min="0"
+            step="0.000000000000000001"
+            error={!!errorMessage}
+            placeholder="0.0"
+            onChange={e => onValueChange(e.target.value)}
+            onKeyPress={e => {
+              const charCode = e.which ? e.which : e.keyCode
 
-            // Prevent 'minus' character
-            if (charCode === 45) {
-              e.preventDefault()
-              e.stopPropagation()
-            }
-          }}
-          value={value}
-        />
-        <CurrencySelect
-          selected={!!selectedTokenAddress}
-          onClick={() => {
-            if (!disableTokenSelect) {
-              setModalIsOpen(true)
-            }
-          }}
-        >
-          <Aligner>
-            {
-              isSelfSymbol ? (
-                <>
-                  {selectedTokenAddress ? (isSelfLogo ? <TokenLogoBox><TokenLogo address={isSelfLogo} size={'26px'} /></TokenLogoBox> : <TokenLogoBox><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox>) : null}
-                  <StyledTokenName>
-                    {
-                      isSelfSymbol ? (
-                        <>
-                          <h3>{isSelfSymbol}</h3>
-                          <p>{allTokens[selectedTokenAddress].name}</p>
-                        </>
-                      ) : (
-                        t('selectToken')
-                      )
-                    }
-                    {/* {isSelfSymbol || t('selectToken')} */}
-                  </StyledTokenName>
-                </>
-              ) :  (
-                <>
-                  {selectedTokenAddress ? <TokenLogoBox><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox> : null}
-                  <StyledTokenName>
-                    {
-                      allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol ? (
-                        <>
-                          <h3>{allTokens[selectedTokenAddress].symbol}</h3>
-                          <p>{allTokens[selectedTokenAddress].name}</p>
-                        </>
-                      ) : (
-                        t('selectToken')
-                      ) 
-                    }
-                    {/* {(allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol) || t('selectToken')} */}
-                  </StyledTokenName>
-                </>
-              )
-            }
-            {!disableTokenSelect && <StyledDropDownBox><StyledDropDown selected={!!selectedTokenAddress} /></StyledDropDownBox>}
-          </Aligner>
-        </CurrencySelect>
-        <ErrorSpanBox>
-          {extraText ? (
-            <>
-              <ErrorSpan
-                data-tip={'Enter max'}
-                error={!!errorMessage}
-                onClick={() => {
-                  extraTextClickHander()
-                }}
-              >
-                <Tooltip
-                  label="Enter Max"
-                  style={{
-                    background: 'hsla(0, 0%, 0%, 0.75)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '24px',
-                    padding: '0.5em 1em',
-                    marginTop: '-64px'
+              // Prevent 'minus' character
+              if (charCode === 45) {
+                e.preventDefault()
+                e.stopPropagation()
+              }
+            }}
+            value={value}
+          />
+          <CurrencySelect
+            selected={!!selectedTokenAddress}
+            onClick={() => {
+              if (!disableTokenSelect) {
+                setModalIsOpen(true)
+              }
+            }}
+          >
+            <Aligner>
+              {
+                isSelfSymbol ? (
+                  <>
+                    {selectedTokenAddress ? (isSelfLogo ? <TokenLogoBox><TokenLogo address={isSelfLogo} size={'26px'} /></TokenLogoBox> : <TokenLogoBox><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox>) : null}
+                    <StyledTokenName>
+                      {
+                        isSelfSymbol ? (
+                          <>
+                            <h3>{isSelfSymbol}</h3>
+                            <p>{allTokens[selectedTokenAddress].name}</p>
+                          </>
+                        ) : (
+                          t('selectToken')
+                        )
+                      }
+                      {/* {isSelfSymbol || t('selectToken')} */}
+                    </StyledTokenName>
+                  </>
+                ) :  (
+                  <>
+                    {selectedTokenAddress ? <TokenLogoBox><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox> : null}
+                    <StyledTokenName>
+                      {
+                        allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol ? (
+                          <>
+                            <h3>{allTokens[selectedTokenAddress].symbol}</h3>
+                            <p>{allTokens[selectedTokenAddress].name}</p>
+                          </>
+                        ) : (
+                          t('selectToken')
+                        ) 
+                      }
+                      {/* {(allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol) || t('selectToken')} */}
+                    </StyledTokenName>
+                  </>
+                )
+              }
+              {!disableTokenSelect && <StyledDropDownBox><StyledDropDown selected={!!selectedTokenAddress} /></StyledDropDownBox>}
+            </Aligner>
+          </CurrencySelect>
+          <ErrorSpanBox>
+            {extraText ? (
+              <>
+                <ErrorSpan
+                  data-tip={'Enter max'}
+                  error={!!errorMessage}
+                  onClick={() => {
+                    extraTextClickHander()
                   }}
                 >
-                  <ExtraText>
-                    {extraText.indexOf('Balance:') === 0 ? (
-                      <>
-                        <h5>Balance:</h5>
-                        <p>{extraText.replace('Balance:', '')}</p>
-                      </>
-                    ) : (
-                      <p>{extraText}</p>
-                    )}
-                    <PasteStyle>
-                      <img src={Paste} />
-                    </PasteStyle>
-                  </ExtraText>
-                </Tooltip>
-              </ErrorSpan>
-            </>
-          ) : (
-            ''
-          )}
-        </ErrorSpanBox>
-      </InputRow>
+                  <Tooltip
+                    label="Enter Max"
+                    style={{
+                      background: 'hsla(0, 0%, 0%, 0.75)',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '24px',
+                      padding: '0.5em 1em',
+                      marginTop: '-64px'
+                    }}
+                  >
+                    <ExtraText>
+                      {extraText.indexOf('Balance:') === 0 ? (
+                        <>
+                          <h5>Balance:</h5>
+                          <p>{extraText.replace('Balance:', '')}</p>
+                        </>
+                      ) : (
+                        <p>{extraText}</p>
+                      )}
+                      <PasteStyle>
+                        <img src={Paste} />
+                      </PasteStyle>
+                    </ExtraText>
+                  </Tooltip>
+                </ErrorSpan>
+              </>
+            ) : (
+              ''
+            )}
+          </ErrorSpanBox>
+        </InputRow>
+      </>
     )
   }
 
@@ -691,6 +733,7 @@ export default function CurrencyInputPanel({
           </LabelRow>
           {_renderInput()}
         </Container>
+        
         {!disableTokenSelect && (
           <CurrencySelectModal
             isOpen={modalIsOpen}
@@ -705,6 +748,19 @@ export default function CurrencyInputPanel({
           />
         )}
       </InputPanel>
+      {
+        disableUnlock || !showUnlock || selectedTokenAddress === 'FSN' || !selectedTokenAddress ? '' : (
+          <>
+            <SubCurrencySelectBox>
+              <div>
+                <img src={Warning}/>
+                <p>You need to unlock {allTokens[selectedTokenAddress].symbol} to continue</p>
+              </div>
+                {renderUnlockButton('otherView')}
+            </SubCurrencySelectBox>
+          </>
+        )
+      }
     </>
   )
 }

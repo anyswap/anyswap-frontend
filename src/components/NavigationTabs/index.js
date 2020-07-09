@@ -238,7 +238,7 @@ const StyledNavLink = styled(NavLink).attrs({
     border-radius: 9px;
     color: #ffffff;
     font-weight: 800;
-    background-image: linear-gradient(to right, #734ce2 , #606bfb);
+    background: ${({theme}) => theme.bgColorLinear};
     border-bottom: none;
     box-shadow: 0 4px 12px 0 rgba(115, 75, 226, 0.51);
     .icon {

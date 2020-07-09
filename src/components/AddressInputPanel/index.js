@@ -51,7 +51,6 @@ const InputRow = styled.div`
 `
 
 const Input = styled.input`
-  font-size: 1rem;
   outline: none;
   border: none;
   flex: 1 1 auto;
@@ -59,10 +58,18 @@ const Input = styled.input`
   background-color: transparent;
   border-bottom: 1px solid ${({theme}) => theme.textColorBold};
 
-  color: ${({ error, theme }) => (error ? theme.salmonRed : theme.royalBlue)};
+  color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
   overflow: hidden;
   text-overflow: ellipsis;
 
+  font-family: Manrope;
+  font-size: 24px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: -1px;
+  padding: 8px 12px;
   ::placeholder {
     color: ${({ theme }) => theme.placeholderGray};
   }
@@ -179,7 +186,7 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck="false"
-              placeholder=""
+              placeholder="enter address here"
               error={input !== '' && error}
               onChange={onInput}
               value={input}

@@ -5,15 +5,16 @@ export const Button = styled.button.attrs(({ warning, theme }) => ({
   backgroundColor: warning ? theme.salmonRed : theme.royalBlue
 }))`
   padding: 1rem 2rem 1rem 2rem;
-  border-radius: 3rem;
+  border-radius: 9px;
   cursor: pointer;
   user-select: none;
   font-size: 1rem;
   border: none;
   outline: none;
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background: ${({theme}) => theme.bgColorLinear};
   color: ${({ theme }) => theme.white};
   width: 100%;
+  box-shadow: 6px 14px 22px 0 rgba(118, 68, 203, 0.27);
 
   :hover,
   :focus {
@@ -25,9 +26,10 @@ export const Button = styled.button.attrs(({ warning, theme }) => ({
   }
 
   :disabled {
-    background-color: ${({ theme }) => theme.concreteGray};
+    background: ${({ theme }) => theme.modalBackground};
     color: ${({ theme }) => theme.silverGray};
     cursor: auto;
+    box-shadow: none;
   }
 `
 export const TitleBox = styled.h3`
@@ -40,6 +42,7 @@ export const TitleBox = styled.h3`
   font-style: normal;
   line-height: 1;
   letter-spacing: normal;
+  margin: 0 0 30px;
   color: ${({ theme }) => theme.textColorBold};
 `
 

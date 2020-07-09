@@ -63,6 +63,7 @@ const theme = darkMode => ({
   selectedBorder: darkMode ? 'rgba(0,0,0,0.6)' : '#c0d6ea',
   selectedBorderNo: darkMode ? 'rgba(0,0,0,0.6)' : '#d9d9e2',
   bgColor: darkMode ? 'rgba(0,0,0,0.1)' : white,
+  bgColorLinear: 'linear-gradient(to right, #734ce2 , #606bfb)',
 
   // grays
   concreteGray: darkMode ? '#292C2F' : '#FAFAFA',
@@ -119,6 +120,16 @@ const theme = darkMode => ({
   FlexC: css`
     display: flex;
     justify-content:  center;
+    align-items:center;
+  `,
+  FlexSC: css`
+    display: flex;
+    justify-content:  flex-start;
+    align-items:center;
+  `,
+  FlexBC: css`
+    display: flex;
+    justify-content:  space-between;
     align-items:center;
   `
 })

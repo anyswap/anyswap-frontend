@@ -39,7 +39,8 @@ import swapBTCABI from '../../constants/abis/swapBTCABI'
 import swapETHABI from '../../constants/abis/swapETHABI'
 
 import HardwareTip from '../HardwareTip'
-
+import ResertSvg from '../../assets/images/icon/revert.svg'
+import BirdgeIcon from '../../assets/images/icon/bridge-white.svg'
 const INPUT = 0
 const OUTPUT = 1
 
@@ -60,14 +61,26 @@ const DownArrowBackground = styled.div`
   align-items: center;
 `
 
-const WrappedArrowDown = ({ clickable, active, ...rest }) => <ArrowDown {...rest} />
-const DownArrow = styled(WrappedArrowDown)`
-  color: ${({ theme, active }) => (active ? theme.royalBlue : theme.chaliceGray)};
-  width: 0.625rem;
-  height: 0.625rem;
-  position: relative;
-  padding: 0.875rem;
-  cursor: ${({ clickable }) => clickable && 'pointer'};
+// const WrappedArrowDown = ({ clickable, active, ...rest }) => <ArrowDown {...rest} />
+// const DownArrow = styled(WrappedArrowDown)`
+//   color: ${({ theme, active }) => (active ? theme.royalBlue : theme.chaliceGray)};
+//   width: 0.625rem;
+//   height: 0.625rem;
+//   position: relative;
+//   padding: 0.875rem;
+//   cursor: ${({ clickable }) => clickable && 'pointer'};
+// `
+const DownArrow = styled.div`
+  width: 32px;
+  height: 32px;
+  padding:8px;
+  background: ${({theme}) => theme.bgColor};
+  margin: 10px auto;
+  cursor: pointer;
+  img {
+    height: 100%;
+    display: block;
+  }
 `
 
 const ExchangeRateWrapper = styled.div`
@@ -149,6 +162,15 @@ const Input = styled.input`
   color: ${({ theme }) => theme.textColor};
   overflow: hidden;
   text-overflow: ellipsis;
+
+  font-family: Manrope;
+  font-size: 24px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: -1px;
+  padding: 8px 12px;
 
   ::placeholder {
     color: ${({ theme }) => theme.placeholderGray};
@@ -248,6 +270,12 @@ const WarningTip = styled.div`
 //   cursor:pointer;
 // `
 
+const StyledBirdgeIcon = styled.div`
+  ${({ theme }) => theme.FlexC};
+  img {
+    margin-right: 15px
+  }
+`
 
 function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, allowedSlippage) {
   if (value) {
@@ -565,7 +593,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const inputBalance = useAddressBalance(account, inputCurrency)
   // const outputBalance = useAddressBalance(account, outputCurrency)
   const inputBalanceFormatted = !!(inputBalance && Number.isInteger(inputDecimals))
-    ? amountFormatter(inputBalance, inputDecimals, inputDecimals)
+    ? amountFormatter(inputBalance, inputDecimals, Math.min(8, outputDecimals))
     : ''
   // const outputBalanceFormatted = !!(outputBalance && Number.isInteger(outputDecimals))
   //   ? amountFormatter(outputBalance, outputDecimals, Math.min(4, outputDecimals))
@@ -578,7 +606,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   // declare/get parsed and formatted versions of input/output values
   const [independentValueParsed, setIndependentValueParsed] = useState()
   const dependentValueFormatted = !!(dependentValue && (dependentDecimals || dependentDecimals === 0))
-    ? amountFormatter(dependentValue, dependentDecimals, Math.min(4, dependentDecimals), false)
+    ? amountFormatter(dependentValue, dependentDecimals, Math.min(8, dependentDecimals), false)
     : ''
   // const inputValueParsed = independentField === INPUT ? independentValueParsed : dependentValue
   const inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
@@ -956,7 +984,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       <OversizedPanel>
         <DownArrowBackground>
-          <DownArrow onClick={changeMorR} clickable alt="swap" />
+          <DownArrow onClick={changeMorR} clickable alt="swap" >
+          <img src={ResertSvg} />
+          </DownArrow>
         </DownArrowBackground>
       </OversizedPanel>
       <CurrencyInputPanel
@@ -980,11 +1010,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         hideETH={true}
         selfUseAllToken={selfUseAllToken}
       />
-      <OversizedPanel>
+      {/* <OversizedPanel>
         <DownArrowBackground>
           <DownArrow clickable alt="swap" />
         </DownArrowBackground>
-      </OversizedPanel>
+      </OversizedPanel> */}
       {bridgeType && bridgeType === 'redeem' ? (
         <>
           <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
@@ -1047,7 +1077,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             >
               {!account
                 ? t('connectToWallet')
-                : t('redeem')}
+                : (
+                  <>
+                    <StyledBirdgeIcon>
+                      <img src={BirdgeIcon} />
+                      {t('redeem')}
+                    </StyledBirdgeIcon>
+                  </>
+                  )}
             </Button>
           </>
         ) : (
