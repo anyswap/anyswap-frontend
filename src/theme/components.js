@@ -33,15 +33,15 @@ export const Button = styled.button.attrs(({ warning, theme }) => ({
   }
 `
 export const TitleBox = styled.h3`
-  height: 24px;
+  height: 38px;
+  line-height: 38px;
   font-family: Manrope;
   font-size: 24px;
   font-weight: 800;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1;
   letter-spacing: normal;
-  margin: 0 0 23px;
+  margin: 0 0 16px;
   color: ${({ theme }) => theme.textColorBold};
 `
 

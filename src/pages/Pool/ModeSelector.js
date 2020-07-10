@@ -51,7 +51,7 @@ const LiquidityContainer = styled.div`
   color: ${({ theme }) => theme.royalBlue};
   font-weight: 500;
   cursor: pointer;
-  margin-bottom: 23px;
+  margin-bottom: 16px;
 
   :hover {
     color: ${({ theme }) => lighten(0.1, theme.royalBlue)};
@@ -194,56 +194,56 @@ function ModeSelector({ location: { pathname }, history }) {
   useBodyKeyDown('ArrowUp', navigateLeft, modalIsOpen)
 
   return (
-    <OversizedPanel hideTop>
-      <LiquidityContainer
-        // onClick={() => {
-        //   setModalIsOpen(true)
-        // }}
-      >
-        {/* <LiquidityLabel>{t(activeTabKey)}</LiquidityLabel> */}
-        <TitleBoxPool>{t(activeTabKey)}</TitleBoxPool>
-        {/* <ColoredDropdown alt="arrow down" /> */}
-        <TabLinkBox>
-          {poolTabOrder.map(({ path, textKey, regex, icon, iconActive }) => (
-            <StyledNavLink
-              key={path}
-              to={path}
-              isActive={(_, { pathname }) => pathname.match(regex)}
-              // onClick={() => {
-              //   setModalIsOpen(false)
-              // }}
-            > 
-              <div className='icon'>
-                <img src={pathname.match(regex) ? iconActive : icon}/>
-              </div>
-              {t(textKey)}
-            </StyledNavLink>
-          ))}
-        </TabLinkBox>
-      </LiquidityContainer>
-      <Modal
-        isOpen={modalIsOpen}
-        maxHeight={50}
-        onDismiss={() => {
-          setModalIsOpen(false)
-        }}
-      >
-        <PoolModal>
-          {poolTabOrder.map(({ path, textKey, regex }) => (
-            <StyledNavLink
-              key={path}
-              to={path}
-              isActive={(_, { pathname }) => pathname.match(regex)}
-              onClick={() => {
-                setModalIsOpen(false)
-              }}
-            >
-              {t(textKey)}
-            </StyledNavLink>
-          ))}
-        </PoolModal>
-      </Modal>
-    </OversizedPanel>
+    <LiquidityContainer
+      // onClick={() => {
+      //   setModalIsOpen(true)
+      // }}
+    >
+      {/* <LiquidityLabel>{t(activeTabKey)}</LiquidityLabel> */}
+      <TitleBoxPool>{t(activeTabKey)}</TitleBoxPool>
+      {/* <ColoredDropdown alt="arrow down" /> */}
+      <TabLinkBox>
+        {poolTabOrder.map(({ path, textKey, regex, icon, iconActive }) => (
+          <StyledNavLink
+            key={path}
+            to={path}
+            isActive={(_, { pathname }) => pathname.match(regex)}
+            // onClick={() => {
+            //   setModalIsOpen(false)
+            // }}
+          > 
+            <div className='icon'>
+              <img src={pathname.match(regex) ? iconActive : icon}/>
+            </div>
+            {t(textKey)}
+          </StyledNavLink>
+        ))}
+      </TabLinkBox>
+    </LiquidityContainer>
+    // <OversizedPanel hideTop>
+    //   <Modal
+    //     isOpen={modalIsOpen}
+    //     maxHeight={50}
+    //     onDismiss={() => {
+    //       setModalIsOpen(false)
+    //     }}
+    //   >
+    //     <PoolModal>
+    //       {poolTabOrder.map(({ path, textKey, regex }) => (
+    //         <StyledNavLink
+    //           key={path}
+    //           to={path}
+    //           isActive={(_, { pathname }) => pathname.match(regex)}
+    //           onClick={() => {
+    //             setModalIsOpen(false)
+    //           }}
+    //         >
+    //           {t(textKey)}
+    //         </StyledNavLink>
+    //       ))}
+    //     </PoolModal>
+    //   </Modal>
+    // </OversizedPanel>
   )
 }
 

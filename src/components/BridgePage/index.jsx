@@ -16,7 +16,7 @@ import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useAddressAllowance } from '../../contexts/Allowances'
 import { useWalletModalToggle } from '../../contexts/Application'
 
-import { Button } from '../../theme'
+import { Button, TitleBox } from '../../theme'
 import CurrencyInputPanel from '../CurrencyInputPanel'
 import AddressInputPanel from '../AddressInputPanel'
 import OversizedPanel from '../OversizedPanel'
@@ -84,14 +84,38 @@ const DownArrow = styled.div`
 `
 
 const ExchangeRateWrapper = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap};
-  align-items: center;
-  color: ${({ theme }) => theme.doveGray};
-  font-size: 0.75rem;
-  padding: 0.5rem 1rem;
+${({ theme }) => theme.FlexEC};
+  width: 100%;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 9px;
+  background-color: #ededed;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: right;
+  color: #062536;
+  padding: 0 40px;
+  margin-top:10px;
+  span {
+    height: 12px;
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: right;
+    color: #062536;
+  }
 `
 
-const ExchangeRate = styled.span`
+const ExchangeRate = styled.div`
   flex: 1 1 auto;
   width: 0;
   color: ${({ theme }) => theme.doveGray};
@@ -951,6 +975,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           :
           ''
       }
+      <TitleBox>{t('bridge')}</TitleBox>
       <CurrencyInputPanel
         // title={t('input')}
         title={t(bridgeType && bridgeType === 'redeem' ? 'redeem' : 'deposit1')}
@@ -1046,16 +1071,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           </InputPanel>
         </>
       )}
-      <OversizedPanel hideBottom>
-        <ExchangeRateWrapper>
-          <ExchangeRate>{t('fee')}</ExchangeRate>
-          <span>
-            {independentValue && swapInfo && (swapInfo.SwapFeeRate || swapInfo.SwapFeeRate === 0) && bridgeType && bridgeType === 'redeem'
-              ? `${Number((Number(independentValue) * Number(swapInfo.SwapFeeRate)).toFixed(Math.min(8, inputDecimals)))} ${inputSymbol}`
-              : ' - '}
-          </span>
-        </ExchangeRateWrapper>
-      </OversizedPanel>
+      {/* <OversizedPanel hideBottom>
+      </OversizedPanel> */}
+      <ExchangeRateWrapper>
+        <ExchangeRate>{t('fee')}</ExchangeRate>
+        <span>
+          {independentValue && swapInfo && (swapInfo.SwapFeeRate || swapInfo.SwapFeeRate === 0) && bridgeType && bridgeType === 'redeem'
+            ? `${Number((Number(independentValue) * Number(swapInfo.SwapFeeRate)).toFixed(Math.min(8, inputDecimals)))} ${inputSymbol}`
+            : ' - '}
+        </span>
+      </ExchangeRateWrapper>
       {
         (bridgeType && bridgeType === 'redeem') || !account || !registerAddress || inputSymbol === 'mBTC' ? '' : (
           <>

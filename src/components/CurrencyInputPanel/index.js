@@ -680,7 +680,7 @@ export default function CurrencyInputPanel({
     }
   }
 
-  const [valueRange, setValueRange] = useState(0)
+  const [valueRange, setValueRange] = useState('')
 
   function _renderInput() {
     if (typeof renderInput === 'function') {
@@ -705,7 +705,7 @@ export default function CurrencyInputPanel({
                     placeholder="0.0"
                     onChange={e => {
                       let _val = (Number(tokenBalance.toString()) * e.target.value) / 100
-                      let _val2 = tokenBalance ? ((Number(value) / Number(tokenBalance.toString())) *100).toFixed(2) : '0'
+                      let _val2 = tokenBalance ? ((Number(value) / Number(tokenBalance.toString())) *100).toFixed(2) : ''
                       onValueChange(_val + '')
                       setValueRange(_val2)
                     }}
@@ -730,9 +730,9 @@ export default function CurrencyInputPanel({
                   value={valueRange}
                   onChange={e => {
                     let _val = (Number(tokenBalance.toString()) * e.target.value) / 100
-                    let _val2 = tokenBalance && e.target.value ? Number(e.target.value) : '0'
+                    let _val2 = tokenBalance && e.target.value ? Number(e.target.value) : ''
                     onValueChange(_val + '')
-                    _val2 = _val2 > 100 ? 100 : _val2
+                    _val2 = _val2 > 100 ? 100 : Number(_val2)
                     setValueRange(_val2)
                   }}
                   onKeyPress={e => {

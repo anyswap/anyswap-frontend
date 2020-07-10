@@ -837,11 +837,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       )}
       {sending ? (
         <>
-          <TitleBox>Send</TitleBox>
+          <TitleBox>{t('send')}</TitleBox>
         </>
       ) : (
         <>
-          <TitleBox>Swap</TitleBox>
+          <TitleBox>{t('swap')}</TitleBox>
         </>
       )}
       <CurrencyInputPanel
