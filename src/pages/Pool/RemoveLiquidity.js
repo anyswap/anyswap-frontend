@@ -191,17 +191,39 @@ ${({ theme }) => theme.FlexSC}
 `
 
 const ExchangeRateWrapper = styled.div`
-  ${({ theme }) => theme.FlexEC};
+  ${({ theme }) => theme.flexRowNoWrap};
   align-items: center;
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
-  padding: 0.25rem 1rem 0;
+  padding: 8px 1rem ;
+  height: 28px;
+  border-bottom:1px solid #dadada;
+  span {
+    height: 12px;
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: right;
+    color: #062536;
+  }
 `
 
-const ExchangeRate = styled.span`
-  flex: 1 1 auto;
-  width: 0;
-  color: ${({ theme }) => theme.doveGray};
+const ExchangeRate = styled.div`
+  height: 12px;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: right;
+  color: #062536;
+  margin-right: 5px;
 `
 
 const Flex = styled.div`
@@ -571,15 +593,15 @@ export default function RemoveLiquidity({ params }) {
                 <div onClick={() => {
                   setIsViewTxnsDtil(!isViewTxnsDtil)
                 }}>
-                  <ColoredDropdown></ColoredDropdown>
-                  {t('transactionDetails')}
+                  <ColoredDropup></ColoredDropup>
+                  {t('hideDetails')}
                 </div>
               ) : (
                 <div onClick={() => {
                   setIsViewTxnsDtil(!isViewTxnsDtil)
                 }}>
-                  <ColoredDropup></ColoredDropup>
-                  {t('hideDetails')}
+                  <ColoredDropdown></ColoredDropdown>
+                  {t('transactionDetails')}
                 </div>
               )
             }

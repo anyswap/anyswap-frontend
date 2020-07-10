@@ -28,6 +28,15 @@ import EXCHANGE_ABI from '../../constants/abis/exchange'
 import HardwareTip from '../../components/HardwareTip'
 import AddIcon from '../../assets/images/icon/add.svg'
 
+import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
+import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
+import AddTwoBlackIcon from '../../assets/images/icon/add-2-black.svg'
+import WeekIcon from '../../assets/images/icon/week.svg'
+import MintMlackIcon from '../../assets/images/icon/mint-black.svg'
+import FSNLogo from '../../assets/images/FSN.svg'
+
+import TokenLogo from '../../components/TokenLogo'
+
 const INPUT = 0
 const OUTPUT = 1
 
@@ -41,7 +50,14 @@ const DEADLINE_FROM_NOW = 60 * 15
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const BlueSpan = styled.span`
-  color: ${({ theme }) => theme.royalBlue};
+font-family: Manrope;
+font-size: 12px;
+font-weight: bold;
+font-stretch: normal;
+font-style: normal;
+line-height: 1.17;
+letter-spacing: normal;
+color: #062536;
 `
 
 const NewExchangeWarning = styled.div`
@@ -64,8 +80,87 @@ const NewExchangeWarningText = styled.div`
   }
 `
 
+const LastSummaryTextBox = styled.div`
+  width: 100%;
+  height: 240px;
+  object-fit: contain;
+  border-radius: 9px;
+  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
+  padding: 25px 40px;
+  margin-top: 10px;
+`
 const LastSummaryText = styled.div`
-  margin-top: 1rem;
+${({ theme }) => theme.FlexSC}
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  color: #062536;
+  height: 32px;
+  margin-bottom: 10px;
+  .icon {
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    object-fit: contain;
+    border: solid 0.5px #c0d6ea;
+    background-color: #ecf6ff;
+    border-radius: 100%;
+    margin-right: 10px;
+    img {
+      height: 100%;
+      display:block;
+    }
+  }
+`
+const LogoBox = styled.div`
+  ${({ theme }) => theme.FlexSC}
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  background-color: #ffffff;
+  border-radius:100%;
+  padding: 7px;
+  margin: 0 0px 0 8px;
+  img {
+    height: 100%;
+    display:block;
+  }
+`
+const CoinInfoBox  = styled.div`
+${({ theme }) => theme.FlexC}
+font-family: Manrope;
+  font-size: 14px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  color: #062536;
+  margin: 0 8px;
+`
+const LastSummaryText1 = styled.div`
+${({ theme }) => theme.FlexSC}
+  width: 100%;
+  height: 54px;
+  object-fit: contain;
+  border-radius: 9px;
+  border: solid 0.5px #c0d6ea;
+  background-color: #ecf6ff;
+  padding: 0 20px;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  color: #062536;
+  margin-top:20px;
 `
 
 const DownArrowBackground = styled.div`
@@ -83,6 +178,7 @@ const DownArrowBackground = styled.div`
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   padding: 1rem 0;
+  width: 50%;
 `
 
 const ExchangeRateWrapper = styled.div`
@@ -90,13 +186,35 @@ const ExchangeRateWrapper = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
-  padding: 0.25rem 1rem 0;
+  padding: 8px 1rem ;
+  height: 28px;
+  border-bottom:1px solid #dadada;
+  span {
+    height: 12px;
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: right;
+    color: #062536;
+  }
 `
 
-const ExchangeRate = styled.span`
-  flex: 1 1 auto;
-  width: 0;
-  color: ${({ theme }) => theme.doveGray};
+const ExchangeRate = styled.div`
+  height: 12px;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: right;
+  color: #062536;
+  margin-right: 5px;
 `
 
 const Flex = styled.div`
@@ -117,6 +235,58 @@ const ColoredWrappedPlus = styled(WrappedPlus)`
   padding: 0.875rem;
   path {
     stroke: ${({ active, theme }) => (active ? theme.royalBlue : theme.chaliceGray)};
+  }
+`
+
+const SummaryPanelBox = styled.div`
+  ${({ theme }) => theme.FlexBC}
+  height: 115px;
+  object-fit: contain;
+  border-radius: 9px;
+  background-color: #ededed;
+  margin-top:10px;
+  padding: 18px 29px;
+`
+
+const TxnsDtilBtn = styled.div`
+  ${({ theme }) => theme.FlexC};
+  width: 145px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: #f9fafb;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #062536;
+  cursor:pointer;
+`
+
+// const StyledDropDown = styled(DropDown)`
+//   height: 35%;
+//   margin-right: 10px;
+//   path {
+//     stroke: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
+//   }
+// `
+
+const WrappedDropup = ({ isError, highSlippageWarning, ...rest }) => <Dropup {...rest} />
+const ColoredDropup = styled(WrappedDropup)`
+margin-right: 10px;
+  path {
+    stroke: ${({ theme }) => theme.royalBlue};
+  }
+`
+
+const WrappedDropdown = ({ isError, highSlippageWarning, ...rest }) => <Dropdown {...rest} />
+const ColoredDropdown = styled(WrappedDropdown)`
+margin-right: 10px;
+  path {
+    stroke: ${({ theme }) => theme.royalBlue};
   }
 `
 
@@ -326,10 +496,10 @@ export default function AddLiquidity({ params }) {
 
     if (isNewExchange) {
       return (
-        <div>
-          <div>
+        <LastSummaryTextBox>
+          <LastSummaryText>
             {t('youAreAdding')} {b(`${inputValue} FSN`)} {t('and')} {b(`${outputValue} ${symbol}`)} {t('intoPool')}
-          </div>
+          </LastSummaryText>
           <LastSummaryText>
             {t('youAreSettingExRate')}{' '}
             {b(
@@ -346,31 +516,77 @@ export default function AddLiquidity({ params }) {
             {t('youWillMint')} {b(`${inputValue}`)} {t('liquidityTokens')}
           </LastSummaryText>
           <LastSummaryText>{t('totalSupplyIs0')}</LastSummaryText>
-        </div>
+        </LastSummaryTextBox>
       )
     } else {
       return (
-        <>
-          <div>
+        <LastSummaryTextBox>
+          <LastSummaryText>
+          <div className='icon'>
+            <img src={AddTwoBlackIcon} />
+          </div>
             {t('youAreAdding')} {b(`${amountFormatter(inputValueParsed, 18, 4)} FSN`)} {t('and')} {'at most'}{' '}
             {b(`${amountFormatter(outputValueMax, decimals, Math.min(decimals, 4))} ${symbol}`)} {t('intoPool')}
-          </div>
+          </LastSummaryText>
           <LastSummaryText>
+          <div className='icon'>
+            <img src={MintMlackIcon} />
+          </div>
             {t('youWillMint')} {b(amountFormatter(liquidityMinted, 18, 4))} {t('liquidityTokens')}
           </LastSummaryText>
           <LastSummaryText>
+          <div className='icon'>
+            <img src={WeekIcon} />
+          </div>
             {t('totalSupplyIs')} {b(amountFormatter(totalPoolTokens, 18, 4))}
           </LastSummaryText>
-          <LastSummaryText>
-            {t('tokenWorth')} {b(amountFormatter(ethPerLiquidityToken, 18, 4))} FSN {t('and')}{' '}
-            {b(amountFormatter(tokenPerLiquidityToken, decimals, Math.min(decimals, 4)))} {symbol}
-          </LastSummaryText>
-        </>
+          <LastSummaryText1>
+            {t('tokenWorth')}
+            <LogoBox><img src={FSNLogo}/></LogoBox>
+            <CoinInfoBox>{amountFormatter(ethPerLiquidityToken, 18, 4) + ' '} FSN </CoinInfoBox>{t('and')}{' '}
+            <LogoBox><TokenLogo  address={outputCurrency} size={'18px'} ></TokenLogo></LogoBox>
+            <CoinInfoBox>{amountFormatter(tokenPerLiquidityToken, decimals, Math.min(decimals, 4)) + ' '} {symbol}</CoinInfoBox>
+          </LastSummaryText1>
+        </LastSummaryTextBox>
       )
     }
   }
 
-  function renderSummary() {
+  // function renderSummary() {
+  //   let contextualInfo = ''
+  //   let isError = false
+  //   if (brokenTokenWarning) {
+  //     contextualInfo = t('brokenToken')
+  //     isError = true
+  //   } else if (broken777Warning) {
+  //     contextualInfo = t('broken777')
+  //     isError = true
+  //   } else if (zeroDecimalError) {
+  //     contextualInfo = zeroDecimalError
+  //   } else if (inputError || outputError) {
+  //     contextualInfo = inputError || outputError
+  //     isError = true
+  //   } else if (!inputCurrency || !outputCurrency) {
+  //     contextualInfo = t('selectTokenCont')
+  //   } else if (!inputValue) {
+  //     contextualInfo = t('enterValueCont')
+  //   } else if (!account) {
+  //     contextualInfo = t('noWallet')
+  //     isError = true
+  //   }
+
+  //   return (
+  //     <ContextualInfo
+  //       openDetailsText={t('transactionDetails')}
+  //       closeDetailsText={t('hideDetails')}
+  //       contextualInfo={contextualInfo}
+  //       isError={isError}
+  //       renderTransactionDetails={renderTransactionDetails}
+  //     />
+  //   )
+  // }
+  const [isViewTxnsDtil, setIsViewTxnsDtil] = useState(false)
+  function txnsInfoTaggle () {
     let contextualInfo = ''
     let isError = false
     if (brokenTokenWarning) {
@@ -394,13 +610,31 @@ export default function AddLiquidity({ params }) {
     }
 
     return (
-      <ContextualInfo
-        openDetailsText={t('transactionDetails')}
-        closeDetailsText={t('hideDetails')}
-        contextualInfo={contextualInfo}
-        isError={isError}
-        renderTransactionDetails={renderTransactionDetails}
-      />
+      <TxnsDtilBtn>
+        {contextualInfo ? contextualInfo : (
+          <>
+            {
+              isViewTxnsDtil ? (
+                <div onClick={() => {
+                  setIsViewTxnsDtil(!isViewTxnsDtil)
+                }}>
+                  <ColoredDropup></ColoredDropup>
+                  {t('hideDetails')}
+                </div>
+              ) : (
+                <div onClick={() => {
+                  setIsViewTxnsDtil(!isViewTxnsDtil)
+                }}>
+                  <ColoredDropdown></ColoredDropdown>
+                  {t('transactionDetails')}
+                </div>
+              )
+            }
+            {/* <StyledDropDown></StyledDropDown>
+            {t('transactionDetails')} */}
+          </>
+        )}
+      </TxnsDtilBtn>
     )
   }
 
@@ -425,18 +659,6 @@ export default function AddLiquidity({ params }) {
         console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
-          // ReactGA.event({
-          //   category: 'Transaction',
-          //   action: 'Add Liquidity',
-          //   label: outputCurrency,
-          //   value: ethTransactionSize,
-          //   dimension1: res.info.hash
-          // })
-          // ReactGA.event({
-          //   category: 'Hash',
-          //   action: res.info.hash,
-          //   label: ethTransactionSize.toString()
-          // })
           setIsHardwareTip(false)
         } else {
           setIsHardwareError(true)
@@ -477,19 +699,6 @@ export default function AddLiquidity({ params }) {
         }
       )
       .then(response => {
-        // log pool added to and total usd amount
-        // ReactGA.event({
-        //   category: 'Transaction',
-        //   action: 'Add Liquidity',
-        //   label: outputCurrency,
-        //   value: ethTransactionSize,
-        //   dimension1: response.hash
-        // })
-        // ReactGA.event({
-        //   category: 'Hash',
-        //   action: response.hash,
-        //   label: ethTransactionSize.toString()
-        // })
         addTransaction(response)
       }).catch(err => {
         console.log(err)
@@ -757,7 +966,46 @@ export default function AddLiquidity({ params }) {
         showUnlock={showUnlock}
         errorMessage={outputError}
       />
-      <OversizedPanel hideBottom>
+      <SummaryPanelBox>
+        <>
+          {txnsInfoTaggle()}
+        </>
+        <SummaryPanel>
+          <ExchangeRateWrapper>
+            <ExchangeRate>{t('exchangeRate')}</ExchangeRate>
+            <span>{marketRate ? `1 FSN = ${amountFormatter(marketRate, 18, 4)} ${symbol}` : ' - '}</span>
+          </ExchangeRateWrapper>
+          <ExchangeRateWrapper>
+            <ExchangeRate>{t('currentPoolSize')}</ExchangeRate>
+            <span>
+              {exchangeETHBalance && exchangeTokenBalance
+                ? `${amountFormatter(exchangeETHBalance, 18, 4)} FSN + ${amountFormatter(
+                    exchangeTokenBalance,
+                    decimals,
+                    Math.min(4, decimals)
+                  )} ${symbol}`
+                : ' - '}
+            </span>
+          </ExchangeRateWrapper>
+          <ExchangeRateWrapper>
+            <ExchangeRate>
+              {t('yourPoolShare')} ({exchangeETHBalance && amountFormatter(poolTokenPercentage, 16, 2)}%)
+            </ExchangeRate>
+            <span>
+              {ethShare && tokenShare
+                ? `${amountFormatter(ethShare, 18, 4)} FSN + ${amountFormatter(
+                    tokenShare,
+                    decimals,
+                    Math.min(4, decimals)
+                  )} ${symbol}`
+                : ' - '}
+            </span>
+          </ExchangeRateWrapper>
+        </SummaryPanel>
+
+      </SummaryPanelBox>
+      {isViewTxnsDtil ? renderTransactionDetails() : ''}
+      {/* <OversizedPanel hideBottom>
         <SummaryPanel>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('exchangeRate')}</ExchangeRate>
@@ -791,7 +1039,7 @@ export default function AddLiquidity({ params }) {
           </ExchangeRateWrapper>
         </SummaryPanel>
       </OversizedPanel>
-      {renderSummary()}
+      {renderSummary()} */}
       {isNewExchange ? (
         <NewExchangeWarning>
           <NewExchangeWarningText>

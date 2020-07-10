@@ -24,8 +24,9 @@ import { FACTORY_ADDRESSES } from '../../constants'
 import HardwareTip from '../../components/HardwareTip'
 
 const SummaryPanel = styled.div`
-  ${({ theme }) => theme.flexColumnNoWrap};
-  padding: 1rem 0;
+${({ theme }) => theme.flexColumnNoWrap}
+padding: 1rem 0;
+width: 50%;
 `
 
 const ExchangeRateWrapper = styled.div`
@@ -33,13 +34,35 @@ const ExchangeRateWrapper = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
-  padding: 0.25rem 1rem 0;
+  padding: 8px 1rem ;
+  height: 28px;
+  border-bottom:1px solid #dadada;
+  span {
+    height: 12px;
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: right;
+    color: #062536;
+  }
 `
 
-const ExchangeRate = styled.span`
-  flex: 1 1 auto;
-  width: 0;
-  color: ${({ theme }) => theme.doveGray};
+const ExchangeRate = styled.div`
+  height: 12px;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: right;
+  color: #062536;
+  margin-right: 5px;
 `
 
 const CreateExchangeWrapper = styled.div`
@@ -62,6 +85,32 @@ const Flex = styled.div`
   button {
     max-width: 20rem;
   }
+`
+const SummaryPanelBox = styled.div`
+  ${({ theme }) => theme.FlexBC}
+  height: 115px;
+  object-fit: contain;
+  border-radius: 9px;
+  background-color: #ededed;
+  margin-top:10px;
+  padding: 18px 29px;
+`
+const TxnsDtilBtn = styled.div`
+  ${({ theme }) => theme.FlexC};
+  width: 145px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: #f9fafb;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #062536;
+  cursor:pointer;
 `
 
 function CreateExchange({ location, params }) {
@@ -174,7 +223,10 @@ function CreateExchange({ location, params }) {
         onChange={setTokenAddress}
         onError={setTokenAddressError}
       />
-      <OversizedPanel hideBottom>
+      <SummaryPanelBox>
+        <TxnsDtilBtn>
+        {errorMessage ? errorMessage : t('enterTokenCont')}
+        </TxnsDtilBtn>
         <SummaryPanel>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('name')}</ExchangeRate>
@@ -189,10 +241,28 @@ function CreateExchange({ location, params }) {
             <span>{decimals || decimals === 0 ? decimals : ' - '}</span>
           </ExchangeRateWrapper>
         </SummaryPanel>
-      </OversizedPanel>
-      <CreateExchangeWrapper>
+
+      </SummaryPanelBox>
+      {/* <OversizedPanel hideBottom>
+        <SummaryPanel>
+          <ExchangeRateWrapper>
+            <ExchangeRate>{t('name')}</ExchangeRate>
+            <span>{name ? name : ' - '}</span>
+          </ExchangeRateWrapper>
+          <ExchangeRateWrapper>
+            <ExchangeRate>{t('symbol')}</ExchangeRate>
+            <span>{symbol ? symbol : ' - '}</span>
+          </ExchangeRateWrapper>
+          <ExchangeRateWrapper>
+            <ExchangeRate>{t('decimals')}</ExchangeRate>
+            <span>{decimals || decimals === 0 ? decimals : ' - '}</span>
+          </ExchangeRateWrapper>
+        </SummaryPanel>
+      </OversizedPanel> */}
+      {/* <CreateExchangeWrapper>
         <SummaryText>{errorMessage ? errorMessage : t('enterTokenCont')}</SummaryText>
-      </CreateExchangeWrapper>
+      </CreateExchangeWrapper> */}
+      
       <Flex>
         {/* <Button disabled={!isValid} onClick={createExchange}>
           {t('createExchange')}
