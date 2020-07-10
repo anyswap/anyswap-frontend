@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import { useWeb3React, useExchangeContract } from '../../hooks'
 import { useTransactionAdder } from '../../contexts/Transactions'
-import { useTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
+import { useTokenDetails, useAllTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
 import { useAddressBalance } from '../../contexts/Balances'
 
 import { calculateGasMargin, amountFormatter } from '../../utils'
@@ -28,6 +28,15 @@ import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 import HardwareTip from '../../components/HardwareTip'
 import ArrowDownIcon from '../../assets/images/icon/arrowDown.svg'
 
+// import { ReactComponent as DropDown } from '../../assets/images/dropdown.svg'
+import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
+import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
+import RemoveBlackIcon from '../../assets/images/icon/remove-black.svg'
+import WeekIcon from '../../assets/images/icon/week.svg'
+import FSNLogo from '../../assets/images/FSN.svg'
+
+import TokenLogo from '../../components/TokenLogo'
+
 // denominated in bips
 const ALLOWED_SLIPPAGE = ethers.utils.bigNumberify(200)
 
@@ -38,7 +47,14 @@ const DEADLINE_FROM_NOW = 60 * 15
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const BlueSpan = styled.span`
-  color: ${({ theme }) => theme.royalBlue};
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  color: #062536;
 `
 
 const DownArrowBackground = styled.div`
@@ -79,18 +95,103 @@ const RemoveLiquidityOutputPlus = styled.div`
   line-height: 1.5rem;
   padding: 1rem 0;
 `
-
+const SummaryPanelBox = styled.div`
+  ${({ theme }) => theme.FlexBC}
+  height: 115px;
+  object-fit: contain;
+  border-radius: 9px;
+  background-color: #ededed;
+  margin-top:10px;
+  padding: 18px 29px;
+`
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   padding: 1rem 0;
+  width: 50%;
+`
+const LastSummaryTextBox = styled.div`
+  width: 100%;
+  height: 240px;
+  object-fit: contain;
+  border-radius: 9px;
+  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
+  padding: 25px 40px;
+  margin-top: 10px;
+`
+const LastSummaryText = styled.div`
+${({ theme }) => theme.FlexSC}
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  color: #062536;
+  height: 32px;
+  margin-bottom: 10px;
+  .icon {
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    object-fit: contain;
+    border: solid 0.5px #c0d6ea;
+    background-color: #ecf6ff;
+    border-radius: 100%;
+    margin-right: 10px;
+  }
 `
 
-const LastSummaryText = styled.div`
-  margin-top: 1rem;
+const LogoBox = styled.div`
+  ${({ theme }) => theme.FlexSC}
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  background-color: #ffffff;
+  border-radius:100%;
+  padding: 7px;
+  margin: 0 0px 0 8px;
+  img {
+    height: 100%;
+    display:block;
+  }
+`
+const CoinInfoBox  = styled.div`
+${({ theme }) => theme.FlexC}
+font-family: Manrope;
+  font-size: 14px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  color: #062536;
+  margin: 0 8px;
+`
+
+const LastSummaryText1 = styled.div`
+${({ theme }) => theme.FlexSC}
+  width: 100%;
+  height: 54px;
+  object-fit: contain;
+  border-radius: 9px;
+  border: solid 0.5px #c0d6ea;
+  background-color: #ecf6ff;
+  padding: 0 20px;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  color: #062536;
+  margin-top:20px;
 `
 
 const ExchangeRateWrapper = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap};
+  ${({ theme }) => theme.FlexEC};
   align-items: center;
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
@@ -110,6 +211,47 @@ const Flex = styled.div`
 
   button {
     max-width: 20rem;
+  }
+`
+const TxnsDtilBtn = styled.div`
+  ${({ theme }) => theme.FlexC};
+  width: 145px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: #f9fafb;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #062536;
+  cursor:pointer;
+`
+
+// const StyledDropDown = styled(DropDown)`
+//   height: 35%;
+//   margin-right: 10px;
+//   path {
+//     stroke: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
+//   }
+// `
+
+const WrappedDropup = ({ isError, highSlippageWarning, ...rest }) => <Dropup {...rest} />
+const ColoredDropup = styled(WrappedDropup)`
+margin-right: 10px;
+  path {
+    stroke: ${({ theme }) => theme.royalBlue};
+  }
+`
+
+const WrappedDropdown = ({ isError, highSlippageWarning, ...rest }) => <Dropdown {...rest} />
+const ColoredDropdown = styled(WrappedDropdown)`
+margin-right: 10px;
+  path {
+    stroke: ${({ theme }) => theme.royalBlue};
   }
 `
 
@@ -168,6 +310,8 @@ export default function RemoveLiquidity({ params }) {
 
   const [brokenTokenWarning, setBrokenTokenWarning] = useState()
 
+  let allTokens = useAllTokenDetails()
+
   // clear url of query
   useEffect(() => {
     const history = createBrowserHistory()
@@ -191,7 +335,6 @@ export default function RemoveLiquidity({ params }) {
   // parse value
   useEffect(() => {
     try {
-      console.log(123)
       const parsedValue = ethers.utils.parseUnits(value, 18)
       setValueParsed(parsedValue)
     } catch {
@@ -332,26 +475,76 @@ export default function RemoveLiquidity({ params }) {
 
   function renderTransactionDetails() {
     return (
-      <div>
-        <div>
+      <LastSummaryTextBox>
+        <LastSummaryText>
+          <div className='icon'>
+            <img src={RemoveBlackIcon} />
+          </div>
           {t('youAreRemoving')} {b(`${amountFormatter(ethWithdrawn, 18, 4)} FSN`)} {t('and')}{' '}
           {b(`${amountFormatter(tokenWithdrawn, decimals, Math.min(decimals, 4))} ${symbol}`)} {t('outPool')}
-        </div>
+        </LastSummaryText>
         <LastSummaryText>
+        <div className='icon'>
+            <img src={RemoveBlackIcon} />
+          </div>
           {t('youWillRemove')} {b(amountFormatter(valueParsed, 18, 4))} {t('liquidityTokens')}
         </LastSummaryText>
         <LastSummaryText>
+        <div className='icon'>
+            <img src={WeekIcon} />
+          </div>
           {t('totalSupplyIs')} {b(amountFormatter(totalPoolTokens, 18, 4))}
         </LastSummaryText>
-        <LastSummaryText>
-          {t('tokenWorth')} {b(amountFormatter(ETHPer.div(totalPoolTokens), 18, 4))} FSN {t('and')}{' '}
-          {b(amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(4, decimals)))} {symbol}
-        </LastSummaryText>
-      </div>
+        <LastSummaryText1>
+          {t('tokenWorth')} 
+          <LogoBox><img src={FSNLogo}/></LogoBox>
+          <CoinInfoBox>{amountFormatter(ETHPer.div(totalPoolTokens), 18, 4) + ' '} FSN</CoinInfoBox>
+          {t('and')}{' '}
+          {/* {b(amountFormatter(ETHPer.div(totalPoolTokens), 18, 4))}  */}
+          <LogoBox><TokenLogo  address={outputCurrency} size={'18px'} ></TokenLogo></LogoBox>
+          <CoinInfoBox>{amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(4, decimals)) + ' '}   
+          {symbol}</CoinInfoBox>
+          {/* {b(amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(4, decimals)))} {symbol} */}
+        </LastSummaryText1>
+      </LastSummaryTextBox>
     )
   }
+  
+  // function renderSummary() {
+  //   let contextualInfo = ''
+  //   let isError = false
+  //   if (brokenTokenWarning) {
+  //     contextualInfo = t('brokenToken')
+  //     isError = true
+  //   } else if (inputError) {
+  //     contextualInfo = inputError
+  //     isError = true
+  //   } else if (!outputCurrency || outputCurrency === 'FSN') {
+  //     contextualInfo = t('selectTokenCont')
+  //   } else if (!valueParsed) {
+  //     contextualInfo = t('enterValueCont')
+  //   } else if (!account) {
+  //     contextualInfo = t('noWallet')
+  //     isError = true
+  //   }
 
-  function renderSummary() {
+  //   return (
+  //     // <TxnsDtilBtn>
+  //     //   <StyledDropDown></StyledDropDown>
+  //     //   {t('transactionDetails')}
+  //     // </TxnsDtilBtn>
+  //     <ContextualInfo
+  //       key="context-info"
+  //       openDetailsText={t('transactionDetails')}
+  //       closeDetailsText={t('hideDetails')}
+  //       contextualInfo={contextualInfo}
+  //       isError={isError}
+  //       renderTransactionDetails={renderTransactionDetails}
+  //     />
+  //   )
+  // }
+  const [isViewTxnsDtil, setIsViewTxnsDtil] = useState(false)
+  function txnsInfoTaggle () {
     let contextualInfo = ''
     let isError = false
     if (brokenTokenWarning) {
@@ -370,14 +563,31 @@ export default function RemoveLiquidity({ params }) {
     }
 
     return (
-      <ContextualInfo
-        key="context-info"
-        openDetailsText={t('transactionDetails')}
-        closeDetailsText={t('hideDetails')}
-        contextualInfo={contextualInfo}
-        isError={isError}
-        renderTransactionDetails={renderTransactionDetails}
-      />
+      <TxnsDtilBtn>
+        {contextualInfo ? contextualInfo : (
+          <>
+            {
+              isViewTxnsDtil ? (
+                <div onClick={() => {
+                  setIsViewTxnsDtil(!isViewTxnsDtil)
+                }}>
+                  <ColoredDropdown></ColoredDropdown>
+                  {t('transactionDetails')}
+                </div>
+              ) : (
+                <div onClick={() => {
+                  setIsViewTxnsDtil(!isViewTxnsDtil)
+                }}>
+                  <ColoredDropup></ColoredDropup>
+                  {t('hideDetails')}
+                </div>
+              )
+            }
+            {/* <StyledDropDown></StyledDropDown>
+            {t('transactionDetails')} */}
+          </>
+        )}
+      </TxnsDtilBtn>
     )
   }
 
@@ -477,14 +687,17 @@ export default function RemoveLiquidity({ params }) {
         disableTokenSelect
         disableUnlock
       />
-      <OversizedPanel key="remove-liquidity-input-under" hideBottom>
+      <SummaryPanelBox>
+        <>
+          {txnsInfoTaggle()}
+        </>
         <SummaryPanel>
           <ExchangeRateWrapper>
-            <ExchangeRate>{t('exchangeRate')}</ExchangeRate>
+            <ExchangeRate>{t('exchangeRate')}:</ExchangeRate>
             {marketRate ? <span>{`1 FSN = ${amountFormatter(marketRate, 18, 4)} ${symbol}`}</span> : ' - '}
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
-            <ExchangeRate>{t('currentPoolSize')}</ExchangeRate>
+            <ExchangeRate>{t('currentPoolSize')}:</ExchangeRate>
             {exchangeETHBalance && exchangeTokenBalance && (decimals || decimals === 0) ? (
               <span>{`${amountFormatter(exchangeETHBalance, 18, 4)} FSN + ${amountFormatter(
                 exchangeTokenBalance,
@@ -497,7 +710,7 @@ export default function RemoveLiquidity({ params }) {
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
             <ExchangeRate>
-              {t('yourPoolShare')} ({ownershipPercentageFormatted && ownershipPercentageFormatted}%)
+              {t('yourPoolShare')} ({ownershipPercentageFormatted && ownershipPercentageFormatted}%):
             </ExchangeRate>
             {ETHOwnShare && TokenOwnShare ? (
               <span>
@@ -512,8 +725,12 @@ export default function RemoveLiquidity({ params }) {
             )}
           </ExchangeRateWrapper>
         </SummaryPanel>
-      </OversizedPanel>
-      {renderSummary()}
+
+      </SummaryPanelBox>
+      {/* <OversizedPanel key="remove-liquidity-input-under" hideBottom>
+      </OversizedPanel> */}
+      {/* {renderSummary()} */}
+      {isViewTxnsDtil ? renderTransactionDetails() : ''}
       <Flex>
         {/* <Button disabled={!isValid} onClick={onRemoveLiquidity}>
           {t('removeLiquidity')}

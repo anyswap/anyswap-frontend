@@ -130,6 +130,11 @@ const theme = darkMode => ({
     justify-content:  flex-start;
     align-items:center;
   `,
+  FlexEC: css`
+    display: flex;
+    justify-content:  flex-end;
+    align-items:center;
+  `,
   FlexBC: css`
     display: flex;
     justify-content:  space-between;
