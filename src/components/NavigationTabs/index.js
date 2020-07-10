@@ -1,31 +1,27 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { withRouter, NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { transparentize, darken } from 'polished'
 
 import { useWeb3React, useBodyKeyDown } from '../../hooks'
-import { useAddressBalance } from '../../contexts/Balances'
-import { isAddress } from '../../utils'
-import {
-  useBetaMessageManager,
-  useSaiHolderMessageManager,
-  useGeneralDaiMessageManager
-} from '../../contexts/LocalStorage'
 import { Link } from '../../theme/components'
 
 import TelegramIcon from '../../assets/images/icon/telegram.svg'
+import TelegramIconWhite from '../../assets/images/icon/telegram-white.svg'
 import MediumIcon from '../../assets/images/icon/medium.svg'
+import MediumIconWhite from '../../assets/images/icon/medium-white.svg'
 import TwitterIcon from '../../assets/images/icon/twitter.svg'
+import TwitterIconWhite from '../../assets/images/icon/twitter-white.svg'
 import CodeIcon from '../../assets/images/icon/code.svg'
-import ArrowRight from '../../assets/images/icon/arrowRight.svg'
+import CodeIconWhite from '../../assets/images/icon/code-white.svg'
 
 const tabOrder = [
   {
     path: '',
     textKey: 'Dashboard',
     icon: require('../../assets/images/icon/application.svg'),
-    iconActive: require('../../assets/images/icon/application.svg'),
+    iconActive: require('../../assets/images/icon/application-purpl.svg'),
     regex: /\/dashboard/,
     className: ''
   },
@@ -64,7 +60,7 @@ const tabOrder2 = [
     path: '',
     textKey: 'Markets',
     icon: require('../../assets/images/icon/markets.svg'),
-    iconActive: require('../../assets/images/icon/markets.svg'),
+    iconActive: require('../../assets/images/icon/markets-purpl.svg'),
     regex: /\/markets/,
     className: 'otherInfo'
   },
@@ -72,7 +68,7 @@ const tabOrder2 = [
     path: '',
     textKey: 'ANY Token',
     icon: require('../../assets/images/icon/any.svg'),
-    iconActive: require('../../assets/images/icon/any.svg'),
+    iconActive: require('../../assets/images/icon/any-purpl.svg'),
     regex: /\/anyToken/,
     className: 'otherInfo'
   },
@@ -80,7 +76,7 @@ const tabOrder2 = [
     path: '',
     textKey: 'Network',
     icon: require('../../assets/images/icon/network.svg'),
-    iconActive: require('../../assets/images/icon/network.svg'),
+    iconActive: require('../../assets/images/icon/network-purpl.svg'),
     regex: /\/network/,
     className: 'otherInfo'
   },
@@ -88,7 +84,7 @@ const tabOrder2 = [
     path: '',
     textKey: 'Documents',
     icon: require('../../assets/images/icon/documents.svg'),
-    iconActive: require('../../assets/images/icon/documents.svg'),
+    iconActive: require('../../assets/images/icon/documents-purpl.svg'),
     regex: /\/documents/,
     className: 'otherInfo noBB'
   },
@@ -121,49 +117,6 @@ const BetaMessage = styled.div`
     position: absolute;
     color: ${({ theme }) => theme.wisteriaPurple};
   }
-`
-
-const DaiMessage = styled(BetaMessage)`
-  ${({ theme }) => theme.flexColumnNoWrap}
-  position: relative;
-  word-wrap: wrap;
-  overflow: visible;
-  white-space: normal;
-  padding: 1rem 1rem;
-  padding-right: 2rem;
-  line-height: 1.2rem;
-  cursor: default;
-  color: ${({ theme }) => theme.textColor};
-  div {
-    width: 100%;
-  }
-  &:after {
-    content: '';
-  }
-`
-
-const CloseIcon = styled.div`
-  width: 10px !important;
-  top: 0.5rem;
-  right: 1rem;
-  position: absolute;
-  color: ${({ theme }) => theme.wisteriaPurple};
-  :hover {
-    cursor: pointer;
-  }
-`
-
-const WarningHeader = styled.div`
-  margin-bottom: 10px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.uniswapPink};
-`
-
-const WarningFooter = styled.div`
-  margin-top: 10px;
-  font-size: 10px;
-  text-decoration: italic;
-  color: ${({ theme }) => theme.greyText};
 `
 
 const Tabs = styled.div`
@@ -222,9 +175,19 @@ const StyledNavLink = styled(NavLink).attrs({
     img {
       display:block;
       height: 18px;
+      &.show {
+        display:none;
+      }
     }
   }
 
+  &:hover {
+    color: #031a6e;
+    font-weight: 600;
+    .icon {
+      background: #031a6e;
+    }
+  }
   &.${activeClassName} {
     color: #ffffff;
     background: ${({theme}) => theme.bgColorLinear};
@@ -267,7 +230,14 @@ const StyledNavLink = styled(NavLink).attrs({
       img {
         display:block;
         height: 18px;
+        &.show {
+          display:none;
+        }
       }
+    }
+    &:hover {
+      color: #031a6e;
+      font-weight: 600;
     }
   }
   &.noBB {
@@ -293,6 +263,15 @@ const OutLinkImg = styled.div`
   background-color: #ecf6ff;
   border-radius: 100%;
   margin-right: 10px;
+  &:hover {
+    background-color: #5f6cfc;
+  }
+  img {
+    display:block;
+    &.show {
+      display:none;
+    }
+  }
 `
 const CopyRightBox = styled.div`
   h5 {
@@ -330,20 +309,6 @@ const NavListTab =  styled(NavLink).attrs({
 function NavigationTabs({ location: { pathname }, history }) {
   const { t } = useTranslation()
 
-  const [showBetaMessage, dismissBetaMessage] = useBetaMessageManager()
-
-  const [showGeneralDaiMessage, dismissGeneralDaiMessage] = useGeneralDaiMessageManager()
-
-  const [showSaiHolderMessage, dismissSaiHolderMessage] = useSaiHolderMessageManager()
-
-  const { account } = useWeb3React()
-
-  const daiBalance = useAddressBalance(account, isAddress('0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359'))
-
-  const daiPoolTokenBalance = useAddressBalance(account, isAddress('0x09cabEC1eAd1c0Ba254B09efb3EE13841712bE14'))
-
-  const onLiquidityPage = pathname === '/pool' || pathname === '/add-liquidity' || pathname === '/remove-liquidity'
-
   const navigate = useCallback(
     direction => {
       const tabIndex = tabOrder.findIndex(({ regex }) => pathname.match(regex))
@@ -361,50 +326,66 @@ function NavigationTabs({ location: { pathname }, history }) {
   useBodyKeyDown('ArrowRight', navigateRight)
   useBodyKeyDown('ArrowLeft', navigateLeft)
 
-  const providerMessage =
-    showSaiHolderMessage && daiPoolTokenBalance && !daiPoolTokenBalance.isZero() && onLiquidityPage
-  const generalMessage = showGeneralDaiMessage && daiBalance && !daiBalance.isZero()
+  const [navHover, setNavHover] = useState(false)
 
+  function toggleHover (textKey) {
+    setNavHover(textKey)
+  }
   return (
     <>
 
       <Tabs>
         {tabOrder.map(({ path, textKey, regex, icon, iconActive, className }, index) => (
-          <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={className ? className : ''}>
-            <div className={'icon'}><img src={pathname.match(regex) ? iconActive : icon}/></div>
+          <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={(className ? className : '')} onMouseEnter={() => {toggleHover(textKey)}} onMouseLeave={() => {toggleHover('')}}>
+            <div className={'icon'}>
+              {/* <img src={pathname.match(regex) || navHover === textKey ? iconActive : icon}/> */}
+              <img src={iconActive} className={pathname.match(regex) || navHover === textKey ? '' : 'show'}/>
+              <img src={icon} className={pathname.match(regex) || navHover === textKey ? 'show' : ''}/>
+            </div>
             {t(textKey)}
           </StyledNavLink>
         ))}
       </Tabs>
       <Tabs2>
         {tabOrder2.map(({ path, textKey, regex, icon, iconActive, className }, index) => (
-          <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={className ? className : ''}>
-            <div className={'icon'}><img src={pathname.match(regex) ? iconActive : icon}/></div>
+          <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={className ? className : ''} onMouseEnter={() => {toggleHover(textKey)}} onMouseLeave={() => {toggleHover('')}}>
+            <div className={'icon'}>
+              {/* <img src={pathname.match(regex) || navHover === textKey ? iconActive : icon}/> */}
+              <img src={iconActive} className={pathname.match(regex) || navHover === textKey ? '' : 'show'}/>
+              <img src={icon} className={pathname.match(regex) || navHover === textKey ? 'show' : ''}/>
+            </div>
             {t(textKey)}
-            <div className='arrow'><img src={ArrowRight}/></div>
           </StyledNavLink>
         ))}
       </Tabs2>
       <OutLink>
         <OutLinkImgBox>
           <Link id="link" href="https://anyswap.network">
-            <OutLinkImg>
-              <img src={TelegramIcon} />
+            <OutLinkImg onMouseEnter={() => {toggleHover('TelegramIcon')}} onMouseLeave={() => {toggleHover('')}}>
+              {/* <img src={TelegramIcon} /> */}
+              <img src={TelegramIconWhite} className={navHover === 'TelegramIcon' ? '' : 'show'}/>
+              <img src={TelegramIcon} className={navHover === 'TelegramIcon' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
           <Link id="link" href="https://anyswap.network/docs">
-            <OutLinkImg>
-              <img src={MediumIcon} />
+            <OutLinkImg onMouseEnter={() => {toggleHover('MediumIcon')}} onMouseLeave={() => {toggleHover('')}}>
+              {/* <img src={MediumIcon} /> */}
+              <img src={MediumIconWhite} className={navHover === 'MediumIcon' ? '' : 'show'}/>
+              <img src={MediumIcon} className={navHover === 'MediumIcon' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
           <Link id="link" href="https://t.me/anyswap">
-            <OutLinkImg>
-              <img src={TwitterIcon} />
+            <OutLinkImg onMouseEnter={() => {toggleHover('TwitterIcon')}} onMouseLeave={() => {toggleHover('')}}>
+              {/* <img src={TwitterIcon} /> */}
+              <img src={TwitterIconWhite} className={navHover === 'TwitterIcon' ? '' : 'show'}/>
+              <img src={TwitterIcon} className={navHover === 'TwitterIcon' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
           <Link id="link" href="https://github.com/anyswap">
-            <OutLinkImg>
-              <img src={CodeIcon} />
+            <OutLinkImg onMouseEnter={() => {toggleHover('CodeIcon')}} onMouseLeave={() => {toggleHover('')}}>
+              {/* <img src={CodeIcon} /> */}
+              <img src={CodeIconWhite} className={navHover === 'CodeIcon' ? '' : 'show'}/>
+              <img src={CodeIcon} className={navHover === 'CodeIcon' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
         </OutLinkImgBox>
