@@ -103,12 +103,7 @@ export default function ContextualInfo({
       <SummaryWrapperContainer
         onClick={() => {
           !showDetails &&
-            // ReactGA.event({
-            //   category: 'Advanced Interaction',
-            //   action: 'Open Advanced Details',
-            //   label: 'Swap/Send Page Details'
-            // })
-          setShowDetails(s => !s)
+          setShowDetails(!showDetails)
         }}
       >
         <>
