@@ -11,32 +11,47 @@ import { useBodyKeyDown } from '../../hooks'
 
 import { lighten } from 'polished'
 
+import { TitleBox } from '../../theme'
+
+// import AddTwoIcon from '../../assets/images/icon/add-2.svg'
+// import AddTwoActiveIcon from '../../assets/images/icon/add-2-purpl.svg'
+// import RemoveIcon from '../../assets/images/icon/remove.svg'
+// import RemoveActiveIcon from '../../assets/images/icon/remove-purpl.svg'
+// import CreateIcon from '../../assets/images/icon/create-exchange.svg'
+// import CreateActiveIcon from '../../assets/images/icon/create-exchange-purpl.svg'
+
 const poolTabOrder = [
   {
     path: '/add-liquidity',
     textKey: 'addLiquidity',
+    icon: require('../../assets/images/icon/add-2.svg'),
+    iconActive: require('../../assets/images/icon/add-2-purpl.svg'),
     regex: /\/add-liquidity/
   },
   {
     path: '/remove-liquidity',
     textKey: 'removeLiquidity',
+    icon: require('../../assets/images/icon/remove.svg'),
+    iconActive: require('../../assets/images/icon/remove-purpl.svg'),
     regex: /\/remove-liquidity/
   },
   {
     path: '/create-exchange',
     textKey: 'createExchange',
+    icon: require('../../assets/images/icon/create-exchange.svg'),
+    iconActive: require('../../assets/images/icon/create-exchange-purpl.svg'),
     regex: /\/create-exchange.*/
   }
 ]
 
 const LiquidityContainer = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap};
+  ${({ theme }) => theme.FlexBC};
   align-items: center;
-  padding: 1rem 1rem;
   font-size: 1rem;
   color: ${({ theme }) => theme.royalBlue};
   font-weight: 500;
   cursor: pointer;
+  margin-bottom: 23px;
 
   :hover {
     color: ${({ theme }) => lighten(0.1, theme.royalBlue)};
@@ -54,27 +69,7 @@ const LiquidityLabel = styled.span`
 
 const activeClassName = 'MODE'
 
-const StyledNavLink = styled(NavLink).attrs({
-  activeClassName
-})`
-  ${({ theme }) => theme.flexRowNoWrap}
-  padding: 1rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-  text-decoration: none;
-  color: ${({ theme }) => theme.doveGray};
-  font-size: 1rem;
 
-  &.${activeClassName} {
-    background-color: ${({ theme }) => theme.inputBackground};
-    border-radius: 3rem;
-    border: 1px solid ${({ theme }) => theme.mercuryGray};
-    font-weight: 500;
-    color: ${({ theme }) => theme.royalBlue};
-  }
-`
 
 const PoolModal = styled.div`
   background-color: ${({ theme }) => theme.inputBackground};
@@ -89,6 +84,90 @@ const ColoredDropdown = styled(WrappedDropdown)`
     stroke: ${({ theme }) => theme.royalBlue};
   }
 `
+
+const TabLinkBox = styled.ul`
+  ${({theme}) => theme.FlexSC}
+  list-style: none;
+  margin: 0;
+  padding:0;
+`
+const StyledNavLink = styled(NavLink).attrs({
+  activeClassName
+})`
+  ${({ theme }) => theme.FlexC}
+  height: 38px;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  color: #96989e;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  border-left: 1px solid rgba(0, 0, 0, 0.04);
+  cursor:pointer;
+  text-decoration: none;
+  padding: 0 10px;
+  background:#fff;
+
+  .icon {
+    ${({ theme }) => theme.FlexC}
+    width: 28px;
+    height: 28px;
+    background:#f5f5f5;
+    border-radius:100%;
+    margin-right:10px;
+  }
+  &:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    &.active {
+      border: 1px solid #734be2;
+    }
+  }
+  &:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-right: 1px solid rgba(0, 0, 0, 0.04);
+    &.active {
+      border: 1px solid #734be2;
+    }
+  }
+
+  &.${activeClassName} {
+    border: 1px solid #734be2;
+    color: #734be2;
+    font-weight: bold;
+    .icon {
+      background: #734be2;
+    }
+  }
+`
+const TitleBoxPool = styled(TitleBox)`
+margin-bottom: 0;
+`
+// const StyledNavLink = styled(NavLink).attrs({
+//   activeClassName
+// })`
+//   ${({ theme }) => theme.flexRowNoWrap}
+//   padding: 1rem;
+//   margin-left: 1rem;
+//   margin-right: 1rem;
+//   font-size: 1rem;
+//   cursor: pointer;
+//   text-decoration: none;
+//   color: ${({ theme }) => theme.doveGray};
+//   font-size: 1rem;
+
+//   &.${activeClassName} {
+//     background-color: ${({ theme }) => theme.inputBackground};
+//     border-radius: 3rem;
+//     border: 1px solid ${({ theme }) => theme.mercuryGray};
+//     font-weight: 500;
+//     color: ${({ theme }) => theme.royalBlue};
+//   }
+// `
 
 function ModeSelector({ location: { pathname }, history }) {
   const { t } = useTranslation()
@@ -117,12 +196,30 @@ function ModeSelector({ location: { pathname }, history }) {
   return (
     <OversizedPanel hideTop>
       <LiquidityContainer
-        onClick={() => {
-          setModalIsOpen(true)
-        }}
+        // onClick={() => {
+        //   setModalIsOpen(true)
+        // }}
       >
-        <LiquidityLabel>{t(activeTabKey)}</LiquidityLabel>
-        <ColoredDropdown alt="arrow down" />
+        {/* <LiquidityLabel>{t(activeTabKey)}</LiquidityLabel> */}
+        <TitleBoxPool>{t(activeTabKey)}</TitleBoxPool>
+        {/* <ColoredDropdown alt="arrow down" /> */}
+        <TabLinkBox>
+          {poolTabOrder.map(({ path, textKey, regex, icon, iconActive }) => (
+            <StyledNavLink
+              key={path}
+              to={path}
+              isActive={(_, { pathname }) => pathname.match(regex)}
+              // onClick={() => {
+              //   setModalIsOpen(false)
+              // }}
+            > 
+              <div className='icon'>
+                <img src={pathname.match(regex) ? iconActive : icon}/>
+              </div>
+              {t(textKey)}
+            </StyledNavLink>
+          ))}
+        </TabLinkBox>
       </LiquidityContainer>
       <Modal
         isOpen={modalIsOpen}

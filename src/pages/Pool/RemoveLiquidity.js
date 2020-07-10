@@ -26,6 +26,7 @@ import EXCHANGE_ABI from '../../constants/abis/exchange'
 import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 
 import HardwareTip from '../../components/HardwareTip'
+import ArrowDownIcon from '../../assets/images/icon/arrowDown.svg'
 
 // denominated in bips
 const ALLOWED_SLIPPAGE = ethers.utils.bigNumberify(200)
@@ -44,6 +45,13 @@ const DownArrowBackground = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   justify-content: center;
   align-items: center;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
+  margin: 10px auto;
 `
 
 const DownArrow = styled(ArrowDown)`
@@ -468,7 +476,8 @@ export default function RemoveLiquidity({ params }) {
       />
       <OversizedPanel>
         <DownArrowBackground>
-          <DownArrow active={isActive} alt="arrow" />
+          {/* <DownArrow active={isActive} alt="arrow" /> */}
+          <img src={ArrowDownIcon} />
         </DownArrowBackground>
       </OversizedPanel>
       <CurrencyInputPanel

@@ -26,6 +26,7 @@ import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 import EXCHANGE_ABI from '../../constants/abis/exchange'
 
 import HardwareTip from '../../components/HardwareTip'
+import AddIcon from '../../assets/images/icon/add.svg'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -71,6 +72,13 @@ const DownArrowBackground = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   justify-content: center;
   align-items: center;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
+  margin: 10px auto;
 `
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
@@ -152,7 +160,6 @@ function addLiquidityStateReducer(state, action) {
     case 'UPDATE_VALUE': {
       const { inputValue, outputValue } = state
       const { field, value } = action.payload
-      console.log(value)
       return {
         ...state,
         inputValue: field === INPUT ? value : inputValue,
@@ -418,6 +425,18 @@ export default function AddLiquidity({ params }) {
         console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
+          // ReactGA.event({
+          //   category: 'Transaction',
+          //   action: 'Add Liquidity',
+          //   label: outputCurrency,
+          //   value: ethTransactionSize,
+          //   dimension1: res.info.hash
+          // })
+          // ReactGA.event({
+          //   category: 'Hash',
+          //   action: res.info.hash,
+          //   label: ethTransactionSize.toString()
+          // })
           setIsHardwareTip(false)
         } else {
           setIsHardwareError(true)
@@ -426,6 +445,16 @@ export default function AddLiquidity({ params }) {
       })
       return
     }
+    if (isNewExchange) {
+      console.log('isNewExchange new')
+      console.log(ethers.constants.Zero.toString())
+      console.log(outputValueParsed.toString())
+    } else {
+      console.log('isNewExchange old')
+      console.log(liquidityTokensMin.toString())
+      console.log(outputValueMax.toString())
+    }
+    console.log(deadline)
     const estimatedGasLimit = await exchangeContract.estimate.addLiquidity(
       isNewExchange ? ethers.constants.Zero : liquidityTokensMin,
       isNewExchange ? outputValueParsed : outputValueMax,
@@ -462,6 +491,8 @@ export default function AddLiquidity({ params }) {
         //   label: ethTransactionSize.toString()
         // })
         addTransaction(response)
+      }).catch(err => {
+        console.log(err)
       })
   }
 
@@ -693,7 +724,8 @@ export default function AddLiquidity({ params }) {
       />
       <OversizedPanel>
         <DownArrowBackground>
-          <ColoredWrappedPlus active={isActive} alt="plus" />
+          {/* <ColoredWrappedPlus active={isActive} alt="plus" /> */}
+          <img src={AddIcon} />
         </DownArrowBackground>
       </OversizedPanel>
       <CurrencyInputPanel
@@ -712,7 +744,6 @@ export default function AddLiquidity({ params }) {
         }}
         extraTextClickHander={() => {
           if (outputBalance) {
-            console.log(outputBalance)
             dispatchAddLiquidityState({
               type: 'UPDATE_VALUE',
               payload: {

@@ -108,7 +108,7 @@ export default function ContextualInfo({
             //   action: 'Open Advanced Details',
             //   label: 'Swap/Send Page Details'
             // })
-          setShowDetails(s => !s)
+          setShowDetails(!showDetails)
         }}
       >
         <>
