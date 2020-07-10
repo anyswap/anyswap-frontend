@@ -26,6 +26,7 @@ const black = '#000000'
 
 export default function ThemeProvider({ children }) {
   const [darkMode, toggleDarkMode] = useDarkModeManager()
+  // console.log(darkMode)
   const themeURL = checkSupportedTheme(getQueryParam(window.location, 'theme'))
   const themeToRender = themeURL
     ? themeURL.toUpperCase() === SUPPORTED_THEMES.DARK
@@ -35,8 +36,10 @@ export default function ThemeProvider({ children }) {
       : darkMode
     : darkMode
   useEffect(() => {
-    toggleDarkMode(themeToRender)
+    // toggleDarkMode(themeToRender)
+    toggleDarkMode(false)
   }, [toggleDarkMode, themeToRender])
+  // console.log(themeToRender)
   return <StyledComponentsThemeProvider theme={theme(themeToRender)}>{children}</StyledComponentsThemeProvider>
 }
 
@@ -172,8 +175,8 @@ export const GlobalStyle = createGlobalStyle`
     }
     /* 滚动条的宽度 */
     ::-webkit-scrollbar {
-    width:9px;
-    height:9px;
+    width:0px;
+    height:0px;
     }
     /* 滚动条的设置 */
     ::-webkit-scrollbar-thumb {

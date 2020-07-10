@@ -46,6 +46,7 @@ const BodyWrapper = styled.div`
   align-items: center;
   flex: 1;
   overflow: auto;
+  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
 `
 
 const Body = styled.div`
@@ -55,7 +56,6 @@ const Body = styled.div`
   position:relative;
   padding-left: 322px;
   box-sizing: border-box;
-  /* margin: 0 1.25rem 1.25rem 1.25rem; */
 `
 
 const NavTabBox = styled.div`

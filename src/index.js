@@ -40,6 +40,17 @@ function getLibrary(provider) {
 
 // ReactGA.pageview(window.location.pathname + window.location.search)
 
+// function bodyScale() {
+//   var devicewidth = document.documentElement.clientWidth;
+//   if (devicewidth < 1440) {
+//     var scale = devicewidth / 1440;  // 分母——设计稿的尺寸
+//     document.body.style.zoom = scale;
+//   }
+// }
+// window.onload = window.onresize = function () {
+//   bodyScale();
+// };
+
 function ContextProviders({ children }) {
   return (
     <LocalStorageContextProvider>

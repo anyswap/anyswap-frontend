@@ -171,14 +171,14 @@ const Tabs = styled.div`
   align-items: center;
   margin-bottom: 10px;
   width:100%;
-  padding: 40px 25px 15px;
+  padding: 30px 25px 0px;
   box-sizing: border-box;
 `
 
 const Tabs2  = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 19px;
   width:100%;
   padding: 15px 25px;
   box-sizing: border-box;
@@ -248,12 +248,13 @@ const StyledNavLink = styled(NavLink).attrs({
   }
 
   &.otherInfo {
-    font-size: 14px;
+    height: 40px;
+    font-size: 12px;
     font-weight: normal;
     color: #96989e;
     border-bottom:none;
     margin: 0;
-    padding: 11px 14px;
+    padding: 1px 14px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     .icon {
       height: 38px;
@@ -274,7 +275,7 @@ const StyledNavLink = styled(NavLink).attrs({
   }
   .arrow {
     position: absolute;
-    top: 18px;
+    top: 14px;
     right:15px;
   }
 `
@@ -317,6 +318,7 @@ const CopyRightBox = styled.div`
     line-height: 1.17;
     letter-spacing: normal;
     color: #96989e;
+    margin-bottom:0;
   }
 `
 const NavListTab =  styled(NavLink).attrs({
