@@ -436,16 +436,18 @@ export default function AccountDetails({
                     </StyledLink>
                   </AccountControl>
                 ) : (
-                  <AccountControl hasENS={!!ENSName} isENS={false}>
-                    <StyledLink hasENS={!!ENSName} isENS={false} href={getEtherscanLink(chainId, account, 'address')}>
-                      <Identicon size={26} />
-                      <span style={{marginLeft: '15px'}}>My public address: </span>
-                      {account ? (
-                        account.substr(0, 6) + '...' + account.substr(account.length - 6)
-                      ) : ('')} ↗{' '}
-                      <Copy toCopy={account} />
-                    </StyledLink>
-                  </AccountControl>
+                  <>
+                    <AccountControl hasENS={!!ENSName} isENS={false}>
+                      <StyledLink hasENS={!!ENSName} isENS={false} href={getEtherscanLink(chainId, account, 'address')}>
+                        <Identicon size={26} />
+                        <span style={{marginLeft: '15px'}}>My public address: </span>
+                        {account ? (
+                          account.substr(0, 6) + '...' + account.substr(account.length - 6)
+                        ) : ('')} ↗{' '}
+                      </StyledLink>
+                    </AccountControl>
+                    <Copy toCopy={account} />
+                  </>
                 )}
               </AccountGroupingRow>
             </InfoCard>

@@ -191,6 +191,7 @@ export default function RemoveLiquidity({ params }) {
   // parse value
   useEffect(() => {
     try {
+      console.log(123)
       const parsedValue = ethers.utils.parseUnits(value, 18)
       setValueParsed(parsedValue)
     } catch {
@@ -296,27 +297,12 @@ export default function RemoveLiquidity({ params }) {
       setIsHardwareTip(true)
       setHardwareTxnsInfo('')
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
-      console.log(valueParsed)
-      console.log(ethWithdrawnMin)
-      console.log(tokenWithdrawnMin)
+
       let data = web3Contract.removeLiquidity.getData(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline)
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
         console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
-          // ReactGA.event({
-          //   category: 'Transaction',
-          //   action: 'Remove Liquidity',
-          //   label: outputCurrency,
-          //   value: ethTransactionSize,
-          //   dimension1: res.info.hash
-          // })
-          // ReactGA.event({
-          //   category: 'Hash',
-          //   action: res.info.hash,
-          //   label: ethTransactionSize.toString(),
-          //   value: ethTransactionSize
-          // })
           setIsHardwareTip(false)
         } else {
           setIsHardwareError(true)
@@ -338,19 +324,6 @@ export default function RemoveLiquidity({ params }) {
         gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN)
       })
       .then(response => {
-        // ReactGA.event({
-        //   category: 'Transaction',
-        //   action: 'Remove Liquidity',
-        //   label: outputCurrency,
-        //   value: ethTransactionSize,
-        //   dimension1: response.hash
-        // })
-        // ReactGA.event({
-        //   category: 'Hash',
-        //   action: response.hash,
-        //   label: ethTransactionSize.toString(),
-        //   value: ethTransactionSize
-        // })
         addTransaction(response)
       })
   }
@@ -473,6 +446,8 @@ export default function RemoveLiquidity({ params }) {
         errorMessage={inputError}
         selectedTokenAddress={outputCurrency}
         hideETH={true}
+        isRange={true}
+        tokenBalance={poolTokenBalance && amountFormatter(poolTokenBalance, 18, 4)}
       />
       <OversizedPanel>
         <DownArrowBackground>

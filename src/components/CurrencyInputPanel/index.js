@@ -472,6 +472,92 @@ const TokenLogoBox = styled.div`
   border-radius: 100%;
   margin-right: 20px;
 `
+const InputRangeRow = styled.div`
+  ${({ theme }) => theme.FlexBC};
+  width: 100%;
+  padding-right: 86px;
+  margin-right: 30px;
+  position:relative;
+  .percent { 
+    position:absolute;
+    top:0;
+    right:-5px;
+    text-align:right;
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 36px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #062536;
+  }
+`
+const InputRangeBox = styled.div`
+  position:relative;
+  width:100%;
+  height: 36px;
+  .line {
+    width: 100%;
+    height: 10px;
+    border-radius: 8.5px;
+    position: absolute;
+    top:13px;
+    left: 0;
+  }
+  .line1 {
+    background-color: #ededed;
+  }
+  .line2 {
+    width: 0%;
+    background: ${({theme}) => theme.bgColorLinear};
+  }
+  .radius {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    box-shadow: 4px 4px 10px 0 rgba(118, 68, 203, 0.27);
+    background: ${({theme}) => theme.bgColorLinear};
+    border-radius: 100%;
+    position:absolute;
+    top: 6px;
+    left: 50%;
+    margin-left:-12px;
+  }
+`
+const InputRange = styled(BorderlessInput)`
+  width: 100%;
+  height: 36px;
+  position:absolute;
+  top:0;
+  left:0;
+  opacity: 0;
+`
+
+const InputRangeNum = styled(BorderlessInput)`
+  width: 56px;
+  height: 36px;
+  position:absolute;
+  top:0;
+  right:10px;
+  object-fit: contain;
+  border-radius: 9px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  border: solid 0.5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 0 8px;
+  text-align:center;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.67;
+  letter-spacing: normal;
+  text-align: center;
+  color: #062536;
+`
 
 export default function CurrencyInputPanel({
   onValueChange = () => {},
@@ -492,7 +578,9 @@ export default function CurrencyInputPanel({
   hideETH = false,
   isSelfSymbol,
   isSelfLogo,
-  selfUseAllToken = []
+  selfUseAllToken = [],
+  isRange = false,
+  tokenBalance = 0
 }) {
   const { t } = useTranslation()
   
@@ -592,6 +680,8 @@ export default function CurrencyInputPanel({
     }
   }
 
+  const [valueRange, setValueRange] = useState(0)
+
   function _renderInput() {
     if (typeof renderInput === 'function') {
       return renderInput()
@@ -600,24 +690,86 @@ export default function CurrencyInputPanel({
     return (
       <>
         <InputRow>
-          <Input
-            type="number"
-            min="0"
-            step="0.000000000000000001"
-            error={!!errorMessage}
-            placeholder="0.0"
-            onChange={e => onValueChange(e.target.value)}
-            onKeyPress={e => {
-              const charCode = e.which ? e.which : e.keyCode
-
-              // Prevent 'minus' character
-              if (charCode === 45) {
-                e.preventDefault()
-                e.stopPropagation()
-              }
-            }}
-            value={value}
-          />
+          {
+            isRange ? (
+              <InputRangeRow>
+                <InputRangeBox>
+                  <div className='line line1'></div>
+                  <div className='line line2' style={{width: valueRange + '%'}}></div>
+                  <div className='radius' style={{left: valueRange + '%'}}></div>
+                  <InputRange
+                    type="range"
+                    min="0"
+                    step="0.000000000000000001"
+                    error={!!errorMessage}
+                    placeholder="0.0"
+                    onChange={e => {
+                      let _val = (Number(tokenBalance.toString()) * e.target.value) / 100
+                      let _val2 = tokenBalance ? ((Number(value) / Number(tokenBalance.toString())) *100).toFixed(2) : '0'
+                      onValueChange(_val + '')
+                      setValueRange(_val2)
+                    }}
+                    onKeyPress={e => {
+                      const charCode = e.which ? e.which : e.keyCode
+        
+                      // Prevent 'minus' character
+                      if (charCode === 45) {
+                        e.preventDefault()
+                        e.stopPropagation()
+                      }
+                    }}
+                    value={valueRange}
+                  />
+                </InputRangeBox>
+                <InputRangeNum
+                  type="number"
+                  min="0"
+                  max="100"
+                  error={!!errorMessage}
+                  placeholder="0.0"
+                  value={valueRange}
+                  onChange={e => {
+                    let _val = (Number(tokenBalance.toString()) * e.target.value) / 100
+                    let _val2 = tokenBalance && e.target.value ? Number(e.target.value) : '0'
+                    onValueChange(_val + '')
+                    _val2 = _val2 > 100 ? 100 : _val2
+                    setValueRange(_val2)
+                  }}
+                  onKeyPress={e => {
+                    const charCode = e.which ? e.which : e.keyCode
+      
+                    // Prevent 'minus' character
+                    if (charCode === 45) {
+                      e.preventDefault()
+                      e.stopPropagation()
+                    }
+                  }}
+                ></InputRangeNum>
+                <span className='percent'>%</span>
+              </InputRangeRow>
+            ) : (
+              <Input
+                type="number"
+                min="0"
+                step="0.000000000000000001"
+                error={!!errorMessage}
+                placeholder="0.0"
+                onChange={e => {
+                  onValueChange(e.target.value)
+                }}
+                onKeyPress={e => {
+                  const charCode = e.which ? e.which : e.keyCode
+    
+                  // Prevent 'minus' character
+                  if (charCode === 45) {
+                    e.preventDefault()
+                    e.stopPropagation()
+                  }
+                }}
+                value={value}
+              />
+            )
+          }
           <CurrencySelect
             selected={!!selectedTokenAddress}
             onClick={() => {
