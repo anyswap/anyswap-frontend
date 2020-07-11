@@ -9,7 +9,7 @@ import { ReactComponent as Close } from '../../assets/images/x.svg'
 import Circle from '../../assets/images/circle.svg'
 import ANYLogo from '../../assets/images/ANY.svg'
 import PathIcon from '../../assets/images/icon/path.svg'
-
+import { useTranslation } from 'react-i18next'
 const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
@@ -156,7 +156,7 @@ export default function HardwareTip({
   coinType
 }) {
 
-
+  const { t } = useTranslation()
   return (
     <Modal
       style={{ userSelect: 'none' }}
@@ -171,7 +171,7 @@ export default function HardwareTip({
           </CloseIcon>
           <HeaderRow>
             <HoverText>{
-              error ? 'Error' : 'Confirm Transaction'
+              error ? 'Error' : t('ConfirmTransaction')
             }</HoverText>
           </HeaderRow>
           <ContentWrapper>
@@ -181,8 +181,8 @@ export default function HardwareTip({
             {
               error ? (
                 <ErrorTip>
-                  <h3>Sign Failed!</h3>
-                  <p>Please make sure your Ledger unlocked, on Ethereum app with contract data setting allowed</p>
+                  <h3>{t("SignFailed")}</h3>
+                  <p>{t("txnsTip")}</p>
                 </ErrorTip>
               ) : (
                 <ConfirmContent>
@@ -191,11 +191,11 @@ export default function HardwareTip({
                   ) : (<></>)}
                   {/* <SpinnerWrapper src={Circle} alt="loader" /> */}
                   {coinType ? (
-                    <CoinTypeText size={'16px'}>Collecting {coinType}</CoinTypeText>
+                    <CoinTypeText size={'16px'}>{t("Collecting")} {coinType}</CoinTypeText>
                   ) : (<></>)}
                   
                   <ConfirmText size={'12px'}>
-                    Please confirm transaction on your Ledger
+                    {t("confirmHardware")}
                   </ConfirmText>
                 </ConfirmContent>
               )
