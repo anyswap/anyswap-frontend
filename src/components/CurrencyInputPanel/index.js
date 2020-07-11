@@ -106,9 +106,7 @@ const CurrencySelect = styled.button`
   font-size: 1rem;
   color: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
   height: 70px;
-  width: 30%;
-  min-width: 190px;
-  max-width: 251px;
+  width: 220px;
   border: 1px solid ${({ selected, theme }) => (selected ? theme.selectedBorder : theme.selectedBorderNo)};
   border-radius: 12px;
   background-color: ${({ selected, theme }) => (selected ? theme.selectedBg : theme.selectedBgNo)};
@@ -200,9 +198,7 @@ const LabelContainer = styled.div`
 
 const ErrorSpanBox = styled.div`
   height: 70px;
-  width: 30%;
-  min-width: 190px;
-  max-width: 251px;
+  width: 220px;
   margin-left: 10px;
 `
 const ErrorSpan = styled.span`
@@ -474,7 +470,7 @@ const TokenLogoBox = styled.div`
 `
 const InputRangeRow = styled.div`
   ${({ theme }) => theme.FlexBC};
-  width: 100%;
+  width: 50%;
   padding-right: 86px;
   margin-right: 30px;
   position:relative;
@@ -522,7 +518,7 @@ const InputRangeBox = styled.div`
     border-radius: 100%;
     position:absolute;
     top: 6px;
-    left: 50%;
+    left: 0;
     margin-left:-12px;
   }
 `
@@ -743,6 +739,8 @@ export default function CurrencyInputPanel({
                       e.preventDefault()
                       e.stopPropagation()
                     }
+                    let _val = valueRange ? Number(valueRange) : ''
+                    setValueRange(_val)
                   }}
                 ></InputRangeNum>
                 <span className='percent'>%</span>

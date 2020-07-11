@@ -74,8 +74,7 @@ const DownArrow = styled.div`
   width: 32px;
   height: 32px;
   padding:8px;
-  background: ${({theme}) => theme.bgColor};
-  margin: 10px auto;
+  margin: 3px auto;
   cursor: pointer;
   img {
     height: 100%;
@@ -617,7 +616,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const inputBalance = useAddressBalance(account, inputCurrency)
   // const outputBalance = useAddressBalance(account, outputCurrency)
   const inputBalanceFormatted = !!(inputBalance && Number.isInteger(inputDecimals))
-    ? amountFormatter(inputBalance, inputDecimals, Math.min(8, outputDecimals))
+    ? amountFormatter(inputBalance, inputDecimals, inputDecimals)
     : ''
   // const outputBalanceFormatted = !!(outputBalance && Number.isInteger(outputDecimals))
   //   ? amountFormatter(outputBalance, outputDecimals, Math.min(4, outputDecimals))
@@ -1074,7 +1073,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       {/* <OversizedPanel hideBottom>
       </OversizedPanel> */}
       <ExchangeRateWrapper>
-        <ExchangeRate>{t('fee')}</ExchangeRate>
+        <ExchangeRate>{t('fee')}：</ExchangeRate>
         <span>
           {independentValue && swapInfo && (swapInfo.SwapFeeRate || swapInfo.SwapFeeRate === 0) && bridgeType && bridgeType === 'redeem'
             ? `${Number((Number(independentValue) * Number(swapInfo.SwapFeeRate)).toFixed(Math.min(8, inputDecimals)))} ${inputSymbol}`

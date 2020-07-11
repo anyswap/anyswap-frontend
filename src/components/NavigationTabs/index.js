@@ -124,7 +124,7 @@ const Tabs = styled.div`
   align-items: center;
   margin-bottom: 10px;
   width:100%;
-  padding: 30px 25px 0px;
+  padding: 25px 25px 0px;
   box-sizing: border-box;
 `
 
@@ -157,7 +157,7 @@ const StyledNavLink = styled(NavLink).attrs({
   box-sizing: border-box;
   padding: 15px 14px;
   line-height: 16px;
-  margin: 10px 0;
+  margin: 6px 0;
   height: 48px;
   border-radius: 9px;
   position:relative;
@@ -297,6 +297,7 @@ const CopyRightBox = styled.div`
     line-height: 1.17;
     letter-spacing: normal;
     color: #96989e;
+    margin-top:6px;
     margin-bottom:0;
   }
 `

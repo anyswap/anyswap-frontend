@@ -9,6 +9,10 @@ import question from '../../assets/images/question.svg'
 
 import NewContextualInfo from '../../components/ContextualInfoNew'
 
+import AddressIcon from '../../assets/images/icon/address.svg'
+import ArrowTopRightIcon from '../../assets/images/icon/arrowTopRight.png'
+import AlippageIcon from '../../assets/images/icon/slippage.svg'
+import { BorderlessInput } from '../../theme'
 const WARNING_TYPE = Object.freeze({
   none: 'none',
   emptyInput: 'emptyInput',
@@ -131,31 +135,29 @@ const Option = styled(FancyButton)`
   ${({ active, theme }) =>
     active &&
     css`
-      background-color: ${({ theme }) => theme.royalBlue};
-      color: ${({ theme }) => theme.white};
-      border: none;
+      color: ${({ theme }) => theme.royalBlue};
+      border: 1px  solid ${({ theme }) => theme.royalBlue};
 
       :hover {
         border: none;
         box-shadow: none;
-        background-color: ${({ theme }) => darken(0.05, theme.royalBlue)};
       }
 
       :focus {
         border: none;
         box-shadow: none;
-        background-color: ${({ theme }) => lighten(0.05, theme.royalBlue)};
+        border: 1px  solid ${({ theme }) => theme.royalBlue};
       }
 
       :active {
-        background-color: ${({ theme }) => darken(0.05, theme.royalBlue)};
+        border: 1px  solid ${({ theme }) => theme.royalBlue};
       }
 
       :hover:focus {
-        background-color: ${({ theme }) => theme.royalBlue};
+        border: 1px  solid ${({ theme }) => theme.royalBlue};
       }
       :hover:focus:active {
-        background-color: ${({ theme }) => darken(0.05, theme.royalBlue)};
+        border: 1px  solid ${({ theme }) => theme.royalBlue};
       }
     `}
 `
@@ -204,6 +206,8 @@ const Input = styled.input`
     `}
 `
 
+
+
 const BottomError = styled.div`
   ${({ show }) =>
     show &&
@@ -249,15 +253,55 @@ const OptionCustom = styled(FancyButton)`
 `
 
 const Bold = styled.span`
-  font-weight: 500;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  color: #062536;
 `
 
+const LastSummaryTextBox = styled.div`
+  width: 100%;
+  height: 240px;
+  object-fit: contain;
+  border-radius: 9px;
+  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
+  padding: 25px 40px;
+  margin-top: 10px;
+`
 const LastSummaryText = styled.div`
-  padding-top: 0.5rem;
+${({ theme }) => theme.FlexSC}
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  color: #062536;
+  height: 32px;
+  margin-bottom: 10px;
+  .icon {
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    object-fit: contain;
+    border: solid 0.5px #c0d6ea;
+    background-color: #ecf6ff;
+    border-radius: 100%;
+    margin-right: 10px;
+    img {
+      height: 100%;
+      display:block;
+    }
+  }
 `
 
 const SlippageSelector = styled.div`
-  background-color: ${({ theme }) => darken(0.04, theme.concreteGray)};
   padding: 1rem 1.25rem 1rem 1.25rem;
   border-radius: 12px 12px 0 0;
 `
@@ -283,7 +327,8 @@ const Faded = styled.span`
 `
 
 const TransactionInfo = styled.div`
-  padding: 1.25rem 1.25rem 1rem 1.25rem;
+  padding: 0 20px 25px;
+  border-bottom: 1px solid #dadada;
 `
 
 const ValueWrapper = styled.span`
@@ -294,12 +339,48 @@ const ValueWrapper = styled.span`
 `
 
 const DeadlineSelector = styled.div`
-  background-color: ${({ theme }) => darken(0.04, theme.concreteGray)};
   padding: 1rem 1.25rem 1rem 1.25rem;
   border-radius: 0 0 12px 12px;
 `
+
+const SetLimitBox = styled.div`
+  width: 100%;
+  background:#fff;
+  padding: 25px 20px 9px;
+  margin-top:10px;
+`
+
+const BigTitle = styled.div`
+font-family: Manrope;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  color: #062536;
+`
+
 const DeadlineRow = SlippageRow
-const DeadlineInput = OptionCustom
+const DeadlineInput = styled(OptionCustom)`
+${({theme}) => theme.FlexBC}
+  width: 110px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 9px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  border: solid 0.5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+`
+const InputMin = styled(BorderlessInput)`
+  height: 100%;
+  border:none;
+  padding: 0 8px;
+  font-size:12px;
+  &:focus, &:hover {
+    border:none;
+  }
+`
 
 export default function TransactionDetails(props) {
   const { t } = useTranslation()
@@ -378,11 +459,11 @@ export default function TransactionDetails(props) {
 
   const dropDownContent = () => {
     return (
-      <>
+      <SetLimitBox>
         {renderTransactionDetails()}
         <SlippageSelector>
           <SlippageRow>
-            Limit additional price slippage
+            <BigTitle>Limit additional price slippage</BigTitle>
             <QuestionWrapper
               onClick={() => {
                 setPopup(!showPopup)
@@ -506,14 +587,14 @@ export default function TransactionDetails(props) {
           </SlippageRow>
         </SlippageSelector>
         <DeadlineSelector>
-          Set swap deadline (minutes from now)
+          <BigTitle>Set swap deadline (minutes from now)</BigTitle>
           <DeadlineRow wrap>
             <DeadlineInput>
-              <Input placeholder={'Deadline'} value={deadlineInput} onChange={parseDeadlineInput} />
+              <InputMin placeholder={'Deadline'} value={deadlineInput} onChange={parseDeadlineInput} /> min
             </DeadlineInput>
           </DeadlineRow>
         </DeadlineSelector>
-      </>
+      </SetLimitBox>
     )
   }
 
@@ -648,7 +729,10 @@ export default function TransactionDetails(props) {
     if (props.independentField === props.INPUT) {
       return props.sending ? (
         <TransactionInfo>
-          <div>
+          <LastSummaryText>
+            <div className='icon'>
+              <img src={ArrowTopRightIcon} />
+            </div>
             {t('youAreSelling')}{' '}
             <ValueWrapper>
               {b(
@@ -659,8 +743,11 @@ export default function TransactionDetails(props) {
                 )} ${props.inputSymbol}`
               )}
             </ValueWrapper>
-          </div>
+          </LastSummaryText>
           <LastSummaryText>
+            <div className='icon'>
+              <img src={AddressIcon} />
+            </div>
             {b(props.recipientAddress)} {t('willReceive')}{' '}
             <ValueWrapper>
               {b(
@@ -673,12 +760,18 @@ export default function TransactionDetails(props) {
             </ValueWrapper>{' '}
           </LastSummaryText>
           <LastSummaryText>
+            <div className='icon'>
+              <img src={AlippageIcon} />
+            </div>
             {t('priceChange')} <ValueWrapper>{b(`${props.percentSlippageFormatted}%`)}</ValueWrapper>
           </LastSummaryText>
         </TransactionInfo>
       ) : (
         <TransactionInfo>
-          <div>
+          <LastSummaryText>
+            <div className='icon'>
+              <img src={ArrowTopRightIcon} />
+            </div>
             {t('youAreSelling')}{' '}
             <ValueWrapper>
               {b(
@@ -699,8 +792,11 @@ export default function TransactionDetails(props) {
                 )} ${props.outputSymbol}`
               )}
             </ValueWrapper>
-          </div>
+          </LastSummaryText>
           <LastSummaryText>
+          <div className='icon'>
+              <img src={AlippageIcon} />
+            </div>
             {t('priceChange')} <ValueWrapper>{b(`${props.percentSlippageFormatted}%`)}</ValueWrapper>
           </LastSummaryText>
         </TransactionInfo>
@@ -708,7 +804,10 @@ export default function TransactionDetails(props) {
     } else {
       return props.sending ? (
         <TransactionInfo>
-          <div>
+          <LastSummaryText>
+            <div className='icon'>
+              <img src={ArrowTopRightIcon} />
+            </div>
             {t('youAreSending')}{' '}
             <ValueWrapper>
               {b(
@@ -721,6 +820,9 @@ export default function TransactionDetails(props) {
             </ValueWrapper>{' '}
             {t('to')} {b(props.recipientAddress)} {t('forAtMost')}{' '}
             <ValueWrapper>
+            <div className='icon'>
+              <img src={AddressIcon} />
+            </div>
               {b(
                 `${amountFormatter(
                   props.dependentValueMaximum,
@@ -729,39 +831,51 @@ export default function TransactionDetails(props) {
                 )} ${props.inputSymbol}`
               )}
             </ValueWrapper>{' '}
-          </div>
+          </LastSummaryText>
           <LastSummaryText>
+            <div className='icon'>
+              <img src={AlippageIcon} />
+            </div>
             {t('priceChange')} <ValueWrapper>{b(`${props.percentSlippageFormatted}%`)}</ValueWrapper>
           </LastSummaryText>
         </TransactionInfo>
       ) : (
         <TransactionInfo>
-          {t('youAreBuying')}{' '}
-          <ValueWrapper>
-            {b(
-              `${amountFormatter(
-                props.independentValueParsed,
-                props.independentDecimals,
-                Math.min(4, props.independentDecimals)
-              )} ${props.outputSymbol}`
-            )}
-          </ValueWrapper>{' '}
-          {t('forAtMost')}{' '}
-          <ValueWrapper>
-            {b(
-              `${amountFormatter(
-                props.dependentValueMaximum,
-                props.dependentDecimals,
-                Math.min(4, props.dependentDecimals)
-              )} ${props.inputSymbol}`
-            )}
-          </ValueWrapper>{' '}
           <LastSummaryText>
+            <div className='icon'>
+              <img src={ArrowTopRightIcon} />
+            </div>
+            {t('youAreBuying')}{' '}
+            <ValueWrapper>
+              {b(
+                `${amountFormatter(
+                  props.independentValueParsed,
+                  props.independentDecimals,
+                  Math.min(4, props.independentDecimals)
+                )} ${props.outputSymbol}`
+              )}
+            </ValueWrapper>{' '}
+            {t('forAtMost')}{' '}
+            <ValueWrapper>
+              {b(
+                `${amountFormatter(
+                  props.dependentValueMaximum,
+                  props.dependentDecimals,
+                  Math.min(4, props.dependentDecimals)
+                )} ${props.inputSymbol}`
+              )}
+            </ValueWrapper>{' '}
+          </LastSummaryText>
+          <LastSummaryText>
+            <div className='icon'>
+              <img src={AlippageIcon} />
+            </div>
             {t('priceChange')} <ValueWrapper>{b(`${props.percentSlippageFormatted}%`)}</ValueWrapper>
           </LastSummaryText>
         </TransactionInfo>
       )
     }
   }
-  return <>{renderSummary()}</>
+  // return <>{renderSummary()}</>
+  return <>{dropDownContent()}</>
 }

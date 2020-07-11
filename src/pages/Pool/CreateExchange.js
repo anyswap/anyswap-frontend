@@ -229,15 +229,15 @@ function CreateExchange({ location, params }) {
         </TxnsDtilBtn>
         <SummaryPanel>
           <ExchangeRateWrapper>
-            <ExchangeRate>{t('name')}</ExchangeRate>
+            <ExchangeRate>{t('name')}：</ExchangeRate>
             <span>{name ? name : ' - '}</span>
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
-            <ExchangeRate>{t('symbol')}</ExchangeRate>
+            <ExchangeRate>{t('symbol')}：</ExchangeRate>
             <span>{symbol ? symbol : ' - '}</span>
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
-            <ExchangeRate>{t('decimals')}</ExchangeRate>
+            <ExchangeRate>{t('decimals')}：</ExchangeRate>
             <span>{decimals || decimals === 0 ? decimals : ' - '}</span>
           </ExchangeRateWrapper>
         </SummaryPanel>

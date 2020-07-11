@@ -32,6 +32,10 @@ import HardwareTip from '../HardwareTip'
 
 import ResertSvg from '../../assets/images/icon/revert.svg'
 
+import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
+import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
+import AlippageIcon from '../../assets/images/icon/slippage.svg'
+
 const INPUT = 0
 const OUTPUT = 1
 
@@ -68,25 +72,51 @@ const DownArrow = styled.div`
   width: 32px;
   height: 32px;
   padding:8px;
-  background: ${({theme}) => theme.bgColor};
-  margin: 10px auto;
+  margin: 3px auto;
   cursor: pointer;
   img {
     height: 100%;
     display: block;
   }
 `
-
-const ExchangeRateWrapper = styled.div`
-  ${({ theme }) => theme.FlexC}
-  ${({ theme }) => theme.flexRowNoWrap};
-  align-items: center;
-  color: ${({ theme }) => theme.doveGray};
-  font-size: 0.75rem;
-  padding: 0.5rem 1rem;
+const ExchangeRateWrapperBox = styled.div`
+${({ theme }) => theme.FlexBC};
+width: 100%;
+height: 48px;
+object-fit: contain;
+border-radius: 9px;
+background-color: #ededed;
+padding: 0 40px;
+margin-top:10px;
 `
 
-const ExchangeRate = styled.span`
+const ExchangeRateWrapper = styled.div`
+${({ theme }) => theme.FlexEC};
+  width: 50%;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: right;
+  color: #062536;
+  span {
+    height: 12px;
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: right;
+    color: #062536;
+  }
+`
+
+const ExchangeRate = styled.div`
   flex: 1 1 auto;
   width: 0;
   color: ${({ theme }) => theme.doveGray};
@@ -101,8 +131,61 @@ const Flex = styled.div`
     max-width: 20rem;
   }
 `
+const WrappedDropup = ({ isError, highSlippageWarning, ...rest }) => <Dropup {...rest} />
+const ColoredDropup = styled(WrappedDropup)`
+margin-right: 10px;
+  path {
+    stroke: ${({ theme }) => theme.royalBlue};
+  }
+`
 
-
+const WrappedDropdown = ({ isError, highSlippageWarning, ...rest }) => <Dropdown {...rest} />
+const ColoredDropdown = styled(WrappedDropdown)`
+margin-right: 10px;
+  path {
+    stroke: ${({ theme }) => theme.royalBlue};
+  }
+`
+const TxnsDtilBtn = styled.div`
+  ${({ theme }) => theme.FlexC};
+  height: 34px;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: #f9fafb;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #734be2;
+  cursor:pointer;
+  padding: 0 10px;
+  .left {
+    
+  }
+  .red {
+    color:red;
+  }
+  .slippage {
+    ${({ theme }) => theme.FlexC};
+    height: 100%;
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.83;
+    letter-spacing: normal;
+    color: #062536;
+    padding-left:12px;
+    border-left:1px solid #ededed;
+    img {
+      margin-right: 7px;
+    }
+  }
+`
 
 function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, allowedSlippage) {
   if (value) {
@@ -806,6 +889,75 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
   }, [newOutputDetected, setShowOutputWarning])
 
+  const [isViewTxnsDtil, setIsViewTxnsDtil] = useState(false)
+  function txnsInfoTaggle () {
+    let contextualInfo = ''
+    let isError = false
+    if (brokenTokenWarning) {
+      contextualInfo = t('brokenToken')
+      isError = true
+    } else if (inputError || independentError) {
+      contextualInfo = inputError || independentError
+      isError = true
+    } else if (!inputCurrency || !outputCurrency) {
+      contextualInfo = t('selectTokenCont')
+    } else if (!independentValue) {
+      contextualInfo = t('enterValueCont')
+    } else if (sending && !recipient.address) {
+      contextualInfo = t('noRecipient')
+    } else if (sending && !isAddress(recipient.address)) {
+      contextualInfo = t('invalidRecipient')
+    } else if (!account) {
+      contextualInfo = t('noWallet')
+      isError = true
+    }
+
+    const slippageWarningText = highSlippageWarning
+      ? t('highSlippageWarning')
+      : slippageWarning
+      ? t('slippageWarning')
+      : ''
+
+    contextualInfo = slippageWarningText ? slippageWarningText : contextualInfo 
+    let allowExpand= !!(
+      !brokenTokenWarning &&
+      inputCurrency &&
+      outputCurrency &&
+      inputValueParsed &&
+      outputValueParsed &&
+      (sending ? recipient.address : true)
+    )
+
+    return (
+      <TxnsDtilBtn>
+        <div className={'left' + (isError ? ' red' : '')}>
+          {!allowExpand && contextualInfo ? contextualInfo : (
+            <>
+            <div onClick={() => {
+              setIsViewTxnsDtil(!isViewTxnsDtil)
+            }}>
+              {
+                isViewTxnsDtil ? (
+                  <ColoredDropup></ColoredDropup>
+                ) : (
+                  <ColoredDropdown></ColoredDropdown>
+                )
+              }
+              {
+                contextualInfo ? contextualInfo : isViewTxnsDtil ? t('hideDetails') : t('transactionDetails')
+              }
+            </div>
+            </>
+          )}
+        </div>
+        {/* <div className='slippage'>
+          <img src={AlippageIcon}/>
+          Slippage Warning
+        </div> */}
+      </TxnsDtilBtn>
+    )
+  }
+
   return (
     <>
       <HardwareTip
@@ -930,13 +1082,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       ) : (
         ''
       )}
-      <OversizedPanel hideBottom>
+      <ExchangeRateWrapperBox>
+        {txnsInfoTaggle()}
         <ExchangeRateWrapper
           onClick={() => {
             setInverted(inverted => !inverted)
           }}
         >
-          <ExchangeRate>{t('exchangeRate')}</ExchangeRate>
+          <ExchangeRate>{t('exchangeRate')}：</ExchangeRate>
           {inverted ? (
             <span>
               {exchangeRate
@@ -951,38 +1104,42 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             </span>
           )}
         </ExchangeRateWrapper>
-      </OversizedPanel>
-      <TransactionDetails
-        account={account}
-        setRawSlippage={setRawSlippage}
-        setRawTokenSlippage={setRawTokenSlippage}
-        rawSlippage={rawSlippage}
-        slippageWarning={slippageWarning}
-        highSlippageWarning={highSlippageWarning}
-        brokenTokenWarning={brokenTokenWarning}
-        setDeadline={setDeadlineFromNow}
-        deadline={deadlineFromNow}
-        inputError={inputError}
-        independentError={independentError}
-        inputCurrency={inputCurrency}
-        outputCurrency={outputCurrency}
-        independentValue={independentValue}
-        independentValueParsed={independentValueParsed}
-        independentField={independentField}
-        INPUT={INPUT}
-        inputValueParsed={inputValueParsed}
-        outputValueParsed={outputValueParsed}
-        inputSymbol={inputSymbol}
-        outputSymbol={outputSymbol}
-        dependentValueMinumum={dependentValueMinumum}
-        dependentValueMaximum={dependentValueMaximum}
-        dependentDecimals={dependentDecimals}
-        independentDecimals={independentDecimals}
-        percentSlippageFormatted={percentSlippageFormatted}
-        setcustomSlippageError={setcustomSlippageError}
-        recipientAddress={recipient.address}
-        sending={sending}
-      />
+      </ExchangeRateWrapperBox>
+      {isViewTxnsDtil ? (
+        <TransactionDetails
+          account={account}
+          setRawSlippage={setRawSlippage}
+          setRawTokenSlippage={setRawTokenSlippage}
+          rawSlippage={rawSlippage}
+          slippageWarning={slippageWarning}
+          highSlippageWarning={highSlippageWarning}
+          brokenTokenWarning={brokenTokenWarning}
+          setDeadline={setDeadlineFromNow}
+          deadline={deadlineFromNow}
+          inputError={inputError}
+          independentError={independentError}
+          inputCurrency={inputCurrency}
+          outputCurrency={outputCurrency}
+          independentValue={independentValue}
+          independentValueParsed={independentValueParsed}
+          independentField={independentField}
+          INPUT={INPUT}
+          inputValueParsed={inputValueParsed}
+          outputValueParsed={outputValueParsed}
+          inputSymbol={inputSymbol}
+          outputSymbol={outputSymbol}
+          dependentValueMinumum={dependentValueMinumum}
+          dependentValueMaximum={dependentValueMaximum}
+          dependentDecimals={dependentDecimals}
+          independentDecimals={independentDecimals}
+          percentSlippageFormatted={percentSlippageFormatted}
+          setcustomSlippageError={setcustomSlippageError}
+          recipientAddress={recipient.address}
+          sending={sending}
+        />
+      ) : (
+        ''
+      )}
       <Flex>
         <Button
           disabled={

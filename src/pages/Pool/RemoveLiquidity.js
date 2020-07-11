@@ -66,8 +66,7 @@ const DownArrowBackground = styled.div`
   object-fit: contain;
   border-radius: 6px;
   box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
-  background-color: #ffffff;
-  margin: 10px auto;
+  margin: 3px auto;
 `
 
 const DownArrow = styled(ArrowDown)`
@@ -715,11 +714,11 @@ export default function RemoveLiquidity({ params }) {
         </>
         <SummaryPanel>
           <ExchangeRateWrapper>
-            <ExchangeRate>{t('exchangeRate')}:</ExchangeRate>
+            <ExchangeRate>{t('exchangeRate')}：</ExchangeRate>
             {marketRate ? <span>{`1 FSN = ${amountFormatter(marketRate, 18, 4)} ${symbol}`}</span> : ' - '}
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
-            <ExchangeRate>{t('currentPoolSize')}:</ExchangeRate>
+            <ExchangeRate>{t('currentPoolSize')}：</ExchangeRate>
             {exchangeETHBalance && exchangeTokenBalance && (decimals || decimals === 0) ? (
               <span>{`${amountFormatter(exchangeETHBalance, 18, 4)} FSN + ${amountFormatter(
                 exchangeTokenBalance,
@@ -732,7 +731,7 @@ export default function RemoveLiquidity({ params }) {
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
             <ExchangeRate>
-              {t('yourPoolShare')} ({ownershipPercentageFormatted && ownershipPercentageFormatted}%):
+              {t('yourPoolShare')} ({ownershipPercentageFormatted && ownershipPercentageFormatted}%)：
             </ExchangeRate>
             {ETHOwnShare && TokenOwnShare ? (
               <span>

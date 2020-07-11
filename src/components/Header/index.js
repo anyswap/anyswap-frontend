@@ -24,9 +24,10 @@ const HeaderSpan = styled.span`
   display: flex;
   width: 100%;
   max-width: 1440px;
-  height: 80px;
+  height: 70px;
   object-fit: contain;
   justify-content: space-between;
+  padding:0 40px;
 `
 
 const StyleAnyLogo = styled(ANYLogo)`
@@ -61,10 +62,10 @@ const StyleAnyLogo = styled(ANYLogo)`
 // `
 
 const HeaderElement = styled.div`
-  margin: 1.25rem;
   display: flex;
   min-width: 0;
   align-items: center;
+  padding:14px 0;
 `
 
 // const Nod = styled.span`

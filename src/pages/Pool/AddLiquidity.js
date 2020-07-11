@@ -172,8 +172,7 @@ const DownArrowBackground = styled.div`
   object-fit: contain;
   border-radius: 6px;
   box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
-  background-color: #ffffff;
-  margin: 10px auto;
+  margin: 3px auto;
 `
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
@@ -972,11 +971,11 @@ export default function AddLiquidity({ params }) {
         </>
         <SummaryPanel>
           <ExchangeRateWrapper>
-            <ExchangeRate>{t('exchangeRate')}</ExchangeRate>
+            <ExchangeRate>{t('exchangeRate')}：</ExchangeRate>
             <span>{marketRate ? `1 FSN = ${amountFormatter(marketRate, 18, 4)} ${symbol}` : ' - '}</span>
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
-            <ExchangeRate>{t('currentPoolSize')}</ExchangeRate>
+            <ExchangeRate>{t('currentPoolSize')}：</ExchangeRate>
             <span>
               {exchangeETHBalance && exchangeTokenBalance
                 ? `${amountFormatter(exchangeETHBalance, 18, 4)} FSN + ${amountFormatter(
@@ -989,7 +988,7 @@ export default function AddLiquidity({ params }) {
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
             <ExchangeRate>
-              {t('yourPoolShare')} ({exchangeETHBalance && amountFormatter(poolTokenPercentage, 16, 2)}%)
+              {t('yourPoolShare')}： ({exchangeETHBalance && amountFormatter(poolTokenPercentage, 16, 2)}%)
             </ExchangeRate>
             <span>
               {ethShare && tokenShare
