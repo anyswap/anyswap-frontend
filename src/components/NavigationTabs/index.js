@@ -361,21 +361,21 @@ function NavigationTabs({ location: { pathname }, history }) {
       </Tabs2>
       <OutLink>
         <OutLinkImgBox>
-          <Link id="link" href="https://anyswap.network">
+          <Link id="link" href="https://t.me/anyswap">
             <OutLinkImg onMouseEnter={() => {toggleHover('TelegramIcon')}} onMouseLeave={() => {toggleHover('')}}>
               {/* <img src={TelegramIcon} /> */}
               <img src={TelegramIconWhite} className={navHover === 'TelegramIcon' ? '' : 'show'}/>
               <img src={TelegramIcon} className={navHover === 'TelegramIcon' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
-          <Link id="link" href="https://anyswap.network/docs">
+          <Link id="link" href="https://medium.com/@anyswap">
             <OutLinkImg onMouseEnter={() => {toggleHover('MediumIcon')}} onMouseLeave={() => {toggleHover('')}}>
               {/* <img src={MediumIcon} /> */}
               <img src={MediumIconWhite} className={navHover === 'MediumIcon' ? '' : 'show'}/>
               <img src={MediumIcon} className={navHover === 'MediumIcon' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
-          <Link id="link" href="https://t.me/anyswap">
+          <Link id="link" href="https://twitter.com/AnyswapNetwork">
             <OutLinkImg onMouseEnter={() => {toggleHover('TwitterIcon')}} onMouseLeave={() => {toggleHover('')}}>
               {/* <img src={TwitterIcon} /> */}
               <img src={TwitterIconWhite} className={navHover === 'TwitterIcon' ? '' : 'show'}/>

@@ -26,7 +26,7 @@ import HardwareTip from '../../components/HardwareTip'
 const SummaryPanel = styled.div`
 ${({ theme }) => theme.flexColumnNoWrap}
 padding: 1rem 0;
-width: 50%;
+min-width: 30%;
 `
 
 const ExchangeRateWrapper = styled.div`
@@ -97,7 +97,6 @@ const SummaryPanelBox = styled.div`
 `
 const TxnsDtilBtn = styled.div`
   ${({ theme }) => theme.FlexC};
-  width: 145px;
   height: 34px;
   object-fit: contain;
   border-radius: 6px;
@@ -111,6 +110,7 @@ const TxnsDtilBtn = styled.div`
   letter-spacing: normal;
   color: #062536;
   cursor:pointer;
+  padding: 0 10px;
 `
 
 function CreateExchange({ location, params }) {

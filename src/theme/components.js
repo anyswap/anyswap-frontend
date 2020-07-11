@@ -43,6 +43,7 @@ export const TitleBox = styled.h3`
   letter-spacing: normal;
   margin: 0 0 16px;
   color: ${({ theme }) => theme.textColorBold};
+  white-space:nowrap;
 `
 
 export const Link = styled.a.attrs({

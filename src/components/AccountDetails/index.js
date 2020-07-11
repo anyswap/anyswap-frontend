@@ -117,6 +117,10 @@ margin-bottom: 20px;
 padding-bottom: 10px;
 `
 
+const AccountGroupingWallet = styled.div`
+${({ theme }) => theme.FlexSC};
+`
+
 const AccountSection = styled.div`
   background-color: ${({ theme }) => theme.concreteGray};
   padding: 0rem 1.5rem;
@@ -393,8 +397,8 @@ export default function AccountDetails({
           <YourAccount>
             <InfoCard>
               <AccountGroupingRowTop>
-                {getStatusIcon()}
-                <div>
+                <AccountGroupingWallet>
+                  {getStatusIcon()}
                   {connector !== injected && connector !== walletlink &&  !['Ledger'].includes(walletType) && (
                     <WalletAction
                       onClick={() => {
@@ -409,7 +413,7 @@ export default function AccountDetails({
                       <div />
                     </GreenCircle>
                   </CircleWrapper>
-                </div>
+                </AccountGroupingWallet>
                 {!(isMobile && (window.web3 || window.ethereum)) && (
                   <ConnectButtonRow>
                     <OptionButton
@@ -429,8 +433,8 @@ export default function AccountDetails({
                 {ENSName ? (
                   <AccountControl hasENS={!!ENSName} isENS={true}>
                     <StyledLink hasENS={!!ENSName} isENS={true} href={getEtherscanLink(chainId, ENSName, 'address')}>
-                      <Identicon size={26} /><span style={{marginLeft: '15px'}}>My public address: </span>{ENSName ? (
-                        ENSName.substr(0, 6) + '...' + ENSName.substr(ENSName.length - 6)
+                      <Identicon size={26} /><span style={{marginLeft: '15px'}}>Address: </span>{ENSName ? (
+                        ENSName
                       ) : ('')} ↗{' '}
                       <Copy toCopy={ENSName} />
                     </StyledLink>
@@ -440,9 +444,9 @@ export default function AccountDetails({
                     <AccountControl hasENS={!!ENSName} isENS={false}>
                       <StyledLink hasENS={!!ENSName} isENS={false} href={getEtherscanLink(chainId, account, 'address')}>
                         <Identicon size={26} />
-                        <span style={{marginLeft: '15px'}}>My public address: </span>
+                        <span style={{marginLeft: '15px'}}>Address: </span>
                         {account ? (
-                          account.substr(0, 6) + '...' + account.substr(account.length - 6)
+                          account
                         ) : ('')} ↗{' '}
                       </StyledLink>
                     </AccountControl>

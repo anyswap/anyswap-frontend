@@ -110,6 +110,7 @@ const StyledNavLink = styled(NavLink).attrs({
   text-decoration: none;
   padding: 0 10px;
   background:#fff;
+  white-space:nowrap;
 
   .icon {
     ${({ theme }) => theme.FlexC}

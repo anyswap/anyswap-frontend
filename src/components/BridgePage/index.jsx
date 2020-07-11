@@ -300,20 +300,6 @@ const StyledBirdgeIcon = styled.div`
   }
 `
 
-function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, allowedSlippage) {
-  if (value) {
-    const offset = value.mul(token ? tokenAllowedSlippage : allowedSlippage).div(ethers.utils.bigNumberify(10000))
-    const minimum = value.sub(offset)
-    const maximum = value.add(offset)
-    return {
-      minimum: minimum.lt(ethers.constants.Zero) ? ethers.constants.Zero : minimum,
-      maximum: maximum.gt(ethers.constants.MaxUint256) ? ethers.constants.MaxUint256 : maximum
-    }
-  } else {
-    return {}
-  }
-}
-
 function getSwapType(inputCurrency, outputCurrency) {
   inputCurrency = inputCurrency ? inputCurrency : 'FSN'
   // console.log(inputCurrency)
@@ -980,6 +966,24 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         title={t(bridgeType && bridgeType === 'redeem' ? 'redeem' : 'deposit1')}
         urlAddedTokens={urlAddedTokens}
         extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : ''}
+        extraTextClickHander={() => {
+          if (inputBalance && inputDecimals) {
+            const valueToSet = inputCurrency === 'FSN' ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
+            if (valueToSet.gt(ethers.constants.Zero)) {
+              let inputVal = swapInfo && (swapInfo.SwapFeeRate || swapInfo.SwapFeeRate === 0)
+                ? Number((( Number(inputBalance) * (1 - Number(swapInfo.SwapFeeRate)) / Math.pow(10, inputDecimals)) ).toFixed(Math.min(8, inputDecimals)))
+                : 0
+              dispatchSwapState({
+                type: 'UPDATE_INDEPENDENT',
+                payload: {
+                  value: amountFormatter(valueToSet, inputDecimals, inputDecimals, false),
+                  field: INPUT,
+                  realyValue: inputVal
+                }
+              })
+            }
+          }
+        }}
         onCurrencySelected={inputCurrency => {
           dispatchSwapState({
             type: 'SELECT_CURRENCY',

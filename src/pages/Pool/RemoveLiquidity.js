@@ -55,6 +55,7 @@ const BlueSpan = styled.span`
   line-height: 1.17;
   letter-spacing: normal;
   color: #062536;
+  margin: 0 5px;
 `
 
 const DownArrowBackground = styled.div`
@@ -67,6 +68,7 @@ const DownArrowBackground = styled.div`
   border-radius: 6px;
   box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
   margin: 3px auto;
+  background: rgba(255,255,255,.3)
 `
 
 const DownArrow = styled(ArrowDown)`
@@ -106,7 +108,7 @@ const SummaryPanelBox = styled.div`
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   padding: 1rem 0;
-  width: 50%;
+  min-width: 30%;
 `
 const LastSummaryTextBox = styled.div`
   width: 100%;
@@ -236,7 +238,6 @@ const Flex = styled.div`
 `
 const TxnsDtilBtn = styled.div`
   ${({ theme }) => theme.FlexC};
-  width: 145px;
   height: 34px;
   object-fit: contain;
   border-radius: 6px;
@@ -250,6 +251,7 @@ const TxnsDtilBtn = styled.div`
   letter-spacing: normal;
   color: #062536;
   cursor:pointer;
+  padding: 0 10px;
 `
 
 // const StyledDropDown = styled(DropDown)`
@@ -339,7 +341,7 @@ export default function RemoveLiquidity({ params }) {
     history.push(window.location.pathname + '')
   }, [])
 
-  const [outputCurrency, setOutputCurrency] = useState(params.poolTokenAddress)
+  const [outputCurrency, setOutputCurrency] = useState(params.poolTokenAddress ? params.poolTokenAddress : '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4')
   const [value, setValue] = useState(params.poolTokenAmount ? params.poolTokenAmount : '')
   const [inputError, setInputError] = useState()
   const [valueParsed, setValueParsed] = useState()

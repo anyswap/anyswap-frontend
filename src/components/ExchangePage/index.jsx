@@ -74,6 +74,7 @@ const DownArrow = styled.div`
   padding:8px;
   margin: 3px auto;
   cursor: pointer;
+  background: rgba(255,255,255,.3);
   img {
     height: 100%;
     display: block;

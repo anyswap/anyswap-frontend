@@ -133,7 +133,14 @@ const CurrencySelect = styled.button`
 const Aligner = styled.span`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  position: relative;
+  padding: 0px 26px 0 56px;
+  width:100%;
+  height:100%;
+  &.pl-0{
+    padding-left:0;
+  }
 `
 
 const StyledDropDownBox = styled.div`
@@ -144,7 +151,7 @@ const StyledDropDownBox = styled.div`
   border-radius: 100%;
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 0px;
 `
 
 const StyledDropDown = styled(DropDown)`
@@ -428,7 +435,7 @@ const TokenRowRight = styled.div`
 
 const StyledTokenName = styled.span`
   text-align:left;
-  width: 50%;
+  width: 100%;
   h3 {
     font-family: Manrope;
     font-size: 16px;
@@ -468,6 +475,12 @@ const TokenLogoBox = styled.div`
   border-radius: 100%;
   margin-right: 20px;
 `
+const TokenLogoBox1 = styled(TokenLogoBox)`
+  position:absolute;
+  top:10px;
+  left:0;
+`
+
 const InputRangeRow = styled.div`
   ${({ theme }) => theme.FlexBC};
   width: 50%;
@@ -776,11 +789,11 @@ export default function CurrencyInputPanel({
               }
             }}
           >
-            <Aligner>
+            <Aligner className={allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol ? '' : 'pl-0'}>
               {
                 isSelfSymbol ? (
                   <>
-                    {selectedTokenAddress ? (isSelfLogo ? <TokenLogoBox><TokenLogo address={isSelfLogo} size={'26px'} /></TokenLogoBox> : <TokenLogoBox><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox>) : null}
+                    {selectedTokenAddress ? (isSelfLogo ? <TokenLogoBox1><TokenLogo address={isSelfLogo} size={'26px'} /></TokenLogoBox1> : <TokenLogoBox1><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox1>) : null}
                     <StyledTokenName>
                       {
                         isSelfSymbol ? (
@@ -797,7 +810,7 @@ export default function CurrencyInputPanel({
                   </>
                 ) :  (
                   <>
-                    {selectedTokenAddress ? <TokenLogoBox><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox> : null}
+                    {selectedTokenAddress ? <TokenLogoBox1><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox1> : null}
                     <StyledTokenName>
                       {
                         allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol ? (

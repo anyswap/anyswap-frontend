@@ -58,6 +58,7 @@ font-style: normal;
 line-height: 1.17;
 letter-spacing: normal;
 color: #062536;
+margin: 0 5px;
 `
 
 const NewExchangeWarning = styled.div`
@@ -173,16 +174,16 @@ const DownArrowBackground = styled.div`
   border-radius: 6px;
   box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
   margin: 3px auto;
+  background: rgba(255,255,255,.3)
 `
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   padding: 1rem 0;
-  width: 50%;
+  min-width: 30%;
 `
 
 const ExchangeRateWrapper = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap};
-  align-items: center;
+  ${({ theme }) => theme.FlexEC};
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
   padding: 8px 1rem ;
@@ -249,7 +250,6 @@ const SummaryPanelBox = styled.div`
 
 const TxnsDtilBtn = styled.div`
   ${({ theme }) => theme.FlexC};
-  width: 145px;
   height: 34px;
   object-fit: contain;
   border-radius: 6px;
@@ -263,6 +263,7 @@ const TxnsDtilBtn = styled.div`
   letter-spacing: normal;
   color: #062536;
   cursor:pointer;
+  padding: 0 10px;
 `
 
 // const StyledDropDown = styled(DropDown)`
