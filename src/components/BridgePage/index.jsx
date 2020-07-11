@@ -864,6 +864,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       bt = 'redeem'
     }
     dispatchSwapState({ type: 'UPDATE_BREDGETYPE', payload: bt })
+    dispatchSwapState({
+      type: 'UPDATE_INDEPENDENT',
+      payload: {
+        value: '',
+        field: INPUT,
+        realyValue: ''
+      }
+    })
   }
   function copyAddr () {
     copyTxt(registerAddress)
