@@ -775,6 +775,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         if (res.msg === 'Success') {
           addTransaction(res.info)
           setIsHardwareTip(false)
+          dispatchSwapState({
+            type: 'UPDATE_INDEPENDENT',
+            payload: { value: '', field: INPUT }
+          })
+          dispatchSwapState({
+            type: 'UPDATE_INDEPENDENT',
+            payload: { value: '', field: OUTPUT }
+          })
         } else {
           setIsHardwareError(true)
         }
@@ -852,6 +860,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }).then(response => {
       console.log(response)
       addTransaction(response)
+      dispatchSwapState({
+        type: 'UPDATE_INDEPENDENT',
+        payload: { value: '', field: INPUT }
+      })
+      dispatchSwapState({
+        type: 'UPDATE_INDEPENDENT',
+        payload: { value: '', field: OUTPUT }
+      })
     })
   }
 

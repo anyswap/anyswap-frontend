@@ -649,7 +649,7 @@ export default function AddLiquidity({ params }) {
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
-      setHardwareTxnsInfo('')
+      setHardwareTxnsInfo(inputValue + ' FSN + ' + outputValue + ' ' + symbol)
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
       let data = web3Contract.addLiquidity.getData(
         isNewExchange ? ethers.constants.Zero.toHexString() : liquidityTokensMin.toHexString(),
@@ -660,6 +660,8 @@ export default function AddLiquidity({ params }) {
         if (res.msg === 'Success') {
           addTransaction(res.info)
           setIsHardwareTip(false)
+          dispatchAddLiquidityState({ type: 'UPDATE_VALUE', payload: { value: '', field: INPUT } })
+          dispatchAddLiquidityState({ type: 'UPDATE_VALUE', payload: { value: '', field: OUTPUT } })
         } else {
           setIsHardwareError(true)
         }

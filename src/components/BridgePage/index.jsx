@@ -820,9 +820,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       getWeb3BaseInfo(swapInfo.ContractAddress, swapInfo.ContractAddress, data, account).then(res => {
         if (res.msg === 'Success') {
           addTransaction(res.info)
+          dispatchSwapState({
+            type: 'UPDATE_INDEPENDENT',
+            payload: {
+              value: '',
+              field: INPUT,
+              realyValue: ''
+            }
+          })
         } else {
           alert(res.error)
         }
+        setIsHardwareTip(false)
       })
       return
     }
@@ -832,14 +841,34 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       tokenETHContract.Swapout(amountVal, address).then(res => {
         console.log(res)
         addTransaction(res)
+        dispatchSwapState({
+          type: 'UPDATE_INDEPENDENT',
+          payload: {
+            value: '',
+            field: INPUT,
+            realyValue: ''
+          }
+        })
+        setIsHardwareTip(false)
       }).catch(err => {
         console.log(err)
+        setIsHardwareTip(false)
       })
     } else {
       tokenContract.Swapout(amountVal, address).then(res => {
-        console.log(res)
+        addTransaction(res)
+        dispatchSwapState({
+          type: 'UPDATE_INDEPENDENT',
+          payload: {
+            value: '',
+            field: INPUT,
+            realyValue: ''
+          }
+        })
+        setIsHardwareTip(false)
       }).catch(err => {
         console.log(err)
+        setIsHardwareTip(false)
       })
     }
   }
