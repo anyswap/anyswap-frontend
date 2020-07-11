@@ -186,7 +186,7 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck="false"
-              placeholder="enter address here"
+              placeholder={t('enterAddress')}
               error={input !== '' && error}
               onChange={onInput}
               value={input}

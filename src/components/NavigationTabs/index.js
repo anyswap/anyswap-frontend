@@ -18,8 +18,8 @@ import CodeIconWhite from '../../assets/images/icon/code-white.svg'
 
 const tabOrder = [
   {
-    path: '',
-    textKey: 'Dashboard',
+    path: '/dashboard',
+    textKey: 'dashboard',
     icon: require('../../assets/images/icon/application.svg'),
     iconActive: require('../../assets/images/icon/application-purpl.svg'),
     regex: /\/dashboard/,
@@ -66,7 +66,7 @@ const tabOrder2 = [
   },
   {
     path: '',
-    textKey: 'ANY Token',
+    textKey: 'ANYToken',
     icon: require('../../assets/images/icon/any.svg'),
     iconActive: require('../../assets/images/icon/any-purpl.svg'),
     regex: /\/anyToken/,

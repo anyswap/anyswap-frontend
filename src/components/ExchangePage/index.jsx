@@ -717,9 +717,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
     let estimate, method, args, value
 
-    if (inputCurrency !== 'FSN') {
-      inputEthPerToken = inputReserveToken && inputReserveETH ? inputReserveETH / inputReserveToken : null
-    }
+    
     // if (config.supportWallet.includes(walletType)) {
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)

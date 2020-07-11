@@ -838,6 +838,9 @@ export default function CurrencyInputPanel({
                   error={!!errorMessage}
                   onClick={() => {
                     extraTextClickHander()
+                    if (isRange) {
+                      setValueRange(100)
+                    }
                   }}
                 >
                   <Tooltip
@@ -854,7 +857,7 @@ export default function CurrencyInputPanel({
                     <ExtraText>
                       {extraText.indexOf('Balance:') === 0 ? (
                         <>
-                          <h5>Balance:</h5>
+                          <h5>{t('balances')}:</h5>
                           <p>{extraText.replace('Balance:', '')}</p>
                         </>
                       ) : (
@@ -1123,7 +1126,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
           <TokenRowRight>
             {balance ? (
               <>
-                <TokenRowBalanceText>Balance</TokenRowBalanceText>
+                <TokenRowBalanceText>{t('balances')}</TokenRowBalanceText>
                 <TokenRowBalance>{balance && (balance > 0 || balance === '<0.0001') ? (balance + ' ' + symbol) : '-'}</TokenRowBalance>
               </>
             ) : account ? (

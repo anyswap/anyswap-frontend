@@ -667,16 +667,16 @@ export default function AddLiquidity({ params }) {
       })
       return
     }
-    if (isNewExchange) {
-      console.log('isNewExchange new')
-      console.log(ethers.constants.Zero.toString())
-      console.log(outputValueParsed.toString())
-    } else {
-      console.log('isNewExchange old')
-      console.log(liquidityTokensMin.toString())
-      console.log(outputValueMax.toString())
-    }
-    console.log(deadline)
+    // if (isNewExchange) {
+    //   console.log('isNewExchange new')
+    //   console.log(ethers.constants.Zero.toString())
+    //   console.log(outputValueParsed.toString())
+    // } else {
+    //   console.log('isNewExchange old')
+    //   console.log(liquidityTokensMin.toString())
+    //   console.log(outputValueMax.toString())
+    // }
+    // console.log(deadline)
     const estimatedGasLimit = await exchangeContract.estimate.addLiquidity(
       isNewExchange ? ethers.constants.Zero : liquidityTokensMin,
       isNewExchange ? outputValueParsed : outputValueMax,

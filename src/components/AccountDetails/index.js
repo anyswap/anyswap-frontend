@@ -18,7 +18,7 @@ import Identicon from '../Identicon'
 import Ledger from '../../assets/images/ledger.png'
 
 import { Link } from '../../theme'
-
+import { useTranslation } from 'react-i18next'
 
 import EditIcon from '../../assets/images/icon/edit.svg'
 import config from '../../config'
@@ -315,6 +315,7 @@ export default function AccountDetails({
 
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
+  const { t } = useTranslation()
   // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   function formatConnectorName() {
     const isMetaMask = window.ethereum && window.ethereum.isMetaMask ? true : false
@@ -325,7 +326,7 @@ export default function AccountDetails({
       )
       .map(k => SUPPORTED_WALLETS[k].name)[0]
     name = walletType ? walletType : name
-    return <WalletName>Connected with {name}</WalletName>
+    return <WalletName>{t("Connectedwith")} {name}</WalletName>
   }
 
   function getStatusIcon() {
@@ -392,7 +393,7 @@ export default function AccountDetails({
         <CloseIcon onClick={toggleWalletModal}>
           <CloseColor alt={'close icon'} />
         </CloseIcon>
-        <HeaderRow>Account</HeaderRow>
+        <HeaderRow>{t('Account')}</HeaderRow>
         <AccountSection>
           <YourAccount>
             <InfoCard>
@@ -405,7 +406,7 @@ export default function AccountDetails({
                         connector.close()
                       }}
                     >
-                      Disconnect
+                      {t('Disconnect')}
                     </WalletAction>
                   )}
                   <CircleWrapper>
@@ -424,7 +425,7 @@ export default function AccountDetails({
                         sessionStorage.setItem('HDPath', '')
                       }}
                     >
-                      <img src={EditIcon} style={{marginRight: '8px'}}/>Change
+                      <img src={EditIcon} style={{marginRight: '8px'}}/>{t("Change")}
                     </OptionButton>
                   </ConnectButtonRow>
                 )}
@@ -433,7 +434,7 @@ export default function AccountDetails({
                 {ENSName ? (
                   <AccountControl hasENS={!!ENSName} isENS={true}>
                     <StyledLink hasENS={!!ENSName} isENS={true} href={getEtherscanLink(chainId, ENSName, 'address')}>
-                      <Identicon size={26} /><span style={{marginLeft: '15px'}}>Address: </span>{ENSName ? (
+                      <Identicon size={26} /><span style={{marginLeft: '15px'}}>{t('Address')}: </span>{ENSName ? (
                         ENSName
                       ) : ('')} ↗{' '}
                       <Copy toCopy={ENSName} />
@@ -444,7 +445,7 @@ export default function AccountDetails({
                     <AccountControl hasENS={!!ENSName} isENS={false}>
                       <StyledLink hasENS={!!ENSName} isENS={false} href={getEtherscanLink(chainId, account, 'address')}>
                         <Identicon size={26} />
-                        <span style={{marginLeft: '15px'}}>Address: </span>
+                        <span style={{marginLeft: '15px'}}>{t('Address')}: </span>
                         {account ? (
                           account
                         ) : ('')} ↗{' '}
@@ -475,13 +476,13 @@ export default function AccountDetails({
       </UpperSection>
       {!!pendingTransactions.length || !!confirmedTransactions.length ? (
         <LowerSection>
-          <h5>Recent Transactions</h5>
+          <h5>{t("RecentTxns")}</h5>
           {renderTransactions(pendingTransactions, true)}
           {renderTransactions(confirmedTransactions, false)}
         </LowerSection>
       ) : (
         <LowerSection>
-          <h5>Your transactions will appear here...</h5>
+          <h5>{t("txnsHere")}</h5>
         </LowerSection>
       )}
     </>

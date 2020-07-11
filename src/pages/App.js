@@ -17,6 +17,7 @@ const Swap = lazy(() => import('./Swap'))
 const Send = lazy(() => import('./Send'))
 const Pool = lazy(() => import('./Pool'))
 const Bridge = lazy(() => import('./Bridge'))
+const Dashboard = lazy(() => import('./Dashboard'))
 
 const AppWrapper = styled.div`
   display: flex;
@@ -145,18 +146,7 @@ export default function App() {
                           component={() => <Pool params={params} />}
                         />
                         <Route exact strict path="/bridge" component={() => <Bridge params={params} />} />
-                        <Route
-                          exact
-                          strict
-                          path="/send/:tokenAddress?"
-                          render={({ match }) => {
-                            if (isAddress(match.params.tokenAddress)) {
-                              return <Bridge initialCurrency={isAddress(match.params.tokenAddress)} params={params} />
-                            } else {
-                              return <Redirect to={{ pathname: '/bridge' }} />
-                            }
-                          }}
-                        />
+                        <Route exact strict path="/dashboard" component={() => <Dashboard/>} />
                         <Redirect to="/swap" />
                       </Switch>
                     </ContentBox>

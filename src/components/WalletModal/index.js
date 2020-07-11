@@ -284,7 +284,6 @@ const HDpathListBox = styled.ul`
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     border-left: 1px solid rgba(0, 0, 0, 0.04);
     cursor:pointer;
-
     
     &.active {
       border: 1px solid #734be2;
@@ -325,6 +324,10 @@ const HardwareAddrBox = styled.ul`
     color: #96989e;
     padding: 10px 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    cursor:pointer;
+    :hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
     .left {
       ${({theme}) => theme.FlexSC};
       .icon {
