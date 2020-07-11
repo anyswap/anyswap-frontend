@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react'
+import React, { useState, useRef, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ethers } from 'ethers'
@@ -690,6 +690,10 @@ export default function CurrencyInputPanel({
   }
 
   const [valueRange, setValueRange] = useState('')
+  useEffect(() => {
+    let _val = (Number(tokenBalance.toString()) * valueRange) / 100
+    onValueChange(_val + '')
+  }, [valueRange])
 
   function _renderInput() {
     if (typeof renderInput === 'function') {
@@ -713,10 +717,11 @@ export default function CurrencyInputPanel({
                     error={!!errorMessage}
                     placeholder="0.0"
                     onChange={e => {
-                      let _val = (Number(tokenBalance.toString()) * e.target.value) / 100
-                      let _val2 = tokenBalance ? ((Number(value) / Number(tokenBalance.toString())) *100).toFixed(2) : ''
-                      onValueChange(_val + '')
-                      setValueRange(_val2)
+                      // let _val = (Number(tokenBalance.toString()) * e.target.value) / 100
+                      // onValueChange(_val + '')
+                      // let _val2 = tokenBalance ? ((Number(value) / Number(tokenBalance.toString())) *100).toFixed(2) : ''
+                      // console.log(_val2)
+                      setValueRange(Number(e.target.value).toFixed(2))
                     }}
                     onKeyPress={e => {
                       const charCode = e.which ? e.which : e.keyCode
@@ -738,9 +743,9 @@ export default function CurrencyInputPanel({
                   placeholder="0.0"
                   value={valueRange}
                   onChange={e => {
-                    let _val = (Number(tokenBalance.toString()) * e.target.value) / 100
+                    // let _val = (Number(tokenBalance.toString()) * e.target.value) / 100
                     let _val2 = tokenBalance && e.target.value ? Number(e.target.value) : ''
-                    onValueChange(_val + '')
+                    // onValueChange(_val + '')
                     _val2 = _val2 > 100 ? 100 : Number(_val2)
                     setValueRange(_val2)
                   }}

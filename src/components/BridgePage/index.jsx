@@ -59,6 +59,14 @@ const DownArrowBackground = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   justify-content: center;
   align-items: center;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  margin: 3px auto;
+  background: rgba(255,255,255,.3);
+  cursor:pointer;
 `
 
 // const WrappedArrowDown = ({ clickable, active, ...rest }) => <ArrowDown {...rest} />
@@ -1028,13 +1036,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           })
         }}
         onValueChange={inputValue => {
-          console.log(inputBalanceFormatted)
+          // console.log(inputBalanceFormatted)
           let inputVal = inputValue && swapInfo && (swapInfo.SwapFeeRate || swapInfo.SwapFeeRate === 0)
             ? Number(( Number(inputValue) * (1 - Number(swapInfo.SwapFeeRate)) ).toFixed(Math.min(8, inputDecimals)))
             : 0
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
-            payload: { value: inputValue, field: INPUT, realyValue: inputVal }
+            payload: { value: inputValue, field: INPUT, realyValue: bridgeType && bridgeType === 'redeem' ? inputVal : inputValue}
           })
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && inputSymbol.replace('m', ''))}
@@ -1049,10 +1057,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // errorMessage={bridgeType === 'mint' ? '' : (inputError ? inputError : ( independentField === INPUT ? independentError : '') )}
       />
       <OversizedPanel>
-        <DownArrowBackground>
-          <DownArrow onClick={changeMorR} clickable alt="swap" >
+        <DownArrowBackground  onClick={changeMorR}>
           <img src={ResertSvg} />
-          </DownArrow>
         </DownArrowBackground>
       </OversizedPanel>
       <CurrencyInputPanel
@@ -1076,11 +1082,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         hideETH={true}
         selfUseAllToken={selfUseAllToken}
       />
-      {/* <OversizedPanel>
-        <DownArrowBackground>
-          <DownArrow clickable alt="swap" />
-        </DownArrowBackground>
-      </OversizedPanel> */}
       {bridgeType && bridgeType === 'redeem' ? (
         <>
           <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>

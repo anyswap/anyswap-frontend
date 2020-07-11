@@ -57,6 +57,14 @@ const DownArrowBackground = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   justify-content: center;
   align-items: center;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  margin: 3px auto;
+  background: rgba(255,255,255,.3);
+  cursor:pointer;
 `
 
 // const WrappedArrowDown = ({ clickable, active, ...rest }) => <ArrowDown {...rest} />
@@ -1049,7 +1057,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         errorMessage={inputError ? inputError : independentField === INPUT ? independentError : ''}
       />
       <OversizedPanel>
-        <DownArrowBackground>
+        {/* <DownArrowBackground>
           <DownArrow
             onClick={() => {
               dispatchSwapState({ type: 'FLIP_INDEPENDENT' })
@@ -1060,6 +1068,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           >
           <img src={ResertSvg} />
           </DownArrow>
+        </DownArrowBackground> */}
+        <DownArrowBackground  onClick={() => {
+          dispatchSwapState({ type: 'FLIP_INDEPENDENT' })
+        }}>
+          <img src={ResertSvg} />
         </DownArrowBackground>
       </OversizedPanel>
       <CurrencyInputPanel
