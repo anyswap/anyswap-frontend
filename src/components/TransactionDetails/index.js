@@ -463,7 +463,7 @@ export default function TransactionDetails(props) {
         {renderTransactionDetails()}
         <SlippageSelector>
           <SlippageRow>
-            <BigTitle>Limit additional price slippage</BigTitle>
+            <BigTitle>{t("LimitPrice")}</BigTitle>
             <QuestionWrapper
               onClick={() => {
                 setPopup(!showPopup)
@@ -479,8 +479,7 @@ export default function TransactionDetails(props) {
             </QuestionWrapper>
             {showPopup ? (
               <Popup>
-                Lowering this limit decreases your risk of frontrunning. However, this makes it more likely that your
-                transaction will fail due to normal price movements.
+                {t("LoweringTip1")}
               </Popup>
             ) : (
               ''
@@ -501,7 +500,7 @@ export default function TransactionDetails(props) {
               }}
               active={activeIndex === 2}
             >
-              0.5% <Faded>(suggested)</Faded>
+              0.5% <Faded>({t("suggested")})</Faded>
             </OptionLarge>
             <Option
               onClick={() => {
@@ -578,16 +577,16 @@ export default function TransactionDetails(props) {
                   : ''
               }
             >
-              {activeIndex === 4 && warningType.toString() === 'none' && 'Custom slippage value'}
-              {warningType === WARNING_TYPE.emptyInput && 'Enter a slippage percentage'}
-              {warningType === WARNING_TYPE.invalidEntryBound && 'Please select a value no greater than 50%'}
-              {warningType === WARNING_TYPE.riskyEntryHigh && 'Your transaction may be frontrun'}
-              {warningType === WARNING_TYPE.riskyEntryLow && 'Your transaction may fail'}
+              {activeIndex === 4 && warningType.toString() === 'none' && t('CustomSlippageValue')}
+              {warningType === WARNING_TYPE.emptyInput && t('EnterSlippagePercentage')}
+              {warningType === WARNING_TYPE.invalidEntryBound && t('SelectValueThan')}
+              {warningType === WARNING_TYPE.riskyEntryHigh && t('TransactionFrontrun')}
+              {warningType === WARNING_TYPE.riskyEntryLow && t('TransactionMayFail')}
             </BottomError>
           </SlippageRow>
         </SlippageSelector>
         <DeadlineSelector>
-          <BigTitle>Set swap deadline (minutes from now)</BigTitle>
+          <BigTitle>{t("setSwap")}</BigTitle>
           <DeadlineRow wrap>
             <DeadlineInput>
               <InputMin placeholder={'Deadline'} value={deadlineInput} onChange={parseDeadlineInput} /> min

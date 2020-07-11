@@ -44,7 +44,16 @@
   "txnsHere":"您的交易将出现在这里...",
   "Change":"切换账户",
   "Connectedwith":"连接到",
+  "LimitPrice":"限制额外价格下滑",
+  "LoweringTip1":"降低这个限制可以降低你领先的风险。然而，这使得你的交易更有可能由于正常的价格变动而失败。",
+  "suggested":"建议",
+  "setSwap":"设置交换截止日期(几分钟后)",
   "Percentage": "占比",
+  "CustomSlippageValue":"自定义滑移值",
+  "EnterSlippagePercentage":"输入下滑百分比",
+  "SelectValueThan":"请选择一个不大于50%的值",
+  "TransactionFrontrun":"你的交易可能是正常的",
+  "TransactionMayFail":"您的交易可能失败",
   "deposit1": "充值",
   "estimated": "估计",
   "balance": "余额: {{ balanceInput }}",
@@ -108,5 +117,7 @@
   "tokenAddress": "代币地址",
   "label": "代币符号",
   "decimals": "小数位数",
-  "enterTokenCont": "输入代币地址并继续"
+  "enterTokenCont": "输入代币地址并继续",
+  "priceChange": "预期价格下滑",
+  "forAtLeast": "至少 "
 }
