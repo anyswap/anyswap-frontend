@@ -1,4 +1,6 @@
 {
+  "onTestnet":"当前是",
+  "onTestnet1":"测试网",
   "noWallet": "未发现钱包",
   "wrongNetwork": "网络错误",
   "switchNetwork": "请切换到 {{ correctNetwork }}",
@@ -6,6 +8,7 @@
   "installMetamask": "请从安装了 Metamask 插件的 Chrome 或 Brave 访问。",
   "disconnected": "未连接",
   "swap": "兑换",
+  "swapAnyway": "仍然兑换",
   "send": "发送",
   "connectToWallet": "打开钱包",
   "pool": "资金池",

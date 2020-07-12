@@ -1,4 +1,6 @@
 {
+	"onTestnet":"You are on",
+  "onTestnet1":"Testnet",
 	"noWallet": "Không tìm thấy ví tiền Fusion",
 	"wrongNetwork": "Kết nối mạng không đúng",
 	"switchNetwork": "Vui lòng chuyển sang {{ correctNetwork }}",

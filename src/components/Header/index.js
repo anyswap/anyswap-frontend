@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import Web3Status from '../Web3Status'
 import { transparentize } from 'polished'
 import { darken } from 'polished'
+import { useTranslation } from 'react-i18next'
 
 import {ReactComponent as ANYLogo} from '../../assets/images/logo.svg'
 
@@ -62,12 +63,32 @@ const StyleAnyLogo = styled(ANYLogo)`
 // `
 
 const HeaderElement = styled.div`
-  display: flex;
+  ${({ theme }) => theme.FlexC};
   min-width: 0;
-  align-items: center;
   padding:14px 0;
 `
-
+const NetworkBox  = styled.div`
+${({ theme }) => theme.FlexC};
+  height: 36px;
+  object-fit: contain;
+  border-radius: 9px;
+  background-color: #f6f4ff;
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  color: #031a6e;
+  white-space:nowrap;
+  padding: 0 15px;
+  margin-right: 15px;
+  span {
+    font-weight: bold;
+    margin-left:10px;
+  }
+`
 // const Nod = styled.span`
 //   transform: rotate(0deg);
 //   transition: transform 150ms ease-out;
@@ -130,6 +151,7 @@ const HeaderElement = styled.div`
 // `
 
 export default function Header() {
+  const { t } = useTranslation()
   return (
     <HeaderFrame>
       {/* <MigrateBannerSmall>
@@ -169,6 +191,10 @@ export default function Header() {
           </TestnetWrapper> */}
         </HeaderElement>
         <HeaderElement>
+          <NetworkBox>
+            {/* You are on <span>Testnet</span> */}
+            {t('onTestnet')} <span>{t('onTestnet1')}</span>
+          </NetworkBox>
           <Web3Status />
         </HeaderElement>
       </HeaderSpan>

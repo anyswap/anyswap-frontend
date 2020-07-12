@@ -1,4 +1,6 @@
 {
+	"onTestnet":"You are on",
+  "onTestnet1":"Testnet",
   "noWallet": "Wallet Fusion non trovato",
   "wrongNetwork": "Sei connesso alla rete sbagliata",
   "switchNetwork": "Perfavore connettiti su {{ correctNetwork }}",

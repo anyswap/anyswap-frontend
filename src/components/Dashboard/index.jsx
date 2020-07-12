@@ -154,6 +154,7 @@ p {
   color: #031a6e;
   span {
     font-weight:bold;
+    margin-left:5px;
   }
 }
 `
@@ -657,6 +658,15 @@ export default function DashboardDtil () {
   const FSNPER = getFSNper()
   const poolTokenBalance = [
     {
+      name: 'Anyswap',
+      symbol: 'ANY',
+      address: '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4',
+      decimals: 18,
+      balance: tokenShareANY,
+      // percent: poolTokenPercentageANY ? poolTokenPercentageANY.toString() : '0'
+      percent: poolTokenPercentageANY
+    },
+    {
       name: 'Fusion',
       symbol: 'FSN',
       address: 'FSN',
@@ -672,15 +682,6 @@ export default function DashboardDtil () {
       balance: tokenShareBTC,
       // percent: poolTokenPercentageBTC ? poolTokenPercentageBTC.toString() : '0'
       percent: poolTokenPercentageBTC
-    },
-    {
-      name: 'Anyswap',
-      symbol: 'ANY',
-      address: '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4',
-      decimals: 18,
-      balance: tokenShareANY,
-      // percent: poolTokenPercentageANY ? poolTokenPercentageANY.toString() : '0'
-      percent: poolTokenPercentageANY
     },
     {
       name: 'Ethereum',
@@ -799,7 +800,7 @@ export default function DashboardDtil () {
     // if (!account) return
     const myAccount = account ? allBalances[account] : ''
     
-    const tokenList = Object.keys(allTokens).map(k => {
+    let tokenList = Object.keys(allTokens).map(k => {
       // console.log(k)
       let balance = '-'
       // only update if we have data
@@ -815,6 +816,16 @@ export default function DashboardDtil () {
         balance: balance,
       }
     })
+    // console.log(tokenList)
+    let ANYItem = {}
+    for (let i = 0,len = tokenList.length; i < len; i++) {
+      if (tokenList[i].symbol === 'ANY') {
+        ANYItem = tokenList[i]
+        tokenList.splice(i, 1)
+        break
+      }
+    }
+    tokenList.unshift(ANYItem)
     return (
         <TokenTableBox>
           {
@@ -883,11 +894,11 @@ export default function DashboardDtil () {
       <WrapperBox>
         <EarningsBox>
           <div className='bgImg'><img src={AnyillustrationIcon} /></div>
-          <h3>2,245.05 ANY</h3>
+          <h3>{account ? '2,245.05' : '0.00'} ANY</h3>
           <p>{t('Accumulated')}</p>
           <div className='txt'>
             <img src={GraphUpIcon} />
-            <span>+12%</span>
+            <span>{account ? '+12' : '0.00'}%</span>
             {t('last7Day')}
           </div>
         </EarningsBox>

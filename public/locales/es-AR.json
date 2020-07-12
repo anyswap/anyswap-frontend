@@ -1,4 +1,6 @@
 {
+	"onTestnet":"You are on",
+  "onTestnet1":"Testnet",
 	"noWallet": "No se encontró billetera de Fusion",
 	"wrongNetwork": "Te encontrás en la red equivocada",
 	"switchNetwork": "Por favor cambia a {{ correctNetwork }}",
@@ -6,6 +8,7 @@
 	"installMetamask": "Por favor visítanos nuevamente luego de instalar Metamask en Chrome o Brave.",
 	"disconnected": "Desconectado",
 	"swap": "Intercambiar",
+  "swapAnyway": "Swap Anyway",
 	"send": "Enviar",
   "connectToWallet": "Connect to a Wallet",
 	"pool": "Pool",

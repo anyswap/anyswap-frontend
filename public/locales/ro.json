@@ -1,4 +1,6 @@
 {
+	"onTestnet":"You are on",
+  "onTestnet1":"Testnet",
   "noWallet": "Niciun portofel Fusion găsit",
   "wrongNetwork": "Nu ești conectat la rețeaua corectă",
   "switchNetwork": "Conectează-te te rog la {{ correctNetwork }}",
@@ -6,6 +8,7 @@
   "installMetamask": "Vizitează această pagină din nou după ce instalezi MetaMask în Chrome sau Brave",
   "disconnected": "Deconectat",
   "swap": "Schimba",
+  "swapAnyway": "Swap Anyway",
   "send": "Trimite",
   "connectToWallet": "Connect to a Wallet",
   "pool": "Extrage",
