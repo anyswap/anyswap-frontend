@@ -63,9 +63,7 @@ const DownArrowBackground = styled.div`
   height: 32px;
   object-fit: contain;
   border-radius: 6px;
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
   margin: 3px auto;
-  background: rgba(255,255,255,.3);
   cursor:pointer;
 `
 

@@ -662,7 +662,7 @@ export default function DashboardDtil () {
       address: 'FSN',
       decimals: 18,
       balance: useAddressBalance(account, 'FSN'),
-      percent: ''
+      percent: poolTokenPercentageANY
     },
     {
       name: 'SMPC Bitcoin',
@@ -743,7 +743,7 @@ export default function DashboardDtil () {
     return ((val / allVal) * 100).toFixed(2) + '%'
   }
   function getPoolToken () {
-    if (!account) return
+    // if (!account) return
     // console.log(tokenPoolList)
     return (
       <MyBalanceTokenBox1>
@@ -781,7 +781,7 @@ export default function DashboardDtil () {
                     <TokenBalanceBox>
                       <h3>{t("Percentage")}</h3>
                       <p>{
-                        item.percent ? amountFormatter(item.percent, 16, 2) : (item.symbol === 'FSN' ? FSNPER : '-')
+                        item.percent ? amountFormatter(item.percent, 16, 2) : (item.symbol === 'FSN' && account ? FSNPER : '-')
                         } %</p>
                     </TokenBalanceBox>
                   </TokenTableList>
@@ -796,12 +796,12 @@ export default function DashboardDtil () {
     )
   }
   function getMyAccount () {
-    if (!account) return
-    const myAccount = allBalances[account]
+    // if (!account) return
+    const myAccount = account ? allBalances[account] : ''
     
     const tokenList = Object.keys(allTokens).map(k => {
       // console.log(k)
-      let balance
+      let balance = '-'
       // only update if we have data
       if (k === 'FSN' && myAccount && myAccount && myAccount[k].value) {
         balance = formatEthBalance(ethers.utils.bigNumberify(myAccount[k].value))

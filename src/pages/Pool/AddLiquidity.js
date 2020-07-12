@@ -172,9 +172,7 @@ const DownArrowBackground = styled.div`
   height: 32px;
   object-fit: contain;
   border-radius: 6px;
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
   margin: 3px auto;
-  background: rgba(255,255,255,.3)
 `
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
@@ -915,6 +913,7 @@ export default function AddLiquidity({ params }) {
         title={t('deposit')}
         extraText={inputBalance && formatBalance(amountFormatter(inputBalance, 18, 4))}
         onValueChange={inputValue => {
+          inputValue = inputValue ? inputValue : ''
           dispatchAddLiquidityState({ type: 'UPDATE_VALUE', payload: { value: inputValue, field: INPUT } })
         }}
         extraTextClickHander={() => {

@@ -76,6 +76,8 @@
   "unlockTokenCont": "Te rog deblochează tokenul pentru a continua.",
   "transactionDetails": "Detalii Tranzacții",
   "hideDetails": "Ascunde Detaili",
+  "slippageWarning": "Slippage Warning",
+	"highSlippageWarning": "High Slippage Warning",
   "youAreSelling": "Vinzi",
   "orTransFail": "sau tranzacția va eșua.",
   "youWillReceive": "Vei primi cel puțin",

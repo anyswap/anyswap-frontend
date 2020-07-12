@@ -66,9 +66,7 @@ const DownArrowBackground = styled.div`
   height: 32px;
   object-fit: contain;
   border-radius: 6px;
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
   margin: 3px auto;
-  background: rgba(255,255,255,.3)
 `
 
 const DownArrow = styled(ArrowDown)`
@@ -461,7 +459,7 @@ export default function RemoveLiquidity({ params }) {
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
-      setHardwareTxnsInfo('')
+      setHardwareTxnsInfo(`${amountFormatter(ethWithdrawn, 18, 4, false)} FSN` + ' + ' + `${amountFormatter(tokenWithdrawn, decimals, Math.min(4, decimals))} ${symbol}`)
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
 
       let data = web3Contract.removeLiquidity.getData(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline)

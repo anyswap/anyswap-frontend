@@ -75,6 +75,8 @@
   "unlockTokenCont": "Пожалуйста, разблокируйте токен, чтобы продолжить.",
   "transactionDetails": "Детали транзакции",
   "hideDetails": "Скрыть подробности",
+  "slippageWarning": "Slippage Warning",
+	"highSlippageWarning": "High Slippage Warning",
   "youAreSelling": "Вы продаете",
   "orTransFail": "или транзакция будет отклонена.",
   "youWillReceive": "Вы получите как минимум",

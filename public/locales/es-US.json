@@ -76,6 +76,8 @@
 	"unlockTokenCont": "Por favor desbloquea un token para continuar.",
 	"transactionDetails": "Detalles de la transacción",
 	"hideDetails": "Ocultar detalles",
+  "slippageWarning": "Slippage Warning",
+	"highSlippageWarning": "High Slippage Warning",
 	"youAreSelling": "Está vendiendo",
 	"orTransFail": "o la transacción fallará.",
 	"youWillReceive": "Va a recibir al menos",

@@ -582,7 +582,7 @@ export default function CurrencyInputPanel({
   disableTokenSelect,
   selectedTokenAddress = '',
   showUnlock,
-  value,
+  value = '',
   urlAddedTokens,
   hideETH = false,
   isSelfSymbol,
@@ -691,15 +691,17 @@ export default function CurrencyInputPanel({
 
   const [valueRange, setValueRange] = useState('')
   useEffect(() => {
-    let _val = (Number(tokenBalance.toString()) * valueRange) / 100
-    onValueChange(_val + '')
+    if (isRange) {
+      let _val = (Number(tokenBalance.toString()) * valueRange) / 100
+      _val = _val !== '' ? _val : ''
+      onValueChange(_val + '')
+    }
   }, [valueRange])
 
   function _renderInput() {
     if (typeof renderInput === 'function') {
       return renderInput()
     }
-
     return (
       <>
         <InputRow>

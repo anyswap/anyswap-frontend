@@ -190,9 +190,9 @@ export default function HardwareTip({
                     <TxnsInfoText>{txnsInfo}</TxnsInfoText>
                   ) : (<></>)}
                   {/* <SpinnerWrapper src={Circle} alt="loader" /> */}
-                  {coinType ? (
+                  {/* {coinType ? (
                     <CoinTypeText size={'16px'}>{t("Collecting")} {coinType}</CoinTypeText>
-                  ) : (<></>)}
+                  ) : (<></>)} */}
                   
                   <ConfirmText size={'12px'}>
                     {t("confirmHardware")}
