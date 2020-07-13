@@ -144,9 +144,9 @@ const theme = darkMode => ({
 
 export const GlobalStyle = createGlobalStyle`
   @import url('https://rsms.me/inter/inter.css');
-  html { font-family: 'Inter', sans-serif; }
+  html { font-family: 'Manrope', 'Inter', sans-serif; }
   @supports (font-variation-settings: normal) {
-    html { font-family: 'Inter var', sans-serif; }
+    html { font-family: 'Manrope';, sans-serif; }
   }
   *{box-sizing: border-box;}
   html,

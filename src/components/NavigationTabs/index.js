@@ -120,12 +120,17 @@ const BetaMessage = styled.div`
 `
 
 const Tabs = styled.div`
-  ${({ theme }) => theme.flexColumnNoWrap}
   align-items: center;
   margin-bottom: 10px;
   width:100%;
   padding: 25px 25px 0px;
   box-sizing: border-box;
+  
+  @media screen and (max-width: 960px) {
+    ${({ theme }) => theme.FlexBC};
+    padding: 8px 5px;
+    margin:0;
+  }
 `
 
 const Tabs2  = styled.div`
@@ -137,6 +142,9 @@ const Tabs2  = styled.div`
   box-sizing: border-box;
   border-top: 1px solid  rgba(0, 0, 0, 0.06);
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  @media screen and (max-width: 960px) {
+    display:none;
+  }
 `
 
 const activeClassName = 'ACTIVE'
@@ -248,6 +256,14 @@ const StyledNavLink = styled(NavLink).attrs({
     top: 14px;
     right:15px;
   }
+  @media screen and (max-width: 960px) {
+    ${({theme}) => theme.FlexC};
+    width: 20%;
+    margin::0;
+    .icon {
+      display:none;
+    }
+  }
 `
 
 const OutLink = styled.div`
@@ -255,6 +271,9 @@ padding-left: 44px;
 `
 const OutLinkImgBox = styled.div`
   ${({theme}) => theme.FlexSC};
+  @media screen and (max-width: 960px) {
+    display:none;
+  }
 `
 const OutLinkImg = styled.div`
   ${({theme}) => theme.FlexC};
@@ -299,6 +318,9 @@ const CopyRightBox = styled.div`
     color: #96989e;
     margin-top:6px;
     margin-bottom:0;
+  }
+  @media screen and (max-width: 960px) {
+    display:none;
   }
 `
 const NavListTab =  styled(NavLink).attrs({

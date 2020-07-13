@@ -738,13 +738,13 @@ export const INITIAL_TOKENS_CONTEXT = {
       [EXCHANGE_ADDRESS]: '0x4dee5f0705ff478b452419375610155b5873ef5b'
     },
     '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88': { // mETH
-      [NAME]: 'Ethereum',
+      [NAME]: 'SMPC Ethereum',
       [SYMBOL]: 'mETH',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x9ab217c352b4122128d0024219f06e3503a8c7eb'
     },
     '0x19543338473caaa6f404dbe540bb787f389d5462': { // mUSDT
-      [NAME]: 'Tether',
+      [NAME]: 'SMPC Tether',
       [SYMBOL]: 'mUSDT',
       [DECIMALS]: 6,
       [EXCHANGE_ADDRESS]: '0x763858d914ebc7936977ab7c93b7331cea77b37c'

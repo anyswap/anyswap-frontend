@@ -715,7 +715,7 @@ export default function RemoveLiquidity({ params }) {
         <SummaryPanel>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('exchangeRate')}：</ExchangeRate>
-            {marketRate ? <span>{`1 FSN = ${amountFormatter(marketRate, 18, 4)} ${symbol}`}</span> : ' - '}
+            {marketRate ? <span>{`1 FSN = ${amountFormatter(marketRate, 18, 6)} ${symbol}`}</span> : ' - '}
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('currentPoolSize')}：</ExchangeRate>
@@ -723,7 +723,7 @@ export default function RemoveLiquidity({ params }) {
               <span>{`${amountFormatter(exchangeETHBalance, 18, 4)} FSN + ${amountFormatter(
                 exchangeTokenBalance,
                 decimals,
-                Math.min(decimals, 4)
+                Math.min(decimals, 6)
               )} ${symbol}`}</span>
             ) : (
               ' - '
@@ -735,10 +735,10 @@ export default function RemoveLiquidity({ params }) {
             </ExchangeRate>
             {ETHOwnShare && TokenOwnShare ? (
               <span>
-                {`${amountFormatter(ETHOwnShare, 18, 4)} FSN + ${amountFormatter(
+                {`${amountFormatter(ETHOwnShare, 18, 6)} FSN + ${amountFormatter(
                   TokenOwnShare,
                   decimals,
-                  Math.min(decimals, 4)
+                  Math.min(decimals, 6)
                 )} ${symbol}`}
               </span>
             ) : (

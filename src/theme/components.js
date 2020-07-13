@@ -44,6 +44,9 @@ export const TitleBox = styled.h3`
   margin: 0 0 16px;
   color: ${({ theme }) => theme.textColorBold};
   white-space:nowrap;
+  @media screen and (max-width: 960px) {
+    display:none;
+  }
 `
 
 export const Link = styled.a.attrs({

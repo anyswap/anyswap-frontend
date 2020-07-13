@@ -57,9 +57,12 @@ const Body = styled.div`
   position:relative;
   padding-left: 322px;
   box-sizing: border-box;
+  @media screen and (max-width: 960px) {
+    padding-left: 0;
+  }
 `
 
-const NavTabBox = styled.div`
+const NavTabBoxLeft = styled.div`
   position: absolute;
   left: 0;
   top:0;
@@ -70,8 +73,25 @@ const NavTabBox = styled.div`
   overflow:auto;
   box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
   background: ${({theme}) => theme.bgColor};
+  @media screen and (max-width: 960px) {
+    display:none;
+  }
 `
-
+const NavTabBoxBottom = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100;
+  height: auto;
+  overflow:auto;
+  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  background: ${({theme}) => theme.bgColor};
+  display:none;
+  @media screen and (max-width: 960px) {
+    display:block;
+  }
+`
 const ContentBox = styled.div`
   position: absolute;
   left: 322px;
@@ -81,6 +101,12 @@ const ContentBox = styled.div`
   padding: 40px 97px;
   background: ${({theme}) => theme.backgroundColorCont};
   overflow:auto;
+  @media screen and (max-width: 960px) {
+    width: 100%;
+    height: auto;
+    padding: 20px 15px 86px;
+    left:  0;
+  }
 `
 
 export default function App() {
@@ -96,9 +122,9 @@ export default function App() {
             <Body>
               <Web3ReactManager>
                 <BrowserRouter  history={ browserHistory }>
-                  <NavTabBox>
+                  <NavTabBoxLeft>
                     <NavigationTabs />
-                  </NavTabBox>
+                  </NavTabBoxLeft>
                   {/* this Suspense is for route code-splitting */}
                   <Suspense fallback={null}>
                     <ContentBox>
@@ -151,6 +177,9 @@ export default function App() {
                       </Switch>
                     </ContentBox>
                   </Suspense>
+                  <NavTabBoxBottom>
+                    <NavigationTabs />
+                  </NavTabBoxBottom>
                 </BrowserRouter>
               </Web3ReactManager>
             </Body>

@@ -33,7 +33,7 @@ const LabelRow = styled.div`
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
   line-height: 1rem;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 0;
 `
 
 const LabelContainer = styled.div`
@@ -47,7 +47,7 @@ const LabelContainer = styled.div`
 const InputRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
-  padding: 0.25rem 0.85rem 0.75rem;
+  padding: 0.25rem 0rem 0.75rem;
 `
 
 const Input = styled.input`

@@ -730,19 +730,6 @@ export default function DashboardDtil () {
     )
   }
 
-
-  function getPercent (val) {
-    let allVal = 0
-    for (let obj of poolTokenBalance) {
-      try {
-        allVal += Number(formatTokenBalance(ethers.utils.bigNumberify(obj.balance), obj.decimals))
-      } catch (error) {
-        
-      }
-    }
-    if (!allVal) return '0.00'
-    return ((val / allVal) * 100).toFixed(2) + '%'
-  }
   function getPoolToken () {
     // if (!account) return
     // console.log(tokenPoolList)
@@ -772,7 +759,7 @@ export default function DashboardDtil () {
                         amountFormatter(
                           item.balance,
                           item.decimals,
-                          Math.min(4, item.decimals)
+                          Math.min(6, item.decimals)
                         )
                       ) : '-'}</p>
                       {/* <p>{item.balance ? (

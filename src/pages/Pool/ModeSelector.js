@@ -144,6 +144,11 @@ const StyledNavLink = styled(NavLink).attrs({
       background: #734be2;
     }
   }
+  @media screen and (max-width: 960px) {
+    .icon {
+      display:none;
+    }
+  }
 `
 const TitleBoxPool = styled(TitleBox)`
 margin-bottom: 0;

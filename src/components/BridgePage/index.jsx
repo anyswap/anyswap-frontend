@@ -538,11 +538,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const swapType = getSwapType(inputCurrency, outputCurrency)
 
   // get decimals and exchange address for each of the currency types
-  const { symbol: inputSymbol, decimals: inputDecimals, exchangeAddress: inputExchangeAddress } = useTokenDetails(
+  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName } = useTokenDetails(
     inputCurrency
   )
+
   // console.log(inputSymbol)
-  const { symbol: outputSymbol, decimals: outputDecimals, exchangeAddress: outputExchangeAddress } = useTokenDetails(
+  const {  decimals: outputDecimals} = useTokenDetails(
     outputCurrency
   )
 
@@ -1045,6 +1046,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && inputSymbol.replace('m', ''))}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && inputSymbol.replace('m', ''))}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : inputName.replace('SMPC ', '')}
         showUnlock={false}
         selectedTokens={[inputCurrency, outputCurrency]}
         selectedTokenAddress={inputCurrency}
@@ -1072,6 +1074,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace('m', '') : inputSymbol}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace('m', '') : ''}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? inputName.replace('SMPC ', '') : ''}
         showUnlock={false}
         disableUnlock={true}
         selectedTokens={[inputCurrency, outputCurrency]}

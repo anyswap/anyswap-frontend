@@ -504,7 +504,7 @@ export default function AddLiquidity({ params }) {
               `1 FSN = ${amountFormatter(
                 getMarketRate(inputValueParsed, outputValueParsed, decimals),
                 18,
-                4,
+                6,
                 false
               )} ${symbol}`
             )}
@@ -523,27 +523,27 @@ export default function AddLiquidity({ params }) {
           <div className='icon'>
             <img src={AddTwoBlackIcon} />
           </div>
-            {t('youAreAdding')} {b(`${amountFormatter(inputValueParsed, 18, 4)} FSN`)} {t('and')} {'at most'}{' '}
-            {b(`${amountFormatter(outputValueMax, decimals, Math.min(decimals, 4))} ${symbol}`)} {t('intoPool')}
+            {t('youAreAdding')} {b(`${amountFormatter(inputValueParsed, 18, 6)} FSN`)} {t('and')} {'at most'}{' '}
+            {b(`${amountFormatter(outputValueMax, decimals, Math.min(decimals, 6))} ${symbol}`)} {t('intoPool')}
           </LastSummaryText>
           <LastSummaryText>
           <div className='icon'>
             <img src={MintMlackIcon} />
           </div>
-            {t('youWillMint')} {b(amountFormatter(liquidityMinted, 18, 4))} {t('liquidityTokens')}
+            {t('youWillMint')} {b(amountFormatter(liquidityMinted, 18, 6))} {t('liquidityTokens')}
           </LastSummaryText>
           <LastSummaryText>
           <div className='icon'>
             <img src={WeekIcon} />
           </div>
-            {t('totalSupplyIs')} {b(amountFormatter(totalPoolTokens, 18, 4))}
+            {t('totalSupplyIs')} {b(amountFormatter(totalPoolTokens, 18, 6))}
           </LastSummaryText>
           <LastSummaryText1>
             {t('tokenWorth')}
             <LogoBox><img src={FSNLogo}/></LogoBox>
-            <CoinInfoBox>{amountFormatter(ethPerLiquidityToken, 18, 4) + ' '} FSN </CoinInfoBox>{t('and')}{' '}
+            <CoinInfoBox>{amountFormatter(ethPerLiquidityToken, 18, 6) + ' '} FSN </CoinInfoBox>{t('and')}{' '}
             <LogoBox><TokenLogo  address={outputCurrency} size={'18px'} ></TokenLogo></LogoBox>
-            <CoinInfoBox>{amountFormatter(tokenPerLiquidityToken, decimals, Math.min(decimals, 4)) + ' '} {symbol}</CoinInfoBox>
+            <CoinInfoBox>{amountFormatter(tokenPerLiquidityToken, decimals, Math.min(decimals, 6)) + ' '} {symbol}</CoinInfoBox>
           </LastSummaryText1>
         </LastSummaryTextBox>
       )
@@ -771,7 +771,7 @@ export default function AddLiquidity({ params }) {
         setOutputValueParsed(currencyAmount)
         dispatchAddLiquidityState({
           type: 'UPDATE_DEPENDENT_VALUE',
-          payload: { field: OUTPUT, value: amountFormatter(currencyAmount, decimals, Math.min(decimals, 4), false) }
+          payload: { field: OUTPUT, value: amountFormatter(currencyAmount, decimals, Math.min(decimals, 6), false) }
         })
 
         return () => {
@@ -814,7 +814,7 @@ export default function AddLiquidity({ params }) {
         setInputValueParsed(currencyAmount)
         dispatchAddLiquidityState({
           type: 'UPDATE_DEPENDENT_VALUE',
-          payload: { field: INPUT, value: amountFormatter(currencyAmount, 18, 4, false) }
+          payload: { field: INPUT, value: amountFormatter(currencyAmount, 18, 6, false) }
         })
 
         return () => {
@@ -911,7 +911,7 @@ export default function AddLiquidity({ params }) {
       )}
       <CurrencyInputPanel
         title={t('deposit')}
-        extraText={inputBalance && formatBalance(amountFormatter(inputBalance, 18, 4))}
+        extraText={inputBalance && formatBalance(amountFormatter(inputBalance, 18, 6))}
         onValueChange={inputValue => {
           inputValue = inputValue ? inputValue : ''
           dispatchAddLiquidityState({ type: 'UPDATE_VALUE', payload: { value: inputValue, field: INPUT } })
@@ -942,7 +942,7 @@ export default function AddLiquidity({ params }) {
         title={t('deposit')}
         description={isNewExchange ? '' : outputValue ? `(${t('estimated')})` : ''}
         extraText={
-          outputBalance && decimals && formatBalance(amountFormatter(outputBalance, decimals, Math.min(decimals, 4)))
+          outputBalance && decimals && formatBalance(amountFormatter(outputBalance, decimals, Math.min(decimals, 6)))
         }
         urlAddedTokens={urlAddedTokens}
         selectedTokenAddress={outputCurrency}
@@ -974,16 +974,16 @@ export default function AddLiquidity({ params }) {
         <SummaryPanel>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('exchangeRate')}：</ExchangeRate>
-            <span>{marketRate ? `1 FSN = ${amountFormatter(marketRate, 18, 4)} ${symbol}` : ' - '}</span>
+            <span>{marketRate ? `1 FSN = ${amountFormatter(marketRate, 18, 6)} ${symbol}` : ' - '}</span>
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('currentPoolSize')}：</ExchangeRate>
             <span>
               {exchangeETHBalance && exchangeTokenBalance
-                ? `${amountFormatter(exchangeETHBalance, 18, 4)} FSN + ${amountFormatter(
+                ? `${amountFormatter(exchangeETHBalance, 18, 6)} FSN + ${amountFormatter(
                     exchangeTokenBalance,
                     decimals,
-                    Math.min(4, decimals)
+                    Math.min(6, decimals)
                   )} ${symbol}`
                 : ' - '}
             </span>
@@ -994,10 +994,10 @@ export default function AddLiquidity({ params }) {
             </ExchangeRate>
             <span>
               {ethShare && tokenShare
-                ? `${amountFormatter(ethShare, 18, 4)} FSN + ${amountFormatter(
+                ? `${amountFormatter(ethShare, 18, 6)} FSN + ${amountFormatter(
                     tokenShare,
                     decimals,
-                    Math.min(4, decimals)
+                    Math.min(6, decimals)
                   )} ${symbol}`
                 : ' - '}
             </span>
@@ -1010,16 +1010,16 @@ export default function AddLiquidity({ params }) {
         <SummaryPanel>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('exchangeRate')}</ExchangeRate>
-            <span>{marketRate ? `1 FSN = ${amountFormatter(marketRate, 18, 4)} ${symbol}` : ' - '}</span>
+            <span>{marketRate ? `1 FSN = ${amountFormatter(marketRate, 18, 6)} ${symbol}` : ' - '}</span>
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('currentPoolSize')}</ExchangeRate>
             <span>
               {exchangeETHBalance && exchangeTokenBalance
-                ? `${amountFormatter(exchangeETHBalance, 18, 4)} FSN + ${amountFormatter(
+                ? `${amountFormatter(exchangeETHBalance, 18, 6)} FSN + ${amountFormatter(
                     exchangeTokenBalance,
                     decimals,
-                    Math.min(4, decimals)
+                    Math.min(6, decimals)
                   )} ${symbol}`
                 : ' - '}
             </span>
@@ -1030,10 +1030,10 @@ export default function AddLiquidity({ params }) {
             </ExchangeRate>
             <span>
               {ethShare && tokenShare
-                ? `${amountFormatter(ethShare, 18, 4)} FSN + ${amountFormatter(
+                ? `${amountFormatter(ethShare, 18, 6)} FSN + ${amountFormatter(
                     tokenShare,
                     decimals,
-                    Math.min(4, decimals)
+                    Math.min(6, decimals)
                   )} ${symbol}`
                 : ' - '}
             </span>

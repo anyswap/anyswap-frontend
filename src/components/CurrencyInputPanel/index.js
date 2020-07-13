@@ -128,6 +128,10 @@ const CurrencySelect = styled.button`
   :active {
     background-color: ${({ theme }) => darken(0.1, theme.selectedBorder)};
   }
+  @media screen and (max-width: 960px) {
+    width: 50%;
+    padding: 0 10px;
+  }
 `
 
 const Aligner = styled.span`
@@ -171,6 +175,9 @@ const InputPanel = styled.div`
   background-color: ${({theme}) => theme.bgColor};
   height:154px;
   padding: 20px 40px;
+  @media screen and (max-width: 960px) {
+    padding: 15px 25px;
+  }
 `
 
 const Container = styled.div`
@@ -207,6 +214,9 @@ const ErrorSpanBox = styled.div`
   height: 70px;
   width: 220px;
   margin-left: 10px;
+  @media screen and (max-width: 960px) {
+    display:none;
+  }
 `
 const ErrorSpan = styled.span`
   display:flex;
@@ -587,6 +597,7 @@ export default function CurrencyInputPanel({
   hideETH = false,
   isSelfSymbol,
   isSelfLogo,
+  isSelfName,
   selfUseAllToken = [],
   isRange = false,
   tokenBalance = 0
@@ -806,7 +817,7 @@ export default function CurrencyInputPanel({
                         isSelfSymbol ? (
                           <>
                             <h3>{isSelfSymbol}</h3>
-                            <p>{allTokens[selectedTokenAddress].name}</p>
+                            <p>{isSelfName ? isSelfName : allTokens[selectedTokenAddress].name}</p>
                           </>
                         ) : (
                           t('selectToken')

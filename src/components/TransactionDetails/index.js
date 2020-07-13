@@ -304,6 +304,9 @@ ${({ theme }) => theme.FlexSC}
 const SlippageSelector = styled.div`
   padding: 1rem 1.25rem 1rem 1.25rem;
   border-radius: 12px 12px 0 0;
+  @media screen and (max-width: 960px) {
+    padding: 8px 10px;
+  }
 `
 
 const Percent = styled.div`
@@ -329,6 +332,10 @@ const Faded = styled.span`
 const TransactionInfo = styled.div`
   padding: 0 20px 25px;
   border-bottom: 1px solid #dadada;
+  @media screen and (max-width: 960px) {
+    padding: 0 10px 10px;
+    height: auto;
+  }
 `
 
 const ValueWrapper = styled.span`
@@ -348,6 +355,9 @@ const SetLimitBox = styled.div`
   background:#fff;
   padding: 25px 20px 9px;
   margin-top:10px;
+  @media screen and (max-width: 960px) {
+    padding: 10px 10px 9px;
+  }
 `
 
 const BigTitle = styled.div`

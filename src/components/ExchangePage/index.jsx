@@ -95,6 +95,14 @@ border-radius: 9px;
 background-color: #ededed;
 padding: 0 40px;
 margin-top:10px;
+@media screen and (max-width: 960px) {
+  padding:0;
+  height: auto;
+  justify-content:center;;
+  background: none;
+  flex-wrap:wrap;
+  flex-direction: row;
+}
 `
 
 const ExchangeRateWrapper = styled.div`
@@ -120,6 +128,12 @@ ${({ theme }) => theme.FlexEC};
     letter-spacing: normal;
     text-align: right;
     color: #062536;
+  }
+  @media screen and (max-width: 960px) {
+    width: 100%;
+    background-color: #ededed;
+    padding: 8px 15px;
+    ${({ theme }) => theme.FlexSC};
   }
 `
 
@@ -191,6 +205,12 @@ const TxnsDtilBtn = styled.div`
     img {
       margin-right: 7px;
     }
+  }
+  @media screen and (max-width: 960px) {
+    padding: 8px 10px;
+    height: auto;
+    marign: auto;
+    margin-bottom:10px;
   }
 `
 
@@ -473,10 +493,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const inputBalance = useAddressBalance(account, inputCurrency)
   const outputBalance = useAddressBalance(account, outputCurrency)
   const inputBalanceFormatted = !!(inputBalance && Number.isInteger(inputDecimals))
-    ? amountFormatter(inputBalance, inputDecimals, Math.min(4, inputDecimals))
+    ? amountFormatter(inputBalance, inputDecimals, Math.min(6, inputDecimals))
     : ''
   const outputBalanceFormatted = !!(outputBalance && Number.isInteger(outputDecimals))
-    ? amountFormatter(outputBalance, outputDecimals, Math.min(4, outputDecimals))
+    ? amountFormatter(outputBalance, outputDecimals, Math.min(6, outputDecimals))
     : ''
 
   // compute useful transforms of the data above
@@ -487,7 +507,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [independentValueParsed, setIndependentValueParsed] = useState()
   const dependentValueFormatted = !!(dependentValue && (dependentDecimals || dependentDecimals === 0))
     ? amountFormatter(dependentValue, dependentDecimals, dependentDecimals, false)
-    // ? amountFormatter(dependentValue, dependentDecimals, Math.min(4, dependentDecimals), false)
+    // ? amountFormatter(dependentValue, dependentDecimals, Math.min(6, dependentDecimals), false)
     : ''
   const inputValueParsed = independentField === INPUT ? independentValueParsed : dependentValue
   const outputValueParsed = independentField === OUTPUT ? independentValueParsed : dependentValue
