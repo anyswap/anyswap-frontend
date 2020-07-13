@@ -50,7 +50,7 @@ const DEADLINE_FROM_NOW = 60 * 15
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const BlueSpan = styled.span`
-font-family: Manrope;
+
 font-size: 12px;
 font-weight: bold;
 font-stretch: normal;
@@ -90,19 +90,17 @@ const LastSummaryTextBox = styled.div`
   background-color: #ffffff;
   padding: 25px 40px;
   margin-top: 10px;
+  @media screen and (max-width: 960px) {
+    padding: 8px 10px;
+  }
 `
 const LastSummaryText = styled.div`
-${({ theme }) => theme.FlexSC}
-  font-family: Manrope;
+  ${({ theme }) => theme.FlexSC}
   font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.17;
-  letter-spacing: normal;
   color: #062536;
-  height: 32px;
   margin-bottom: 10px;
+  flex-wrap:wrap;
   .icon {
     width: 32px;
     height: 32px;
@@ -134,7 +132,7 @@ const LogoBox = styled.div`
 `
 const CoinInfoBox  = styled.div`
 ${({ theme }) => theme.FlexC}
-font-family: Manrope;
+
   font-size: 14px;
   font-weight: 800;
   font-stretch: normal;
@@ -146,14 +144,14 @@ font-family: Manrope;
 `
 const LastSummaryText1 = styled.div`
 ${({ theme }) => theme.FlexSC}
+flex-wrap:wrap;
   width: 100%;
-  height: 54px;
   object-fit: contain;
   border-radius: 9px;
   border: solid 0.5px #c0d6ea;
   background-color: #ecf6ff;
-  padding: 0 20px;
-  font-family: Manrope;
+  padding: 5px 20px;
+  
   font-size: 12px;
   font-weight: normal;
   font-stretch: normal;
@@ -177,19 +175,25 @@ const DownArrowBackground = styled.div`
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   padding: 1rem 0;
-  min-width: 30%;
+  min-width: 50%;
+  @media screen and (max-width: 960px) {
+    background-color: #ededed;
+    width:100%;
+    padding: 1rem 15px;
+  }
 `
 
 const ExchangeRateWrapper = styled.div`
   ${({ theme }) => theme.FlexEC};
+  flex-wrap: wrap;
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
   padding: 8px 1rem ;
-  height: 28px;
   border-bottom:1px solid #dadada;
+  white-space:nowrap;
   span {
     height: 12px;
-    font-family: Manrope;
+    
     font-size: 12px;
     font-weight: 800;
     font-stretch: normal;
@@ -203,7 +207,7 @@ const ExchangeRateWrapper = styled.div`
 
 const ExchangeRate = styled.div`
   height: 12px;
-  font-family: Manrope;
+  
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
@@ -225,17 +229,6 @@ const Flex = styled.div`
   }
 `
 
-const WrappedPlus = ({ isError, highSlippageWarning, ...rest }) => <Plus {...rest} />
-const ColoredWrappedPlus = styled(WrappedPlus)`
-  width: 0.625rem;
-  height: 0.625rem;
-  position: relative;
-  padding: 0.875rem;
-  path {
-    stroke: ${({ active, theme }) => (active ? theme.royalBlue : theme.chaliceGray)};
-  }
-`
-
 const SummaryPanelBox = styled.div`
   ${({ theme }) => theme.FlexBC}
   height: 115px;
@@ -244,6 +237,14 @@ const SummaryPanelBox = styled.div`
   background-color: #ededed;
   margin-top:10px;
   padding: 18px 29px;
+  @media screen and (max-width: 960px) {
+    padding:0;
+    height: auto;
+    justify-content:center;;
+    background: none;
+    flex-wrap:wrap;
+    flex-direction: column;
+  }
 `
 
 const TxnsDtilBtn = styled.div`
@@ -252,25 +253,18 @@ const TxnsDtilBtn = styled.div`
   object-fit: contain;
   border-radius: 6px;
   background-color: #f9fafb;
-  font-family: Manrope;
+  
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: 1;
   letter-spacing: normal;
-  color: #062536;
+  color: #734be2;
   cursor:pointer;
   padding: 0 10px;
 `
 
-// const StyledDropDown = styled(DropDown)`
-//   height: 35%;
-//   margin-right: 10px;
-//   path {
-//     stroke: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
-//   }
-// `
 
 const WrappedDropup = ({ isError, highSlippageWarning, ...rest }) => <Dropup {...rest} />
 const ColoredDropup = styled(WrappedDropup)`
@@ -496,7 +490,7 @@ export default function AddLiquidity({ params }) {
       return (
         <LastSummaryTextBox>
           <LastSummaryText>
-            {t('youAreAdding')} {b(`${inputValue} FSN`)} {t('and')} {b(`${outputValue} ${symbol}`)} {t('intoPool')}
+            {t('youAreAdding')} {b(`${inputValue} FSN`)} {t('and')} {b(`${outputValue} ${symbol}`)} <br /> {t('intoPool')}
           </LastSummaryText>
           <LastSummaryText>
             {t('youAreSettingExRate')}{' '}
@@ -550,39 +544,6 @@ export default function AddLiquidity({ params }) {
     }
   }
 
-  // function renderSummary() {
-  //   let contextualInfo = ''
-  //   let isError = false
-  //   if (brokenTokenWarning) {
-  //     contextualInfo = t('brokenToken')
-  //     isError = true
-  //   } else if (broken777Warning) {
-  //     contextualInfo = t('broken777')
-  //     isError = true
-  //   } else if (zeroDecimalError) {
-  //     contextualInfo = zeroDecimalError
-  //   } else if (inputError || outputError) {
-  //     contextualInfo = inputError || outputError
-  //     isError = true
-  //   } else if (!inputCurrency || !outputCurrency) {
-  //     contextualInfo = t('selectTokenCont')
-  //   } else if (!inputValue) {
-  //     contextualInfo = t('enterValueCont')
-  //   } else if (!account) {
-  //     contextualInfo = t('noWallet')
-  //     isError = true
-  //   }
-
-  //   return (
-  //     <ContextualInfo
-  //       openDetailsText={t('transactionDetails')}
-  //       closeDetailsText={t('hideDetails')}
-  //       contextualInfo={contextualInfo}
-  //       isError={isError}
-  //       renderTransactionDetails={renderTransactionDetails}
-  //     />
-  //   )
-  // }
   const [isViewTxnsDtil, setIsViewTxnsDtil] = useState(false)
   function txnsInfoTaggle () {
     let contextualInfo = ''
@@ -667,16 +628,6 @@ export default function AddLiquidity({ params }) {
       })
       return
     }
-    // if (isNewExchange) {
-    //   console.log('isNewExchange new')
-    //   console.log(ethers.constants.Zero.toString())
-    //   console.log(outputValueParsed.toString())
-    // } else {
-    //   console.log('isNewExchange old')
-    //   console.log(liquidityTokensMin.toString())
-    //   console.log(outputValueMax.toString())
-    // }
-    // console.log(deadline)
     const estimatedGasLimit = await exchangeContract.estimate.addLiquidity(
       isNewExchange ? ethers.constants.Zero : liquidityTokensMin,
       isNewExchange ? outputValueParsed : outputValueMax,
@@ -1006,41 +957,6 @@ export default function AddLiquidity({ params }) {
 
       </SummaryPanelBox>
       {isViewTxnsDtil ? renderTransactionDetails() : ''}
-      {/* <OversizedPanel hideBottom>
-        <SummaryPanel>
-          <ExchangeRateWrapper>
-            <ExchangeRate>{t('exchangeRate')}</ExchangeRate>
-            <span>{marketRate ? `1 FSN = ${amountFormatter(marketRate, 18, 6)} ${symbol}` : ' - '}</span>
-          </ExchangeRateWrapper>
-          <ExchangeRateWrapper>
-            <ExchangeRate>{t('currentPoolSize')}</ExchangeRate>
-            <span>
-              {exchangeETHBalance && exchangeTokenBalance
-                ? `${amountFormatter(exchangeETHBalance, 18, 6)} FSN + ${amountFormatter(
-                    exchangeTokenBalance,
-                    decimals,
-                    Math.min(6, decimals)
-                  )} ${symbol}`
-                : ' - '}
-            </span>
-          </ExchangeRateWrapper>
-          <ExchangeRateWrapper>
-            <ExchangeRate>
-              {t('yourPoolShare')} ({exchangeETHBalance && amountFormatter(poolTokenPercentage, 16, 2)}%)
-            </ExchangeRate>
-            <span>
-              {ethShare && tokenShare
-                ? `${amountFormatter(ethShare, 18, 6)} FSN + ${amountFormatter(
-                    tokenShare,
-                    decimals,
-                    Math.min(6, decimals)
-                  )} ${symbol}`
-                : ' - '}
-            </span>
-          </ExchangeRateWrapper>
-        </SummaryPanel>
-      </OversizedPanel>
-      {renderSummary()} */}
       {isNewExchange ? (
         <NewExchangeWarning>
           <NewExchangeWarningText>

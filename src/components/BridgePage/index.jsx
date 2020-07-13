@@ -136,74 +136,75 @@ const Flex = styled.div`
   }
 `
 const InputPanel = styled.div`
-  ${({ theme }) => theme.flexColumnNoWrap}
-  box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
-  position: relative;
-  border-radius: 1.25rem;
-  background-color: ${({theme}) => theme.bgColor};
-  z-index: 1;
-  padding: 25px 40px;
-  margin-top: 10px;
+${({ theme }) => theme.flexColumnNoWrap}
+box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
+position: relative;
+border-radius: 1.25rem;
+background-color: ${({theme}) => theme.bgColor};
+z-index: 1;
+padding: 25px 40px;
+margin-top: 10px;
+@media screen and (max-width: 960px) {
+  padding: 15px 25px;
+}
 `
 
 const ContainerRow = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+display: flex;
+justify-content: center;
+align-items: center;
 `
 
 const InputContainer = styled.div`
-  flex: 1;
+flex: 1;
 `
 
 const LabelRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: center;
-  color: ${({ theme }) => theme.doveGray};
-  font-size: 0.75rem;
-  line-height: 1rem;
-  padding: 0.75rem 1rem;
+${({ theme }) => theme.flexRowNoWrap}
+align-items: center;
+color: ${({ theme }) => theme.doveGray};
+font-size: 0.75rem;
+line-height: 1rem;
+padding: 0.75rem 0;
 `
 
 const LabelContainer = styled.div`
-  flex: 1 1 auto;
-  width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+flex: 1 1 auto;
+width: 0;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
 `
 
 const InputRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: center;
-  padding: 0.25rem 0.85rem 0.75rem;
+${({ theme }) => theme.flexRowNoWrap}
+align-items: center;
+padding: 0.25rem 0rem 0.75rem;
 `
 
 const Input = styled.input`
-  font-size: 1rem;
-  outline: none;
-  border: none;
-  flex: 1 1 auto;
-  width: 0;
-  background-color: transparent;
-  border-bottom: 1px solid ${({theme}) => theme.textColorBold};
+outline: none;
+border: none;
+flex: 1 1 auto;
+width: 0;
+background-color: transparent;
+border-bottom: 1px solid ${({theme}) => theme.textColorBold};
 
-  color: ${({ theme }) => theme.textColor};
-  overflow: hidden;
-  text-overflow: ellipsis;
+color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
+overflow: hidden;
+text-overflow: ellipsis;
 
-  font-family: Manrope;
-  font-size: 24px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: -1px;
-  padding: 8px 12px;
-
-  ::placeholder {
-    color: ${({ theme }) => theme.placeholderGray};
-  }
+font-family: Manrope;
+font-size: 24px;
+font-weight: 500;
+font-stretch: normal;
+font-style: normal;
+line-height: 1;
+letter-spacing: -1px;
+padding: 8px 12px;
+::placeholder {
+  color: ${({ theme }) => theme.placeholderGray};
+}
 `
 
 const MintDiv = styled.div`

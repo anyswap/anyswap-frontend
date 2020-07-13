@@ -1,11 +1,10 @@
-import React, { useState, useReducer, useEffect, useCallback  } from 'react'
+import React, { useState, useEffect, useCallback  } from 'react'
 // import ReactGA from 'react-ga'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
 import { useWeb3React } from '../../hooks'
-import { brokenTokens } from '../../constants'
 import { isAddress, calculateGasMargin, formatToUsd, formatTokenBalance, formatEthBalance, amountFormatter } from '../../utils'
 import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useTokenDetails, useAllTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
@@ -24,11 +23,14 @@ import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
 const MyBalanceBox = styled.div`
   width: 100%;
-  object-fit: contain;
+  
   border-radius: 9px;
   box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
   background-color: #ffffff;
   padding: 17px 40px;
+  @media screen and (max-width: 960px) {
+    padding: 17px 15px;
+  }
 `
 
 const TitleAndSearchBox = styled.div`
@@ -36,13 +38,13 @@ const TitleAndSearchBox = styled.div`
   margin-bottom:25px;
 
   h3 {
-    font-family: Manrope;
+    
     font-size: 16px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
+    
+    
     line-height: 1.5;
-    letter-spacing: normal;
+    
     color: #062536;
     margin:0 20px 0 0;
     white-space:nowrap;
@@ -52,7 +54,7 @@ const SearchBox = styled.div`
   width: 100%;
   max-width: 296px;
   height: 40px;
-  object-fit: contain;
+  
   border-radius: 9px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
   border: solid 0.5px rgba(0, 0, 0, 0.1);
@@ -76,13 +78,13 @@ const SearchInput = styled(BorderlessInput)`
   height: 100%;
   border:none;
   background:none;
-  font-family: Manrope;
+  
   font-size: 12px;
   font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
+  
+  
   line-height: 1.67;
-  letter-spacing: normal;
+  
   color: #062536;
   padding-right:10px;
 
@@ -93,80 +95,79 @@ const SearchInput = styled(BorderlessInput)`
 const WrapperBox = styled.div`
   ${({theme}) => theme.FlexBC};
   margin-top:15px;
+  @media screen and (max-width: 960px) {
+    justify-content:center;;
+    flex-wrap:wrap;
+    flex-direction: column-reverse ;
+  }
 `
 const EarningsBox = styled.div`
-width: 33.33%;
-height: 386px;
-object-fit: contain;
-border-radius: 9px;
-box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
-background-color: #ffffff;
-padding:20px;
-.bgImg {
-  width: 149px;
-  height: 148px;
-  object-fit: contain;
-  margin: 0 auto 30px;
-  padding-bottom:30px;
-  border-bottom: 1px solid #ededed;
-}
-h3 {
-  font-family: Manrope;
-  font-size: 26px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.15;
-  letter-spacing: -1.18px;
-  text-align: center;
-  color: #062536;
-  text-align:center;
-  white-space:nowrap;
-  margin: 30px 0 6px;
-}
-p {
-  font-family: Manrope;
-  font-size: 14px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.43;
-  letter-spacing: normal;
-  text-align: center;
-  color: #062536;
-  text-align:center;
-  margin: 0 0 25px;
-}
-.txt {
-  ${({theme}) => theme.FlexC};
-  height: 42px;
-  object-fit: contain;
-  border-radius: 6px;
-  border: solid 1px #a3daab;
-  background-color: #e2f9e5;
-  font-family: Manrope;
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 0.86;
-  letter-spacing: normal;
-  color: #031a6e;
-  span {
-    font-weight:bold;
-    margin-left:5px;
+  width: 33.33%;
+  height: 386px;
+  border-radius: 9px;
+  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
+  padding:20px;
+  .bgImg {
+    width: 149px;
+    height: 148px;
+    margin: 0 auto 30px;
+    padding-bottom:30px;
+    border-bottom: 1px solid #ededed;
   }
-}
+  h3 {
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 1.15;
+    letter-spacing: -1.18px;
+    text-align: center;
+    color: #062536;
+    text-align:center;
+    white-space:nowrap;
+    margin: 30px 0 6px;
+  }
+  p {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.43;
+    text-align: center;
+    color: #062536;
+    text-align:center;
+    margin: 0 0 25px;
+  }
+  .txt {
+    ${({theme}) => theme.FlexC};
+    height: 42px;
+    border-radius: 6px;
+    border: solid 1px #a3daab;
+    background-color: #e2f9e5;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 0.86;
+    color: #031a6e;
+    span {
+      font-weight:bold;
+      margin-left:5px;
+    }
+  }
+  @media screen and (max-width: 960px) {
+    width: 100%;
+  }
 `
 
 const ProvideLiqBox = styled.div`
 width: 64.92%;
 height: 386px;
-object-fit: contain;
+
 border-radius: 9px;
 box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
 background-color: #ffffff;
 padding: 17px 40px;
+@media screen and (max-width: 960px) {
+  padding: 17px 15px;
+  width: 100%;
+  margin-bottom:15px;
+}
 `
 const MyBalanceTokenBox  = styled.div`
 width:100%;
@@ -191,13 +192,16 @@ const TokenTableList = styled.li`
 ${({theme}) => theme.FlexBC};
   width: 100%;
   height: 70px;
-  object-fit: contain;
+  
   border-radius: 9px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
   border: solid 0.5px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   padding: 16px 0;
   margin-bottom: 10px;
+  @media screen and (max-width: 960px) {
+    padding: 17px 5px;
+  }
 `
 const TokenTableCoinBox  = styled.div`
 ${({theme}) => theme.FlexSC};
@@ -205,42 +209,50 @@ ${({theme}) => theme.FlexSC};
   padding: 0 25px;
   min-width: 217px
   width:30%;
+  @media screen and (max-width: 960px) {
+    min-width: 140px;
+    padding: 0 5px;
+  }
 `
 const TokenTableLogo = styled.div`
 ${({theme}) => theme.FlexC};
-  width: 46px;
-  height: 46px;
-  object-fit: contain;
+  width: 36px;
+  height: 36px;
+  
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
   border: solid 1px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   border-radius:100%;
   padding: 10px;
   margin-right: 20px;
+  @media screen and (max-width: 960px) {
+    margin-right: 5px;
+    padding: 5px;
+  }
 `
 
 const TokenNameBox  = styled.div`
   h3 {
     margin:0;
-    font-family: Manrope;
+    
     font-size: 16px;
     font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
+    
+    
     line-height: 1.25;
-    letter-spacing: normal;
+    
     color: #031a6e;
     white-space:nowrap;
   }
   p {
     margin: 2px 0 0;
-    font-family: Manrope;
+    
     font-size: 12px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
+    
+    
     line-height: 1;
-    letter-spacing: normal;
+    
     color: #031a6e;
   }
 `
@@ -252,27 +264,36 @@ const TokenBalanceBox  = styled.div`
   h3 {
     padding-left: 17.97%;
     margin:0;
-    font-family: Manrope;
+    
     font-size: 12px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
+    
+    
     line-height: 1;
-    letter-spacing: normal;
+    
     color: #062536;
     white-space:nowrap;
   }
   p {
     padding-left: 17.97%;
     margin: 2px 0 0;
-    font-family: Manrope;
+    
     font-size: 14px;
     font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
+    
+    
     line-height: 1.43;
-    letter-spacing: normal;
+    
     color: #062536;
+  }
+  @media screen and (max-width: 960px) {
+    min-width: 100px
+    h3 {
+      padding-left: 15px;
+    }
+    p {
+      padding-left: 15px;
+    }
   }
 `
 
@@ -285,17 +306,17 @@ const TokenActionBtn  = styled(NavLink)`
 ${({theme}) => theme.FlexC};
   width: 88px;
   height: 38px;
-  object-fit: contain;
+  
   border-radius: 9px;
   background: #ecf6ff;
   margin-right: 2px;
-  font-family: Manrope;
+  
   font-size: 12px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
+  
+  
   line-height: 1;
-  letter-spacing: normal;
+  
   color: #062536;
   box-shadow: none;
   padding:0;
@@ -316,16 +337,16 @@ const MoreBtnBox = styled.div`
 ${({theme}) => theme.FlexC};
   width: 110px;
   height: 34px;
-  object-fit: contain;
+  
   border-radius: 6px;
   background-color: #f9fafb;
-  font-family: Manrope;
+  
   font-size: 12px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
+  
+  
   line-height: 1.17;
-  letter-spacing: normal;
+  
   color: #734be2;
   margin: 20px auto 0;
   cursor:pointer;
@@ -352,36 +373,6 @@ export default function DashboardDtil () {
   const allBalances = useAllBalances()
   const allTokens = useAllTokenDetails()
   const { t } = useTranslation()
-  // console.log(allTokens)
-  
-  // getPoolToken()
-  // const poolTokenBalance = Object.keys(allTokens).map(k => {
-  //   // return useAddressBalance(account, allTokens[k].exchangeAddress)
-  //   // const poolTokenBalance = useAddressBalance(account, allTokens[k].exchangeAddress)
-  //   if (k === 'FSN') {
-  //     return {
-  //       name: allTokens[k].name,
-  //       symbol: allTokens[k].symbol,
-  //       address: k,
-  //       decimals: allTokens[k].decimals,
-  //       balance: useAddressBalance(account, 'FSN'),
-  //     }
-  //   }
-  //   return {
-  //     name: allTokens[k].name,
-  //     symbol: allTokens[k].symbol,
-  //     address: k,
-  //     decimals: allTokens[k].decimals,
-  //     balance: useAddressBalance(account, allTokens[k].exchangeAddress),
-  //   }
-  // })
-  const poolTokenBalanceFSN = useAddressBalance(account, 'FSN')
-
-  // const poolTokenBalanceBTC = useAddressBalance(account, allTokens['0xeaeaeb2cf9921a084ef528f43e9e121e8291a947'].exchangeAddress)
-  // const exchangeETHBalanceBTC = useAddressBalance(allTokens['0xeaeaeb2cf9921a084ef528f43e9e121e8291a947'].exchangeAddress, 'FSN')
-  // const exchangeTokenBalanceBTC = useAddressBalance(allTokens['0xeaeaeb2cf9921a084ef528f43e9e121e8291a947'].exchangeAddress, '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947')
-  // const exchangeContractBTC = useExchangeContract(allTokens['0xeaeaeb2cf9921a084ef528f43e9e121e8291a947'].exchangeAddress)
-
 
   /**
    * BTC start
@@ -391,7 +382,6 @@ export default function DashboardDtil () {
   const exchangeETHBalanceBTC = useAddressBalance(allTokens[BTCToken].exchangeAddress, 'FSN')
   const exchangeTokenBalanceBTC = useAddressBalance(allTokens[BTCToken].exchangeAddress, BTCToken)
   const exchangeContractBTC = useExchangeContract(allTokens[BTCToken].exchangeAddress)
-  const decimalsBTC = allTokens[BTCToken].decimals
   const [totalPoolTokensBTC, setTotalPoolTokensBTC] = useState()
   const fetchPoolTokensBTC = useCallback(() => {
     if (exchangeContractBTC) {
@@ -436,7 +426,6 @@ export default function DashboardDtil () {
   const exchangeETHBalanceANY = useAddressBalance(allTokens[ANYToken].exchangeAddress, 'FSN')
   const exchangeTokenBalanceANY = useAddressBalance(allTokens[ANYToken].exchangeAddress, ANYToken)
   const exchangeContractANY = useExchangeContract(allTokens[ANYToken].exchangeAddress)
-  const decimalsANY = allTokens[ANYToken].decimals
   const [totalPoolTokensANY, setTotalPoolTokensANY] = useState()
   const fetchPoolTokensANY = useCallback(() => {
     if (exchangeContractANY) {
@@ -481,7 +470,6 @@ export default function DashboardDtil () {
   const exchangeETHBalanceETH = useAddressBalance(allTokens[ETHToken].exchangeAddress, 'FSN')
   const exchangeTokenBalanceETH = useAddressBalance(allTokens[ETHToken].exchangeAddress, ETHToken)
   const exchangeContractETH = useExchangeContract(allTokens[ETHToken].exchangeAddress)
-  const decimalsETH = allTokens[ETHToken].decimals
   const [totalPoolTokensETH, setTotalPoolTokensETH] = useState()
   const fetchPoolTokensETH = useCallback(() => {
     if (exchangeContractETH) {
@@ -526,7 +514,6 @@ export default function DashboardDtil () {
   const exchangeETHBalanceUSDT = useAddressBalance(allTokens[USDTToken].exchangeAddress, 'FSN')
   const exchangeTokenBalanceUSDT = useAddressBalance(allTokens[USDTToken].exchangeAddress, USDTToken)
   const exchangeContractUSDT = useExchangeContract(allTokens[USDTToken].exchangeAddress)
-  const decimalsUSDT = allTokens[USDTToken].decimals
   const [totalPoolTokensUSDT, setTotalPoolTokensUSDT] = useState()
   const fetchPoolTokensUSDT = useCallback(() => {
     if (exchangeContractUSDT) {
@@ -564,90 +551,6 @@ export default function DashboardDtil () {
    *  */
 
 
-
-  // const poolTokenBalanceETH = useAddressBalance(account, allTokens['0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88'].exchangeAddress)
-  // const exchangeETHBalanceETH = useAddressBalance(allTokens['0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88'].exchangeAddress, 'FSN')
-  // const exchangeTokenBalanceETH = useAddressBalance(allTokens['0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88'].exchangeAddress, '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88')
-  // const exchangeContractETH = useExchangeContract(allTokens['0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88'].exchangeAddress)
-  
-  // const poolTokenBalanceUSDT = useAddressBalance(account, allTokens['0x19543338473caaa6f404dbe540bb787f389d5462'].exchangeAddress)
-  // const exchangeETHBalanceUSDT = useAddressBalance(allTokens['0x19543338473caaa6f404dbe540bb787f389d5462'].exchangeAddress, 'FSN')
-  // const exchangeTokenBalanceUSDT = useAddressBalance(allTokens['0x19543338473caaa6f404dbe540bb787f389d5462'].exchangeAddress, '0x19543338473caaa6f404dbe540bb787f389d5462')
-  // const exchangeContractUSDT = useExchangeContract(allTokens['0x19543338473caaa6f404dbe540bb787f389d5462'].exchangeAddress)
-
-  // const [totalPoolTokens, setTotalPoolTokens] = useState()
-  // const fetchPoolTokens = useCallback(() => {
-  //   if (exchangeContract) {
-  //     exchangeContract.totalSupply().then(totalSupply => {
-  //       setTotalPoolTokens(totalSupply)
-  //     })
-  //   }
-  // }, [exchangeContract])
-  // useEffect(() => {
-  //   fetchPoolTokens()
-  //   library.on('block', fetchPoolTokens)
-
-  //   return () => {
-  //     library.removeListener('block', fetchPoolTokens)
-  //   }
-  // }, [fetchPoolTokens, library])
-
-  // const poolTokenPercentageFSN =
-  //   poolTokenBalanceFSN && totalPoolTokens && !totalPoolTokens.isZero()
-  //     ? poolTokenBalanceFSN.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokens)
-  //     : undefined
-  // const poolTokenPercentageBTC =
-  //   poolTokenBalanceBTC && totalPoolTokens && !totalPoolTokens.isZero()
-  //     ? poolTokenBalanceBTC.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokens)
-  //     : undefined
-  // const poolTokenPercentageANY =
-  //   poolTokenBalanceANY && totalPoolTokensANY && !totalPoolTokensANY.isZero()
-  //       ? poolTokenBalanceANY.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokensANY)
-  //       : undefined
-  // const poolTokenPercentageETH =
-  //   poolTokenBalanceETH && totalPoolTokens && !totalPoolTokens.isZero()
-  //       ? poolTokenBalanceETH.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokens)
-  //       : undefined
-  // const poolTokenPercentageUSDT =
-  //   poolTokenBalanceUSDT && totalPoolTokens && !totalPoolTokens.isZero()
-  //       ? poolTokenBalanceUSDT.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokens)
-  //       : undefined
-
-  // const ethShareBTC =
-  //   exchangeETHBalanceBTC && poolTokenPercentageBTC
-  //     ? exchangeETHBalanceBTC
-  //         .mul(poolTokenPercentageBTC)
-  //         .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-  //     : undefined
-  // const tokenShareBTC =
-  //   exchangeTokenBalanceBTC && poolTokenPercentageBTC
-  //     ? exchangeTokenBalanceBTC
-  //         .mul(poolTokenPercentageBTC)
-  //         .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-  //     : undefined
-
-  // const ethShareANY =
-  //   exchangeETHBalanceANY && poolTokenPercentageANY
-  //     ? exchangeETHBalanceANY
-  //         .mul(poolTokenPercentageANY)
-  //         .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-  //     : undefined
-  // const tokenShareANY =
-  //   exchangeTokenBalanceANY && poolTokenPercentageANY
-  //     ? exchangeTokenBalanceANY
-  //         .mul(poolTokenPercentageANY)
-  //         .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-  //     : undefined
-  // if (ethShareANY && tokenShareANY) {
-  //   console.log(ethShareANY.toString())
-  //   console.log(amountFormatter(ethShareANY, 18, 4))
-  //   console.log(tokenShareANY.toString())
-  //   console.log(amountFormatter(
-  //     tokenShareANY,
-  //     decimalsANY,
-  //     Math.min(4, decimalsANY)
-  //   ))
-  // }
   function getFSNper() {
     let BTCPER = poolTokenPercentageBTC ? amountFormatter(poolTokenPercentageBTC, 16, 2) : 0
     let ANYPER = poolTokenPercentageANY ? amountFormatter(poolTokenPercentageANY, 16, 2) : 0
@@ -881,11 +784,11 @@ export default function DashboardDtil () {
       <WrapperBox>
         <EarningsBox>
           <div className='bgImg'><img src={AnyillustrationIcon} /></div>
-          <h3>{account ? '2,245.05' : '0.00'} ANY</h3>
+          <h3>{account ? '0.00' : '0.00'} ANY</h3>
           <p>{t('Accumulated')}</p>
           <div className='txt'>
             <img src={GraphUpIcon} />
-            <span>{account ? '+12' : '0.00'}%</span>
+            <span>{account ? '0.00' : '0.00'}%</span>
             {t('last7Day')}
           </div>
         </EarningsBox>

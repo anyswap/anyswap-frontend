@@ -99,6 +99,9 @@ const Input = styled(BorderlessInput)`
   border-bottom: 1px solid ${({theme}) => theme.textColorBold};
   -moz-appearance: textfield;
   margin-right: 30px;
+  @media screen and (max-width: 960px) {
+    font-size: 32px;
+  }
 `
 
 const CurrencySelect = styled.button`

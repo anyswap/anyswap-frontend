@@ -102,11 +102,24 @@ const SummaryPanelBox = styled.div`
   background-color: #ededed;
   margin-top:10px;
   padding: 18px 29px;
+  @media screen and (max-width: 960px) {
+    padding:0;
+    height: auto;
+    justify-content:center;;
+    background: none;
+    flex-wrap:wrap;
+    flex-direction: column;
+  }
 `
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   padding: 1rem 0;
   min-width: 30%;
+  @media screen and (max-width: 960px) {
+    background-color: #ededed;
+    width:100%;
+    padding: 1rem 15px;
+  }
 `
 const LastSummaryTextBox = styled.div`
   width: 100%;
@@ -117,6 +130,9 @@ const LastSummaryTextBox = styled.div`
   background-color: #ffffff;
   padding: 25px 40px;
   margin-top: 10px;
+  @media screen and (max-width: 960px) {
+    padding: 8px 10px;
+  }
 `
 const LastSummaryText = styled.div`
 ${({ theme }) => theme.FlexSC}
@@ -128,8 +144,8 @@ ${({ theme }) => theme.FlexSC}
   line-height: 1.17;
   letter-spacing: normal;
   color: #062536;
-  height: 32px;
   margin-bottom: 10px;
+  flex-wrap:wrap;
   .icon {
     width: 32px;
     height: 32px;
@@ -171,13 +187,13 @@ font-family: Manrope;
 
 const LastSummaryText1 = styled.div`
 ${({ theme }) => theme.FlexSC}
+flex-wrap:wrap;
   width: 100%;
-  height: 54px;
   object-fit: contain;
   border-radius: 9px;
   border: solid 0.5px #c0d6ea;
   background-color: #ecf6ff;
-  padding: 0 20px;
+  padding: 5px 20px;
   font-family: Manrope;
   font-size: 12px;
   font-weight: normal;
@@ -197,6 +213,7 @@ const ExchangeRateWrapper = styled.div`
   padding: 8px 1rem ;
   height: 28px;
   border-bottom:1px solid #dadada;
+  white-space:nowrap;
   span {
     height: 12px;
     font-family: Manrope;
@@ -247,7 +264,7 @@ const TxnsDtilBtn = styled.div`
   font-style: normal;
   line-height: 1;
   letter-spacing: normal;
-  color: #062536;
+  color: #734be2;
   cursor:pointer;
   padding: 0 10px;
 `
@@ -514,17 +531,16 @@ export default function RemoveLiquidity({ params }) {
         <div className='icon'>
             <img src={WeekIcon} />
           </div>
-          {t('totalSupplyIs')} {b(amountFormatter(totalPoolTokens, 18, 4))}
+          {t('totalSupplyIs')} {b(totalPoolTokens ? amountFormatter(totalPoolTokens, 18, 4) : '')}
         </LastSummaryText>
         <LastSummaryText1>
           {t('tokenWorth')} 
           <LogoBox><img src={FSNLogo}/></LogoBox>
-          <CoinInfoBox>{amountFormatter(ETHPer.div(totalPoolTokens), 18, 4) + ' '} FSN</CoinInfoBox>
+          <CoinInfoBox>{totalPoolTokens ? amountFormatter(ETHPer.div(totalPoolTokens), 18, 4) + ' ' : ''} FSN</CoinInfoBox>
           {t('and')}{' '}
           {/* {b(amountFormatter(ETHPer.div(totalPoolTokens), 18, 4))}  */}
           <LogoBox><TokenLogo  address={outputCurrency} size={'18px'} ></TokenLogo></LogoBox>
-          <CoinInfoBox>{amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(4, decimals)) + ' '}   
-          {symbol}</CoinInfoBox>
+          <CoinInfoBox>{totalPoolTokens ? amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(4, decimals)) + ' ' : ''}{symbol}</CoinInfoBox>
           {/* {b(amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(4, decimals)))} {symbol} */}
         </LastSummaryText1>
       </LastSummaryTextBox>

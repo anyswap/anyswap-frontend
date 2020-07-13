@@ -101,7 +101,7 @@ margin-top:10px;
   justify-content:center;;
   background: none;
   flex-wrap:wrap;
-  flex-direction: row;
+  flex-direction: column;
 }
 `
 

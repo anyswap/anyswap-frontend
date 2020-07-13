@@ -27,6 +27,11 @@ const SummaryPanel = styled.div`
 ${({ theme }) => theme.flexColumnNoWrap}
 padding: 1rem 0;
 min-width: 30%;
+@media screen and (max-width: 960px) {
+  background-color: #ededed;
+  width:100%;
+  padding: 1rem 15px;
+}
 `
 
 const ExchangeRateWrapper = styled.div`
@@ -94,6 +99,14 @@ const SummaryPanelBox = styled.div`
   background-color: #ededed;
   margin-top:10px;
   padding: 18px 29px;
+  @media screen and (max-width: 960px) {
+    padding:0;
+    height: auto;
+    justify-content:center;;
+    background: none;
+    flex-wrap:wrap;
+    flex-direction: column;
+  }
 `
 const TxnsDtilBtn = styled.div`
   ${({ theme }) => theme.FlexC};
@@ -108,7 +121,7 @@ const TxnsDtilBtn = styled.div`
   font-style: normal;
   line-height: 1;
   letter-spacing: normal;
-  color: #062536;
+  color: #734be2;
   cursor:pointer;
   padding: 0 10px;
 `
