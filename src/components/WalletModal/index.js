@@ -35,7 +35,7 @@ import config  from '../../config/index'
 const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
-  top: 14px;
+  top: 0.875rem;
   &:hover {
     cursor: pointer;
     opacity: 0.6;
@@ -68,7 +68,7 @@ const HeaderRow = styled.div`
 
 const ContentWrapper = styled.div`
   background-color: ${({ theme }) => theme.backgroundColor};
-  padding: 0 10px 10px;
+  padding: 0 0.625rem 0.625rem;
   ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1rem`};
 `
 
@@ -99,7 +99,7 @@ const Blurb = styled.div`
   margin-top: 2rem;
   ${({ theme }) => theme.mediaWidth.upToMedium`
     margin: 1rem;
-    font-size: 12px;
+    font-size: 0.75rem;
   `};
 `
 
@@ -108,10 +108,10 @@ const OptionGrid = styled.div`
 `
 // display: grid;
 // grid-template-columns: 1fr 1fr;
-// grid-gap: 10px;
+// grid-gap: 0.625rem;
 // ${({ theme }) => theme.mediaWidth.upToMedium`
 //   grid-template-columns: 1fr;
-//   grid-gap: 10px;
+//   grid-gap: 0.625rem;
 // `};
 
 const HoverText = styled.div`
@@ -125,8 +125,8 @@ const SelectContainer = styled.div`
   display:flex;
   justify-content: space-between;
   align-item:center;
-  margin: 20px 0;
-  height: 40px;
+  margin: 1.25rem 0;
+  height: 2.5rem;
 `
 
 const SelectHDPathPage = styled.div`
@@ -135,28 +135,28 @@ const SelectHDPathPage = styled.div`
   object-fit: contain;
   border-radius: 6px;
   background-color: #f9fafb;
-  padding: 0 20px;
+  padding: 0 1.25rem;
 `
 const SelfText = styled.div`
   font-family: Manrope;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.71;
   letter-spacing: normal;
   color: #062536;
-  margin-bottom: 12px
+  margin-bottom: 0.75rem
 `
 const SelfInputBox = styled.div`
 ${({ theme }) => theme.FlexSC};
   width: 236px;
   height: 36px;
   object-fit: contain;
-  border-radius: 9px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 0.5625rem;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
   border: solid 0.5px rgba(0, 0, 0, 0.1);
-  padding: 2px;
+  padding: 0.125rem;
 `
 const SelfInput = styled.input`
   outline: none;
@@ -164,11 +164,11 @@ const SelfInput = styled.input`
   flex: 1 1 auto;
   width: 100%;
   height: 100%;
-  padding: 0 12px;
+  padding: 0 0.75rem;
   background-color: none;
 
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -194,13 +194,13 @@ ${({ theme }) => theme.FlexC};
 
   
   width: 74px;
-  height: 30px;
+  height: 1.875rem;
   object-fit: contain;
   border-radius: 6px;
   background-color: #f6f4ff;
 
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -230,11 +230,11 @@ const AddrListBox = styled.ul`
 `
 
 const AddrList = styled.li`
-  padding:8px 10px;
+  padding:8px 0.625rem;
   cursor:pointer;
-  border: 1px solid transparent;
+  border: 0.0625rem solid transparent;
   box-shadow: 0px 0px 8px 0 ${({ theme }) => transparentize(0.5, theme.backgroundColor)};
-  margin:10px 0;
+  margin:0.625rem 0;
   list-style-type:none;
   color:#666;
   background:#eee;
@@ -248,13 +248,13 @@ const AddrList = styled.li`
 `
 
 const AddrListSelect = styled(AddrList)`
-border: 1px solid ${({ theme }) => theme.shadowColor};
+border: 0.0625rem solid ${({ theme }) => theme.shadowColor};
 `
 
 const ArrowBox = styled.div`
 ${({theme}) => theme.FlexC}
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -269,24 +269,24 @@ const HDpathListBox = styled.ul`
   list-style: none;
   margin: 0;
   padding:0;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
   li {
-    padding: 14px 15px;
+    padding: 0.875rem 1rem;
     font-family: Manrope;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: 1;
     letter-spacing: normal;
     color: #96989e;
-    border-top: 1px solid rgba(0, 0, 0, 0.04);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-    border-left: 1px solid rgba(0, 0, 0, 0.04);
+    border-top: 0.0625rem solid rgba(0, 0, 0, 0.04);
+    border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.04);
+    border-left: 0.0625rem solid rgba(0, 0, 0, 0.04);
     cursor:pointer;
     
     &.active {
-      border: 1px solid #734be2;
+      border: 0.0625rem solid #734be2;
       color: #734be2;
       font-weight: bold;
     }
@@ -294,15 +294,15 @@ const HDpathListBox = styled.ul`
       border-top-left-radius: 6px;
       border-bottom-left-radius: 6px;
       &.active {
-        border: 1px solid #734be2;
+        border: 0.0625rem solid #734be2;
       }
     }
     &:last-child {
       border-top-right-radius: 6px;
       border-bottom-right-radius: 6px;
-      border-right: 1px solid rgba(0, 0, 0, 0.04);
+      border-right: 0.0625rem solid rgba(0, 0, 0, 0.04);
       &.active {
-        border: 1px solid #734be2;
+        border: 0.0625rem solid #734be2;
       }
     }
   }
@@ -315,15 +315,15 @@ const HardwareAddrBox = styled.ul`
   li {
     ${({theme}) => theme.FlexBC};
     font-family: Manrope;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.67;
     letter-spacing: normal;
     color: #96989e;
-    padding: 10px 15px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0.625rem 1rem;
+    border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.08);
     cursor:pointer;
     :hover {
       background: rgba(0, 0, 0, 0.04);
@@ -332,10 +332,10 @@ const HardwareAddrBox = styled.ul`
       ${({theme}) => theme.FlexSC};
       .icon {
         ${({theme}) => theme.FlexC};
-        width: 40px;
-        height: 40px;
+        width: 2.5rem;
+        height: 2.5rem;
         object-fit: contain;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+        box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
         border: solid 0.5px rgba(0, 0, 0, 0.1);
         border-radius:100%;
         margin-right: 18px;
@@ -723,7 +723,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
                       console.log(e.target.value)
                       setSelfHDPathVal(e.target.value)
                     }}></SelfInput>
-                    <SelfButton size={'100px'} onClick={e => {getHardwareAccount()}}><img src={DoneIcon} style={{marginRight: '10px'}} />Done</SelfButton>
+                    <SelfButton size={'100px'} onClick={e => {getHardwareAccount()}}><img src={DoneIcon} style={{marginRight: '0.625rem'}} />Done</SelfButton>
                   </SelfInputBox>
                 </>
               )
@@ -734,8 +734,8 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
               )}
             </AddrListBox>
             <SelectHDPathPage>
-              <ArrowBox onClick={changeReducePage}><img src={PreviouskIcon} style={{marginRight: '10px'}}/>Previous</ArrowBox>
-              <ArrowBox onClick={changeAddPage}>Next<img src={NextkIcon} style={{marginLeft: '10px'}} /></ArrowBox>
+              <ArrowBox onClick={changeReducePage}><img src={PreviouskIcon} style={{marginRight: '0.625rem'}}/>Previous</ArrowBox>
+              <ArrowBox onClick={changeAddPage}>Next<img src={NextkIcon} style={{marginLeft: '0.625rem'}} /></ArrowBox>
             </SelectHDPathPage>
           </ContentWrapper>
         </UpperSection>

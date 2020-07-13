@@ -18,7 +18,7 @@ const HeaderFrame = styled.div`
   z-index: 2;
   width:100%;
   
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
 `
 
 const HeaderSpan = styled.span`
@@ -28,9 +28,9 @@ const HeaderSpan = styled.span`
   height: 70px;
   object-fit: contain;
   justify-content: space-between;
-  padding:0 40px;
+  padding:0 2.5rem;
   @media screen and (max-width: 960px) {
-    padding:0 15px;
+    padding:0 1rem;
   }
 `
 
@@ -41,16 +41,16 @@ const StyleAnyLogo = styled(ANYLogo)`
 const HeaderElement = styled.div`
   ${({ theme }) => theme.FlexC};
   min-width: 0;
-  padding:14px 0;
+  padding:0.875rem 0;
 `
 const NetworkBox  = styled.div`
 ${({ theme }) => theme.FlexC};
   height: 36px;
   object-fit: contain;
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   background-color: #f6f4ff;
   font-family: Manrope;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -58,16 +58,16 @@ ${({ theme }) => theme.FlexC};
   letter-spacing: normal;
   color: #031a6e;
   white-space:nowrap;
-  padding: 0 15px;
-  margin-right: 15px;
+  padding: 0 1rem;
+  margin-right: 1rem;
   span {
     font-weight: bold;
-    margin-left:10px;
+    margin-left:0.625rem;
   }
   @media screen and (max-width: 960px) {
-    padding:0 10px;
-    font-size: 12px;
-    height: 30px;
+    padding:0 0.625rem;
+    font-size: 0.75rem;
+    height: 1.875rem;
     margin-right: 5px;
   }
 `

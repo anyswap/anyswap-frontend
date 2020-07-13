@@ -37,7 +37,7 @@ const Title = styled.div`
   #title {
     display: inline;
     font-size: 0.825rem;
-    margin-right: 12px;
+    margin-right: 0.75rem;
     font-weight: 400;
     color: ${({ theme }) => theme.uniswapPink};
     :hover {
@@ -51,15 +51,15 @@ const StyledToggle = styled(Toggle)`
 
   .react-switch-bg[style] {
     background-color: ${({ theme }) => darken(0.05, theme.inputBackground)} !important;
-    border: 1px solid ${({ theme }) => theme.concreteGray} !important;
+    border: 0.0625rem solid ${({ theme }) => theme.concreteGray} !important;
   }
 
   .react-switch-handle[style] {
     background-color: ${({ theme }) => theme.inputBackground};
-    box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.93, theme.shadowColor)};
-    border: 1px solid ${({ theme }) => theme.mercuryGray};
+    box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.93, theme.shadowColor)};
+    border: 0.0625rem solid ${({ theme }) => theme.mercuryGray};
     border-color: ${({ theme }) => theme.mercuryGray} !important;
-    top: 2px !important;
+    top: 0.125rem !important;
   }
 `
 

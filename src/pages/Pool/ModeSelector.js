@@ -51,7 +51,7 @@ const LiquidityContainer = styled.div`
   color: ${({ theme }) => theme.royalBlue};
   font-weight: 500;
   cursor: pointer;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 
   :hover {
     color: ${({ theme }) => lighten(0.1, theme.royalBlue)};
@@ -97,18 +97,18 @@ const StyledNavLink = styled(NavLink).attrs({
   ${({ theme }) => theme.FlexC}
   height: 38px;
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
   color: #96989e;
-  border-top: 1px solid rgba(0, 0, 0, 0.04);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-  border-left: 1px solid rgba(0, 0, 0, 0.04);
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.04);
+  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.04);
+  border-left: 0.0625rem solid rgba(0, 0, 0, 0.04);
   cursor:pointer;
   text-decoration: none;
-  padding: 0 10px;
+  padding: 0 0.625rem;
   background:#fff;
   white-space:nowrap;
 
@@ -118,26 +118,26 @@ const StyledNavLink = styled(NavLink).attrs({
     height: 28px;
     background:#f5f5f5;
     border-radius:100%;
-    margin-right:10px;
+    margin-right:0.625rem;
   }
   &:first-child {
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     &.active {
-      border: 1px solid #734be2;
+      border: 0.0625rem solid #734be2;
     }
   }
   &:last-child {
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
-    border-right: 1px solid rgba(0, 0, 0, 0.04);
+    border-right: 0.0625rem solid rgba(0, 0, 0, 0.04);
     &.active {
-      border: 1px solid #734be2;
+      border: 0.0625rem solid #734be2;
     }
   }
 
   &.${activeClassName} {
-    border: 1px solid #734be2;
+    border: 0.0625rem solid #734be2;
     color: #734be2;
     font-weight: bold;
     .icon {
@@ -169,7 +169,7 @@ margin-bottom: 0;
 //   &.${activeClassName} {
 //     background-color: ${({ theme }) => theme.inputBackground};
 //     border-radius: 3rem;
-//     border: 1px solid ${({ theme }) => theme.mercuryGray};
+//     border: 0.0625rem solid ${({ theme }) => theme.mercuryGray};
 //     font-weight: 500;
 //     color: ${({ theme }) => theme.royalBlue};
 //   }

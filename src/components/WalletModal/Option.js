@@ -11,9 +11,9 @@ const InfoCard = styled.button`
   border: none;
   width: 100% !important;
   &:focus {
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.royalBlue};
+    box-shadow: 0 0 0 0.0625rem ${({ theme }) => theme.royalBlue};
   }
-  border-bottom: 1px solid ${({ theme, active }) => (active ? 'transparent' : theme.placeholderGray)};
+  border-bottom: 0.0625rem solid ${({ theme, active }) => (active ? 'transparent' : theme.placeholderGray)};
 `
 
 const OptionCard = styled(InfoCard)`
@@ -22,7 +22,7 @@ const OptionCard = styled(InfoCard)`
   align-items: center;
   justify-content: space-between;
   margin-top: 2rem;
-  padding: 10px 15px;
+  padding: 0.625rem 1rem;
 `
 
 const OptionCardLeft = styled.div`
@@ -42,7 +42,7 @@ const OptionCardClickable = styled(OptionCard)`
     border-bottom:none;
   }
 `
-  // border: ${({ clickable, theme }) => (clickable ? `1px solid ${theme.malibuBlue}` : ``)};
+  // border: ${({ clickable, theme }) => (clickable ? `0.0625rem solid ${theme.malibuBlue}` : ``)};
 
 const GreenCircle = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -74,23 +74,23 @@ const HeaderText = styled.div`
 
 const SubHeader = styled.div`
   color: ${({ theme }) => theme.textColor};
-  margin-top: 10px;
-  font-size: 12px;
+  margin-top: 0.625rem;
+  font-size: 0.75rem;
 `
 
 const IconWrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
   align-items: center;
   justify-content: center;
-  margin-right: 20px;
-  border: solid 1px rgba(0, 0, 0, 0.1);
+  margin-right: 1.25rem;
+  border: solid 0.0625rem rgba(0, 0, 0, 0.1);
   width:46px;
   height:46px;
   border-radius:100%;
   & > img,
   span {
-    height: ${({ size }) => (size ? size + 'px' : '26px')};
-    width: ${({ size }) => (size ? size + 'px' : '26px')};
+    height: ${({ size }) => (size ? size + 'px' : '1.625rem')};
+    width: ${({ size }) => (size ? size + 'px' : '1.625rem')};
   }
   ${({ theme }) => theme.mediaWidth.upToMedium`
     align-items: flex-end;

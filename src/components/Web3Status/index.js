@@ -38,7 +38,7 @@ const Web3StatusGeneric = styled.button`
 `
 const Web3StatusError = styled(Web3StatusGeneric)`
   background-color: ${({ theme }) => theme.salmonRed};
-  border: 1px solid ${({ theme }) => theme.salmonRed};
+  border: 0.0625rem solid ${({ theme }) => theme.salmonRed};
   color: ${({ theme }) => theme.white};
   font-weight: 500;
   :hover,
@@ -49,13 +49,13 @@ const Web3StatusError = styled(Web3StatusGeneric)`
 
 const Web3StatusConnect = styled(Web3StatusGeneric)`
   background-color: transparent;
-  border: 1px solid ${({ theme }) => theme.royalBlue};
+  border: 0.0625rem solid ${({ theme }) => theme.royalBlue};
   color: ${({ theme }) => theme.royalBlue};
   font-weight: 500;
 
   :hover,
   :focus {
-    border: 1px solid ${({ theme }) => darken(0.1, theme.royalBlue)};
+    border: 0.0625rem solid ${({ theme }) => darken(0.1, theme.royalBlue)};
     color: ${({ theme }) => darken(0.1, theme.royalBlue)};
   }
 
@@ -63,12 +63,12 @@ const Web3StatusConnect = styled(Web3StatusGeneric)`
     faded &&
     css`
       background-color: transparent;
-      border: 1px solid ${({ theme }) => theme.royalBlue};
+      border: 0.0625rem solid ${({ theme }) => theme.royalBlue};
       color: ${({ theme }) => theme.royalBlue};
 
       :hover,
       :focus {
-        border: 1px solid ${({ theme }) => darken(0.1, theme.royalBlue)};
+        border: 0.0625rem solid ${({ theme }) => darken(0.1, theme.royalBlue)};
         color: ${({ theme }) => darken(0.1, theme.royalBlue)};
       }
     `}
@@ -76,7 +76,7 @@ const Web3StatusConnect = styled(Web3StatusGeneric)`
 
 const Web3StatusConnected = styled(Web3StatusGeneric)`
   background-color: ${({ pending, theme }) => (pending ? theme.zumthorBlue : theme.inputBackground)};
-  border: 1px solid ${({ pending, theme }) => (pending ? theme.royalBlue : theme.mercuryGray)};
+  border: 0.0625rem solid ${({ pending, theme }) => (pending ? theme.royalBlue : theme.mercuryGray)};
   color: ${({ pending, theme }) => (pending ? theme.royalBlue : theme.doveGray)};
   font-weight: 400;
   :hover {
@@ -84,7 +84,7 @@ const Web3StatusConnected = styled(Web3StatusGeneric)`
       pending ? transparentize(0.9, theme.royalBlue) : darken(0.05, theme.inputBackground)};
 
     :focus {
-      border: 1px solid
+      border: 0.0625rem solid
         ${({ pending, theme }) => (pending ? darken(0.1, theme.royalBlue) : darken(0.1, theme.mercuryGray))};
     }
   }
@@ -102,8 +102,8 @@ const Text = styled.p`
 const NetworkIcon = styled(Activity)`
   margin-left: 0.25rem;
   margin-right: 0.5rem;
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
 `
 
 const SpinnerWrapper = styled(Spinner)`

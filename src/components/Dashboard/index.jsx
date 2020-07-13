@@ -5,16 +5,16 @@ import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
 import { useWeb3React } from '../../hooks'
-import { isAddress, calculateGasMargin, formatToUsd, formatTokenBalance, formatEthBalance, amountFormatter } from '../../utils'
-import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
-import { useTokenDetails, useAllTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
+import { formatTokenBalance, formatEthBalance, amountFormatter } from '../../utils'
+import { useAddressBalance} from '../../contexts/Balances'
+import { useAllTokenDetails} from '../../contexts/Tokens'
 import { useExchangeContract } from '../../hooks'
 import TokenLogo from '../TokenLogo'
-import { useETHPriceInUSD, useAllBalances } from '../../contexts/Balances'
-import { Button, TitleBox, BorderlessInput } from '../../theme'
+import { useAllBalances } from '../../contexts/Balances'
+import { TitleBox, BorderlessInput } from '../../theme'
 
 import SearchIcon from '../../assets/images/icon/search.svg'
-import { withRouter, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import GraphUpIcon from '../../assets/images/icon/graph-up.svg'
 import AnyillustrationIcon from '../../assets/images/icon/any-illustration.svg'
@@ -24,48 +24,43 @@ import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.sv
 const MyBalanceBox = styled.div`
   width: 100%;
   
-  border-radius: 9px;
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 0.5625rem;
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
   background-color: #ffffff;
-  padding: 17px 40px;
+  padding: 1rem 2.5rem;
   @media screen and (max-width: 960px) {
-    padding: 17px 15px;
+    padding: 1rem 1rem;
   }
 `
 
 const TitleAndSearchBox = styled.div`
   ${({theme}) => theme.FlexBC};
-  margin-bottom:25px;
-
+  margin-bottom:1.5625rem;
   h3 {
-    
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;
-    
-    
     line-height: 1.5;
-    
     color: #062536;
-    margin:0 20px 0 0;
+    margin:0 1.25rem 0 0;
     white-space:nowrap;
   }
 `
 const SearchBox = styled.div`
   width: 100%;
   max-width: 296px;
-  height: 40px;
+  height: 2.5rem;
   
-  border-radius: 9px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
-  border: solid 0.5px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5625rem;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
+  border: solid 0.0625rem rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
-  padding-left: 40px;
+  padding-left: 2.5rem;
   position:relative;
 
   .icon {
     ${({theme}) => theme.FlexC};
-    width:40px;
-    height:40px;
+    width:2.5rem;
+    height:2.5rem;
     position:absolute;
     top:0;
     left:0;
@@ -79,14 +74,14 @@ const SearchInput = styled(BorderlessInput)`
   border:none;
   background:none;
   
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: normal;
   
   
   line-height: 1.67;
   
   color: #062536;
-  padding-right:10px;
+  padding-right:0.625rem;
 
   ::placeholder {
   }
@@ -94,7 +89,7 @@ const SearchInput = styled(BorderlessInput)`
 
 const WrapperBox = styled.div`
   ${({theme}) => theme.FlexBC};
-  margin-top:15px;
+  margin-top:1rem;
   @media screen and (max-width: 960px) {
     justify-content:center;;
     flex-wrap:wrap;
@@ -104,19 +99,19 @@ const WrapperBox = styled.div`
 const EarningsBox = styled.div`
   width: 33.33%;
   height: 386px;
-  border-radius: 9px;
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 0.5625rem;
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
   background-color: #ffffff;
-  padding:20px;
+  padding:1.25rem;
   .bgImg {
     width: 149px;
     height: 148px;
-    margin: 0 auto 30px;
-    padding-bottom:30px;
-    border-bottom: 1px solid #ededed;
+    margin: 0 auto 1.875rem;
+    padding-bottom:1.875rem;
+    border-bottom: 0.0625rem solid #ededed;
   }
   h3 {
-    font-size: 26px;
+    font-size: 1.625rem;
     font-weight: bold;
     line-height: 1.15;
     letter-spacing: -1.18px;
@@ -124,24 +119,24 @@ const EarningsBox = styled.div`
     color: #062536;
     text-align:center;
     white-space:nowrap;
-    margin: 30px 0 6px;
+    margin: 1.875rem 0 6px;
   }
   p {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
     line-height: 1.43;
     text-align: center;
     color: #062536;
     text-align:center;
-    margin: 0 0 25px;
+    margin: 0 0 1.5625rem;
   }
   .txt {
     ${({theme}) => theme.FlexC};
     height: 42px;
     border-radius: 6px;
-    border: solid 1px #a3daab;
+    border: solid 0.0625rem #a3daab;
     background-color: #e2f9e5;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: normal;
     line-height: 0.86;
     color: #031a6e;
@@ -159,14 +154,14 @@ const ProvideLiqBox = styled.div`
 width: 64.92%;
 height: 386px;
 
-border-radius: 9px;
-box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+border-radius: 0.5625rem;
+box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
 background-color: #ffffff;
-padding: 17px 40px;
+padding: 1rem 2.5rem;
 @media screen and (max-width: 960px) {
-  padding: 17px 15px;
+  padding: 1rem 1rem;
   width: 100%;
-  margin-bottom:15px;
+  margin-bottom:1rem;
 }
 `
 const MyBalanceTokenBox  = styled.div`
@@ -193,20 +188,20 @@ ${({theme}) => theme.FlexBC};
   width: 100%;
   height: 70px;
   
-  border-radius: 9px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
-  border: solid 0.5px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5625rem;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
+  border: solid 1px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
-  padding: 16px 0;
-  margin-bottom: 10px;
+  padding: 1rem 0;
+  margin-bottom: 0.625rem;
   @media screen and (max-width: 960px) {
-    padding: 17px 5px;
+    padding: 1rem 5px;
   }
 `
 const TokenTableCoinBox  = styled.div`
 ${({theme}) => theme.FlexSC};
-  border-right: 1px  solid rgba(0, 0, 0, 0.1);
-  padding: 0 25px;
+  border-right: 0.0625rem  solid rgba(0, 0, 0, 0.1);
+  padding: 0 1.5625rem;
   min-width: 217px
   width:30%;
   @media screen and (max-width: 960px) {
@@ -219,12 +214,12 @@ ${({theme}) => theme.FlexC};
   width: 36px;
   height: 36px;
   
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
-  border: solid 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
+  border: solid 0.0625rem rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   border-radius:100%;
-  padding: 10px;
-  margin-right: 20px;
+  padding: 0.625rem;
+  margin-right: 1.25rem;
   @media screen and (max-width: 960px) {
     margin-right: 5px;
     padding: 5px;
@@ -235,7 +230,7 @@ const TokenNameBox  = styled.div`
   h3 {
     margin:0;
     
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 800;
     
     
@@ -245,9 +240,9 @@ const TokenNameBox  = styled.div`
     white-space:nowrap;
   }
   p {
-    margin: 2px 0 0;
+    margin: 0.125rem 0 0;
     
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: normal;
     
     
@@ -265,7 +260,7 @@ const TokenBalanceBox  = styled.div`
     padding-left: 17.97%;
     margin:0;
     
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: normal;
     
     
@@ -276,9 +271,9 @@ const TokenBalanceBox  = styled.div`
   }
   p {
     padding-left: 17.97%;
-    margin: 2px 0 0;
+    margin: 0.125rem 0 0;
     
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 800;
     
     
@@ -289,10 +284,10 @@ const TokenBalanceBox  = styled.div`
   @media screen and (max-width: 960px) {
     min-width: 100px
     h3 {
-      padding-left: 15px;
+      padding-left: 1rem;
     }
     p {
-      padding-left: 15px;
+      padding-left: 1rem;
     }
   }
 `
@@ -300,18 +295,18 @@ const TokenBalanceBox  = styled.div`
 const TokenActionBox  = styled.div`
 ${({theme}) => theme.FlexEC};
   width: 40%;
-  padding: 0 20px;
+  padding: 0 1.25rem;
 `
 const TokenActionBtn  = styled(NavLink)`
 ${({theme}) => theme.FlexC};
   width: 88px;
   height: 38px;
   
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   background: #ecf6ff;
-  margin-right: 2px;
+  margin-right: 0.125rem;
   
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   
   
@@ -326,7 +321,7 @@ ${({theme}) => theme.FlexC};
   }
 `
 const TokenActionBtnSwap = styled(TokenActionBtn)`
-margin-right:2px;
+margin-right:0.125rem;
 `
 
 const TokenActionBtnSend = styled(TokenActionBtn)`
@@ -341,20 +336,20 @@ ${({theme}) => theme.FlexC};
   border-radius: 6px;
   background-color: #f9fafb;
   
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   
   
   line-height: 1.17;
   
   color: #734be2;
-  margin: 20px auto 0;
+  margin: 1.25rem auto 0;
   cursor:pointer;
 `
 
 const WrappedDropup = ({ isError, highSlippageWarning, ...rest }) => <Dropup {...rest} />
 const ColoredDropup = styled(WrappedDropup)`
-margin-right: 10px;
+margin-right: 0.625rem;
   path {
     stroke: ${({ theme }) => theme.royalBlue};
   }
@@ -362,7 +357,7 @@ margin-right: 10px;
 
 const WrappedDropdown = ({ isError, highSlippageWarning, ...rest }) => <Dropdown {...rest} />
 const ColoredDropdown = styled(WrappedDropdown)`
-margin-right: 10px;
+margin-right: 0.625rem;
   path {
     stroke: ${({ theme }) => theme.royalBlue};
   }
@@ -650,7 +645,7 @@ export default function DashboardDtil () {
                 return (
                   <TokenTableList key={index}>
                     <TokenTableCoinBox>
-                      <TokenTableLogo><TokenLogo address={item.address} size={'26px'} ></TokenLogo></TokenTableLogo>
+                      <TokenTableLogo><TokenLogo address={item.address} size={'1.625rem'} ></TokenLogo></TokenTableLogo>
                       <TokenNameBox>
                         <h3>{item.symbol}</h3>
                         <p>{item.name}</p>
@@ -729,7 +724,7 @@ export default function DashboardDtil () {
                 return (
                   <TokenTableList key={index}>
                     <TokenTableCoinBox>
-                      <TokenTableLogo><TokenLogo address={item.address} size={'26px'} ></TokenLogo></TokenTableLogo>
+                      <TokenTableLogo><TokenLogo address={item.address} size={'1.625rem'} ></TokenLogo></TokenTableLogo>
                       <TokenNameBox>
                         <h3>{item.symbol}</h3>
                         <p>{item.name}</p>

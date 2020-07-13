@@ -39,7 +39,7 @@ const Details = styled.div`
 `
 
 const ErrorSpan = styled.span`
-  margin-right: 12px;
+  margin-right: 0.75rem;
   font-size: 0.75rem;
   line-height: 0.75rem;
 

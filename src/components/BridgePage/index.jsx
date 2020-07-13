@@ -93,10 +93,10 @@ ${({ theme }) => theme.FlexEC};
   width: 100%;
   height: 48px;
   object-fit: contain;
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   background-color: #ededed;
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -104,12 +104,12 @@ ${({ theme }) => theme.FlexEC};
   letter-spacing: normal;
   text-align: right;
   color: #062536;
-  padding: 0 40px;
-  margin-top:10px;
+  padding: 0 2.5rem;
+  margin-top:0.625rem;
   span {
-    height: 12px;
+    height: 0.75rem;
     font-family: Manrope;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
@@ -137,15 +137,15 @@ const Flex = styled.div`
 `
 const InputPanel = styled.div`
 ${({ theme }) => theme.flexColumnNoWrap}
-box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
+box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
 position: relative;
 border-radius: 1.25rem;
 background-color: ${({theme}) => theme.bgColor};
 z-index: 1;
-padding: 25px 40px;
-margin-top: 10px;
+padding: 1.5625rem 2.5rem;
+margin-top: 0.625rem;
 @media screen and (max-width: 960px) {
-  padding: 15px 25px;
+  padding: 1rem 1.5625rem;
 }
 `
 
@@ -188,7 +188,7 @@ border: none;
 flex: 1 1 auto;
 width: 0;
 background-color: transparent;
-border-bottom: 1px solid ${({theme}) => theme.textColorBold};
+border-bottom: 0.0625rem solid ${({theme}) => theme.textColorBold};
 
 color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
 overflow: hidden;
@@ -200,8 +200,8 @@ font-weight: 500;
 font-stretch: normal;
 font-style: normal;
 line-height: 1;
-letter-spacing: -1px;
-padding: 8px 12px;
+letter-spacing: -0.0625rem;
+padding: 8px 0.75rem;
 ::placeholder {
   color: ${({ theme }) => theme.placeholderGray};
 }
@@ -209,19 +209,19 @@ padding: 8px 12px;
 
 const MintDiv = styled.div`
   width: 100%;
-  padding: 20px 15px;
+  padding: 1.25rem 1rem;
 `
 
 const MintList = styled.div`
-  border-bottom: 1px  solid ${({ error, theme }) => (error ? theme.salmonRed : theme.mercuryGray)};
-  padding: 15px 8px;
-  font-size: 14px;
+  border-bottom: 0.0625rem  solid ${({ error, theme }) => (error ? theme.salmonRed : theme.mercuryGray)};
+  padding: 1rem 8px;
+  font-size: 0.875rem;
 `
 const MintListCenter = styled(MintList)`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
 `
 
 const MintListLabel = styled.div`
@@ -234,7 +234,7 @@ const MintListVal = styled.div`
 `
 
 const TokenLogoBox = styled(TokenLogo)`
-  padding: 10px;
+  padding: 0.625rem;
   background: none;
 `
 
@@ -242,7 +242,7 @@ const MintTip = styled.div`
   position: fixed;
   top: 100px;
   right: 80px;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   box-shadow:0 0 5px 0px #E1902E;
   z-index: 99;
   cursor:pointer;
@@ -251,7 +251,7 @@ const MintTip = styled.div`
   }
   &:hover {
     .txt {
-      width: 150px;padding: 0 20px;
+      width: 150px;padding: 0 1.25rem;
     }
   }
 `
@@ -269,13 +269,13 @@ const StyledQRcode = styled(QRcode)`
   width: ${({ size }) => size};
   height: ${({ size }) => size};
   cursor:pointer;
-  margin-left: 10px;
+  margin-left: 0.625rem;
 `
 
 const WarningTip = styled.div`
-  padding: 10px 15px;
+  padding: 0.625rem 1rem;
   color:red;
-  font-size:14px;
+  font-size:0.875rem;
   cursor: pointer;
   flex: 1 0 auto;
   align-items: center;
@@ -283,27 +283,27 @@ const WarningTip = styled.div`
   padding: 0.5rem 1rem;
   padding-right: 2rem;
   margin-bottom: 1rem;
-  border: 1px solid ${({ theme }) => transparentize(0.6, 'red')};
+  border: 0.0625rem solid ${({ theme }) => transparentize(0.6, 'red')};
   background-color: ${({ theme }) => transparentize(0.9, 'red')};
   border-radius: 1rem;
   font-size: 0.75rem;
   line-height: 1rem;
   text-align: left;
   color: red;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 `
 
 // const StyledCopyICON = styled(copyICON)`
 //   width: ${({ size }) => size};
 //   height: ${({ size }) => size};
-//   margin: 0 10px;
+//   margin: 0 0.625rem;
 //   cursor:pointer;
 // `
 
 const StyledBirdgeIcon = styled.div`
   ${({ theme }) => theme.FlexC};
   img {
-    margin-right: 15px
+    margin-right: 1rem
   }
 `
 
@@ -1103,8 +1103,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   {
                     account && registerAddress ? (
                       <>
-                        {/* <StyledCopyICON size={'20px'} onClick={copyAddr}></StyledCopyICON> */}
-                        <StyledQRcode size={'20px'} onClick={MintModelView}></StyledQRcode>
+                        {/* <StyledCopyICON size={'1.25rem'} onClick={copyAddr}></StyledCopyICON> */}
+                        <StyledQRcode size={'1.25rem'} onClick={MintModelView}></StyledQRcode>
                       </>
                     ) : ('')
                   }

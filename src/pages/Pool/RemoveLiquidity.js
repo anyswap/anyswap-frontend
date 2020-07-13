@@ -48,7 +48,7 @@ const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const BlueSpan = styled.span`
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -98,9 +98,9 @@ const SummaryPanelBox = styled.div`
   ${({ theme }) => theme.FlexBC}
   height: 115px;
   object-fit: contain;
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   background-color: #ededed;
-  margin-top:10px;
+  margin-top:0.625rem;
   padding: 18px 29px;
   @media screen and (max-width: 960px) {
     padding:0;
@@ -118,33 +118,33 @@ const SummaryPanel = styled.div`
   @media screen and (max-width: 960px) {
     background-color: #ededed;
     width:100%;
-    padding: 1rem 15px;
+    padding: 1rem 1rem;
   }
 `
 const LastSummaryTextBox = styled.div`
   width: 100%;
   height: 240px;
   object-fit: contain;
-  border-radius: 9px;
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 0.5625rem;
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
   background-color: #ffffff;
-  padding: 25px 40px;
-  margin-top: 10px;
+  padding: 1.5625rem 2.5rem;
+  margin-top: 0.625rem;
   @media screen and (max-width: 960px) {
-    padding: 8px 10px;
+    padding: 8px 0.625rem;
   }
 `
 const LastSummaryText = styled.div`
 ${({ theme }) => theme.FlexSC}
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.17;
   letter-spacing: normal;
   color: #062536;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   flex-wrap:wrap;
   .icon {
     width: 32px;
@@ -154,18 +154,18 @@ ${({ theme }) => theme.FlexSC}
     border: solid 0.5px #c0d6ea;
     background-color: #ecf6ff;
     border-radius: 100%;
-    margin-right: 10px;
+    margin-right: 0.625rem;
   }
 `
 
 const LogoBox = styled.div`
   ${({ theme }) => theme.FlexSC}
-  width: 30px;
-  height: 30px;
+  width: 1.875rem;
+  height: 1.875rem;
   object-fit: contain;
   background-color: #ffffff;
   border-radius:100%;
-  padding: 7px;
+  padding: 0.4375rem;
   margin: 0 0px 0 8px;
   img {
     height: 100%;
@@ -175,7 +175,7 @@ const LogoBox = styled.div`
 const CoinInfoBox  = styled.div`
 ${({ theme }) => theme.FlexC}
 font-family: Manrope;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 800;
   font-stretch: normal;
   font-style: normal;
@@ -190,19 +190,19 @@ ${({ theme }) => theme.FlexSC}
 flex-wrap:wrap;
   width: 100%;
   object-fit: contain;
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   border: solid 0.5px #c0d6ea;
   background-color: #ecf6ff;
-  padding: 5px 20px;
+  padding: 5px 1.25rem;
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.17;
   letter-spacing: normal;
   color: #062536;
-  margin-top:20px;
+  margin-top:1.25rem;
 `
 
 const ExchangeRateWrapper = styled.div`
@@ -212,12 +212,12 @@ const ExchangeRateWrapper = styled.div`
   font-size: 0.75rem;
   padding: 8px 1rem ;
   height: 28px;
-  border-bottom:1px solid #dadada;
+  border-bottom:0.0625rem solid #dadada;
   white-space:nowrap;
   span {
-    height: 12px;
+    height: 0.75rem;
     font-family: Manrope;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
@@ -229,9 +229,9 @@ const ExchangeRateWrapper = styled.div`
 `
 
 const ExchangeRate = styled.div`
-  height: 12px;
+  height: 0.75rem;
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -258,7 +258,7 @@ const TxnsDtilBtn = styled.div`
   border-radius: 6px;
   background-color: #f9fafb;
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -266,12 +266,12 @@ const TxnsDtilBtn = styled.div`
   letter-spacing: normal;
   color: #734be2;
   cursor:pointer;
-  padding: 0 10px;
+  padding: 0 0.625rem;
 `
 
 // const StyledDropDown = styled(DropDown)`
 //   height: 35%;
-//   margin-right: 10px;
+//   margin-right: 0.625rem;
 //   path {
 //     stroke: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
 //   }
@@ -279,7 +279,7 @@ const TxnsDtilBtn = styled.div`
 
 const WrappedDropup = ({ isError, highSlippageWarning, ...rest }) => <Dropup {...rest} />
 const ColoredDropup = styled(WrappedDropup)`
-margin-right: 10px;
+margin-right: 0.625rem;
   path {
     stroke: ${({ theme }) => theme.royalBlue};
   }
@@ -287,7 +287,7 @@ margin-right: 10px;
 
 const WrappedDropdown = ({ isError, highSlippageWarning, ...rest }) => <Dropdown {...rest} />
 const ColoredDropdown = styled(WrappedDropdown)`
-margin-right: 10px;
+margin-right: 0.625rem;
   path {
     stroke: ${({ theme }) => theme.royalBlue};
   }

@@ -99,7 +99,7 @@ const BetaMessage = styled.div`
   padding: 0.5rem 1rem;
   padding-right: 2rem;
   margin-bottom: 1rem;
-  border: 1px solid ${({ theme }) => transparentize(0.6, theme.wisteriaPurple)};
+  border: 0.0625rem solid ${({ theme }) => transparentize(0.6, theme.wisteriaPurple)};
   background-color: ${({ theme }) => transparentize(0.9, theme.wisteriaPurple)};
   border-radius: 1rem;
   font-size: 0.75rem;
@@ -121,9 +121,9 @@ const BetaMessage = styled.div`
 
 const Tabs = styled.div`
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   width:100%;
-  padding: 25px 25px 0px;
+  padding: 1.5625rem 1.5625rem 0px;
   box-sizing: border-box;
   
   @media screen and (max-width: 960px) {
@@ -138,10 +138,10 @@ const Tabs2  = styled.div`
   align-items: center;
   margin-bottom: 19px;
   width:100%;
-  padding: 15px 25px;
+  padding: 1rem 1.5625rem;
   box-sizing: border-box;
-  border-top: 1px solid  rgba(0, 0, 0, 0.06);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 0.0625rem solid  rgba(0, 0, 0, 0.06);
+  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.06);
   @media screen and (max-width: 960px) {
     display:none;
   }
@@ -161,20 +161,20 @@ const StyledNavLink = styled(NavLink).attrs({
   cursor: pointer;
   text-decoration: none;
   color: ${({theme}) => theme.textColorBold};
-  font-size: 14px;
+  font-size: 0.875rem;
   box-sizing: border-box;
-  padding: 15px 14px;
-  line-height: 16px;
+  padding: 1rem 0.875rem;
+  line-height: 1rem;
   margin: 6px 0;
   height: 48px;
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   position:relative;
 
   
   .icon {
     height: 38px;
     width: 38px;
-    margin-right: 16px;
+    margin-right: 1rem;
     background:rgba(0,0,0,0.05);
     border-radius:100%;
     display: flex;
@@ -201,36 +201,36 @@ const StyledNavLink = styled(NavLink).attrs({
     background: ${({theme}) => theme.bgColorLinear};
     border-bottom: none;
     font-weight: 800;
-    box-shadow: 0 4px 12px 0 rgba(115, 75, 226, 0.51);
+    box-shadow: 0 0.25rem 0.75rem 0 rgba(115, 75, 226, 0.51);
     .icon {
       background:#031a6e;
-      box-shadow: 0 4px 12px 0 rgba(115, 75, 226, 0.51);
+      box-shadow: 0 0.25rem 0.75rem 0 rgba(115, 75, 226, 0.51);
     }
   }
 
   &.mt15 {
-    margin-top: 15px;
+    margin-top: 1rem;
   }
   &.mt20 {
-    margin-top: 20px;
+    margin-top: 1.25rem;
   }
   &.mb20 {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
 
   &.otherInfo {
-    height: 40px;
-    font-size: 12px;
+    height: 2.5rem;
+    font-size: 0.75rem;
     font-weight: normal;
     color: #96989e;
     border-bottom:none;
     margin: 0;
-    padding: 1px 14px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 0.0625rem 0.875rem;
+    border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.06);
     .icon {
       height: 38px;
       width: 38px;
-      margin-right: 16px;
+      margin-right: 1rem;
       display: flex;
       justify-content: center;
       align-items:center;
@@ -253,8 +253,8 @@ const StyledNavLink = styled(NavLink).attrs({
   }
   .arrow {
     position: absolute;
-    top: 14px;
-    right:15px;
+    top: 0.875rem;
+    right:1rem;
   }
   @media screen and (max-width: 960px) {
     ${({theme}) => theme.FlexC};
@@ -281,7 +281,7 @@ const OutLinkImg = styled.div`
   height: 38px;
   background-color: #ecf6ff;
   border-radius: 100%;
-  margin-right: 10px;
+  margin-right: 0.625rem;
   &:hover {
     background-color: #5f6cfc;
   }
@@ -295,21 +295,21 @@ const OutLinkImg = styled.div`
 const CopyRightBox = styled.div`
   h5 {
     font-family: Manrope;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.17;
     letter-spacing: normal;
     color: #062536;
-    margin: 15px 0 0px;
+    margin: 1rem 0 0px;
     span { 
       font-weight: bold;
     }
   }
   p {
     font-family: Manrope;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;

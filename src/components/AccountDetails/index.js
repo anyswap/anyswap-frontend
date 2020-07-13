@@ -26,12 +26,12 @@ import config from '../../config'
 const OptionButton = styled.div`
 ${({ theme }) => theme.FlexC}
   width: 89px;
-  height: 30px;
+  height: 1.875rem;
   object-fit: contain;
   border-radius: 6px;
   background-color: #f6f4ff;
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -41,22 +41,6 @@ ${({ theme }) => theme.FlexC}
   color: #734be2;
   cursor:pointer;
 `
-// ${({ theme }) => theme.flexColumnNoWrap}
-// justify-content: center;
-// align-items: center;
-// border-radius: 20px;
-// border: 1px solid ${({ theme }) => theme.royalBlue};
-// color: ${({ theme }) => theme.royalBlue};
-// padding: 8px 24px;
-
-// &:hover {
-//   border: 1px solid ${({ theme }) => theme.malibuBlue};
-//   cursor: pointer;
-// }
-
-// ${({ theme }) => theme.mediaWidth.upToMedium`
-//   font-size: 12px;
-// `};
 
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
@@ -105,16 +89,16 @@ const AccountGroupingRow = styled.div`
   }
 
   &:first-of-type {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
 `
 
 const AccountGroupingRowTop =  styled.div`
 ${({ theme }) => theme.FlexBC};
-margin-bottom: 10px;
-border-bottom: 1px solid #ededed;
-margin-bottom: 20px;
-padding-bottom: 10px;
+margin-bottom: 0.625rem;
+border-bottom: 0.0625rem solid #ededed;
+margin-bottom: 1.25rem;
+padding-bottom: 0.625rem;
 `
 
 const AccountGroupingWallet = styled.div`
@@ -147,8 +131,8 @@ const GreenCircle = styled.div`
   &:first-child {
     height: 8px;
     width: 8px;
-    margin-left: 12px;
-    margin-right: 2px;
+    margin-left: 0.75rem;
+    margin-right: 0.125rem;
     background-color: ${({ theme }) => theme.connectedGreen};
     border-radius: 50%;
   }
@@ -205,12 +189,12 @@ const StyledLink = styled(Link)`
   width: 100%;
   height: 48px;
   object-fit: contain;
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   background-color: #ecf6ff;
-  padding: 0 15px;
+  padding: 0 1rem;
 
   font-family: Manrope;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -225,7 +209,7 @@ const StyledLink = styled(Link)`
 const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
-  top: 14px;
+  top: 0.875rem;
   &:hover {
     cursor: pointer;
     opacity: 0.6;
@@ -242,7 +226,7 @@ const WalletName = styled.div`
   padding-left: 0.5rem;
   width: initial;
   font-family: Manrope;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 800;
   font-stretch: normal;
   font-style: normal;
@@ -266,10 +250,10 @@ const IconWrapper = styled.div`
     width: 46px;
     height: 46px;
     object-fit: contain;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
     border: solid 0.5px rgba(0, 0, 0, 0.1);
     border-radius: 100%;
-    padding: 10px;
+    padding: 0.625rem;
     img {
       width:100%;
     }
@@ -282,7 +266,7 @@ const TransactionListWrapper = styled.div`
 
 const WalletAction = styled.div`
   color: ${({ theme }) => theme.chaliceGray};
-  margin-left: 16px;
+  margin-left: 1rem;
   font-weight: 400;
   :hover {
     cursor: pointer;
@@ -434,7 +418,7 @@ export default function AccountDetails({
                 {ENSName ? (
                   <AccountControl hasENS={!!ENSName} isENS={true}>
                     <StyledLink hasENS={!!ENSName} isENS={true} href={getEtherscanLink(chainId, ENSName, 'address')}>
-                      <Identicon size={26} /><span style={{marginLeft: '15px'}}>{t('Address')}: </span>{ENSName ? (
+                      <Identicon size={26} /><span style={{marginLeft: '1rem'}}>{t('Address')}: </span>{ENSName ? (
                         ENSName
                       ) : ('')} ↗{' '}
                       <Copy toCopy={ENSName} />
@@ -445,7 +429,7 @@ export default function AccountDetails({
                     <AccountControl hasENS={!!ENSName} isENS={false}>
                       <StyledLink hasENS={!!ENSName} isENS={false} href={getEtherscanLink(chainId, account, 'address')}>
                         <Identicon size={26} />
-                        <span style={{marginLeft: '15px'}}>{t('Address')}: </span>
+                        <span style={{marginLeft: '1rem'}}>{t('Address')}: </span>
                         {account ? (
                           account
                         ) : ('')} ↗{' '}

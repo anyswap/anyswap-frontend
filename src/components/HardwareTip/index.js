@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next'
 const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
-  top: 14px;
+  top: 0.875rem;
   &:hover {
     cursor: pointer;
     opacity: 0.6;
@@ -79,7 +79,7 @@ const UpperSection = styled.div`
 const SpinnerWrapper = styled(Spinner)`
   width: 100%;
   height:50px;
-  margin: 20px 0;;
+  margin: 1.25rem 0;;
 `
 
 const LogoBox = styled.div`
@@ -87,7 +87,7 @@ ${({ theme }) => theme.FlexC};
   width: 46px;
   height: 46px;
   object-fit: contain;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
   border: solid 0.5px rgba(0, 0, 0, 0.1);
   border-radius:100%;
   margin: auto;
@@ -113,14 +113,14 @@ font-family: Manrope;
   font-stretch: normal;
   font-style: normal;
   line-height: 1;
-  letter-spacing: -1px;
+  letter-spacing: -0.0625rem;
   text-align: center;
   color: #062536;
-  margin-top: 15px;
+  margin-top: 1rem;
 `
 const CoinTypeText = styled.div`
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -134,7 +134,7 @@ const CoinTypeText = styled.div`
 const ConfirmText = styled.div`
 width: 100%;
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -142,9 +142,9 @@ width: 100%;
   letter-spacing: normal;
   text-align: center;
   color: #734be2;
-  padding: 20px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  margin-top:20px
+  padding: 1.25rem 0;
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.08);
+  margin-top:1.25rem
 `
 
 
@@ -191,10 +191,10 @@ export default function HardwareTip({
                   ) : (<></>)}
                   {/* <SpinnerWrapper src={Circle} alt="loader" /> */}
                   {/* {coinType ? (
-                    <CoinTypeText size={'16px'}>{t("Collecting")} {coinType}</CoinTypeText>
+                    <CoinTypeText size={'1rem'}>{t("Collecting")} {coinType}</CoinTypeText>
                   ) : (<></>)} */}
                   
-                  <ConfirmText size={'12px'}>
+                  <ConfirmText size={'0.75rem'}>
                     {t("confirmHardware")}
                   </ConfirmText>
                 </ConfirmContent>

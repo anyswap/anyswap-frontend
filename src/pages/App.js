@@ -34,9 +34,9 @@ const HeaderWrapper = styled.div`
 `
 const FooterWrapper = styled.div`
   width: 100%;
-  min-height: 30px;
+  min-height: 1.875rem;
   align-self: flex-end;
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
 `
 
 const BodyWrapper = styled.div`
@@ -47,7 +47,7 @@ const BodyWrapper = styled.div`
   align-items: center;
   flex: 1;
   overflow: auto;
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
 `
 
 const Body = styled.div`
@@ -71,7 +71,7 @@ const NavTabBoxLeft = styled.div`
   width: 322px;
   height: 100%;
   overflow:auto;
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
   background: ${({theme}) => theme.bgColor};
   @media screen and (max-width: 960px) {
     display:none;
@@ -85,7 +85,7 @@ const NavTabBoxBottom = styled.div`
   width: 100;
   height: auto;
   overflow:auto;
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
   background: ${({theme}) => theme.bgColor};
   display:none;
   @media screen and (max-width: 960px) {
@@ -98,13 +98,13 @@ const ContentBox = styled.div`
   top:0;
   bottom: 0;
   right: 0;
-  padding: 40px 97px;
+  padding: 2.5rem 97px;
   background: ${({theme}) => theme.backgroundColorCont};
   overflow:auto;
   @media screen and (max-width: 960px) {
     width: 100%;
     height: auto;
-    padding: 20px 15px 86px;
+    padding: 1.25rem 1rem 86px;
     left:  0;
   }
 `

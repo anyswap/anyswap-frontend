@@ -13,7 +13,7 @@ import { transparentize } from 'polished'
 const TransactionStatusWrapper = styled.div`
   display: flex;
   align-items: center;
-  min-width: 12px;
+  min-width: 0.75rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -55,7 +55,7 @@ const TransactionState = styled.div`
   padding: 0.5rem 0.75rem;
   font-weight: 500;
   font-size: 0.75rem;
-  border: 1px solid;
+  border: 0.0625rem solid;
   border-color: ${({ pending, theme }) =>
     pending ? transparentize(0.75, theme.royalBlue) : transparentize(0.75, theme.connectedGreen)};
 

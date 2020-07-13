@@ -8,13 +8,13 @@ import { useWeb3React, useDebounce } from '../../hooks'
 
 const InputPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
-  box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
+  box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
   position: relative;
   border-radius: 1.25rem;
   background-color: ${({theme}) => theme.bgColor};
   z-index: 1;
-  padding: 25px 40px;
-  margin-top: 10px;
+  padding: 1.5625rem 2.5rem;
+  margin-top: 0.625rem;
 `
 
 const ContainerRow = styled.div`
@@ -56,7 +56,7 @@ const Input = styled.input`
   flex: 1 1 auto;
   width: 0;
   background-color: transparent;
-  border-bottom: 1px solid ${({theme}) => theme.textColorBold};
+  border-bottom: 0.0625rem solid ${({theme}) => theme.textColorBold};
 
   color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
   overflow: hidden;
@@ -68,8 +68,8 @@ const Input = styled.input`
   font-stretch: normal;
   font-style: normal;
   line-height: 1;
-  letter-spacing: -1px;
-  padding: 8px 12px;
+  letter-spacing: -0.0625rem;
+  padding: 8px 0.75rem;
   ::placeholder {
     color: ${({ theme }) => theme.placeholderGray};
   }

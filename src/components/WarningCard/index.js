@@ -25,11 +25,11 @@ const Wrapper = styled.div`
   position: relative;
   padding: 1rem;
   border: 0.5px solid #f3be1e;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  border-radius: 0.625rem;
+  margin-bottom: 1.25rem;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
-  grid-row-gap: 10px;
+  grid-row-gap: 0.625rem;
 `
 
 const Row = styled.div`
@@ -48,15 +48,15 @@ const CloseColor = styled(Close)`
 const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
-  top: 14px;
+  top: 0.875rem;
   &:hover {
     cursor: pointer;
     opacity: 0.6;
   }
 
   & > * {
-    height: 14px;
-    width: 14px;
+    height: 0.875rem;
+    width: 0.875rem;
   }
 `
 
@@ -99,24 +99,24 @@ const Popup = styled(Flex)`
   position: absolute;
   width: 228px;
   right: 110px;
-  top: 4px;
+  top: 0.25rem;
   z-index: 10;
   flex-direction: column;
   align-items: center;
   padding: 0.6rem 1rem;
   line-height: 150%;
   background: ${({ theme }) => theme.backgroundColor};
-  border: 1px solid ${({ theme }) => theme.mercuryGray};
+  border: 0.0625rem solid ${({ theme }) => theme.mercuryGray};
   border-radius: 8px;
   animation: ${fadeIn} 0.15s linear;
   color: ${({ theme }) => theme.textColor};
   font-style: italic;
 
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
+  box-shadow: 0px 0px 0.0625rem rgba(0, 0, 0, 0.04), 0px 0.25rem 8px rgba(0, 0, 0, 0.04), 0px 1rem 24px rgba(0, 0, 0, 0.04),
     0px 24px 32px rgba(0, 0, 0, 0.04);
 
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    left: 2px;
+    left: 0.125rem;
     top: 50px;
   `}
 `
@@ -136,7 +136,7 @@ function WarningCard({ onDismiss, urlAddedTokens, currency }) {
       <CloseIcon onClick={() => onDismiss()}>
         <CloseColor alt={'close icon'} />
       </CloseIcon>
-      <Row style={{ fontSize: '12px' }}>
+      <Row style={{ fontSize: '0.75rem' }}>
         <Text>{fromURL ? 'Token imported by URL ' : 'Token imported by user'}</Text>
         <QuestionWrapper
           onClick={() => {
@@ -170,7 +170,7 @@ function WarningCard({ onDismiss, urlAddedTokens, currency }) {
           (View on Etherscan)
         </Link>
       </Row>
-      <Row style={{ fontSize: '12px', fontStyle: 'italic' }}>
+      <Row style={{ fontSize: '0.75rem', fontStyle: 'italic' }}>
         <Text>Please verify the legitimacy of this token before making any transactions.</Text>
       </Row>
     </Wrapper>

@@ -7,8 +7,8 @@ const QRCodeWrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  margin-bottom: 20px;
+  border-radius: 0.75rem;
+  margin-bottom: 1.25rem;
 `
 
 export default function WalletConnectData({ uri = '', size }) {

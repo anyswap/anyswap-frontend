@@ -48,9 +48,9 @@ const FilteredDialogContent = ({ minHeight, maxHeight, isOpen, slideInAnimation,
 const StyledDialogContent = styled(FilteredDialogContent)`
   &[data-reach-dialog-content] {
     margin: 0 0 2rem 0;
-    border: 1px solid ${({ theme }) => theme.concreteGray};
+    border: 0.0625rem solid ${({ theme }) => theme.concreteGray};
     background-color: ${({ theme }) => theme.inputBackground};
-    box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
+    box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
     padding: 0px;
     width: 50vw;
 
@@ -67,7 +67,7 @@ const StyledDialogContent = styled(FilteredDialogContent)`
       `}
     display: flex;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     ${({ theme }) => theme.mediaWidth.upToMedium`
       width: 65vw;
       max-height: 65vh;
@@ -79,7 +79,7 @@ const StyledDialogContent = styled(FilteredDialogContent)`
       ${mobile &&
         css`
           width: 100vw;
-          border-radius: 20px;
+          border-radius: 1.25rem;
           border-bottom-left-radius: 0;
           border-bottom-right-radius: 0;
         `}

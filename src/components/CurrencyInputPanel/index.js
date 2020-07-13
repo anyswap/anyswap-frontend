@@ -42,7 +42,7 @@ const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 const SubCurrencySelect = styled.button`
   ${({ theme }) => theme.FlexC}
   width: 110px;
-  height: 30px;
+  height: 1.875rem;
   border-radius: 6px;
   outline: none;
   cursor: pointer;
@@ -62,16 +62,16 @@ const SubCurrencySelectBox = styled.div`
   width: 100%;
   height: 48px;
   object-fit: contain;
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   border: solid 0.5px #b398f9;
   background-color: #f2edff;
-  padding: 0 40px;
-  margin-top: 10px;
+  padding: 0 2.5rem;
+  margin-top: 0.625rem;
   div {
     ${({ theme }) => theme.FlexSC}
     p {
       font-family: Manrope;
-      font-size: 12px;
+      font-size: 0.75rem;
       font-weight: 500;
       font-stretch: normal;
       font-style: normal;
@@ -88,7 +88,7 @@ const InputRow = styled.div`
   width: 100%;
   align-items: center;
   background:none;
-  padding: 10px 0 0;
+  padding: 0.625rem 0 0;
 `
 
 const Input = styled(BorderlessInput)`
@@ -96,9 +96,9 @@ const Input = styled(BorderlessInput)`
   height: 70px;
   color: ${({ error, theme }) => error ? theme.salmonRed : theme.textColorBold};
   background: none;
-  border-bottom: 1px solid ${({theme}) => theme.textColorBold};
+  border-bottom: 0.0625rem solid ${({theme}) => theme.textColorBold};
   -moz-appearance: textfield;
-  margin-right: 30px;
+  margin-right: 1.875rem;
   @media screen and (max-width: 960px) {
     font-size: 32px;
   }
@@ -110,22 +110,22 @@ const CurrencySelect = styled.button`
   color: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
   height: 70px;
   width: 220px;
-  border: 1px solid ${({ selected, theme }) => (selected ? theme.selectedBorder : theme.selectedBorderNo)};
-  border-radius: 12px;
+  border: 0.0625rem solid ${({ selected, theme }) => (selected ? theme.selectedBorder : theme.selectedBorderNo)};
+  border-radius: 0.75rem;
   background-color: ${({ selected, theme }) => (selected ? theme.selectedBg : theme.selectedBgNo)};
   outline: none;
   cursor: pointer;
   user-select: none;
-  padding: 0 20px;
+  padding: 0 1.25rem;
   position: relative;
 
   :hover {
-    border: 1px solid
+    border: 0.0625rem solid
       ${({ selected, theme }) => (selected ? darken(0.1, theme.selectedBorder) : darken(0.1, theme.selectedBorder))};
   }
 
   :focus {
-    border: 1px solid ${({ theme }) => darken(0.1, theme.selectedBorder)};
+    border: 0.0625rem solid ${({ theme }) => darken(0.1, theme.selectedBorder)};
   }
 
   :active {
@@ -133,7 +133,7 @@ const CurrencySelect = styled.button`
   }
   @media screen and (max-width: 960px) {
     width: 50%;
-    padding: 0 10px;
+    padding: 0 0.625rem;
   }
 `
 
@@ -142,7 +142,7 @@ const Aligner = styled.span`
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 0px 26px 0 56px;
+  padding: 0px 1.625rem 0 56px;
   width:100%;
   height:100%;
   &.pl-0{
@@ -152,12 +152,12 @@ const Aligner = styled.span`
 
 const StyledDropDownBox = styled.div`
   ${({ theme }) => theme.FlexC}
-  width: 26px;
-  height: 26px;
+  width: 1.625rem;
+  height: 1.625rem;
   background: ${({ theme }) => theme.backgroundColor};
   border-radius: 100%;
   position: absolute;
-  top: 20px;
+  top: 1.25rem;
   right: 0px;
 `
 
@@ -173,13 +173,13 @@ const InputPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   position: relative;
   z-index: 1;
-  box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
+  box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
   border-radius: 1.25rem;
   background-color: ${({theme}) => theme.bgColor};
   height:154px;
-  padding: 20px 40px;
+  padding: 1.25rem 2.5rem;
   @media screen and (max-width: 960px) {
-    padding: 15px 25px;
+    padding: 1rem 1.5625rem;
   }
 `
 
@@ -194,7 +194,7 @@ const LabelRow = styled.div`
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
   line-height: 1rem;
-  height: 30px;
+  height: 1.875rem;
   padding: 0;
   span:hover {
     cursor: pointer;
@@ -204,7 +204,7 @@ const LabelRow = styled.div`
 
 const LabelContainer = styled.div`
   font-family: Manrope;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -216,7 +216,7 @@ const LabelContainer = styled.div`
 const ErrorSpanBox = styled.div`
   height: 70px;
   width: 220px;
-  margin-left: 10px;
+  margin-left: 0.625rem;
   @media screen and (max-width: 960px) {
     display:none;
   }
@@ -224,12 +224,12 @@ const ErrorSpanBox = styled.div`
 const ErrorSpan = styled.span`
   display:flex;
   align-items: center;
-  padding: 15px 20px;
+  padding: 1rem 1.25rem;
   font-size: 1rem;
   height: 100%;
   color: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
-  border: 1px solid ${({ theme }) => theme.selectedBorderNo};
-  border-radius: 12px;
+  border: 0.0625rem solid ${({ theme }) => theme.selectedBorderNo};
+  border-radius: 0.75rem;
   background-color: rgba(0,0,0,0.06);
   outline: none;
   cursor: pointer;
@@ -252,11 +252,11 @@ const ExtraText = styled.div`
   h5 {
     font-weight: normal;
     line-height: 1;
-    font-size: 12px;
-    margin: 4px 0;
+    font-size: 0.75rem;
+    margin: 0.25rem 0;
   }
   p  {
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 1.43;
     margin:0;
     font-weight: 800;
@@ -264,17 +264,17 @@ const ExtraText = styled.div`
 `
 
 const PasteStyle = styled.div`
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   position: absolute;
-  top: 12px;
+  top: 0.75rem;
   right: 0;
 `
 
 const TokenModal = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   width: 100%;
-  padding: 15px;
+  padding: 1rem;
 `
 
 const ModalHeader = styled.div`
@@ -286,7 +286,7 @@ const ModalHeader = styled.div`
   height: 60px;
   p {
     color: ${({theme}) => theme.textColorBold};
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: bold;
     font-family: Manrope;
   }
@@ -301,7 +301,7 @@ const CloseColor = styled(Close)`
 const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
-  top: 14px;
+  top: 0.875rem;
   &:hover {
     cursor: pointer;
     opacity: 0.6;
@@ -313,12 +313,12 @@ const SearchContainer = styled.div`
   justify-content: flex-start;
   min-height: 2.5rem;
   padding: 0 1rem;
-  border-radius: 9px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 0.5625rem;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
   border: solid 0.5px rgba(0, 0, 0, 0.1);
   overflow:hidden;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 `
 
 const StyledBorderlessInput = styled(BorderlessInput)`
@@ -329,7 +329,7 @@ const StyledBorderlessInput = styled(BorderlessInput)`
   background-color: none;
   color: ${({theme}) => theme.textColorBold};
   ::placeholder {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: ${({theme}) => theme.textColorBold};
   }
 `
@@ -357,7 +357,7 @@ const TokenModalRow = styled.div`
   padding: 1rem;
   cursor: pointer;
   user-select: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.08);
 
   #symbol {
     color: ${({ theme }) => theme.doveGrey};
@@ -383,7 +383,7 @@ const TokenSymbolGroup = styled.div`
   margin-left: 1rem;
   span {
     font-family: Manrope;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
@@ -396,14 +396,14 @@ const TokenSymbolGroup = styled.div`
 const TokenFullName = styled.div`
   color: ${({ theme }) => theme.chaliceGray};
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: 1;
   letter-spacing: normal;
   color: ${({theme}) => theme.selectTextColor};
-  margin-top: 2px;
+  margin-top: 0.125rem;
 `
 
 const FadedSpan = styled.span`
@@ -413,7 +413,7 @@ const TokenRowBalanceText = styled.span`
   width: 100%;
   display:block;
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -425,7 +425,7 @@ const TokenRowBalanceText = styled.span`
 `
 const TokenRowBalance = styled.div`
   font-family: Manrope;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 800;
   font-stretch: normal;
   font-style: normal;
@@ -451,7 +451,7 @@ const StyledTokenName = styled.span`
   width: 100%;
   h3 {
     font-family: Manrope;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
@@ -462,7 +462,7 @@ const StyledTokenName = styled.span`
   }
   p {
     font-family: Manrope;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -486,11 +486,11 @@ const TokenLogoBox = styled.div`
   background: ${ ({theme}) => theme.backgroundColor};
   box-sizing:border-box;
   border-radius: 100%;
-  margin-right: 20px;
+  margin-right: 1.25rem;
 `
 const TokenLogoBox1 = styled(TokenLogoBox)`
   position:absolute;
-  top:10px;
+  top:0.625rem;
   left:0;
 `
 
@@ -498,7 +498,7 @@ const InputRangeRow = styled.div`
   ${({ theme }) => theme.FlexBC};
   width: 50%;
   padding-right: 86px;
-  margin-right: 30px;
+  margin-right: 1.875rem;
   position:relative;
   .percent { 
     position:absolute;
@@ -506,7 +506,7 @@ const InputRangeRow = styled.div`
     right:-5px;
     text-align:right;
     font-family: Manrope;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -522,7 +522,7 @@ const InputRangeBox = styled.div`
   height: 36px;
   .line {
     width: 100%;
-    height: 10px;
+    height: 0.625rem;
     border-radius: 8.5px;
     position: absolute;
     top:13px;
@@ -536,16 +536,16 @@ const InputRangeBox = styled.div`
     background: ${({theme}) => theme.bgColorLinear};
   }
   .radius {
-    width: 25px;
-    height: 25px;
+    width: 1.5625rem;
+    height: 1.5625rem;
     object-fit: contain;
-    box-shadow: 4px 4px 10px 0 rgba(118, 68, 203, 0.27);
+    box-shadow: 0.25rem 0.25rem 0.625rem 0 rgba(118, 68, 203, 0.27);
     background: ${({theme}) => theme.bgColorLinear};
     border-radius: 100%;
     position:absolute;
     top: 6px;
     left: 0;
-    margin-left:-12px;
+    margin-left:-0.75rem;
   }
 `
 const InputRange = styled(BorderlessInput)`
@@ -562,16 +562,16 @@ const InputRangeNum = styled(BorderlessInput)`
   height: 36px;
   position:absolute;
   top:0;
-  right:10px;
+  right:0.625rem;
   object-fit: contain;
-  border-radius: 9px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 0.5625rem;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
   border: solid 0.5px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   padding: 0 8px;
   text-align:center;
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -693,7 +693,7 @@ export default function CurrencyInputPanel({
             }}
             className={classType}
           >
-            <img src={classType ? UnlockBlack : Unlock} style={{marginRight: '10px'}}/>
+            <img src={classType ? UnlockBlack : Unlock} style={{marginRight: '0.625rem'}}/>
             {t('unlock')}
           </SubCurrencySelect>
         )
@@ -814,7 +814,7 @@ export default function CurrencyInputPanel({
               {
                 isSelfSymbol ? (
                   <>
-                    {selectedTokenAddress ? (isSelfLogo ? <TokenLogoBox1><TokenLogo address={isSelfLogo} size={'26px'} /></TokenLogoBox1> : <TokenLogoBox1><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox1>) : null}
+                    {selectedTokenAddress ? (isSelfLogo ? <TokenLogoBox1><TokenLogo address={isSelfLogo} size={'1.625rem'} /></TokenLogoBox1> : <TokenLogoBox1><TokenLogo address={selectedTokenAddress} size={'1.625rem'} /></TokenLogoBox1>) : null}
                     <StyledTokenName>
                       {
                         isSelfSymbol ? (
@@ -831,7 +831,7 @@ export default function CurrencyInputPanel({
                   </>
                 ) :  (
                   <>
-                    {selectedTokenAddress ? <TokenLogoBox1><TokenLogo address={selectedTokenAddress} size={'26px'} /></TokenLogoBox1> : null}
+                    {selectedTokenAddress ? <TokenLogoBox1><TokenLogo address={selectedTokenAddress} size={'1.625rem'} /></TokenLogoBox1> : null}
                     <StyledTokenName>
                       {
                         allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol ? (
@@ -1131,7 +1131,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
       return (
         <TokenModalRow key={address} onClick={() => _onTokenSelect(address)}>
           <TokenRowLeft>
-            <TokenLogoBox style={ {'border': '1px solid rgba(0, 0, 0, 0.1)'}}>
+            <TokenLogoBox style={ {'border': '0.0625rem solid rgba(0, 0, 0, 0.1)'}}>
               <TokenLogo address={address} size={'2rem'} />
             </TokenLogoBox>
             <TokenSymbolGroup>

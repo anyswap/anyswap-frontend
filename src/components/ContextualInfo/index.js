@@ -34,7 +34,7 @@ const SummaryWrapperContainer = styled.div`
   font-size: 0.75rem;
 
   span {
-    margin-right: 12px;
+    margin-right: 0.75rem;
   }
 
   img {

@@ -34,10 +34,10 @@ const LoadingMessage = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   align-items: center;
   justify-content: flex-start;
-  border-radius: 12px;
-  margin-bottom: 20px;
+  border-radius: 0.75rem;
+  margin-bottom: 1.25rem;
   color: ${({ theme, error }) => (error ? theme.salmonRed : 'inherit')};
-  border: 1px solid ${({ theme, error }) => (error ? theme.salmonRed : theme.placeholderGray)};
+  border: 0.0625rem solid ${({ theme, error }) => (error ? theme.salmonRed : theme.placeholderGray)};
 
   & > * {
     padding: 1rem;
@@ -52,7 +52,7 @@ const ErrorGroup = styled.div`
 
 const ErrorButton = styled.div`
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: ${({ theme }) => theme.textColor};
   background-color: ${({ theme }) => theme.placeholderGray};
   margin-left: 1rem;

@@ -5,7 +5,7 @@ export const Button = styled.button.attrs(({ warning, theme }) => ({
   backgroundColor: warning ? theme.salmonRed : theme.royalBlue
 }))`
   padding: 1rem 2rem 1rem 2rem;
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   cursor: pointer;
   user-select: none;
   font-size: 1rem;
@@ -14,7 +14,7 @@ export const Button = styled.button.attrs(({ warning, theme }) => ({
   background: ${({theme}) => theme.bgColorLinear};
   color: ${({ theme }) => theme.white};
   width: 100%;
-  box-shadow: 6px 14px 22px 0 rgba(118, 68, 203, 0.27);
+  box-shadow: 6px 0.875rem 22px 0 rgba(118, 68, 203, 0.27);
 
   :hover,
   :focus {
@@ -41,7 +41,7 @@ export const TitleBox = styled.h3`
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
-  margin: 0 0 16px;
+  margin: 0 0 1rem;
   color: ${({ theme }) => theme.textColorBold};
   white-space:nowrap;
   @media screen and (max-width: 960px) {
@@ -101,6 +101,6 @@ const rotate = keyframes`
 
 export const Spinner = styled.img`
   animation: 2s ${rotate} linear infinite;
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
 `

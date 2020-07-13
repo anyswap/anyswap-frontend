@@ -90,7 +90,7 @@ const Popup = styled(Flex)`
   padding: 0.6rem 1rem;
   line-height: 150%;
   background: ${({ theme }) => theme.inputBackground};
-  border: 1px solid ${({ theme }) => theme.mercuryGray};
+  border: 0.0625rem solid ${({ theme }) => theme.mercuryGray};
 
   border-radius: 8px;
 
@@ -100,7 +100,7 @@ const Popup = styled(Flex)`
   font-style: italic;
 
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    left: -20px;
+    left: -1.25rem;
   `}
 `
 
@@ -110,17 +110,17 @@ const FancyButton = styled.button`
   min-width: 55px;
   height: 2rem;
   border-radius: 36px;
-  font-size: 12px;
-  border: 1px solid ${({ theme }) => theme.mercuryGray};
+  font-size: 0.75rem;
+  border: 0.0625rem solid ${({ theme }) => theme.mercuryGray};
   outline: none;
   background: ${({ theme }) => theme.inputBackground};
 
   :hover {
     cursor: inherit;
-    border: 1px solid ${({ theme }) => theme.chaliceGray};
+    border: 0.0625rem solid ${({ theme }) => theme.chaliceGray};
   }
   :focus {
-    border: 1px solid ${({ theme }) => theme.royalBlue};
+    border: 0.0625rem solid ${({ theme }) => theme.royalBlue};
   }
 `
 
@@ -136,7 +136,7 @@ const Option = styled(FancyButton)`
     active &&
     css`
       color: ${({ theme }) => theme.royalBlue};
-      border: 1px  solid ${({ theme }) => theme.royalBlue};
+      border: 0.0625rem  solid ${({ theme }) => theme.royalBlue};
 
       :hover {
         border: none;
@@ -146,18 +146,18 @@ const Option = styled(FancyButton)`
       :focus {
         border: none;
         box-shadow: none;
-        border: 1px  solid ${({ theme }) => theme.royalBlue};
+        border: 0.0625rem  solid ${({ theme }) => theme.royalBlue};
       }
 
       :active {
-        border: 1px  solid ${({ theme }) => theme.royalBlue};
+        border: 0.0625rem  solid ${({ theme }) => theme.royalBlue};
       }
 
       :hover:focus {
-        border: 1px  solid ${({ theme }) => theme.royalBlue};
+        border: 0.0625rem  solid ${({ theme }) => theme.royalBlue};
       }
       :hover:focus:active {
-        border: 1px  solid ${({ theme }) => theme.royalBlue};
+        border: 0.0625rem  solid ${({ theme }) => theme.royalBlue};
       }
     `}
 `
@@ -169,8 +169,8 @@ const OptionLarge = styled(Option)`
 const Input = styled.input`
   background: ${({ theme }) => theme.inputBackground};
   flex-grow: 1;
-  font-size: 12px;
-  min-width: 20px;
+  font-size: 0.75rem;
+  min-width: 1.25rem;
 
   outline: none;
   box-sizing: border-box;
@@ -212,7 +212,7 @@ const BottomError = styled.div`
   ${({ show }) =>
     show &&
     css`
-      padding-top: 12px;
+      padding-top: 0.75rem;
     `}
   color: ${({ theme }) => theme.doveGray};
   ${({ color }) =>
@@ -232,16 +232,16 @@ const OptionCustom = styled(FancyButton)`
   ${({ active }) =>
     active &&
     css`
-      border: 1px solid ${({ theme }) => theme.royalBlue};
+      border: 0.0625rem solid ${({ theme }) => theme.royalBlue};
       :hover {
-        border: 1px solid ${({ theme }) => darken(0.1, theme.royalBlue)};
+        border: 0.0625rem solid ${({ theme }) => darken(0.1, theme.royalBlue)};
       }
     `}
 
   ${({ color }) =>
     color === 'red' &&
     css`
-      border: 1px solid ${({ theme }) => theme.salmonRed};
+      border: 0.0625rem solid ${({ theme }) => theme.salmonRed};
     `}
 
   input {
@@ -254,7 +254,7 @@ const OptionCustom = styled(FancyButton)`
 
 const Bold = styled.span`
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -267,16 +267,16 @@ const LastSummaryTextBox = styled.div`
   width: 100%;
   height: 240px;
   object-fit: contain;
-  border-radius: 9px;
-  box-shadow: 7px 2px 26px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 0.5625rem;
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
   background-color: #ffffff;
-  padding: 25px 40px;
-  margin-top: 10px;
+  padding: 1.5625rem 2.5rem;
+  margin-top: 0.625rem;
 `
 const LastSummaryText = styled.div`
 ${({ theme }) => theme.FlexSC}
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -284,7 +284,7 @@ ${({ theme }) => theme.FlexSC}
   letter-spacing: normal;
   color: #062536;
   height: 32px;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   .icon {
     width: 32px;
     height: 32px;
@@ -293,7 +293,7 @@ ${({ theme }) => theme.FlexSC}
     border: solid 0.5px #c0d6ea;
     background-color: #ecf6ff;
     border-radius: 100%;
-    margin-right: 10px;
+    margin-right: 0.625rem;
     img {
       height: 100%;
       display:block;
@@ -303,9 +303,9 @@ ${({ theme }) => theme.FlexSC}
 
 const SlippageSelector = styled.div`
   padding: 1rem 1.25rem 1rem 1.25rem;
-  border-radius: 12px 12px 0 0;
+  border-radius: 0.75rem 0.75rem 0 0;
   @media screen and (max-width: 960px) {
-    padding: 8px 10px;
+    padding: 8px 0.625rem;
   }
 `
 
@@ -330,10 +330,10 @@ const Faded = styled.span`
 `
 
 const TransactionInfo = styled.div`
-  padding: 0 20px 25px;
-  border-bottom: 1px solid #dadada;
+  padding: 0 1.25rem 1.5625rem;
+  border-bottom: 0.0625rem solid #dadada;
   @media screen and (max-width: 960px) {
-    padding: 0 10px 10px;
+    padding: 0 0.625rem 0.625rem;
     height: auto;
   }
 `
@@ -341,28 +341,28 @@ const TransactionInfo = styled.div`
 const ValueWrapper = styled.span`
   padding: 0.125rem 0.3rem 0.1rem 0.3rem;
   background-color: ${({ theme }) => darken(0.04, theme.concreteGray)};
-  border-radius: 12px;
+  border-radius: 0.75rem;
   font-variant: tabular-nums;
 `
 
 const DeadlineSelector = styled.div`
   padding: 1rem 1.25rem 1rem 1.25rem;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 0.75rem 0.75rem;
 `
 
 const SetLimitBox = styled.div`
   width: 100%;
   background:#fff;
-  padding: 25px 20px 9px;
-  margin-top:10px;
+  padding: 1.5625rem 1.25rem 0.5625rem;
+  margin-top:0.625rem;
   @media screen and (max-width: 960px) {
-    padding: 10px 10px 9px;
+    padding: 0.625rem 0.625rem 0.5625rem;
   }
 `
 
 const BigTitle = styled.div`
 font-family: Manrope;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -377,8 +377,8 @@ ${({theme}) => theme.FlexBC}
   width: 110px;
   height: 36px;
   object-fit: contain;
-  border-radius: 9px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 0.5625rem;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
   border: solid 0.5px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
 `
@@ -386,7 +386,7 @@ const InputMin = styled(BorderlessInput)`
   height: 100%;
   border:none;
   padding: 0 8px;
-  font-size:12px;
+  font-size:0.75rem;
   &:focus, &:hover {
     border:none;
   }

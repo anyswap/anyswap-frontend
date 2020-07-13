@@ -30,7 +30,7 @@ min-width: 30%;
 @media screen and (max-width: 960px) {
   background-color: #ededed;
   width:100%;
-  padding: 1rem 15px;
+  padding: 1rem 1rem;
 }
 `
 
@@ -41,11 +41,11 @@ const ExchangeRateWrapper = styled.div`
   font-size: 0.75rem;
   padding: 8px 1rem ;
   height: 28px;
-  border-bottom:1px solid #dadada;
+  border-bottom:0.0625rem solid #dadada;
   span {
-    height: 12px;
+    height: 0.75rem;
     font-family: Manrope;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
@@ -57,9 +57,9 @@ const ExchangeRateWrapper = styled.div`
 `
 
 const ExchangeRate = styled.div`
-  height: 12px;
+  height: 0.75rem;
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -95,9 +95,9 @@ const SummaryPanelBox = styled.div`
   ${({ theme }) => theme.FlexBC}
   height: 115px;
   object-fit: contain;
-  border-radius: 9px;
+  border-radius: 0.5625rem;
   background-color: #ededed;
-  margin-top:10px;
+  margin-top:0.625rem;
   padding: 18px 29px;
   @media screen and (max-width: 960px) {
     padding:0;
@@ -115,7 +115,7 @@ const TxnsDtilBtn = styled.div`
   border-radius: 6px;
   background-color: #f9fafb;
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -123,7 +123,7 @@ const TxnsDtilBtn = styled.div`
   letter-spacing: normal;
   color: #734be2;
   cursor:pointer;
-  padding: 0 10px;
+  padding: 0 0.625rem;
 `
 
 function CreateExchange({ location, params }) {
