@@ -748,7 +748,7 @@ export default function TransactionDetails(props) {
                 `${amountFormatter(
                   props.independentValueParsed,
                   props.independentDecimals,
-                  Math.min(4, props.independentDecimals)
+                  Math.min(6, props.independentDecimals)
                 )} ${props.inputSymbol}`
               )}
             </ValueWrapper>
@@ -763,7 +763,7 @@ export default function TransactionDetails(props) {
                 `${amountFormatter(
                   props.dependentValueMinumum,
                   props.dependentDecimals,
-                  Math.min(4, props.dependentDecimals)
+                  Math.min(6, props.dependentDecimals)
                 )} ${props.outputSymbol}`
               )}
             </ValueWrapper>{' '}
@@ -787,7 +787,7 @@ export default function TransactionDetails(props) {
                 `${amountFormatter(
                   props.independentValueParsed,
                   props.independentDecimals,
-                  Math.min(4, props.independentDecimals)
+                  Math.min(6, props.independentDecimals)
                 )} ${props.inputSymbol}`
               )}
             </ValueWrapper>{' '}
@@ -797,7 +797,7 @@ export default function TransactionDetails(props) {
                 `${amountFormatter(
                   props.dependentValueMinumum,
                   props.dependentDecimals,
-                  Math.min(4, props.dependentDecimals)
+                  Math.min(6, props.dependentDecimals)
                 )} ${props.outputSymbol}`
               )}
             </ValueWrapper>
@@ -823,7 +823,7 @@ export default function TransactionDetails(props) {
                 `${amountFormatter(
                   props.independentValueParsed,
                   props.independentDecimals,
-                  Math.min(4, props.independentDecimals)
+                  Math.min(6, props.independentDecimals)
                 )} ${props.outputSymbol}`
               )}
             </ValueWrapper>{' '}
@@ -836,7 +836,7 @@ export default function TransactionDetails(props) {
                 `${amountFormatter(
                   props.dependentValueMaximum,
                   props.dependentDecimals,
-                  Math.min(4, props.dependentDecimals)
+                  Math.min(6, props.dependentDecimals)
                 )} ${props.inputSymbol}`
               )}
             </ValueWrapper>{' '}
@@ -860,7 +860,7 @@ export default function TransactionDetails(props) {
                 `${amountFormatter(
                   props.independentValueParsed,
                   props.independentDecimals,
-                  Math.min(4, props.independentDecimals)
+                  Math.min(6, props.independentDecimals)
                 )} ${props.outputSymbol}`
               )}
             </ValueWrapper>{' '}
@@ -870,7 +870,7 @@ export default function TransactionDetails(props) {
                 `${amountFormatter(
                   props.dependentValueMaximum,
                   props.dependentDecimals,
-                  Math.min(4, props.dependentDecimals)
+                  Math.min(6, props.dependentDecimals)
                 )} ${props.inputSymbol}`
               )}
             </ValueWrapper>{' '}

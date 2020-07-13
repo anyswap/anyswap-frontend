@@ -169,6 +169,7 @@ const StyledNavLink = styled(NavLink).attrs({
   height: 48px;
   border-radius: 0.5625rem;
   position:relative;
+  white-space:nowrap;
 
   
   .icon {

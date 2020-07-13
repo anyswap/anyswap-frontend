@@ -369,14 +369,22 @@ export default function DashboardDtil () {
   const allTokens = useAllTokenDetails()
   const { t } = useTranslation()
 
+  // console.log(allTokens)
+  let allCoins = {}
+  for (let obj in allTokens) {
+    allCoins[allTokens[obj].symbol] = {
+      ...allTokens[obj],
+      token: obj
+    }
+  }
+  // console.log(allCoins)
   /**
    * BTC start
    *  */
-  const BTCToken = '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947'
-  const poolTokenBalanceBTC = useAddressBalance(account, allTokens[BTCToken].exchangeAddress)
-  const exchangeETHBalanceBTC = useAddressBalance(allTokens[BTCToken].exchangeAddress, 'FSN')
-  const exchangeTokenBalanceBTC = useAddressBalance(allTokens[BTCToken].exchangeAddress, BTCToken)
-  const exchangeContractBTC = useExchangeContract(allTokens[BTCToken].exchangeAddress)
+  const poolTokenBalanceBTC = useAddressBalance(account, allCoins.mBTC.exchangeAddress)
+  const exchangeETHBalanceBTC = useAddressBalance(allCoins.mBTC.exchangeAddress, 'FSN')
+  const exchangeTokenBalanceBTC = useAddressBalance(allCoins.mBTC.exchangeAddress, allCoins.mBTC.token)
+  const exchangeContractBTC = useExchangeContract(allCoins.mBTC.exchangeAddress)
   const [totalPoolTokensBTC, setTotalPoolTokensBTC] = useState()
   const fetchPoolTokensBTC = useCallback(() => {
     if (exchangeContractBTC) {
@@ -416,11 +424,10 @@ export default function DashboardDtil () {
   /**
    * ANY start
    *  */
-  const ANYToken = '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
-  const poolTokenBalanceANY = useAddressBalance(account, allTokens[ANYToken].exchangeAddress)
-  const exchangeETHBalanceANY = useAddressBalance(allTokens[ANYToken].exchangeAddress, 'FSN')
-  const exchangeTokenBalanceANY = useAddressBalance(allTokens[ANYToken].exchangeAddress, ANYToken)
-  const exchangeContractANY = useExchangeContract(allTokens[ANYToken].exchangeAddress)
+  const poolTokenBalanceANY = useAddressBalance(account, allCoins.ANY.exchangeAddress)
+  const exchangeETHBalanceANY = useAddressBalance(allCoins.ANY.exchangeAddress, 'FSN')
+  const exchangeTokenBalanceANY = useAddressBalance(allCoins.ANY.exchangeAddress, allCoins.ANY.token)
+  const exchangeContractANY = useExchangeContract(allCoins.ANY.exchangeAddress)
   const [totalPoolTokensANY, setTotalPoolTokensANY] = useState()
   const fetchPoolTokensANY = useCallback(() => {
     if (exchangeContractANY) {
@@ -460,11 +467,10 @@ export default function DashboardDtil () {
   /**
    * ETH start
    *  */
-  const ETHToken = '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88'
-  const poolTokenBalanceETH = useAddressBalance(account, allTokens[ETHToken].exchangeAddress)
-  const exchangeETHBalanceETH = useAddressBalance(allTokens[ETHToken].exchangeAddress, 'FSN')
-  const exchangeTokenBalanceETH = useAddressBalance(allTokens[ETHToken].exchangeAddress, ETHToken)
-  const exchangeContractETH = useExchangeContract(allTokens[ETHToken].exchangeAddress)
+  const poolTokenBalanceETH = useAddressBalance(account, allCoins.mETH.exchangeAddress)
+  const exchangeETHBalanceETH = useAddressBalance(allCoins.mETH.exchangeAddress, 'FSN')
+  const exchangeTokenBalanceETH = useAddressBalance(allCoins.mETH.exchangeAddress, allCoins.mETH.token)
+  const exchangeContractETH = useExchangeContract(allCoins.mETH.exchangeAddress)
   const [totalPoolTokensETH, setTotalPoolTokensETH] = useState()
   const fetchPoolTokensETH = useCallback(() => {
     if (exchangeContractETH) {
@@ -504,11 +510,10 @@ export default function DashboardDtil () {
    /**
    * USDT start
    *  */
-  const USDTToken = '0x19543338473caaa6f404dbe540bb787f389d5462'
-  const poolTokenBalanceUSDT = useAddressBalance(account, allTokens[USDTToken].exchangeAddress)
-  const exchangeETHBalanceUSDT = useAddressBalance(allTokens[USDTToken].exchangeAddress, 'FSN')
-  const exchangeTokenBalanceUSDT = useAddressBalance(allTokens[USDTToken].exchangeAddress, USDTToken)
-  const exchangeContractUSDT = useExchangeContract(allTokens[USDTToken].exchangeAddress)
+  const poolTokenBalanceUSDT = useAddressBalance(account, allCoins.mUSDT.exchangeAddress)
+  const exchangeETHBalanceUSDT = useAddressBalance(allCoins.mUSDT.exchangeAddress, 'FSN')
+  const exchangeTokenBalanceUSDT = useAddressBalance(allCoins.mUSDT.exchangeAddress, allCoins.mUSDT.token)
+  const exchangeContractUSDT = useExchangeContract(allCoins.mUSDT.exchangeAddress)
   const [totalPoolTokensUSDT, setTotalPoolTokensUSDT] = useState()
   const fetchPoolTokensUSDT = useCallback(() => {
     if (exchangeContractUSDT) {

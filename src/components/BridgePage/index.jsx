@@ -612,9 +612,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const inputBalanceFormatted = !!(inputBalance && Number.isInteger(inputDecimals))
     ? amountFormatter(inputBalance, inputDecimals, inputDecimals)
     : ''
-  // const outputBalanceFormatted = !!(outputBalance && Number.isInteger(outputDecimals))
-  //   ? amountFormatter(outputBalance, outputDecimals, Math.min(4, outputDecimals))
-  //   : ''
 
   // compute useful transforms of the data above
   const independentDecimals = independentField === INPUT ? inputDecimals : outputDecimals

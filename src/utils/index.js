@@ -266,7 +266,7 @@ export function formatEthBalance(balance) {
 }
 
 export function formatTokenBalance(balance, decimal) {
-  return !!(balance && Number.isInteger(decimal)) ? amountFormatter(balance, decimal, Math.min(4, decimal)) : 0
+  return !!(balance && Number.isInteger(decimal)) ? amountFormatter(balance, decimal, Math.min(6, decimal)) : 0
 }
 
 export function formatToUsd(price) {

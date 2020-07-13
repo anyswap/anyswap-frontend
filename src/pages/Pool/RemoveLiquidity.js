@@ -416,7 +416,7 @@ export default function RemoveLiquidity({ params }) {
     poolTokenBalance && totalPoolTokens && !totalPoolTokens.isZero()
       ? poolTokenBalance.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokens)
       : undefined
-  const ownershipPercentageFormatted = ownershipPercentage && amountFormatter(ownershipPercentage, 16, 4)
+  const ownershipPercentageFormatted = ownershipPercentage && amountFormatter(ownershipPercentage, 16, 6)
 
   const ETHOwnShare =
     exchangeETHBalance &&
@@ -476,7 +476,7 @@ export default function RemoveLiquidity({ params }) {
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
-      setHardwareTxnsInfo(`${amountFormatter(ethWithdrawn, 18, 4, false)} FSN` + ' + ' + `${amountFormatter(tokenWithdrawn, decimals, Math.min(4, decimals))} ${symbol}`)
+      setHardwareTxnsInfo(`${amountFormatter(ethWithdrawn, 18, 6, false)} FSN` + ' + ' + `${amountFormatter(tokenWithdrawn, decimals, Math.min(6, decimals))} ${symbol}`)
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
 
       let data = web3Contract.removeLiquidity.getData(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline)
@@ -518,29 +518,29 @@ export default function RemoveLiquidity({ params }) {
           <div className='icon'>
             <img src={RemoveBlackIcon} />
           </div>
-          {t('youAreRemoving')} {b(`${amountFormatter(ethWithdrawn, 18, 4)} FSN`)} {t('and')}{' '}
-          {b(`${amountFormatter(tokenWithdrawn, decimals, Math.min(decimals, 4))} ${symbol}`)} {t('outPool')}
+          {t('youAreRemoving')} {b(`${amountFormatter(ethWithdrawn, 18, 6)} FSN`)} {t('and')}{' '}
+          {b(`${amountFormatter(tokenWithdrawn, decimals, Math.min(decimals, 6))} ${symbol}`)} {t('outPool')}
         </LastSummaryText>
         <LastSummaryText>
         <div className='icon'>
             <img src={RemoveBlackIcon} />
           </div>
-          {t('youWillRemove')} {b(amountFormatter(valueParsed, 18, 4))} {t('liquidityTokens')}
+          {t('youWillRemove')} {b(amountFormatter(valueParsed, 18, 6))} {t('liquidityTokens')}
         </LastSummaryText>
         <LastSummaryText>
         <div className='icon'>
             <img src={WeekIcon} />
           </div>
-          {t('totalSupplyIs')} {b(totalPoolTokens ? amountFormatter(totalPoolTokens, 18, 4) : '')}
+          {t('totalSupplyIs')} {b(totalPoolTokens ? amountFormatter(totalPoolTokens, 18, 6) : '')}
         </LastSummaryText>
         <LastSummaryText1>
           {t('tokenWorth')} 
           <LogoBox><img src={FSNLogo}/></LogoBox>
-          <CoinInfoBox>{totalPoolTokens ? amountFormatter(ETHPer.div(totalPoolTokens), 18, 4) + ' ' : ''} FSN</CoinInfoBox>
+          <CoinInfoBox>{totalPoolTokens ? amountFormatter(ETHPer.div(totalPoolTokens), 18, 6) + ' ' : ''} FSN</CoinInfoBox>
           {t('and')}{' '}
           {/* {b(amountFormatter(ETHPer.div(totalPoolTokens), 18, 4))}  */}
           <LogoBox><TokenLogo  address={outputCurrency} size={'18px'} ></TokenLogo></LogoBox>
-          <CoinInfoBox>{totalPoolTokens ? amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(4, decimals)) + ' ' : ''}{symbol}</CoinInfoBox>
+          <CoinInfoBox>{totalPoolTokens ? amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(6, decimals)) + ' ' : ''}{symbol}</CoinInfoBox>
           {/* {b(amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(4, decimals)))} {symbol} */}
         </LastSummaryText1>
       </LastSummaryTextBox>
@@ -677,7 +677,7 @@ export default function RemoveLiquidity({ params }) {
       )}
       <CurrencyInputPanel
         title={t('poolTokens')}
-        extraText={poolTokenBalance && formatBalance(amountFormatter(poolTokenBalance, 18, 4))}
+        extraText={poolTokenBalance && formatBalance(amountFormatter(poolTokenBalance, 18, 6))}
         extraTextClickHander={() => {
           if (poolTokenBalance) {
             const valueToSet = poolTokenBalance
@@ -694,7 +694,7 @@ export default function RemoveLiquidity({ params }) {
         selectedTokenAddress={outputCurrency}
         hideETH={true}
         isRange={true}
-        tokenBalance={poolTokenBalance && amountFormatter(poolTokenBalance, 18, 4)}
+        tokenBalance={poolTokenBalance && amountFormatter(poolTokenBalance, 18, 6)}
       />
       <OversizedPanel>
         <DownArrowBackground>
@@ -710,11 +710,11 @@ export default function RemoveLiquidity({ params }) {
           !!(ethWithdrawn && tokenWithdrawn) ? (
             <RemoveLiquidityOutput>
               <RemoveLiquidityOutputText>
-                {`${amountFormatter(ethWithdrawn, 18, 4, false)} FSN`}
+                {`${amountFormatter(ethWithdrawn, 18, 6, false)} FSN`}
               </RemoveLiquidityOutputText>
               <RemoveLiquidityOutputPlus> + </RemoveLiquidityOutputPlus>
               <RemoveLiquidityOutputText>
-                {`${amountFormatter(tokenWithdrawn, decimals, Math.min(4, decimals))} ${symbol}`}
+                {`${amountFormatter(tokenWithdrawn, decimals, Math.min(6, decimals))} ${symbol}`}
               </RemoveLiquidityOutputText>
             </RemoveLiquidityOutput>
           ) : (
@@ -736,7 +736,7 @@ export default function RemoveLiquidity({ params }) {
           <ExchangeRateWrapper>
             <ExchangeRate>{t('currentPoolSize')}：</ExchangeRate>
             {exchangeETHBalance && exchangeTokenBalance && (decimals || decimals === 0) ? (
-              <span>{`${amountFormatter(exchangeETHBalance, 18, 4)} FSN + ${amountFormatter(
+              <span>{`${amountFormatter(exchangeETHBalance, 18, 6)} FSN + ${amountFormatter(
                 exchangeTokenBalance,
                 decimals,
                 Math.min(decimals, 6)

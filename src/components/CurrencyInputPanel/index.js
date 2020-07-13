@@ -1054,6 +1054,8 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
           balance = formatTokenBalance(ethers.utils.bigNumberify(allBalances[account][k].value), allTokens[k].decimals)
           usdBalance = usdAmounts[k]
         }
+        // console.log(allTokens[k].decimals)
+        // console.log(balance)
         return {
           name: allTokens[k].name,
           symbol: allTokens[k].symbol,
@@ -1148,7 +1150,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
             {balance ? (
               <>
                 <TokenRowBalanceText>{t('balances')}</TokenRowBalanceText>
-                <TokenRowBalance>{balance && (balance > 0 || balance === '<0.0001') ? (balance + ' ' + symbol) : '-'}</TokenRowBalance>
+                <TokenRowBalance>{balance && (balance > 0 || balance === '<0.000001') ? (balance + ' ' + symbol) : '-'}</TokenRowBalance>
               </>
             ) : account ? (
               <SpinnerWrapper src={Circle} alt="loader" />

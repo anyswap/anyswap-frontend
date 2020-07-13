@@ -107,7 +107,7 @@ margin-top:0.625rem;
 
 const ExchangeRateWrapper = styled.div`
 ${({ theme }) => theme.FlexEC};
-  width: 50%;
+  width: 70%;
   font-family: Manrope;
   font-size: 0.75rem;
   font-weight: normal;
