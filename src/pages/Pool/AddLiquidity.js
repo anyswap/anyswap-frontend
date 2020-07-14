@@ -598,8 +598,13 @@ export default function AddLiquidity({ params }) {
   }
 
   const addTransaction = useTransactionAdder()
-
+  const [isDisabled, setIsDisableed] = useState(true)
   async function onAddLiquidity() {
+    if (!isDisabled) return
+    setIsDisableed(false)
+    setTimeout(() => {
+      setIsDisableed(true)
+    }, 3000)
     // take FSN amount, multiplied by FSN rate and 2 for total tx size
     let ethTransactionSize = (inputValueParsed / 1e18) * 2
 
@@ -980,7 +985,7 @@ export default function AddLiquidity({ params }) {
           {
             account ? (
               <>
-                <Button disabled={!isValid || !outputValue || Number(outputValue) <= 0} onClick={onAddLiquidity}>
+                <Button disabled={!isValid || !outputValue || Number(outputValue) <= 0 || !isDisabled} onClick={onAddLiquidity}>
                   {t('addLiquidity')}
                 </Button>
               </>

@@ -790,8 +790,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
 
 
-
+  const [isDisabled, setIsDisableed] = useState(true)
   function sendTxns () {
+    if (!isDisabled) return
+    setIsDisableed(false)
+    setTimeout(() => {
+      setIsDisableed(true)
+    }, 3000)
     let amountVal = Number(independentValue) * Math.pow(10, inputDecimals)
     amountVal = amountVal.toFixed(0)
     let address = recipient.address
@@ -1108,7 +1113,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         (bridgeType && bridgeType === 'redeem') || !account || !registerAddress || inputSymbol === 'mBTC' ? '' : (
           <>
             <WarningTip>
-            💀 ONLY the deposits from your ETH wallet {account} will be credited!!!
+            💀 {t('bridgeMintTip', { account })}
             </WarningTip>
           </>
         )
@@ -1120,7 +1125,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               <>
                 <Button
                   disabled={
-                    !account && !error ? false : !independentValue || !recipient.address
+                    !account && !error && isDisabled ? false : !independentValue || !recipient.address
                   }
                   onClick={account && !error ? sendTxns : toggleWalletModal}
                   warning={Number(inputBalanceFormatted) < Number(independentValue) || customSlippageError === 'warning'}
@@ -1142,7 +1147,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               <>
                 <Button
                   disabled={
-                    !account && !error ? false : !independentValue || !registerAddress || Number(independentValue) > maxNum || Number(independentValue) < minNum
+                    !account && !error && isDisabled ? false : !independentValue || !registerAddress || Number(independentValue) > maxNum || Number(independentValue) < minNum
                   }
                   onClick={account && !error ? MintModelView : toggleWalletModal}
                   warning={account && (!independentValue || Number(independentValue) > maxNum || Number(independentValue) < minNum)}

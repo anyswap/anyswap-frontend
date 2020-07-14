@@ -140,5 +140,8 @@
   "priceChange": "Expected price slippage",
   "forAtLeast": "for at least ",
   "brokenToken": "The selected token is not compatible with Anyswap V1. Adding liquidity will result in locked funds.",
-  "broken777": "ERC-777 tokens are not supported in Anyswap V1."
+  "broken777": "ERC-777 tokens are not supported in Anyswap V1.",
+  "bridgeMintTip": "ONLY the deposits from your ETH wallet {{label}} will be credited!!!",
+  "enterMax": "Enter Max",
+  "custom": "Custom"
 }

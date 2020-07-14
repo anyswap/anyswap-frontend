@@ -174,7 +174,7 @@ const InputPanel = styled.div`
   position: relative;
   z-index: 1;
   box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
-  border-radius: 1.25rem;
+  border-radius: 0.5625rem;
   background-color: ${({theme}) => theme.bgColor};
   height:154px;
   padding: 1.25rem 2.5rem;
@@ -879,7 +879,7 @@ export default function CurrencyInputPanel({
                   }}
                 >
                   <Tooltip
-                    label="Enter Max"
+                    label={t('enterMax')}
                     style={{
                       background: 'hsla(0, 0%, 0%, 0.75)',
                       color: 'white',

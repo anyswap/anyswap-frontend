@@ -737,8 +737,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     return `Balance: ${value}`
   }
 
-  async function onSwap() {
+  const [isDisabled, setIsDisableed] = useState(true)
 
+  async function onSwap() {
+    if (!isDisabled) return
+    setIsDisableed(false)
+    setTimeout(() => {
+      setIsDisableed(true)
+    }, 3000)
     const deadline = Math.ceil(Date.now() / 1000) + deadlineFromNow
 
     let estimate, method, args, value
@@ -894,6 +900,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         type: 'UPDATE_INDEPENDENT',
         payload: { value: '', field: OUTPUT }
       })
+    }).catch(err => {
+      console.log(err)
     })
   }
 
@@ -1190,7 +1198,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         <Flex>
           <Button
             disabled={
-              brokenTokenWarning ? true : !account && !error ? false : !isValid || customSlippageError === 'invalid'
+              brokenTokenWarning || !isDisabled ? true : !account && !error ? false : !isValid || customSlippageError === 'invalid'
             }
             onClick={account && !error ? onSwap : toggleWalletModal}
             warning={highSlippageWarning || customSlippageError === 'warning'}

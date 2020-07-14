@@ -467,7 +467,13 @@ export default function RemoveLiquidity({ params }) {
     }
   }, [fetchPoolTokens, library])
 
+  const [isDisabled, setIsDisableed] = useState(true)
   async function onRemoveLiquidity() {
+    if (!isDisabled) return
+    setIsDisableed(false)
+    setTimeout(() => {
+      setIsDisableed(true)
+    }, 3000)
     // take FSN amount, multiplied by FSN rate and 2 for total tx size
     let ethTransactionSize = (ethWithdrawn / 1e18) * 2
 
@@ -506,6 +512,8 @@ export default function RemoveLiquidity({ params }) {
       })
       .then(response => {
         addTransaction(response)
+      }).catch(err => {
+        console.log(err)
       })
   }
 
@@ -776,7 +784,7 @@ export default function RemoveLiquidity({ params }) {
           {
             account ? (
               <>
-                <Button disabled={!isValid || !Number(value)} onClick={onRemoveLiquidity}>
+                <Button disabled={!isValid || !Number(value) || !isDisabled} onClick={onRemoveLiquidity}>
                   {t('removeLiquidity')}
                 </Button>
               </>

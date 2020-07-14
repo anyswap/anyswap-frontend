@@ -14,6 +14,7 @@ export const Button = styled.button.attrs(({ warning, theme }) => ({
   background: ${({theme}) => theme.bgColorLinear};
   color: ${({ theme }) => theme.white};
   width: 100%;
+  font-weight: 800;
   box-shadow: 6px 0.875rem 22px 0 rgba(118, 68, 203, 0.27);
 
   :hover,
@@ -26,8 +27,8 @@ export const Button = styled.button.attrs(({ warning, theme }) => ({
   }
 
   :disabled {
-    background: ${({ theme }) => theme.modalBackground};
-    color: ${({ theme }) => theme.silverGray};
+    background: linear-gradient(to right, rgba(115, 76, 226, 0.27) , rgba(96, 107, 251, 0.27));
+    color: #ffffff;
     cursor: auto;
     box-shadow: none;
   }

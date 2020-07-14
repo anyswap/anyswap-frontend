@@ -51,7 +51,7 @@
   "LimitPrice":"限制额外价格滑点",
   "LoweringTip1":"降低这个限制可以降低抢先交易风险。然而，这使得你的交易更有可能由于正常的价格变动而失败。",
   "suggested":"建议",
-  "setSwap":"设置交换截止时间(几分钟后)",
+  "setSwap":"设置交易截止时间(几分钟后)",
   "Percentage": "占比",
   "CustomSlippageValue":"自定义滑点值",
   "EnterSlippagePercentage":"输入滑点百分比",
@@ -82,7 +82,7 @@
   "hideDetails": "隐藏明细",
   "highSlippageWarning": "高滑点警告",
   "slippageWarning": "滑点警告",
-  "youAreSelling": "你正在出售",
+  "youAreSelling": "你正在使用",
   "orTransFail": "或交易失败。",
   "youWillReceive": "你将至少收到",
   "youAreBuying": "你正在购买",
@@ -130,5 +130,8 @@
   "decimals": "小数位数",
   "enterTokenCont": "输入代币地址并继续",
   "priceChange": "预期价格滑点",
-  "forAtLeast": "至少 "
+  "forAtLeast": "交易至少 ",
+  "bridgeMintTip": "只有您的ETH钱包{{account}}的存款才会被计入!!!",
+  "enterMax": "输入最大值",
+  "custom": "自定义"
 }

@@ -73,6 +73,7 @@ const NavTabBoxLeft = styled.div`
   overflow:auto;
   box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
   background: ${({theme}) => theme.bgColor};
+  z-index:1;
   @media screen and (max-width: 960px) {
     display:none;
   }

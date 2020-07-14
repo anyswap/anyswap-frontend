@@ -351,28 +351,28 @@ const WALLET_VIEWS = {
   PENDING: 'pending'
 }
 
-const trezorPath = "m/44'/60'/0'/0", ledgerPath = "m/44'/60'/0'"
-const HDPathArr = [
-  {name: "Legacy", path: ledgerPath},
-  {name: "Ledger live", path: trezorPath},
-  {name: "Custom", path: 0},
-]
 
 
 export default function WalletModal({ pendingTransactions, confirmedTransactions, ENSName }) {
-
+  
   let { active, account, connector, activate, error, deactivate } = useWeb3React()
   // console.log(useWeb3React())
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingWallet, setPendingWallet] = useState()
-
+  
   const [pendingError, setPendingError] = useState()
-
+  
   const walletModalOpen = useWalletModalOpen()
   const toggleWalletModal = useWalletModalToggle()
-
+  
   const { t } = useTranslation()
-
+  
+  const trezorPath = "m/44'/60'/0'/0", ledgerPath = "m/44'/60'/0'"
+  const HDPathArr = [
+    {name: "Legacy", path: ledgerPath},
+    {name: "Ledger live", path: trezorPath},
+    {name: t('custom'), path: 0},
+  ]
   // always reset to account view
   useEffect(() => {
     if (walletModalOpen) {

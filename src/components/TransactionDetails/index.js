@@ -83,8 +83,8 @@ const fadeIn = keyframes`
 const Popup = styled(Flex)`
   position: absolute;
   width: 228px;
-  left: -78px;
-  top: -94px;
+  bottom: 30px;
+  right: 35%;
   flex-direction: column;
   align-items: center;
   padding: 0.6rem 1rem;
@@ -414,58 +414,58 @@ export default function TransactionDetails(props) {
 
   const [deadlineInput, setDeadlineInput] = useState('')
 
-  function renderSummary() {
-    let contextualInfo = ''
-    let isError = false
-    if (props.brokenTokenWarning) {
-      contextualInfo = t('brokenToken')
-      isError = true
-    } else if (props.inputError || props.independentError) {
-      contextualInfo = props.inputError || props.independentError
-      isError = true
-    } else if (!props.inputCurrency || !props.outputCurrency) {
-      contextualInfo = t('selectTokenCont')
-    } else if (!props.independentValue) {
-      contextualInfo = t('enterValueCont')
-    } else if (props.sending && !props.recipientAddress) {
-      contextualInfo = t('noRecipient')
-    } else if (props.sending && !isAddress(props.recipientAddress)) {
-      contextualInfo = t('invalidRecipient')
-    } else if (!props.account) {
-      contextualInfo = t('noWallet')
-      isError = true
-    }
+  // function renderSummary() {
+  //   let contextualInfo = ''
+  //   let isError = false
+  //   if (props.brokenTokenWarning) {
+  //     contextualInfo = t('brokenToken')
+  //     isError = true
+  //   } else if (props.inputError || props.independentError) {
+  //     contextualInfo = props.inputError || props.independentError
+  //     isError = true
+  //   } else if (!props.inputCurrency || !props.outputCurrency) {
+  //     contextualInfo = t('selectTokenCont')
+  //   } else if (!props.independentValue) {
+  //     contextualInfo = t('enterValueCont')
+  //   } else if (props.sending && !props.recipientAddress) {
+  //     contextualInfo = t('noRecipient')
+  //   } else if (props.sending && !isAddress(props.recipientAddress)) {
+  //     contextualInfo = t('invalidRecipient')
+  //   } else if (!props.account) {
+  //     contextualInfo = t('noWallet')
+  //     isError = true
+  //   }
 
-    const slippageWarningText = props.highSlippageWarning
-      ? t('highSlippageWarning')
-      : props.slippageWarning
-      ? t('slippageWarning')
-      : ''
+  //   const slippageWarningText = props.highSlippageWarning
+  //     ? t('highSlippageWarning')
+  //     : props.slippageWarning
+  //     ? t('slippageWarning')
+  //     : ''
 
-    return (
-      <NewContextualInfo
-        openDetailsText={t('transactionDetails')}
-        closeDetailsText={t('hideDetails')}
-        contextualInfo={contextualInfo ? contextualInfo : slippageWarningText}
-        allowExpand={
-          !!(
-            !props.brokenTokenWarning &&
-            props.inputCurrency &&
-            props.outputCurrency &&
-            props.inputValueParsed &&
-            props.outputValueParsed &&
-            (props.sending ? props.recipientAddress : true)
-          )
-        }
-        isError={isError}
-        slippageWarning={props.slippageWarning && !contextualInfo}
-        highSlippageWarning={props.highSlippageWarning && !contextualInfo}
-        brokenTokenWarning={props.brokenTokenWarning}
-        renderTransactionDetails={renderTransactionDetails}
-        dropDownContent={dropDownContent}
-      />
-    )
-  }
+  //   return (
+  //     <NewContextualInfo
+  //       openDetailsText={t('transactionDetails')}
+  //       closeDetailsText={t('hideDetails')}
+  //       contextualInfo={contextualInfo ? contextualInfo : slippageWarningText}
+  //       allowExpand={
+  //         !!(
+  //           !props.brokenTokenWarning &&
+  //           props.inputCurrency &&
+  //           props.outputCurrency &&
+  //           props.inputValueParsed &&
+  //           props.outputValueParsed &&
+  //           (props.sending ? props.recipientAddress : true)
+  //         )
+  //       }
+  //       isError={isError}
+  //       slippageWarning={props.slippageWarning && !contextualInfo}
+  //       highSlippageWarning={props.highSlippageWarning && !contextualInfo}
+  //       brokenTokenWarning={props.brokenTokenWarning}
+  //       renderTransactionDetails={renderTransactionDetails}
+  //       dropDownContent={dropDownContent}
+  //     />
+  //   )
+  // }
 
   const dropDownContent = () => {
     return (
@@ -478,12 +478,12 @@ export default function TransactionDetails(props) {
               onClick={() => {
                 setPopup(!showPopup)
               }}
-              onMouseEnter={() => {
-                setPopup(true)
-              }}
-              onMouseLeave={() => {
-                setPopup(false)
-              }}
+              // onMouseEnter={() => {
+              //   setPopup(true)
+              // }}
+              // onMouseLeave={() => {
+              //   setPopup(false)
+              // }}
             >
               <HelpCircleStyled src={question} alt="popup" />
             </QuestionWrapper>
@@ -550,7 +550,7 @@ export default function TransactionDetails(props) {
                         : '0'
                       : activeIndex !== 4 && userInput !== ''
                       ? userInput
-                      : 'Custom'
+                      : t('custom')
                   }
                   value={activeIndex === 4 ? userInput : ''}
                   onChange={parseInput}
