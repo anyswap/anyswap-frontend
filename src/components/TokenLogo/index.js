@@ -27,13 +27,13 @@ const Image = styled.img`
   border-radius: 1rem;
 `
 
-const Emoji = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: ${({ size }) => size};
-  height: ${({ size }) => size};
-`
+// const Emoji = styled.span`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: ${({ size }) => size};
+//   height: ${({ size }) => size};
+// `
 
 // const StyledEthereumLogo = styled(FusionLogo)`
 //   width: ${({ size }) => size};
@@ -49,22 +49,14 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
   const [error, setError] = useState(false)
   let path = ''
   // console.log(address)
-  if (['ANY', 'FSN', 'BTC', 'mBTC', 'ETH', 'mETH', 'USDT', 'mUSDT'].includes(address)) {
+  if (address) {
     try {
       path = require('../../assets/images/coin/' + address + '.svg')
     } catch (error) {
       path = require('../../assets/images/coin/' + address + '.png')
     }
-  } else if (!error && !BAD_IMAGES[address]) {
-    path = require('../../assets/images/question.svg')
   } else {
-    return (
-      <Emoji {...rest} size={size}>
-        <span role="img" aria-label="Thinking">
-          🤔
-        </span>
-      </Emoji>
-    )
+    path = require('../../assets/images/question.svg')
   }
 
   return (

@@ -1026,40 +1026,40 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
       (accumulator, currentValue, i) => Object.assign({ [currentValue]: _usdAmounts[i] }, accumulator),
       {}
     )
-
+  // console.log(tokenList)
   const tokenList = useMemo(() => {
     return Object.keys(allTokens)
-      .sort((a, b) => {
-        if (allTokens[a].symbol && allTokens[b].symbol) {
-          const aSymbol = allTokens[a].symbol.toLowerCase()
-          const bSymbol = allTokens[b].symbol.toLowerCase()
+      // .sort((a, b) => {
+      //   if (allTokens[a].symbol && allTokens[b].symbol) {
+      //     const aSymbol = allTokens[a].symbol.toLowerCase()
+      //     const bSymbol = allTokens[b].symbol.toLowerCase()
 
-          // pin FSN to top
-          if (aSymbol === 'FSN'.toLowerCase() || bSymbol === 'FSN'.toLowerCase()) {
-            return aSymbol === bSymbol ? 0 : aSymbol === 'FSN'.toLowerCase() ? -1 : 1
-          }
+      //     // pin FSN to top
+      //     if (aSymbol === 'FSN'.toLowerCase() || bSymbol === 'FSN'.toLowerCase()) {
+      //       return aSymbol === bSymbol ? 0 : aSymbol === 'FSN'.toLowerCase() ? -1 : 1
+      //     }
 
-          // then tokens with balance
-          if (usdAmounts[a] && !usdAmounts[b]) {
-            return -1
-          } else if (usdAmounts[b] && !usdAmounts[a]) {
-            return 1
-          }
+      //     // then tokens with balance
+      //     if (usdAmounts[a] && !usdAmounts[b]) {
+      //       return -1
+      //     } else if (usdAmounts[b] && !usdAmounts[a]) {
+      //       return 1
+      //     }
 
-          // sort by balance
-          if (usdAmounts[a] && usdAmounts[b]) {
-            const aUSD = usdAmounts[a]
-            const bUSD = usdAmounts[b]
+      //     // sort by balance
+      //     if (usdAmounts[a] && usdAmounts[b]) {
+      //       const aUSD = usdAmounts[a]
+      //       const bUSD = usdAmounts[b]
 
-            return aUSD.gt(bUSD) ? -1 : aUSD.lt(bUSD) ? 1 : 0
-          }
+      //       return aUSD.gt(bUSD) ? -1 : aUSD.lt(bUSD) ? 1 : 0
+      //     }
 
-          // sort alphabetically
-          return aSymbol < bSymbol ? -1 : aSymbol > bSymbol ? 1 : 0
-        } else {
-          return 0
-        }
-      })
+      //     // sort alphabetically
+      //     return aSymbol < bSymbol ? -1 : aSymbol > bSymbol ? 1 : 0
+      //   } else {
+      //     return 0
+      //   }
+      // })
       .map(k => {
         let balance
         let usdBalance
@@ -1134,7 +1134,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
     if (!filteredTokenList.length) {
       return <TokenModalInfo>{t('noExchange')}</TokenModalInfo>
     }
-
+    
     return filteredTokenList.map(({ address, symbol, name, balance, usdBalance }) => {
       const urlAdded = urlAddedTokens && urlAddedTokens.hasOwnProperty(address)
       const customAdded =

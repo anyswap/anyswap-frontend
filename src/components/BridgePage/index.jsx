@@ -447,7 +447,8 @@ const selfUseAllToken=[
   '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947',
   '0x19543338473caaa6f404dbe540bb787f389d5462',
   '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88',
-  'TEST'
+  'XRP',
+  'LTC'
 ]
 let historyInterval 
 let swapInfo = ''
