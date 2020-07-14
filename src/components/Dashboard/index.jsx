@@ -644,22 +644,14 @@ export default function DashboardDtil () {
                       </TokenNameBox>
                     </TokenTableCoinBox>
                     <TokenBalanceBox>
-                      {
-                        !!item.isSwitch ? (
-                          <>
-                            <h3>{t('balances')}</h3>
-                            <p>{item.balance ? (
-                              amountFormatter(
-                                item.balance,
-                                item.decimals,
-                                Math.min(6, item.decimals)
-                              )
-                            ) : '-'}</p>
-                          </>
-                        ) : (
-                          <ComineSoon>{t('ComineSoon')}</ComineSoon>
+                      <h3>{t('balances')}</h3>
+                      <p>{item.balance ? (
+                        amountFormatter(
+                          item.balance,
+                          item.decimals,
+                          Math.min(6, item.decimals)
                         )
-                      }
+                      ) : '-'}</p>
                     </TokenBalanceBox>
                     <TokenBalanceBox>
                       {

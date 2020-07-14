@@ -536,7 +536,7 @@ export default function AddLiquidity({ params }) {
             {t('tokenWorth')}
             <LogoBox><img alt={''} src={FSNLogo}/></LogoBox>
             <CoinInfoBox>{amountFormatter(ethPerLiquidityToken, 18, 6) + ' '} FSN </CoinInfoBox>{t('and')}{' '}
-            <LogoBox><TokenLogo  address={outputCurrency} size={'18px'} ></TokenLogo></LogoBox>
+            <LogoBox><TokenLogo  address={symbol} size={'18px'} ></TokenLogo></LogoBox>
             <CoinInfoBox>{amountFormatter(tokenPerLiquidityToken, decimals, Math.min(decimals, 6)) + ' '} {symbol}</CoinInfoBox>
           </LastSummaryText1>
         </LastSummaryTextBox>
@@ -626,6 +626,7 @@ export default function AddLiquidity({ params }) {
           setIsHardwareTip(false)
           dispatchAddLiquidityState({ type: 'UPDATE_VALUE', payload: { value: '', field: INPUT } })
           dispatchAddLiquidityState({ type: 'UPDATE_VALUE', payload: { value: '', field: OUTPUT } })
+          setIsViewTxnsDtil(false)
         } else {
           setIsHardwareError(true)
         }
@@ -656,6 +657,9 @@ export default function AddLiquidity({ params }) {
       )
       .then(response => {
         addTransaction(response)
+        dispatchAddLiquidityState({ type: 'UPDATE_VALUE', payload: { value: '', field: INPUT } })
+        dispatchAddLiquidityState({ type: 'UPDATE_VALUE', payload: { value: '', field: OUTPUT } })
+        setIsViewTxnsDtil(false)
       }).catch(err => {
         console.log(err)
       })

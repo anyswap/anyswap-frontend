@@ -491,6 +491,8 @@ export default function RemoveLiquidity({ params }) {
         if (res.msg === 'Success') {
           addTransaction(res.info)
           setIsHardwareTip(false)
+          setIsViewTxnsDtil(false)
+          setValue('')
         } else {
           setIsHardwareError(true)
         }
@@ -512,6 +514,8 @@ export default function RemoveLiquidity({ params }) {
       })
       .then(response => {
         addTransaction(response)
+        setIsViewTxnsDtil(false)
+        setValue('')
       }).catch(err => {
         console.log(err)
       })
@@ -547,7 +551,7 @@ export default function RemoveLiquidity({ params }) {
           <CoinInfoBox>{totalPoolTokens ? amountFormatter(ETHPer.div(totalPoolTokens), 18, 6) + ' ' : ''} FSN</CoinInfoBox>
           {t('and')}{' '}
           {/* {b(amountFormatter(ETHPer.div(totalPoolTokens), 18, 4))}  */}
-          <LogoBox><TokenLogo  address={outputCurrency} size={'18px'} ></TokenLogo></LogoBox>
+          <LogoBox><TokenLogo  address={symbol} size={'18px'} ></TokenLogo></LogoBox>
           <CoinInfoBox>{totalPoolTokens ? amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(6, decimals)) + ' ' : ''}{symbol}</CoinInfoBox>
           {/* {b(amountFormatter(tokenPer.div(totalPoolTokens), decimals, Math.min(4, decimals)))} {symbol} */}
         </LastSummaryText1>

@@ -451,7 +451,7 @@ const selfUseAllToken=[
   'LTC'
 ]
 let historyInterval 
-let swapInfo = ''
+// let swapInfo = ''
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
   let { account, chainId, error } = useWeb3React()
@@ -480,12 +480,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     return ''
   }
 
-  // const [deadlineFromNow, setDeadlineFromNow] = useState(DEFAULT_DEADLINE_FROM_NOW)
-
-  // analytics
-  // useEffect(() => {
-  //   ReactGA.pageview(window.location.pathname + window.location.search)
-  // }, [])
 
   // core swap state
   const [swapState, dispatchSwapState] = useReducer(
@@ -510,6 +504,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   // get swap type from the currency types
   const swapType = getSwapType(inputCurrency, outputCurrency)
 
+  const [recipientError, setRecipientError] = useState()
+
   // get decimals and exchange address for each of the currency types
   const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, maxNum , minNum, fee, isSwitch, isDeposit, isRedeem } = useTokenDetails(
     inputCurrency
@@ -521,22 +517,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   )
 
   useEffect(() => {
-    // console.log(CoinInfo[inputSymbol])
-    // if () {
 
-    // }
     if (config.CoinInfo[inputSymbol] && config.CoinInfo[inputSymbol].url && isSwitch) {
       GetServerInfo(config.CoinInfo[inputSymbol].url).then(res => {
         console.log(res)
         // console.log(getWeb3ConTract(res.swapInfo.DestToken.ContractAddress))
         if (bridgeType && bridgeType === 'redeem') {
-          swapInfo = res.swapInfo.DestToken
+          
         } else {
-          swapInfo = res.swapInfo.SrcToken
           if (inputSymbol !== 'mBTC') {
             dispatchSwapState({
               type: 'UPDATE_SWAPREGISTER',
-              payload: swapInfo.DcrmAddress
+              payload: res.swapInfo.SrcToken.DcrmAddress
             })
           }
         }
@@ -754,16 +746,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     t
   ])
 
-  useEffect(() => {
-    const history = createBrowserHistory()
-    history.push(window.location.pathname + '')
-  }, [])
-
   function formatBalance(value) {
     return `Balance: ${value}`
   }
-  const [customSlippageError, setcustomSlippageError] = useState('')
-
   const toggleWalletModal = useWalletModalToggle()
 
   const newInputDetected =
@@ -788,9 +773,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [isHardwareTip, setIsHardwareTip] = useState(false)
   const [isHardwareError, setIsHardwareError] = useState(false)
   const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
-
-
   const [isDisabled, setIsDisableed] = useState(true)
+
+
   function sendTxns () {
     if (!isDisabled) return
     setIsDisableed(false)
@@ -1040,7 +1025,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         hideETH={true}
         selfUseAllToken={selfUseAllToken}
         errorMessage={bridgeType && bridgeType === 'redeem' && Number(inputValueFormatted) > Number(inputBalanceFormatted) ? 'Error' : '' }
-        // errorMessage={bridgeType === 'mint' ? '' : (inputError ? inputError : ( independentField === INPUT ? independentError : '') )}
       />
       <OversizedPanel>
         <DownArrowBackground  onClick={changeMorR}>
@@ -1071,7 +1055,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       {bridgeType && bridgeType === 'redeem' ? (
         <>
-          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} initialInput={recipient} isValid={true} disabled={false}/>
+          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false} />
         </>
       ) : (
         <>
@@ -1128,7 +1112,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     !account && !error && isDisabled ? false : !independentValue || !recipient.address
                   }
                   onClick={account && !error ? sendTxns : toggleWalletModal}
-                  warning={Number(inputBalanceFormatted) < Number(independentValue) || customSlippageError === 'warning'}
+                  warning={Number(inputBalanceFormatted) < Number(independentValue)}
                   loggedOut={!account}
                 >
                   {!account

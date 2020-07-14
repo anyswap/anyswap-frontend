@@ -815,6 +815,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             type: 'UPDATE_INDEPENDENT',
             payload: { value: '', field: OUTPUT }
           })
+          setIsViewTxnsDtil(false)
         } else {
           setIsHardwareError(true)
         }
@@ -883,8 +884,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         value = ethers.constants.Zero
       }
     }
-    console.log(args)
-    console.log(value)
+    
     const estimatedGasLimit = await estimate(...args, { value })
     method(...args, {
       value,
@@ -900,6 +900,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         type: 'UPDATE_INDEPENDENT',
         payload: { value: '', field: OUTPUT }
       })
+      setIsViewTxnsDtil(false)
     }).catch(err => {
       console.log(err)
     })

@@ -729,7 +729,13 @@ export default function CurrencyInputPanel({
       _val = _val !== '' ? _val : ''
       onValueChange(_val + '')
     }
-  }, [valueRange])
+  }, [valueRange, isRange])
+
+  useEffect(() => {
+    if (!value) {
+      setValueRange(0)
+    }
+  }, [value])
 
   function _renderInput() {
     if (typeof renderInput === 'function') {
