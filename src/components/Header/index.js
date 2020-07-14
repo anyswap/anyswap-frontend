@@ -28,7 +28,7 @@ const HeaderSpan = styled.span`
   height: 70px;
   object-fit: contain;
   justify-content: space-between;
-  padding:0 2.5rem;
+  padding:0 1.5625rem;
   @media screen and (max-width: 960px) {
     padding:0 1rem;
   }

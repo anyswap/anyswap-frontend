@@ -36,6 +36,7 @@ import Paste from '../../assets/images/icon/paste.svg'
 import Unlock from '../../assets/images/icon/unlock.svg'
 import UnlockBlack from '../../assets/images/icon/unlockBlack.svg'
 import Warning from '../../assets/images/icon/warning.svg'
+import NoCoinIcon from '../../assets/images/icon/no-coin.svg'
 
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
@@ -94,11 +95,15 @@ const InputRow = styled.div`
 const Input = styled(BorderlessInput)`
   font-size: 44px;
   height: 70px;
-  color: ${({ error, theme }) => error ? theme.salmonRed : theme.textColorBold};
+  color: ${({ error, theme }) => error ? 'rgb(255, 104, 113)' : '#062536'};
   background: none;
-  border-bottom: 0.0625rem solid ${({theme}) => theme.textColorBold};
+  border-bottom: 0.0625rem solid #062536;
   -moz-appearance: textfield;
   margin-right: 1.875rem;
+  ::placeholder {
+    color:#DADADA;
+    // border-bottom: 0.0625rem solid #DADADA;
+  }
   @media screen and (max-width: 960px) {
     font-size: 32px;
   }
@@ -106,13 +111,13 @@ const Input = styled(BorderlessInput)`
 
 const CurrencySelect = styled.button`
   align-items: center;
-  font-size: 1rem;
-  color: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
+  color: ${({ selected, theme }) => (selected ? theme.textColor : '#031a6e')};
+  font-size: ${({ selected, theme }) => (selected ? '1rem' : '12px')};
   height: 70px;
   width: 220px;
-  border: 0.0625rem solid ${({ selected, theme }) => (selected ? theme.selectedBorder : theme.selectedBorderNo)};
+  border: 0.0625rem solid ${({ theme }) => theme.selectedBorder};
   border-radius: 0.75rem;
-  background-color: ${({ selected, theme }) => (selected ? theme.selectedBg : theme.selectedBgNo)};
+  background-color: ${({ theme }) => theme.selectedBg};
   outline: none;
   cursor: pointer;
   user-select: none;
@@ -120,8 +125,8 @@ const CurrencySelect = styled.button`
   position: relative;
 
   :hover {
-    border: 0.0625rem solid
-      ${({ selected, theme }) => (selected ? darken(0.1, theme.selectedBorder) : darken(0.1, theme.selectedBorder))};
+    border: 0.0625rem solid #6d9cc6;
+    background: #deefff
   }
 
   :focus {
@@ -142,7 +147,7 @@ const Aligner = styled.span`
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 0px 1.625rem 0 56px;
+  padding: 0px 1.625rem 0 51px;
   width:100%;
   height:100%;
   &.pl-0{
@@ -178,6 +183,8 @@ const InputPanel = styled.div`
   background-color: ${({theme}) => theme.bgColor};
   height:154px;
   padding: 1.25rem 2.5rem;
+  
+  border: 1px solid ${({ error, theme }) => (error ? 'rgb(255, 104, 113)' : 'rgb (255, 92, 177)')};
   @media screen and (max-width: 960px) {
     padding: 1rem 1.5625rem;
   }
@@ -185,7 +192,6 @@ const InputPanel = styled.div`
 
 const Container = styled.div`
   border-radius: 1.25rem;
-
 `
 
 const LabelRow = styled.div`
@@ -228,9 +234,9 @@ const ErrorSpan = styled.span`
   font-size: 1rem;
   height: 100%;
   color: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
-  border: 0.0625rem solid ${({ theme }) => theme.selectedBorderNo};
+  border: 0.0625rem solid #d9d9e2;
+  background-color: #f8f8f9;
   border-radius: 0.75rem;
-  background-color: rgba(0,0,0,0.06);
   outline: none;
   cursor: pointer;
   user-select: none;
@@ -238,6 +244,8 @@ const ErrorSpan = styled.span`
   :hover {
     cursor: pointer;
     color: ${({ error, theme }) => error && darken(0.1, theme.salmonRed)};
+    border: 0.0625rem solid #9c9cb0;
+    background-color: #f2f2f2;
   }
 `
 
@@ -455,10 +463,10 @@ const StyledTokenName = styled.span`
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.25;
+    line-height: 1;
     letter-spacing: normal;
     color: ${({theme}) => theme.selectTextColor};
-    margin:0;
+    margin:0 0 2px;
   }
   p {
     font-family: Manrope;
@@ -831,11 +839,25 @@ export default function CurrencyInputPanel({
               }
             }}
           >
-            <Aligner className={allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol ? '' : 'pl-0'}>
+            {/* <Aligner className={allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol ? '' : 'pl-0'}> */}
+            <Aligner>
               {
                 isSelfSymbol ? (
                   <>
-                    {selectedTokenAddress ? (isSelfLogo ? <TokenLogoBox1><TokenLogo address={isSelfLogo} size={'1.625rem'} /></TokenLogoBox1> : <TokenLogoBox1><TokenLogo address={allTokens[selectedTokenAddress].symbol} size={'1.625rem'} /></TokenLogoBox1>) : null}
+                    {selectedTokenAddress ? (
+                      isSelfLogo ? 
+                        <TokenLogoBox1>
+                          <TokenLogo address={isSelfLogo} size={'1.625rem'} />
+                        </TokenLogoBox1>
+                        :
+                        <TokenLogoBox1>
+                          <TokenLogo address={allTokens[selectedTokenAddress].symbol} size={'1.625rem'} />
+                        </TokenLogoBox1>
+                      ) : (
+                        <TokenLogoBox1>
+                          <img alt={''} src={NoCoinIcon} />
+                        </TokenLogoBox1>
+                      )}
                     <StyledTokenName>
                       {
                         isSelfSymbol ? (
@@ -852,7 +874,11 @@ export default function CurrencyInputPanel({
                   </>
                 ) :  (
                   <>
-                    {selectedTokenAddress ? <TokenLogoBox1><TokenLogo address={allTokens[selectedTokenAddress].symbol} size={'1.625rem'} /></TokenLogoBox1> : null}
+                    {selectedTokenAddress ? <TokenLogoBox1><TokenLogo address={allTokens[selectedTokenAddress].symbol} size={'1.625rem'} /></TokenLogoBox1> : (
+                        <TokenLogoBox1>
+                          <img alt={''} src={NoCoinIcon} />
+                        </TokenLogoBox1>
+                      )}
                     <StyledTokenName>
                       {
                         allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol ? (
@@ -930,8 +956,8 @@ export default function CurrencyInputPanel({
         error={isHardwareError}
         txnsInfo={hardwareTxnsInfo}
       ></HardwareTip>
-      <InputPanel>
-        <Container error={!!errorMessage}>
+      <InputPanel error={!!errorMessage}>
+        <Container>
           <LabelRow>
             <LabelContainer>
               <span>{title}</span> <span>{description}</span>

@@ -22,9 +22,13 @@ import Ledger from '../../assets/images/ledger.png'
 import { NetworkContextName } from '../../constants'
 import Identicon from '../Identicon'
 import config from '../../config'
+
+import WalletIcon from '../../assets/images/icon/wallet.svg'
+
 const Web3StatusGeneric = styled.button`
   ${({ theme }) => theme.flexRowNoWrap}
   width: 100%;
+  height: 36px;
   font-size: 0.9rem;
   align-items: center;
   padding: 0.5rem;
@@ -75,10 +79,13 @@ const Web3StatusConnect = styled(Web3StatusGeneric)`
 `
 
 const Web3StatusConnected = styled(Web3StatusGeneric)`
-  background-color: ${({ pending, theme }) => (pending ? theme.zumthorBlue : theme.inputBackground)};
-  border: 0.0625rem solid ${({ pending, theme }) => (pending ? theme.royalBlue : theme.mercuryGray)};
-  color: ${({ pending, theme }) => (pending ? theme.royalBlue : theme.doveGray)};
+  border-radius: 9px;
+  background-color: #f6f4ff;
+  color: #031a6e;
+  font-size: 14px;
   font-weight: 400;
+  border:none;
+  padding: 0 10px;
   :hover {
     background-color: ${({ pending, theme }) =>
       pending ? transparentize(0.9, theme.royalBlue) : darken(0.05, theme.inputBackground)};
@@ -95,7 +102,7 @@ const Text = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin: 0 0.5rem 0 0.25rem;
+  margin: 0 10px;
   font-size: 0.83rem;
 `
 
@@ -142,40 +149,40 @@ export default function Web3Status() {
   // handle the logo we want to show with the account
   function getStatusIcon() {
     if (connector === injected) {
-      return <Identicon />
+      return <Identicon size={26} />
     } else if (connector === walletconnect) {
       return (
-        <IconWrapper size={16}>
+        <IconWrapper size={26}>
           <img src={WalletConnectIcon} alt={''} />
         </IconWrapper>
       )
     } else if (connector === walletlink) {
       return (
-        <IconWrapper size={16}>
+        <IconWrapper size={26}>
           <img src={CoinbaseWalletIcon} alt={''} />
         </IconWrapper>
       )
     } else if (connector === fortmatic) {
       return (
-        <IconWrapper size={16}>
+        <IconWrapper size={26}>
           <img src={FortmaticIcon} alt={''} />
         </IconWrapper>
       )
     } else if (connector === portis) {
       return (
-        <IconWrapper size={16}>
+        <IconWrapper size={26}>
           <img src={PortisIcon} alt={''} />
         </IconWrapper>
       )
     } else if (connector === torus) {
       return (
-        <IconWrapper size={16}>
+        <IconWrapper size={26}>
           <img src={TorusIcon} alt={''} />
         </IconWrapper>
       )
     } else if (walletType === 'Ledger') {
       return (
-        <IconWrapper size={16}>
+        <IconWrapper size={26}>
           <img src={Ledger} alt={''} />
         </IconWrapper>
       )
@@ -187,6 +194,7 @@ export default function Web3Status() {
       return (
         <Web3StatusConnected onClick={toggleWalletModal} pending={hasPendingTransactions}>
           {hasPendingTransactions && <SpinnerWrapper src={Circle} alt="loader" />}
+          <img src={WalletIcon} />
           <Text>{ENSName || shortenAddress(account)}</Text>
           {getStatusIcon()}
         </Web3StatusConnected>

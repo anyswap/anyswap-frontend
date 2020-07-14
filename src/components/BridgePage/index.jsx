@@ -1055,7 +1055,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       {bridgeType && bridgeType === 'redeem' ? (
         <>
-          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false} />
+          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
         </>
       ) : (
         <>
