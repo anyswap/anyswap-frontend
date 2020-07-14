@@ -364,7 +364,7 @@ margin-right: 0.625rem;
 `
 
 export default function DashboardDtil () {
-  const { account, chainId, library } = useWeb3React()
+  const { account, library } = useWeb3React()
   const allBalances = useAllBalances()
   const allTokens = useAllTokenDetails()
   const { t } = useTranslation()
