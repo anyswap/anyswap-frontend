@@ -363,8 +363,8 @@ function NavigationTabs({ location: { pathname }, history }) {
           <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={(className ? className : '')} onMouseEnter={() => {toggleHover(textKey)}} onMouseLeave={() => {toggleHover('')}}>
             <div className={'icon'}>
               {/* <img src={pathname.match(regex) || navHover === textKey ? iconActive : icon}/> */}
-              <img src={iconActive} className={pathname.match(regex) || navHover === textKey ? '' : 'show'}/>
-              <img src={icon} className={pathname.match(regex) || navHover === textKey ? 'show' : ''}/>
+              <img alt={''} src={iconActive} className={pathname.match(regex) || navHover === textKey ? '' : 'show'}/>
+              <img alt={''} src={icon} className={pathname.match(regex) || navHover === textKey ? 'show' : ''}/>
             </div>
             {t(textKey)}
           </StyledNavLink>
@@ -375,8 +375,8 @@ function NavigationTabs({ location: { pathname }, history }) {
           <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={className ? className : ''} onMouseEnter={() => {toggleHover(textKey)}} onMouseLeave={() => {toggleHover('')}}>
             <div className={'icon'}>
               {/* <img src={pathname.match(regex) || navHover === textKey ? iconActive : icon}/> */}
-              <img src={iconActive} className={pathname.match(regex) || navHover === textKey ? '' : 'show'}/>
-              <img src={icon} className={pathname.match(regex) || navHover === textKey ? 'show' : ''}/>
+              <img alt={''} src={iconActive} className={pathname.match(regex) || navHover === textKey ? '' : 'show'}/>
+              <img alt={''} src={icon} className={pathname.match(regex) || navHover === textKey ? 'show' : ''}/>
             </div>
             {t(textKey)}
           </StyledNavLink>
@@ -387,29 +387,29 @@ function NavigationTabs({ location: { pathname }, history }) {
           <Link id="link" href="https://t.me/anyswap">
             <OutLinkImg onMouseEnter={() => {toggleHover('TelegramIcon')}} onMouseLeave={() => {toggleHover('')}}>
               {/* <img src={TelegramIcon} /> */}
-              <img src={TelegramIconWhite} className={navHover === 'TelegramIcon' ? '' : 'show'}/>
-              <img src={TelegramIcon} className={navHover === 'TelegramIcon' ? 'show' : ''}/>
+              <img alt={''} src={TelegramIconWhite} className={navHover === 'TelegramIcon' ? '' : 'show'}/>
+              <img alt={''} src={TelegramIcon} className={navHover === 'TelegramIcon' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
           <Link id="link" href="https://medium.com/@anyswap">
             <OutLinkImg onMouseEnter={() => {toggleHover('MediumIcon')}} onMouseLeave={() => {toggleHover('')}}>
               {/* <img src={MediumIcon} /> */}
-              <img src={MediumIconWhite} className={navHover === 'MediumIcon' ? '' : 'show'}/>
-              <img src={MediumIcon} className={navHover === 'MediumIcon' ? 'show' : ''}/>
+              <img alt={''} src={MediumIconWhite} className={navHover === 'MediumIcon' ? '' : 'show'}/>
+              <img alt={''} src={MediumIcon} className={navHover === 'MediumIcon' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
           <Link id="link" href="https://twitter.com/AnyswapNetwork">
             <OutLinkImg onMouseEnter={() => {toggleHover('TwitterIcon')}} onMouseLeave={() => {toggleHover('')}}>
               {/* <img src={TwitterIcon} /> */}
-              <img src={TwitterIconWhite} className={navHover === 'TwitterIcon' ? '' : 'show'}/>
-              <img src={TwitterIcon} className={navHover === 'TwitterIcon' ? 'show' : ''}/>
+              <img alt={''} src={TwitterIconWhite} className={navHover === 'TwitterIcon' ? '' : 'show'}/>
+              <img alt={''} src={TwitterIcon} className={navHover === 'TwitterIcon' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
           <Link id="link" href="https://github.com/anyswap">
             <OutLinkImg onMouseEnter={() => {toggleHover('CodeIcon')}} onMouseLeave={() => {toggleHover('')}}>
               {/* <img src={CodeIcon} /> */}
-              <img src={CodeIconWhite} className={navHover === 'CodeIcon' ? '' : 'show'}/>
-              <img src={CodeIcon} className={navHover === 'CodeIcon' ? 'show' : ''}/>
+              <img alt={''} src={CodeIconWhite} className={navHover === 'CodeIcon' ? '' : 'show'}/>
+              <img alt={''} src={CodeIcon} className={navHover === 'CodeIcon' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
         </OutLinkImgBox>

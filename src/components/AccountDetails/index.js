@@ -409,7 +409,7 @@ export default function AccountDetails({
                         sessionStorage.setItem('HDPath', '')
                       }}
                     >
-                      <img src={EditIcon} style={{marginRight: '8px'}}/>{t("Change")}
+                      <img src={EditIcon} style={{marginRight: '8px'}} alt={''}/>{t("Change")}
                     </OptionButton>
                   </ConnectButtonRow>
                 )}

@@ -647,7 +647,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
                 setAccountData(index)
               }}>
                 <div className={'left'}>
-                  <div className={'icon'}><img src={MintIcon}/></div>
+                  <div className={'icon'}><img src={MintIcon} alt={''}/></div>
                   {item.addr}
                 </div>
               </li>
@@ -723,7 +723,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
                       console.log(e.target.value)
                       setSelfHDPathVal(e.target.value)
                     }}></SelfInput>
-                    <SelfButton size={'100px'} onClick={e => {getHardwareAccount()}}><img src={DoneIcon} style={{marginRight: '0.625rem'}} />Done</SelfButton>
+                    <SelfButton size={'100px'} onClick={e => {getHardwareAccount()}}><img src={DoneIcon} style={{marginRight: '0.625rem'}} alt={''} />Done</SelfButton>
                   </SelfInputBox>
                 </>
               )
@@ -734,8 +734,8 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
               )}
             </AddrListBox>
             <SelectHDPathPage>
-              <ArrowBox onClick={changeReducePage}><img src={PreviouskIcon} style={{marginRight: '0.625rem'}}/>Previous</ArrowBox>
-              <ArrowBox onClick={changeAddPage}>Next<img src={NextkIcon} style={{marginLeft: '0.625rem'}} /></ArrowBox>
+              <ArrowBox onClick={changeReducePage}><img alt={''} src={PreviouskIcon} style={{marginRight: '0.625rem'}}/>Previous</ArrowBox>
+              <ArrowBox onClick={changeAddPage}>Next<img alt={''} src={NextkIcon} style={{marginLeft: '0.625rem'}} /></ArrowBox>
             </SelectHDPathPage>
           </ContentWrapper>
         </UpperSection>

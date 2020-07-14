@@ -33,7 +33,7 @@ import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.sv
 import AddTwoBlackIcon from '../../assets/images/icon/add-2-black.svg'
 import WeekIcon from '../../assets/images/icon/week.svg'
 import MintMlackIcon from '../../assets/images/icon/mint-black.svg'
-import FSNLogo from '../../assets/images/FSN.svg'
+import FSNLogo from '../../assets/images/coin/FSN.svg'
 
 import TokenLogo from '../../components/TokenLogo'
 
@@ -409,7 +409,7 @@ export default function AddLiquidity({ params }) {
   const [brokenTokenWarning, setBrokenTokenWarning] = useState()
   const [broken777Warning, setBroken777Warning] = useState()
 
-  const { symbol, decimals, exchangeAddress } = useTokenDetails(outputCurrency)
+  const { symbol, decimals, exchangeAddress, isSwitch } = useTokenDetails(outputCurrency)
   const exchangeContract = useExchangeContract(exchangeAddress)
 
   const [totalPoolTokens, setTotalPoolTokens] = useState()
@@ -515,26 +515,26 @@ export default function AddLiquidity({ params }) {
         <LastSummaryTextBox>
           <LastSummaryText>
           <div className='icon'>
-            <img src={AddTwoBlackIcon} />
+            <img alt={''} src={AddTwoBlackIcon} />
           </div>
             {t('youAreAdding')} {b(`${amountFormatter(inputValueParsed, 18, 6)} FSN`)} {t('and')} {'at most'}{' '}
             {b(`${amountFormatter(outputValueMax, decimals, Math.min(decimals, 6))} ${symbol}`)} {t('intoPool')}
           </LastSummaryText>
           <LastSummaryText>
           <div className='icon'>
-            <img src={MintMlackIcon} />
+            <img alt={''} src={MintMlackIcon} />
           </div>
             {t('youWillMint')} {b(amountFormatter(liquidityMinted, 18, 6))} {t('liquidityTokens')}
           </LastSummaryText>
           <LastSummaryText>
           <div className='icon'>
-            <img src={WeekIcon} />
+            <img alt={''} src={WeekIcon} />
           </div>
             {t('totalSupplyIs')} {b(amountFormatter(totalPoolTokens, 18, 6))}
           </LastSummaryText>
           <LastSummaryText1>
             {t('tokenWorth')}
-            <LogoBox><img src={FSNLogo}/></LogoBox>
+            <LogoBox><img alt={''} src={FSNLogo}/></LogoBox>
             <CoinInfoBox>{amountFormatter(ethPerLiquidityToken, 18, 6) + ' '} FSN </CoinInfoBox>{t('and')}{' '}
             <LogoBox><TokenLogo  address={outputCurrency} size={'18px'} ></TokenLogo></LogoBox>
             <CoinInfoBox>{amountFormatter(tokenPerLiquidityToken, decimals, Math.min(decimals, 6)) + ' '} {symbol}</CoinInfoBox>
@@ -886,7 +886,7 @@ export default function AddLiquidity({ params }) {
       <OversizedPanel>
         <DownArrowBackground>
           {/* <ColoredWrappedPlus active={isActive} alt="plus" /> */}
-          <img src={AddIcon} />
+          <img alt={''} src={AddIcon} />
         </DownArrowBackground>
       </OversizedPanel>
       <CurrencyInputPanel
@@ -975,26 +975,31 @@ export default function AddLiquidity({ params }) {
           {t('initialWarning')}
         </NewExchangeWarningText>
       )}
-      <Flex>
-        {/* <Button disabled={!isValid} onClick={onAddLiquidity}>
-          {t('addLiquidity')}
-        </Button> */}
-        {
-          account ? (
-            <>
-              <Button disabled={!isValid} onClick={onAddLiquidity}>
-                {t('addLiquidity')}
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button onClick={toggleWalletModal}>
-                {t('connectToWallet')}
-              </Button>
-            </>
-          )
-        }
-      </Flex>
+      {isSwitch ? (
+        <Flex>
+          {
+            account ? (
+              <>
+                <Button disabled={!isValid || !outputValue || Number(outputValue) <= 0} onClick={onAddLiquidity}>
+                  {t('addLiquidity')}
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button onClick={toggleWalletModal}>
+                  {t('connectToWallet')}
+                </Button>
+              </>
+            )
+          }
+        </Flex>
+      ) : (
+        <Flex>
+          <Button disabled={true}>
+            {t('ComineSoon')}
+          </Button>
+        </Flex>
+      )}
     </>
   )
 }

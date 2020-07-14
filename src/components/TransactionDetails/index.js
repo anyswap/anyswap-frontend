@@ -740,7 +740,7 @@ export default function TransactionDetails(props) {
         <TransactionInfo>
           <LastSummaryText>
             <div className='icon'>
-              <img src={ArrowTopRightIcon} />
+              <img src={ArrowTopRightIcon} alt={''} />
             </div>
             {t('youAreSelling')}{' '}
             <ValueWrapper>
@@ -755,7 +755,7 @@ export default function TransactionDetails(props) {
           </LastSummaryText>
           <LastSummaryText>
             <div className='icon'>
-              <img src={AddressIcon} />
+              <img src={AddressIcon} alt={''} />
             </div>
             {b(props.recipientAddress)} {t('willReceive')}{' '}
             <ValueWrapper>
@@ -770,7 +770,7 @@ export default function TransactionDetails(props) {
           </LastSummaryText>
           <LastSummaryText>
             <div className='icon'>
-              <img src={AlippageIcon} />
+              <img src={AlippageIcon} alt={''} />
             </div>
             {t('priceChange')} <ValueWrapper>{b(`${props.percentSlippageFormatted}%`)}</ValueWrapper>
           </LastSummaryText>
@@ -779,7 +779,7 @@ export default function TransactionDetails(props) {
         <TransactionInfo>
           <LastSummaryText>
             <div className='icon'>
-              <img src={ArrowTopRightIcon} />
+              <img src={ArrowTopRightIcon} alt={''} />
             </div>
             {t('youAreSelling')}{' '}
             <ValueWrapper>
@@ -804,7 +804,7 @@ export default function TransactionDetails(props) {
           </LastSummaryText>
           <LastSummaryText>
           <div className='icon'>
-              <img src={AlippageIcon} />
+              <img src={AlippageIcon} alt={''} />
             </div>
             {t('priceChange')} <ValueWrapper>{b(`${props.percentSlippageFormatted}%`)}</ValueWrapper>
           </LastSummaryText>
@@ -815,7 +815,7 @@ export default function TransactionDetails(props) {
         <TransactionInfo>
           <LastSummaryText>
             <div className='icon'>
-              <img src={ArrowTopRightIcon} />
+              <img src={ArrowTopRightIcon} alt={''} />
             </div>
             {t('youAreSending')}{' '}
             <ValueWrapper>
@@ -830,7 +830,7 @@ export default function TransactionDetails(props) {
             {t('to')} {b(props.recipientAddress)} {t('forAtMost')}{' '}
             <ValueWrapper>
             <div className='icon'>
-              <img src={AddressIcon} />
+              <img src={AddressIcon} alt={''} />
             </div>
               {b(
                 `${amountFormatter(
@@ -843,7 +843,7 @@ export default function TransactionDetails(props) {
           </LastSummaryText>
           <LastSummaryText>
             <div className='icon'>
-              <img src={AlippageIcon} />
+              <img src={AlippageIcon} alt={''} />
             </div>
             {t('priceChange')} <ValueWrapper>{b(`${props.percentSlippageFormatted}%`)}</ValueWrapper>
           </LastSummaryText>
@@ -852,7 +852,7 @@ export default function TransactionDetails(props) {
         <TransactionInfo>
           <LastSummaryText>
             <div className='icon'>
-              <img src={ArrowTopRightIcon} />
+              <img src={ArrowTopRightIcon} alt={''} />
             </div>
             {t('youAreBuying')}{' '}
             <ValueWrapper>
@@ -877,7 +877,7 @@ export default function TransactionDetails(props) {
           </LastSummaryText>
           <LastSummaryText>
             <div className='icon'>
-              <img src={AlippageIcon} />
+              <img src={AlippageIcon} alt={''} />
             </div>
             {t('priceChange')} <ValueWrapper>{b(`${props.percentSlippageFormatted}%`)}</ValueWrapper>
           </LastSummaryText>

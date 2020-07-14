@@ -471,10 +471,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const swapType = getSwapType(inputCurrency, outputCurrency)
 
   // get decimals and exchange address for each of the currency types
-  const { symbol: inputSymbol, decimals: inputDecimals, exchangeAddress: inputExchangeAddress } = useTokenDetails(
+  const { symbol: inputSymbol, decimals: inputDecimals, exchangeAddress: inputExchangeAddress, isSwitch: inputIsSwitch } = useTokenDetails(
     inputCurrency
   )
-  const { symbol: outputSymbol, decimals: outputDecimals, exchangeAddress: outputExchangeAddress } = useTokenDetails(
+  const { symbol: outputSymbol, decimals: outputDecimals, exchangeAddress: outputExchangeAddress, isSwitch: outputIsSwitch } = useTokenDetails(
     outputCurrency
   )
 
@@ -1090,7 +1090,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         <DownArrowBackground  onClick={() => {
           dispatchSwapState({ type: 'FLIP_INDEPENDENT' })
         }}>
-          <img src={ResertSvg} />
+          <img src={ResertSvg} alt={''} />
         </DownArrowBackground>
       </OversizedPanel>
       <CurrencyInputPanel
@@ -1186,28 +1186,36 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       ) : (
         ''
       )}
-      <Flex>
-        <Button
-          disabled={
-            brokenTokenWarning ? true : !account && !error ? false : !isValid || customSlippageError === 'invalid'
-          }
-          onClick={account && !error ? onSwap : toggleWalletModal}
-          warning={highSlippageWarning || customSlippageError === 'warning'}
-          loggedOut={!account}
-        >
-          {brokenTokenWarning
-            ? 'Swap'
-            : !account
-            ? t('connectToWallet')
-            : sending
-            ? highSlippageWarning || customSlippageError === 'warning'
-              ? t('sendAnyway')
-              : t('send')
-            : highSlippageWarning || customSlippageError === 'warning'
-            ? t('swapAnyway')
-            : t('swap')}
-        </Button>
-      </Flex>
+      {inputIsSwitch && outputIsSwitch ? (
+        <Flex>
+          <Button
+            disabled={
+              brokenTokenWarning ? true : !account && !error ? false : !isValid || customSlippageError === 'invalid'
+            }
+            onClick={account && !error ? onSwap : toggleWalletModal}
+            warning={highSlippageWarning || customSlippageError === 'warning'}
+            loggedOut={!account}
+          >
+            {brokenTokenWarning
+              ? 'Swap'
+              : !account
+              ? t('connectToWallet')
+              : sending
+              ? highSlippageWarning || customSlippageError === 'warning'
+                ? t('sendAnyway')
+                : t('send')
+              : highSlippageWarning || customSlippageError === 'warning'
+              ? t('swapAnyway')
+              : t('swap')}
+          </Button>
+        </Flex>
+      ) : (
+        <Flex>
+          <Button disabled={true}>
+            {t('ComineSoon')}
+          </Button>
+        </Flex>
+      )}
     </>
   )
 }

@@ -293,7 +293,7 @@ const TokenBalanceBox  = styled.div`
 `
 
 const TokenActionBox  = styled.div`
-${({theme}) => theme.FlexEC};
+${({theme}) => theme.FlexC};
   width: 40%;
   padding: 0 1.25rem;
 `
@@ -363,6 +363,11 @@ margin-right: 0.625rem;
   }
 `
 
+const ComineSoon = styled.div`
+  font-size: 0.75rem;
+  color: #999;
+`
+
 export default function DashboardDtil () {
   const { account, library } = useWeb3React()
   const allBalances = useAllBalances()
@@ -371,52 +376,59 @@ export default function DashboardDtil () {
 
   // console.log(allTokens)
   let allCoins = {}
+  let poolInfoObj = {}
   for (let obj in allTokens) {
     allCoins[allTokens[obj].symbol] = {
       ...allTokens[obj],
       token: obj
     }
+    poolInfoObj[allTokens[obj].symbol]= {
+      poolTokenBalance: '',
+      exchangeETHBalance: '',
+      exchangeTokenBalancem: '',
+      exchangeContract: '',
+      totalPoolTokens: '',
+      fetchPoolTokensm: '',
+      poolTokenPercentage: '',
+      ethSharemBTC: '',
+      tokenShare: '',
+    }
   }
+  const tokenShareFSN =useAddressBalance(account, 'FSN')
+  // console.log(tokenShareFSN)
+
+  const [searchBalance, setSearchBalance] =  useState('')
+  const [searchPool, setSearchPool] =  useState('')
+  const [showMore, setShowMore] =  useState(false)
+
+
   // console.log(allCoins)
   /**
    * BTC start
    *  */
-  const poolTokenBalanceBTC = useAddressBalance(account, allCoins.mBTC.exchangeAddress)
-  const exchangeETHBalanceBTC = useAddressBalance(allCoins.mBTC.exchangeAddress, 'FSN')
-  const exchangeTokenBalanceBTC = useAddressBalance(allCoins.mBTC.exchangeAddress, allCoins.mBTC.token)
-  const exchangeContractBTC = useExchangeContract(allCoins.mBTC.exchangeAddress)
-  const [totalPoolTokensBTC, setTotalPoolTokensBTC] = useState()
-  const fetchPoolTokensBTC = useCallback(() => {
-    if (exchangeContractBTC) {
-      exchangeContractBTC.totalSupply().then(totalSupply => {
-        setTotalPoolTokensBTC(totalSupply)
+  poolInfoObj.mBTC.poolTokenBalance = useAddressBalance(account, allCoins.mBTC.exchangeAddress)
+  poolInfoObj.mBTC.exchangeETHBalance = useAddressBalance(allCoins.mBTC.exchangeAddress, 'FSN')
+  poolInfoObj.mBTC.exchangeTokenBalancem = useAddressBalance(allCoins.mBTC.exchangeAddress, allCoins.mBTC.token)
+  poolInfoObj.mBTC.exchangeContract = useExchangeContract(allCoins.mBTC.exchangeAddress)
+  
+  const [totalPoolTokensmBTC, setTotalPoolTokensmBTC] = useState()
+  poolInfoObj.mBTC.fetchPoolTokensm = useCallback(() => {
+    if (poolInfoObj.mBTC.exchangeContract) {
+      poolInfoObj.mBTC.exchangeContract.totalSupply().then(totalSupply => {
+        setTotalPoolTokensmBTC(totalSupply)
       })
     }
-  }, [exchangeContractBTC])
+  }, [poolInfoObj.mBTC.exchangeContract])
   useEffect(() => {
-    fetchPoolTokensBTC()
-    library.on('block', fetchPoolTokensBTC)
+    poolInfoObj.mBTC.fetchPoolTokensm()
+    library.on('block', poolInfoObj.mBTC.fetchPoolTokensm)
 
     return () => {
-      library.removeListener('block', fetchPoolTokensBTC)
+      library.removeListener('block', poolInfoObj.mBTC.fetchPoolTokensm)
     }
-  }, [fetchPoolTokensBTC, library])
-  const poolTokenPercentageBTC =
-    poolTokenBalanceBTC && totalPoolTokensBTC && !totalPoolTokensBTC.isZero()
-        ? poolTokenBalanceBTC.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokensBTC)
-        : undefined
-  const ethShareBTC =
-    exchangeETHBalanceBTC && poolTokenPercentageBTC
-      ? exchangeETHBalanceBTC
-          .mul(poolTokenPercentageBTC)
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-      : undefined
-  const tokenShareBTC =
-    exchangeTokenBalanceBTC && poolTokenPercentageBTC
-      ? exchangeTokenBalanceBTC
-          .mul(poolTokenPercentageBTC)
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-      : undefined
+  }, [poolInfoObj.mBTC.fetchPoolTokensm, library])
+  poolInfoObj.mBTC.totalPoolTokens = totalPoolTokensmBTC
+
   /**
    * BTC end
    *  */
@@ -424,42 +436,28 @@ export default function DashboardDtil () {
   /**
    * ANY start
    *  */
-  const poolTokenBalanceANY = useAddressBalance(account, allCoins.ANY.exchangeAddress)
-  const exchangeETHBalanceANY = useAddressBalance(allCoins.ANY.exchangeAddress, 'FSN')
-  const exchangeTokenBalanceANY = useAddressBalance(allCoins.ANY.exchangeAddress, allCoins.ANY.token)
-  const exchangeContractANY = useExchangeContract(allCoins.ANY.exchangeAddress)
+  poolInfoObj.ANY.poolTokenBalance = useAddressBalance(account, allCoins.ANY.exchangeAddress)
+  poolInfoObj.ANY.exchangeETHBalance = useAddressBalance(allCoins.ANY.exchangeAddress, 'FSN')
+  poolInfoObj.ANY.exchangeTokenBalancem = useAddressBalance(allCoins.ANY.exchangeAddress, allCoins.ANY.token)
+  poolInfoObj.ANY.exchangeContract = useExchangeContract(allCoins.ANY.exchangeAddress)
+  
   const [totalPoolTokensANY, setTotalPoolTokensANY] = useState()
-  const fetchPoolTokensANY = useCallback(() => {
-    if (exchangeContractANY) {
-      exchangeContractANY.totalSupply().then(totalSupply => {
+  poolInfoObj.ANY.fetchPoolTokensm = useCallback(() => {
+    if (poolInfoObj.ANY.exchangeContract) {
+      poolInfoObj.ANY.exchangeContract.totalSupply().then(totalSupply => {
         setTotalPoolTokensANY(totalSupply)
       })
     }
-  }, [exchangeContractANY])
+  }, [poolInfoObj.ANY.exchangeContract])
   useEffect(() => {
-    fetchPoolTokensANY()
-    library.on('block', fetchPoolTokensANY)
+    poolInfoObj.ANY.fetchPoolTokensm()
+    library.on('block', poolInfoObj.ANY.fetchPoolTokensm)
 
     return () => {
-      library.removeListener('block', fetchPoolTokensANY)
+      library.removeListener('block', poolInfoObj.ANY.fetchPoolTokensm)
     }
-  }, [fetchPoolTokensANY, library])
-  const poolTokenPercentageANY =
-    poolTokenBalanceANY && totalPoolTokensANY && !totalPoolTokensANY.isZero()
-        ? poolTokenBalanceANY.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokensANY)
-        : undefined
-  const ethShareANY =
-    exchangeETHBalanceANY && poolTokenPercentageANY
-      ? exchangeETHBalanceANY
-          .mul(poolTokenPercentageANY)
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-      : undefined
-  const tokenShareANY =
-    exchangeTokenBalanceANY && poolTokenPercentageANY
-      ? exchangeTokenBalanceANY
-          .mul(poolTokenPercentageANY)
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-      : undefined
+  }, [poolInfoObj.ANY.fetchPoolTokensm, library])
+  poolInfoObj.ANY.totalPoolTokens = totalPoolTokensANY
   /**
    * ANY end
    *  */
@@ -467,42 +465,28 @@ export default function DashboardDtil () {
   /**
    * ETH start
    *  */
-  const poolTokenBalanceETH = useAddressBalance(account, allCoins.mETH.exchangeAddress)
-  const exchangeETHBalanceETH = useAddressBalance(allCoins.mETH.exchangeAddress, 'FSN')
-  const exchangeTokenBalanceETH = useAddressBalance(allCoins.mETH.exchangeAddress, allCoins.mETH.token)
-  const exchangeContractETH = useExchangeContract(allCoins.mETH.exchangeAddress)
-  const [totalPoolTokensETH, setTotalPoolTokensETH] = useState()
-  const fetchPoolTokensETH = useCallback(() => {
-    if (exchangeContractETH) {
-      exchangeContractETH.totalSupply().then(totalSupply => {
-        setTotalPoolTokensETH(totalSupply)
+  poolInfoObj.mETH.poolTokenBalance = useAddressBalance(account, allCoins.mETH.exchangeAddress)
+  poolInfoObj.mETH.exchangeETHBalance = useAddressBalance(allCoins.mETH.exchangeAddress, 'FSN')
+  poolInfoObj.mETH.exchangeTokenBalancem = useAddressBalance(allCoins.mETH.exchangeAddress, allCoins.mETH.token)
+  poolInfoObj.mETH.exchangeContract = useExchangeContract(allCoins.mETH.exchangeAddress)
+  
+  const [totalPoolTokensmETH, setTotalPoolTokensmETH] = useState()
+  poolInfoObj.mETH.fetchPoolTokensm = useCallback(() => {
+    if (poolInfoObj.mETH.exchangeContract) {
+      poolInfoObj.mETH.exchangeContract.totalSupply().then(totalSupply => {
+        setTotalPoolTokensmETH(totalSupply)
       })
     }
-  }, [exchangeContractETH])
+  }, [poolInfoObj.mETH.exchangeContract])
   useEffect(() => {
-    fetchPoolTokensETH()
-    library.on('block', fetchPoolTokensETH)
+    poolInfoObj.mETH.fetchPoolTokensm()
+    library.on('block', poolInfoObj.mETH.fetchPoolTokensm)
 
     return () => {
-      library.removeListener('block', fetchPoolTokensETH)
+      library.removeListener('block', poolInfoObj.mETH.fetchPoolTokensm)
     }
-  }, [fetchPoolTokensETH, library])
-  const poolTokenPercentageETH =
-    poolTokenBalanceETH && totalPoolTokensETH && !totalPoolTokensETH.isZero()
-        ? poolTokenBalanceETH.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokensETH)
-        : undefined
-  const ethShareETH =
-    exchangeETHBalanceETH && poolTokenPercentageETH
-      ? exchangeETHBalanceETH
-          .mul(poolTokenPercentageETH)
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-      : undefined
-  const tokenShareETH =
-    exchangeTokenBalanceETH && poolTokenPercentageETH
-      ? exchangeTokenBalanceETH
-          .mul(poolTokenPercentageETH)
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-      : undefined
+  }, [poolInfoObj.mETH.fetchPoolTokensm, library])
+  poolInfoObj.mETH.totalPoolTokens = totalPoolTokensmETH
   /**
    * ETH end
    *  */
@@ -510,113 +494,107 @@ export default function DashboardDtil () {
    /**
    * USDT start
    *  */
-  const poolTokenBalanceUSDT = useAddressBalance(account, allCoins.mUSDT.exchangeAddress)
-  const exchangeETHBalanceUSDT = useAddressBalance(allCoins.mUSDT.exchangeAddress, 'FSN')
-  const exchangeTokenBalanceUSDT = useAddressBalance(allCoins.mUSDT.exchangeAddress, allCoins.mUSDT.token)
-  const exchangeContractUSDT = useExchangeContract(allCoins.mUSDT.exchangeAddress)
-  const [totalPoolTokensUSDT, setTotalPoolTokensUSDT] = useState()
-  const fetchPoolTokensUSDT = useCallback(() => {
-    if (exchangeContractUSDT) {
-      exchangeContractUSDT.totalSupply().then(totalSupply => {
-        setTotalPoolTokensUSDT(totalSupply)
+  poolInfoObj.mUSDT.poolTokenBalance = useAddressBalance(account, allCoins.mUSDT.exchangeAddress)
+  poolInfoObj.mUSDT.exchangeETHBalance = useAddressBalance(allCoins.mUSDT.exchangeAddress, 'FSN')
+  poolInfoObj.mUSDT.exchangeTokenBalancem = useAddressBalance(allCoins.mUSDT.exchangeAddress, allCoins.mUSDT.token)
+  poolInfoObj.mUSDT.exchangeContract = useExchangeContract(allCoins.mUSDT.exchangeAddress)
+  
+  const [totalPoolTokensmUSDT, setTotalPoolTokensmUSDT] = useState()
+  poolInfoObj.mUSDT.fetchPoolTokensm = useCallback(() => {
+    if (poolInfoObj.mUSDT.exchangeContract) {
+      poolInfoObj.mUSDT.exchangeContract.totalSupply().then(totalSupply => {
+        setTotalPoolTokensmUSDT(totalSupply)
       })
     }
-  }, [exchangeContractUSDT])
+  }, [poolInfoObj.mUSDT.exchangeContract])
   useEffect(() => {
-    fetchPoolTokensUSDT()
-    library.on('block', fetchPoolTokensUSDT)
+    poolInfoObj.mUSDT.fetchPoolTokensm()
+    library.on('block', poolInfoObj.mUSDT.fetchPoolTokensm)
 
     return () => {
-      library.removeListener('block', fetchPoolTokensUSDT)
+      library.removeListener('block', poolInfoObj.mUSDT.fetchPoolTokensm)
     }
-  }, [fetchPoolTokensUSDT, library])
-  const poolTokenPercentageUSDT =
-    poolTokenBalanceUSDT && totalPoolTokensUSDT && !totalPoolTokensUSDT.isZero()
-        ? poolTokenBalanceUSDT.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokensUSDT)
-        : undefined
-  const ethShareUSDT =
-    exchangeETHBalanceUSDT && poolTokenPercentageUSDT
-      ? exchangeETHBalanceUSDT
-          .mul(poolTokenPercentageUSDT)
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-      : undefined
-  const tokenShareUSDT =
-    exchangeTokenBalanceUSDT && poolTokenPercentageUSDT
-      ? exchangeTokenBalanceUSDT
-          .mul(poolTokenPercentageUSDT)
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-      : undefined
+  }, [poolInfoObj.mUSDT.fetchPoolTokensm, library])
+  poolInfoObj.mUSDT.totalPoolTokens = totalPoolTokensmUSDT
+  // const poolTokenBalancemUSDT = useAddressBalance(account, allCoins.mUSDT.exchangeAddress)
+  // const exchangeETHBalancemUSDT = useAddressBalance(allCoins.mUSDT.exchangeAddress, 'FSN')
+  // const exchangeTokenBalancemUSDT = useAddressBalance(allCoins.mUSDT.exchangeAddress, allCoins.mUSDT.token)
+  // const exchangeContractmUSDT = useExchangeContract(allCoins.mUSDT.exchangeAddress)
+  // const [totalPoolTokensmUSDT, setTotalPoolTokensmUSDT] = useState()
+  // const fetchPoolTokensmUSDT = useCallback(() => {
+  //   if (exchangeContractmUSDT) {
+  //     exchangeContractmUSDT.totalSupply().then(totalSupply => {
+  //       setTotalPoolTokensmUSDT(totalSupply)
+  //     })
+  //   }
+  // }, [exchangeContractmUSDT])
+  // useEffect(() => {
+  //   fetchPoolTokensmUSDT()
+  //   library.on('block', fetchPoolTokensmUSDT)
+
+  //   return () => {
+  //     library.removeListener('block', fetchPoolTokensmUSDT)
+  //   }
+  // }, [fetchPoolTokensmUSDT, library])
+  // const poolTokenPercentagemUSDT =
+  //   poolTokenBalancemUSDT && totalPoolTokensmUSDT && !totalPoolTokensmUSDT.isZero()
+  //       ? poolTokenBalancemUSDT.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokensmUSDT)
+  //       : undefined
+  // const ethSharemUSDT =
+  //   exchangeETHBalancemUSDT && poolTokenPercentagemUSDT
+  //     ? exchangeETHBalancemUSDT
+  //         .mul(poolTokenPercentagemUSDT)
+  //         .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+  //     : undefined
+  // const tokenSharemUSDT =
+  //   exchangeTokenBalancemUSDT && poolTokenPercentagemUSDT
+  //     ? exchangeTokenBalancemUSDT
+  //         .mul(poolTokenPercentagemUSDT)
+  //         .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+  //     : undefined
   /**
    * USDT end
    *  */
 
 
-  function getFSNper() {
-    let BTCPER = poolTokenPercentageBTC ? amountFormatter(poolTokenPercentageBTC, 16, 2) : 0
-    let ANYPER = poolTokenPercentageANY ? amountFormatter(poolTokenPercentageANY, 16, 2) : 0
-    let ETHPER = poolTokenPercentageETH ? amountFormatter(poolTokenPercentageETH, 16, 2) : 0
-    let USDTPER = poolTokenPercentageUSDT ? amountFormatter(poolTokenPercentageUSDT, 16, 2) : 0
-    return Number(BTCPER) + Number(ANYPER) + Number(ETHPER) + Number(USDTPER)
+  let poolTokenBalanceArr = []
+  for (let obj in allCoins) {
+    if (obj === 'FSN') {
+      poolInfoObj[obj].poolTokenPercentage =
+        poolInfoObj['ANY'].poolTokenBalance && poolInfoObj['ANY'].totalPoolTokens && !poolInfoObj['ANY'].totalPoolTokens.isZero()
+            ? poolInfoObj['ANY'].poolTokenBalance.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(poolInfoObj['ANY'].totalPoolTokens)
+            : undefined
+      poolInfoObj[obj].tokenShare = tokenShareFSN
+    } else {
+      poolInfoObj[obj].poolTokenPercentage =
+        poolInfoObj[obj].poolTokenBalance && poolInfoObj[obj].totalPoolTokens && !poolInfoObj[obj].totalPoolTokens.isZero()
+            ? poolInfoObj[obj].poolTokenBalance.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(poolInfoObj[obj].totalPoolTokens)
+            : undefined
+      poolInfoObj[obj].tokenShare =
+        poolInfoObj[obj].exchangeTokenBalancem && poolInfoObj[obj].poolTokenPercentage
+          ? poolInfoObj[obj].exchangeTokenBalancem
+              .mul(poolInfoObj[obj].poolTokenPercentage)
+              .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+          : undefined
+    }
+    
+    poolTokenBalanceArr.push({
+      name: allCoins[obj].name,
+      symbol: obj,
+      address: allCoins[obj].token,
+      decimals: allCoins[obj].decimals,
+      balance: poolInfoObj[obj].tokenShare,
+      percent: poolInfoObj[obj].poolTokenPercentage,
+      isSwitch: allCoins[obj].isSwitch,
+    })
   }
-  const FSNPER = getFSNper()
-  const poolTokenBalance = [
-    {
-      name: 'Anyswap',
-      symbol: 'ANY',
-      address: '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4',
-      decimals: 18,
-      balance: tokenShareANY,
-      // percent: poolTokenPercentageANY ? poolTokenPercentageANY.toString() : '0'
-      percent: poolTokenPercentageANY
-    },
-    {
-      name: 'Fusion',
-      symbol: 'FSN',
-      address: 'FSN',
-      decimals: 18,
-      balance: useAddressBalance(account, 'FSN'),
-      percent: poolTokenPercentageANY
-    },
-    {
-      name: 'SMPC Bitcoin',
-      symbol: 'mBTC',
-      address: '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947',
-      decimals: 8,
-      balance: tokenShareBTC,
-      // percent: poolTokenPercentageBTC ? poolTokenPercentageBTC.toString() : '0'
-      percent: poolTokenPercentageBTC
-    },
-    {
-      name: 'Ethereum',
-      symbol: 'mETH',
-      address: '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88',
-      decimals: 18,
-      balance: tokenShareETH,
-      // percent: poolTokenPercentageETH ? poolTokenPercentageETH.toString() : '0'
-      percent: poolTokenPercentageETH
-    },
-    {
-      name: 'Tether',
-      symbol: 'mUSDT',
-      address: '0x19543338473caaa6f404dbe540bb787f389d5462',
-      decimals: 6,
-      balance: tokenShareUSDT,
-      // percent: poolTokenPercentageUSDT ? poolTokenPercentageUSDT.toString() : '0'
-      percent: poolTokenPercentageUSDT
-    },
-  ]
-  // console.log(poolTokenPercentageBTC)
-
-  // console.log(poolTokenBalance)
-  const [searchBalance, setSearchBalance] =  useState('')
-  const [searchPool, setSearchPool] =  useState('')
-  const [showMore, setShowMore] =  useState(false)
+  // console.log(poolTokenBalanceArr)
   function searchBox (type) {
     return (
       <>
         <SearchBox>
           <div className='icon'>
-            <img src={SearchIcon} />
+            <img src={SearchIcon} alt={''} />
           </div>
           <SearchInput
             placeholder={t('searchToken')}
@@ -636,11 +614,20 @@ export default function DashboardDtil () {
   function getPoolToken () {
     // if (!account) return
     // console.log(tokenPoolList)
+    let ANYItem = {}
+    for (let i = 0,len = poolTokenBalanceArr.length; i < len; i++) {
+      if (poolTokenBalanceArr[i].symbol === 'ANY') {
+        ANYItem = poolTokenBalanceArr[i]
+        poolTokenBalanceArr.splice(i, 1)
+        break
+      }
+    }
+    poolTokenBalanceArr.unshift(ANYItem)
     return (
       <MyBalanceTokenBox1>
         <TokenTableBox>
           {
-            poolTokenBalance.map((item, index) => {
+            poolTokenBalanceArr.map((item, index) => {
               if (
                 !searchPool
                 || item.symbol.toLowerCase().indexOf(searchPool.toLowerCase()) !== -1
@@ -650,30 +637,43 @@ export default function DashboardDtil () {
                 return (
                   <TokenTableList key={index}>
                     <TokenTableCoinBox>
-                      <TokenTableLogo><TokenLogo address={item.address} size={'1.625rem'} ></TokenLogo></TokenTableLogo>
+                      <TokenTableLogo><TokenLogo address={item.symbol} size={'1.625rem'} ></TokenLogo></TokenTableLogo>
                       <TokenNameBox>
                         <h3>{item.symbol}</h3>
                         <p>{item.name}</p>
                       </TokenNameBox>
                     </TokenTableCoinBox>
                     <TokenBalanceBox>
-                      <h3>{t('balances')}</h3>
-                      <p>{item.balance ? (
-                        amountFormatter(
-                          item.balance,
-                          item.decimals,
-                          Math.min(6, item.decimals)
+                      {
+                        !!item.isSwitch ? (
+                          <>
+                            <h3>{t('balances')}</h3>
+                            <p>{item.balance ? (
+                              amountFormatter(
+                                item.balance,
+                                item.decimals,
+                                Math.min(6, item.decimals)
+                              )
+                            ) : '-'}</p>
+                          </>
+                        ) : (
+                          <ComineSoon>{t('ComineSoon')}</ComineSoon>
                         )
-                      ) : '-'}</p>
-                      {/* <p>{item.balance ? (
-                        formatTokenBalance(ethers.utils.bigNumberify(item.balance), item.decimals)
-                      ) : '-'}</p> */}
+                      }
                     </TokenBalanceBox>
                     <TokenBalanceBox>
-                      <h3>{t("Percentage")}</h3>
-                      <p>{
-                        item.percent ? amountFormatter(item.percent, 16, 2) : (item.symbol === 'FSN' && account ? FSNPER : '-')
-                        } %</p>
+                      {
+                        !!item.isSwitch ? (
+                          <>
+                            <h3>{t("Percentage")}</h3>
+                            <p>{
+                              item.percent ? amountFormatter(item.percent, 16, 2) : '-'
+                              } %</p>
+                          </>
+                        ) : (
+                          <ComineSoon>{t('ComineSoon')}</ComineSoon>
+                        )
+                      }
                     </TokenBalanceBox>
                   </TokenTableList>
                 )
@@ -704,6 +704,7 @@ export default function DashboardDtil () {
         symbol: allTokens[k].symbol,
         address: k,
         balance: balance,
+        isSwitch: allTokens[k].isSwitch
       }
     })
     // console.log(tokenList)
@@ -729,7 +730,7 @@ export default function DashboardDtil () {
                 return (
                   <TokenTableList key={index}>
                     <TokenTableCoinBox>
-                      <TokenTableLogo><TokenLogo address={item.address} size={'1.625rem'} ></TokenLogo></TokenTableLogo>
+                      <TokenTableLogo><TokenLogo address={item.symbol} size={'1.625rem'} ></TokenLogo></TokenTableLogo>
                       <TokenNameBox>
                         <h3>{item.symbol}</h3>
                         <p>{item.name}</p>
@@ -740,8 +741,16 @@ export default function DashboardDtil () {
                       <p>{item.balance}</p>
                     </TokenBalanceBox>
                     <TokenActionBox>
-                      <TokenActionBtnSwap to={'/swap?inputCurrency=' + item.address}>{t('swap')}</TokenActionBtnSwap>
-                      <TokenActionBtnSend to={'/send?inputCurrency=' + item.address}>{t('send')}</TokenActionBtnSend>
+                      {
+                        !!item.isSwitch ? (
+                          <>
+                            <TokenActionBtnSwap to={'/swap?inputCurrency=' + item.address}>{t('swap')}</TokenActionBtnSwap>
+                            <TokenActionBtnSend to={'/send?inputCurrency=' + item.address}>{t('send')}</TokenActionBtnSend>
+                          </>
+                        ) : (
+                          <ComineSoon>{t('ComineSoon')}</ComineSoon>
+                        )
+                      }
                     </TokenActionBox>
                   </TokenTableList>
                 )
@@ -783,11 +792,11 @@ export default function DashboardDtil () {
       </MyBalanceBox>
       <WrapperBox>
         <EarningsBox>
-          <div className='bgImg'><img src={AnyillustrationIcon} /></div>
+          <div className='bgImg'><img src={AnyillustrationIcon} alt={''} /></div>
           <h3>{account ? '0.00' : '0.00'} ANY</h3>
           <p>{t('Accumulated')}</p>
           <div className='txt'>
-            <img src={GraphUpIcon} />
+            <img src={GraphUpIcon} alt={''} />
             <span>{account ? '0.00' : '0.00'}%</span>
             {t('last7Day')}
           </div>

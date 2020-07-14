@@ -446,7 +446,8 @@ function swapStateReducer(state, action) {
 const selfUseAllToken=[
   '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947',
   '0x19543338473caaa6f404dbe540bb787f389d5462',
-  '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88'
+  '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88',
+  'TEST'
 ]
 let historyInterval 
 let swapInfo = ''
@@ -454,7 +455,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const { t } = useTranslation()
   let { account, chainId, error } = useWeb3React()
   let walletType = sessionStorage.getItem('walletType')
-  let HDPath = sessionStorage.getItem('HDPath')
+  // let HDPath = sessionStorage.getItem('HDPath')
   // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   // console.log(useWeb3React())
   
@@ -469,15 +470,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     urlAddedTokens[initialCurrency] = true
   }
 
-  // check if URL specifies valid slippage, if so use as default
-  const initialSlippage = (token = false) => {
-    let slippage = Number.parseInt(params.slippage)
-    if (!isNaN(slippage) && (slippage === 0 || slippage >= 1)) {
-      return slippage // round to match custom input availability
-    }
-    // check for token <-> token slippage option
-    return token ? TOKEN_ALLOWED_SLIPPAGE_DEFAULT : ALLOWED_SLIPPAGE_DEFAULT
-  }
 
   // check URL params for recipient, only on send page
   const initialRecipient = () => {
@@ -487,15 +479,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     return ''
   }
 
-  const [brokenTokenWarning, setBrokenTokenWarning] = useState()
-
   // const [deadlineFromNow, setDeadlineFromNow] = useState(DEFAULT_DEADLINE_FROM_NOW)
-
-  const [rawSlippage, setRawSlippage] = useState(() => initialSlippage())
-  const [rawTokenSlippage, setRawTokenSlippage] = useState(() => initialSlippage(true))
-
-  const allowedSlippageBig = ethers.utils.bigNumberify(rawSlippage)
-  const tokenAllowedSlippageBig = ethers.utils.bigNumberify(rawTokenSlippage)
 
   // analytics
   // useEffect(() => {
@@ -517,29 +501,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency, bridgeType, registerAddress, isViewMintModel, mintHistory, isViewMintInfo, realyValue } = swapState
 
 
-  useEffect(() => {
-    setBrokenTokenWarning(false)
-    for (let i = 0; i < brokenTokens.length; i++) {
-      if (
-        brokenTokens[i].toLowerCase() === outputCurrency.toLowerCase() ||
-        brokenTokens[i].toLowerCase() === inputCurrency.toLowerCase()
-      ) {
-        setBrokenTokenWarning(true)
-      }
-    }
-  }, [outputCurrency, inputCurrency])
-
   const [recipient, setRecipient] = useState({
     address: initialRecipient(),
     name: ''
   })
-  const [recipientError, setRecipientError] = useState()
 
   // get swap type from the currency types
   const swapType = getSwapType(inputCurrency, outputCurrency)
 
   // get decimals and exchange address for each of the currency types
-  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName } = useTokenDetails(
+  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, maxNum , minNum, fee, isSwitch, isDeposit, isRedeem } = useTokenDetails(
     inputCurrency
   )
 
@@ -550,51 +521,62 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   useEffect(() => {
     // console.log(CoinInfo[inputSymbol])
-    GetServerInfo(config.CoinInfo[inputSymbol].url).then(res => {
-      console.log(res)
-      // console.log(getWeb3ConTract(res.swapInfo.DestToken.ContractAddress))
-      if (bridgeType && bridgeType === 'redeem') {
-        swapInfo = res.swapInfo.DestToken
-      } else {
-        swapInfo = res.swapInfo.SrcToken
-        if (inputSymbol !== 'mBTC') {
-          dispatchSwapState({
-            type: 'UPDATE_SWAPREGISTER',
-            payload: swapInfo.DcrmAddress
-          })
-        }
-      }
-    })
-    if (account && inputSymbol === 'mBTC') {
-      RegisterAddress(config.CoinInfo[inputSymbol].url, account).then(res => {
-        // console.log(res)
-        if (res && res.result) {
-          dispatchSwapState({
-            type: 'UPDATE_SWAPREGISTER',
-            payload: res.result.P2shAddress
-          })
+    // if () {
+
+    // }
+    if (config.CoinInfo[inputSymbol] && config.CoinInfo[inputSymbol].url && isSwitch) {
+      GetServerInfo(config.CoinInfo[inputSymbol].url).then(res => {
+        console.log(res)
+        // console.log(getWeb3ConTract(res.swapInfo.DestToken.ContractAddress))
+        if (bridgeType && bridgeType === 'redeem') {
+          swapInfo = res.swapInfo.DestToken
+        } else {
+          swapInfo = res.swapInfo.SrcToken
+          if (inputSymbol !== 'mBTC') {
+            dispatchSwapState({
+              type: 'UPDATE_SWAPREGISTER',
+              payload: swapInfo.DcrmAddress
+            })
+          }
         }
       })
-    } else if (!account && inputSymbol === 'mBTC') {
+      if (account && inputSymbol === 'mBTC') {
+        RegisterAddress(config.CoinInfo[inputSymbol].url, account).then(res => {
+          // console.log(res)
+          if (res && res.result) {
+            dispatchSwapState({
+              type: 'UPDATE_SWAPREGISTER',
+              payload: res.result.P2shAddress
+            })
+          }
+        })
+      } else if (!account && inputSymbol === 'mBTC') {
+        dispatchSwapState({
+          type: 'UPDATE_SWAPREGISTER',
+          payload: ''
+        })
+      }
+      if (registerAddress && account) {
+        if (historyInterval) {
+          clearInterval(historyInterval)
+        }
+        let addrHistory = inputSymbol === 'mBTC' ? registerAddress : account
+        historyInterval = setInterval(() => {
+          GetBTCtxnsAll(config.CoinInfo[inputSymbol].url, addrHistory, inputSymbol, inputDecimals).then(res => {
+            // console.log(res)
+            dispatchSwapState({
+              type: 'UPDATE_MINTHISTORY',
+              payload: res
+            })
+          })
+        }, 1000 * 30)
+      }
+    } else {
+      clearInterval(historyInterval)
       dispatchSwapState({
         type: 'UPDATE_SWAPREGISTER',
         payload: ''
       })
-    }
-    if (registerAddress && account) {
-      if (historyInterval) {
-        clearInterval(historyInterval)
-      }
-      let addrHistory = inputSymbol === 'mBTC' ? registerAddress : account
-      historyInterval = setInterval(() => {
-        GetBTCtxnsAll(config.CoinInfo[inputSymbol].url, addrHistory, inputSymbol, inputDecimals).then(res => {
-          // console.log(res)
-          dispatchSwapState({
-            type: 'UPDATE_MINTHISTORY',
-            payload: res
-          })
-        })
-      }, 1000 * 30)
     }
   }, [inputSymbol, bridgeType, account])
   // const inputExchangeContract = useExchangeContract(inputExchangeAddress)
@@ -816,13 +798,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setIsHardwareError(false)
       setIsHardwareTip(true)
       setHardwareTxnsInfo(inputValueFormatted + inputSymbol)
-      let web3Contract = getWeb3ConTract(swapBTCABI, swapInfo.ContractAddress)
+      let web3Contract = getWeb3ConTract(swapBTCABI, inputCurrency)
       let data = web3Contract.Swapout.getData(amountVal, address)
       if (inputSymbol !== 'mBTC') {
-        web3Contract = getWeb3ConTract(swapETHABI, swapInfo.ContractAddress)
+        web3Contract = getWeb3ConTract(swapETHABI, inputCurrency)
         data = web3Contract.Swapout.getData(amountVal)
       }
-      getWeb3BaseInfo(swapInfo.ContractAddress, swapInfo.ContractAddress, data, account).then(res => {
+      getWeb3BaseInfo(inputCurrency, inputCurrency, data, account).then(res => {
         if (res.msg === 'Success') {
           addTransaction(res.info)
           dispatchSwapState({
@@ -972,11 +954,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           </MintList>
           <MintList>
             <MintListLabel>{t('fee')}:</MintListLabel>
-            <MintListVal>{mintHistory && mintHistory.mintValue && swapInfo && swapInfo.SwapFeeRate ? Number(mintHistory.mintValue) * Number(swapInfo.SwapFeeRate) : 0}</MintListVal>
+            <MintListVal>{mintHistory && mintHistory.mintValue && (fee || fee === 0) ? Number(mintHistory.mintValue) * Number(fee) : 0}</MintListVal>
           </MintList>
           <MintList>
             <MintListLabel>{t('receive')}:</MintListLabel>
-            <MintListVal>{mintHistory && mintHistory.mintValue && swapInfo && swapInfo.SwapFeeRate ? Number(mintHistory.mintValue) * (1 - Number(swapInfo.SwapFeeRate)) : ''}</MintListVal>
+            <MintListVal>{mintHistory && mintHistory.mintValue && (fee || fee === 0) ? Number(mintHistory.mintValue) * (1 - Number(fee)) : ''}</MintListVal>
           </MintList>
           <MintList>
             <MintListLabel>{t('receive')} FSN {t('address')}:</MintListLabel>
@@ -1012,8 +994,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           if (inputBalance && inputDecimals) {
             const valueToSet = inputCurrency === 'FSN' ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
             if (valueToSet.gt(ethers.constants.Zero)) {
-              let inputVal = swapInfo && (swapInfo.SwapFeeRate || swapInfo.SwapFeeRate === 0)
-                ? Number((( Number(inputBalance) * (1 - Number(swapInfo.SwapFeeRate)) / Math.pow(10, inputDecimals)) ).toFixed(Math.min(8, inputDecimals)))
+              let inputVal = fee || fee === 0
+                ? Number((( Number(inputBalance) * (1 - Number(fee)) / Math.pow(10, inputDecimals)) ).toFixed(Math.min(8, inputDecimals)))
                 : 0
               dispatchSwapState({
                 type: 'UPDATE_INDEPENDENT',
@@ -1034,8 +1016,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         onValueChange={inputValue => {
           // console.log(inputBalanceFormatted)
-          let inputVal = inputValue && swapInfo && (swapInfo.SwapFeeRate || swapInfo.SwapFeeRate === 0)
-            ? Number(( Number(inputValue) * (1 - Number(swapInfo.SwapFeeRate)) ).toFixed(Math.min(8, inputDecimals)))
+          let inputVal = inputValue && (fee || fee === 0)
+            ? Number(( Number(inputValue) * (1 - Number(fee)) ).toFixed(Math.min(8, inputDecimals)))
             : 0
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
@@ -1056,7 +1038,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       <OversizedPanel>
         <DownArrowBackground  onClick={changeMorR}>
-          <img src={ResertSvg} />
+          <img src={ResertSvg} alt={''} />
         </DownArrowBackground>
       </OversizedPanel>
       <CurrencyInputPanel
@@ -1083,7 +1065,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       {bridgeType && bridgeType === 'redeem' ? (
         <>
-          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
+          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} initialInput={recipient} isValid={true} disabled={false}/>
         </>
       ) : (
         <>
@@ -1116,8 +1098,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       <ExchangeRateWrapper>
         <ExchangeRate>{t('fee')}：</ExchangeRate>
         <span>
-          {independentValue && swapInfo && (swapInfo.SwapFeeRate || swapInfo.SwapFeeRate === 0) && bridgeType && bridgeType === 'redeem'
-            ? `${Number((Number(independentValue) * Number(swapInfo.SwapFeeRate)).toFixed(Math.min(8, inputDecimals)))} ${inputSymbol}`
+          {independentValue && (fee || fee === 0) && bridgeType && bridgeType === 'redeem'
+            ? `${Number((Number(independentValue) * Number(fee)).toFixed(Math.min(8, inputDecimals)))} ${inputSymbol}`
             : ' - '}
         </span>
       </ExchangeRateWrapper>
@@ -1130,46 +1112,58 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           </>
         )
       }
-      <Flex>
-        {bridgeType && bridgeType === 'redeem' ? (
-          <>
-            <Button
-              disabled={
-                !account && !error ? false : !independentValue || !recipient.address
-              }
-              onClick={account && !error ? sendTxns : toggleWalletModal}
-              warning={Number(inputBalanceFormatted) < Number(independentValue) || customSlippageError === 'warning'}
-              loggedOut={!account}
-            >
-              {!account
-                ? t('connectToWallet')
-                : (
-                  <>
-                    <StyledBirdgeIcon>
-                      <img src={BirdgeIcon} />
-                      {t('redeem')}
-                    </StyledBirdgeIcon>
-                  </>
-                  )}
+      {isSwitch ? (
+        <>
+          <Flex>
+            {bridgeType && bridgeType === 'redeem' ? (
+              <>
+                <Button
+                  disabled={
+                    !account && !error ? false : !independentValue || !recipient.address
+                  }
+                  onClick={account && !error ? sendTxns : toggleWalletModal}
+                  warning={Number(inputBalanceFormatted) < Number(independentValue) || customSlippageError === 'warning'}
+                  loggedOut={!account}
+                >
+                  {!account
+                    ? t('connectToWallet')
+                    : (
+                      <>
+                        <StyledBirdgeIcon>
+                          <img src={BirdgeIcon} alt={''} />
+                          {t('redeem')}
+                        </StyledBirdgeIcon>
+                      </>
+                      )}
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  disabled={
+                    !account && !error ? false : !independentValue || !registerAddress || Number(independentValue) > maxNum || Number(independentValue) < minNum
+                  }
+                  onClick={account && !error ? MintModelView : toggleWalletModal}
+                  warning={account && (!independentValue || Number(independentValue) > maxNum || Number(independentValue) < minNum)}
+                  loggedOut={!account}
+                >
+                  {!account
+                    ? t('connectToWallet')
+                    : t('confirm')}
+                </Button>
+              </>
+            )}
+          </Flex>
+        </>
+      ) : (
+        <>
+          <Flex>
+            <Button disabled={true}>
+              {t('ComineSoon')}
             </Button>
-          </>
-        ) : (
-          <>
-            <Button
-              disabled={
-                !account && !error ? false : !independentValue || !registerAddress || !swapInfo || Number(independentValue) > swapInfo.MaximumSwap || Number(independentValue) < swapInfo.MinimumSwap
-              }
-              onClick={account && !error ? MintModelView : toggleWalletModal}
-              warning={account && (!independentValue || !swapInfo || Number(independentValue) > swapInfo.MaximumSwap || Number(independentValue) < swapInfo.MinimumSwap)}
-              loggedOut={!account}
-            >
-              {!account
-                ? t('connectToWallet')
-                : t('confirm')}
-            </Button>
-          </>
-        )}
-      </Flex>
+          </Flex>
+        </>
+      )}
     </>
   )
 }

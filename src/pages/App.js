@@ -90,7 +90,7 @@ const NavTabBoxBottom = styled.div`
   display:none;
   @media screen and (max-width: 960px) {
     display:block;
-    z-index: 99
+    z-index: 1
   }
 `
 const ContentBox = styled.div`

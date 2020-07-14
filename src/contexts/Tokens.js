@@ -14,6 +14,13 @@ const NAME = 'name'
 const SYMBOL = 'symbol'
 const DECIMALS = 'decimals'
 const EXCHANGE_ADDRESS = 'exchangeAddress'
+const MAXNUM = 'maxNum'
+const MINNUM = 'minNum'
+const FEE = 'fee'
+const ISSWITCH = 'isSwitch'
+const ISDEPOSIT = 'isDeposit'
+const ISREDEEM = 'isRedeem'
+
 
 const UPDATE = 'UPDATE'
 
@@ -31,41 +38,65 @@ const FSN = {
     [NAME]: 'Fusion',
     [SYMBOL]: 'FSN',
     [DECIMALS]: 18,
-    [EXCHANGE_ADDRESS]: null
+    [EXCHANGE_ADDRESS]: null,
+    [MAXNUM]: null,
+    [MINNUM]: null,
+    [FEE]: null,
+    [ISSWITCH]: 1,
+    [ISDEPOSIT]: 0,
+    [ISREDEEM]: 0,
   }
 }
 
 export const INITIAL_TOKENS_CONTEXT = {
-  1: {
-    
-  },
-  4: {
-    
-  },
   36688: {
     'mBTC': { // mBTC
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: 'mBTC'
+      [EXCHANGE_ADDRESS]: 'mBTC',
+      [MAXNUM]: 100,
+      [MINNUM]: 0.00001,
+      [FEE]: 0.001,
+      [ISSWITCH]: 0,
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
     },
     'ANY': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: 'ANY'
+      [EXCHANGE_ADDRESS]: 'ANY',
+      [MAXNUM]: 1000000,
+      [MINNUM]: 0.1,
+      [FEE]: 0.001,
+      [ISSWITCH]: 1,
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
     },
     'mETH': { // mETH
       [NAME]: 'SMPC Ethereum',
       [SYMBOL]: 'mETH',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: 'mETH'
+      [EXCHANGE_ADDRESS]: 'mETH',
+      [MAXNUM]: 1000000,
+      [MINNUM]: 0.1,
+      [FEE]: 0.001,
+      [ISSWITCH]: 0,
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
     },
     'mUSDT': { // mUSDT
       [NAME]: 'SMPC Tether',
       [SYMBOL]: 'mUSDT',
       [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: 'mUSDT'
+      [EXCHANGE_ADDRESS]: 'mUSDT',
+      [MAXNUM]: 100,
+      [MINNUM]: 0.00001,
+      [FEE]: 0.001,
+      [ISSWITCH]: 0,
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
     }
   },
   46688: {
@@ -73,25 +104,61 @@ export const INITIAL_TOKENS_CONTEXT = {
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0x0e711afa0da54bc718c777ae404386d3ad4774bc'
+      [EXCHANGE_ADDRESS]: '0x0e711afa0da54bc718c777ae404386d3ad4774bc',
+      [MAXNUM]: 100,
+      [MINNUM]: 0.00001,
+      [FEE]: 0.001,
+      [ISSWITCH]: 1,
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
     },
     '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x4dee5f0705ff478b452419375610155b5873ef5b'
+      [EXCHANGE_ADDRESS]: '0x4dee5f0705ff478b452419375610155b5873ef5b',
+      [MAXNUM]: 1000000,
+      [MINNUM]: 0.1,
+      [FEE]: 0.001,
+      [ISSWITCH]: 1,
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
     },
     '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88': { // mETH
       [NAME]: 'SMPC Ethereum',
       [SYMBOL]: 'mETH',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x9ab217c352b4122128d0024219f06e3503a8c7eb'
+      [EXCHANGE_ADDRESS]: '0x9ab217c352b4122128d0024219f06e3503a8c7eb',
+      [MAXNUM]: 1000000,
+      [MINNUM]: 0.1,
+      [FEE]: 0.001,
+      [ISSWITCH]: 1,
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
     },
     '0x19543338473caaa6f404dbe540bb787f389d5462': { // mUSDT
       [NAME]: 'SMPC Tether',
       [SYMBOL]: 'mUSDT',
       [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '0x763858d914ebc7936977ab7c93b7331cea77b37c'
+      [EXCHANGE_ADDRESS]: '0x763858d914ebc7936977ab7c93b7331cea77b37c',
+      [MAXNUM]: 100,
+      [MINNUM]: 0.00001,
+      [FEE]: 0.001,
+      [ISSWITCH]: 1,
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+    },
+    'TEST': { // mUSDT
+      [NAME]: 'SMPC TEST',
+      [SYMBOL]: 'TEST',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: 'TEST',
+      [MAXNUM]: 100,
+      [MINNUM]: 0.00001,
+      [FEE]: 0.001,
+      [ISSWITCH]: 0,
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
     }
   }
 }
@@ -105,7 +172,7 @@ function useTokensContext() {
 function reducer(state, { type, payload }) {
   switch (type) {
     case UPDATE: {
-      const { networkId, tokenAddress, name, symbol, decimals, exchangeAddress } = payload
+      const { networkId, tokenAddress, name, symbol, decimals, exchangeAddress, maxNum, minNum, fee, isSwitch, isDeposit, isRedeem } = payload
       return {
         ...state,
         [networkId]: {
@@ -114,7 +181,13 @@ function reducer(state, { type, payload }) {
             [NAME]: name,
             [SYMBOL]: symbol,
             [DECIMALS]: decimals,
-            [EXCHANGE_ADDRESS]: exchangeAddress
+            [EXCHANGE_ADDRESS]: exchangeAddress,
+            [MAXNUM]: maxNum,
+            [MINNUM]: minNum,
+            [FEE]: fee,
+            [ISSWITCH]: isSwitch,
+            [ISDEPOSIT]: isDeposit,
+            [ISREDEEM]: isRedeem,
           }
         }
       }
@@ -128,8 +201,8 @@ function reducer(state, { type, payload }) {
 export default function Provider({ children }) {
   const [state, dispatch] = useReducer(reducer, INITIAL_TOKENS_CONTEXT)
 
-  const update = useCallback((networkId, tokenAddress, name, symbol, decimals, exchangeAddress) => {
-    dispatch({ type: UPDATE, payload: { networkId, tokenAddress, name, symbol, decimals, exchangeAddress } })
+  const update = useCallback((networkId, tokenAddress, name, symbol, decimals, exchangeAddress, maxNum, minNum, fee, isSwitch, isDeposit, isRedeem) => {
+    dispatch({ type: UPDATE, payload: { networkId, tokenAddress, name, symbol, decimals, exchangeAddress, maxNum, minNum, fee, isSwitch, isDeposit, isRedeem } })
   }, [])
 
   return (
@@ -145,7 +218,7 @@ export function useTokenDetails(tokenAddress) {
   const [state, { update }] = useTokensContext()
   // const allTokensInNetwork = { ...FSN, ...(safeAccess(state, [chainId]) || {}) }
   const allTokensInNetwork = { ...FSN, ...(safeAccess(state, [chainId]) || {}) }
-  const { [NAME]: name, [SYMBOL]: symbol, [DECIMALS]: decimals, [EXCHANGE_ADDRESS]: exchangeAddress } =
+  const { [NAME]: name, [SYMBOL]: symbol, [DECIMALS]: decimals, [EXCHANGE_ADDRESS]: exchangeAddress, [MAXNUM]:maxNum, [MINNUM]:minNum, [FEE]:fee, [ISSWITCH]:isSwitch, [ISDEPOSIT]:isDeposit, [ISREDEEM]:isRedeem } =
     safeAccess(allTokensInNetwork, [tokenAddress]) || {}
 
   useEffect(() => {
@@ -176,7 +249,7 @@ export function useTokenDetails(tokenAddress) {
     }
   }, [tokenAddress, name, symbol, decimals, exchangeAddress, chainId, library, update])
 
-  return { name, symbol, decimals, exchangeAddress }
+  return { name, symbol, decimals, exchangeAddress, maxNum, minNum, fee, isSwitch, isDeposit, isRedeem }
 }
 
 export function useAllTokenDetails() {

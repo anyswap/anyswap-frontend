@@ -219,7 +219,7 @@ function ModeSelector({ location: { pathname }, history }) {
             // }}
           > 
             <div className='icon'>
-              <img src={pathname.match(regex) ? iconActive : icon}/>
+              <img alt={''} src={pathname.match(regex) ? iconActive : icon}/>
             </div>
             {t(textKey)}
           </StyledNavLink>

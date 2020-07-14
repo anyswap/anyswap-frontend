@@ -6,8 +6,6 @@ import { useWalletModalToggle } from '../../contexts/Application'
 
 import { Spinner } from '../../theme'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
-import Circle from '../../assets/images/circle.svg'
-import ANYLogo from '../../assets/images/ANY.svg'
 import PathIcon from '../../assets/images/icon/path.svg'
 import { useTranslation } from 'react-i18next'
 const CloseIcon = styled.div`
@@ -76,11 +74,6 @@ const UpperSection = styled.div`
     font-weight: 500;
   }
 `
-const SpinnerWrapper = styled(Spinner)`
-  width: 100%;
-  height:50px;
-  margin: 1.25rem 0;;
-`
 
 const LogoBox = styled.div`
 ${({ theme }) => theme.FlexC};
@@ -117,18 +110,6 @@ font-family: Manrope;
   text-align: center;
   color: #062536;
   margin-top: 1rem;
-`
-const CoinTypeText = styled.div`
-  font-family: Manrope;
-  font-size: 0.75rem;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.83;
-  letter-spacing: normal;
-  text-align: center;
-  color: #062536;
-  margin-top:5px;
 `
 
 const ConfirmText = styled.div`

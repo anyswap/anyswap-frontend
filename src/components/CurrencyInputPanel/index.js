@@ -581,6 +581,11 @@ const InputRangeNum = styled(BorderlessInput)`
   color: #062536;
 `
 
+const ComineSoon = styled.div`
+  font-size: 0.75rem;
+  color: #999;
+`
+
 export default function CurrencyInputPanel({
   onValueChange = () => {},
   allBalances,
@@ -613,7 +618,7 @@ export default function CurrencyInputPanel({
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const tokenContract = useTokenContract(selectedTokenAddress)
-  const { exchangeAddress: selectedTokenExchangeAddress } = useTokenDetails(selectedTokenAddress)
+  const { exchangeAddress: selectedTokenExchangeAddress, isSwitch } = useTokenDetails(selectedTokenAddress)
 
   const pendingApproval = usePendingApproval(selectedTokenAddress)
 
@@ -693,7 +698,7 @@ export default function CurrencyInputPanel({
             }}
             className={classType}
           >
-            <img src={classType ? UnlockBlack : Unlock} style={{marginRight: '0.625rem'}}/>
+            <img src={classType ? UnlockBlack : Unlock} style={{marginRight: '0.625rem'}} alt={''}/>
             {t('unlock')}
           </SubCurrencySelect>
         )
@@ -733,10 +738,6 @@ export default function CurrencyInputPanel({
                     error={!!errorMessage}
                     placeholder="0.0"
                     onChange={e => {
-                      // let _val = (Number(tokenBalance.toString()) * e.target.value) / 100
-                      // onValueChange(_val + '')
-                      // let _val2 = tokenBalance ? ((Number(value) / Number(tokenBalance.toString())) *100).toFixed(2) : ''
-                      // console.log(_val2)
                       setValueRange(Number(e.target.value).toFixed(2))
                     }}
                     onKeyPress={e => {
@@ -787,7 +788,11 @@ export default function CurrencyInputPanel({
                 error={!!errorMessage}
                 placeholder="0.0"
                 onChange={e => {
-                  onValueChange(e.target.value)
+                  if (!isSwitch) {
+                    alert('123')
+                  } else {
+                    onValueChange(e.target.value)
+                  }
                 }}
                 onKeyPress={e => {
                   const charCode = e.which ? e.which : e.keyCode
@@ -814,7 +819,7 @@ export default function CurrencyInputPanel({
               {
                 isSelfSymbol ? (
                   <>
-                    {selectedTokenAddress ? (isSelfLogo ? <TokenLogoBox1><TokenLogo address={isSelfLogo} size={'1.625rem'} /></TokenLogoBox1> : <TokenLogoBox1><TokenLogo address={selectedTokenAddress} size={'1.625rem'} /></TokenLogoBox1>) : null}
+                    {selectedTokenAddress ? (isSelfLogo ? <TokenLogoBox1><TokenLogo address={isSelfLogo} size={'1.625rem'} /></TokenLogoBox1> : <TokenLogoBox1><TokenLogo address={allTokens[selectedTokenAddress].symbol} size={'1.625rem'} /></TokenLogoBox1>) : null}
                     <StyledTokenName>
                       {
                         isSelfSymbol ? (
@@ -831,7 +836,7 @@ export default function CurrencyInputPanel({
                   </>
                 ) :  (
                   <>
-                    {selectedTokenAddress ? <TokenLogoBox1><TokenLogo address={selectedTokenAddress} size={'1.625rem'} /></TokenLogoBox1> : null}
+                    {selectedTokenAddress ? <TokenLogoBox1><TokenLogo address={allTokens[selectedTokenAddress].symbol} size={'1.625rem'} /></TokenLogoBox1> : null}
                     <StyledTokenName>
                       {
                         allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol ? (
@@ -843,7 +848,6 @@ export default function CurrencyInputPanel({
                           t('selectToken')
                         ) 
                       }
-                      {/* {(allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol) || t('selectToken')} */}
                     </StyledTokenName>
                   </>
                 )
@@ -885,7 +889,7 @@ export default function CurrencyInputPanel({
                         <p>{extraText}</p>
                       )}
                       <PasteStyle>
-                        <img src={Paste} />
+                        <img src={Paste} alt={''} />
                       </PasteStyle>
                     </ExtraText>
                   </Tooltip>
@@ -940,7 +944,7 @@ export default function CurrencyInputPanel({
           <>
             <SubCurrencySelectBox>
               <div>
-                <img src={Warning}/>
+                <img src={Warning} alt={''}/>
                 <p>You need to unlock {allTokens[selectedTokenAddress].symbol} to continue</p>
               </div>
                 {renderUnlockButton('otherView')}
@@ -956,7 +960,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
   const { t } = useTranslation()
 
   const [searchQuery, setSearchQuery] = useState('')
-  const { exchangeAddress } = useTokenDetails(searchQuery)
+  const { exchangeAddress, isSwitch } = useTokenDetails(searchQuery)
 
   // const allTokens = useAllTokenDetails()
   let allTokens = useAllTokenDetails(), useTokens = {}
@@ -1134,7 +1138,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
         <TokenModalRow key={address} onClick={() => _onTokenSelect(address)}>
           <TokenRowLeft>
             <TokenLogoBox style={ {'border': '0.0625rem solid rgba(0, 0, 0, 0.1)'}}>
-              <TokenLogo address={address} size={'2rem'} />
+              <TokenLogo address={symbol} size={'2rem'} />
             </TokenLogoBox>
             <TokenSymbolGroup>
               <div>
@@ -1152,10 +1156,12 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
                 <TokenRowBalanceText>{t('balances')}</TokenRowBalanceText>
                 <TokenRowBalance>{balance && (balance > 0 || balance === '<0.000001') ? (balance + ' ' + symbol) : '-'}</TokenRowBalance>
               </>
-            ) : account ? (
+            ) : account && isSwitch ? (
               <SpinnerWrapper src={Circle} alt="loader" />
             ) : (
-              '-'
+              isSwitch ? '-' : (
+                <ComineSoon>{t('ComineSoon')}</ComineSoon>
+              )
             )}
             <TokenRowUsd>
               {usdBalance && !usdBalance.isNaN()

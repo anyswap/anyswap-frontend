@@ -134,7 +134,7 @@ export default function Option({
           {subheader && <SubHeader>{subheader}</SubHeader>}
         </OptionCardLeft>
       </WalletLogoBox>
-      <img src={AddIcon} />
+      <img alt={''} src={AddIcon} />
     </OptionCardClickable>
   )
   if (link) {

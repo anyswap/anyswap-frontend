@@ -11,11 +11,11 @@ import { isAddress } from '../../utils'
 //     address
 //   )}/logo.png`
 
-const TOKEN_ICON_API = address => 
-  // console.log(address)
-  `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
-    address
-  )}/logo.png`
+// const TOKEN_ICON_API = address => 
+//   // console.log(address)
+//   `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
+//     address
+//   )}/logo.png`
 
 
 const BAD_IMAGES = {}
@@ -49,27 +49,14 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
   const [error, setError] = useState(false)
   let path = ''
   // console.log(address)
-  if (['FSN', 'BTC', 'ETH', 'USDT'].includes(address)) {
-    // console.log(address)
-    // console.log(<StyledEthereumLogo size={size} />)
-    // return <StyledEthereumLogo size={size} />
+  if (['ANY', 'FSN', 'BTC', 'mBTC', 'ETH', 'mETH', 'USDT', 'mUSDT'].includes(address)) {
     try {
-      path = require('../../assets/images/' + address + '.svg')
+      path = require('../../assets/images/coin/' + address + '.svg')
     } catch (error) {
-      path = require('../../assets/images/' + address + '.png')
+      path = require('../../assets/images/coin/' + address + '.png')
     }
   } else if (!error && !BAD_IMAGES[address]) {
-    if (address === '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947') {
-      path = require('../../assets/images/mBTC.svg')
-    } else if (address === '0x19543338473caaa6f404dbe540bb787f389d5462') {
-      path = require('../../assets/images/USDT.png')
-    } else if (address === '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88') {
-      path = require('../../assets/images/ethereum-logo.svg')
-    } else if (address === '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4') {
-      path = require('../../assets/images/ANY.svg')
-    } else {
-      path = TOKEN_ICON_API(address.toLowerCase())
-    }
+    path = require('../../assets/images/question.svg')
   } else {
     return (
       <Emoji {...rest} size={size}>
