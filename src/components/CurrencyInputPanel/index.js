@@ -586,6 +586,20 @@ const ComineSoon = styled.div`
   color: #999;
 `
 
+const BigScreenView = styled.div`
+  display: block;
+  @media screen and (max-width: 960px) {
+    display: none;
+  }
+`
+
+const SmallScreenView = styled.div`
+  display: none;
+  @media screen and (max-width: 960px) {
+    display: block;
+  }
+`
+
 export default function CurrencyInputPanel({
   onValueChange = () => {},
   allBalances,
@@ -788,11 +802,7 @@ export default function CurrencyInputPanel({
                 error={!!errorMessage}
                 placeholder="0.0"
                 onChange={e => {
-                  if (!isSwitch) {
-                    alert('123')
-                  } else {
-                    onValueChange(e.target.value)
-                  }
+                  onValueChange(e.target.value)
                 }}
                 onKeyPress={e => {
                   const charCode = e.which ? e.which : e.keyCode
@@ -920,7 +930,10 @@ export default function CurrencyInputPanel({
             <LabelContainer>
               <span>{title}</span> <span>{description}</span>
             </LabelContainer>
-            {renderUnlockButton()}
+            <BigScreenView>
+              {renderUnlockButton()}
+            </BigScreenView>
+            <SmallScreenView>{extraText}</SmallScreenView>
           </LabelRow>
           {_renderInput()}
         </Container>
