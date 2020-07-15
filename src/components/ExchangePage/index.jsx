@@ -34,7 +34,7 @@ import ResertSvg from '../../assets/images/icon/revert.svg'
 
 import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
-import SwapIcon from '../../assets/images/icon/swap-purpl.svg'
+import SwapIcon from '../../assets/images/icon/swap-white.svg'
 import SendIcon from '../../assets/images/icon/send-white.svg'
 
 const INPUT = 0

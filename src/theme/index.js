@@ -142,8 +142,17 @@ const theme = darkMode => ({
   `
 })
 
+// @import url('https://rsms.me/inter/inter.css');
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://rsms.me/inter/inter.css');
+  @font-face {
+    font-family: 'manrope';
+    src: url('../assets/font/manrope/Manrope-Medium.otf');
+    src: 
+      url('../assets/font/manrope/Manrope-Medium.woff') format('woff'),
+      url('../assets/font/manrope/Manrope-Medium.ttf') format('truetype'),
+    font-weight: normal;
+    font-style: normal;
+  }
   html { font-family: 'Manrope', 'Inter', sans-serif !important; }
   @supports (font-variation-settings: normal) {
     html { font-family: 'Manrope', sans-serif; }

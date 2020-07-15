@@ -29,7 +29,8 @@ ${({ theme }) => theme.FlexC};
   }
 
   :disabled {
-    background: linear-gradient(to right, rgba(115, 76, 226, 0.27) , rgba(96, 107, 251, 0.27));
+    // background: linear-gradient(to right, rgba(115, 76, 226, 0.27) , rgba(96, 107, 251, 0.27));
+    opacity: 0.4;
     color: #ffffff;
     cursor: auto;
     box-shadow: none;

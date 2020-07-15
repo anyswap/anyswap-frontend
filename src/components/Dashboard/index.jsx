@@ -643,7 +643,7 @@ export default function DashboardDtil () {
       percent = (curFSN / allFSN) * 100
     }
     return {
-      balance: curFSN ? curFSN : 0,
+      balance: curFSN ? Number(curFSN.toFixed(6)) : 0,
       percent: percent > 0.01 || percent === '' || percent === 0 ? Number(percent.toFixed(2)) : '<0.01'
     }
   }
@@ -684,11 +684,7 @@ export default function DashboardDtil () {
                       <h3>{t('balances')}</h3>
                       {
                         item.symbol === 'FSN' ? (
-                          <p>{account ? (FSNPool.balance ? amountFormatter(
-                            FSNPool.balance,
-                            18,
-                            6
-                          ) : 0) : '-'}</p>
+                          <p>{account ? FSNPool.balance : '-'}</p>
                         ) : (
                           <p>{account ? (!!item.isSwitch ? 
                             amountFormatter(
