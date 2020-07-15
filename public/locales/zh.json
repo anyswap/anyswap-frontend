@@ -1,7 +1,8 @@
 {
   "ComineSoon":"即将到来！",
   "onTestnet":"当前是",
-  "onTestnet1":"测试网",
+  "mainnet":"主网网",
+  "testnet":"测试网",
   "noWallet": "未发现钱包",
   "wrongNetwork": "网络错误",
   "switchNetwork": "请切换到 {{ correctNetwork }}",
@@ -27,7 +28,7 @@
   "hash": "哈希",
   "from": "发送",
   "value": "数量",
-  "dashboard": "我的资产",
+  "dashboard": "资产",
   "Markets": "行情",
   "ANYToken": "ANY治理代币",
   "Network": "网络",
@@ -131,7 +132,12 @@
   "enterTokenCont": "输入代币地址并继续",
   "priceChange": "预期价格滑点",
   "forAtLeast": "交易至少 ",
-  "bridgeMintTip": "只有从与当前钱包一致的ETH钱包地址 {{account}} 转帐到充值地址才会到账！！！",
+  "bridgeMintTip": "只有从与当前钱包一致的ETH钱包地址 {{ account }} 转帐到充值地址才会到账！！！",
   "enterMax": "输入最大值",
-  "custom": "自定义"
+  "custom": "自定义",
+  "WrongNetwork":"网络配置错误",
+  "Errorconnecting":"连接出错",
+  "TryTip":"连接出错，请刷新网页。",
+  "WrongNetworkTestTip":"请连接钱包至Fusion测试网 https://testnet.anyswap.exchange",
+  "WrongNetworkMainTip":"请连接钱包至Fusion主网 https://mainnet.anyswap.exchange"
 }

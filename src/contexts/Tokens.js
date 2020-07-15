@@ -100,18 +100,6 @@ export const INITIAL_TOKENS_CONTEXT = {
     }
   },
   46688: {
-    '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947': { // mBTC
-      [NAME]: 'SMPC Bitcoin',
-      [SYMBOL]: 'mBTC',
-      [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0x0e711afa0da54bc718c777ae404386d3ad4774bc',
-      [MAXNUM]: 100,
-      [MINNUM]: 0.00001,
-      [FEE]: 0.001,
-      [ISSWITCH]: 1,
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-    },
     '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',
@@ -119,6 +107,18 @@ export const INITIAL_TOKENS_CONTEXT = {
       [EXCHANGE_ADDRESS]: '0x4dee5f0705ff478b452419375610155b5873ef5b',
       [MAXNUM]: 1000000,
       [MINNUM]: 0.1,
+      [FEE]: 0.001,
+      [ISSWITCH]: 1,
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+    },
+    '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947': { // mBTC
+      [NAME]: 'SMPC Bitcoin',
+      [SYMBOL]: 'mBTC',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0x0e711afa0da54bc718c777ae404386d3ad4774bc',
+      [MAXNUM]: 100,
+      [MINNUM]: 0.00001,
       [FEE]: 0.001,
       [ISSWITCH]: 1,
       [ISDEPOSIT]: 1,

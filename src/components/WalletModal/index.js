@@ -355,7 +355,7 @@ const WALLET_VIEWS = {
 
 export default function WalletModal({ pendingTransactions, confirmedTransactions, ENSName }) {
   
-  let { active, account, connector, activate, error, deactivate } = useWeb3React()
+  let { active, account, connector, activate, error, chainId } = useWeb3React()
   // console.log(useWeb3React())
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [pendingWallet, setPendingWallet] = useState()
@@ -665,12 +665,16 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
           <CloseIcon onClick={toggleWalletModal}>
             <CloseColor alt={'close icon'} />
           </CloseIcon>
-          <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
+          <HeaderRow>{error instanceof UnsupportedChainIdError ? t('WrongNetwork') : t('Errorconnecting')}</HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the main Fusion network.</h5>
+              <h5>
+                {
+                  chainId && chainId === 32659 ? t('WrongNetworkMainTip') : t('WrongNetworkTestTip')
+                }
+              </h5>
             ) : (
-              'Error connecting. Try refreshing the page.'
+              t('TryTip')
             )}
           </ContentWrapper>
         </UpperSection>

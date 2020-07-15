@@ -37,6 +37,7 @@ import Unlock from '../../assets/images/icon/unlock.svg'
 import UnlockBlack from '../../assets/images/icon/unlockBlack.svg'
 import Warning from '../../assets/images/icon/warning.svg'
 import NoCoinIcon from '../../assets/images/icon/no-coin.svg'
+import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
@@ -366,6 +367,7 @@ const TokenModalRow = styled.div`
   cursor: pointer;
   user-select: none;
   border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.08);
+  position:relative;
 
   #symbol {
     color: ${({ theme }) => theme.doveGrey};
@@ -590,8 +592,20 @@ const InputRangeNum = styled(BorderlessInput)`
 `
 
 const ComineSoon = styled.div`
+${({theme}) => theme.FlexC}
   font-size: 0.75rem;
-  color: #999;
+  color: #96989e;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 6px;
+  background-color: #f5f5f5;
+  position:absolute;
+  margin-left: -60px;
+  left: 50%;
+  top: 25px;
+  @media screen and (max-width: 960px) {
+    margin-left: -20px;
+  }
 `
 
 const BigScreenView = styled.div`
@@ -1005,7 +1019,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
   const { t } = useTranslation()
 
   const [searchQuery, setSearchQuery] = useState('')
-  const { exchangeAddress, isSwitch } = useTokenDetails(searchQuery)
+  const { exchangeAddress } = useTokenDetails(searchQuery)
 
   // const allTokens = useAllTokenDetails()
   let allTokens = useAllTokenDetails(), useTokens = {}
@@ -1110,7 +1124,8 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
           symbol: allTokens[k].symbol,
           address: k,
           balance: balance,
-          usdBalance: usdBalance
+          usdBalance: usdBalance,
+          isSwitch: allTokens[k].isSwitch
         }
       })
   }, [allBalances, allTokens, usdAmounts, account])
@@ -1167,7 +1182,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
       return <TokenModalInfo>{t('noExchange')}</TokenModalInfo>
     }
     
-    return filteredTokenList.map(({ address, symbol, name, balance, usdBalance }) => {
+    return filteredTokenList.map(({ address, symbol, name, balance, usdBalance, isSwitch }) => {
       const urlAdded = urlAddedTokens && urlAddedTokens.hasOwnProperty(address)
       const customAdded =
         address !== 'FSN' &&
@@ -1195,18 +1210,25 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
               <TokenFullName> {name}</TokenFullName>
             </TokenSymbolGroup>
           </TokenRowLeft>
+          {
+            isSwitch ? '' : (
+              <>
+                <ComineSoon>
+                <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
+                {t('ComineSoon')}
+                </ComineSoon>
+              </>
+            )
+          }
           <TokenRowRight>
             {balance ? (
               <>
                 <TokenRowBalanceText>{t('balances')}</TokenRowBalanceText>
                 <TokenRowBalance>{balance && (balance > 0 || balance === '<0.000001') ? (balance + ' ' + symbol) : '-'}</TokenRowBalance>
               </>
-            ) : account && isSwitch ? (
+            ) : (account && isSwitch ? (
               <SpinnerWrapper src={Circle} alt="loader" />
-            ) : (
-              isSwitch ? '-' : (
-                <ComineSoon>{t('ComineSoon')}</ComineSoon>
-              )
+            ) : '-'
             )}
             <TokenRowUsd>
               {usdBalance && !usdBalance.isNaN()

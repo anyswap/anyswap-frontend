@@ -1,7 +1,8 @@
 {
   "ComineSoon":"Coming soon!",
 	"onTestnet":"You are on",
-  "onTestnet1":"Testnet",
+  "mainnet":"Mainnet",
+  "testnet":"Testnet",
   "noWallet": "No Fusion wallet found",
   "wrongNetwork": "You are on the wrong network",
   "switchNetwork": "Please switch to {{ correctNetwork }}",
@@ -141,7 +142,12 @@
   "forAtLeast": "for at least ",
   "brokenToken": "The selected token is not compatible with Anyswap V1. Adding liquidity will result in locked funds.",
   "broken777": "ERC-777 tokens are not supported in Anyswap V1.",
-  "bridgeMintTip": "ONLY the deposits from your ETH wallet {{label}} will be credited!!!",
+  "bridgeMintTip": "ONLY the deposits from your ETH wallet {{account}} will be credited!!!",
   "enterMax": "Enter Max",
-  "custom": "Custom"
+  "custom": "Custom",
+  "WrongNetwork":"Wrong Network",
+  "Errorconnecting":"Error connecting",
+  "TryTip":"Error connecting. Try refreshing the page.",
+  "WrongNetworkTestTip":"Please connect to the test Fusion network. https://testnet.anyswap.exchange",
+  "WrongNetworkMainTip":"Please connect to the main Fusion network. https://mainnet.anyswap.exchange"
 }

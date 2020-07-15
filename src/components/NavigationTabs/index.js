@@ -90,34 +90,6 @@ const tabOrder2 = [
   },
 ]
 
-const BetaMessage = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  cursor: pointer;
-  flex: 1 0 auto;
-  align-items: center;
-  position: relative;
-  padding: 0.5rem 1rem;
-  padding-right: 2rem;
-  margin-bottom: 1rem;
-  border: 0.0625rem solid ${({ theme }) => transparentize(0.6, theme.wisteriaPurple)};
-  background-color: ${({ theme }) => transparentize(0.9, theme.wisteriaPurple)};
-  border-radius: 1rem;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: ${({ theme }) => theme.wisteriaPurple};
-
-  &:after {
-    content: '✕';
-    top: 0.5rem;
-    right: 1rem;
-    position: absolute;
-    color: ${({ theme }) => theme.wisteriaPurple};
-  }
-`
 
 const Tabs = styled.div`
   align-items: center;
@@ -260,7 +232,8 @@ const StyledNavLink = styled(NavLink).attrs({
   @media screen and (max-width: 960px) {
     ${({theme}) => theme.FlexC};
     width: 20%;
-    margin::0;
+    margin:0;
+    font-size: 0.75rem;
     .icon {
       display:none;
     }

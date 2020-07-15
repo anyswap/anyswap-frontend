@@ -21,6 +21,7 @@ import AnyillustrationIcon from '../../assets/images/icon/any-illustration.svg'
 
 import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
+import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 const MyBalanceBox = styled.div`
   width: 100%;
   
@@ -205,7 +206,7 @@ ${({theme}) => theme.FlexSC};
   min-width: 217px
   width:30%;
   @media screen and (max-width: 960px) {
-    min-width: 140px;
+    min-width: 120px;
     padding: 0 5px;
   }
 `
@@ -282,7 +283,7 @@ const TokenBalanceBox  = styled.div`
     color: #062536;
   }
   @media screen and (max-width: 960px) {
-    min-width: 100px
+    min-width: 80px;
     h3 {
       padding-left: 1rem;
     }
@@ -364,8 +365,13 @@ margin-right: 0.625rem;
 `
 
 const ComineSoon = styled.div`
+${({theme}) => theme.FlexC}
   font-size: 0.75rem;
-  color: #999;
+  color: #96989e;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 6px;
+  background-color: #f5f5f5;
 `
 
 export default function DashboardDtil () {
@@ -392,6 +398,7 @@ export default function DashboardDtil () {
       poolTokenPercentage: '',
       ethSharemBTC: '',
       tokenShare: '',
+      ethShare: ''
     }
   }
   const tokenShareFSN =useAddressBalance(account, 'FSN')
@@ -576,6 +583,12 @@ export default function DashboardDtil () {
               .mul(poolInfoObj[obj].poolTokenPercentage)
               .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
           : undefined
+      poolInfoObj[obj].ethShare =
+        poolInfoObj[obj].exchangeETHBalance && poolInfoObj[obj].poolTokenPercentage
+            ? poolInfoObj[obj].exchangeETHBalance
+                .mul(poolInfoObj[obj].poolTokenPercentage)
+                .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+            : undefined
     }
     
     poolTokenBalanceArr.push({
@@ -586,6 +599,16 @@ export default function DashboardDtil () {
       balance: poolInfoObj[obj].tokenShare,
       percent: poolInfoObj[obj].poolTokenPercentage,
       isSwitch: allCoins[obj].isSwitch,
+      FSNCurPoolAllBalance: poolInfoObj[obj].exchangeETHBalance ? amountFormatter(
+        poolInfoObj[obj].exchangeETHBalance,
+        18,
+        8
+      ) : '',
+      FSNCurPoolBalance: poolInfoObj[obj].ethShare ? amountFormatter(
+        poolInfoObj[obj].ethShare,
+        18,
+        8
+      ) : ''
     })
   }
   // console.log(poolTokenBalanceArr)
@@ -610,7 +633,21 @@ export default function DashboardDtil () {
       </>
     )
   }
-
+  function getFSNPoolInfo () {
+    let allFSN = 0, curFSN = 0, percent = 0
+    for (let obj of poolTokenBalanceArr) {
+      allFSN += Number(obj.FSNCurPoolAllBalance) ? Number(obj.FSNCurPoolAllBalance) : 0
+      curFSN += Number(obj.FSNCurPoolBalance) ? Number(obj.FSNCurPoolBalance) : 0
+    }
+    if (allFSN) {
+      percent = (curFSN / allFSN) * 100
+    }
+    return {
+      balance: curFSN ? curFSN : 0,
+      percent: percent > 0.01 || percent === '' || percent === 0 ? Number(percent.toFixed(2)) : '<0.01'
+    }
+  }
+  const FSNPool = getFSNPoolInfo()
   function getPoolToken () {
     // if (!account) return
     // console.log(tokenPoolList)
@@ -645,25 +682,44 @@ export default function DashboardDtil () {
                     </TokenTableCoinBox>
                     <TokenBalanceBox>
                       <h3>{t('balances')}</h3>
-                      <p>{item.balance ? (
-                        amountFormatter(
-                          item.balance,
-                          item.decimals,
-                          Math.min(6, item.decimals)
+                      {
+                        item.symbol === 'FSN' ? (
+                          <p>{account ? (FSNPool.balance ? amountFormatter(
+                            FSNPool.balance,
+                            18,
+                            6
+                          ) : 0) : '-'}</p>
+                        ) : (
+                          <p>{account ? (!!item.isSwitch ? 
+                            amountFormatter(
+                              item.balance,
+                              item.decimals,
+                              Math.min(6, item.decimals)
+                            ) : '-'
+                          ) : '-'}</p>
                         )
-                      ) : '-'}</p>
+                      }
                     </TokenBalanceBox>
                     <TokenBalanceBox>
                       {
                         !!item.isSwitch ? (
                           <>
                             <h3>{t("Percentage")}</h3>
-                            <p>{
-                              item.percent ? amountFormatter(item.percent, 16, 2) : '-'
-                              } %</p>
+                            {
+                              item.symbol === 'FSN' ? (
+                                <p>{account ? FSNPool.percent + ' %' : '- %'}</p>
+                              ) : (
+                                <p>{
+                                  item.percent ? amountFormatter(item.percent, 16, 2) : '-'
+                                  } %</p>
+                              )
+                            }
                           </>
                         ) : (
-                          <ComineSoon>{t('ComineSoon')}</ComineSoon>
+                          <ComineSoon>
+                          <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
+                          {t('ComineSoon')}
+                          </ComineSoon>
                         )
                       }
                     </TokenBalanceBox>
@@ -686,7 +742,7 @@ export default function DashboardDtil () {
       // console.log(k)
       let balance = '-'
       // only update if we have data
-      if (k === 'FSN' && myAccount && myAccount && myAccount[k].value) {
+      if (k === 'FSN' && myAccount && myAccount[k] && myAccount[k].value) {
         balance = formatEthBalance(ethers.utils.bigNumberify(myAccount[k].value))
       } else if (myAccount && myAccount[k] && myAccount[k].value) {
         balance = formatTokenBalance(ethers.utils.bigNumberify(myAccount[k].value), allTokens[k].decimals)
@@ -740,7 +796,10 @@ export default function DashboardDtil () {
                             <TokenActionBtnSend to={'/send?inputCurrency=' + item.address}>{t('send')}</TokenActionBtnSend>
                           </>
                         ) : (
-                          <ComineSoon>{t('ComineSoon')}</ComineSoon>
+                          <ComineSoon>
+                          <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
+                          {t('ComineSoon')}
+                          </ComineSoon>
                         )
                       }
                     </TokenActionBox>

@@ -51,7 +51,6 @@ ${({ theme }) => theme.FlexC};
   background-color: #f6f4ff;
   font-family: Manrope;
   font-size: 0.875rem;
-  font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.43;
@@ -60,15 +59,19 @@ ${({ theme }) => theme.FlexC};
   white-space:nowrap;
   padding: 0 1rem;
   margin-right: 1rem;
+  font-weight: bold;
   span {
-    font-weight: bold;
-    margin-left:0.625rem;
+    font-weight: normal;
+    margin-right:0.625rem;
   }
   @media screen and (max-width: 960px) {
     padding:0 0.625rem;
     font-size: 0.75rem;
     height: 1.875rem;
     margin-right: 5px;
+    span {
+      display:none;
+    }
   }
 `
 
@@ -82,8 +85,7 @@ export default function Header() {
         </HeaderElement>
         <HeaderElement>
           <NetworkBox>
-            {/* You are on <span>Testnet</span> */}
-            {t('onTestnet')} <span>{t('onTestnet1')}</span>
+            <span>{t('onTestnet')}</span> {t('testnet')}
           </NetworkBox>
           <Web3Status />
         </HeaderElement>

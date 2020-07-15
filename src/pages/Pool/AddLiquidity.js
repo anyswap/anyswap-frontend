@@ -34,6 +34,7 @@ import AddTwoBlackIcon from '../../assets/images/icon/add-2-black.svg'
 import WeekIcon from '../../assets/images/icon/week.svg'
 import MintMlackIcon from '../../assets/images/icon/mint-black.svg'
 import FSNLogo from '../../assets/images/coin/FSN.svg'
+import AddBtnIcon from '../../assets/images/icon/add-white.svg'
 
 import TokenLogo from '../../components/TokenLogo'
 
@@ -990,6 +991,7 @@ export default function AddLiquidity({ params }) {
             account ? (
               <>
                 <Button disabled={!isValid || !outputValue || Number(outputValue) <= 0 || !isDisabled} onClick={onAddLiquidity}>
+                  <img alt={''} src={AddBtnIcon} style={{marginRight: '15px'}} />
                   {t('addLiquidity')}
                 </Button>
               </>

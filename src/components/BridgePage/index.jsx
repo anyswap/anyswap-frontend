@@ -41,6 +41,7 @@ import swapETHABI from '../../constants/abis/swapETHABI'
 import HardwareTip from '../HardwareTip'
 import ResertSvg from '../../assets/images/icon/revert.svg'
 import BirdgeIcon from '../../assets/images/icon/bridge-white.svg'
+import BirdgeBtnIcon from '../../assets/images/icon/bridge-white-btn.svg'
 const INPUT = 0
 const OUTPUT = 1
 
@@ -445,8 +446,8 @@ function swapStateReducer(state, action) {
 }
 const selfUseAllToken=[
   '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947',
-  '0x19543338473caaa6f404dbe540bb787f389d5462',
   '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88',
+  '0x19543338473caaa6f404dbe540bb787f389d5462',
   'XRP',
   'LTC'
 ]
@@ -1139,7 +1140,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 >
                   {!account
                     ? t('connectToWallet')
-                    : t('confirm')}
+                    : (
+                      <> 
+                        <img alt={''} src={BirdgeBtnIcon} style={{marginRight: '15px'}} />
+                        {t('confirm')}
+                      </>
+                      )
+                    }
                 </Button>
               </>
             )}

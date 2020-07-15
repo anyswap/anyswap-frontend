@@ -104,6 +104,7 @@ const Text = styled.p`
   white-space: nowrap;
   margin: 0 10px;
   font-size: 0.83rem;
+  font-family: 'Manrope';
 `
 
 const NetworkIcon = styled(Activity)`

@@ -175,7 +175,7 @@ export default function App() {
                         />
                         <Route exact strict path="/bridge" component={() => <Bridge params={params} />} />
                         <Route exact strict path="/dashboard" component={() => <Dashboard/>} />
-                        <Redirect to="/swap" />
+                        <Redirect to="/dashboard" />
                       </Switch>
                     </ContentBox>
                   </Suspense>

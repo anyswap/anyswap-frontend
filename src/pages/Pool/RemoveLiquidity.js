@@ -34,7 +34,7 @@ import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.sv
 import RemoveBlackIcon from '../../assets/images/icon/remove-black.svg'
 import WeekIcon from '../../assets/images/icon/week.svg'
 import FSNLogo from '../../assets/images/coin/FSN.svg'
-
+import RemoveIcon from '../../assets/images/icon/remove-white.svg'
 import TokenLogo from '../../components/TokenLogo'
 
 // denominated in bips
@@ -789,6 +789,7 @@ export default function RemoveLiquidity({ params }) {
             account ? (
               <>
                 <Button disabled={!isValid || !Number(value) || !isDisabled} onClick={onRemoveLiquidity}>
+                  <img alt={''} src={RemoveIcon} style={{marginRight: '15px'}} />
                   {t('removeLiquidity')}
                 </Button>
               </>

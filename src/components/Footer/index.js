@@ -68,7 +68,7 @@ const EmojiToggle = styled.span`
   justify-content: center;
   align-items: center;
   height: 100%;
-  font-family: Arial sans-serif;
+  font-family: Manrope sans-serif;
 `
 
 export default function Footer() {

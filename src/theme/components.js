@@ -4,6 +4,7 @@ import { darken } from 'polished'
 export const Button = styled.button.attrs(({ warning, theme }) => ({
   backgroundColor: warning ? theme.salmonRed : theme.royalBlue
 }))`
+${({ theme }) => theme.FlexC};
   padding: 1rem 2rem 1rem 2rem;
   border-radius: 0.5625rem;
   cursor: pointer;
@@ -15,6 +16,7 @@ export const Button = styled.button.attrs(({ warning, theme }) => ({
   color: ${({ theme }) => theme.white};
   width: 100%;
   font-weight: 800;
+  font-family: 'Manrope';
   box-shadow: 6px 0.875rem 22px 0 rgba(118, 68, 203, 0.27);
 
   :hover,

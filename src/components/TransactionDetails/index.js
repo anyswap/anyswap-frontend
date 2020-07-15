@@ -24,6 +24,7 @@ const WARNING_TYPE = Object.freeze({
 const Flex = styled.div`
   display: flex;
   justify-content: center;
+  font-family: 'Manrope';
 `
 
 const FlexBetween = styled.div`
@@ -31,6 +32,7 @@ const FlexBetween = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  font-family: 'Manrope';
 `
 
 const WrappedSlippageRow = ({ wrap, ...rest }) => <Flex {...rest} />
@@ -48,6 +50,7 @@ const SlippageRow = styled(WrappedSlippageRow)`
 const QuestionWrapper = styled.button`
   display: flex;
   align-items: center;
+  font-family: 'Manrope';
   justify-content: center;
   margin: 0;
   padding: 0;
@@ -81,6 +84,7 @@ const fadeIn = keyframes`
 `
 
 const Popup = styled(Flex)`
+font-family: 'Manrope';
   position: absolute;
   width: 228px;
   bottom: 30px;
@@ -105,6 +109,7 @@ const Popup = styled(Flex)`
 `
 
 const FancyButton = styled.button`
+font-family: 'Manrope';
   color: ${({ theme }) => theme.textColor};
   align-items: center;
   min-width: 55px;
@@ -125,6 +130,7 @@ const FancyButton = styled.button`
 `
 
 const Option = styled(FancyButton)`
+font-family: 'Manrope';
   margin-right: 8px;
   margin-top: 6px;
 
@@ -163,10 +169,12 @@ const Option = styled(FancyButton)`
 `
 
 const OptionLarge = styled(Option)`
+font-family: 'Manrope';
   width: 120px;
 `
 
 const Input = styled.input`
+font-family: 'Manrope';
   background: ${({ theme }) => theme.inputBackground};
   flex-grow: 1;
   font-size: 0.75rem;
@@ -209,6 +217,7 @@ const Input = styled.input`
 
 
 const BottomError = styled.div`
+font-family: 'Manrope';
   ${({ show }) =>
     show &&
     css`
@@ -223,6 +232,7 @@ const BottomError = styled.div`
 `
 
 const OptionCustom = styled(FancyButton)`
+font-family: 'Manrope';
   height: 2rem;
   position: relative;
   width: 120px;
@@ -253,6 +263,7 @@ const OptionCustom = styled(FancyButton)`
 `
 
 const Bold = styled.span`
+font-family: 'Manrope';
   font-family: Manrope;
   font-size: 0.75rem;
   font-weight: bold;
@@ -263,19 +274,9 @@ const Bold = styled.span`
   color: #062536;
 `
 
-const LastSummaryTextBox = styled.div`
-  width: 100%;
-  height: 240px;
-  object-fit: contain;
-  border-radius: 0.5625rem;
-  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
-  background-color: #ffffff;
-  padding: 1.5625rem 2.5rem;
-  margin-top: 0.625rem;
-`
 const LastSummaryText = styled.div`
 ${({ theme }) => theme.FlexSC}
-  font-family: Manrope;
+font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
@@ -302,6 +303,7 @@ ${({ theme }) => theme.FlexSC}
 `
 
 const SlippageSelector = styled.div`
+font-family: 'Manrope';
   padding: 1rem 1.25rem 1rem 1.25rem;
   border-radius: 0.75rem 0.75rem 0 0;
   @media screen and (max-width: 960px) {
@@ -310,6 +312,7 @@ const SlippageSelector = styled.div`
 `
 
 const Percent = styled.div`
+font-family: 'Manrope';
   color: inherit;
   font-size: 0, 8rem;
   flex-grow: 0;
@@ -326,10 +329,12 @@ const Percent = styled.div`
 `
 
 const Faded = styled.span`
+font-family: 'Manrope';
   opacity: 0.7;
 `
 
 const TransactionInfo = styled.div`
+font-family: 'Manrope';
   padding: 0 1.25rem 1.5625rem;
   border-bottom: 0.0625rem solid #dadada;
   @media screen and (max-width: 960px) {
@@ -339,6 +344,7 @@ const TransactionInfo = styled.div`
 `
 
 const ValueWrapper = styled.span`
+font-family: 'Manrope';
   padding: 0.125rem 0.3rem 0.1rem 0.3rem;
   background-color: ${({ theme }) => darken(0.04, theme.concreteGray)};
   border-radius: 0.75rem;
@@ -346,11 +352,13 @@ const ValueWrapper = styled.span`
 `
 
 const DeadlineSelector = styled.div`
+font-family: 'Manrope';
   padding: 1rem 1.25rem 1rem 1.25rem;
   border-radius: 0 0 0.75rem 0.75rem;
 `
 
 const SetLimitBox = styled.div`
+font-family: 'Manrope';
   width: 100%;
   background:#fff;
   padding: 1.5625rem 1.25rem 0.5625rem;
@@ -361,7 +369,7 @@ const SetLimitBox = styled.div`
 `
 
 const BigTitle = styled.div`
-font-family: Manrope;
+font-family: 'Manrope';
   font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
@@ -373,7 +381,8 @@ font-family: Manrope;
 
 const DeadlineRow = SlippageRow
 const DeadlineInput = styled(OptionCustom)`
-${({theme}) => theme.FlexBC}
+${({theme}) => theme.FlexBC};
+font-family: 'Manrope';
   width: 110px;
   height: 36px;
   object-fit: contain;
@@ -383,6 +392,7 @@ ${({theme}) => theme.FlexBC}
   background-color: #ffffff;
 `
 const InputMin = styled(BorderlessInput)`
+font-family: 'Manrope';
   height: 100%;
   border:none;
   padding: 0 8px;

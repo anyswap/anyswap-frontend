@@ -34,7 +34,8 @@ import ResertSvg from '../../assets/images/icon/revert.svg'
 
 import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
-import AlippageIcon from '../../assets/images/icon/slippage.svg'
+import SwapIcon from '../../assets/images/icon/swap-purpl.svg'
+import SendIcon from '../../assets/images/icon/send-white.svg'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -519,7 +520,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   } else {
     outputValueFormatted *= 1 - 0.001
     outputValueFormatted = Number(outputValueFormatted.toFixed(dependentDecimals)) ? Number(outputValueFormatted.toFixed(Math.min(8, dependentDecimals))) : ''
+    // console.log(outputValueFormatted)
+    // outputValueFormatted = outputValueFormatted ? ethers.utils.bigNumberify(outputValueFormatted).toString() : ''
   }
+  // console.log(ethers.utils.bigNumberify(''))
   // validate + parse independent value
   const [independentError, setIndependentError] = useState()
   useEffect(() => {
@@ -1205,6 +1209,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             warning={highSlippageWarning || customSlippageError === 'warning'}
             loggedOut={!account}
           >
+            {
+              sending ? (
+                <img alt={''} src={SendIcon} style={{marginRight: '15px'}} />
+              ) : (
+                <img alt={''} src={SwapIcon} style={{marginRight: '15px'}} />
+              )
+            }
             {brokenTokenWarning
               ? 'Swap'
               : !account
@@ -1221,7 +1232,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       ) : (
         <Flex>
           <Button disabled={true}>
-            {t('ComineSoon')}
+            {t('swap')}
           </Button>
         </Flex>
       )}

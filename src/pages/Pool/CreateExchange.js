@@ -22,6 +22,7 @@ import factory_abi from '../../constants/abis/factory.json'
 import { FACTORY_ADDRESSES } from '../../constants'
 
 import HardwareTip from '../../components/HardwareTip'
+import CreateIcon from '../../assets/images/icon/create-exchange-white.svg'
 
 const SummaryPanel = styled.div`
 ${({ theme }) => theme.flexColumnNoWrap}
@@ -284,6 +285,7 @@ function CreateExchange({ location, params }) {
           account ? (
             <>
               <Button disabled={!isValid} onClick={createExchange}>
+              <img alt={''} src={CreateIcon} style={{marginRight: '15px'}} />
                 {t('createExchange')}
               </Button>
             </>
