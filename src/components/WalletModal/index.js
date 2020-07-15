@@ -129,7 +129,7 @@ const SelectHDPathPage = styled.div`
   padding: 0 1.25rem;
 `
 const SelfText = styled.div`
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
@@ -158,7 +158,7 @@ const SelfInput = styled.input`
   padding: 0 0.75rem;
   background-color: none;
 
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: bold;
   font-stretch: normal;
@@ -190,7 +190,7 @@ ${({ theme }) => theme.FlexC};
   border-radius: 6px;
   background-color: #f6f4ff;
 
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
@@ -244,7 +244,7 @@ border: 0.0625rem solid ${({ theme }) => theme.shadowColor};
 
 const ArrowBox = styled.div`
 ${({theme}) => theme.FlexC}
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
@@ -263,7 +263,7 @@ const HDpathListBox = styled.ul`
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
   li {
     padding: 0.875rem 1rem;
-    font-family: Manrope;
+    font-family: 'Manrope';
     font-size: 0.75rem;
     font-weight: 500;
     font-stretch: normal;
@@ -305,7 +305,7 @@ const HardwareAddrBox = styled.ul`
   padding:0;
   li {
     ${({theme}) => theme.FlexBC};
-    font-family: Manrope;
+    font-family: 'Manrope';
     font-size: 0.75rem;
     font-weight: 500;
     font-stretch: normal;

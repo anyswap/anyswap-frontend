@@ -264,7 +264,7 @@ font-family: 'Manrope';
 
 const Bold = styled.span`
 font-family: 'Manrope';
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: bold;
   font-stretch: normal;

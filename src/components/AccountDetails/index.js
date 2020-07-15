@@ -195,7 +195,7 @@ const StyledLink = styled(Link)`
   background-color: #ecf6ff;
   padding: 0 1rem;
 
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.875rem;
   font-weight: bold;
   font-stretch: normal;
