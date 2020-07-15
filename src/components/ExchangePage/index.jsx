@@ -109,7 +109,7 @@ margin-top:0.625rem;
 const ExchangeRateWrapper = styled.div`
 ${({ theme }) => theme.FlexEC};
   width: 70%;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
@@ -120,7 +120,6 @@ ${({ theme }) => theme.FlexEC};
   color: #062536;
   span {
     height: 0.75rem;
-    font-family: Manrope;
     font-size: 0.75rem;
     font-weight: 800;
     font-stretch: normal;
@@ -174,7 +173,7 @@ const TxnsDtilBtn = styled.div`
   object-fit: contain;
   border-radius: 6px;
   background-color: #f9fafb;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
@@ -193,7 +192,6 @@ const TxnsDtilBtn = styled.div`
   .slippage {
     ${({ theme }) => theme.FlexC};
     height: 100%;
-    font-family: Manrope;
     font-size: 0.75rem;
     font-weight: 600;
     font-stretch: normal;

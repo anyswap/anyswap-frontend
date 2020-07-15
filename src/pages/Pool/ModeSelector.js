@@ -48,6 +48,7 @@ const LiquidityContainer = styled.div`
   ${({ theme }) => theme.FlexBC};
   align-items: center;
   font-size: 1rem;
+  font-family: 'Manrope';
   color: ${({ theme }) => theme.royalBlue};
   font-weight: 500;
   cursor: pointer;
@@ -96,7 +97,7 @@ const StyledNavLink = styled(NavLink).attrs({
 })`
   ${({ theme }) => theme.FlexC}
   height: 38px;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;

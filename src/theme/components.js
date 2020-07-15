@@ -37,9 +37,9 @@ ${({ theme }) => theme.FlexC};
   }
 `
 export const TitleBox = styled.h3`
-  height: 38px;
-  line-height: 38px;
-  font-family: Manrope;
+  height: 24px;
+  line-height: 24px;
+  font-family: 'Manrope';
   font-size: 24px;
   font-weight: 800;
   font-stretch: normal;

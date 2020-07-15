@@ -134,6 +134,7 @@ const StyledNavLink = styled(NavLink).attrs({
   text-decoration: none;
   color: ${({theme}) => theme.textColorBold};
   font-size: 0.875rem;
+  font-family: 'Manrope';
   box-sizing: border-box;
   padding: 1rem 0.875rem;
   line-height: 1rem;
@@ -267,8 +268,8 @@ const OutLinkImg = styled.div`
   }
 `
 const CopyRightBox = styled.div`
+font-family: 'Manrope';
   h5 {
-    font-family: Manrope;
     font-size: 0.75rem;
     font-weight: normal;
     font-stretch: normal;
@@ -282,7 +283,6 @@ const CopyRightBox = styled.div`
     }
   }
   p {
-    font-family: Manrope;
     font-size: 0.75rem;
     font-weight: normal;
     font-stretch: normal;

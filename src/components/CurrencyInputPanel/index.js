@@ -72,7 +72,7 @@ const SubCurrencySelectBox = styled.div`
   div {
     ${({ theme }) => theme.FlexSC}
     p {
-      font-family: Manrope;
+      font-family: 'Manrope';
       font-size: 0.75rem;
       font-weight: 500;
       font-stretch: normal;
@@ -95,6 +95,7 @@ const InputRow = styled.div`
 
 const Input = styled(BorderlessInput)`
   font-size: 44px;
+  font-family: 'Manrope';
   height: 70px;
   color: ${({ error, theme }) => error ? 'rgb(255, 104, 113)' : '#062536'};
   background: none;
@@ -115,6 +116,7 @@ const CurrencySelect = styled.button`
   color: ${({ selected, theme }) => (selected ? theme.textColor : '#031a6e')};
   font-size: ${({ selected, theme }) => (selected ? '1rem' : '12px')};
   height: 70px;
+  font-family: 'Manrope';
   width: 220px;
   border: 0.0625rem solid ${({ theme }) => theme.selectedBorder};
   border-radius: 0.75rem;
@@ -200,6 +202,7 @@ const LabelRow = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
+  font-family: 'Manrope';
   line-height: 1rem;
   height: 1.875rem;
   padding: 0;
@@ -210,7 +213,7 @@ const LabelRow = styled.div`
 `
 
 const LabelContainer = styled.div`
-  font-family: Manrope;
+font-family: 'Manrope';
   font-size: 0.875rem;
   font-weight: 500;
   font-stretch: normal;
@@ -252,7 +255,7 @@ const ErrorSpan = styled.span`
 
 const ExtraText = styled.div`
   width: 100%;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
@@ -293,11 +296,11 @@ const ModalHeader = styled.div`
   align-items: center;
   padding: 0px 0px 0px 1rem;
   height: 60px;
+  font-family: 'Manrope';
   p {
     color: ${({theme}) => theme.textColorBold};
     font-size: 0.875rem;
     font-weight: bold;
-    font-family: Manrope;
   }
 `
 
@@ -336,6 +339,7 @@ const StyledBorderlessInput = styled(BorderlessInput)`
   text-align: left;
   padding-left: 0.8rem;
   background-color: none;
+  font-family: 'Manrope';
   color: ${({theme}) => theme.textColorBold};
   ::placeholder {
     font-size: 0.75rem;
@@ -391,8 +395,8 @@ const TokenRowLeft = styled.div`
 const TokenSymbolGroup = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
   margin-left: 1rem;
+  font-family: 'Manrope';
   span {
-    font-family: Manrope;
     font-size: 1rem;
     font-weight: 800;
     font-stretch: normal;
@@ -405,7 +409,7 @@ const TokenSymbolGroup = styled.div`
 
 const TokenFullName = styled.div`
   color: ${({ theme }) => theme.chaliceGray};
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
@@ -422,7 +426,7 @@ const FadedSpan = styled.span`
 const TokenRowBalanceText = styled.span`
   width: 100%;
   display:block;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
@@ -434,7 +438,7 @@ const TokenRowBalanceText = styled.span`
   color: ${({theme}) => theme.textColorBold};
 `
 const TokenRowBalance = styled.div`
-  font-family: Manrope;
+font-family: 'Manrope';
   font-size: 0.875rem;
   font-weight: 800;
   font-stretch: normal;
@@ -446,6 +450,7 @@ const TokenRowBalance = styled.div`
 `
 
 const TokenRowUsd = styled.div`
+font-family: 'Manrope';
   font-size: 1rem;
   line-height: 1.5rem;
   color: ${({ theme }) => theme.chaliceGray};
@@ -460,7 +465,7 @@ const StyledTokenName = styled.span`
   text-align:left;
   width: 100%;
   h3 {
-    font-family: Manrope;
+    font-family: 'Manrope';
     font-size: 1rem;
     font-weight: 800;
     font-stretch: normal;
@@ -471,7 +476,7 @@ const StyledTokenName = styled.span`
     margin:0 0 2px;
   }
   p {
-    font-family: Manrope;
+    font-family: 'Manrope';
     font-size: 0.75rem;
     font-weight: normal;
     font-stretch: normal;
@@ -515,7 +520,7 @@ const InputRangeRow = styled.div`
     top:0;
     right:-5px;
     text-align:right;
-    font-family: Manrope;
+    font-family: 'Manrope';
     font-size: 0.75rem;
     font-weight: bold;
     font-stretch: normal;
@@ -580,7 +585,7 @@ const InputRangeNum = styled(BorderlessInput)`
   background-color: #ffffff;
   padding: 0 8px;
   text-align:center;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: bold;
   font-stretch: normal;
@@ -593,6 +598,7 @@ const InputRangeNum = styled(BorderlessInput)`
 
 const ComineSoon = styled.div`
 ${({theme}) => theme.FlexC}
+font-family: 'Manrope';
   font-size: 0.75rem;
   color: #96989e;
   height: 30px;

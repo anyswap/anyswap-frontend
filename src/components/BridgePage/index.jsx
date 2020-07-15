@@ -96,7 +96,7 @@ ${({ theme }) => theme.FlexEC};
   object-fit: contain;
   border-radius: 0.5625rem;
   background-color: #ededed;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
@@ -109,7 +109,7 @@ ${({ theme }) => theme.FlexEC};
   margin-top:0.625rem;
   span {
     height: 0.75rem;
-    font-family: Manrope;
+    font-family: 'Manrope';
     font-size: 0.75rem;
     font-weight: 800;
     font-stretch: normal;
@@ -165,6 +165,7 @@ ${({ theme }) => theme.flexRowNoWrap}
 align-items: center;
 color: ${({ theme }) => theme.doveGray};
 font-size: 0.75rem;
+font-family: 'Manrope';
 line-height: 1rem;
 padding: 0.75rem 0;
 `
@@ -194,8 +195,7 @@ border-bottom: 0.0625rem solid ${({theme}) => theme.textColorBold};
 color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
 overflow: hidden;
 text-overflow: ellipsis;
-
-font-family: Manrope;
+font-family: 'Manrope';
 font-size: 24px;
 font-weight: 500;
 font-stretch: normal;
@@ -216,6 +216,7 @@ const MintDiv = styled.div`
 const MintList = styled.div`
   border-bottom: 0.0625rem  solid ${({ error, theme }) => (error ? theme.salmonRed : theme.mercuryGray)};
   padding: 1rem 8px;
+  font-family: 'Manrope';
   font-size: 0.875rem;
 `
 const MintListCenter = styled(MintList)`
@@ -276,7 +277,7 @@ const StyledQRcode = styled(QRcode)`
 const WarningTip = styled.div`
   padding: 0.625rem 1rem;
   color:red;
-  font-size:0.875rem;
+  font-family: 'Manrope';
   cursor: pointer;
   flex: 1 0 auto;
   align-items: center;

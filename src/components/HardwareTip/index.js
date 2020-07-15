@@ -57,6 +57,7 @@ width: 100%;
 const UpperSection = styled.div`
   position: relative;
   width: 100%;
+  font-family: 'Manrope';
 
   h5 {
     margin: 0;
@@ -100,7 +101,7 @@ const ConfirmContent = styled.div`
 width: 100%;
 `
 const TxnsInfoText = styled.div`
-font-family: Manrope;
+font-family: 'Manrope';
   font-size: 22px;
   font-weight: 500;
   font-stretch: normal;
@@ -114,7 +115,7 @@ font-family: Manrope;
 
 const ConfirmText = styled.div`
 width: 100%;
-  font-family: Manrope;
+font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: bold;
   font-stretch: normal;

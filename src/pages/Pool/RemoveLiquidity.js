@@ -47,7 +47,7 @@ const DEADLINE_FROM_NOW = 60 * 15
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const BlueSpan = styled.span`
-  font-family: Manrope;
+font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: bold;
   font-stretch: normal;
@@ -85,12 +85,14 @@ const RemoveLiquidityOutput = styled.div`
 
 const RemoveLiquidityOutputText = styled.div`
   font-size: 1.25rem;
+  font-family: 'Manrope';
   line-height: 1.5rem;
   padding: 1rem 0.75rem;
 `
 
 const RemoveLiquidityOutputPlus = styled.div`
   font-size: 1.25rem;
+  font-family: 'Manrope';
   line-height: 1.5rem;
   padding: 1rem 0;
 `
@@ -136,7 +138,7 @@ const LastSummaryTextBox = styled.div`
 `
 const LastSummaryText = styled.div`
 ${({ theme }) => theme.FlexSC}
-  font-family: Manrope;
+font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
@@ -174,7 +176,7 @@ const LogoBox = styled.div`
 `
 const CoinInfoBox  = styled.div`
 ${({ theme }) => theme.FlexC}
-font-family: Manrope;
+font-family: 'Manrope';
   font-size: 0.875rem;
   font-weight: 800;
   font-stretch: normal;
@@ -194,7 +196,7 @@ flex-wrap:wrap;
   border: solid 0.5px #c0d6ea;
   background-color: #ecf6ff;
   padding: 5px 1.25rem;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
@@ -210,13 +212,13 @@ const ExchangeRateWrapper = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
+  font-family: 'Manrope';
   padding: 8px 1rem ;
   height: 28px;
   border-bottom:0.0625rem solid #dadada;
   white-space:nowrap;
   span {
     height: 0.75rem;
-    font-family: Manrope;
     font-size: 0.75rem;
     font-weight: 800;
     font-stretch: normal;
@@ -230,7 +232,7 @@ const ExchangeRateWrapper = styled.div`
 
 const ExchangeRate = styled.div`
   height: 0.75rem;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
@@ -257,7 +259,7 @@ const TxnsDtilBtn = styled.div`
   object-fit: contain;
   border-radius: 6px;
   background-color: #f9fafb;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;

@@ -26,6 +26,7 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.uniswapPink};
+  font-family: 'Manrope';
 
   :hover {
     cursor: pointer;
@@ -68,7 +69,7 @@ const EmojiToggle = styled.span`
   justify-content: center;
   align-items: center;
   height: 100%;
-  font-family: Manrope sans-serif;
+  font-family: 'Manrope';
 `
 
 export default function Footer() {

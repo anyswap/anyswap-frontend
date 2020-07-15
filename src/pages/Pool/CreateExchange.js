@@ -40,12 +40,12 @@ const ExchangeRateWrapper = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
+  font-family: 'Manrope';
   padding: 8px 1rem ;
   height: 28px;
   border-bottom:0.0625rem solid #dadada;
   span {
     height: 0.75rem;
-    font-family: Manrope;
     font-size: 0.75rem;
     font-weight: 800;
     font-stretch: normal;
@@ -59,7 +59,7 @@ const ExchangeRateWrapper = styled.div`
 
 const ExchangeRate = styled.div`
   height: 0.75rem;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
@@ -69,18 +69,6 @@ const ExchangeRate = styled.div`
   text-align: right;
   color: #062536;
   margin-right: 5px;
-`
-
-const CreateExchangeWrapper = styled.div`
-  color: ${({ theme }) => theme.doveGray};
-  text-align: center;
-  margin-top: 1rem;
-  padding-top: 1rem;
-`
-
-const SummaryText = styled.div`
-  font-size: 0.75rem;
-  color: ${({ error, theme }) => error && theme.salmonRed};
 `
 
 const Flex = styled.div`
@@ -115,7 +103,7 @@ const TxnsDtilBtn = styled.div`
   object-fit: contain;
   border-radius: 6px;
   background-color: #f9fafb;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;

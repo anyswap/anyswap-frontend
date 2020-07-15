@@ -49,7 +49,7 @@ ${({ theme }) => theme.FlexC};
   object-fit: contain;
   border-radius: 0.5625rem;
   background-color: #f6f4ff;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.875rem;
   font-stretch: normal;
   font-style: normal;

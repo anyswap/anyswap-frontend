@@ -55,6 +55,7 @@ const TransactionState = styled.div`
   padding: 0.5rem 0.75rem;
   font-weight: 500;
   font-size: 0.75rem;
+  font-family: 'Manrope';
   border: 0.0625rem solid;
   border-color: ${({ pending, theme }) =>
     pending ? transparentize(0.75, theme.royalBlue) : transparentize(0.75, theme.connectedGreen)};

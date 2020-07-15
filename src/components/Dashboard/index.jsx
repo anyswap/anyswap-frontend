@@ -37,6 +37,7 @@ const MyBalanceBox = styled.div`
 const TitleAndSearchBox = styled.div`
   ${({theme}) => theme.FlexBC};
   margin-bottom:1.5625rem;
+  font-family: 'Manrope';
   h3 {
     font-size: 1rem;
     font-weight: bold;
@@ -74,6 +75,7 @@ const SearchInput = styled(BorderlessInput)`
   height: 100%;
   border:none;
   background:none;
+  font-family: 'Manrope';
   
   font-size: 0.75rem;
   font-weight: normal;
@@ -104,6 +106,7 @@ const EarningsBox = styled.div`
   box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
   background-color: #ffffff;
   padding:1.25rem;
+  font-family: 'Manrope';
   .bgImg {
     width: 149px;
     height: 148px;
@@ -228,6 +231,7 @@ ${({theme}) => theme.FlexC};
 `
 
 const TokenNameBox  = styled.div`
+font-family: 'Manrope';
   h3 {
     margin:0;
     
@@ -254,6 +258,7 @@ const TokenNameBox  = styled.div`
 `
 
 const TokenBalanceBox  = styled.div`
+font-family: 'Manrope';
   min-width: 120px
   width:30%;
   text-align:left;
@@ -300,6 +305,7 @@ ${({theme}) => theme.FlexC};
 `
 const TokenActionBtn  = styled(NavLink)`
 ${({theme}) => theme.FlexC};
+font-family: 'Manrope';
   width: 88px;
   height: 38px;
   
@@ -331,6 +337,7 @@ const TokenActionBtnSend = styled(TokenActionBtn)`
 
 const MoreBtnBox = styled.div`
 ${({theme}) => theme.FlexC};
+font-family: 'Manrope';
   width: 110px;
   height: 34px;
   
@@ -366,6 +373,7 @@ margin-right: 0.625rem;
 
 const ComineSoon = styled.div`
 ${({theme}) => theme.FlexC}
+font-family: 'Manrope';
   font-size: 0.75rem;
   color: #96989e;
   height: 30px;

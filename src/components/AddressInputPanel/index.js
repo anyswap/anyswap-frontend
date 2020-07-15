@@ -32,6 +32,7 @@ const LabelRow = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
+  font-family: 'Manrope';
   line-height: 1rem;
   padding: 0.75rem 0;
 `
@@ -61,8 +62,7 @@ const Input = styled.input`
   color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
   overflow: hidden;
   text-overflow: ellipsis;
-
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 24px;
   font-weight: 500;
   font-stretch: normal;

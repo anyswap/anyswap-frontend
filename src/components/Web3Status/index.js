@@ -27,6 +27,7 @@ import WalletIcon from '../../assets/images/icon/wallet.svg'
 
 const Web3StatusGeneric = styled.button`
   ${({ theme }) => theme.flexRowNoWrap}
+  font-family: 'Manrope';
   width: 100%;
   height: 36px;
   font-size: 0.9rem;
@@ -81,6 +82,7 @@ const Web3StatusConnect = styled(Web3StatusGeneric)`
 const Web3StatusConnected = styled(Web3StatusGeneric)`
   border-radius: 9px;
   background-color: #f6f4ff;
+  font-family: 'Manrope';
   color: #031a6e;
   font-size: 14px;
   font-weight: 400;

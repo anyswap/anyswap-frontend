@@ -22,6 +22,7 @@ const PendingSection = styled.div`
 
 const SpinnerWrapper = styled(Spinner)`
   font-size: 4rem;
+  font-family: 'Manrope';
   margin-right: 1rem;
   svg {
     path {
@@ -53,6 +54,7 @@ const ErrorGroup = styled.div`
 const ErrorButton = styled.div`
   border-radius: 8px;
   font-size: 0.75rem;
+  font-family: 'Manrope';
   color: ${({ theme }) => theme.textColor};
   background-color: ${({ theme }) => theme.placeholderGray};
   margin-left: 1rem;

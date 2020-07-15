@@ -69,12 +69,14 @@ const HeaderText = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   color: ${props => (props.color === 'blue' ? ({ theme }) => theme.royalBlue : ({ theme }) => theme.textColor)};
   font-size: 1rem;
+  font-family: 'Manrope';
   font-weight: 500;
 `
 
 const SubHeader = styled.div`
   color: ${({ theme }) => theme.textColor};
   margin-top: 0.625rem;
+  font-family: 'Manrope';
   font-size: 0.75rem;
 `
 

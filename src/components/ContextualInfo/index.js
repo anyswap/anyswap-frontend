@@ -9,6 +9,7 @@ import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.sv
 const SummaryWrapper = styled.div`
   color: ${({ error, theme }) => (error ? theme.salmonRed : theme.doveGray)};
   font-size: 0.75rem;
+  font-family: 'Manrope';
   text-align: center;
   margin-top: 1rem;
   padding-top: 1rem;
@@ -19,6 +20,7 @@ const Details = styled.div`
   padding: 1.5rem;
   border-radius: 1rem;
   font-size: 0.75rem;
+  font-family: 'Manrope';
   margin-top: 1rem;
 `
 
@@ -32,6 +34,7 @@ const SummaryWrapperContainer = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
+  font-family: 'Manrope';
 
   span {
     margin-right: 0.75rem;

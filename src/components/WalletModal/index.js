@@ -74,6 +74,7 @@ const ContentWrapper = styled.div`
 
 const UpperSection = styled.div`
   position: relative;
+  font-family: 'Manrope';
 
   h5 {
     margin: 0;
@@ -92,16 +93,6 @@ const UpperSection = styled.div`
   }
 `
 
-const Blurb = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: center;
-  justify-content: center;
-  margin-top: 2rem;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    margin: 1rem;
-    font-size: 0.75rem;
-  `};
-`
 
 const OptionGrid = styled.div`
 

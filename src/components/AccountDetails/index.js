@@ -30,7 +30,7 @@ ${({ theme }) => theme.FlexC}
   object-fit: contain;
   border-radius: 6px;
   background-color: #f6f4ff;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
@@ -54,6 +54,7 @@ const HeaderRow = styled.div`
 
 const UpperSection = styled.div`
   position: relative;
+  font-family: 'Manrope';
   background-color: ${({ theme }) => theme.concreteGray};
 
   h5 {
@@ -163,6 +164,7 @@ const AccountControl = styled.div`
   align-items: center;
   min-width: 0;
   width: 100%;
+  font-family: 'Manrope';
 
   font-weight: ${({ hasENS, isENS }) => (hasENS ? (isENS ? 500 : 400) : 500)};
   font-size: ${({ hasENS, isENS }) => (hasENS ? (isENS ? '1rem' : '0.8rem') : '1rem')};
@@ -225,7 +227,7 @@ const CloseColor = styled(Close)`
 const WalletName = styled.div`
   padding-left: 0.5rem;
   width: initial;
-  font-family: Manrope;
+  font-family: 'Manrope';
   font-size: 1rem;
   font-weight: 800;
   font-stretch: normal;

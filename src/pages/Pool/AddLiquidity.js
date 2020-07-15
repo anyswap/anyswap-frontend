@@ -52,6 +52,7 @@ const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const BlueSpan = styled.span`
 
+font-family: 'Manrope';
 font-size: 0.75rem;
 font-weight: bold;
 font-stretch: normal;
@@ -72,6 +73,7 @@ const NewExchangeWarning = styled.div`
 `
 
 const NewExchangeWarningText = styled.div`
+font-family: 'Manrope';
   font-size: 0.8rem;
   line-height: 1rem;
   text-align: center;
@@ -134,6 +136,7 @@ const LogoBox = styled.div`
 const CoinInfoBox  = styled.div`
 ${({ theme }) => theme.FlexC}
 
+font-family: 'Manrope';
   font-size: 0.875rem;
   font-weight: 800;
   font-stretch: normal;
@@ -153,6 +156,7 @@ flex-wrap:wrap;
   background-color: #ecf6ff;
   padding: 5px 1.25rem;
   
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
@@ -189,6 +193,7 @@ const ExchangeRateWrapper = styled.div`
   flex-wrap: wrap;
   color: ${({ theme }) => theme.doveGray};
   font-size: 0.75rem;
+  font-family: 'Manrope';
   padding: 8px 1rem ;
   border-bottom:0.0625rem solid #dadada;
   white-space:nowrap;
@@ -209,6 +214,7 @@ const ExchangeRateWrapper = styled.div`
 const ExchangeRate = styled.div`
   height: 0.75rem;
   
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;
@@ -255,6 +261,7 @@ const TxnsDtilBtn = styled.div`
   border-radius: 6px;
   background-color: #f9fafb;
   
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
   font-stretch: normal;

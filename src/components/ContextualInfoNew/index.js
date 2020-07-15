@@ -8,6 +8,7 @@ import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.sv
 const SummaryWrapper = styled.div`
   color: ${({ error, brokenTokenWarning, theme }) => (error || brokenTokenWarning ? theme.salmonRed : theme.doveGray)};
   font-size: 0.75rem;
+  font-family: 'Manrope';
   text-align: center;
   margin-top: 1rem;
   padding-top: 1rem;
@@ -23,6 +24,7 @@ const SummaryWrapperContainer = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
+  font-family: 'Manrope';
 
   img {
     height: 0.75rem;
@@ -35,12 +37,14 @@ const Details = styled.div`
   /* padding: 1.25rem 1.25rem 1rem 1.25rem; */
   border-radius: 1rem;
   font-size: 0.75rem;
+  font-family: 'Manrope';
   margin: 1rem 0.5rem 0 0.5rem;
 `
 
 const ErrorSpan = styled.span`
   margin-right: 0.75rem;
   font-size: 0.75rem;
+  font-family: 'Manrope';
   line-height: 0.75rem;
 
   color: ${({ isError, theme }) => isError && theme.salmonRed};

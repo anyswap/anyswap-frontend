@@ -145,7 +145,7 @@ const theme = darkMode => ({
 // @import url('https://rsms.me/inter/inter.css');
 export const GlobalStyle = createGlobalStyle`
   @font-face {
-    font-family: 'manrope';
+    font-family: 'Manrope';
     src: 
       url('../assets/font/manrope/Manrope-Medium.otf'),
       url('../assets/font/manrope/Manrope-Medium.woff') format('woff'),
