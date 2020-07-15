@@ -146,9 +146,10 @@ const theme = darkMode => ({
 export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'manrope';
-    src: url('../assets/font/manrope/Manrope-Medium.otf');
     src: 
+      url('../assets/font/manrope/Manrope-Medium.otf'),
       url('../assets/font/manrope/Manrope-Medium.woff') format('woff'),
+      url('../assets/font/manrope/Manrope-Medium.woff2') format('woff2'),
       url('../assets/font/manrope/Manrope-Medium.ttf') format('truetype'),
     font-weight: normal;
     font-style: normal;

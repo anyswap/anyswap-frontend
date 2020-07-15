@@ -21,7 +21,7 @@ import CurrencyInputPanel from '../CurrencyInputPanel'
 import AddressInputPanel from '../AddressInputPanel'
 import OversizedPanel from '../OversizedPanel'
 import TransactionDetails from '../TransactionDetails'
-import ArrowDown from '../../assets/svg/SVGArrowDown'
+// import ArrowDown from '../../assets/svg/SVGArrowDown'
 import WarningCard from '../WarningCard'
 import config from '../../config'
 
