@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback  } from 'react'
+import React, { useState, useEffect, useCallback, useMemo  } from 'react'
 // import ReactGA from 'react-ga'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
@@ -10,7 +10,7 @@ import { useAddressBalance} from '../../contexts/Balances'
 import { useAllTokenDetails} from '../../contexts/Tokens'
 import { useExchangeContract } from '../../hooks'
 import TokenLogo from '../TokenLogo'
-import { useAllBalances } from '../../contexts/Balances'
+import { useAllBalances, useExchangeReserves } from '../../contexts/Balances'
 import { TitleBox, BorderlessInput } from '../../theme'
 
 import SearchIcon from '../../assets/images/icon/search.svg'
@@ -22,6 +22,9 @@ import AnyillustrationIcon from '../../assets/images/icon/any-illustration.svg'
 import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
+
+import {getPrice} from '../../utils/axios'
+
 const MyBalanceBox = styled.div`
   width: 100%;
   
@@ -206,8 +209,8 @@ const TokenTableCoinBox  = styled.div`
 ${({theme}) => theme.FlexSC};
   border-right: 0.0625rem  solid rgba(0, 0, 0, 0.1);
   padding: 0 1.5625rem;
-  min-width: 217px
-  width:30%;
+  min-width: 160px;
+  width:25%;
   @media screen and (max-width: 960px) {
     min-width: 120px;
     padding: 0 5px;
@@ -222,7 +225,7 @@ ${({theme}) => theme.FlexC};
   border: solid 0.0625rem rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   border-radius:100%;
-  padding: 0.625rem;
+  padding: 0.3125rem;
   margin-right: 1.25rem;
   @media screen and (max-width: 960px) {
     margin-right: 5px;
@@ -260,7 +263,7 @@ font-family: 'Manrope';
 const TokenBalanceBox  = styled.div`
 font-family: 'Manrope';
   min-width: 120px
-  width:30%;
+  // width:30%;
   text-align:left;
   h3 {
     padding-left: 17.97%;
@@ -382,6 +385,68 @@ font-family: 'Manrope';
   background-color: #f5f5f5;
 `
 
+let FSN_PRICE = ''
+getPrice().then(res => {
+  // console.log(res)
+  FSN_PRICE = res
+})
+
+function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
+  try {
+    if (
+      inputValue &&
+      (inputDecimals || inputDecimals === 0) &&
+      outputValue &&
+      (outputDecimals || outputDecimals === 0)
+    ) {
+      const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
+
+      if (invert) {
+        return inputValue
+          .mul(factor)
+          .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
+          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
+          .div(outputValue)
+      } else {
+        return outputValue
+          .mul(factor)
+          .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
+          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
+          .div(inputValue)
+      }
+    }
+  } catch {}
+}
+
+function getMarketRate(reserveETH, reserveToken, decimals, invert = false) {
+  return getExchangeRate(reserveETH, 18, reserveToken, decimals, invert)
+}
+
+function thousandBit (num, dec = 2) {
+  let _num = num = Number(num)
+  if (isNaN(num)) {
+    num = 0
+    num = num.toFixed(dec)
+  } else {
+    if (isNaN(dec)) {
+      if (num.toString().indexOf('.') === -1) {
+        num = Number(num).toLocaleString()
+      } else {
+        let numSplit = num.toString().split('.')
+        numSplit[1] = numSplit[1].length > 9 ? numSplit[1].substr(0, 8) : numSplit[1]
+        num = Number(numSplit[0]).toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').toLocaleString()
+        num = num.toString().split('.')[0] + '.' + numSplit[1]
+      }
+    } else {
+      num = num.toFixed(dec).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').toLocaleString()
+    }
+  }
+  if (_num < 0 && num.toString().indexOf('-') < 0) {
+    num = '-' + num
+  }
+  return num
+}
+
 export default function DashboardDtil () {
   const { account, library } = useWeb3React()
   const allBalances = useAllBalances()
@@ -426,6 +491,15 @@ export default function DashboardDtil () {
   poolInfoObj.mBTC.exchangeTokenBalancem = useAddressBalance(allCoins.mBTC.exchangeAddress, allCoins.mBTC.token)
   poolInfoObj.mBTC.exchangeContract = useExchangeContract(allCoins.mBTC.exchangeAddress)
   
+  const { reserveETH: mBTCreserveETH, reserveToken: mBTCreserveToken } = useExchangeReserves(allCoins.mBTC.token)
+  poolInfoObj.mBTC.marketRate = useMemo(() => {
+    return getMarketRate(mBTCreserveETH, mBTCreserveToken, allCoins.mBTC.decimals)
+  }, [mBTCreserveETH, mBTCreserveToken])
+  // console.log(mBTCmarketRate.toString())
+  // useEffect(() => {
+  //   console.log(getMarketRate(mBTCreserveETH, mBTCreserveToken, allCoins.mBTC.decimals))
+  // }, [mBTCreserveETH, mBTCreserveToken])
+  
   const [totalPoolTokensmBTC, setTotalPoolTokensmBTC] = useState()
   poolInfoObj.mBTC.fetchPoolTokensm = useCallback(() => {
     if (poolInfoObj.mBTC.exchangeContract) {
@@ -455,7 +529,12 @@ export default function DashboardDtil () {
   poolInfoObj.ANY.exchangeETHBalance = useAddressBalance(allCoins.ANY.exchangeAddress, 'FSN')
   poolInfoObj.ANY.exchangeTokenBalancem = useAddressBalance(allCoins.ANY.exchangeAddress, allCoins.ANY.token)
   poolInfoObj.ANY.exchangeContract = useExchangeContract(allCoins.ANY.exchangeAddress)
-  
+
+  const { reserveETH: ANYreserveETH, reserveToken: ANYreserveToken } = useExchangeReserves(allCoins.ANY.token)
+  poolInfoObj.ANY.marketRate = useMemo(() => {
+    return getMarketRate(ANYreserveETH, ANYreserveToken, allCoins.ANY.decimals)
+  }, [ANYreserveETH, ANYreserveToken])
+
   const [totalPoolTokensANY, setTotalPoolTokensANY] = useState()
   poolInfoObj.ANY.fetchPoolTokensm = useCallback(() => {
     if (poolInfoObj.ANY.exchangeContract) {
@@ -484,6 +563,11 @@ export default function DashboardDtil () {
   poolInfoObj.mETH.exchangeETHBalance = useAddressBalance(allCoins.mETH.exchangeAddress, 'FSN')
   poolInfoObj.mETH.exchangeTokenBalancem = useAddressBalance(allCoins.mETH.exchangeAddress, allCoins.mETH.token)
   poolInfoObj.mETH.exchangeContract = useExchangeContract(allCoins.mETH.exchangeAddress)
+
+  const { reserveETH: mETHreserveETH, reserveToken: mETHreserveToken } = useExchangeReserves(allCoins.mETH.token)
+  poolInfoObj.mETH.marketRate = useMemo(() => {
+    return getMarketRate(mETHreserveETH, mETHreserveToken, allCoins.mETH.decimals)
+  }, [mETHreserveETH, mETHreserveToken])
   
   const [totalPoolTokensmETH, setTotalPoolTokensmETH] = useState()
   poolInfoObj.mETH.fetchPoolTokensm = useCallback(() => {
@@ -513,6 +597,11 @@ export default function DashboardDtil () {
   poolInfoObj.mUSDT.exchangeETHBalance = useAddressBalance(allCoins.mUSDT.exchangeAddress, 'FSN')
   poolInfoObj.mUSDT.exchangeTokenBalancem = useAddressBalance(allCoins.mUSDT.exchangeAddress, allCoins.mUSDT.token)
   poolInfoObj.mUSDT.exchangeContract = useExchangeContract(allCoins.mUSDT.exchangeAddress)
+
+  const { reserveETH: mUSDTreserveETH, reserveToken: mUSDTreserveToken } = useExchangeReserves(allCoins.mUSDT.token)
+  poolInfoObj.mUSDT.marketRate = useMemo(() => {
+    return getMarketRate(mUSDTreserveETH, mUSDTreserveToken, allCoins.mUSDT.decimals)
+  }, [mUSDTreserveETH, mUSDTreserveToken])
   
   const [totalPoolTokensmUSDT, setTotalPoolTokensmUSDT] = useState()
   poolInfoObj.mUSDT.fetchPoolTokensm = useCallback(() => {
@@ -542,6 +631,11 @@ export default function DashboardDtil () {
   poolInfoObj.mXRP.exchangeETHBalance = useAddressBalance(allCoins.mXRP.exchangeAddress, 'FSN')
   poolInfoObj.mXRP.exchangeTokenBalancem = useAddressBalance(allCoins.mXRP.exchangeAddress, allCoins.mXRP.token)
   poolInfoObj.mXRP.exchangeContract = useExchangeContract(allCoins.mXRP.exchangeAddress)
+
+  const { reserveETH: mXRPreserveETH, reserveToken: mXRPreserveToken } = useExchangeReserves(allCoins.mXRP.token)
+  poolInfoObj.mXRP.marketRate = useMemo(() => {
+    return getMarketRate(mXRPreserveETH, mXRPreserveToken, allCoins.mXRP.decimals)
+  }, [mXRPreserveETH, mXRPreserveToken])
   
   const [totalPoolTokensmXRP, setTotalPoolTokensmXRP] = useState()
   poolInfoObj.mXRP.fetchPoolTokensm = useCallback(() => {
@@ -571,6 +665,11 @@ export default function DashboardDtil () {
   poolInfoObj.mLTC.exchangeETHBalance = useAddressBalance(allCoins.mLTC.exchangeAddress, 'FSN')
   poolInfoObj.mLTC.exchangeTokenBalancem = useAddressBalance(allCoins.mLTC.exchangeAddress, allCoins.mLTC.token)
   poolInfoObj.mLTC.exchangeContract = useExchangeContract(allCoins.mLTC.exchangeAddress)
+
+  const { reserveETH: mLTCreserveETH, reserveToken: mLTCreserveToken } = useExchangeReserves(allCoins.mLTC.token)
+  poolInfoObj.mLTC.marketRate = useMemo(() => {
+    return getMarketRate(mLTCreserveETH, mLTCreserveToken, allCoins.mLTC.decimals)
+  }, [mLTCreserveETH, mLTCreserveToken])
   
   const [totalPoolTokensmLTC, setTotalPoolTokensmLTC] = useState()
   poolInfoObj.mLTC.fetchPoolTokensm = useCallback(() => {
@@ -760,6 +859,37 @@ export default function DashboardDtil () {
       </MyBalanceTokenBox1>
     )
   }
+
+  function getUSDPrice(val, coin) {
+    // FSN_PRICE
+    if (!FSN_PRICE) return '-'
+    let _marketRate = poolInfoObj[coin].marketRate ? amountFormatter(poolInfoObj[coin].marketRate, 18, 16) : ''
+    let _usd = '-'
+    if (coin === 'FSN') {
+      // _usd = (Number(val) * FSN_PRICE).toFixed(3)
+      _usd = FSN_PRICE
+      if (_usd > 1) {
+        _usd = _usd.toFixed(2)
+      } else {
+        _usd = _usd.toFixed(5)
+      }
+    } else if (_marketRate === '<0.000001') {
+      _usd = '<0.001'
+    } else if (_marketRate) {
+      // _usd = ((Number(val) / Number(_marketRate)) * FSN_PRICE).toFixed(3)
+      _usd = FSN_PRICE / Number(_marketRate)
+      // console.log(coin)
+      // console.log(_usd)
+      if (_usd > 1) { 
+        _usd = _usd.toFixed(2)
+      } else {
+        _usd = _usd.toFixed(5)
+      }
+    }
+    // console.log(coin, _usd)
+    // console.log(_marketRate)
+    return thousandBit(_usd, 'no')
+  }
   function getMyAccount () {
     // if (!account) return
     const myAccount = account ? allBalances[account] : ''
@@ -810,6 +940,10 @@ export default function DashboardDtil () {
                         <p>{item.name}</p>
                       </TokenNameBox>
                     </TokenTableCoinBox>
+                    <TokenBalanceBox>
+                      <h3>{t('price')}</h3>
+                      <p>$ {getUSDPrice(item.balance, item.symbol)}</p>
+                    </TokenBalanceBox>
                     <TokenBalanceBox>
                       <h3>{t('balances')}</h3>
                       <p>{item.balance}</p>

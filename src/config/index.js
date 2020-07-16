@@ -1,5 +1,6 @@
 
 const envConfig = 'main'
+// const envConfig = 'test'
 
 export default {
   env: envConfig,

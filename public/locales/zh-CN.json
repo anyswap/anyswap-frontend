@@ -1,5 +1,5 @@
 {
-  "ComineSoon":"即将到来！",
+  "ComineSoon":"即将上线！",
   "onTestnet":"当前是",
   "mainnet":"主网",
   "testnet":"测试网",
@@ -145,5 +145,6 @@
   "done": "确认",
   "tryAgain": "重试",
   "back": "返回",
-  "addCustomPath": "请添加自定义路径"
+  "addCustomPath": "请添加自定义路径",
+  "price": "价格"
 }

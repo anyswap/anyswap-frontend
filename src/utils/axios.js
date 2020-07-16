@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { resolve } from 'path'
 
 const NETWORK_URL =
   process.env.REACT_APP_IS_PRODUCTION_DEPLOY === 'true'
@@ -181,5 +182,67 @@ export const getAxiosData = (method, params) => {
       console.log(err)
       resolve(err)
     })
+  })
+}
+
+const FSN_PRICE = 'FSN_PRICE'
+function getFSNprics () {
+  let url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=fsn&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+  return new Promise(resolve => {
+    axios.get(url).then(res => {
+      // console.log(res)
+      if (res && res.data && res.data.length > 0) {
+        let price = res.data[0].current_price
+        localStorage.setItem(FSN_PRICE, JSON.stringify({
+          timestamp: Date.now(),
+          price: price
+        }))
+        resolve({
+          msg: 'Success',
+          price: price
+        })
+      } else {
+        localStorage.setItem(FSN_PRICE, '')
+        resolve({
+          msg: 'Error',
+          price: ''
+        })
+      }
+    }).catch(err => {
+      console.log(err)
+      localStorage.setItem(FSN_PRICE, '')
+      resolve({
+        msg: 'Error',
+        price: ''
+      })
+    })
+  })
+}
+export const getPrice = () => {
+  let localFSNPrice = localStorage.getItem(FSN_PRICE)
+  // console.log(localFSNPrice)
+  return new Promise(resolve => {
+    if (localFSNPrice) {
+      let localObj = JSON.parse(localFSNPrice)
+      if (Date.now() - Number(localObj.timestamp) > (1000 * 60 * 60) || !localObj.price) {
+        getFSNprics().then(res => {
+          if (res.msg === 'Success') {
+            resolve(res.price)
+          } else {
+            resolve('')
+          }
+        })
+      } else {
+        resolve(localObj.price)
+      }
+    } else {
+      getFSNprics().then(res => {
+        if (res.msg === 'Success') {
+          resolve(res.price)
+        } else {
+          resolve('')
+        }
+      })
+    }
   })
 }

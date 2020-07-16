@@ -156,5 +156,6 @@
   "hardwareMakeSure": "Make sure open the ethereum app on your {walletType} and Contract Data enabled.",
   "tryAgain": "Try Again",
   "back": "Back",
-  "addCustomPath": "Please add the custom path"
+  "addCustomPath": "Please add the custom path",
+  "price": "Price"
 }

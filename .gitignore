@@ -10,6 +10,8 @@
 /build
 /uniswap-frontend
 /anyswap
+/anyswap-test
+/anyswap-main
 # misc
 .DS_Store
 .env.local
