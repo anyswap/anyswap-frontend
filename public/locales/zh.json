@@ -1,7 +1,7 @@
 {
   "ComineSoon":"即将到来！",
   "onTestnet":"当前是",
-  "mainnet":"主网网",
+  "mainnet":"主网",
   "testnet":"测试网",
   "noWallet": "未发现钱包",
   "wrongNetwork": "网络错误",
@@ -61,7 +61,7 @@
   "TransactionMayFail":"您的交易可能失败",
   "ConfirmTransaction":"确认交易",
   "SignFailed":"签名失败! ",
-  "txnsTip":"请确保您的Ledget已解锁并打开Ethereum app后设置允许合同数据",
+  "txnsTip":"请确保您的Ledger已解锁并打开Ethereum app后设置允许合同数据",
   "Collecting":"收集",
   "confirmHardware":"请在你的Ledger上确认交易",
   "deposit1": "充值",
@@ -139,5 +139,11 @@
   "Errorconnecting":"连接出错",
   "TryTip":"连接出错，请刷新网页。",
   "WrongNetworkTestTip":"请连接钱包至Fusion测试网 https://testnet.anyswap.exchange",
-  "WrongNetworkMainTip":"请连接钱包至Fusion主网 https://mainnet.anyswap.exchange"
+  "WrongNetworkMainTip":"请连接钱包至Fusion主网 https://mainnet.anyswap.exchange",
+  "agree": "同意",
+  "SwitchTo": "切换至",
+  "done": "确认",
+  "tryAgain": "重试",
+  "back": "返回",
+  "addCustomPath": "请添加自定义路径"
 }

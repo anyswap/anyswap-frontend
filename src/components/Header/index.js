@@ -8,7 +8,8 @@ import { darken } from 'polished'
 import { useTranslation } from 'react-i18next'
 
 import {ReactComponent as ANYLogo} from '../../assets/images/logo.svg'
-
+import config from '../../config'
+import ArrowRighrPurpleIcon from '../../assets/images/icon/arrowRighr-purple.svg'
 const HeaderFrame = styled.div`
   display: flex;
   align-items: center;
@@ -64,6 +65,13 @@ ${({ theme }) => theme.FlexC};
     font-weight: normal;
     margin-right:0.625rem;
   }
+  .switchTo {
+    ${({ theme }) => theme.FlexC};
+    margin-left: 42px;
+    font-size: 12px;
+    color: #734be2;
+    cursor:pointer;
+  }
   @media screen and (max-width: 960px) {
     padding:0 0.625rem;
     font-size: 0.75rem;
@@ -72,11 +80,24 @@ ${({ theme }) => theme.FlexC};
     span {
       display:none;
     }
+    .switchTo {
+      margin-left:5px;
+      img {
+        display:none;
+      }
+    }
   }
 `
 
 export default function Header() {
   const { t } = useTranslation()
+  function openUrl () {
+    if (config.env === 'test') {
+      window.open(config.mainUrl)
+    } else {
+      window.open(config.testUrl)
+    }
+  }
   return (
     <HeaderFrame>
       <HeaderSpan>
@@ -85,7 +106,14 @@ export default function Header() {
         </HeaderElement>
         <HeaderElement>
           <NetworkBox>
-            <span>{t('onTestnet')}</span> {t('testnet')}
+            <span>{t('onTestnet')}</span> {config.env === 'test' ? t('testnet') : t('mainnet')}
+            <div className='switchTo' onClick={openUrl}>
+              {t('SwitchTo')}
+              {
+                config.env === 'test' ?  t('mainnet') : t('testnet')
+              }
+              <img alt='' src={ArrowRighrPurpleIcon} style={{marginLeft: '8px'}} />
+            </div>
           </NetworkBox>
           <Web3Status />
         </HeaderElement>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import Modal from '../Modal'
@@ -138,6 +138,8 @@ export default function HardwareTip({
   coinType
 }) {
 
+  
+  // setHardwareType(walletType)
   const { t } = useTranslation()
   return (
     <Modal

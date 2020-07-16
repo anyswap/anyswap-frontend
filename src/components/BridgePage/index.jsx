@@ -42,6 +42,10 @@ import HardwareTip from '../HardwareTip'
 import ResertSvg from '../../assets/images/icon/revert.svg'
 import BirdgeIcon from '../../assets/images/icon/bridge-white.svg'
 import BirdgeBtnIcon from '../../assets/images/icon/bridge-white-btn.svg'
+
+import { useBetaMessageManager } from '../../contexts/LocalStorage'
+import WarningTip from '../WarningTip'
+
 const INPUT = 0
 const OUTPUT = 1
 
@@ -274,7 +278,7 @@ const StyledQRcode = styled(QRcode)`
   margin-left: 0.625rem;
 `
 
-const WarningTip = styled.div`
+const MintWarningTip = styled.div`
   padding: 0.625rem 1rem;
   color:red;
   font-family: 'Manrope';
@@ -347,7 +351,7 @@ function getInitialSwapState(state) {
     dependentValue: '', // this is a calculated number
     independentField: state.exactFieldURL === 'output' ? OUTPUT : INPUT,
     // inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : state.outputCurrencyURL === 'FSN' ? '' : 'FSN',
-    inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947',
+    inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : config.initBridge,
     outputCurrency: state.outputCurrencyURL
       ? state.outputCurrencyURL === 'FSN'
         ? !state.inputCurrencyURL || (state.inputCurrencyURL && state.inputCurrencyURL !== 'FSN')
@@ -356,7 +360,7 @@ function getInitialSwapState(state) {
         : state.outputCurrencyURL
       : state.initialCurrency
       ? state.initialCurrency
-      : '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947'
+      : config.initBridge
   }
 }
 
@@ -445,18 +449,16 @@ function swapStateReducer(state, action) {
     }
   }
 }
-const selfUseAllToken=[
-  '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947',
-  '0xeCd0fad9381b19feB74428Ab6a732BAA293CdC88',
-  '0x19543338473caaa6f404dbe540bb787f389d5462',
-  'XRP',
-  'LTC'
-]
+const selfUseAllToken=[ 
+  'FSN',
+  config.initToken
+ ]
 let historyInterval 
 // let swapInfo = ''
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
   let { account, chainId, error } = useWeb3React()
+  const [showBetaMessage] = useBetaMessageManager()
   let walletType = sessionStorage.getItem('walletType')
   // let HDPath = sessionStorage.getItem('HDPath')
   // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
@@ -512,8 +514,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, maxNum , minNum, fee, isSwitch, isDeposit, isRedeem } = useTokenDetails(
     inputCurrency
   )
-
   // console.log(inputSymbol)
+  // console.log(inputCurrency)
   const {  decimals: outputDecimals} = useTokenDetails(
     outputCurrency
   )
@@ -776,9 +778,50 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [isHardwareError, setIsHardwareError] = useState(false)
   const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
   const [isDisabled, setIsDisableed] = useState(true)
+  const [isMintBtn, setIsMintBtn] = useState(false)
+  const [isRedeemBtn, setIsRedeem] = useState(false)
 
-
+  // !account && !error && isDisabled && !isDeposit && showBetaMessage ? false : !independentValue || !recipient.address || !showBetaMessage
+  useEffect(() => {
+    if (
+      account 
+      && !error
+      && isDisabled 
+      && isRedeem 
+      && !showBetaMessage 
+      && independentValue
+      && recipient.address
+      && Number(inputBalanceFormatted) >= Number(independentValue)
+    ) {
+      if (inputSymbol === 'mBTC' && config.reg[inputSymbol] && config.reg[inputSymbol].test(recipient.address)) {
+        setIsRedeem(false)
+      } else if (inputSymbol !== 'mBTC' && isAddress(recipient.address)) {
+        setIsRedeem(false)
+      } else {
+        setIsRedeem(true)
+      }
+    } else {
+      setIsRedeem(true)
+    }
+  }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol])
+  useEffect(() => {
+      if (
+        account 
+        && isDisabled 
+        && isDeposit 
+        && !showBetaMessage 
+        && independentValue
+        && registerAddress
+        && Number(independentValue) <= maxNum
+        && Number(independentValue) >= minNum
+      ) {
+        setIsMintBtn(false)
+      } else {
+        setIsMintBtn(true)
+      }
+  }, [account, isDisabled, isDeposit, showBetaMessage, registerAddress, independentValue, inputSymbol])
   function sendTxns () {
+    console.log(config)
     if (!isDisabled) return
     setIsDisableed(false)
     setTimeout(() => {
@@ -1098,12 +1141,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       {
         (bridgeType && bridgeType === 'redeem') || !account || !registerAddress || inputSymbol === 'mBTC' ? '' : (
           <>
-            <WarningTip>
+            <MintWarningTip>
             💀 {t('bridgeMintTip', { account })}
-            </WarningTip>
+            </MintWarningTip>
           </>
         )
       }
+      <WarningTip></WarningTip>
       {isSwitch ? (
         <>
           <Flex>
@@ -1111,7 +1155,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               <>
                 <Button
                   disabled={
-                    !account && !error && isDisabled ? false : !independentValue || !recipient.address
+                    isRedeemBtn
                   }
                   onClick={account && !error ? sendTxns : toggleWalletModal}
                   warning={Number(inputBalanceFormatted) < Number(independentValue)}
@@ -1132,9 +1176,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             ) : (
               <>
                 <Button
-                  disabled={
-                    !account && !error && isDisabled ? false : !independentValue || !registerAddress || Number(independentValue) > maxNum || Number(independentValue) < minNum
-                  }
+                  disabled={isMintBtn}
                   onClick={account && !error ? MintModelView : toggleWalletModal}
                   warning={account && (!independentValue || Number(independentValue) > maxNum || Number(independentValue) < minNum)}
                   loggedOut={!account}

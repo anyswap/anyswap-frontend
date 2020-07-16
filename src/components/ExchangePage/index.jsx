@@ -37,6 +37,9 @@ import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.sv
 import SwapIcon from '../../assets/images/icon/swap-white.svg'
 import SendIcon from '../../assets/images/icon/send-white.svg'
 
+import { useBetaMessageManager } from '../../contexts/LocalStorage'
+import WarningTip from '../WarningTip'
+
 const INPUT = 0
 const OUTPUT = 1
 
@@ -268,7 +271,7 @@ function getInitialSwapState(state) {
         : state.outputCurrencyURL
       : state.initialCurrency
       ? state.initialCurrency
-      : '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
+      : config.initToken
   }
 }
 
@@ -384,6 +387,7 @@ function getMarketRate(
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
   let { account, chainId, error } = useWeb3React()
+  const [showBetaMessage] = useBetaMessageManager()
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
   // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
@@ -981,32 +985,36 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     )
 
     return (
-      <TxnsDtilBtn>
-        <div className={'left' + (isError ? ' red' : '')}>
-          {!allowExpand && contextualInfo ? contextualInfo : (
-            <>
-            <div onClick={() => {
-              setIsViewTxnsDtil(!isViewTxnsDtil)
-            }}>
-              {
-                isViewTxnsDtil ? (
-                  <ColoredDropup></ColoredDropup>
-                ) : (
-                  <ColoredDropdown></ColoredDropdown>
-                )
-              }
-              {
-                contextualInfo ? contextualInfo : isViewTxnsDtil ? t('hideDetails') : t('transactionDetails')
-              }
+      <>
+        {inputIsSwitch && outputIsSwitch ? (
+          <TxnsDtilBtn>
+            <div className={'left' + (isError ? ' red' : '')}>
+              {!allowExpand && contextualInfo ? contextualInfo : (
+                <>
+                <div onClick={() => {
+                  setIsViewTxnsDtil(!isViewTxnsDtil)
+                }}>
+                  {
+                    isViewTxnsDtil ? (
+                      <ColoredDropup></ColoredDropup>
+                    ) : (
+                      <ColoredDropdown></ColoredDropdown>
+                    )
+                  }
+                  {
+                    contextualInfo ? contextualInfo : isViewTxnsDtil ? t('hideDetails') : t('transactionDetails')
+                  }
+                </div>
+                </>
+              )}
             </div>
-            </>
-          )}
-        </div>
-        {/* <div className='slippage'>
-          <img src={AlippageIcon}/>
-          Slippage Warning
-        </div> */}
-      </TxnsDtilBtn>
+            {/* <div className='slippage'>
+              <img src={AlippageIcon}/>
+              Slippage Warning
+            </div> */}
+          </TxnsDtilBtn>
+        ) : (<div></div>) }
+      </>
     )
   }
 
@@ -1197,11 +1205,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       ) : (
         ''
       )}
+      <WarningTip></WarningTip>
       {inputIsSwitch && outputIsSwitch ? (
         <Flex>
           <Button
             disabled={
-              brokenTokenWarning || !isDisabled ? true : !account && !error ? false : !isValid || customSlippageError === 'invalid'
+              brokenTokenWarning || !isDisabled || showBetaMessage ? true : !account && !error ? false : !isValid || customSlippageError === 'invalid'
             }
             onClick={account && !error ? onSwap : toggleWalletModal}
             warning={highSlippageWarning || customSlippageError === 'warning'}

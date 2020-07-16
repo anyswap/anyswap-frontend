@@ -23,7 +23,8 @@ import { FACTORY_ADDRESSES } from '../../constants'
 
 import HardwareTip from '../../components/HardwareTip'
 import CreateIcon from '../../assets/images/icon/create-exchange-white.svg'
-
+import { useBetaMessageManager } from '../../contexts/LocalStorage'
+import WarningTip from '../../components/WarningTip'
 const SummaryPanel = styled.div`
 ${({ theme }) => theme.flexColumnNoWrap}
 padding: 1rem 0;
@@ -120,6 +121,7 @@ function CreateExchange({ location, params }) {
   let { account, chainId } = useWeb3React()
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
+  const [showBetaMessage] = useBetaMessageManager()
   // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   const factory = useFactoryContract()
 
@@ -264,6 +266,7 @@ function CreateExchange({ location, params }) {
       {/* <CreateExchangeWrapper>
         <SummaryText>{errorMessage ? errorMessage : t('enterTokenCont')}</SummaryText>
       </CreateExchangeWrapper> */}
+      <WarningTip></WarningTip>
       
       <Flex>
         {/* <Button disabled={!isValid} onClick={createExchange}>
@@ -272,7 +275,7 @@ function CreateExchange({ location, params }) {
         {
           account ? (
             <>
-              <Button disabled={!isValid} onClick={createExchange}>
+              <Button disabled={!isValid || showBetaMessage} onClick={createExchange}>
               <img alt={''} src={CreateIcon} style={{marginRight: '15px'}} />
                 {t('createExchange')}
               </Button>

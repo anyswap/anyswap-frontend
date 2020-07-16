@@ -661,7 +661,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
             {error instanceof UnsupportedChainIdError ? (
               <h5>
                 {
-                  chainId && chainId === 32659 ? t('WrongNetworkMainTip') : t('WrongNetworkTestTip')
+                  config.dev === 'main' ? t('WrongNetworkMainTip') : t('WrongNetworkTestTip')
                 }
               </h5>
             ) : (
@@ -687,7 +687,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
                   setWalletType('')
                 }}
               >
-                Back
+                {t('back')}
               </HoverText>
             </HeaderRow>
           ) : (
@@ -712,13 +712,13 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
                 </>
               ) : (
                 <>
-                  <SelfText>Please add the custom path</SelfText>
+                  <SelfText>{t('addCustomPath')}</SelfText>
                   <SelfInputBox>
                     <SelfInput value={selfHDPathVal} onChange={e => {
                       console.log(e.target.value)
                       setSelfHDPathVal(e.target.value)
                     }}></SelfInput>
-                    <SelfButton size={'100px'} onClick={e => {getHardwareAccount()}}><img src={DoneIcon} style={{marginRight: '0.625rem'}} alt={''} />Done</SelfButton>
+                    <SelfButton size={'100px'} onClick={e => {getHardwareAccount()}}><img src={DoneIcon} style={{marginRight: '0.625rem'}} alt={''} />{t('done')}</SelfButton>
                   </SelfInputBox>
                 </>
               )
@@ -763,7 +763,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
                 setWalletView(WALLET_VIEWS.ACCOUNT)
               }}
             >
-              Back
+              {t('back')}
             </HoverText>
           </HeaderRow>
         ) : (

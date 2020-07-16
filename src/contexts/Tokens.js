@@ -49,7 +49,19 @@ const FSN = {
 }
 
 export const INITIAL_TOKENS_CONTEXT = {
-  36688: {
+  32659: {
+    'ANY': { // ANY
+      [NAME]: 'Anyswap',
+      [SYMBOL]: 'ANY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: 'ANY',
+      [MAXNUM]: 1000000,
+      [MINNUM]: 0.1,
+      [FEE]: 0.001,
+      [ISSWITCH]: 0,
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+    },
     'mBTC': { // mBTC
       [NAME]: 'SMPC Bitcoin',
       [SYMBOL]: 'mBTC',
@@ -59,20 +71,8 @@ export const INITIAL_TOKENS_CONTEXT = {
       [MINNUM]: 0.00001,
       [FEE]: 0.001,
       [ISSWITCH]: 0,
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-    },
-    'ANY': { // ANY
-      [NAME]: 'Anyswap',
-      [SYMBOL]: 'ANY',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: 'ANY',
-      [MAXNUM]: 1000000,
-      [MINNUM]: 0.1,
-      [FEE]: 0.001,
-      [ISSWITCH]: 1,
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
     },
     'mETH': { // mETH
       [NAME]: 'SMPC Ethereum',
@@ -83,8 +83,8 @@ export const INITIAL_TOKENS_CONTEXT = {
       [MINNUM]: 0.1,
       [FEE]: 0.001,
       [ISSWITCH]: 0,
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
     },
     'mUSDT': { // mUSDT
       [NAME]: 'SMPC Tether',
@@ -95,8 +95,32 @@ export const INITIAL_TOKENS_CONTEXT = {
       [MINNUM]: 0.00001,
       [FEE]: 0.001,
       [ISSWITCH]: 0,
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+    },
+    'XRP': { // mXRP
+      [NAME]: 'SMPC XRP',
+      [SYMBOL]: 'mXRP',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: 'XRP',
+      [MAXNUM]: 100,
+      [MINNUM]: 0.00001,
+      [FEE]: 0.001,
+      [ISSWITCH]: 0,
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+    },
+    'LTC': { // mLTC
+      [NAME]: 'SMPC Litecoin',
+      [SYMBOL]: 'mLTC',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: 'LTC',
+      [MAXNUM]: 100,
+      [MINNUM]: 0.00001,
+      [FEE]: 0.001,
+      [ISSWITCH]: 0,
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
     }
   },
   46688: {
@@ -157,8 +181,8 @@ export const INITIAL_TOKENS_CONTEXT = {
       [MINNUM]: 0.00001,
       [FEE]: 0.001,
       [ISSWITCH]: 0,
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
     },
     'LTC': { // mLTC
       [NAME]: 'SMPC Litecoin',
@@ -169,8 +193,8 @@ export const INITIAL_TOKENS_CONTEXT = {
       [MINNUM]: 0.00001,
       [FEE]: 0.001,
       [ISSWITCH]: 0,
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
     }
   }
 }
@@ -268,7 +292,6 @@ export function useAllTokenDetails() {
   const { chainId } = useWeb3React()
 
   const [state] = useTokensContext()
-
   // return useMemo(() => ({ ...FSN, ...(safeAccess(state, [chainId]) || {}) }), [state, chainId])
   return useMemo(() => ({ ...FSN, ...(safeAccess(state, [chainId]) || {}) }), [state, chainId])
 }

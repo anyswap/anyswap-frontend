@@ -149,5 +149,12 @@
   "Errorconnecting":"Error connecting",
   "TryTip":"Error connecting. Try refreshing the page.",
   "WrongNetworkTestTip":"Please connect to the test Fusion network. https://testnet.anyswap.exchange",
-  "WrongNetworkMainTip":"Please connect to the main Fusion network. https://mainnet.anyswap.exchange"
+  "WrongNetworkMainTip":"Please connect to the main Fusion network. https://mainnet.anyswap.exchange",
+  "agree": "Agree",
+  "SwitchTo": "Switch to",
+  "done": "Done",
+  "hardwareMakeSure": "Make sure open the ethereum app on your {walletType} and Contract Data enabled.",
+  "tryAgain": "Try Again",
+  "back": "Back",
+  "addCustomPath": "Please add the custom path"
 }

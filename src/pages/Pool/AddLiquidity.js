@@ -38,6 +38,9 @@ import AddBtnIcon from '../../assets/images/icon/add-white.svg'
 
 import TokenLogo from '../../components/TokenLogo'
 
+import { useBetaMessageManager } from '../../contexts/LocalStorage'
+import WarningTip from '../../components/WarningTip'
+
 const INPUT = 0
 const OUTPUT = 1
 
@@ -315,7 +318,7 @@ function initialAddLiquidityState(state) {
     inputValue: state.ethAmountURL ? state.ethAmountURL : '',
     outputValue: state.tokenAmountURL && !state.ethAmountURL ? state.tokenAmountURL : '',
     lastEditedField: state.tokenAmountURL && state.ethAmountURL === '' ? OUTPUT : INPUT,
-    outputCurrency: state.tokenURL ? state.tokenURL : '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
+    outputCurrency: state.tokenURL ? state.tokenURL : config.initToken
   }
 }
 
@@ -388,6 +391,7 @@ export default function AddLiquidity({ params }) {
   let { library, account, active, chainId } = useWeb3React()
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
+  const [showBetaMessage] = useBetaMessageManager()
   // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   const urlAddedTokens = {}
   if (params.token) {
@@ -937,7 +941,7 @@ export default function AddLiquidity({ params }) {
       />
       <SummaryPanelBox>
         <>
-          {txnsInfoTaggle()}
+          {isSwitch ? txnsInfoTaggle() : (<div></div>)}
         </>
         <SummaryPanel>
           <ExchangeRateWrapper>
@@ -992,12 +996,13 @@ export default function AddLiquidity({ params }) {
           {t('initialWarning')}
         </NewExchangeWarningText>
       )}
+      <WarningTip></WarningTip>
       {isSwitch ? (
         <Flex>
           {
             account ? (
               <>
-                <Button disabled={!isValid || !outputValue || Number(outputValue) <= 0 || !isDisabled} onClick={onAddLiquidity}>
+                <Button disabled={!isValid || !outputValue || Number(outputValue) <= 0 || !isDisabled || showBetaMessage} onClick={onAddLiquidity}>
                   <img alt={''} src={AddBtnIcon} style={{marginRight: '15px'}} />
                   {t('addLiquidity')}
                 </Button>

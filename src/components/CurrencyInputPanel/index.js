@@ -666,13 +666,8 @@ export default function CurrencyInputPanel({
 
   const addTransaction = useTransactionAdder()
 
-  let allTokens = useAllTokenDetails(), useTokens = {}
-  if (selfUseAllToken.length > 0) {
-    for (let obj of selfUseAllToken) {
-      useTokens[obj] = allTokens[obj]
-    }
-    allTokens = useTokens
-  }
+  let allTokens = useAllTokenDetails()
+  // console.log(allTokens)
   const { account } = useWeb3React()
 
   const userTokenBalance = useAddressBalance(account, selectedTokenAddress)
@@ -753,7 +748,7 @@ export default function CurrencyInputPanel({
   const [valueRange, setValueRange] = useState('')
   useEffect(() => {
     if (isRange) {
-      let _val = (Number(tokenBalance.toString()) * valueRange) / 100
+      let _val = tokenBalance && valueRange ? (Number(tokenBalance.toString()) * valueRange) / 100 : 0
       _val = _val !== '' ? _val : ''
       onValueChange(_val + '')
     }
@@ -1030,7 +1025,8 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
   // const allTokens = useAllTokenDetails()
   let allTokens = useAllTokenDetails(), useTokens = {}
   if (selfUseAllToken.length > 0) {
-    for (let obj of selfUseAllToken) {
+    for (let obj in allTokens) {
+      if (selfUseAllToken.includes(obj)) continue
       useTokens[obj] = allTokens[obj]
     }
     allTokens = useTokens
@@ -1038,46 +1034,41 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
   const { account, chainId } = useWeb3React()
 
   // BigNumber.js instance
-  const ethPrice = useETHPriceInUSD()
+  // const ethPrice = useETHPriceInUSD()
 
   // all balances for both account and exchanges
   const allBalances = useAllBalances()
+  // console.log(allBalances)
 
-  const _usdAmounts = Object.keys(allTokens).map(k => {
-    if (ethPrice && allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
-      let ethRate = 1 // default for FSN
-      let exchangeDetails = allBalances[allTokens[k].exchangeAddress]
+  // const _usdAmounts = Object.keys(allTokens).map(k => {
+  //   if (ethPrice && allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
+  //     let ethRate = 1 // default for FSN
+  //     let exchangeDetails = allBalances[allTokens[k].exchangeAddress]
 
-      if (
-        exchangeDetails &&
-        exchangeDetails[k] &&
-        exchangeDetails[k].value &&
-        exchangeDetails['FSN'] &&
-        exchangeDetails['FSN'].value
-      ) {
-        const tokenBalance = new BigNumber(exchangeDetails[k].value)
-        const ethBalance = new BigNumber(exchangeDetails['FSN'].value)
-        ethRate = ethBalance
-          .times(new BigNumber(10).pow(allTokens[k].decimals))
-          .div(tokenBalance)
-          .div(new BigNumber(10).pow(18))
-      }
-      const USDRate = ethPrice.times(ethRate)
+  //     if (
+  //       exchangeDetails &&
+  //       exchangeDetails[k] &&
+  //       exchangeDetails[k].value &&
+  //       exchangeDetails['FSN'] &&
+  //       exchangeDetails['FSN'].value
+  //     ) {
+  //       const tokenBalance = new BigNumber(exchangeDetails[k].value)
+  //       const ethBalance = new BigNumber(exchangeDetails['FSN'].value)
+  //       ethRate = ethBalance
+  //         .times(new BigNumber(10).pow(allTokens[k].decimals))
+  //         .div(tokenBalance)
+  //         .div(new BigNumber(10).pow(18))
+  //     }
+  //     const USDRate = ethPrice.times(ethRate)
 
-      const balanceBigNumber = new BigNumber(allBalances[account][k].value)
+  //     const balanceBigNumber = new BigNumber(allBalances[account][k].value)
 
-      const usdBalance = balanceBigNumber.times(USDRate).div(new BigNumber(10).pow(allTokens[k].decimals))
-      return usdBalance
-    } else {
-      return null
-    }
-  })
-  const usdAmounts =
-    _usdAmounts &&
-    Object.keys(allTokens).reduce(
-      (accumulator, currentValue, i) => Object.assign({ [currentValue]: _usdAmounts[i] }, accumulator),
-      {}
-    )
+  //     const usdBalance = balanceBigNumber.times(USDRate).div(new BigNumber(10).pow(allTokens[k].decimals))
+  //     return usdBalance
+  //   } else {
+  //     return null
+  //   }
+  // })
   // console.log(tokenList)
   const tokenList = useMemo(() => {
     return Object.keys(allTokens)
@@ -1114,14 +1105,11 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
       // })
       .map(k => {
         let balance
-        let usdBalance
         // only update if we have data
         if (k === 'FSN' && allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
           balance = formatEthBalance(ethers.utils.bigNumberify(allBalances[account][k].value))
-          usdBalance = usdAmounts[k]
         } else if (allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
           balance = formatTokenBalance(ethers.utils.bigNumberify(allBalances[account][k].value), allTokens[k].decimals)
-          usdBalance = usdAmounts[k]
         }
         // console.log(allTokens[k].decimals)
         // console.log(balance)
@@ -1130,11 +1118,10 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
           symbol: allTokens[k].symbol,
           address: k,
           balance: balance,
-          usdBalance: usdBalance,
           isSwitch: allTokens[k].isSwitch
         }
       })
-  }, [allBalances, allTokens, usdAmounts, account])
+  }, [allBalances, allTokens, account])
 
   const filteredTokenList = useMemo(() => {
     const list = tokenList.filter(tokenEntry => {
@@ -1188,7 +1175,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
       return <TokenModalInfo>{t('noExchange')}</TokenModalInfo>
     }
     
-    return filteredTokenList.map(({ address, symbol, name, balance, usdBalance, isSwitch }) => {
+    return filteredTokenList.map(({ address, symbol, name, balance, isSwitch }) => {
       const urlAdded = urlAddedTokens && urlAddedTokens.hasOwnProperty(address)
       const customAdded =
         address !== 'FSN' &&
@@ -1236,7 +1223,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
               <SpinnerWrapper src={Circle} alt="loader" />
             ) : '-'
             )}
-            <TokenRowUsd>
+            {/* <TokenRowUsd>
               {usdBalance && !usdBalance.isNaN()
                 ? usdBalance.isZero()
                   ? ''
@@ -1244,7 +1231,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
                   ? '<$0.01'
                   : '$' + formatToUsd(usdBalance)
                 : ''}
-            </TokenRowUsd>
+            </TokenRowUsd> */}
           </TokenRowRight>
         </TokenModalRow>
       )

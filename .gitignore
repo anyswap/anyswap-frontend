@@ -16,8 +16,10 @@
 .env.development.local
 .env.test.local
 .env.production.local
-.fusion.env
-.fusion.env.production
+.fusion.main.env
+.fusion.main.env.production
+.fusion.test.env
+.fusion.test.env.production
 .eth.env
 .eth.env.production
 

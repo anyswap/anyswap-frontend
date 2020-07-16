@@ -9,6 +9,7 @@ import Circle from '../../assets/images/circle.svg'
 import { darken } from 'polished'
 
 import config from '../../config/index'
+import { useTranslation } from 'react-i18next'
 
 const PendingSection = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
@@ -76,7 +77,8 @@ const LoadingWrapper = styled.div`
 `
 
 export default function PendingView({ uri = '', size, connector, error = false, setPendingError, tryActivation, walletType, onHardware = () => {} }) {
-  const isMetamask = window.ethereum && window.ethereum.isMetaMask
+  const isMetamask = window.ethereum && window.ethereum.isMetaMask;
+  const { t } = useTranslation()
   // let walletType = sessionStorage.getItem('walletType')
 
   return (
@@ -90,9 +92,9 @@ export default function PendingView({ uri = '', size, connector, error = false, 
               <div>
                 {
                   config.supportWallet.includes(walletType) ? (
-                    `Make sure open the ethereum app on your ${walletType} and Contract Data enabled.`
+                    t('txnsTip')
                   ) : (
-                    'Error connecting.'
+                    t('Errorconnecting')
                   )
                 }
               </div>
@@ -106,7 +108,7 @@ export default function PendingView({ uri = '', size, connector, error = false, 
                   }
                 }}
               >
-                Try Again
+                {t('tryAgain')}
               </ErrorButton>
             </ErrorGroup>
           ) : connector === walletconnect ? (

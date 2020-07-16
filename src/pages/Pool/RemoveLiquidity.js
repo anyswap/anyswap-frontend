@@ -36,7 +36,8 @@ import WeekIcon from '../../assets/images/icon/week.svg'
 import FSNLogo from '../../assets/images/coin/FSN.svg'
 import RemoveIcon from '../../assets/images/icon/remove-white.svg'
 import TokenLogo from '../../components/TokenLogo'
-
+import { useBetaMessageManager } from '../../contexts/LocalStorage'
+import WarningTip from '../../components/WarningTip'
 // denominated in bips
 const ALLOWED_SLIPPAGE = ethers.utils.bigNumberify(200)
 
@@ -345,6 +346,7 @@ export default function RemoveLiquidity({ params }) {
   let { library, account, active, chainId } = useWeb3React()
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
+  const [showBetaMessage] = useBetaMessageManager()
   // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   const addTransaction = useTransactionAdder()
 
@@ -358,7 +360,7 @@ export default function RemoveLiquidity({ params }) {
     history.push(window.location.pathname + '')
   }, [])
 
-  const [outputCurrency, setOutputCurrency] = useState(params.poolTokenAddress ? params.poolTokenAddress : '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4')
+  const [outputCurrency, setOutputCurrency] = useState(params.poolTokenAddress ? params.poolTokenAddress : config.initToken)
   const [value, setValue] = useState(params.poolTokenAmount ? params.poolTokenAmount : '')
   const [inputError, setInputError] = useState()
   const [valueParsed, setValueParsed] = useState()
@@ -740,7 +742,7 @@ export default function RemoveLiquidity({ params }) {
       />
       <SummaryPanelBox>
         <>
-          {txnsInfoTaggle()}
+          {isSwitch ? txnsInfoTaggle() : (<div></div>)}
         </>
         <SummaryPanel>
           <ExchangeRateWrapper>
@@ -782,6 +784,7 @@ export default function RemoveLiquidity({ params }) {
       </OversizedPanel> */}
       {/* {renderSummary()} */}
       {isViewTxnsDtil ? renderTransactionDetails() : ''}
+      <WarningTip></WarningTip>
       {isSwitch ? (
         <Flex>
           {/* <Button disabled={!isValid} onClick={onRemoveLiquidity}>
@@ -790,7 +793,7 @@ export default function RemoveLiquidity({ params }) {
           {
             account ? (
               <>
-                <Button disabled={!isValid || !Number(value) || !isDisabled} onClick={onRemoveLiquidity}>
+                <Button disabled={!isValid || !Number(value) || !isDisabled || showBetaMessage} onClick={onRemoveLiquidity}>
                   <img alt={''} src={RemoveIcon} style={{marginRight: '15px'}} />
                   {t('removeLiquidity')}
                 </Button>

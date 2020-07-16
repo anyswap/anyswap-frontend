@@ -146,7 +146,7 @@ const EarningsBox = styled.div`
     color: #031a6e;
     span {
       font-weight:bold;
-      margin-left:5px;
+      margin:0 5px;
     }
   }
   @media screen and (max-width: 960px) {
@@ -419,7 +419,7 @@ export default function DashboardDtil () {
 
   // console.log(allCoins)
   /**
-   * BTC start
+   * mBTC start
    *  */
   poolInfoObj.mBTC.poolTokenBalance = useAddressBalance(account, allCoins.mBTC.exchangeAddress)
   poolInfoObj.mBTC.exchangeETHBalance = useAddressBalance(allCoins.mBTC.exchangeAddress, 'FSN')
@@ -445,7 +445,7 @@ export default function DashboardDtil () {
   poolInfoObj.mBTC.totalPoolTokens = totalPoolTokensmBTC
 
   /**
-   * BTC end
+   * mBTC end
    *  */
 
   /**
@@ -478,7 +478,7 @@ export default function DashboardDtil () {
    *  */
 
   /**
-   * ETH start
+   * mETH start
    *  */
   poolInfoObj.mETH.poolTokenBalance = useAddressBalance(account, allCoins.mETH.exchangeAddress)
   poolInfoObj.mETH.exchangeETHBalance = useAddressBalance(allCoins.mETH.exchangeAddress, 'FSN')
@@ -503,11 +503,11 @@ export default function DashboardDtil () {
   }, [poolInfoObj.mETH.fetchPoolTokensm, library])
   poolInfoObj.mETH.totalPoolTokens = totalPoolTokensmETH
   /**
-   * ETH end
+   * mETH end
    *  */
 
    /**
-   * USDT start
+   * mUSDT start
    *  */
   poolInfoObj.mUSDT.poolTokenBalance = useAddressBalance(account, allCoins.mUSDT.exchangeAddress)
   poolInfoObj.mUSDT.exchangeETHBalance = useAddressBalance(allCoins.mUSDT.exchangeAddress, 'FSN')
@@ -531,44 +531,66 @@ export default function DashboardDtil () {
     }
   }, [poolInfoObj.mUSDT.fetchPoolTokensm, library])
   poolInfoObj.mUSDT.totalPoolTokens = totalPoolTokensmUSDT
-  // const poolTokenBalancemUSDT = useAddressBalance(account, allCoins.mUSDT.exchangeAddress)
-  // const exchangeETHBalancemUSDT = useAddressBalance(allCoins.mUSDT.exchangeAddress, 'FSN')
-  // const exchangeTokenBalancemUSDT = useAddressBalance(allCoins.mUSDT.exchangeAddress, allCoins.mUSDT.token)
-  // const exchangeContractmUSDT = useExchangeContract(allCoins.mUSDT.exchangeAddress)
-  // const [totalPoolTokensmUSDT, setTotalPoolTokensmUSDT] = useState()
-  // const fetchPoolTokensmUSDT = useCallback(() => {
-  //   if (exchangeContractmUSDT) {
-  //     exchangeContractmUSDT.totalSupply().then(totalSupply => {
-  //       setTotalPoolTokensmUSDT(totalSupply)
-  //     })
-  //   }
-  // }, [exchangeContractmUSDT])
-  // useEffect(() => {
-  //   fetchPoolTokensmUSDT()
-  //   library.on('block', fetchPoolTokensmUSDT)
-
-  //   return () => {
-  //     library.removeListener('block', fetchPoolTokensmUSDT)
-  //   }
-  // }, [fetchPoolTokensmUSDT, library])
-  // const poolTokenPercentagemUSDT =
-  //   poolTokenBalancemUSDT && totalPoolTokensmUSDT && !totalPoolTokensmUSDT.isZero()
-  //       ? poolTokenBalancemUSDT.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(totalPoolTokensmUSDT)
-  //       : undefined
-  // const ethSharemUSDT =
-  //   exchangeETHBalancemUSDT && poolTokenPercentagemUSDT
-  //     ? exchangeETHBalancemUSDT
-  //         .mul(poolTokenPercentagemUSDT)
-  //         .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-  //     : undefined
-  // const tokenSharemUSDT =
-  //   exchangeTokenBalancemUSDT && poolTokenPercentagemUSDT
-  //     ? exchangeTokenBalancemUSDT
-  //         .mul(poolTokenPercentagemUSDT)
-  //         .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-  //     : undefined
   /**
-   * USDT end
+   * mUSDT end
+   *  */
+
+  /**
+   * mXRP start
+   *  */
+  poolInfoObj.mXRP.poolTokenBalance = useAddressBalance(account, allCoins.mXRP.exchangeAddress)
+  poolInfoObj.mXRP.exchangeETHBalance = useAddressBalance(allCoins.mXRP.exchangeAddress, 'FSN')
+  poolInfoObj.mXRP.exchangeTokenBalancem = useAddressBalance(allCoins.mXRP.exchangeAddress, allCoins.mXRP.token)
+  poolInfoObj.mXRP.exchangeContract = useExchangeContract(allCoins.mXRP.exchangeAddress)
+  
+  const [totalPoolTokensmXRP, setTotalPoolTokensmXRP] = useState()
+  poolInfoObj.mXRP.fetchPoolTokensm = useCallback(() => {
+    if (poolInfoObj.mXRP.exchangeContract) {
+      poolInfoObj.mXRP.exchangeContract.totalSupply().then(totalSupply => {
+        setTotalPoolTokensmXRP(totalSupply)
+      })
+    }
+  }, [poolInfoObj.mXRP.exchangeContract])
+  useEffect(() => {
+    poolInfoObj.mXRP.fetchPoolTokensm()
+    library.on('block', poolInfoObj.mXRP.fetchPoolTokensm)
+
+    return () => {
+      library.removeListener('block', poolInfoObj.mXRP.fetchPoolTokensm)
+    }
+  }, [poolInfoObj.mXRP.fetchPoolTokensm, library])
+  poolInfoObj.mXRP.totalPoolTokens = totalPoolTokensmXRP
+  /**
+   * mXRP end
+   *  */
+
+   /**
+   * mLTC start
+   *  */
+  poolInfoObj.mLTC.poolTokenBalance = useAddressBalance(account, allCoins.mLTC.exchangeAddress)
+  poolInfoObj.mLTC.exchangeETHBalance = useAddressBalance(allCoins.mLTC.exchangeAddress, 'FSN')
+  poolInfoObj.mLTC.exchangeTokenBalancem = useAddressBalance(allCoins.mLTC.exchangeAddress, allCoins.mLTC.token)
+  poolInfoObj.mLTC.exchangeContract = useExchangeContract(allCoins.mLTC.exchangeAddress)
+  
+  const [totalPoolTokensmLTC, setTotalPoolTokensmLTC] = useState()
+  poolInfoObj.mLTC.fetchPoolTokensm = useCallback(() => {
+    if (poolInfoObj.mLTC.exchangeContract) {
+      poolInfoObj.mLTC.exchangeContract.totalSupply().then(totalSupply => {
+        setTotalPoolTokensmLTC(totalSupply)
+      })
+    }
+  }, [poolInfoObj.mLTC.exchangeContract])
+  useEffect(() => {
+    poolInfoObj.mLTC.fetchPoolTokensm()
+    library.on('block', poolInfoObj.mLTC.fetchPoolTokensm)
+
+    return () => {
+      library.removeListener('block', poolInfoObj.mLTC.fetchPoolTokensm)
+    }
+  }, [poolInfoObj.mLTC.fetchPoolTokensm, library])
+  poolInfoObj.mLTC.totalPoolTokens = totalPoolTokensmLTC
+  /**
+   * mLTC end
    *  */
 
 
@@ -852,7 +874,7 @@ export default function DashboardDtil () {
           <p>{t('Accumulated')}</p>
           <div className='txt'>
             <img src={GraphUpIcon} alt={''} />
-            <span>{account ? '0.00' : '0.00'}%</span>
+            <span>{account ? '0.00' : '0.00'}% </span>
             {t('last7Day')}
           </div>
         </EarningsBox>

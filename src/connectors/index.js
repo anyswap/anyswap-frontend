@@ -14,7 +14,8 @@ const NETWORK_URL =
   process.env.REACT_APP_IS_PRODUCTION_DEPLOY === 'true'
     ? process.env.REACT_APP_NETWORK_URL_PROD
     : process.env.REACT_APP_NETWORK_URL
-
+// console.log(NETWORK_URL)
+// console.log(Number(process.env.REACT_APP_CHAIN_ID))
 export const network = new NetworkConnector({
   urls: { [Number(process.env.REACT_APP_CHAIN_ID)]: NETWORK_URL },
   pollingInterval: POLLING_INTERVAL * 3
@@ -60,5 +61,5 @@ export const walletlink = new WalletLinkConnector({
 })
 
 export const ledger = new LedgerConnector({
-  chainId: 46688, url: 'https://testnet.fsn.dev/api', pollingInterval: 12000
+  chainId: Number(process.env.REACT_APP_CHAIN_ID), url: NETWORK_URL, pollingInterval: 12000
 })
