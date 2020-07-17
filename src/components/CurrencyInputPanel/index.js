@@ -667,8 +667,11 @@ export default function CurrencyInputPanel({
   const addTransaction = useTransactionAdder()
 
   let allTokens = useAllTokenDetails()
+  const { account, chainId } = useWeb3React()
+  // console.log(chainId)
   // console.log(allTokens)
-  const { account } = useWeb3React()
+  // console.log(selectedTokenAddress)
+  // console.log(allTokens[selectedTokenAddress])
 
   const userTokenBalance = useAddressBalance(account, selectedTokenAddress)
 

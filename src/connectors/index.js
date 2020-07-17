@@ -6,23 +6,21 @@ import { TorusConnector } from '@web3-react/torus-connector'
 
 import { NetworkConnector } from './Network'
 import { FortmaticConnector } from './Fortmatic'
-
-import {LedgerConnector} from '../utils/wallets/ledger/ledgerConnect'
+import config from '../config'
 
 const POLLING_INTERVAL = 10000
-const NETWORK_URL =
-  process.env.REACT_APP_IS_PRODUCTION_DEPLOY === 'true'
-    ? process.env.REACT_APP_NETWORK_URL_PROD
-    : process.env.REACT_APP_NETWORK_URL
-// console.log(NETWORK_URL)
-// console.log(Number(process.env.REACT_APP_CHAIN_ID))
+// const NETWORK_URL =
+//   process.env.REACT_APP_IS_PRODUCTION_DEPLOY === 'true'
+//     ? process.env.REACT_APP_NETWORK_URL_PROD
+//     : process.env.REACT_APP_NETWORK_URL
+const NETWORK_URL = config.nodeRpc
 export const network = new NetworkConnector({
-  urls: { [Number(process.env.REACT_APP_CHAIN_ID)]: NETWORK_URL },
+  urls: { [Number(config.chainID)]: NETWORK_URL },
   pollingInterval: POLLING_INTERVAL * 3
 })
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [Number(process.env.REACT_APP_CHAIN_ID)]
+  supportedChainIds: [Number(config.chainID)]
 })
 
 // mainnet only
@@ -58,8 +56,4 @@ export const walletlink = new WalletLinkConnector({
   appName: 'Anyswap',
   appLogoUrl:
     'https://mpng.pngfly.com/20181202/bex/kisspng-emoji-domain-unicorn-pin-badges-sticker-unicorn-tumblr-emoji-unicorn-iphoneemoji-5c046729264a77.5671679315437924251569.jpg'
-})
-
-export const ledger = new LedgerConnector({
-  chainId: Number(process.env.REACT_APP_CHAIN_ID), url: NETWORK_URL, pollingInterval: 12000
 })

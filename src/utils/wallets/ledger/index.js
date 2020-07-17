@@ -95,32 +95,7 @@ function toSign (HDPath, rawTx) {
   })
 }
 
-var abstractConnector = require('@web3-react/abstract-connector').AbstractConnector
-// const Context = createContext(123)
-function ledgerConnect () {
-  
-  const test = new abstractConnector({supportedChainIds: 46688})
-  console.log(test)
-  test.emitUpdate({
-    account: 123
-  })
-  // const {count} = useContext(Context)
-  // console.log(useContext)
-  // let _this3 = AbstractConnector.call(this, {})
-  // console.log(LedgerConnect())
-  // const contextNetwork = useWeb3ReactCore(NetworkContextName)
-  // contextNetwork.account = 123
-  // setAccount(123)
-  // AbstractConnector.emitUpdate({
-  //   account: 123
-  // })
-  // return getLedgerAddressArr("m/44'/60'/0'", 0)
-  // return (
-  //   <div>{count}</div>
-  // )
-}
 export {
   getLedgerAddressArr,
-  toSign,
-  ledgerConnect
+  toSign
 }

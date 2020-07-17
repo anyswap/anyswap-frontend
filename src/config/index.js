@@ -1,9 +1,21 @@
 
-const envConfig = 'main'
-// const envConfig = 'test'
+// const envConfig = 'main'
+const envConfig = 'test'
+
+let nodeRpc, chainID
+if (envConfig === 'main') {
+  nodeRpc = 'https://mainnet.anyswap.exchange'
+  chainID = 32659
+} else {
+  nodeRpc = 'https://testnet.fsn.dev/api'
+  chainID = 46688
+}
+
 
 export default {
   env: envConfig,
+  nodeRpc: nodeRpc,
+  chainID: chainID,
   CoinInfo: {
     FSN: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
     mBTC: {url: 'https://testnet.smpcwallet.com/btc2fsn'},

@@ -1,11 +1,9 @@
 import web3Fn from './index'
 import EXCHANGE_ABI from '../../constants/abis/exchange.json'
 import {toSign as toLedgerSign} from '../wallets/ledger/index'
+import config from  '../../config'
 
-const CHAINID =
-  process.env.REACT_APP_IS_PRODUCTION_DEPLOY === 'true'
-    ? process.env.REACT_APP_CHAIN_ID
-    : process.env.REACT_APP_CHAIN_ID
+const CHAINID = config.chainID
 
 export function getWeb3ConTract (ABI, ContractAddress) {
   // console.log(web3Fn)

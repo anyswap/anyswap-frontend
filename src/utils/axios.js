@@ -1,10 +1,5 @@
 import axios from 'axios'
-import { resolve } from 'path'
-
-const NETWORK_URL =
-  process.env.REACT_APP_IS_PRODUCTION_DEPLOY === 'true'
-    ? process.env.REACT_APP_NETWORK_URL_PROD
-    : process.env.REACT_APP_NETWORK_URL
+import config from '../config'
 
 export const GetServerInfo = (url) => {
   return new Promise(resolve => {
@@ -170,7 +165,7 @@ export const GetBTCtxnsAll = (url, address, coin, dec) => {
 
 export const getAxiosData = (method, params) => {
   return new Promise(resolve => {
-    axios.post(NETWORK_URL, {
+    axios.post(config.nodeRpc, {
       id:0,
       jsonrpc:"2.0",
       method:method,

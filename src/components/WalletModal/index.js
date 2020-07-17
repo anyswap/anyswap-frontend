@@ -24,7 +24,7 @@ import {getLedgerAddressArr} from '../../utils/wallets/ledger'
 import { darken } from 'polished'
 import { transparentize } from 'polished'
 
-import {LedgerConnector} from '../../utils/wallets/ledger/ledgerConnect'
+import LedgerConnector from '../../utils/wallets/ledger/ledgerConnect'
 import MintIcon from '../../assets/images/icon/mint.svg'
 import NextkIcon from '../../assets/images/icon/Next.svg'
 import PreviouskIcon from '../../assets/images/icon/Previous.svg'
@@ -661,7 +661,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
             {error instanceof UnsupportedChainIdError ? (
               <h5>
                 {
-                  config.dev === 'main' ? t('WrongNetworkMainTip') : t('WrongNetworkTestTip')
+                  config.env === 'main' ? t('WrongNetworkMainTip') : t('WrongNetworkTestTip')
                 }
               </h5>
             ) : (

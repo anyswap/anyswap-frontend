@@ -237,25 +237,18 @@ const TokenNameBox  = styled.div`
 font-family: 'Manrope';
   h3 {
     margin:0;
-    
     font-size: 1rem;
     font-weight: 800;
-    
-    
     line-height: 1.25;
-    
     color: #031a6e;
     white-space:nowrap;
   }
   p {
     margin: 0.125rem 0 0;
-    
     font-size: 0.75rem;
     font-weight: normal;
-    
-    
+    white-space:nowrap;
     line-height: 1;
-    
     color: #031a6e;
   }
 `
@@ -835,7 +828,7 @@ export default function DashboardDtil () {
                                 <p>{account ? FSNPool.percent + ' %' : '- %'}</p>
                               ) : (
                                 <p>{
-                                  item.percent ? amountFormatter(item.percent, 16, 2) : '-'
+                                  item.percent && account ? amountFormatter(item.percent, 16, 2) : '-'
                                   } %</p>
                               )
                             }
@@ -862,7 +855,7 @@ export default function DashboardDtil () {
 
   function getUSDPrice(val, coin) {
     // FSN_PRICE
-    if (!FSN_PRICE) return '-'
+    if (!FSN_PRICE || !account) return '-'
     let _marketRate = poolInfoObj[coin].marketRate ? amountFormatter(poolInfoObj[coin].marketRate, 18, 16) : ''
     let _usd = '-'
     if (coin === 'FSN') {
@@ -946,7 +939,7 @@ export default function DashboardDtil () {
                     </TokenBalanceBox>
                     <TokenBalanceBox>
                       <h3>{t('balances')}</h3>
-                      <p>{item.balance}</p>
+                      <p>{account ? item.balance : '-'}</p>
                     </TokenBalanceBox>
                     <TokenActionBox>
                       {

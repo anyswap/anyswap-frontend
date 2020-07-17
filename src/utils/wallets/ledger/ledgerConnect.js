@@ -1,5 +1,6 @@
 
 
+import config from '../../../config'
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var abstractConnector = require('@web3-react/abstract-connector');
@@ -15,10 +16,6 @@ function _inheritsLoose(subClass, superClass) {
   subClass.__proto__ = superClass;
 }
 const POLLING_INTERVAL = 10000
-const NETWORK_URL =
-  process.env.REACT_APP_IS_PRODUCTION_DEPLOY === 'true'
-    ? process.env.REACT_APP_NETWORK_URL_PROD
-    : process.env.REACT_APP_NETWORK_URL
     
 var LedgerConnector = /*#__PURE__*/function (_AbstractConnector) {
   _inheritsLoose(LedgerConnector, _AbstractConnector);
@@ -26,8 +23,8 @@ var LedgerConnector = /*#__PURE__*/function (_AbstractConnector) {
   function LedgerConnector(_ref) {
     var _this;
 
-    var chainId = 46688,
-        url = NETWORK_URL,
+    var chainId = Number(config.chainID),
+        url = config.nodeRpc,
         pageSize = _ref.pageSize,
         pollingInterval = POLLING_INTERVAL,
         requestTimeoutMs = _ref.requestTimeoutMs,
@@ -120,5 +117,4 @@ var LedgerConnector = /*#__PURE__*/function (_AbstractConnector) {
   return LedgerConnector;
 }(abstractConnector.AbstractConnector);
 
-exports.LedgerConnector = LedgerConnector;
-//# sourceMappingURL=ledger-connector.cjs.development.js.map
+export default LedgerConnector
