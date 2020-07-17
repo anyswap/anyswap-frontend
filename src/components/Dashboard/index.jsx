@@ -255,8 +255,8 @@ font-family: 'Manrope';
 
 const TokenBalanceBox  = styled.div`
 font-family: 'Manrope';
-  min-width: 120px
-  // width:30%;
+  // min-width: 120px
+  width:30%;
   text-align:left;
   h3 {
     padding-left: 17.97%;
@@ -296,8 +296,9 @@ font-family: 'Manrope';
 
 const TokenActionBox  = styled.div`
 ${({theme}) => theme.FlexC};
-  width: 40%;
-  padding: 0 1.25rem;
+  width: 30%;
+  min-width: 118px;
+  padding: 0rem;
 `
 const TokenActionBtn  = styled(NavLink)`
 ${({theme}) => theme.FlexC};
@@ -369,11 +370,12 @@ margin-right: 0.625rem;
 
 const ComineSoon = styled.div`
 ${({theme}) => theme.FlexC}
+width: 100px;
 font-family: 'Manrope';
   font-size: 0.75rem;
   color: #96989e;
   height: 30px;
-  padding: 0 10px;
+  padding: 0 8px;
   border-radius: 6px;
   background-color: #f5f5f5;
 `

@@ -1,6 +1,6 @@
 
-// const envConfig = 'main'
-const envConfig = 'test'
+const envConfig = 'main'
+// const envConfig = 'test'
 
 let nodeRpc, chainID
 if (envConfig === 'main') {
