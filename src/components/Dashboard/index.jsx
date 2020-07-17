@@ -380,11 +380,7 @@ font-family: 'Manrope';
   background-color: #f5f5f5;
 `
 
-let FSN_PRICE = ''
-getPrice().then(res => {
-  // console.log(res)
-  FSN_PRICE = res
-})
+
 
 function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
   try {
@@ -442,6 +438,12 @@ function thousandBit (num, dec = 2) {
   return num
 }
 
+// let fsnPrice = ''
+// getPrice().then(res => {
+//   // console.log(res)
+//   fsnPrice = res
+// })
+
 export default function DashboardDtil () {
   const { account, library } = useWeb3React()
   const allBalances = useAllBalances()
@@ -475,6 +477,16 @@ export default function DashboardDtil () {
   const [searchBalance, setSearchBalance] =  useState('')
   const [searchPool, setSearchPool] =  useState('')
   const [showMore, setShowMore] =  useState(false)
+
+  const [fsnPrice, setFsnPrice] = useState('')
+  useEffect(() => {
+    getPrice().then(res => {
+      // console.log(res)
+      // fsnPrice = res
+      setFsnPrice(res)
+    })
+  }, [])
+
 
 
   // console.log(allCoins)
@@ -856,13 +868,13 @@ export default function DashboardDtil () {
   }
 
   function getUSDPrice(val, coin) {
-    // FSN_PRICE
-    if (!FSN_PRICE || !account) return '-'
+    // fsnPrice
+    if (!fsnPrice || !account) return '-'
     let _marketRate = poolInfoObj[coin].marketRate ? amountFormatter(poolInfoObj[coin].marketRate, 18, 16) : ''
     let _usd = '-'
     if (coin === 'FSN') {
-      // _usd = (Number(val) * FSN_PRICE).toFixed(3)
-      _usd = FSN_PRICE
+      // _usd = (Number(val) * fsnPrice).toFixed(3)
+      _usd = fsnPrice
       if (_usd > 1) {
         _usd = _usd.toFixed(2)
       } else {
@@ -871,8 +883,8 @@ export default function DashboardDtil () {
     } else if (_marketRate === '<0.000001') {
       _usd = '<0.001'
     } else if (_marketRate) {
-      // _usd = ((Number(val) / Number(_marketRate)) * FSN_PRICE).toFixed(3)
-      _usd = FSN_PRICE / Number(_marketRate)
+      // _usd = ((Number(val) / Number(_marketRate)) * fsnPrice).toFixed(3)
+      _usd = fsnPrice / Number(_marketRate)
       // console.log(coin)
       // console.log(_usd)
       if (_usd > 1) { 
