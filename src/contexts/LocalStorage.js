@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect } from 'react'
-
+import config from '../config'
 const UNISWAP = 'UNISWAP'
 
 const VERSION = 'VERSION'
@@ -46,9 +46,13 @@ function reducer(state, { type, payload }) {
 }
 
 function init() {
+  let INIT_BETA_MESSAGE_DISMISSED = false
+  if (config.env !== 'main') {
+    INIT_BETA_MESSAGE_DISMISSED = true
+  }
   const defaultLocalStorage = {
     [VERSION]: CURRENT_VERSION,
-    [BETA_MESSAGE_DISMISSED]: false,
+    [BETA_MESSAGE_DISMISSED]: INIT_BETA_MESSAGE_DISMISSED,
     [GENERAL_DAI__MESSAGE_DISMISSED]: false,
     [SAI_HOLDER__MESSAGE_DISMISSED]: false,
     [DARK_MODE]: true
