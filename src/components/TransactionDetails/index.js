@@ -271,7 +271,9 @@ font-family: 'Manrope';
   font-style: normal;
   line-height: 1.17;
   letter-spacing: normal;
+  white-space:nowrap;
   color: #062536;
+  margin: 0 5px;
 `
 
 const LastSummaryText = styled.div`
@@ -344,7 +346,8 @@ font-family: 'Manrope';
 `
 
 const ValueWrapper = styled.span`
-font-family: 'Manrope';
+${({ theme }) => theme.FlexC};
+  font-family: 'Manrope';
   padding: 0.125rem 0.3rem 0.1rem 0.3rem;
   background-color: ${({ theme }) => darken(0.04, theme.concreteGray)};
   border-radius: 0.75rem;
