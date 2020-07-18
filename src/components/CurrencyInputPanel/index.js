@@ -1008,7 +1008,8 @@ export default function CurrencyInputPanel({
             <SubCurrencySelectBox>
               <div>
                 <img src={Warning} alt={''}/>
-                <p>You need to unlock {allTokens[selectedTokenAddress].symbol} to continue</p>
+                {/* <p>You need to unlock {allTokens[selectedTokenAddress].symbol} to continue</p> */}
+                <p>{t('unlockTip1')} {allTokens[selectedTokenAddress].symbol} {t('unlockTip2')}</p>
               </div>
                 {renderUnlockButton('otherView')}
             </SubCurrencySelectBox>

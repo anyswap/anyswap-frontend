@@ -157,5 +157,7 @@
   "tryAgain": "Try Again",
   "back": "Back",
   "addCustomPath": "Please add the custom path",
-  "price": "Price"
+  "price": "Price",
+  "unlockTip1":"You need to unlock",
+  "unlockTip2":"to continue"
 }
