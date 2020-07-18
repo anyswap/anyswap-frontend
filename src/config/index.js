@@ -1,5 +1,5 @@
 
-const envConfig = 'main'
+const envConfig = 'test'
 // const envConfig = 'test'
 
 let nodeRpc, chainID
@@ -29,5 +29,5 @@ export default {
   testUrl: 'https://test.anyswap.exchange',
   mainUrl: 'https://anyswap.exchange',
   initToken: envConfig === 'main' ? 'ANY' : '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4',
-  initBridge: envConfig === 'main' ? 'mBTC' : '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947',
+  initBridge: envConfig === 'main' ? 'mBTC' : '0xeaeaeb2cf9921a084ef528f43e9e121e8291a947'
 }

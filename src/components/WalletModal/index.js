@@ -486,7 +486,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
       address: addressObj.list[index].addr,
       pageSize: pageSize * 5 + index + 1
     }
-    console.log(params)
+    // console.log(params)
     let ledgerConnector = new LedgerConnector(params)
     tryActivation(ledgerConnector)
     sessionStorage.setItem('walletType', walletType)
@@ -715,7 +715,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
                   <SelfText>{t('addCustomPath')}</SelfText>
                   <SelfInputBox>
                     <SelfInput value={selfHDPathVal} onChange={e => {
-                      console.log(e.target.value)
+                      // console.log(e.target.value)
                       setSelfHDPathVal(e.target.value)
                     }}></SelfInput>
                     <SelfButton size={'100px'} onClick={e => {getHardwareAccount()}}><img src={DoneIcon} style={{marginRight: '0.625rem'}} alt={''} />{t('done')}</SelfButton>

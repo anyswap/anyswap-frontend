@@ -68,12 +68,12 @@ export default function WarningTip () {
     <>
       {/* {showBetaMessage  && ( */}
       {showBetaMessage && config.env === 'main' ? (
-        <BetaMessage onClick={dismissBetaMessage}>
+        <BetaMessage>
           <span role="img" aria-label="warning">
             💀
           </span>{' '}
           {t('betaWarning')}
-          <div className='confirm'>{t('agree')}</div>
+          <div className='confirm' onClick={dismissBetaMessage}>{t('agree')}</div>
         </BetaMessage>
       ) : ''}
     </>

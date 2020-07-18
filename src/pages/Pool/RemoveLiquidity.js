@@ -491,7 +491,7 @@ export default function RemoveLiquidity({ params }) {
 
       let data = web3Contract.removeLiquidity.getData(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline)
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
           setIsHardwareTip(false)

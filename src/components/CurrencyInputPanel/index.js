@@ -702,7 +702,7 @@ export default function CurrencyInputPanel({
                   gasLimit: GAS_MARGIN.toString()
                 })
                 getWeb3BaseInfo(selectedTokenAddress, selectedTokenExchangeAddress, data, account).then(res => {
-                  console.log(res)
+                  // console.log(res)
                   if (res.msg === 'Success') {
                     addTransaction(res.info, { approval: selectedTokenAddress })
                     setIsHardwareTip(false)

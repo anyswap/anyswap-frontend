@@ -632,7 +632,7 @@ export default function AddLiquidity({ params }) {
         isNewExchange ? outputValueParsed.toHexString() : outputValueMax.toHexString(),
         deadline)
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account, inputValueParsed.toHexString()).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
           setIsHardwareTip(false)

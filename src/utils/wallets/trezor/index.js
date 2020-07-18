@@ -34,7 +34,7 @@ function getAddressArr (HDPath, page) {
       oldHDPath = HDPath
       TrezorConnect.getPublicKey({ path: HDPath }).then(res => {
       // TrezorConnect.nemGetAddress({ path: HDPath }).then(res => {
-        console.log(res)
+        // console.log(res)
         let addressArr = []
         if (res.success) {
           getAddrRes = res
@@ -79,7 +79,7 @@ function toSign (HDPath, rawTx) {
         // check the returned signature_v and recalc signature_v if it needed
         // see also https://github.com/trezor/trezor-mcu/pull/399
         if (v <= 1) {
-          console.log(v)
+          // console.log(v)
           // for larger chainId, only signature_v returned. simply recalc signature_v
           v += 2 * rawTx.chainId + 35
         }
@@ -89,7 +89,7 @@ function toSign (HDPath, rawTx) {
         var eTx = new Tx(rawTx)
         rawTx.signedTx = sanitizeHex(eTx.serialize().toString("hex"))
         rawTx.isError = false
-        console.log(rawTx)
+        // console.log(rawTx)
         data = { msg: 'Success', info: rawTx}
       }
       resolve(data)

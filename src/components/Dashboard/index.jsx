@@ -370,7 +370,7 @@ margin-right: 0.625rem;
 
 const ComineSoon = styled.div`
 ${({theme}) => theme.FlexC}
-width: 100px;
+width: 118px;
 font-family: 'Manrope';
   font-size: 0.75rem;
   color: #96989e;
@@ -378,6 +378,7 @@ font-family: 'Manrope';
   padding: 0 8px;
   border-radius: 6px;
   background-color: #f5f5f5;
+  white-space: nowrap;
 `
 
 

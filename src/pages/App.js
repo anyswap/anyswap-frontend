@@ -137,7 +137,7 @@ export default function App() {
                           strict
                           path="/swap/:tokenAddress?"
                           render={({ match, location }) => {
-                            console.log(match.params.tokenAddress)
+                            // console.log(match.params.tokenAddress)
                             if (isAddress(match.params.tokenAddress)) {
                               return (
                                 <Swap

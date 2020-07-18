@@ -172,7 +172,7 @@ function CreateExchange({ location, params }) {
       let web3Contract = getWeb3ConTract(factory_abi, FACTORY_ADDRESSES[chainId])
       let data = web3Contract.createExchange.getData(tokenAddress.address)
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
           // ReactGA.event({

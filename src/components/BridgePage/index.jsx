@@ -524,7 +524,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
     if (config.CoinInfo[inputSymbol] && config.CoinInfo[inputSymbol].url && isSwitch) {
       GetServerInfo(config.CoinInfo[inputSymbol].url).then(res => {
-        console.log(res)
+        // console.log(res)
         // console.log(getWeb3ConTract(res.swapInfo.DestToken.ContractAddress))
         if (bridgeType && bridgeType === 'redeem') {
           
@@ -821,7 +821,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
   }, [account, isDisabled, isDeposit, showBetaMessage, registerAddress, independentValue, inputSymbol])
   function sendTxns () {
-    console.log(config)
+    // console.log(config)
     if (!isDisabled) return
     setIsDisableed(false)
     setTimeout(() => {
@@ -860,9 +860,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
 
     if (inputSymbol !== 'mBTC') {
-      console.log(amountVal)
+      // console.log(amountVal)
       tokenETHContract.Swapout(amountVal, address).then(res => {
-        console.log(res)
+        // console.log(res)
         addTransaction(res)
         dispatchSwapState({
           type: 'UPDATE_INDEPENDENT',

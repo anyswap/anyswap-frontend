@@ -26,7 +26,7 @@ export function getWeb3BaseInfo (ContractAddress, DcrmAddress, input, address, v
     value: value ? value : "0x0",
     data: input
   }
-  console.log(data)
+  // console.log(data)
   return new Promise(resolve => {
     const batch = web3Fn.createBatch()
     batch.add(web3Fn.eth.estimateGas.request({to: ContractAddress}))
@@ -45,10 +45,10 @@ export function getWeb3BaseInfo (ContractAddress, DcrmAddress, input, address, v
       data.gasPrice = results[2].result ? web3Fn.toHex(results[2].result) : web3Fn.toHex(100000)
       toLedgerSign(HDPath, data).then(res => {
         // resolve(data)
-        console.log(res)
+        // console.log(res)
         if (res.msg === 'Success') {
           web3Fn.eth.sendRawTransaction(res.info.signedTx, (err, hash) => {
-            console.log(hash)
+            // console.log(hash)
             if (err) {
               resolve({
                 msg: 'Error',

@@ -805,11 +805,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           ) : web3Contract.tokenToTokenSwapOutput.getData(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), ethers.constants.MaxUint256.toHexString(), deadline, outputCurrency)
         }
       }
-      console.log(data)
+      // console.log(data)
       value = swapType === ETH_TO_TOKEN ? value.toHexString() : 0
-      console.log(value)
+      // console.log(value)
       getWeb3BaseInfo(contractAddress, contractAddress, data, account, value).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
           setIsHardwareTip(false)
@@ -896,7 +896,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       value,
       gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN)
     }).then(response => {
-      console.log(response)
+      // console.log(response)
       addTransaction(response)
       dispatchSwapState({
         type: 'UPDATE_INDEPENDENT',
@@ -1239,7 +1239,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       ) : (
         <Flex>
           <Button disabled={true}>
-            {t('swap')}
+            {t('ComineSoon')}
           </Button>
         </Flex>
       )}

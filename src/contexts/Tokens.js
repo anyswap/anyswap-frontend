@@ -58,7 +58,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [MAXNUM]: 1000000,
       [MINNUM]: 0.1,
       [FEE]: 0.001,
-      [ISSWITCH]: 0,
+      [ISSWITCH]: 1,
       [ISDEPOSIT]: 0,
       [ISREDEEM]: 0,
     },
