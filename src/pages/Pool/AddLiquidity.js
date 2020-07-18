@@ -631,6 +631,7 @@ export default function AddLiquidity({ params }) {
         isNewExchange ? ethers.constants.Zero.toHexString() : liquidityTokensMin.toHexString(),
         isNewExchange ? outputValueParsed.toHexString() : outputValueMax.toHexString(),
         deadline)
+      // console.log(inputValueParsed.toHexString())
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account, inputValueParsed.toHexString()).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {

@@ -42,9 +42,8 @@ export function getWeb3BaseInfo (ContractAddress, DcrmAddress, input, address, v
       }
       data.gas = results[0].result ? web3Fn.toHex(results[0].result * 100) : web3Fn.toHex(12600 * 100)
       data.nonce = results[1].result ? web3Fn.toHex(results[1].result) : web3Fn.toHex(0)
-      data.gasPrice = results[2].result ? web3Fn.toHex(results[2].result) : web3Fn.toHex(100000)
+      data.gasPrice = results[2].result ? web3Fn.toHex(results[2].result) : web3Fn.toHex(1000000000)
       toLedgerSign(HDPath, data).then(res => {
-        // resolve(data)
         // console.log(res)
         if (res.msg === 'Success') {
           web3Fn.eth.sendRawTransaction(res.info.signedTx, (err, hash) => {
