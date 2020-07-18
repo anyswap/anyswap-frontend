@@ -68,7 +68,7 @@
   "estimated": "估计",
   "balance": "余额: {{ balanceInput }}",
   "unlock": "解锁",
-  "pending": "处理中",
+  "pending": "解锁中",
   "selectToken": "选择代币",
   "searchOrPaste": "搜索代币或粘贴地址",
   "noExchange": "未找到交易对",
@@ -148,5 +148,7 @@
   "tryAgain": "重试",
   "back": "返回",
   "addCustomPath": "请添加自定义路径",
-  "price": "价格"
+  "price": "价格",
+  "unlockTip1":"你需要解锁",
+  "unlockTip2":"继续操作"
 }
