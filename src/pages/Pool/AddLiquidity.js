@@ -1010,7 +1010,7 @@ export default function AddLiquidity({ params }) {
               </>
             ) : (
               <>
-                <Button onClick={toggleWalletModal}>
+                <Button disabled={showBetaMessage} onClick={toggleWalletModal}>
                   {t('connectToWallet')}
                 </Button>
               </>

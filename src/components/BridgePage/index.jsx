@@ -784,8 +784,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   // !account && !error && isDisabled && !isDeposit && showBetaMessage ? false : !independentValue || !recipient.address || !showBetaMessage
   useEffect(() => {
     if (
-      account 
-      && !error
+      !error
       && isDisabled 
       && isRedeem 
       && !showBetaMessage 
@@ -806,8 +805,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol])
   useEffect(() => {
       if (
-        account 
-        && isDisabled 
+        isDisabled 
         && isDeposit 
         && !showBetaMessage 
         && independentValue
@@ -1148,15 +1146,21 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         )
       }
       <WarningTip></WarningTip>
+      {/* {!account ? (
+        <Flex>
+          <Button onClick={toggleWalletModal} >
+            {t('connectToWallet')}
+          </Button>
+        </Flex>
+      ) : ''
+      } */}
       {isSwitch ? (
         <>
           <Flex>
             {bridgeType && bridgeType === 'redeem' ? (
-              <>
+              account ? (<>
                 <Button
-                  disabled={
-                    isRedeemBtn
-                  }
+                  disabled={ isRedeemBtn }
                   onClick={account && !error ? sendTxns : toggleWalletModal}
                   warning={Number(inputBalanceFormatted) < Number(independentValue)}
                   loggedOut={!account}
@@ -1172,9 +1176,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       </>
                       )}
                 </Button>
-              </>
+              </>) : (
+                <Button disabled={showBetaMessage} onClick={toggleWalletModal} >
+                  {t('connectToWallet')}
+                </Button>
+              )
             ) : (
-              <>
+              account ? (<>
                 <Button
                   disabled={isMintBtn}
                   onClick={account && !error ? MintModelView : toggleWalletModal}
@@ -1191,7 +1199,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       )
                     }
                 </Button>
-              </>
+              </>) : (
+                <Button disabled={showBetaMessage} onClick={toggleWalletModal} >
+                  {t('connectToWallet')}
+                </Button>
+              )
             )}
           </Flex>
         </>

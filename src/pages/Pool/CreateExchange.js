@@ -282,7 +282,7 @@ function CreateExchange({ location, params }) {
             </>
           ) : (
             <>
-              <Button onClick={toggleWalletModal}>
+              <Button disabled={showBetaMessage} onClick={toggleWalletModal}>
                 {t('connectToWallet')}
               </Button>
             </>

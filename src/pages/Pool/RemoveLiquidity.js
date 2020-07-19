@@ -800,7 +800,7 @@ export default function RemoveLiquidity({ params }) {
               </>
             ) : (
               <>
-                <Button onClick={toggleWalletModal}>
+                <Button disabled={showBetaMessage} onClick={toggleWalletModal}>
                   {t('connectToWallet')}
                 </Button>
               </>

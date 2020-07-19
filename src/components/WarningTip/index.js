@@ -67,7 +67,7 @@ export default function WarningTip () {
   return (
     <>
       {/* {showBetaMessage  && ( */}
-      {showBetaMessage && config.env === 'main' ? (
+      {showBetaMessage ? (
         <BetaMessage>
           <span role="img" aria-label="warning">
             💀
