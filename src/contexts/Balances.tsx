@@ -251,6 +251,9 @@ export function Updater() {
               fetchBalance(address, tokenAddress).then(value => {
                 update(chainId, address, tokenAddress, value, blockNumber)
               })
+              fetchBalance(address, 'FSN').then(value => {
+                update(chainId, address, 'FSN', value, blockNumber)
+              })
               // ...and cache the fetch
               fetchedAsOfCache.current = {
                 ...fetchedAsOfCache.current,
