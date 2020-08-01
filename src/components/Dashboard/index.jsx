@@ -16,6 +16,8 @@ import { TitleBox, BorderlessInput } from '../../theme'
 import SearchIcon from '../../assets/images/icon/search.svg'
 import { NavLink } from 'react-router-dom'
 
+import { useDarkModeManager } from '../../contexts/LocalStorage'
+
 import GraphUpIcon from '../../assets/images/icon/graph-up.svg'
 import AnyillustrationIcon from '../../assets/images/icon/any-illustration.svg'
 
@@ -23,7 +25,14 @@ import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 
-import {getPrice} from '../../utils/axios'
+import {getPrice, getRewards} from '../../utils/axios'
+
+import IconLiquidityRewards from '../../assets/images/icn-liquidity-rewards.svg'
+import IconLiquidityRewardsBlack from '../../assets/images/icn-liquidity-rewards-black.svg'
+import IconSwapRewards from '../../assets/images/icn-swap-rewards.svg'
+import IconSwapRewardsBlack from '../../assets/images/icn-swap-rewards-black.svg'
+import IconTotalRewards from '../../assets/images/icn-total-rewards.svg'
+import IconTotalRewardsBlack from '../../assets/images/icn-total-rewards-black.svg'
 
 const MyBalanceBox = styled.div`
   width: 100%;
@@ -108,14 +117,13 @@ const EarningsBox = styled.div`
   border-radius: 0.5625rem;
   box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
   background-color: #ffffff;
-  padding:1.25rem;
+  padding:1rem;
   font-family: 'Manrope';
   .bgImg {
     width: 149px;
     height: 148px;
-    margin: 0 auto 1.875rem;
-    padding-bottom:1.875rem;
-    border-bottom: 0.0625rem solid #ededed;
+    margin: 0 auto 0rem;
+    // padding-bottom:1.875rem;
   }
   h3 {
     font-size: 1.625rem;
@@ -381,7 +389,61 @@ font-family: 'Manrope';
   white-space: nowrap;
 `
 
+const RewardsBox = styled.div`
+  width:100%;
+  height:100%;
+  li {
+    ${({theme}) => theme.FlexBC}
+    width: 100%;
+    list-style:none;
+    height: 66px;
+    border-bottom: 1px solid #ededed;
 
+    .left {
+      ${({theme}) => theme.FlexSC};
+      .icon {
+        width: 36px;
+        height: 36px;
+        img {
+          width: 100%;
+        }
+      }
+      .name {
+        font-size: 12px;
+        line-height: 1.17;
+        color: #062536;
+        // word-break: break-all;
+        margin:0 0 0 14px;
+      }
+    }
+    .value {
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.67;
+      text-align: right;
+      color: #062536;
+    }
+    &:last-child {
+      border-bottom:none;
+      .left {
+        .name {
+          color: #734be2;
+        }
+      }
+      .value {
+        color: #734be2;
+      }
+    }
+  }
+  .tip {
+    width: 100%;
+    height: 100px;
+    ${({theme}) => theme.FlexC};
+    color:#999;
+  }
+`
+
+let intervalTime = 0
 
 function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
   try {
@@ -450,6 +512,7 @@ export default function DashboardDtil () {
   const allBalances = useAllBalances()
   const allTokens = useAllTokenDetails()
   const { t } = useTranslation()
+  const [darkMode] = useDarkModeManager()
 
   // console.log(allTokens)
   let allCoins = {}
@@ -478,6 +541,7 @@ export default function DashboardDtil () {
   const [searchBalance, setSearchBalance] =  useState('')
   const [searchPool, setSearchPool] =  useState('')
   const [showMore, setShowMore] =  useState(false)
+  const [accountRewars, setAccountRewars] = useState([])
 
   const [fsnPrice, setFsnPrice] = useState('')
   useEffect(() => {
@@ -487,6 +551,41 @@ export default function DashboardDtil () {
       setFsnPrice(res)
     })
   }, [])
+
+  useEffect(() => {
+    if (!intervalTime && Date.now() -intervalTime > 1000 * 60 ) {
+      getRewards(account).then(res => {
+        // console.log(res)
+        let arr = []
+        if (res.msg === 'Success') {
+          arr = [
+            {
+              icon: IconSwapRewards,
+              iconDark: IconSwapRewardsBlack,
+              value: res.latest.vr ? res.latest.vr : 0,
+              name: t('swap')
+            },
+            {
+              icon: IconLiquidityRewards,
+              iconDark: IconLiquidityRewardsBlack,
+              value: res.latest.lr ? res.latest.lr : 0,
+              name: t('lr')
+            },
+            {
+              icon: IconTotalRewards,
+              iconDark: IconTotalRewardsBlack,
+              value: res.totalReward.ar ? res.totalReward.ar : 0,
+              name: t('total')
+            },
+          ]
+        } else {
+          arr = []
+        }
+        setAccountRewars(arr)
+        intervalTime = Date.now()
+      })
+    }
+  }, [account])
 
 
 
@@ -1012,13 +1111,46 @@ export default function DashboardDtil () {
       <WrapperBox>
         <EarningsBox>
           <div className='bgImg'><img src={AnyillustrationIcon} alt={''} /></div>
+          <RewardsBox>
+            {accountRewars.length > 0 ? (
+              <>
+                {accountRewars.map((item, index)  => {
+                  return (
+                    <li key={index}>
+                      <div className='left'>
+                        <div className='icon'>
+                          {darkMode ? (
+                            <img src={item.iconDark} />
+                          ) : (
+                            <img src={item.icon} />
+                          )}
+                        </div>
+                        <div className='name'>
+                          {item.name}
+                          <br />{t('rewards')}
+                        </div>
+                      </div>
+                      <div className='value'>
+                        {item.value ? item.value.toFixed(5) : '0.00000'} ANY
+                      </div>
+                    </li>
+                  )
+                })}
+              </>
+            ) : (
+              <p className='tip'>
+                {t('noRewards')}
+              </p>
+            )}
+          </RewardsBox>
+          {/* <div className='bgImg'><img src={AnyillustrationIcon} alt={''} /></div>
           <h3>{account ? '0.00' : '0.00'} ANY</h3>
           <p>{t('Accumulated')}</p>
           <div className='txt'>
             <img src={GraphUpIcon} alt={''} />
             <span>{account ? '0.00' : '0.00'}% </span>
             {t('last7Day')}
-          </div>
+          </div> */}
         </EarningsBox>
         <ProvideLiqBox>
         <TitleAndSearchBox>

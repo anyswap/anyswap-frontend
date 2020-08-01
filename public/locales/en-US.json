@@ -159,5 +159,9 @@
   "addCustomPath": "Please add the custom path",
   "price": "Price",
   "unlockTip1":"You need to unlock",
-  "unlockTip2":"to continue"
+  "unlockTip2":"to continue",
+  "total": "Total",
+  "lr": "Liquidity",
+  "rewards": "Rewards",
+  "noRewards":"No profit"
 }

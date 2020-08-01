@@ -158,5 +158,9 @@
   "addCustomPath": "请添加自定义路径",
   "price": "价格",
   "unlockTip1":"你需要解锁",
-  "unlockTip2":"继续操作"
+  "unlockTip2":"继续操作",
+  "total": "总",
+  "lr": "流动性",
+  "rewards": "奖励",
+  "noRewards":"暂无收益"
 }

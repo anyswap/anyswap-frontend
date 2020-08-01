@@ -78,8 +78,8 @@ module.exports = function(proxy, allowedHost) {
       ignored: ignoredFiles(paths.appSrc),
     },
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
-    // https: protocol === 'https',
-    https: true,
+    https: protocol === 'https',
+    // https: true,
     host,
     overlay: false,
     historyApiFallback: {

@@ -181,63 +181,95 @@ export const getAxiosData = (method, params) => {
 }
 
 const FSN_PRICE = 'FSN_PRICE'
-function getFSNprics () {
-  let url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=fsn&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+
+function getApiUrlData (url, token) {
   return new Promise(resolve => {
     axios.get(url).then(res => {
       // console.log(res)
-      if (res && res.data && res.data.length > 0) {
-        let price = res.data[0].current_price
-        localStorage.setItem(FSN_PRICE, JSON.stringify({
+      if (res && res.data && res.status === 200) {
+        // let price = res.data[0].current_price
+        localStorage.setItem(token, JSON.stringify({
           timestamp: Date.now(),
-          price: price
+          data: res.data
         }))
         resolve({
           msg: 'Success',
-          price: price
+          data: res.data
         })
       } else {
-        localStorage.setItem(FSN_PRICE, '')
+        localStorage.setItem(token, '')
         resolve({
           msg: 'Error',
-          price: ''
+          data: ''
         })
       }
     }).catch(err => {
       console.log(err)
-      localStorage.setItem(FSN_PRICE, '')
+      localStorage.setItem(token, '')
       resolve({
         msg: 'Error',
-        price: ''
+        data: ''
       })
     })
   })
 }
-export const getPrice = () => {
-  let localFSNPrice = localStorage.getItem(FSN_PRICE)
+
+function getApiData (url, token, intarval) {
+  let localData = localStorage.getItem(token)
   // console.log(localFSNPrice)
   return new Promise(resolve => {
-    if (localFSNPrice) {
-      let localObj = JSON.parse(localFSNPrice)
-      if (Date.now() - Number(localObj.timestamp) > (1000 * 60 * 60) || !localObj.price) {
-        getFSNprics().then(res => {
+    if (localData) {
+      let localObj = JSON.parse(localData)
+      if (Date.now() - Number(localObj.timestamp) > intarval || !localObj.data) {
+        getApiUrlData(url, token).then(res => {
+          // console.log(res)
           if (res.msg === 'Success') {
-            resolve(res.price)
+            resolve(res.data)
           } else {
             resolve('')
           }
         })
       } else {
-        resolve(localObj.price)
+        resolve(localObj.data)
       }
     } else {
-      getFSNprics().then(res => {
+      getApiUrlData(url, token).then(res => {
+        // console.log(res)
         if (res.msg === 'Success') {
-          resolve(res.price)
+          resolve(res.data)
         } else {
           resolve('')
         }
       })
     }
+  })
+}
+export const getPrice = () => {
+  return new Promise(resolve => {
+    let url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=fsn&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+    getApiData(url, FSN_PRICE, 1000 * 60 * 60).then(res => {
+      // console.log(res)
+      if (res && res.length > 0) {
+        let price = res[0].current_price
+        resolve(price)
+      } else {
+        resolve('')
+      }
+    })
+  })
+}
+
+export const getRewards = (address) => {
+  return new Promise(resolve => {
+    let url = `https://rewardapi.anyswap.exchange/accounts/getRewards/${address}`
+    getApiData(url, 'REWARDS', 60 * 60).then(res => {
+      // console.log(res)
+      if (res && res.msg === 'Success') {
+        // let price = res.data[0].current_price
+        resolve(res)
+      } else {
+        resolve('')
+      }
+    })
   })
 }
