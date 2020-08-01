@@ -443,7 +443,6 @@ const RewardsBox = styled.div`
   }
 `
 
-let intervalTime = 0
 
 function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
   try {
@@ -553,38 +552,35 @@ export default function DashboardDtil () {
   }, [])
 
   useEffect(() => {
-    if (!intervalTime && Date.now() -intervalTime > 1000 * 60 ) {
-      getRewards(account).then(res => {
-        // console.log(res)
-        let arr = []
-        if (res.msg === 'Success') {
-          arr = [
-            {
-              icon: IconSwapRewards,
-              iconDark: IconSwapRewardsBlack,
-              value: res.latest.vr ? res.latest.vr : 0,
-              name: t('swap')
-            },
-            {
-              icon: IconLiquidityRewards,
-              iconDark: IconLiquidityRewardsBlack,
-              value: res.latest.lr ? res.latest.lr : 0,
-              name: t('lr')
-            },
-            {
-              icon: IconTotalRewards,
-              iconDark: IconTotalRewardsBlack,
-              value: res.totalReward.ar ? res.totalReward.ar : 0,
-              name: t('total')
-            },
-          ]
-        } else {
-          arr = []
-        }
-        setAccountRewars(arr)
-        intervalTime = Date.now()
-      })
-    }
+    getRewards(account).then(res => {
+      console.log(res)
+      let arr = []
+      if (res.msg === 'Success') {
+        arr = [
+          {
+            icon: IconSwapRewards,
+            iconDark: IconSwapRewardsBlack,
+            value: res.latest.vr ? res.latest.vr : 0,
+            name: t('swap')
+          },
+          {
+            icon: IconLiquidityRewards,
+            iconDark: IconLiquidityRewardsBlack,
+            value: res.latest.lr ? res.latest.lr : 0,
+            name: t('lr')
+          },
+          {
+            icon: IconTotalRewards,
+            iconDark: IconTotalRewardsBlack,
+            value: res.totalReward.ar ? res.totalReward.ar : 0,
+            name: t('total')
+          },
+        ]
+      } else {
+        arr = []
+      }
+      setAccountRewars(arr)
+    })
   }, [account])
 
 
@@ -1131,7 +1127,7 @@ export default function DashboardDtil () {
                         </div>
                       </div>
                       <div className='value'>
-                        {item.value ? item.value.toFixed(5) : '0.00000'} ANY
+                        {item.value ? item.value.toFixed(2) : '0.00'} ANY
                       </div>
                     </li>
                   )

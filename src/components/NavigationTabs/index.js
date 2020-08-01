@@ -57,7 +57,7 @@ const tabOrder = [
 
 const tabOrder2 = [
   {
-    path: '',
+    path: 'https://markets.anyswap.exchange/#/',
     textKey: 'Markets',
     icon: require('../../assets/images/icon/markets.svg'),
     iconActive: require('../../assets/images/icon/markets-purpl.svg'),
@@ -192,36 +192,6 @@ const StyledNavLink = styled(NavLink).attrs({
     margin-bottom: 1.25rem;
   }
 
-  &.otherInfo {
-    height: 2.5rem;
-    font-size: 0.75rem;
-    font-weight: normal;
-    color: #96989e;
-    border-bottom:none;
-    margin: 0;
-    padding: 0.0625rem 0.875rem;
-    border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.06);
-    .icon {
-      height: 38px;
-      width: 38px;
-      margin-right: 1rem;
-      display: flex;
-      justify-content: center;
-      align-items:center;
-      background:none;
-      img {
-        display:block;
-        height: 18px;
-        &.show {
-          display:none;
-        }
-      }
-    }
-    &:hover {
-      color: #031a6e;
-      font-weight: 600;
-    }
-  }
   &.noBB {
     border-bottom:none;
   }
@@ -239,6 +209,60 @@ const StyledNavLink = styled(NavLink).attrs({
       display:none;
     }
   }
+`
+
+const OutLinkHref = styled(Link).attrs({
+  activeClassName
+})`
+${({ theme }) => theme.flexRowNoWrap}
+  width:100%;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1 0 auto;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: ${({theme}) => theme.textColorBold};
+  font-size: 0.875rem;
+  font-family: 'Manrope';
+  box-sizing: border-box;
+  padding: 1rem 0.875rem;
+  line-height: 1rem;
+  margin: 6px 0;
+  height: 48px;
+  border-radius: 0.5625rem;
+  position:relative;
+  white-space:nowrap;
+&.otherInfo {
+  height: 2.5rem;
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: #96989e;
+  border-bottom:none;
+  margin: 0;
+  padding: 0.0625rem 0.875rem;
+  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.06);
+  .icon {
+    height: 38px;
+    width: 38px;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    background:none;
+    img {
+      display:block;
+      height: 18px;
+      &.show {
+        display:none;
+      }
+    }
+  }
+  &:hover {
+    color: #031a6e;
+    font-weight: 600;
+  }
+}
 `
 
 const OutLink = styled.div`
@@ -345,14 +369,14 @@ function NavigationTabs({ location: { pathname }, history }) {
       </Tabs>
       <Tabs2>
         {tabOrder2.map(({ path, textKey, regex, icon, iconActive, className }, index) => (
-          <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={className ? className : ''} onMouseEnter={() => {toggleHover(textKey)}} onMouseLeave={() => {toggleHover('')}}>
+          <OutLinkHref key={index} href={path} className={className ? className : ''} onMouseEnter={() => {toggleHover(textKey)}} onMouseLeave={() => {toggleHover('')}}>
             <div className={'icon'}>
               {/* <img src={pathname.match(regex) || navHover === textKey ? iconActive : icon}/> */}
               <img alt={''} src={iconActive} className={pathname.match(regex) || navHover === textKey ? '' : 'show'}/>
               <img alt={''} src={icon} className={pathname.match(regex) || navHover === textKey ? 'show' : ''}/>
             </div>
             {t(textKey)}
-          </StyledNavLink>
+          </OutLinkHref>
         ))}
       </Tabs2>
       <OutLink>
