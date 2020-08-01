@@ -233,36 +233,46 @@ ${({ theme }) => theme.flexRowNoWrap}
   border-radius: 0.5625rem;
   position:relative;
   white-space:nowrap;
-&.otherInfo {
-  height: 2.5rem;
-  font-size: 0.75rem;
-  font-weight: normal;
-  color: #96989e;
-  border-bottom:none;
-  margin: 0;
-  padding: 0.0625rem 0.875rem;
-  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.06);
-  .icon {
-    height: 38px;
-    width: 38px;
-    margin-right: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items:center;
-    background:none;
-    img {
-      display:block;
-      height: 18px;
-      &.show {
-        display:none;
+
+  &.otherInfo {
+    height: 2.5rem;
+    font-size: 0.75rem;
+    font-weight: normal;
+    color: #96989e;
+    border-bottom:none;
+    margin: 0;
+    padding: 0.0625rem 0.875rem;
+    border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.06);
+    .icon {
+      height: 38px;
+      width: 38px;
+      margin-right: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items:center;
+      background:none;
+      img {
+        display:block;
+        height: 18px;
+        &.show {
+          display:none;
+        }
       }
     }
+    &:hover {
+      color: #031a6e;
+      font-weight: 600;
+    }
   }
-  &:hover {
-    color: #031a6e;
-    font-weight: 600;
+  
+  &.noBB {
+    border-bottom:none;
   }
-}
+  .arrow {
+    position: absolute;
+    top: 0.875rem;
+    right:1rem;
+  }
 `
 
 const OutLink = styled.div`
