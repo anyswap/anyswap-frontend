@@ -552,35 +552,37 @@ export default function DashboardDtil () {
   }, [])
 
   useEffect(() => {
-    getRewards(account).then(res => {
-      console.log(res)
-      let arr = []
-      if (res.msg === 'Success') {
-        arr = [
-          {
-            icon: IconSwapRewards,
-            iconDark: IconSwapRewardsBlack,
-            value: res.latest.vr ? res.latest.vr : 0,
-            name: t('swap')
-          },
-          {
-            icon: IconLiquidityRewards,
-            iconDark: IconLiquidityRewardsBlack,
-            value: res.latest.lr ? res.latest.lr : 0,
-            name: t('lr')
-          },
-          {
-            icon: IconTotalRewards,
-            iconDark: IconTotalRewardsBlack,
-            value: res.totalReward.ar ? res.totalReward.ar : 0,
-            name: t('total')
-          },
-        ]
-      } else {
-        arr = []
-      }
-      setAccountRewars(arr)
-    })
+    if (account) {
+      getRewards(account).then(res => {
+        // console.log(res)
+        let arr = []
+        if (res.msg === 'Success') {
+          arr = [
+            {
+              icon: IconSwapRewards,
+              iconDark: IconSwapRewardsBlack,
+              value: res.latest.vr ? res.latest.vr : 0,
+              name: t('swap')
+            },
+            {
+              icon: IconLiquidityRewards,
+              iconDark: IconLiquidityRewardsBlack,
+              value: res.latest.lr ? res.latest.lr : 0,
+              name: t('lr')
+            },
+            {
+              icon: IconTotalRewards,
+              iconDark: IconTotalRewardsBlack,
+              value: res.totalReward.ar ? res.totalReward.ar : 0,
+              name: t('total')
+            },
+          ]
+        } else {
+          arr = []
+        }
+        setAccountRewars(arr)
+      })
+    }
   }, [account])
 
 

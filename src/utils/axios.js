@@ -185,7 +185,6 @@ const FSN_PRICE = 'FSN_PRICE'
 function getApiUrlData (url, token) {
   return new Promise(resolve => {
     axios.get(url).then(res => {
-      // console.log(res)
       if (res && res.data && res.status === 200) {
         // let price = res.data[0].current_price
         localStorage.setItem(token, JSON.stringify({
@@ -216,7 +215,6 @@ function getApiUrlData (url, token) {
 
 function getApiData (url, token, intarval) {
   let localData = localStorage.getItem(token)
-  // console.log(localFSNPrice)
   return new Promise(resolve => {
     if (localData) {
       let localObj = JSON.parse(localData)
@@ -262,7 +260,7 @@ export const getPrice = () => {
 export const getRewards = (address) => {
   return new Promise(resolve => {
     let url = `https://rewardapi.anyswap.exchange/accounts/getRewards/${address}`
-    getApiData(url, 'REWARDS', 60 * 60).then(res => {
+    getApiData(url, 'REWARDS', 3 * 60 * 1000).then(res => {
       // console.log(res)
       if (res && res.msg === 'Success') {
         // let price = res.data[0].current_price
