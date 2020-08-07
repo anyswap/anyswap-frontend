@@ -128,8 +128,8 @@ const CurrencySelect = styled.button`
   position: relative;
 
   :hover {
-    border: 0.0625rem solid #6d9cc6;
-    background: #deefff
+    border: 0.0625rem solid ${({ theme }) => theme.selectedHoverBorder};
+    background: ${({ theme }) => theme.selectedHoverBg};
   }
 
   :focus {
@@ -183,7 +183,7 @@ const InputPanel = styled.div`
   z-index: 1;
   box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
   border-radius: 0.5625rem;
-  background-color: ${({theme}) => theme.bgColor};
+  background: ${({theme}) => theme.contentBg};
   height:154px;
   padding: 1.25rem 2.5rem;
   
@@ -238,8 +238,8 @@ const ErrorSpan = styled.span`
   font-size: 1rem;
   height: 100%;
   color: ${({ selected, theme }) => (selected ? theme.textColor : theme.royalBlue)};
-  border: 0.0625rem solid #d9d9e2;
-  background-color: #f8f8f9;
+  border: 0.0625rem solid ${({theme}) => theme.selectedBorderNo};
+  background-color: ${({theme}) => theme.selectedBgNo};
   border-radius: 0.75rem;
   outline: none;
   cursor: pointer;
@@ -248,8 +248,8 @@ const ErrorSpan = styled.span`
   :hover {
     cursor: pointer;
     color: ${({ error, theme }) => error && darken(0.1, theme.salmonRed)};
-    border: 0.0625rem solid #9c9cb0;
-    background-color: #f2f2f2;
+    border: 0.0625rem solid ${({theme}) => theme.selectedHoverBorderNo};
+    background-color: ${({theme}) => theme.selectedHoverBgNo};
   }
 `
 
@@ -498,7 +498,7 @@ const TokenLogoBox = styled.div`
   ${({ theme }) => theme.FlexC};
   width: 46px;
   height: 46px;
-  background: ${ ({theme}) => theme.backgroundColor};
+  background: ${ ({theme}) => theme.white};
   box-sizing:border-box;
   border-radius: 100%;
   margin-right: 1.25rem;

@@ -39,7 +39,7 @@ const MyBalanceBox = styled.div`
   
   border-radius: 0.5625rem;
   box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.contentBg};
   padding: 1rem 2.5rem;
   @media screen and (max-width: 960px) {
     padding: 1rem 1rem;
@@ -116,7 +116,7 @@ const EarningsBox = styled.div`
   height: 386px;
   border-radius: 0.5625rem;
   box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.contentBg};
   padding:1rem;
   font-family: 'Manrope';
   .bgImg {
@@ -171,7 +171,7 @@ height: 386px;
 
 border-radius: 0.5625rem;
 box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
-background-color: #ffffff;
+background-color: ${({ theme }) => theme.contentBg};
 padding: 1rem 2.5rem;
 @media screen and (max-width: 960px) {
   padding: 1rem 1rem;

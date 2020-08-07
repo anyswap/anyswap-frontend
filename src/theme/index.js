@@ -24,6 +24,13 @@ const mediaWidthTemplates = Object.keys(MEDIA_WIDTHS).reduce((accumulator, size)
 const white = '#FFFFFF'
 const black = '#000000'
 
+const purple = '#734be2'
+const gray = 'dadada'
+const gradientPurpleTB = 'linear-gradient(to bottom, #5f6bfb , #724de4)'
+const gradientPurpleLR = 'linear-gradient(to right, #5f6bfb , #724de4)'
+const darkContentBg = '#21263e'
+const darkSelectBg = '#2b314f'
+
 export default function ThemeProvider({ children }) {
   const [darkMode, toggleDarkMode] = useDarkModeManager()
   // console.log(darkMode)
@@ -36,8 +43,8 @@ export default function ThemeProvider({ children }) {
       : darkMode
     : darkMode
   useEffect(() => {
-    // toggleDarkMode(themeToRender)
-    toggleDarkMode(false)
+    toggleDarkMode(themeToRender)
+    // toggleDarkMode(false)
   }, [toggleDarkMode, themeToRender])
   // console.log(themeToRender)
   return <StyledComponentsThemeProvider theme={theme(themeToRender)}>{children}</StyledComponentsThemeProvider>
@@ -46,7 +53,14 @@ export default function ThemeProvider({ children }) {
 const theme = darkMode => ({
   white,
   black,
-  textColor: darkMode ? white : '#010101',
+  purple,
+  gray,
+  gradientPurpleTB,
+  gradientPurpleLR,
+  darkContentBg,
+  darkSelectBg,
+
+  textColor: darkMode ? '#979dac' : '#031a6e',
   textColorBold: darkMode ? white : '#062536',
   selectTextColor: darkMode ? white : '#031a6e',
   greyText: darkMode ? white : '#6C7284',
@@ -55,16 +69,35 @@ const theme = darkMode => ({
   backgroundColor: darkMode ? '#333639' : white,
   backgroundColorCont: darkMode ? '#333639' : '#f9fafb',
 
+  contentBg: darkMode ? darkContentBg : white,
+  contentShadow: darkMode ? '7px 2px 26px 0 rgba(5, 6, 13, 0.24)' : '7px 2px 26px 0 rgba(0, 0, 0, 0.06)',
+  dayOrNight: darkMode ? darkSelectBg : purple,
+  bodyBg: darkMode ? '#151a2f' : '#f9fafb',
+  lightPuroleBg: darkMode ? darkSelectBg : '#f6f4ff',
+
+  selectedBg: darkMode ? darkSelectBg : '#ecf6ff',
+  selectedHoverBg: darkMode ? '#252b49' : '#deefff',
+
+  selectedBorder: darkMode ? '#363d5f' : '#c0d6ea',
+  selectedHoverBorder: darkMode ? '#4a5482' : '#6d9cc6',
+
+  selectedBgNo: darkMode ? darkSelectBg : '#f8f8f9',
+  selectedHoverBgNo: darkMode ? '#252b49' : '#f2f2f2',
+
+  selectedBorderNo: darkMode ? '#363d5f' : '#d9d9e2',
+  selectedHoverBorderNo: darkMode ? '#4a5482' : '#9c9cb0',
+
+  tipContentBg: darkMode ? darkSelectBg : '#ededed',
+  dtilContentBg: darkMode ? darkSelectBg : white,
+
+  
+
 
   modalBackground: darkMode ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.5)',
   inputBackground: darkMode ? '#202124' : white,
   placeholderGray: darkMode ? '#5F5F5F' : '#E1E1E1',
   shadowColor: darkMode ? '#000' : '#2F80ED',
 
-  selectedBg: darkMode ? 'rgba(0,0,0,0.6)' : '#ecf6ff',
-  selectedBgNo: darkMode ? 'rgba(0,0,0,0.6)' : '#f8f8f9',
-  selectedBorder: darkMode ? 'rgba(0,0,0,0.6)' : '#c0d6ea',
-  selectedBorderNo: darkMode ? 'rgba(0,0,0,0.6)' : '#d9d9e2',
   bgColor: darkMode ? 'rgba(0,0,0,0.1)' : white,
   bgColorLinear: 'linear-gradient(to right, #734ce2 , #606bfb)',
 
@@ -169,7 +202,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 16px;
     font-variant: none;
     color: ${({ theme }) => theme.textColor};
-    background-color: ${({ theme }) => theme.backgroundColor};
+    background-color: ${({ theme }) => theme.bodyBg};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

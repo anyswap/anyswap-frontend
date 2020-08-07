@@ -96,7 +96,7 @@ width: 100%;
 height: 48px;
 object-fit: contain;
 border-radius: 0.5625rem;
-background-color: #ededed;
+background: ${({ theme }) => theme.tipContentBg};
 padding: 0 2.5rem;
 margin-top:0.625rem;
 @media screen and (max-width: 960px) {

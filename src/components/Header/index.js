@@ -3,13 +3,18 @@ import styled from 'styled-components'
 
 // import { Link } from '../../theme'
 import Web3Status from '../Web3Status'
+import Toggle from 'react-switch'
 import { transparentize } from 'polished'
 import { darken } from 'polished'
 import { useTranslation } from 'react-i18next'
+import { useDarkModeManager } from '../../contexts/LocalStorage'
 
-import {ReactComponent as ANYLogo} from '../../assets/images/logo.svg'
 import config from '../../config'
+import {ReactComponent as ANYLogo} from '../../assets/images/logo.svg'
 import ArrowRighrPurpleIcon from '../../assets/images/icon/arrowRighr-purple.svg'
+import IconDay from '../../assets/images/icon/day.svg'
+import IconNight from '../../assets/images/icon/night.svg'
+
 const HeaderFrame = styled.div`
   display: flex;
   align-items: center;
@@ -49,7 +54,7 @@ ${({ theme }) => theme.FlexC};
   height: 36px;
   object-fit: contain;
   border-radius: 0.5625rem;
-  background-color: #f6f4ff;
+  background: ${({ theme }) => theme.lightPuroleBg};
   font-family: 'Manrope';
   font-size: 0.875rem;
   font-stretch: normal;
@@ -89,8 +94,45 @@ ${({ theme }) => theme.FlexC};
   }
 `
 
+// const StyledToggle = styled(Toggle)`
+//   margin-right: 24px;
+
+//   .react-switch-bg[style] {
+//     background-color: ${({ theme }) => darken(0.05, theme.inputBackground)} !important;
+//     border: 0.0625rem solid ${({ theme }) => theme.concreteGray} !important;
+//   }
+
+//   .react-switch-handle[style] {
+//     background-color: ${({ theme }) => theme.inputBackground};
+//     box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.93, theme.shadowColor)};
+//     border: 0.0625rem solid ${({ theme }) => theme.mercuryGray};
+//     border-color: ${({ theme }) => theme.mercuryGray} !important;
+//     top: 0.125rem !important;
+//   }
+// `
+
+// const EmojiToggle = styled.span`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100%;
+//   font-family: 'Manrope';
+// `
+
+const StyleDarkToggle = styled.div`
+${({ theme }) => theme.FlexC};
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  margin-left: 15px;
+  cursor: pointer;
+  background-color: ${({ theme }) => theme.dayOrNight};
+`
+
 export default function Header() {
   const { t } = useTranslation()
+  const [isDark, toggleDarkMode] = useDarkModeManager()
   function openUrl () {
     if (config.env === 'test') {
       window.open(config.mainUrl)
@@ -116,6 +158,37 @@ export default function Header() {
             </div>
           </NetworkBox>
           <Web3Status />
+          <StyleDarkToggle
+            onClick={() => {
+              toggleDarkMode()
+            }}
+          >
+            {
+              isDark ? (
+
+                <img src={IconDay} alt="" />
+              ) : (
+
+                <img src={IconNight} alt="" />
+              )
+            }
+          </StyleDarkToggle>
+          {/* <StyledToggle
+            checked={!isDark}
+            uncheckedIcon={
+              <EmojiToggle role="img" aria-label="moon">
+                🌙️
+              </EmojiToggle>
+            }
+            checkedIcon={
+              <EmojiToggle role="img" aria-label="sun">
+                {'☀️'}
+              </EmojiToggle>
+            }
+            onChange={() => {
+              toggleDarkMode()
+            }}
+          /> */}
         </HeaderElement>
       </HeaderSpan>
     </HeaderFrame>

@@ -11,7 +11,7 @@ const InputPanel = styled.div`
   box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
   position: relative;
   border-radius: 1.25rem;
-  background-color: ${({theme}) => theme.bgColor};
+  background: ${({theme}) => theme.contentBg};
   z-index: 1;
   padding: 1.5625rem 2.5rem;
   margin-top: 0.625rem;

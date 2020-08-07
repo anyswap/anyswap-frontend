@@ -86,7 +86,7 @@ const SummaryPanelBox = styled.div`
   height: 115px;
   object-fit: contain;
   border-radius: 0.5625rem;
-  background-color: #ededed;
+  background: ${({ theme }) => theme.tipContentBg};
   margin-top:0.625rem;
   padding: 18px 29px;
   @media screen and (max-width: 960px) {

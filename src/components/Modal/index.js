@@ -48,8 +48,8 @@ const FilteredDialogContent = ({ minHeight, maxHeight, isOpen, slideInAnimation,
 const StyledDialogContent = styled(FilteredDialogContent)`
   &[data-reach-dialog-content] {
     margin: 0 0 2rem 0;
-    border: 0.0625rem solid ${({ theme }) => theme.concreteGray};
-    background-color: ${({ theme }) => theme.inputBackground};
+    border: 0.0625rem solid ${({ theme }) => theme.contentBg};
+    background-color: ${({ theme }) => theme.contentBg};
     box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
     padding: 0px;
     width: 50vw;

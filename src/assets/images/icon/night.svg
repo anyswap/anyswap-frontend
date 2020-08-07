@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+    <defs>
+        <path id="ksa22wvmpa" d="M16 7.99C16 12.406 12.41 16 8 16 3.789 16 .287 12.71.003 8.51c-.018-.215.107-.43.32-.52.196-.089.444-.053.604.108 1.048 1.055 2.329 1.628 3.609 1.628 2.844 0 5.136-2.325 5.136-5.167 0-1.305-.568-2.592-1.617-3.647-.16-.16-.196-.393-.107-.59C8.036.125 8.249 0 8.462 0 12.693.231 16 3.753 16 7.99z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <mask id="i6cnjso40b" fill="#fff">
+            <use xlink:href="#ksa22wvmpa"/>
+        </mask>
+        <use fill="#000" fill-rule="nonzero" xlink:href="#ksa22wvmpa"/>
+        <path fill="#FFF" d="M0 0H16V16H0z" mask="url(#i6cnjso40b)"/>
+    </g>
+</svg>

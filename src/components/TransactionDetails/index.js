@@ -363,7 +363,8 @@ font-family: 'Manrope';
 const SetLimitBox = styled.div`
 font-family: 'Manrope';
   width: 100%;
-  background:#fff;
+  border-radius: 9px;
+  background: ${({ theme }) => theme.dtilContentBg};
   padding: 1.5625rem 1.25rem 0.5625rem;
   margin-top:0.625rem;
   @media screen and (max-width: 960px) {

@@ -93,7 +93,7 @@ const LastSummaryTextBox = styled.div`
   object-fit: contain;
   border-radius: 0.5625rem;
   box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
-  background-color: #ffffff;
+  background: ${({ theme }) => theme.dtilContentBg};
   padding: 1.5625rem 2.5rem;
   margin-top: 0.625rem;
   @media screen and (max-width: 960px) {
@@ -244,7 +244,7 @@ const SummaryPanelBox = styled.div`
   height: 115px;
   object-fit: contain;
   border-radius: 0.5625rem;
-  background-color: #ededed;
+  background: ${({ theme }) => theme.tipContentBg};
   margin-top:0.625rem;
   padding: 18px 29px;
   @media screen and (max-width: 960px) {
