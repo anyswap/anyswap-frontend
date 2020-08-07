@@ -698,9 +698,12 @@ export default function CurrencyInputPanel({
                 // let _userTokenBalance = Number(userTokenBalance.toString()) > 100000 ? userTokenBalance.toString() : ethers.constants.MaxUint256.toString()
                 let _userTokenBalance = ethers.constants.MaxUint256.toString()
 
-                let data = web3Contract.approve.getData(selectedTokenExchangeAddress, _userTokenBalance, {
+                // let data = web3Contract.approve.getData(selectedTokenExchangeAddress, _userTokenBalance, {
+                //   gasLimit: GAS_MARGIN.toString()
+                // })
+                let data = web3Contract.methods.approve(selectedTokenExchangeAddress, _userTokenBalance, {
                   gasLimit: GAS_MARGIN.toString()
-                })
+                }).encodeABI()
                 getWeb3BaseInfo(selectedTokenAddress, selectedTokenExchangeAddress, data, account).then(res => {
                   // console.log(res)
                   if (res.msg === 'Success') {

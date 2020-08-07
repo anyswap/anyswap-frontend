@@ -627,10 +627,15 @@ export default function AddLiquidity({ params }) {
       setIsHardwareTip(true)
       setHardwareTxnsInfo(inputValue + ' FSN + ' + outputValue + ' ' + symbol)
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
-      let data = web3Contract.addLiquidity.getData(
+      // let data = web3Contract.addLiquidity.getData(
+      //   isNewExchange ? ethers.constants.Zero.toHexString() : liquidityTokensMin.toHexString(),
+      //   isNewExchange ? outputValueParsed.toHexString() : outputValueMax.toHexString(),
+      //   deadline)
+      let data = web3Contract.methods.addLiquidity(
         isNewExchange ? ethers.constants.Zero.toHexString() : liquidityTokensMin.toHexString(),
         isNewExchange ? outputValueParsed.toHexString() : outputValueMax.toHexString(),
-        deadline)
+        deadline
+      ).encodeABI()
       // console.log(inputValueParsed.toHexString())
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account, inputValueParsed.toHexString()).then(res => {
         // console.log(res)

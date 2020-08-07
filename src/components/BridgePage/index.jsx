@@ -46,6 +46,8 @@ import BirdgeBtnIcon from '../../assets/images/icon/bridge-white-btn.svg'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
 
+import {getErcBalance} from '../../utils/web3/Erc20Web3'
+
 const INPUT = 0
 const OUTPUT = 1
 
@@ -455,6 +457,9 @@ const selfUseAllToken=[
  ]
 let historyInterval 
 // let swapInfo = ''
+
+// getErcBalance('USDT')
+
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
   let { account, chainId, error } = useWeb3React()
@@ -524,8 +529,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
     if (config.CoinInfo[inputSymbol] && config.CoinInfo[inputSymbol].url && isSwitch) {
       GetServerInfo(config.CoinInfo[inputSymbol].url).then(res => {
-        // console.log(res)
-        // console.log(getWeb3ConTract(res.swapInfo.DestToken.ContractAddress))
         if (bridgeType && bridgeType === 'redeem') {
           
         } else {
@@ -833,10 +836,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setIsHardwareTip(true)
       setHardwareTxnsInfo(inputValueFormatted + inputSymbol)
       let web3Contract = getWeb3ConTract(swapBTCABI, inputCurrency)
-      let data = web3Contract.Swapout.getData(amountVal, address)
+      // let data = web3Contract.Swapout.getData(amountVal, address)
+      let data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
       if (inputSymbol !== 'mBTC') {
         web3Contract = getWeb3ConTract(swapETHABI, inputCurrency)
-        data = web3Contract.Swapout.getData(amountVal)
+        // data = web3Contract.Swapout.getData(amountVal)
+        data = web3Contract.methods.Swapout(amountVal).encodeABI()
       }
       getWeb3BaseInfo(inputCurrency, inputCurrency, data, account).then(res => {
         if (res.msg === 'Success') {
@@ -951,13 +956,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           {independentValue ? (
             <>
               <MintList>
-                <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace('m', '')} {t('amount')}:</MintListLabel>
+                <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace('a', '')} {t('amount')}:</MintListLabel>
                 <MintListVal>{independentValue}</MintListVal>
               </MintList>
             </>
           ) : ''}
           <MintList>
-            <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace('m', '')} {t('address')}:</MintListLabel>
+            <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace('a', '')} {t('address')}:</MintListLabel>
             <MintListVal onClick={copyAddr}>{registerAddress ? registerAddress : ''}</MintListVal>
           </MintList>
           <MintListCenter>
@@ -1009,7 +1014,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             <>
               <MintTip onClick={MintInfoModelView}>
                 <FlexCneter>
-                  <FlexCneter><TokenLogoBox size={'34px'} address={inputSymbol ? 'BTC' : inputSymbol.replace('m', '')} /></FlexCneter>
+                  <FlexCneter><TokenLogoBox size={'34px'} address={inputSymbol ? 'BTC' : inputSymbol.replace('a', '')} /></FlexCneter>
                   <span className="txt"><FlexCneter>Waiting for deposit</FlexCneter></span>
                 </FlexCneter>
               </MintTip>
@@ -1058,8 +1063,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             payload: { value: inputValue, field: INPUT, realyValue: bridgeType && bridgeType === 'redeem' ? inputVal : inputValue}
           })
         }}
-        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && inputSymbol.replace('m', ''))}
-        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && inputSymbol.replace('m', ''))}
+        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && inputSymbol.replace('a', ''))}
+        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && inputSymbol.replace('a', ''))}
         isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : inputName.replace('SMPC ', '')}
         showUnlock={false}
         selectedTokens={[inputCurrency, outputCurrency]}
@@ -1085,8 +1090,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             payload: { currency: inputCurrency, field: INPUT }
           })
         }}
-        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace('m', '') : inputSymbol}
-        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace('m', '') : ''}
+        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace('a', '') : inputSymbol}
+        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace('a', '') : ''}
         isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? inputName.replace('SMPC ', '') : ''}
         showUnlock={false}
         disableUnlock={true}
@@ -1098,7 +1103,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       {bridgeType && bridgeType === 'redeem' ? (
         <>
-          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
+          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('a', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
         </>
       ) : (
         <>
@@ -1107,7 +1112,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               <InputContainer>
                 <LabelRow>
                   <LabelContainer>
-                    <span>{t('deposit1') + ' ' + (inputSymbol ? inputSymbol.replace('m', '') : inputSymbol)  + ' ' + t('address')}</span>
+                    <span>{t('deposit1') + ' ' + (inputSymbol ? inputSymbol.replace('a', '') : inputSymbol)  + ' ' + t('address')}</span>
                   </LabelContainer>
                 </LabelRow>
                 <InputRow>
@@ -1216,6 +1221,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           </Flex>
         </>
       )}
+      {/* getErcBalance('USDT') */}
+      <Flex>
+        <Button onClick={() => {
+          getErcBalance('USDT')
+        }}>
+          {t('ComineSoon')}
+        </Button>
+      </Flex>
     </>
   )
 }

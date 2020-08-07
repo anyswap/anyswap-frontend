@@ -768,41 +768,80 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   
         if (swapType === ETH_TO_TOKEN) {
           value = independentValueParsed
-          data = sending ? web3Contract.ethToTokenTransferInput.getData(dependentValueMinumum.toHexString(), deadline, recipient.address) : web3Contract.ethToTokenSwapInput.getData(dependentValueMinumum.toHexString(), deadline)
+          data = sending ? 
+          // web3Contract.ethToTokenTransferInput.getData(dependentValueMinumum.toHexString(), deadline, recipient.address)
+          web3Contract.methods.ethToTokenTransferInput(dependentValueMinumum.toHexString(), deadline, recipient.address).encodeABI()
+          :
+          // web3Contract.ethToTokenSwapInput.getData(dependentValueMinumum.toHexString(), deadline)
+          web3Contract.methods.ethToTokenSwapInput(dependentValueMinumum.toHexString(), deadline).encodeABI()
         } else if (swapType === TOKEN_TO_ETH) {
           value = ethers.constants.Zero
           data = sending ? 
-                    web3Contract.tokenToEthTransferInput.getData(independentValueParsed.toString(), dependentValueMinumum.toString(), deadline, recipient.address) 
+                    // web3Contract.tokenToEthTransferInput.getData(independentValueParsed.toString(), dependentValueMinumum.toString(), deadline, recipient.address) 
+                    web3Contract.methods.tokenToEthTransferInput(independentValueParsed.toString(), dependentValueMinumum.toString(), deadline, recipient.address).encodeABI()
                     : 
-                    web3Contract.tokenToEthSwapInput.getData(independentValueParsed.toString(), dependentValueMinumum.toString(), deadline)
+                    // web3Contract.tokenToEthSwapInput.getData(independentValueParsed.toString(), dependentValueMinumum.toString(), deadline)
+                    web3Contract.methods.tokenToEthSwapInput(independentValueParsed.toString(), dependentValueMinumum.toString(), deadline).encodeABI()
         } else if (swapType === TOKEN_TO_TOKEN) {
           value = ethers.constants.Zero
-          data = sending ? web3Contract.tokenToTokenTransferInput.getData(
-                  independentValueParsed.toHexString(),
-                  dependentValueMinumum.toHexString(),
-                  ethers.constants.One.toHexString(),
-                  deadline,
-                  recipient.address,
-                  outputCurrency) : web3Contract.tokenToTokenSwapInput.getData(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), ethers.constants.One.toHexString(), deadline, outputCurrency)
+          data = sending ?
+                  // web3Contract.tokenToTokenTransferInput.getData(
+                  // independentValueParsed.toHexString(),
+                  // dependentValueMinumum.toHexString(),
+                  // ethers.constants.One.toHexString(),
+                  // deadline,
+                  // recipient.address,
+                  // outputCurrency)
+                  web3Contract.methods.tokenToTokenTransferInput(
+                    independentValueParsed.toHexString(),
+                    dependentValueMinumum.toHexString(),
+                    ethers.constants.One.toHexString(),
+                    deadline,
+                    recipient.address,
+                    outputCurrency).encodeABI()
+                  :
+                  // web3Contract.tokenToTokenSwapInput.getData(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), ethers.constants.One.toHexString(), deadline, outputCurrency)
+                  web3Contract.methods.tokenToTokenSwapInput(independentValueParsed.toHexString(), dependentValueMinumum.toHexString(), ethers.constants.One.toHexString(), deadline, outputCurrency).encodeABI()
         }
       } else if (independentField === OUTPUT) {
   
         if (swapType === ETH_TO_TOKEN) {
           value = dependentValueMaximum
-          data = sending ? web3Contract.ethToTokenTransferOutput.getData(independentValueParsed.toHexString(), deadline, recipient.address) : web3Contract.ethToTokenSwapOutput.getData(independentValueParsed.toHexString(), deadline)
+          data = sending ?
+            // web3Contract.ethToTokenTransferOutput.getData(independentValueParsed.toHexString(), deadline, recipient.address)
+            web3Contract.methods.ethToTokenTransferOutput(independentValueParsed.toHexString(), deadline, recipient.address).encodeABI()
+            :
+            web3Contract.methods.ethToTokenSwapOutput(independentValueParsed.toHexString(), deadline).encodeABI()
         } else if (swapType === TOKEN_TO_ETH) {
           value = ethers.constants.Zero
-          data = sending ? web3Contract.tokenToEthTransferOutput.getData(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), deadline, recipient.address) : web3Contract.tokenToEthSwapOutput.getData(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), deadline)
+          data = sending ?
+            // web3Contract.tokenToEthTransferOutput.getData(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), deadline, recipient.address)
+            web3Contract.methods.tokenToEthTransferOutput(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), deadline, recipient.address).encodeABI()
+            : 
+            // web3Contract.tokenToEthSwapOutput.getData(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), deadline)
+            web3Contract.methods.tokenToEthSwapOutput(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), deadline).encodeABI()
         } else if (swapType === TOKEN_TO_TOKEN) {
           value = ethers.constants.Zero
-          data = sending ? web3Contract.tokenToTokenTransferOutput.getData(
+          data = sending ?
+          // web3Contract.tokenToTokenTransferOutput.getData(
+          //       independentValueParsed.toHexString(),
+          //       dependentValueMaximum.toHexString(),
+          //       ethers.constants.MaxUint256.toHexString(),
+          //       deadline,
+          //       recipient.address,
+          //       outputCurrency
+          // )
+          web3Contract.methods.tokenToTokenTransferOutput(
                 independentValueParsed.toHexString(),
                 dependentValueMaximum.toHexString(),
                 ethers.constants.MaxUint256.toHexString(),
                 deadline,
                 recipient.address,
                 outputCurrency
-          ) : web3Contract.tokenToTokenSwapOutput.getData(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), ethers.constants.MaxUint256.toHexString(), deadline, outputCurrency)
+          ).encodeABI()
+          :
+          // web3Contract.tokenToTokenSwapOutput.getData(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), ethers.constants.MaxUint256.toHexString(), deadline, outputCurrency)
+          web3Contract.methods.tokenToTokenSwapOutput(independentValueParsed.toHexString(), dependentValueMaximum.toHexString(), ethers.constants.MaxUint256.toHexString(), deadline, outputCurrency).encodeABI()
         }
       }
       // console.log(data)

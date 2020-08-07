@@ -489,7 +489,8 @@ export default function RemoveLiquidity({ params }) {
       setHardwareTxnsInfo(`${amountFormatter(ethWithdrawn, 18, 6, false)} FSN` + ' + ' + `${amountFormatter(tokenWithdrawn, decimals, Math.min(6, decimals))} ${symbol}`)
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
 
-      let data = web3Contract.removeLiquidity.getData(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline)
+      // let data = web3Contract.removeLiquidity.getData(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline)
+      let data = web3Contract.methods.removeLiquidity(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline).encodeABI()
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {

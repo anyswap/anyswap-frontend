@@ -170,7 +170,8 @@ function CreateExchange({ location, params }) {
       setIsHardwareTip(true)
       setHardwareTxnsInfo('')
       let web3Contract = getWeb3ConTract(factory_abi, FACTORY_ADDRESSES[chainId])
-      let data = web3Contract.createExchange.getData(tokenAddress.address)
+      // let data = web3Contract.createExchange.getData(tokenAddress.address)
+      let data = web3Contract.methods.createExchange(tokenAddress.address).encodeABI()
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
