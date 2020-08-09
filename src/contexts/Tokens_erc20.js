@@ -765,7 +765,7 @@ export default {
       [EXCHANGE_ADDRESS]: '0xaE76c84C9262Cdb9abc0C2c8888e62Db8E22A0bF'
     },
     'mBTC': {
-      [NAME]: 'SMPC Bitcoin',
+      [NAME]: 'ANY Bitcoin',
       [TOKEN]: '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,
@@ -795,7 +795,7 @@ export default {
       [EXCHANGE_ADDRESS]: '0xa157aA373DDA0D6d48A151aA630af986Cc8a7F26'
     },
     '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64': {
-      [NAME]: 'SMPC Bitcoin',
+      [NAME]: 'ANY Bitcoin',
       [TOKEN]: '0xB6eD7644C69416d67B522e20bC294A9a9B405B31',
       [SYMBOL]: 'mBTC',
       [DECIMALS]: 8,

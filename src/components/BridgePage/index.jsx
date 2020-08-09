@@ -1148,7 +1148,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && inputSymbol.replace(config.prefix, ''))}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && inputSymbol.replace(config.prefix, ''))}
-        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : inputName.replace('SMPC ', '')}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : inputName.replace('ANY ', '')}
         showUnlock={false}
         selectedTokens={[inputCurrency, outputCurrency]}
         selectedTokenAddress={inputCurrency}
@@ -1175,7 +1175,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace(config.prefix, '') : ''}
-        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? inputName.replace('SMPC ', '') : ''}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? inputName.replace('ANY ', '') : ''}
         showUnlock={false}
         disableUnlock={true}
         selectedTokens={[inputCurrency, outputCurrency]}
