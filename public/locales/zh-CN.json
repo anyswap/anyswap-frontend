@@ -162,5 +162,6 @@
   "total": "累计",
   "lr": "流动性",
   "rewards": "奖励",
-  "noRewards":"暂无收益"
+  "noRewards":"暂无收益",
+  "status": "状态"
 }

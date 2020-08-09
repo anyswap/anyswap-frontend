@@ -45,6 +45,9 @@ function signTxLedger (app, eTx, rawTx, HDPath, old) {
         data = { error: error}
       } else {
         let v = result['v'].toString(16);
+        console.log(result['v'])
+        console.log(v)
+        console.log(parseInt(v))
         if (!old) {
           // EIP155 support. check/recalc signature v value.
           let rv = parseInt(v, 16)

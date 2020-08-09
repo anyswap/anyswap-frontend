@@ -34,6 +34,8 @@ import IconSwapRewardsBlack from '../../assets/images/icn-swap-rewards-black.svg
 import IconTotalRewards from '../../assets/images/icn-total-rewards.svg'
 import IconTotalRewardsBlack from '../../assets/images/icn-total-rewards-black.svg'
 
+import config from '../../config'
+
 const MyBalanceBox = styled.div`
   width: 100%;
   
@@ -591,14 +593,14 @@ export default function DashboardDtil () {
   /**
    * mBTC start
    *  */
-  poolInfoObj.mBTC.poolTokenBalance = useAddressBalance(account, allCoins.mBTC.exchangeAddress)
-  poolInfoObj.mBTC.exchangeETHBalance = useAddressBalance(allCoins.mBTC.exchangeAddress, 'FSN')
-  poolInfoObj.mBTC.exchangeTokenBalancem = useAddressBalance(allCoins.mBTC.exchangeAddress, allCoins.mBTC.token)
-  poolInfoObj.mBTC.exchangeContract = useExchangeContract(allCoins.mBTC.exchangeAddress)
+  poolInfoObj[config.prefix + 'BTC'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'BTC'].exchangeAddress)
+  poolInfoObj[config.prefix + 'BTC'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'BTC'].exchangeAddress, 'FSN')
+  poolInfoObj[config.prefix + 'BTC'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'BTC'].exchangeAddress, allCoins[config.prefix + 'BTC'].token)
+  poolInfoObj[config.prefix + 'BTC'].exchangeContract = useExchangeContract(allCoins[config.prefix + 'BTC'].exchangeAddress)
   
-  const { reserveETH: mBTCreserveETH, reserveToken: mBTCreserveToken } = useExchangeReserves(allCoins.mBTC.token)
-  poolInfoObj.mBTC.marketRate = useMemo(() => {
-    return getMarketRate(mBTCreserveETH, mBTCreserveToken, allCoins.mBTC.decimals)
+  const { reserveETH: mBTCreserveETH, reserveToken: mBTCreserveToken } = useExchangeReserves(allCoins[config.prefix + 'BTC'].token)
+  poolInfoObj[config.prefix + 'BTC'].marketRate = useMemo(() => {
+    return getMarketRate(mBTCreserveETH, mBTCreserveToken, allCoins[config.prefix + 'BTC'].decimals)
   }, [mBTCreserveETH, mBTCreserveToken])
   // console.log(mBTCmarketRate.toString())
   // useEffect(() => {
@@ -606,22 +608,22 @@ export default function DashboardDtil () {
   // }, [mBTCreserveETH, mBTCreserveToken])
   
   const [totalPoolTokensmBTC, setTotalPoolTokensmBTC] = useState()
-  poolInfoObj.mBTC.fetchPoolTokensm = useCallback(() => {
-    if (poolInfoObj.mBTC.exchangeContract) {
-      poolInfoObj.mBTC.exchangeContract.totalSupply().then(totalSupply => {
+  poolInfoObj[config.prefix + 'BTC'].fetchPoolTokensm = useCallback(() => {
+    if (poolInfoObj[config.prefix + 'BTC'].exchangeContract) {
+      poolInfoObj[config.prefix + 'BTC'].exchangeContract.totalSupply().then(totalSupply => {
         setTotalPoolTokensmBTC(totalSupply)
       })
     }
-  }, [poolInfoObj.mBTC.exchangeContract])
+  }, [poolInfoObj[config.prefix + 'BTC'].exchangeContract])
   useEffect(() => {
-    poolInfoObj.mBTC.fetchPoolTokensm()
-    library.on('block', poolInfoObj.mBTC.fetchPoolTokensm)
+    poolInfoObj[config.prefix + 'BTC'].fetchPoolTokensm()
+    library.on('block', poolInfoObj[config.prefix + 'BTC'].fetchPoolTokensm)
 
     return () => {
-      library.removeListener('block', poolInfoObj.mBTC.fetchPoolTokensm)
+      library.removeListener('block', poolInfoObj[config.prefix + 'BTC'].fetchPoolTokensm)
     }
-  }, [poolInfoObj.mBTC.fetchPoolTokensm, library])
-  poolInfoObj.mBTC.totalPoolTokens = totalPoolTokensmBTC
+  }, [poolInfoObj[config.prefix + 'BTC'].fetchPoolTokensm, library])
+  poolInfoObj[config.prefix + 'BTC'].totalPoolTokens = totalPoolTokensmBTC
 
   /**
    * mBTC end
@@ -664,33 +666,33 @@ export default function DashboardDtil () {
   /**
    * mETH start
    *  */
-  poolInfoObj.mETH.poolTokenBalance = useAddressBalance(account, allCoins.mETH.exchangeAddress)
-  poolInfoObj.mETH.exchangeETHBalance = useAddressBalance(allCoins.mETH.exchangeAddress, 'FSN')
-  poolInfoObj.mETH.exchangeTokenBalancem = useAddressBalance(allCoins.mETH.exchangeAddress, allCoins.mETH.token)
-  poolInfoObj.mETH.exchangeContract = useExchangeContract(allCoins.mETH.exchangeAddress)
+  poolInfoObj[config.prefix + 'ETH'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'ETH'].exchangeAddress)
+  poolInfoObj[config.prefix + 'ETH'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'ETH'].exchangeAddress, 'FSN')
+  poolInfoObj[config.prefix + 'ETH'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'ETH'].exchangeAddress, allCoins[config.prefix + 'ETH'].token)
+  poolInfoObj[config.prefix + 'ETH'].exchangeContract = useExchangeContract(allCoins[config.prefix + 'ETH'].exchangeAddress)
 
-  const { reserveETH: mETHreserveETH, reserveToken: mETHreserveToken } = useExchangeReserves(allCoins.mETH.token)
-  poolInfoObj.mETH.marketRate = useMemo(() => {
-    return getMarketRate(mETHreserveETH, mETHreserveToken, allCoins.mETH.decimals)
+  const { reserveETH: mETHreserveETH, reserveToken: mETHreserveToken } = useExchangeReserves(allCoins[config.prefix + 'ETH'].token)
+  poolInfoObj[config.prefix + 'ETH'].marketRate = useMemo(() => {
+    return getMarketRate(mETHreserveETH, mETHreserveToken, allCoins[config.prefix + 'ETH'].decimals)
   }, [mETHreserveETH, mETHreserveToken])
   
   const [totalPoolTokensmETH, setTotalPoolTokensmETH] = useState()
-  poolInfoObj.mETH.fetchPoolTokensm = useCallback(() => {
-    if (poolInfoObj.mETH.exchangeContract) {
-      poolInfoObj.mETH.exchangeContract.totalSupply().then(totalSupply => {
+  poolInfoObj[config.prefix + 'ETH'].fetchPoolTokensm = useCallback(() => {
+    if (poolInfoObj[config.prefix + 'ETH'].exchangeContract) {
+      poolInfoObj[config.prefix + 'ETH'].exchangeContract.totalSupply().then(totalSupply => {
         setTotalPoolTokensmETH(totalSupply)
       })
     }
-  }, [poolInfoObj.mETH.exchangeContract])
+  }, [poolInfoObj[config.prefix + 'ETH'].exchangeContract])
   useEffect(() => {
-    poolInfoObj.mETH.fetchPoolTokensm()
-    library.on('block', poolInfoObj.mETH.fetchPoolTokensm)
+    poolInfoObj[config.prefix + 'ETH'].fetchPoolTokensm()
+    library.on('block', poolInfoObj[config.prefix + 'ETH'].fetchPoolTokensm)
 
     return () => {
-      library.removeListener('block', poolInfoObj.mETH.fetchPoolTokensm)
+      library.removeListener('block', poolInfoObj[config.prefix + 'ETH'].fetchPoolTokensm)
     }
-  }, [poolInfoObj.mETH.fetchPoolTokensm, library])
-  poolInfoObj.mETH.totalPoolTokens = totalPoolTokensmETH
+  }, [poolInfoObj[config.prefix + 'ETH'].fetchPoolTokensm, library])
+  poolInfoObj[config.prefix + 'ETH'].totalPoolTokens = totalPoolTokensmETH
   /**
    * mETH end
    *  */
@@ -698,33 +700,33 @@ export default function DashboardDtil () {
    /**
    * mUSDT start
    *  */
-  poolInfoObj.mUSDT.poolTokenBalance = useAddressBalance(account, allCoins.mUSDT.exchangeAddress)
-  poolInfoObj.mUSDT.exchangeETHBalance = useAddressBalance(allCoins.mUSDT.exchangeAddress, 'FSN')
-  poolInfoObj.mUSDT.exchangeTokenBalancem = useAddressBalance(allCoins.mUSDT.exchangeAddress, allCoins.mUSDT.token)
-  poolInfoObj.mUSDT.exchangeContract = useExchangeContract(allCoins.mUSDT.exchangeAddress)
+  poolInfoObj[config.prefix + 'USDT'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'USDT'].exchangeAddress)
+  poolInfoObj[config.prefix + 'USDT'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'USDT'].exchangeAddress, 'FSN')
+  poolInfoObj[config.prefix + 'USDT'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'USDT'].exchangeAddress, allCoins[config.prefix + 'USDT'].token)
+  poolInfoObj[config.prefix + 'USDT'].exchangeContract = useExchangeContract(allCoins[config.prefix + 'USDT'].exchangeAddress)
 
-  const { reserveETH: mUSDTreserveETH, reserveToken: mUSDTreserveToken } = useExchangeReserves(allCoins.mUSDT.token)
-  poolInfoObj.mUSDT.marketRate = useMemo(() => {
-    return getMarketRate(mUSDTreserveETH, mUSDTreserveToken, allCoins.mUSDT.decimals)
+  const { reserveETH: mUSDTreserveETH, reserveToken: mUSDTreserveToken } = useExchangeReserves(allCoins[config.prefix + 'USDT'].token)
+  poolInfoObj[config.prefix + 'USDT'].marketRate = useMemo(() => {
+    return getMarketRate(mUSDTreserveETH, mUSDTreserveToken, allCoins[config.prefix + 'USDT'].decimals)
   }, [mUSDTreserveETH, mUSDTreserveToken])
   
   const [totalPoolTokensmUSDT, setTotalPoolTokensmUSDT] = useState()
-  poolInfoObj.mUSDT.fetchPoolTokensm = useCallback(() => {
-    if (poolInfoObj.mUSDT.exchangeContract) {
-      poolInfoObj.mUSDT.exchangeContract.totalSupply().then(totalSupply => {
+  poolInfoObj[config.prefix + 'USDT'].fetchPoolTokensm = useCallback(() => {
+    if (poolInfoObj[config.prefix + 'USDT'].exchangeContract) {
+      poolInfoObj[config.prefix + 'USDT'].exchangeContract.totalSupply().then(totalSupply => {
         setTotalPoolTokensmUSDT(totalSupply)
       })
     }
-  }, [poolInfoObj.mUSDT.exchangeContract])
+  }, [poolInfoObj[config.prefix + 'USDT'].exchangeContract])
   useEffect(() => {
-    poolInfoObj.mUSDT.fetchPoolTokensm()
-    library.on('block', poolInfoObj.mUSDT.fetchPoolTokensm)
+    poolInfoObj[config.prefix + 'USDT'].fetchPoolTokensm()
+    library.on('block', poolInfoObj[config.prefix + 'USDT'].fetchPoolTokensm)
 
     return () => {
-      library.removeListener('block', poolInfoObj.mUSDT.fetchPoolTokensm)
+      library.removeListener('block', poolInfoObj[config.prefix + 'USDT'].fetchPoolTokensm)
     }
-  }, [poolInfoObj.mUSDT.fetchPoolTokensm, library])
-  poolInfoObj.mUSDT.totalPoolTokens = totalPoolTokensmUSDT
+  }, [poolInfoObj[config.prefix + 'USDT'].fetchPoolTokensm, library])
+  poolInfoObj[config.prefix + 'USDT'].totalPoolTokens = totalPoolTokensmUSDT
   /**
    * mUSDT end
    *  */
@@ -732,33 +734,33 @@ export default function DashboardDtil () {
   /**
    * mXRP start
    *  */
-  poolInfoObj.mXRP.poolTokenBalance = useAddressBalance(account, allCoins.mXRP.exchangeAddress)
-  poolInfoObj.mXRP.exchangeETHBalance = useAddressBalance(allCoins.mXRP.exchangeAddress, 'FSN')
-  poolInfoObj.mXRP.exchangeTokenBalancem = useAddressBalance(allCoins.mXRP.exchangeAddress, allCoins.mXRP.token)
-  poolInfoObj.mXRP.exchangeContract = useExchangeContract(allCoins.mXRP.exchangeAddress)
+  poolInfoObj[config.prefix + 'XRP'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'XRP'].exchangeAddress)
+  poolInfoObj[config.prefix + 'XRP'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'XRP'].exchangeAddress, 'FSN')
+  poolInfoObj[config.prefix + 'XRP'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'XRP'].exchangeAddress, allCoins[config.prefix + 'XRP'].token)
+  poolInfoObj[config.prefix + 'XRP'].exchangeContract = useExchangeContract(allCoins[config.prefix + 'XRP'].exchangeAddress)
 
-  const { reserveETH: mXRPreserveETH, reserveToken: mXRPreserveToken } = useExchangeReserves(allCoins.mXRP.token)
-  poolInfoObj.mXRP.marketRate = useMemo(() => {
-    return getMarketRate(mXRPreserveETH, mXRPreserveToken, allCoins.mXRP.decimals)
+  const { reserveETH: mXRPreserveETH, reserveToken: mXRPreserveToken } = useExchangeReserves(allCoins[config.prefix + 'XRP'].token)
+  poolInfoObj[config.prefix + 'XRP'].marketRate = useMemo(() => {
+    return getMarketRate(mXRPreserveETH, mXRPreserveToken, allCoins[config.prefix + 'XRP'].decimals)
   }, [mXRPreserveETH, mXRPreserveToken])
   
   const [totalPoolTokensmXRP, setTotalPoolTokensmXRP] = useState()
-  poolInfoObj.mXRP.fetchPoolTokensm = useCallback(() => {
-    if (poolInfoObj.mXRP.exchangeContract) {
-      poolInfoObj.mXRP.exchangeContract.totalSupply().then(totalSupply => {
+  poolInfoObj[config.prefix + 'XRP'].fetchPoolTokensm = useCallback(() => {
+    if (poolInfoObj[config.prefix + 'XRP'].exchangeContract) {
+      poolInfoObj[config.prefix + 'XRP'].exchangeContract.totalSupply().then(totalSupply => {
         setTotalPoolTokensmXRP(totalSupply)
       })
     }
-  }, [poolInfoObj.mXRP.exchangeContract])
+  }, [poolInfoObj[config.prefix + 'XRP'].exchangeContract])
   useEffect(() => {
-    poolInfoObj.mXRP.fetchPoolTokensm()
-    library.on('block', poolInfoObj.mXRP.fetchPoolTokensm)
+    poolInfoObj[config.prefix + 'XRP'].fetchPoolTokensm()
+    library.on('block', poolInfoObj[config.prefix + 'XRP'].fetchPoolTokensm)
 
     return () => {
-      library.removeListener('block', poolInfoObj.mXRP.fetchPoolTokensm)
+      library.removeListener('block', poolInfoObj[config.prefix + 'XRP'].fetchPoolTokensm)
     }
-  }, [poolInfoObj.mXRP.fetchPoolTokensm, library])
-  poolInfoObj.mXRP.totalPoolTokens = totalPoolTokensmXRP
+  }, [poolInfoObj[config.prefix + 'XRP'].fetchPoolTokensm, library])
+  poolInfoObj[config.prefix + 'XRP'].totalPoolTokens = totalPoolTokensmXRP
   /**
    * mXRP end
    *  */
@@ -766,33 +768,33 @@ export default function DashboardDtil () {
    /**
    * mLTC start
    *  */
-  poolInfoObj.mLTC.poolTokenBalance = useAddressBalance(account, allCoins.mLTC.exchangeAddress)
-  poolInfoObj.mLTC.exchangeETHBalance = useAddressBalance(allCoins.mLTC.exchangeAddress, 'FSN')
-  poolInfoObj.mLTC.exchangeTokenBalancem = useAddressBalance(allCoins.mLTC.exchangeAddress, allCoins.mLTC.token)
-  poolInfoObj.mLTC.exchangeContract = useExchangeContract(allCoins.mLTC.exchangeAddress)
+  poolInfoObj[config.prefix + 'LTC'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'LTC'].exchangeAddress)
+  poolInfoObj[config.prefix + 'LTC'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'LTC'].exchangeAddress, 'FSN')
+  poolInfoObj[config.prefix + 'LTC'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'LTC'].exchangeAddress, allCoins[config.prefix + 'LTC'].token)
+  poolInfoObj[config.prefix + 'LTC'].exchangeContract = useExchangeContract(allCoins[config.prefix + 'LTC'].exchangeAddress)
 
-  const { reserveETH: mLTCreserveETH, reserveToken: mLTCreserveToken } = useExchangeReserves(allCoins.mLTC.token)
-  poolInfoObj.mLTC.marketRate = useMemo(() => {
-    return getMarketRate(mLTCreserveETH, mLTCreserveToken, allCoins.mLTC.decimals)
+  const { reserveETH: mLTCreserveETH, reserveToken: mLTCreserveToken } = useExchangeReserves(allCoins[config.prefix + 'LTC'].token)
+  poolInfoObj[config.prefix + 'LTC'].marketRate = useMemo(() => {
+    return getMarketRate(mLTCreserveETH, mLTCreserveToken, allCoins[config.prefix + 'LTC'].decimals)
   }, [mLTCreserveETH, mLTCreserveToken])
   
   const [totalPoolTokensmLTC, setTotalPoolTokensmLTC] = useState()
-  poolInfoObj.mLTC.fetchPoolTokensm = useCallback(() => {
-    if (poolInfoObj.mLTC.exchangeContract) {
-      poolInfoObj.mLTC.exchangeContract.totalSupply().then(totalSupply => {
+  poolInfoObj[config.prefix + 'LTC'].fetchPoolTokensm = useCallback(() => {
+    if (poolInfoObj[config.prefix + 'LTC'].exchangeContract) {
+      poolInfoObj[config.prefix + 'LTC'].exchangeContract.totalSupply().then(totalSupply => {
         setTotalPoolTokensmLTC(totalSupply)
       })
     }
-  }, [poolInfoObj.mLTC.exchangeContract])
+  }, [poolInfoObj[config.prefix + 'LTC'].exchangeContract])
   useEffect(() => {
-    poolInfoObj.mLTC.fetchPoolTokensm()
-    library.on('block', poolInfoObj.mLTC.fetchPoolTokensm)
+    poolInfoObj[config.prefix + 'LTC'].fetchPoolTokensm()
+    library.on('block', poolInfoObj[config.prefix + 'LTC'].fetchPoolTokensm)
 
     return () => {
-      library.removeListener('block', poolInfoObj.mLTC.fetchPoolTokensm)
+      library.removeListener('block', poolInfoObj[config.prefix + 'LTC'].fetchPoolTokensm)
     }
-  }, [poolInfoObj.mLTC.fetchPoolTokensm, library])
-  poolInfoObj.mLTC.totalPoolTokens = totalPoolTokensmLTC
+  }, [poolInfoObj[config.prefix + 'LTC'].fetchPoolTokensm, library])
+  poolInfoObj[config.prefix + 'LTC'].totalPoolTokens = totalPoolTokensmLTC
   /**
    * mLTC end
    *  */

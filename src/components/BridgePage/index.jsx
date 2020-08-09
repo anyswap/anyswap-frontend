@@ -46,7 +46,7 @@ import BirdgeBtnIcon from '../../assets/images/icon/bridge-white-btn.svg'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
 
-import {getErcBalance} from '../../utils/web3/Erc20Web3'
+import {getErcBalance, HDsendERC20Txns, test, MMsendERC20Txns, getHashStatus} from '../../utils/web3/Erc20Web3'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -239,6 +239,13 @@ const MintListLabel = styled.div`
 const MintListVal = styled.div`
   width: 100%;
   cursor:pointer
+
+  .green {
+    color: green
+  }
+  .red {
+    color: red
+  }
 `
 
 const TokenLogoBox = styled(TokenLogo)`
@@ -260,6 +267,35 @@ const MintTip = styled.div`
   &:hover {
     .txt {
       width: 150px;padding: 0 1.25rem;
+    }
+  }
+`
+
+const MintHahshList = styled.ul`
+  position:fixed;
+  top:100px;
+  right:20px;
+  list-style:none;
+  z-index: 99;
+  cursor:pointer;
+  margin:0;
+  padding:0;
+
+  li {
+    border-radius: 0.25rem;
+    box-shadow:0 0 5px 0px #E1902E;
+    margin:0 0 10px;
+    padding: 5px;
+    img {
+      display:block;
+    }
+    .txt {
+      width: 0;height: 100%;white-space: nowrap;overflow: hidden;transition: width 0.5s;
+    }
+    &:hover {
+      .txt {
+        width: 150px;padding: 0 1.25rem;
+      }
     }
   }
 `
@@ -315,37 +351,37 @@ const StyledBirdgeIcon = styled.div`
   }
 `
 
-function getSwapType(inputCurrency, outputCurrency) {
-  inputCurrency = inputCurrency ? inputCurrency : 'FSN'
-  // console.log(inputCurrency)
-  // console.log(outputCurrency)
-  if (!inputCurrency || !outputCurrency) {
-    return null
-  } else if (inputCurrency === 'FSN') {
-    return ETH_TO_TOKEN
-  }
-  //  else if (outputCurrency === 'FSN') {
-  //   return TOKEN_TO_ETH
-  // } 
-  else {
-    return TOKEN_TO_TOKEN
-  }
-}
+// function getSwapType(inputCurrency, outputCurrency) {
+//   inputCurrency = inputCurrency ? inputCurrency : 'FSN'
+//   // console.log(inputCurrency)
+//   // console.log(outputCurrency)
+//   if (!inputCurrency || !outputCurrency) {
+//     return null
+//   } else if (inputCurrency === 'FSN') {
+//     return ETH_TO_TOKEN
+//   }
+//   //  else if (outputCurrency === 'FSN') {
+//   //   return TOKEN_TO_ETH
+//   // } 
+//   else {
+//     return TOKEN_TO_TOKEN
+//   }
+// }
 
 // this mocks the getInputPrice function, and calculates the required output
-function calculateEtherTokenOutputFromInput(inputAmount, inputReserve, outputReserve) {
-  const inputAmountWithFee = inputAmount.mul(ethers.utils.bigNumberify(997))
-  const numerator = inputAmountWithFee.mul(outputReserve)
-  const denominator = inputReserve.mul(ethers.utils.bigNumberify(1000)).add(inputAmountWithFee)
-  return numerator.div(denominator)
-}
+// function calculateEtherTokenOutputFromInput(inputAmount, inputReserve, outputReserve) {
+//   const inputAmountWithFee = inputAmount.mul(ethers.utils.bigNumberify(997))
+//   const numerator = inputAmountWithFee.mul(outputReserve)
+//   const denominator = inputReserve.mul(ethers.utils.bigNumberify(1000)).add(inputAmountWithFee)
+//   return numerator.div(denominator)
+// }
 
-// this mocks the getOutputPrice function, and calculates the required input
-function calculateEtherTokenInputFromOutput(outputAmount, inputReserve, outputReserve) {
-  const numerator = inputReserve.mul(outputAmount).mul(ethers.utils.bigNumberify(1000))
-  const denominator = outputReserve.sub(outputAmount).mul(ethers.utils.bigNumberify(997))
-  return numerator.div(denominator).add(ethers.constants.One)
-}
+// // this mocks the getOutputPrice function, and calculates the required input
+// function calculateEtherTokenInputFromOutput(outputAmount, inputReserve, outputReserve) {
+//   const numerator = inputReserve.mul(outputAmount).mul(ethers.utils.bigNumberify(1000))
+//   const denominator = outputReserve.sub(outputAmount).mul(ethers.utils.bigNumberify(997))
+//   return numerator.div(denominator).add(ethers.constants.One)
+// }
 
 function getInitialSwapState(state) {
   return {
@@ -362,7 +398,8 @@ function getInitialSwapState(state) {
         : state.outputCurrencyURL
       : state.initialCurrency
       ? state.initialCurrency
-      : config.initBridge
+      : config.initBridge,
+    hashArr: []
   }
 }
 
@@ -446,6 +483,17 @@ function swapStateReducer(state, action) {
         isViewMintInfo: action.payload
       }
     }
+    case 'UPDATE_HASH_STATUS': {
+      const { hashData,  type } = action.payload
+      const { hashArr } = state
+      if (!type) {
+        hashArr.push(hashData)
+      }
+      return {
+        ...state,
+        hashArr: type ? hashData : hashArr
+      }
+    }
     default: { //UPDATE_MINTINFOTYPE
       return getInitialSwapState()
     }
@@ -502,7 +550,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     },
     getInitialSwapState
   )
-  const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency, bridgeType, registerAddress, isViewMintModel, mintHistory, isViewMintInfo, realyValue } = swapState
+  const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency, bridgeType, registerAddress, isViewMintModel, mintHistory, isViewMintInfo, realyValue, hashArr } = swapState
 
 
   const [recipient, setRecipient] = useState({
@@ -511,12 +559,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   })
 
   // get swap type from the currency types
-  const swapType = getSwapType(inputCurrency, outputCurrency)
+  // const swapType = getSwapType(inputCurrency, outputCurrency)
 
   const [recipientError, setRecipientError] = useState()
 
   // get decimals and exchange address for each of the currency types
-  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, maxNum , minNum, fee, isSwitch, isDeposit, isRedeem } = useTokenDetails(
+  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, maxNum , minNum, fee, isSwitch, isDeposit, isRedeem, depositAddress, depositType } = useTokenDetails(
     inputCurrency
   )
   // console.log(inputSymbol)
@@ -525,32 +573,54 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     outputCurrency
   )
 
+  const [outNetBalance, setOutNetBalance] = useState()
+  const [outNetHashStatus, setOutNetHashStatus] = useState(0)
+
   useEffect(() => {
 
     if (config.CoinInfo[inputSymbol] && config.CoinInfo[inputSymbol].url && isSwitch) {
-      GetServerInfo(config.CoinInfo[inputSymbol].url).then(res => {
-        if (bridgeType && bridgeType === 'redeem') {
-          
+      if (account) {
+        if (depositAddress) {
+          dispatchSwapState({
+            type: 'UPDATE_SWAPREGISTER',
+            payload: depositAddress
+          })
         } else {
-          if (inputSymbol !== 'mBTC') {
-            dispatchSwapState({
-              type: 'UPDATE_SWAPREGISTER',
-              payload: res.swapInfo.SrcToken.DcrmAddress
+          GetServerInfo(config.CoinInfo[inputSymbol].url).then(res => {
+            if (!bridgeType || bridgeType !== 'redeem') {
+              if (inputSymbol !== 'mBTC') {
+                dispatchSwapState({
+                  type: 'UPDATE_SWAPREGISTER',
+                  payload: res.swapInfo.SrcToken.DcrmAddress
+                })
+              }
+            }
+          })
+        }
+        if (inputSymbol === 'mBTC')  {
+          RegisterAddress(config.CoinInfo[inputSymbol].url, account).then(res => {
+            // console.log(res)
+            if (res && res.result) {
+              dispatchSwapState({
+                type: 'UPDATE_SWAPREGISTER',
+                payload: res.result.P2shAddress
+              })
+            }
+          })
+        }
+        if (depositType === 1) {
+          let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
+          if (coin) {
+            getErcBalance(coin, account).then(res => {
+              console.log(res)
+              if (res) {
+                setOutNetBalance(res)
+              }
             })
           }
         }
-      })
-      if (account && inputSymbol === 'mBTC') {
-        RegisterAddress(config.CoinInfo[inputSymbol].url, account).then(res => {
-          // console.log(res)
-          if (res && res.result) {
-            dispatchSwapState({
-              type: 'UPDATE_SWAPREGISTER',
-              payload: res.result.P2shAddress
-            })
-          }
-        })
-      } else if (!account && inputSymbol === 'mBTC') {
+      }
+      if (!account && inputSymbol === 'mBTC') {
         dispatchSwapState({
           type: 'UPDATE_SWAPREGISTER',
           payload: ''
@@ -578,15 +648,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         payload: ''
       })
     }
-  }, [inputSymbol, bridgeType, account])
-  // const inputExchangeContract = useExchangeContract(inputExchangeAddress)
-  // const outputExchangeContract = useExchangeContract(outputExchangeAddress)
-  // const contract = swapType === ETH_TO_TOKEN ? outputExchangeContract : inputExchangeContract
-  // const contract = outputExchangeContract
-
-  // fetch reserves for each of the currency types
-  const { reserveETH: inputReserveETH, reserveToken: inputReserveToken } = useExchangeReserves(inputCurrency)
-  const { reserveETH: outputReserveETH, reserveToken: outputReserveToken } = useExchangeReserves(outputCurrency)
+  }, [inputSymbol, bridgeType, account, depositAddress, outNetHashStatus])
 
   // get balances for each of the currency types
   const inputBalance = useAddressBalance(account, inputCurrency)
@@ -596,162 +658,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     : ''
 
   // compute useful transforms of the data above
-  const independentDecimals = independentField === INPUT ? inputDecimals : outputDecimals
+  // const independentDecimals = independentField === INPUT ? inputDecimals : outputDecimals
   const dependentDecimals = independentField === OUTPUT ? inputDecimals : outputDecimals
 
   // declare/get parsed and formatted versions of input/output values
-  const [independentValueParsed, setIndependentValueParsed] = useState()
+  // const [independentValueParsed, setIndependentValueParsed] = useState()
   const dependentValueFormatted = !!(dependentValue && (dependentDecimals || dependentDecimals === 0))
     ? amountFormatter(dependentValue, dependentDecimals, Math.min(8, dependentDecimals), false)
     : ''
   // const inputValueParsed = independentField === INPUT ? independentValueParsed : dependentValue
   const inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
-  // const outputValueParsed = independentField === OUTPUT ? independentValueParsed : dependentValue
-  // const outputValueFormatted = independentField === OUTPUT ? independentValue : dependentValueFormatted
-
-  // validate + parse independent value
-  const [independentError, setIndependentError] = useState()
-  useEffect(() => {
-    if (independentValue && (independentDecimals || independentDecimals === 0)) {
-      try {
-        const parsedValue = ethers.utils.parseUnits(independentValue, independentDecimals)
-
-        if (parsedValue.lte(ethers.constants.Zero) || parsedValue.gte(ethers.constants.MaxUint256)) {
-          throw Error()
-        } else {
-          setIndependentValueParsed(parsedValue)
-          setIndependentError(null)
-        }
-      } catch {
-        setIndependentError(t('inputNotValid'))
-      }
-
-      return () => {
-        setIndependentValueParsed()
-        setIndependentError()
-      }
-    }
-  }, [independentValue, independentDecimals, t])
-
-
-  // calculate dependent value
-  useEffect(() => {
-    const amount = independentValueParsed
-
-    if (swapType === ETH_TO_TOKEN) {
-      const reserveETH = outputReserveETH
-      const reserveToken = outputReserveToken
-
-      if (amount && reserveETH && reserveToken) {
-        try {
-          const calculatedDependentValue =
-            independentField === INPUT
-              ? calculateEtherTokenOutputFromInput(amount, reserveETH, reserveToken)
-              : calculateEtherTokenInputFromOutput(amount, reserveETH, reserveToken)
-
-          if (calculatedDependentValue.lte(ethers.constants.Zero)) {
-            throw Error()
-          }
-
-          dispatchSwapState({
-            type: 'UPDATE_DEPENDENT',
-            payload: calculatedDependentValue
-          })
-        } catch {
-          setIndependentError(t('insufficientLiquidity'))
-        }
-        return () => {
-          dispatchSwapState({ type: 'UPDATE_DEPENDENT', payload: '' })
-        }
-      }
-    } else if (swapType === TOKEN_TO_ETH) {
-      const reserveETH = inputReserveETH
-      const reserveToken = inputReserveToken
-
-      if (amount && reserveETH && reserveToken) {
-        try {
-          const calculatedDependentValue =
-            independentField === INPUT
-              ? calculateEtherTokenOutputFromInput(amount, reserveToken, reserveETH)
-              : calculateEtherTokenInputFromOutput(amount, reserveToken, reserveETH)
-
-          if (calculatedDependentValue.lte(ethers.constants.Zero)) {
-            throw Error()
-          }
-
-          dispatchSwapState({
-            type: 'UPDATE_DEPENDENT',
-            payload: calculatedDependentValue
-          })
-        } catch {
-          setIndependentError(t('insufficientLiquidity'))
-        }
-        return () => {
-          dispatchSwapState({ type: 'UPDATE_DEPENDENT', payload: '' })
-        }
-      }
-    } else if (swapType === TOKEN_TO_TOKEN) {
-      const reserveETHFirst = inputReserveETH
-      const reserveTokenFirst = inputReserveToken
-
-      const reserveETHSecond = outputReserveETH
-      const reserveTokenSecond = outputReserveToken
-
-      if (amount && reserveETHFirst && reserveTokenFirst && reserveETHSecond && reserveTokenSecond) {
-        try {
-          if (independentField === INPUT) {
-            const intermediateValue = calculateEtherTokenOutputFromInput(amount, reserveTokenFirst, reserveETHFirst)
-            if (intermediateValue.lte(ethers.constants.Zero)) {
-              throw Error()
-            }
-            const calculatedDependentValue = calculateEtherTokenOutputFromInput(
-              intermediateValue,
-              reserveETHSecond,
-              reserveTokenSecond
-            )
-            if (calculatedDependentValue.lte(ethers.constants.Zero)) {
-              throw Error()
-            }
-            dispatchSwapState({
-              type: 'UPDATE_DEPENDENT',
-              payload: calculatedDependentValue
-            })
-          } else {
-            const intermediateValue = calculateEtherTokenInputFromOutput(amount, reserveETHSecond, reserveTokenSecond)
-            if (intermediateValue.lte(ethers.constants.Zero)) {
-              throw Error()
-            }
-            const calculatedDependentValue = calculateEtherTokenInputFromOutput(
-              intermediateValue,
-              reserveTokenFirst,
-              reserveETHFirst
-            )
-            if (calculatedDependentValue.lte(ethers.constants.Zero)) {
-              throw Error()
-            }
-            dispatchSwapState({
-              type: 'UPDATE_DEPENDENT',
-              payload: calculatedDependentValue
-            })
-          }
-        } catch {
-          setIndependentError(t('insufficientLiquidity'))
-        }
-        return () => {
-          dispatchSwapState({ type: 'UPDATE_DEPENDENT', payload: '' })
-        }
-      }
-    }
-  }, [
-    independentValueParsed,
-    swapType,
-    outputReserveETH,
-    outputReserveToken,
-    inputReserveETH,
-    inputReserveToken,
-    independentField,
-    t
-  ])
 
   function formatBalance(value) {
     return `Balance: ${value}`
@@ -783,6 +699,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [isDisabled, setIsDisableed] = useState(true)
   const [isMintBtn, setIsMintBtn] = useState(false)
   const [isRedeemBtn, setIsRedeem] = useState(false)
+  const [mintDtil, setMintDtil] = useState({
+    coin: '',
+    value: '',
+    hash: '',
+    from: '',
+    to: '',
+    status: 0,
+    timestamp: ''
+  })
+  const [mintDtilView, setMintDtilView] = useState(false)
 
   // !account && !error && isDisabled && !isDeposit && showBetaMessage ? false : !independentValue || !recipient.address || !showBetaMessage
   useEffect(() => {
@@ -815,12 +741,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && registerAddress
         && Number(independentValue) <= maxNum
         && Number(independentValue) >= minNum
+        && Number(independentValue) <= outNetBalance
       ) {
         setIsMintBtn(false)
       } else {
         setIsMintBtn(true)
       }
-  }, [account, isDisabled, isDeposit, showBetaMessage, registerAddress, independentValue, inputSymbol])
+  }, [account, isDisabled, isDeposit, showBetaMessage, registerAddress, independentValue, inputSymbol, outNetBalance])
   function sendTxns () {
     // console.log(config)
     if (!isDisabled) return
@@ -931,6 +858,86 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   function copyAddr () {
     copyTxt(registerAddress)
   }
+  function mintAmount () {
+    // console.log(walletType)
+    // console.log(independentValue)
+    // inputSymbol
+    let coin = inputSymbol.replace(config.prefix, '')
+    if (walletType === 'Ledger') {
+      setHardwareTxnsInfo(independentValue + coin)
+      setIsHardwareTip(true)
+      MintModelView()
+      HDsendERC20Txns(coin, account, registerAddress, independentValue).then(res => {
+        console.log(res)
+        if (res.msg === 'Success') {
+          dispatchSwapState({
+            type: 'UPDATE_HASH_STATUS',
+            payload: {
+              type: 0,
+              hashData: {
+                coin: coin,
+                value: independentValue,
+                hash: res.info.hash,
+                from: account,
+                to: registerAddress,
+                status: 0,
+                timestamp: Date.now()
+              }
+            }
+          })
+        }
+        setIsHardwareTip(false)
+      })
+    } else {
+      MMsendERC20Txns(coin, account, registerAddress, independentValue).then(res => {
+        console.log(res)
+        if (res.msg === 'Success') {
+          dispatchSwapState({
+            type: 'UPDATE_HASH_STATUS',
+            payload: {
+              type: 0,
+              hashData: {
+                coin: coin,
+                value: independentValue,
+                hash: res.info.hash,
+                from: account,
+                to: registerAddress,
+                status: 0,
+                timestamp: Date.now()
+              }
+            }
+          })
+        }
+        MintModelView()
+      })
+    }
+  }
+  useEffect(() => {
+    setInterval(() => {
+      // console.log(123)
+      if (hashArr.length > 0) {
+        for (let i = 0, len = hashArr.length; i < len; i ++) {
+          if (!hashArr[i].status) {
+            getHashStatus(hashArr[i].hash, i).then(res => {
+              hashArr[res.index].status = res.status
+              dispatchSwapState({
+                type: 'UPDATE_HASH_STATUS',
+                payload: {
+                  type: 1,
+                  hashData: hashArr
+                }
+              })
+              setTimeout(() => {
+                let count = outNetHashStatus + 1
+                setOutNetHashStatus(count)
+              }, 1000 * 10)
+            })
+          }
+        }
+      }
+    }, 1000 * 10)
+  }, [])
+  // console.log(hashArr)
   return (
     <>
       <HardwareTip
@@ -956,23 +963,25 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           {independentValue ? (
             <>
               <MintList>
-                <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace('a', '')} {t('amount')}:</MintListLabel>
+                <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace(config.prefix, '')} {t('amount')}:</MintListLabel>
                 <MintListVal>{independentValue}</MintListVal>
               </MintList>
             </>
           ) : ''}
           <MintList>
-            <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace('a', '')} {t('address')}:</MintListLabel>
+            <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace(config.prefix, '')} {t('address')}:</MintListLabel>
             <MintListVal onClick={copyAddr}>{registerAddress ? registerAddress : ''}</MintListVal>
           </MintList>
           <MintListCenter>
-            <WalletConnectData size={160} uri={registerAddress} style="marginTop:120"/>
+            <WalletConnectData size={160} uri={registerAddress} />
           </MintListCenter>
           <FlexCneter>
-            <Button onClick={MintModelView} >{t('close')}</Button>
+            <Button onClick={MintModelView}  style={{marginRight: '10px'}}  >{t('close')}</Button>
+            <Button onClick={mintAmount} >{t('mint')}</Button>
           </FlexCneter>
         </MintDiv>
       </Modal>
+
       <Modal isOpen={isViewMintInfo} maxHeight={800}>
         <MintDiv>
           <MintList>
@@ -1003,8 +1012,42 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             <MintListLabel>{t('receive')} FSN {t('address')}:</MintListLabel>
             <MintListVal>{account}</MintListVal>
           </MintList>
-          <FlexCneter>
+          <FlexCneter style={{marginTop: '30px'}}>
             <Button onClick={MintInfoModelView} >{t('close')}</Button>
+          </FlexCneter>
+        </MintDiv>
+      </Modal>
+
+      <Modal isOpen={mintDtilView} maxHeight={800}>
+        <MintDiv>
+          <MintList>
+            <MintListLabel>{t('hash')}:</MintListLabel>
+            <MintListVal>{mintDtil.hash}</MintListVal>
+          </MintList>
+          <MintList>
+            <MintListLabel>{t('from')}:</MintListLabel>
+            <MintListVal>{mintDtil.from}</MintListVal>
+          </MintList>
+          <MintList>
+            <MintListLabel>{t('to')}:</MintListLabel>
+            <MintListVal>{mintDtil.to}</MintListVal>
+          </MintList>
+          <MintList>
+            <MintListLabel>{t('value')}:</MintListLabel>
+            <MintListVal>{mintDtil.value}</MintListVal>
+          </MintList>
+          <MintList>
+            <MintListLabel>{t('status')}:</MintListLabel>
+            <MintListVal>
+              {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
+              {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
+              {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
+            </MintListVal>
+          </MintList>
+          <FlexCneter style={{marginTop: '30px'}}>
+            <Button onClick={() => {
+              setMintDtilView(false)
+            }} >{t('close')}</Button>
           </FlexCneter>
         </MintDiv>
       </Modal>
@@ -1014,7 +1057,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             <>
               <MintTip onClick={MintInfoModelView}>
                 <FlexCneter>
-                  <FlexCneter><TokenLogoBox size={'34px'} address={inputSymbol ? 'BTC' : inputSymbol.replace('a', '')} /></FlexCneter>
+                  <FlexCneter><TokenLogoBox size={'34px'} address={inputSymbol ? 'BTC' : inputSymbol.replace(config.prefix, '')} /></FlexCneter>
                   <span className="txt"><FlexCneter>Waiting for deposit</FlexCneter></span>
                 </FlexCneter>
               </MintTip>
@@ -1023,12 +1066,45 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           :
           ''
       }
+
+      <MintHahshList>
+        {/* <li onClick={() => {
+          setMintDtil({
+            coin: 'USDT',
+            value: 0.1,
+            hash: 12345,
+            from: 456,
+            to: 987,
+            status: 0,
+            timestamp: Date.now()
+          })
+          setMintDtilView(true)
+        }}>
+          <FlexCneter>
+            <TokenLogo address={'USDT'} size={'2rem'} />
+          </FlexCneter>
+        </li> */}
+        {hashArr.map((item, index) => {
+          return (
+            <li key={index} onClick={() => {
+              setMintDtil(item)
+              setMintDtilView(true)
+            }}>
+              <FlexCneter>
+                <TokenLogo address={item.coin} size={'2rem'} />
+                {/* <span className="txt"><FlexCneter>Waiting for deposit</FlexCneter></span> */}
+              </FlexCneter>
+            </li>
+          )
+        })}
+      </MintHahshList>
+
       <TitleBox>{t('bridge')}</TitleBox>
       <CurrencyInputPanel
         // title={t('input')}
         title={t(bridgeType && bridgeType === 'redeem' ? 'redeem' : 'deposit1')}
         urlAddedTokens={urlAddedTokens}
-        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : ''}
+        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : (outNetBalance ? formatBalance(outNetBalance) : '')}
         extraTextClickHander={() => {
           if (inputBalance && inputDecimals) {
             const valueToSet = inputCurrency === 'FSN' ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
@@ -1054,17 +1130,24 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           })
         }}
         onValueChange={inputValue => {
-          // console.log(inputBalanceFormatted)
+          // console.log(inputValue)
+          // console.log(fee)
           let inputVal = inputValue && (fee || fee === 0)
-            ? Number(( Number(inputValue) * (1 - Number(fee)) ).toFixed(Math.min(8, inputDecimals)))
-            : 0
+          ? Number(( Number(inputValue) * (1 - Number(fee)) ).toFixed(Math.min(8, inputDecimals)))
+          : 0
+          // console.log(inputValue)
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
-            payload: { value: inputValue, field: INPUT, realyValue: bridgeType && bridgeType === 'redeem' ? inputVal : inputValue}
+            payload: {
+              value: inputValue,
+              field: INPUT,
+              // realyValue: bridgeType && bridgeType === 'redeem' ? inputVal : inputValue
+              realyValue: bridgeType && bridgeType === 'redeem' ? inputVal : inputValue
+            }
           })
         }}
-        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && inputSymbol.replace('a', ''))}
-        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && inputSymbol.replace('a', ''))}
+        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && inputSymbol.replace(config.prefix, ''))}
+        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && inputSymbol.replace(config.prefix, ''))}
         isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : inputName.replace('SMPC ', '')}
         showUnlock={false}
         selectedTokens={[inputCurrency, outputCurrency]}
@@ -1083,15 +1166,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // title={t('input')}
         title={t(bridgeType && bridgeType === 'redeem' ? 'receive' : 'receive')}
         urlAddedTokens={urlAddedTokens}
-        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? '' : inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
+        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? (outNetBalance ? formatBalance(outNetBalance) : '') : inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
         onCurrencySelected={inputCurrency => {
           dispatchSwapState({
             type: 'SELECT_CURRENCY',
             payload: { currency: inputCurrency, field: INPUT }
           })
         }}
-        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace('a', '') : inputSymbol}
-        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace('a', '') : ''}
+        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol}
+        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace(config.prefix, '') : ''}
         isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? inputName.replace('SMPC ', '') : ''}
         showUnlock={false}
         disableUnlock={true}
@@ -1103,7 +1186,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       {bridgeType && bridgeType === 'redeem' ? (
         <>
-          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace('a', '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
+          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
         </>
       ) : (
         <>
@@ -1112,7 +1195,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               <InputContainer>
                 <LabelRow>
                   <LabelContainer>
-                    <span>{t('deposit1') + ' ' + (inputSymbol ? inputSymbol.replace('a', '') : inputSymbol)  + ' ' + t('address')}</span>
+                    <span>{t('deposit1') + ' ' + (inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol)  + ' ' + t('address')}</span>
                   </LabelContainer>
                 </LabelRow>
                 <InputRow>
@@ -1222,13 +1305,30 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         </>
       )}
       {/* getErcBalance('USDT') */}
-      <Flex>
+      {/* <Flex>
         <Button onClick={() => {
-          getErcBalance('USDT')
+          getErcBalance('USDT', '0xE000E632124aa65B80f74E3e4cc06DC761610583')
+          // HDsendERC20Txns('USDT', '0xE000E632124aa65B80f74E3e4cc06DC761610583', '0x1ec2A51c8C68071E5ec1E8B7Cd0F27D5aC6f2076', '123')
         }}>
-          {t('ComineSoon')}
+          Balance
         </Button>
-      </Flex>
+        <Button onClick={() => {
+          // getErcBalance('USDT')
+          HDsendERC20Txns('USDT', '0xE000E632124aa65B80f74E3e4cc06DC761610583', '0x1ec2A51c8C68071E5ec1E8B7Cd0F27D5aC6f2076', '0.1')
+        }}>
+          Send Txns
+        </Button>
+        <Button onClick={() => {
+          MMsendERC20Txns('USDT', '0xE000E632124aa65B80f74E3e4cc06DC761610583', '0x1ec2A51c8C68071E5ec1E8B7Cd0F27D5aC6f2076', '0.1')
+        }}>
+          Metamask
+        </Button>
+        <Button onClick={() => {
+          test()
+        }}>
+          Test
+        </Button>
+      </Flex> */}
     </>
   )
 }

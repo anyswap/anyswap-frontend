@@ -33,7 +33,7 @@ export function getWeb3BaseInfo (ContractAddress, DcrmAddress, input, address, v
     const batch = new web3Fn.BatchRequest()
     batch.add(web3Fn.eth.estimateGas.request({to: ContractAddress}, (err, res) => {
       if (err) {
-        console.log(err)
+        // console.log(err)
         data.gas = web3Fn.utils.toHex(12600 * 100)
         count ++
       } else {

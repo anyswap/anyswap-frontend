@@ -163,5 +163,6 @@
   "total": "Total",
   "lr": "Liquidity",
   "rewards": "Rewards",
-  "noRewards":"No profit"
+  "noRewards":"No profit",
+  "status": "Status"
 }
