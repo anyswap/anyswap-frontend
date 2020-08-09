@@ -101,7 +101,7 @@ export const GetBTCtxnsAll = (url, address, coin, dec) => {
     status: '',
     from: ''
   }
-  if (['mETH', 'mUSDT'].includes(coin)) {
+  if ([config.prefix + 'ETH', config.prefix + 'USDT'].includes(coin)) {
     return new Promise(resolve => {
       GetAddressTxnStatusAPI(url, address).then(txns => {
         // console.log(txns)

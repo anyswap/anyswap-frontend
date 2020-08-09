@@ -588,7 +588,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         } else {
           GetServerInfo(config.CoinInfo[inputSymbol].url).then(res => {
             if (!bridgeType || bridgeType !== 'redeem') {
-              if (inputSymbol !== 'mBTC') {
+              if (inputSymbol !== config.prefix + 'BTC') {
                 dispatchSwapState({
                   type: 'UPDATE_SWAPREGISTER',
                   payload: res.swapInfo.SrcToken.DcrmAddress
@@ -597,7 +597,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             }
           })
         }
-        if (inputSymbol === 'mBTC')  {
+        if (inputSymbol === config.prefix + 'BTC')  {
           RegisterAddress(config.CoinInfo[inputSymbol].url, account).then(res => {
             // console.log(res)
             if (res && res.result) {
@@ -620,7 +620,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           }
         }
       }
-      if (!account && inputSymbol === 'mBTC') {
+      if (!account && inputSymbol === config.prefix + 'BTC') {
         dispatchSwapState({
           type: 'UPDATE_SWAPREGISTER',
           payload: ''
@@ -630,7 +630,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         if (historyInterval) {
           clearInterval(historyInterval)
         }
-        let addrHistory = inputSymbol === 'mBTC' ? registerAddress : account
+        let addrHistory = inputSymbol === config.prefix + 'BTC' ? registerAddress : account
         historyInterval = setInterval(() => {
           GetBTCtxnsAll(config.CoinInfo[inputSymbol].url, addrHistory, inputSymbol, inputDecimals).then(res => {
             // console.log(res)
@@ -721,9 +721,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       && recipient.address
       && Number(inputBalanceFormatted) >= Number(independentValue)
     ) {
-      if (inputSymbol === 'mBTC' && config.reg[inputSymbol] && config.reg[inputSymbol].test(recipient.address)) {
+      if (inputSymbol === config.prefix + 'BTC' && config.reg[inputSymbol] && config.reg[inputSymbol].test(recipient.address)) {
         setIsRedeem(false)
-      } else if (inputSymbol !== 'mBTC' && isAddress(recipient.address)) {
+      } else if (inputSymbol !== config.prefix + 'BTC' && isAddress(recipient.address)) {
         setIsRedeem(false)
       } else {
         setIsRedeem(true)
@@ -765,7 +765,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       let web3Contract = getWeb3ConTract(swapBTCABI, inputCurrency)
       // let data = web3Contract.Swapout.getData(amountVal, address)
       let data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
-      if (inputSymbol !== 'mBTC') {
+      if (inputSymbol !== config.prefix + 'BTC') {
         web3Contract = getWeb3ConTract(swapETHABI, inputCurrency)
         // data = web3Contract.Swapout.getData(amountVal)
         data = web3Contract.methods.Swapout(amountVal).encodeABI()
@@ -789,7 +789,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       return
     }
 
-    if (inputSymbol !== 'mBTC') {
+    if (inputSymbol !== config.prefix + 'BTC') {
       // console.log(amountVal)
       tokenETHContract.Swapout(amountVal, address).then(res => {
         // console.log(res)
@@ -1225,7 +1225,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         </span>
       </ExchangeRateWrapper>
       {
-        (bridgeType && bridgeType === 'redeem') || !account || !registerAddress || inputSymbol === 'mBTC' ? '' : (
+        (bridgeType && bridgeType === 'redeem') || !account || !registerAddress || inputSymbol === config.prefix + 'BTC' ? '' : (
           <>
             <MintWarningTip>
             💀 {t('bridgeMintTip', { account })}
