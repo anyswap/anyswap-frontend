@@ -266,34 +266,42 @@ const MintTip = styled.div`
   }
 `
 
-const MintHahshList = styled.ul`
+const MintHahshList = styled.div`
   position:fixed;
   top:100px;
   right:20px;
-  list-style:none;
   z-index: 99;
   cursor:pointer;
   margin:0;
-  padding:5px;
-  max-height: 200px;
-  overflow:auto;
-
-  li {
-    border-radius: 0.25rem;
-    box-shadow:0 0 5px 0px #E1902E;
-    margin:0 0 10px;
-    padding: 5px;
-    img {
-      display:block;
-    }
-    .txt {
-      width: 0;height: 100%;white-space: nowrap;overflow: hidden;transition: width 0.5s;
-    }
-    &:hover {
+  ul {
+    list-style:none;
+    cursor:pointer;
+    margin:0;
+    padding:5px;
+    max-height: 200px;
+    overflow:auto;
+    li {
+      border-radius: 0.25rem;
+      box-shadow:0 0 5px 0px #E1902E;
+      margin:0 0 10px;
+      padding: 5px;
+      img {
+        display:block;
+      }
       .txt {
-        width: 150px;padding: 0 1.25rem;
+        width: 0;height: 100%;white-space: nowrap;overflow: hidden;transition: width 0.5s;
+      }
+      &:hover {
+        .txt {
+          width: 150px;padding: 0 1.25rem;
+        }
       }
     }
+  }
+  .delete {
+    ${({ theme }) => theme.FlexC};
+    width:100%;
+    background: rgba(0,0,0,.1);
   }
 `
 
@@ -699,7 +707,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [recipientError, setRecipientError] = useState()
 
   // get decimals and exchange address for each of the currency types
-  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, maxNum , minNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType } = useTokenDetails(
+  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, redeemMaxNum , redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum } = useTokenDetails(
     inputCurrency
   )
   // console.log(inputSymbol)
@@ -847,6 +855,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   })
   const [mintDtilView, setMintDtilView] = useState(false)
   const [mintSureBtn, setMintSureBtn] = useState(false)
+  const [mintModelTitle, setMintModelTitle] = useState()
+  const [mintModelTip, setMintModelTip] = useState()
 
   // !account && !error && isDisabled && !isDeposit && showBetaMessage ? false : !independentValue || !recipient.address || !showBetaMessage
   useEffect(() => {
@@ -858,6 +868,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       && independentValue
       && recipient.address
       && Number(inputBalanceFormatted) >= Number(independentValue)
+      && Number(independentValue) <= Number(redeemMaxNum)
+      && Number(independentValue) >= Number(redeemMinNum)
     ) {
       if (inputSymbol === config.prefix + 'BTC' && config.reg[inputSymbol] && config.reg[inputSymbol].test(recipient.address)) {
         setIsRedeem(false)
@@ -877,8 +889,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && !showBetaMessage 
         && independentValue
         && registerAddress
-        && Number(independentValue) <= maxNum
-        && Number(independentValue) > minNum
+        && Number(independentValue) <= depositMaxNum
+        && Number(independentValue) >= depositMinNum
         && Number(independentValue) <= Number(outNetBalance)
         && Number(outNetETHBalance) >= 0.01
       ) {
@@ -1003,7 +1015,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     // inputSymbol
     let coin = inputSymbol.replace(config.prefix, '')
     if (walletType === 'Ledger') {
-      setHardwareTxnsInfo(independentValue + coin)
+      setHardwareTxnsInfo(independentValue + ' ' + coin)
       setIsHardwareTip(true)
       setMintSureBtn(false)
       // MintModelView()
@@ -1027,8 +1039,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           })
         }
         setIsHardwareTip(false)
+        setMintSureBtn(false)
+        setMintModelTitle('')
+        setMintModelTip('')
       })
     } else {
+      setMintSureBtn(false)
       MMsendERC20Txns(coin, account, registerAddress, independentValue).then(res => {
         console.log(res)
         if (res.msg === 'Success') {
@@ -1050,9 +1066,20 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
         setIsHardwareTip(false)
         setMintSureBtn(false)
+        setMintModelTitle('')
+        setMintModelTip('')
         // MintModelView()
       })
     }
+  }
+  function removeHashArr () {
+    dispatchSwapState({
+      type: 'UPDATE_HASH_STATUS',
+      payload: {
+        type: 1,
+        hashData: []
+      }
+    })
   }
   useEffect(() => {
     setInterval(() => {
@@ -1093,6 +1120,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         onSure={() => {
           mintAmount()
         }}
+        title={mintModelTitle}
+        tipInfo={mintModelTip}
       ></HardwareTip>
       {showInputWarning && (
         <WarningCard
@@ -1215,22 +1244,31 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
 
       <MintHahshList>
-        {hashArr.map((item, index) => {
-          if (item.from !== account) {
-            return ''
-          }
-          return (
-            <li key={index} onClick={() => {
-              setMintDtil(item)
-              setMintDtilView(true)
-            }}>
-              <FlexCneter>
-                <TokenLogo address={item.coin} size={'2rem'} />
-                {/* <span className="txt"><FlexCneter>Waiting for deposit</FlexCneter></span> */}
-              </FlexCneter>
-            </li>
-          )
-        })}
+        <ul>
+          {hashArr.map((item, index) => {
+            if (item.from !== account) {
+              return ''
+            }
+            return (
+              <li key={index} onClick={() => {
+                setMintDtil(item)
+                setMintDtilView(true)
+              }}>
+                <FlexCneter>
+                  <TokenLogo address={item.coin} size={'2rem'} />
+                  {/* <span className="txt"><FlexCneter>Waiting for deposit</FlexCneter></span> */}
+                </FlexCneter>
+              </li>
+            )
+          })}
+        </ul>
+        {
+          hashArr.length > 0 ? (
+            <div onClick={() => {
+              removeHashArr()
+            }} className='delete'>x</div>
+          ) : ''
+        }
       </MintHahshList>
       
       <NavTabBox>
@@ -1361,28 +1399,30 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       )}
       {/* <OversizedPanel hideBottom>
       </OversizedPanel> */}
-      <ExchangeRateWrapper>
+      {/* <ExchangeRateWrapper>
         <ExchangeRate>{t('fee')}：</ExchangeRate>
         <span>
           {independentValue && (fee || fee === 0) && bridgeType && bridgeType === 'redeem'
             ? `${Number((Number(independentValue) * Number(fee)).toFixed(Math.min(8, inputDecimals)))} ${inputSymbol}`
             : ' - '}
         </span>
-      </ExchangeRateWrapper>
+      </ExchangeRateWrapper> */}
       {
         (bridgeType && bridgeType === 'redeem')
         || !account
         || !registerAddress
         || inputSymbol === config.prefix + 'BTC'
         || Number(outNetETHBalance) >= 0.01
-        || Number(outNetBalance) > minNum
+        || Number(outNetBalance) > depositMinNum
+        || !Number(outNetETHBalance)
+        || !Number(outNetBalance)
         ? '' : (
           <>
             <MintWarningTip>
-            {/* 💀 {t('bridgeMintTip', { account })} */}
-            <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
-             {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})}
-             <span className='span'>{account}</span><Copy toCopy={account} />
+              {/* 💀 {t('bridgeMintTip', { account })} */}
+              <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+              {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})}
+              <span className='span'>{account}</span><Copy toCopy={account} />
             </MintWarningTip>
           </>
         )
@@ -1396,33 +1436,30 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   <img src={BulbIcon} />
                   {t('Reminder')}:
                 </dt>
-                <dd><i></i>{t('redeemTip1')} {fee * 100} %,</dd>
-                <dd><i></i>{t('redeemTip2')} {minNum} {inputSymbol.replace(config.prefix, '')},</dd>
-                <dd><i></i>{t('redeemTip3', {
+                <dd><i></i>{t('redeemTip1', {
                   minFee,
                   coin: inputSymbol.replace(config.prefix, ''),
-                  maxFee
-                })},</dd>
+                  maxFee,
+                  fee: fee * 100
+                })}</dd>
+                <dd><i></i>{t('redeemTip2')} {redeemMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
+                <dd><i></i>{t('redeemTip3')} {redeemMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
                 <dd><i></i>{t('redeemTip4')}.</dd>
+                <dd><i></i>{t('redeemTip5')}.</dd>
               </dl>
             </>
           ) : (
             <>
-              {/* <div className='tip'>
-                <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
-                <p>
-                  You need to send {inputSymbol.replace(config.prefix, '')}-ERC20 and ETH fee to your own wallet first: 
-                  <span className='span'>{account}</span><Copy toCopy={account} />
-                </p>
-              </div> */}
               <dl className='list'>
                 <dt>
                   <img src={BulbIcon} />
                   {t('Reminder')}:
                 </dt>
-                <dd><i></i>{t('mintTip1')} {minNum} {inputSymbol.replace(config.prefix, '')},</dd>
-                <dd><i></i>{t('mintTip2')},</dd>
-                <dd><i></i>{t('mintTip3')}.</dd>
+                <dd><i></i>{t('mintTip1')},</dd>
+                <dd><i></i>{t('mintTip2')} {depositMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
+                <dd><i></i>{t('mintTip3')} {depositMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
+                <dd><i></i>{t('mintTip4')},</dd>
+                <dd><i></i>{t('mintTip5')}.</dd>
               </dl>
             </>
           )
@@ -1455,10 +1492,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       onClick={() => {
                         // MintModelView()
                         setMintSureBtn(true)
-                        setHardwareTxnsInfo(independentValue + inputSymbol.replace(config.prefix, ''))
+                        setHardwareTxnsInfo(independentValue + ' ' + inputSymbol.replace(config.prefix, ''))
                         setIsHardwareTip(true)
+                        setMintModelTitle(t('CrossChainDeposit'))
+                        setMintModelTip(t('mmMintTip'))
                       }}
-                      warning={account && (!independentValue || Number(independentValue) > maxNum || Number(independentValue) < minNum)}
+                      warning={account && (!independentValue || Number(independentValue) > depositMaxNum || Number(independentValue) < depositMinNum)}
                       loggedOut={!account}
                     >
                       <StyledBirdgeIcon>

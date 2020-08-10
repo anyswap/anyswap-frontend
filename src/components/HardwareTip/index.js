@@ -136,7 +136,9 @@ export default function HardwareTip({
   error = false,
   txnsInfo,
   onSure = () => {},
-  isSelfBtn = false
+  isSelfBtn = false,
+  title,
+  tipInfo
 }) {
 
   
@@ -157,7 +159,7 @@ export default function HardwareTip({
           </CloseIcon>
           <HeaderRow>
             <HoverText>{
-              error ? 'Error' : t('ConfirmTransaction')
+              error ? 'Error' : (title ? title : t('ConfirmTransaction'))
             }</HoverText>
           </HeaderRow>
           <ContentWrapper>
@@ -177,7 +179,7 @@ export default function HardwareTip({
                   ) : (<></>)}
                   
                   <ConfirmText size={'0.75rem'}>
-                    {walletType === 'Ledger' ? t("confirmHardware") : t("confirmMetamask")}
+                    {tipInfo ? tipInfo : t("confirmHardware")}
                   </ConfirmText>
                 </ConfirmContent>
               )

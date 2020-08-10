@@ -168,11 +168,16 @@
   "CrossChainDeposit": "跨链充值",
   "Reminder": "提醒",
   "mintTip0": "您需要先将{{coin}}-ERC20和ETH费用发送到您自己的钱包中: ",
-  "mintTip1": "最小充值金额",
-  "mintTip2": "预计充值到账时间30分钟",
-  "mintTip3": "10K USDT以上大额充值到账时间12小时",
-  "redeemTip1": "提现手续费",
+  "mintTip1": "充值手续费 0.0 %",
+  "mintTip2": "最小充值金额",
+  "mintTip3": "最大充值金额",
+  "mintTip4": "预计充值到账时间30分钟",
+  "mintTip5": "10K USDT以上大额充值到账时间12小时",
+
+  "redeemTip1": "提现手续费 {{fee}} %, 最小提现手续费 {{minFee}} {{coin}}, 最大提现手续费 {{maxFee}} {{coin}}",
   "redeemTip2": "最小提现金额",
-  "redeemTip3": "提现手续费最低 {{minFee}} {{coin}}，最高 {{maxFee}} {{coin}}，预计提现到账时间30分钟",
-  "redeemTip4": "10K USDT以上大额提现到账时间12小时"
+  "redeemTip3": "最大提现金额",
+  "redeemTip4": "预计充值到账时间30分钟",
+  "redeemTip5": "10K USDT以上大额充值到账时间12小时",
+  "mmMintTip": "请在Metamask上确认签名"
 }

@@ -272,7 +272,7 @@ function getBaseInfo (coin, from, to, value) {
     }, (err, res) => {
       if (err) {
         // console.log(err)
-        data.gas = web3.utils.toHex(12600 * 100)
+        data.gas = web3.utils.toHex(90000)
         count ++
       } else {
         data.gas = web3.utils.toHex(res * 6)
