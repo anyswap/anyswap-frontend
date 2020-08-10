@@ -209,25 +209,31 @@ export const getErcBalance = (coin, from) => {
       resolve('')
     } else {
       coin = coin.replace('a', '')
-      if (coin === 'ETH') {
-        web3.eth.getBalance(from).then(res => {
-          // console.log(res)
-          res = ethers.utils.bigNumberify(res)
-          resolve(amountFormatter(res))
-        })
-      } else {
-        contract.options.address = allToken[coin].token
-        contract.methods.balanceOf(from).call({from: from}, (err, res) => {
-          // console.log(err)
-          // console.log(res)
-          if (err) {
-            resolve('')
-          } else {
-            res = ethers.utils.bigNumberify(res)
-            resolve(amountFormatter(res, allToken[coin].decimals))
-          }
-        })
-      }
+      web3.eth.getBalance(from).then(res => {
+        // console.log(res)
+        res = ethers.utils.bigNumberify(res)
+        // resolve(amountFormatter(res))
+        if (coin !== 'ETH') {
+          contract.options.address = allToken[coin].token
+          contract.methods.balanceOf(from).call({from: from}, (err, result) => {
+            if (err) {
+              resolve('')
+            } else {
+              result = ethers.utils.bigNumberify(result)
+              // resolve(amountFormatter(result, allToken[coin].decimals))
+              resolve({
+                ETH: amountFormatter(res),
+                TOKEN: amountFormatter(result, allToken[coin].decimals)
+              })
+            }
+          })
+        } else {
+          resolve({
+            ETH: amountFormatter(res),
+            TOKEN: amountFormatter(res)
+          })
+        }
+      })
     }
   })
   // web3.eth.getBalance(from).then(res => {
@@ -241,21 +247,29 @@ function getBaseInfo (coin, from, to, value) {
   // console.log(value)
   // console.log(value.toString())
   let input = contract.methods.transfer(to, value).encodeABI()
+  if (coin === 'ETH') {
+    input = ''
+  }
   let data = {
     from,
     chainId: web3.utils.toHex(config.ercConfig.chainID),
     gas: '',
     gasPrice: "",
     nonce: "",
-    to: allToken[coin].token,
-    value: "0x0",
+    to: coin === 'ETH' ? to : allToken[coin].token,
+    value: coin === 'ETH' ? value : "0x0",
     data: input
   }
   // console.log(data)
   return new Promise(resolve => {
     let count = 0, time = Date.now()
     const batch = new web3.BatchRequest()
-    batch.add(web3.eth.estimateGas.request({to: allToken[coin].token}, (err, res) => {
+    batch.add(web3.eth.estimateGas.request({
+      to: coin === 'ETH' ? to : allToken[coin].token,
+      from: from,
+      data: input,
+      value: value
+    }, (err, res) => {
       if (err) {
         // console.log(err)
         data.gas = web3.utils.toHex(12600 * 100)

@@ -165,5 +165,14 @@
   "rewards": "奖励",
   "noRewards":"暂无收益",
   "status": "状态",
-  "CrossChainDeposit": "跨链充值"
+  "CrossChainDeposit": "跨链充值",
+  "Reminder": "提醒",
+  "mintTip0": "您需要先将{{coin}}-ERC20和ETH费用发送到您自己的钱包中: ",
+  "mintTip1": "最小充值金额",
+  "mintTip2": "预计充值到账时间30分钟",
+  "mintTip3": "10K USDT以上大额充值到账时间12小时",
+  "redeemTip1": "提现手续费",
+  "redeemTip2": "最小提现金额",
+  "redeemTip3": "提现手续费最低 {{minFee}} {{coin}}，最高 {{maxFee}} {{coin}}，预计提现到账时间30分钟",
+  "redeemTip4": "10K USDT以上大额提现到账时间12小时"
 }

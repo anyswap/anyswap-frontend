@@ -274,7 +274,9 @@ const MintHahshList = styled.ul`
   z-index: 99;
   cursor:pointer;
   margin:0;
-  padding:0;
+  padding:5px;
+  max-height: 200px;
+  overflow:auto;
 
   li {
     border-radius: 0.25rem;
@@ -312,8 +314,11 @@ const StyledQRcode = styled(QRcode)`
 `
 
 const MintWarningTip = styled.div`
+${({ theme }) => theme.FlexSC};
   padding: 0.625rem 1rem;
-  color:red;
+  // color:red;
+  
+  color: #734be2;
   font-family: 'Manrope';
   cursor: pointer;
   flex: 1 0 auto;
@@ -321,15 +326,30 @@ const MintWarningTip = styled.div`
   position: relative;
   padding: 0.5rem 1rem;
   padding-right: 2rem;
-  margin-bottom: 1rem;
-  border: 0.0625rem solid ${({ theme }) => transparentize(0.6, 'red')};
-  background-color: ${({ theme }) => transparentize(0.9, 'red')};
+  // margin-bottom: 1rem;
+  // border: 0.0625rem solid ${({ theme }) => transparentize(0.6, 'red')};
+  // background-color: ${({ theme }) => transparentize(0.9, 'red')};
+  
+  border: solid 0.5px #b398f9;
+  background-color: #f2edff;
   border-radius: 1rem;
   font-size: 0.75rem;
   line-height: 1rem;
   text-align: left;
-  color: red;
   margin-top: 1.25rem;
+  
+  flex-wrap:wrap;
+  display:inline-block;
+  line-height: 1rem;
+  .span {
+    text-decoration: underline;
+    margin: 0 5px;
+  }
+  a {
+    display:inline-block;
+    overflow:hidden;
+    height: 1rem;
+  }
 `
 
 // const StyledCopyICON = styled(copyICON)`
@@ -385,7 +405,7 @@ const SubCurrencySelectBox = styled.div`
   }
   .list {
     margin:0;
-    padding: 16px 20px 0;
+    padding: 0 20px 0;
     font-size: 12px;
     color: #734be2;
     dt {
@@ -679,7 +699,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [recipientError, setRecipientError] = useState()
 
   // get decimals and exchange address for each of the currency types
-  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, maxNum , minNum, fee, isSwitch, isDeposit, isRedeem, depositAddress, depositType } = useTokenDetails(
+  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, maxNum , minNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType } = useTokenDetails(
     inputCurrency
   )
   // console.log(inputSymbol)
@@ -689,6 +709,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   )
 
   const [outNetBalance, setOutNetBalance] = useState()
+  const [outNetETHBalance, setOutNetETHBalance] = useState()
   const [outNetHashStatus, setOutNetHashStatus] = useState(0)
 
   useEffect(() => {
@@ -729,7 +750,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             getErcBalance(coin, account).then(res => {
               console.log(res)
               if (res) {
-                setOutNetBalance(res)
+                setOutNetBalance(res.TOKEN)
+                setOutNetETHBalance(res.ETH)
               }
             })
           }
@@ -856,8 +878,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && independentValue
         && registerAddress
         && Number(independentValue) <= maxNum
-        && Number(independentValue) >= minNum
-        && Number(independentValue) <= outNetBalance
+        && Number(independentValue) > minNum
+        && Number(independentValue) <= Number(outNetBalance)
+        && Number(outNetETHBalance) >= 0.01
       ) {
         setIsMintBtn(false)
       } else {
@@ -1347,31 +1370,63 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         </span>
       </ExchangeRateWrapper>
       {
-        (bridgeType && bridgeType === 'redeem') || !account || !registerAddress || inputSymbol === config.prefix + 'BTC' ? '' : (
+        (bridgeType && bridgeType === 'redeem')
+        || !account
+        || !registerAddress
+        || inputSymbol === config.prefix + 'BTC'
+        || Number(outNetETHBalance) >= 0.01
+        || Number(outNetBalance) > minNum
+        ? '' : (
           <>
             <MintWarningTip>
-            💀 {t('bridgeMintTip', { account })}
+            {/* 💀 {t('bridgeMintTip', { account })} */}
+            <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+             {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})}
+             <span className='span'>{account}</span><Copy toCopy={account} />
             </MintWarningTip>
           </>
         )
       }
       <SubCurrencySelectBox>
-        <div className='tip'>
-          <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
-          <p>
-            You need to send {inputSymbol.replace(config.prefix, '')}-ERC20 and ETH fee to your own wallet first: 
-            <span className='span'>{account}</span><Copy toCopy={account} />
-          </p>
-        </div>
-        <dl className='list'>
-          <dt>
-            <img src={BulbIcon} />
-            Reminder:
-          </dt>
-          <dd><i></i>Minimum Deposit / Withdraw Amount is {minNum} {inputSymbol.replace(config.prefix, '')}.</dd>
-          <dd><i></i>Estimated Time of Arrival is 30min.</dd>
-          <dd><i></i>Deposit / Withdraw amount larger than 10K USDT will take up to 12 hours</dd>
-        </dl>
+        {
+          bridgeType && bridgeType === 'redeem' ? (
+            <>
+              <dl className='list'>
+                <dt>
+                  <img src={BulbIcon} />
+                  {t('Reminder')}:
+                </dt>
+                <dd><i></i>{t('redeemTip1')} {fee * 100} %,</dd>
+                <dd><i></i>{t('redeemTip2')} {minNum} {inputSymbol.replace(config.prefix, '')},</dd>
+                <dd><i></i>{t('redeemTip3', {
+                  minFee,
+                  coin: inputSymbol.replace(config.prefix, ''),
+                  maxFee
+                })},</dd>
+                <dd><i></i>{t('redeemTip4')}.</dd>
+              </dl>
+            </>
+          ) : (
+            <>
+              {/* <div className='tip'>
+                <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+                <p>
+                  You need to send {inputSymbol.replace(config.prefix, '')}-ERC20 and ETH fee to your own wallet first: 
+                  <span className='span'>{account}</span><Copy toCopy={account} />
+                </p>
+              </div> */}
+              <dl className='list'>
+                <dt>
+                  <img src={BulbIcon} />
+                  {t('Reminder')}:
+                </dt>
+                <dd><i></i>{t('mintTip1')} {minNum} {inputSymbol.replace(config.prefix, '')},</dd>
+                <dd><i></i>{t('mintTip2')},</dd>
+                <dd><i></i>{t('mintTip3')}.</dd>
+              </dl>
+            </>
+          )
+        }
       </SubCurrencySelectBox>
       <WarningTip></WarningTip>
       {isSwitch ? (

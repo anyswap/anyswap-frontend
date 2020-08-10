@@ -166,5 +166,14 @@
   "rewards": "Rewards",
   "noRewards":"No profit",
   "status": "Status",
-  "CrossChainDeposit": "CrossChain Deposit"
+  "CrossChainDeposit": "CrossChain Deposit",
+  "Reminder": "Reminder",
+  "mintTip0": "You need to send {{coin}}-ERC20 and ETH fee to your own wallet first: ",
+  "mintTip1": "Minimum Deposit Amount is",
+  "mintTip2": "Estimated Time of Deposit Arrival is 30min",
+  "mintTip3": "Deposit amount larger than 10K USDT will take up to 12 hours",
+  "redeemTip1": "Withdraw Fee is",
+  "redeemTip2": "Minimum Withdraw Amount is",
+  "redeemTip3": "Minimum Withdraw Fee is {{minFee}} {{coin}},  Maximum Withdraw Fee is {{maxFee}} {{coin}}",
+  "redeemTip4": "Estimated Time of Withdraw Arrival is 30min.Withdraw amount larger than 10K USDT will take up to 12 hours"
 }
