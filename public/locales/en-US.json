@@ -65,6 +65,7 @@
   "txnsTip":"Please make sure your Ledger unlocked, open Ethereum app with contract data setting allowed",
   "Collecting":"Collecting",
   "confirmHardware":"Please confirm transaction on your Ledger",
+  "confirmMetamask":"Please confirm transaction on your Metamask",
   "deposit1": "Deposit",
   "estimated": "estimated",
   "balance": "Balance: {{ balanceInput }}",
@@ -164,5 +165,6 @@
   "lr": "Liquidity",
   "rewards": "Rewards",
   "noRewards":"No profit",
-  "status": "Status"
+  "status": "Status",
+  "CrossChainDeposit": "CrossChain Deposit"
 }

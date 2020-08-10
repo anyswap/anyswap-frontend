@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Modal from '../Modal'
 import { useWalletModalToggle } from '../../contexts/Application'
 
-import { Spinner } from '../../theme'
+import { Spinner, Button } from '../../theme'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import PathIcon from '../../assets/images/icon/path.svg'
 import { useTranslation } from 'react-i18next'
@@ -135,12 +135,14 @@ export default function HardwareTip({
   closeHardwareTip = () => {},
   error = false,
   txnsInfo,
-  coinType
+  onSure = () => {},
+  isSelfBtn = false
 }) {
 
   
   // setHardwareType(walletType)
   const { t } = useTranslation()
+  let walletType = sessionStorage.getItem('walletType')
   return (
     <Modal
       style={{ userSelect: 'none' }}
@@ -173,17 +175,16 @@ export default function HardwareTip({
                   {txnsInfo ? (
                     <TxnsInfoText>{txnsInfo}</TxnsInfoText>
                   ) : (<></>)}
-                  {/* <SpinnerWrapper src={Circle} alt="loader" /> */}
-                  {/* {coinType ? (
-                    <CoinTypeText size={'1rem'}>{t("Collecting")} {coinType}</CoinTypeText>
-                  ) : (<></>)} */}
                   
                   <ConfirmText size={'0.75rem'}>
-                    {t("confirmHardware")}
+                    {walletType === 'Ledger' ? t("confirmHardware") : t("confirmMetamask")}
                   </ConfirmText>
                 </ConfirmContent>
               )
             }
+            {isSelfBtn ? (
+              <Button onClick={onSure}>{t('confirm')}</Button>
+            ) : ''}
           </ContentWrapper>
         </UpperSection>
       </Wrapper>

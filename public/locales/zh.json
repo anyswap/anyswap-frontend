@@ -65,6 +65,7 @@
   "txnsTip":"请确保您的Ledger已解锁并打开Ethereum app后设置允许合同数据",
   "Collecting":"收集",
   "confirmHardware":"请在你的Ledger上确认交易",
+  "confirmMetamask":"请在你的Metamask上确认交易",
   "deposit1": "充值",
   "estimated": "估计",
   "balance": "余额: {{ balanceInput }}",
@@ -163,5 +164,6 @@
   "lr": "流动性",
   "rewards": "奖励",
   "noRewards":"暂无收益",
-  "status": "状态"
+  "status": "状态",
+  "CrossChainDeposit": "跨链充值"
 }

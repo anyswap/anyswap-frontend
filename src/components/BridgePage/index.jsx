@@ -21,13 +21,11 @@ import CurrencyInputPanel from '../CurrencyInputPanel'
 import AddressInputPanel from '../AddressInputPanel'
 import OversizedPanel from '../OversizedPanel'
 // import TransactionDetails from '../TransactionDetails'
-import ArrowDown from '../../assets/svg/SVGArrowDown'
 import WarningCard from '../WarningCard'
 import { transparentize } from 'polished'
 import WalletConnectData from '../WalletModal/WalletConnectData'
 import Modal from '../Modal'
 import { ReactComponent as QRcode } from '../../assets/images/QRcode.svg'
-import { ReactComponent as copyICON } from '../../assets/images/copy.svg'
 import TokenLogo from '../TokenLogo'
 
 import { GetServerInfo, RegisterAddress, GetBTCtxnsAll } from '../../utils/axios'
@@ -42,6 +40,14 @@ import HardwareTip from '../HardwareTip'
 import ResertSvg from '../../assets/images/icon/revert.svg'
 import BirdgeIcon from '../../assets/images/icon/bridge-white.svg'
 import BirdgeBtnIcon from '../../assets/images/icon/bridge-white-btn.svg'
+import WarningIcon from '../../assets/images/icon/warning.svg'
+import BulbIcon from '../../assets/images/icon/bulb.svg'
+import DepositIcon from '../../assets/images/icon/deposit.svg'
+import DepositActiveIcon from '../../assets/images/icon/deposit-purple.svg'
+import WithdrawIcon from '../../assets/images/icon/withdraw.svg'
+import WithdrawActiveIcon from '../../assets/images/icon/withdraw-purple.svg'
+
+import Copy from '../AccountDetails/Copy'
 
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
@@ -50,17 +56,6 @@ import {getErcBalance, HDsendERC20Txns, test, MMsendERC20Txns, getHashStatus} fr
 
 const INPUT = 0
 const OUTPUT = 1
-
-const ETH_TO_TOKEN = 0
-const TOKEN_TO_ETH = 1
-const TOKEN_TO_TOKEN = 2
-
-// denominated in bips
-const ALLOWED_SLIPPAGE_DEFAULT = 50
-const TOKEN_ALLOWED_SLIPPAGE_DEFAULT = 50
-
-// 15 minutes, denominated in seconds
-const DEFAULT_DEADLINE_FROM_NOW = 60 * 15
 
 const DownArrowBackground = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -351,37 +346,155 @@ const StyledBirdgeIcon = styled.div`
   }
 `
 
-// function getSwapType(inputCurrency, outputCurrency) {
-//   inputCurrency = inputCurrency ? inputCurrency : 'FSN'
-//   // console.log(inputCurrency)
-//   // console.log(outputCurrency)
-//   if (!inputCurrency || !outputCurrency) {
-//     return null
-//   } else if (inputCurrency === 'FSN') {
-//     return ETH_TO_TOKEN
-//   }
-//   //  else if (outputCurrency === 'FSN') {
-//   //   return TOKEN_TO_ETH
-//   // } 
-//   else {
-//     return TOKEN_TO_TOKEN
-//   }
-// }
+const SubCurrencySelectBox = styled.div`
+  width: 100%;
+  object-fit: contain;
+  border-radius: 0.5625rem;
+  border: solid 0.5px #b398f9;
+  background-color: #f2edff;
+  padding: 1rem 1.25rem;
+  margin-top: 0.625rem;
 
-// this mocks the getInputPrice function, and calculates the required output
-// function calculateEtherTokenOutputFromInput(inputAmount, inputReserve, outputReserve) {
-//   const inputAmountWithFee = inputAmount.mul(ethers.utils.bigNumberify(997))
-//   const numerator = inputAmountWithFee.mul(outputReserve)
-//   const denominator = inputReserve.mul(ethers.utils.bigNumberify(1000)).add(inputAmountWithFee)
-//   return numerator.div(denominator)
-// }
+  .tip {
+    ${({ theme }) => theme.FlexSC};
+    font-size: 12px;
+    font-weight: 500;
+    color: #734be2;
+    padding: 2px 20px 18px;
+    border-bottom: 1px solid #f1f6fa;
+    word-break:break-all;
+    img {
+      display:inlne-block;
+    }
+    p {
+      ${({ theme }) => theme.FlexSC};
+      flex-wrap:wrap;
+      display:inline-block;
+      margin: 0;
+      line-height: 1rem;
+      .span {
+        text-decoration: underline;
+        margin: 0 5px;
+      }
+      a {
+        display:inline-block;
+        overflow:hidden;
+        height: 1rem;
+      }
+    }
+  }
+  .list {
+    margin:0;
+    padding: 16px 20px 0;
+    font-size: 12px;
+    color: #734be2;
+    dt {
+      ${({ theme }) => theme.FlexSC};
+      font-weight: bold;
+      line-height: 1.5;
+      img {
+        margin-right: 8px;
+      }
+    }
+    dd {
+      font-weight: 500;
+      line-height: 1.83;
+      i{
+        display:inline-block;
+        width:4px;
+        height: 4px;
+        border-radius:100%;
+        background:#734be2;
+        margin-right: 10px;
+      }
+    }
+  }
+`
 
-// // this mocks the getOutputPrice function, and calculates the required input
-// function calculateEtherTokenInputFromOutput(outputAmount, inputReserve, outputReserve) {
-//   const numerator = inputReserve.mul(outputAmount).mul(ethers.utils.bigNumberify(1000))
-//   const denominator = outputReserve.sub(outputAmount).mul(ethers.utils.bigNumberify(997))
-//   return numerator.div(denominator).add(ethers.constants.One)
-// }
+const NavTabBox = styled.div`
+  ${({ theme }) => theme.FlexBC};
+  align-items: center;
+  font-size: 1rem;
+  font-family: 'Manrope';
+  color: ${({ theme }) => theme.royalBlue};
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1rem;
+
+  img {
+    height: 0.75rem;
+    width: 0.75rem;
+  }
+`
+const TabLinkBox = styled.ul`
+  ${({theme}) => theme.FlexSC}
+  list-style: none;
+  margin: 0;
+  padding:0;
+  li {
+    ${({ theme }) => theme.FlexC}
+    height: 38px;
+    font-family: 'Manrope';
+    font-size: 0.75rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #96989e;
+    border-top: 0.0625rem solid rgba(0, 0, 0, 0.04);
+    border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.04);
+    border-left: 0.0625rem solid rgba(0, 0, 0, 0.04);
+    cursor:pointer;
+    text-decoration: none;
+    padding: 0 0.625rem;
+    background:#fff;
+    white-space:nowrap;
+
+    .icon {
+      ${({ theme }) => theme.FlexC}
+      width: 28px;
+      height: 28px;
+      background:#f5f5f5;
+      border-radius:100%;
+      margin-right:0.625rem;
+    }
+    &:first-child {
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      &.active {
+        border: 0.0625rem solid #734be2;
+      }
+    }
+    &:last-child {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      border-right: 0.0625rem solid rgba(0, 0, 0, 0.04);
+      &.active {
+        border: 0.0625rem solid #734be2;
+      }
+    }
+
+    &.active {
+      border: 0.0625rem solid #734be2;
+      color: #734be2;
+      font-weight: bold;
+      .icon {
+        background: #734be2;
+      }
+    }
+    @media screen and (max-width: 960px) {
+      .icon {
+        display:none;
+      }
+    }
+  }
+`
+
+const TitleBoxPool = styled(TitleBox)`
+margin-bottom: 0;
+`
+
+const DEPOSIT_HISTORY = 'DEPOSIT_HISTORY'
 
 function getInitialSwapState(state) {
   return {
@@ -399,7 +512,7 @@ function getInitialSwapState(state) {
       : state.initialCurrency
       ? state.initialCurrency
       : config.initBridge,
-    hashArr: []
+    hashArr: sessionStorage.getItem('DEPOSIT_HISTORY') ? JSON.parse(sessionStorage.getItem('DEPOSIT_HISTORY')) : []
   }
 }
 
@@ -489,9 +602,11 @@ function swapStateReducer(state, action) {
       if (!type) {
         hashArr.push(hashData)
       }
+      let arr = type ? hashData : hashArr
+      sessionStorage.setItem(DEPOSIT_HISTORY, JSON.stringify(arr))
       return {
         ...state,
-        hashArr: type ? hashData : hashArr
+        hashArr: arr
       }
     }
     default: { //UPDATE_MINTINFOTYPE
@@ -626,21 +741,21 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           payload: ''
         })
       }
-      if (registerAddress && account) {
-        if (historyInterval) {
-          clearInterval(historyInterval)
-        }
-        let addrHistory = inputSymbol === config.prefix + 'BTC' ? registerAddress : account
-        historyInterval = setInterval(() => {
-          GetBTCtxnsAll(config.CoinInfo[inputSymbol].url, addrHistory, inputSymbol, inputDecimals).then(res => {
-            // console.log(res)
-            dispatchSwapState({
-              type: 'UPDATE_MINTHISTORY',
-              payload: res
-            })
-          })
-        }, 1000 * 30)
-      }
+      // if (registerAddress && account) {
+      //   if (historyInterval) {
+      //     clearInterval(historyInterval)
+      //   }
+      //   let addrHistory = inputSymbol === config.prefix + 'BTC' ? registerAddress : account
+      //   historyInterval = setInterval(() => {
+      //     GetBTCtxnsAll(config.CoinInfo[inputSymbol].url, addrHistory, inputSymbol, inputDecimals).then(res => {
+      //       // console.log(res)
+      //       dispatchSwapState({
+      //         type: 'UPDATE_MINTHISTORY',
+      //         payload: res
+      //       })
+      //     })
+      //   }, 1000 * 30)
+      // }
     } else {
       clearInterval(historyInterval)
       dispatchSwapState({
@@ -709,6 +824,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     timestamp: ''
   })
   const [mintDtilView, setMintDtilView] = useState(false)
+  const [mintSureBtn, setMintSureBtn] = useState(false)
 
   // !account && !error && isDisabled && !isDeposit && showBetaMessage ? false : !independentValue || !recipient.address || !showBetaMessage
   useEffect(() => {
@@ -866,7 +982,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     if (walletType === 'Ledger') {
       setHardwareTxnsInfo(independentValue + coin)
       setIsHardwareTip(true)
-      MintModelView()
+      setMintSureBtn(false)
+      // MintModelView()
       HDsendERC20Txns(coin, account, registerAddress, independentValue).then(res => {
         console.log(res)
         if (res.msg === 'Success') {
@@ -908,7 +1025,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             }
           })
         }
-        MintModelView()
+        setIsHardwareTip(false)
+        setMintSureBtn(false)
+        // MintModelView()
       })
     }
   }
@@ -947,7 +1066,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         error={isHardwareError}
         txnsInfo={hardwareTxnsInfo}
-        coinType={inputSymbol}
+        isSelfBtn={mintSureBtn}
+        onSure={() => {
+          mintAmount()
+        }}
       ></HardwareTip>
       {showInputWarning && (
         <WarningCard
@@ -1022,7 +1144,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         <MintDiv>
           <MintList>
             <MintListLabel>{t('hash')}:</MintListLabel>
-            <MintListVal>{mintDtil.hash}</MintListVal>
+            <MintListVal>
+              <a href={config.ercConfig.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
+            </MintListVal>
           </MintList>
           <MintList>
             <MintListLabel>{t('from')}:</MintListLabel>
@@ -1068,23 +1192,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
 
       <MintHahshList>
-        {/* <li onClick={() => {
-          setMintDtil({
-            coin: 'USDT',
-            value: 0.1,
-            hash: 12345,
-            from: 456,
-            to: 987,
-            status: 0,
-            timestamp: Date.now()
-          })
-          setMintDtilView(true)
-        }}>
-          <FlexCneter>
-            <TokenLogo address={'USDT'} size={'2rem'} />
-          </FlexCneter>
-        </li> */}
         {hashArr.map((item, index) => {
+          if (item.from !== account) {
+            return ''
+          }
           return (
             <li key={index} onClick={() => {
               setMintDtil(item)
@@ -1098,8 +1209,42 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           )
         })}
       </MintHahshList>
-
-      <TitleBox>{t('bridge')}</TitleBox>
+      
+      <NavTabBox>
+        <TitleBoxPool>{t('bridge')}</TitleBoxPool>
+        <TabLinkBox>
+          <li
+              className={bridgeType && bridgeType === 'redeem' ? '' : 'active'}
+              onClick={changeMorR}
+            > 
+            <div className='icon'>
+              {
+                bridgeType && bridgeType === 'redeem' ? (
+                  <img alt={''} src={DepositIcon}/>
+                ) : (
+                  <img alt={''} src={DepositActiveIcon}/>
+                )
+              }
+            </div>
+            {t('deposit1')}
+          </li>
+          <li
+              className={bridgeType && bridgeType === 'redeem' ? 'active' : ''}
+              onClick={changeMorR}
+            > 
+            <div className='icon'>
+              {
+                bridgeType && bridgeType === 'redeem' ? (
+                  <img alt={''} src={WithdrawActiveIcon}/>
+                ) : (
+                  <img alt={''} src={WithdrawIcon}/>
+                )
+              }
+            </div>
+            {t('redeem')}
+          </li>
+        </TabLinkBox>
+      </NavTabBox>
       <CurrencyInputPanel
         // title={t('input')}
         title={t(bridgeType && bridgeType === 'redeem' ? 'redeem' : 'deposit1')}
@@ -1189,30 +1334,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
         </>
       ) : (
-        <>
-          <InputPanel>
-            <ContainerRow>
-              <InputContainer>
-                <LabelRow>
-                  <LabelContainer>
-                    <span>{t('deposit1') + ' ' + (inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol)  + ' ' + t('address')}</span>
-                  </LabelContainer>
-                </LabelRow>
-                <InputRow>
-                  <Input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={account && registerAddress ? registerAddress : ''} readOnly/>
-                  {
-                    account && registerAddress ? (
-                      <>
-                        {/* <StyledCopyICON size={'1.25rem'} onClick={copyAddr}></StyledCopyICON> */}
-                        <StyledQRcode size={'1.25rem'} onClick={MintModelView}></StyledQRcode>
-                      </>
-                    ) : ('')
-                  }
-                </InputRow>
-              </InputContainer>
-            </ContainerRow>
-          </InputPanel>
-        </>
+        <></>
       )}
       {/* <OversizedPanel hideBottom>
       </OversizedPanel> */}
@@ -1233,66 +1355,70 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           </>
         )
       }
+      <SubCurrencySelectBox>
+        <div className='tip'>
+          <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+          <p>
+            You need to send {inputSymbol.replace(config.prefix, '')}-ERC20 and ETH fee to your own wallet first: 
+            <span className='span'>{account}</span><Copy toCopy={account} />
+          </p>
+        </div>
+        <dl className='list'>
+          <dt>
+            <img src={BulbIcon} />
+            Reminder:
+          </dt>
+          <dd><i></i>Minimum Deposit / Withdraw Amount is {minNum} {inputSymbol.replace(config.prefix, '')}.</dd>
+          <dd><i></i>Estimated Time of Arrival is 30min.</dd>
+          <dd><i></i>Deposit / Withdraw amount larger than 10K USDT will take up to 12 hours</dd>
+        </dl>
+      </SubCurrencySelectBox>
       <WarningTip></WarningTip>
-      {/* {!account ? (
-        <Flex>
-          <Button onClick={toggleWalletModal} >
-            {t('connectToWallet')}
-          </Button>
-        </Flex>
-      ) : ''
-      } */}
       {isSwitch ? (
         <>
           <Flex>
-            {bridgeType && bridgeType === 'redeem' ? (
-              account ? (<>
-                <Button
-                  disabled={ isRedeemBtn }
-                  onClick={account && !error ? sendTxns : toggleWalletModal}
-                  warning={Number(inputBalanceFormatted) < Number(independentValue)}
-                  loggedOut={!account}
-                >
-                  {!account
-                    ? t('connectToWallet')
-                    : (
-                      <>
-                        <StyledBirdgeIcon>
-                          <img src={BirdgeIcon} alt={''} />
-                          {t('redeem')}
-                        </StyledBirdgeIcon>
-                      </>
-                      )}
-                </Button>
-              </>) : (
+            {
+              account ? (
+                <>
+                  {bridgeType && bridgeType === 'redeem' ? (
+                    <Button
+                      disabled={ isRedeemBtn }
+                      onClick={() => {
+                        sendTxns()
+                      }}
+                      warning={Number(inputBalanceFormatted) < Number(independentValue)}
+                      loggedOut={!account}
+                    >
+                      <StyledBirdgeIcon>
+                        <img src={BirdgeIcon} alt={''} />
+                        {t('redeem')}
+                      </StyledBirdgeIcon>
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={isMintBtn}
+                      onClick={() => {
+                        // MintModelView()
+                        setMintSureBtn(true)
+                        setHardwareTxnsInfo(independentValue + inputSymbol.replace(config.prefix, ''))
+                        setIsHardwareTip(true)
+                      }}
+                      warning={account && (!independentValue || Number(independentValue) > maxNum || Number(independentValue) < minNum)}
+                      loggedOut={!account}
+                    >
+                      <StyledBirdgeIcon>
+                        <img src={BirdgeBtnIcon} alt={''} />
+                        {t('CrossChainDeposit')}
+                      </StyledBirdgeIcon>
+                    </Button>
+                  )}
+                </>
+              ) : (
                 <Button disabled={showBetaMessage} onClick={toggleWalletModal} >
                   {t('connectToWallet')}
                 </Button>
               )
-            ) : (
-              account ? (<>
-                <Button
-                  disabled={isMintBtn}
-                  onClick={account && !error ? MintModelView : toggleWalletModal}
-                  warning={account && (!independentValue || Number(independentValue) > maxNum || Number(independentValue) < minNum)}
-                  loggedOut={!account}
-                >
-                  {!account
-                    ? t('connectToWallet')
-                    : (
-                      <> 
-                        <img alt={''} src={BirdgeBtnIcon} style={{marginRight: '15px'}} />
-                        {t('confirm')}
-                      </>
-                      )
-                    }
-                </Button>
-              </>) : (
-                <Button disabled={showBetaMessage} onClick={toggleWalletModal} >
-                  {t('connectToWallet')}
-                </Button>
-              )
-            )}
+            }
           </Flex>
         </>
       ) : (
@@ -1304,31 +1430,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           </Flex>
         </>
       )}
-      {/* getErcBalance('USDT') */}
-      {/* <Flex>
-        <Button onClick={() => {
-          getErcBalance('USDT', '0xE000E632124aa65B80f74E3e4cc06DC761610583')
-          // HDsendERC20Txns('USDT', '0xE000E632124aa65B80f74E3e4cc06DC761610583', '0x1ec2A51c8C68071E5ec1E8B7Cd0F27D5aC6f2076', '123')
-        }}>
-          Balance
-        </Button>
-        <Button onClick={() => {
-          // getErcBalance('USDT')
-          HDsendERC20Txns('USDT', '0xE000E632124aa65B80f74E3e4cc06DC761610583', '0x1ec2A51c8C68071E5ec1E8B7Cd0F27D5aC6f2076', '0.1')
-        }}>
-          Send Txns
-        </Button>
-        <Button onClick={() => {
-          MMsendERC20Txns('USDT', '0xE000E632124aa65B80f74E3e4cc06DC761610583', '0x1ec2A51c8C68071E5ec1E8B7Cd0F27D5aC6f2076', '0.1')
-        }}>
-          Metamask
-        </Button>
-        <Button onClick={() => {
-          test()
-        }}>
-          Test
-        </Button>
-      </Flex> */}
     </>
   )
 }
