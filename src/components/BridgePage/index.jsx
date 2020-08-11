@@ -833,11 +833,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   const [outNetBalance, setOutNetBalance] = useState()
   const [outNetETHBalance, setOutNetETHBalance] = useState()
-  const [outNetHashStatus, setOutNetHashStatus] = useState(0)
   const [isRegister, setIsRegister] = useState(false)
 
   useEffect(() => {
-
     if (config.CoinInfo[inputSymbol] && config.CoinInfo[inputSymbol].url && isSwitch) {
       if (account) {
         if (depositAddress) {
@@ -885,18 +883,21 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             }
           })
         }
-        if (depositType === 1) {
-          let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
-          if (coin) {
-            getErcBalance(coin, account).then(res => {
-              console.log(res)
-              if (res) {
-                setOutNetBalance(res.TOKEN)
-                setOutNetETHBalance(res.ETH)
-              }
-            })
-          }
-        }
+        // clearInterval(historyInterval)
+        // historyInterval = setInterval(() => {
+        //   if (depositType === 1) {
+        //     let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
+        //     if (coin) {
+        //       getErcBalance(coin, account).then(res => {
+        //         console.log(res)
+        //         if (res) {
+        //           setOutNetBalance(res.TOKEN)
+        //           setOutNetETHBalance(res.ETH)
+        //         }
+        //       })
+        //     }
+        //   }
+        // })
       }
       if (!account && inputSymbol === config.prefix + 'BTC') {
         dispatchSwapState({
@@ -920,13 +921,38 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       //   }, 1000 * 30)
       // }
     } else {
-      clearInterval(historyInterval)
+      // clearInterval(historyInterval)
       dispatchSwapState({
         type: 'UPDATE_SWAPREGISTER',
         payload: ''
       })
     }
-  }, [inputSymbol, bridgeType, account, depositAddress, outNetHashStatus])
+  }, [inputCurrency, bridgeType, account, depositAddress])
+
+  function getOutBalance () {
+    if (depositType === 1 && account) {
+      let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
+      if (coin) {
+        getErcBalance(coin, account).then(res => {
+          // console.log(res)
+          if (res) {
+            setOutNetBalance(res.TOKEN)
+            setOutNetETHBalance(res.ETH)
+          }
+        })
+      }
+    }
+  }
+
+  useEffect(() => {
+    setOutNetBalance('')
+    setOutNetETHBalance('')
+    getOutBalance()
+    clearInterval(historyInterval)
+    historyInterval = setInterval(() => {
+      getOutBalance()
+    }, 1000 * 10)
+  }, [inputCurrency, account])
 
   // get balances for each of the currency types
   const inputBalance = useAddressBalance(account, inputCurrency)
@@ -1230,10 +1256,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   hashData: hashArr
                 }
               })
-              setTimeout(() => {
-                let count = outNetHashStatus + 1
-                setOutNetHashStatus(count)
-              }, 1000 * 10)
             })
           }
         }
@@ -1554,7 +1576,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         ? '' : (
           <>
             {
-              Number(outNetETHBalance) === 0 || Number(outNetBalance) === 0 ? (
+              (Number(outNetETHBalance) === 0 && outNetETHBalance !== '') || (Number(outNetBalance) === 0 && outNetBalance !== '') ? (
                 <MintWarningTip>
                   {/* 💀 {t('bridgeMintTip', { account })} */}
                   <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>

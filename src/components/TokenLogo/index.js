@@ -53,7 +53,11 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
     try {
       path = require('../../assets/images/coin/' + address + '.svg')
     } catch (error) {
-      path = require('../../assets/images/coin/' + address + '.png')
+      try {
+        path = require('../../assets/images/coin/' + address + '.png')
+      } catch (error) {
+        path = require('../../assets/images/question.svg')
+      }
     }
   } else {
     path = require('../../assets/images/question.svg')
