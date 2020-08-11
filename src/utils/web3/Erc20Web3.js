@@ -152,18 +152,6 @@ export function MMsendERC20Txns(coin, from, to, value) {
         // console.log(res.info)
         let tx = new Tx(res.info)
 
-        // tx.sign(prvtKey)
-        // let signTx = tx.serialize().toString("hex")
-        // signTx = signTx.indexOf("0x") === 0 ? signTx : ("0x" + signTx)
-        // console.log(tx)
-        // // console.log(tx.r.toString())
-        // console.log(new Buffer(tx.r, 'hex').toString('hex'))
-        // console.log(new Buffer(tx.s, 'hex').toString('hex'))
-        // console.log(new Buffer(tx.v, 'hex').toString('hex'))
-        // // console.log(tx.s.toString())
-        // // console.log(tx.v.toString())
-        // console.log(signTx)
-        // return
         let hash = Buffer.from(tx.hash(false)).toString('hex')
         hash = hash.indexOf('0x') == 0 ? hash : '0x' + hash
         // console.log(hash)
@@ -216,10 +204,12 @@ export const getErcBalance = (coin, from) => {
         if (coin !== 'ETH') {
           contract.options.address = allToken[coin].token
           contract.methods.balanceOf(from).call({from: from}, (err, result) => {
+            // console.log(err)
             if (err) {
               resolve('')
             } else {
               result = ethers.utils.bigNumberify(result)
+              // console.log(result)
               // resolve(amountFormatter(result, allToken[coin].decimals))
               resolve({
                 ETH: amountFormatter(res),

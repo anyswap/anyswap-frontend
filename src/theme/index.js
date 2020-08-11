@@ -43,8 +43,8 @@ export default function ThemeProvider({ children }) {
       : darkMode
     : darkMode
   useEffect(() => {
-    toggleDarkMode(themeToRender)
-    // toggleDarkMode(false)
+    // toggleDarkMode(themeToRender)
+    toggleDarkMode(false)
   }, [toggleDarkMode, themeToRender])
   // console.log(themeToRender)
   return <StyledComponentsThemeProvider theme={theme(themeToRender)}>{children}</StyledComponentsThemeProvider>

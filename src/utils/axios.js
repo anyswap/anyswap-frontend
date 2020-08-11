@@ -28,12 +28,16 @@ export const GetServerInfo = (url) => {
   })
 }
 
-export const RegisterAddress = (url, address) => {
+export const RegisterAddress = (url, address, coin) => {
   return new Promise(resolve => {
+    let methods = 'swap.RegisterAddress'
+    if (coin === 'BTC')  {
+      methods = 'swap.RegisterP2shAddress'
+    }
     axios.post(url, {
       id:0,
       jsonrpc:"2.0",
-      method:"swap.RegisterP2shAddress",
+      method: methods,
       params:[address]
     }).then(res => {
       // console.log(res)

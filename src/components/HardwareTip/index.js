@@ -3,11 +3,14 @@ import styled from 'styled-components'
 
 import Modal from '../Modal'
 import { useWalletModalToggle } from '../../contexts/Application'
-
+import TokenLogo from '../TokenLogo'
 import { Spinner, Button } from '../../theme'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import PathIcon from '../../assets/images/icon/path.svg'
 import { useTranslation } from 'react-i18next'
+
+import CheckIcon from '../../assets/images/icon/check.svg'
+
 const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
@@ -129,6 +132,13 @@ font-family: 'Manrope';
   margin-top:1.25rem
 `
 
+const ButtonConfirm = styled(Button)`
+max-width: 272px;
+height: 48px;
+line-height:1;
+margin:auto;
+font-size:1rem;
+`
 
 export default function HardwareTip({
   HardwareTipOpen,
@@ -138,7 +148,8 @@ export default function HardwareTip({
   onSure = () => {},
   isSelfBtn = false,
   title,
-  tipInfo
+  tipInfo,
+  coin
 }) {
 
   
@@ -164,7 +175,13 @@ export default function HardwareTip({
           </HeaderRow>
           <ContentWrapper>
             <LogoBox>
-              <img src={PathIcon} alt={'logo'} />
+              {
+                coin ? (
+                  <TokenLogo address={coin} size={'1.625rem'} ></TokenLogo>
+                ) : (
+                  <img src={PathIcon} alt={'logo'} />
+                )
+              }
             </LogoBox>
             {
               error ? (
@@ -185,7 +202,10 @@ export default function HardwareTip({
               )
             }
             {isSelfBtn ? (
-              <Button onClick={onSure}>{t('confirm')}</Button>
+              <ButtonConfirm onClick={onSure}>
+                <img alt='' src={CheckIcon} style={{marginRight: '15px'}} />
+                {t('confirm')}
+              </ButtonConfirm>
             ) : ''}
           </ContentWrapper>
         </UpperSection>

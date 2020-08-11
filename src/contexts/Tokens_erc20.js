@@ -773,10 +773,10 @@ export default {
     },
     'USDT': {
       [NAME]: 'USDTERC20',
-      [TOKEN]: '0xb09bad01684f6d47fc7dc9591889cc77eaed8d22',
+      [TOKEN]: '0xdac17f958d2ee523a2206206994597c13d831ec7',
       [SYMBOL]: 'USDT',
       [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '0xef2a905135c66fa04bdb41356ecf64e7df8ba776'
+      [EXCHANGE_ADDRESS]: '0x36928500bc1dcd7af6a2b4008875cc336b927d57'
     },
   },
   4: {

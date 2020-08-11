@@ -166,6 +166,7 @@
   "rewards": "Rewards",
   "noRewards":"No profit",
   "status": "Status",
+  "txnsStatus": "Transaction Status",
   "CrossChainDeposit": "CrossChain Deposit",
   "Reminder": "Reminder",
   "mintTip0": "You need to send {{coin}}-ERC20 and ETH fee to your own wallet first: ",
@@ -180,5 +181,7 @@
   "redeemTip3": "Maximum Withdraw Amount is",
   "redeemTip4": "Estimated Time of Withdraw Arrival is 30min",
   "redeemTip5": "Withdraw amount larger than 10K USDT will take up to 12 hours",
-  "mmMintTip": "Please click confirm button to sign on your Metamask."
+  "mmMintTip": "Please click confirm button to sign on your Metamask.",
+  "ValueDeposited": "Value deposited",
+  "txnsDtil": "Transaction Details"
 }

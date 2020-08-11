@@ -158,7 +158,7 @@ export default function Header() {
             </div>
           </NetworkBox>
           <Web3Status />
-          <StyleDarkToggle
+          {/* <StyleDarkToggle
             onClick={() => {
               toggleDarkMode()
             }}
@@ -172,7 +172,7 @@ export default function Header() {
                 <img src={IconNight} alt="" />
               )
             }
-          </StyleDarkToggle>
+          </StyleDarkToggle> */}
           {/* <StyledToggle
             checked={!isDark}
             uncheckedIcon={

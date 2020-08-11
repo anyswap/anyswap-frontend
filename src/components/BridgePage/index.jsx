@@ -46,6 +46,8 @@ import DepositIcon from '../../assets/images/icon/deposit.svg'
 import DepositActiveIcon from '../../assets/images/icon/deposit-purple.svg'
 import WithdrawIcon from '../../assets/images/icon/withdraw.svg'
 import WithdrawActiveIcon from '../../assets/images/icon/withdraw-purple.svg'
+import ScheduleIcon from '../../assets/images/icon/schedule.svg'
+import { ReactComponent as Close } from '../../assets/images/x.svg'
 
 import Copy from '../AccountDetails/Copy'
 
@@ -216,7 +218,7 @@ const MintDiv = styled.div`
 
 const MintList = styled.div`
   border-bottom: 0.0625rem  solid ${({ error, theme }) => (error ? theme.salmonRed : theme.mercuryGray)};
-  padding: 1rem 8px;
+  padding: 12px 8px;
   font-family: 'Manrope';
   font-size: 0.875rem;
 `
@@ -229,12 +231,16 @@ const MintListCenter = styled(MintList)`
 
 const MintListLabel = styled.div`
   width: 100%;
+  font-size:12px;
+  color:#96989e;
 `
 
 const MintListVal = styled.div`
+${({ theme }) => theme.FlexSC};
   width: 100%;
   cursor:pointer
-
+  color:#062536;
+  font-size:12px;
   .green {
     color: green
   }
@@ -344,7 +350,7 @@ ${({ theme }) => theme.FlexSC};
   font-size: 0.75rem;
   line-height: 1rem;
   text-align: left;
-  margin-top: 1.25rem;
+  margin-top: 10px;
   
   flex-wrap:wrap;
   display:inline-block;
@@ -520,6 +526,115 @@ const TabLinkBox = styled.ul`
 
 const TitleBoxPool = styled(TitleBox)`
 margin-bottom: 0;
+`
+const TokenLogoBox1 = styled.div`
+  ${({ theme }) => theme.FlexC};
+  width: 46px;
+  height: 46px;
+  background: ${ ({theme}) => theme.white};
+  box-sizing:border-box;
+  border-radius: 100%;
+  margin-top: 30px;
+  border:1px solid #ddd;
+`
+
+const DepositValue = styled.div`
+width:100%;
+text-align: center;
+p {
+  font-size:12px;
+  color:#96989e;
+  margin: 15px 0 8px;
+}
+span {
+  color:#062536;
+  font-size:22px;
+}
+`
+
+const HashStatus = styled.div`
+  ${({ theme }) => theme.FlexBC};
+  width: 100%;
+  font-size:12px;
+  color: ##062536;
+  font-weight:bold;
+  padding: 12px 15px;
+  border-radius:9px;
+  margin-top:30px;
+  &.yellow {
+    border: 1px solid #e3d1aa;
+    background: #fff5e0;
+  }
+  &.green{
+    border: 1px solid #a3daab;
+    background: #e2f9e5;
+  }
+`
+
+const CloseIcon = styled.div`
+  position: absolute;
+  right: 1rem;
+  top: 0.875rem;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+`
+const CloseColor = styled(Close)`
+  path {
+    stroke: ${({ theme }) => theme.chaliceGray};
+  }
+`
+
+const HeaderRow = styled.div`
+  ${({ theme }) => theme.flexRowNoWrap};
+  padding: 1.5rem 1.5rem;
+  font-weight: 500;
+  color: ${props => (props.color === 'blue' ? ({ theme }) => theme.royalBlue : 'inherit')};
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    padding: 1rem;
+  `};
+`
+const HoverText = styled.div`
+  :hover {
+    cursor: pointer;
+  }
+`
+const Wrapper = styled.div`
+  ${({ theme }) => theme.flexColumnNoWrap}
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: ${({ theme }) => theme.backgroundColor};
+`
+
+
+const UpperSection = styled.div`
+  position: relative;
+  width: 100%;
+  font-family: 'Manrope';
+
+  h5 {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  h5:last-child {
+    margin-bottom: 0px;
+  }
+
+  h4 {
+    margin-top: 0;
+    font-weight: 500;
+  }
+`
+const ContentWrapper = styled.div`
+width: 100%;
+  background-color: ${({ theme }) => theme.backgroundColor};
+  padding: 0rem;
+  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1rem`};
 `
 
 const DEPOSIT_HISTORY = 'DEPOSIT_HISTORY'
@@ -719,6 +834,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [outNetBalance, setOutNetBalance] = useState()
   const [outNetETHBalance, setOutNetETHBalance] = useState()
   const [outNetHashStatus, setOutNetHashStatus] = useState(0)
+  const [isRegister, setIsRegister] = useState(false)
 
   useEffect(() => {
 
@@ -742,13 +858,30 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           })
         }
         if (inputSymbol === config.prefix + 'BTC')  {
-          RegisterAddress(config.CoinInfo[inputSymbol].url, account).then(res => {
+          RegisterAddress(config.CoinInfo[inputSymbol].url, account, inputSymbol.replace(config.prefix, '')).then(res => {
             // console.log(res)
             if (res && res.result) {
               dispatchSwapState({
                 type: 'UPDATE_SWAPREGISTER',
                 payload: res.result.P2shAddress
               })
+            }
+          })
+        } else {
+          RegisterAddress(config.CoinInfo[inputSymbol].url, account, inputSymbol.replace(config.prefix, '')).then(res => {
+            // console.log(res)
+            // console.log(res.error.message)
+            // console.log(res.error.message === 'mgoError: Item is duplicate')
+            if (
+              res
+              && (
+                (res.result && res.result === 'Success')
+                || (res.error && res.error.message === 'mgoError: Item is duplicate')
+              )
+            ) {
+              setIsRegister(true)
+            } else {
+              setIsRegister(false)
             }
           })
         }
@@ -893,6 +1026,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && Number(independentValue) >= depositMinNum
         && Number(independentValue) <= Number(outNetBalance)
         && Number(outNetETHBalance) >= 0.01
+        && isRegister
       ) {
         setIsMintBtn(false)
       } else {
@@ -1122,6 +1256,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         title={mintModelTitle}
         tipInfo={mintModelTip}
+        coin={inputSymbol}
       ></HardwareTip>
       {showInputWarning && (
         <WarningCard
@@ -1193,39 +1328,85 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       </Modal>
 
       <Modal isOpen={mintDtilView} maxHeight={800}>
-        <MintDiv>
-          <MintList>
-            <MintListLabel>{t('hash')}:</MintListLabel>
-            <MintListVal>
-              <a href={config.ercConfig.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
-            </MintListVal>
-          </MintList>
-          <MintList>
-            <MintListLabel>{t('from')}:</MintListLabel>
-            <MintListVal>{mintDtil.from}</MintListVal>
-          </MintList>
-          <MintList>
-            <MintListLabel>{t('to')}:</MintListLabel>
-            <MintListVal>{mintDtil.to}</MintListVal>
-          </MintList>
-          <MintList>
-            <MintListLabel>{t('value')}:</MintListLabel>
-            <MintListVal>{mintDtil.value}</MintListVal>
-          </MintList>
-          <MintList>
-            <MintListLabel>{t('status')}:</MintListLabel>
-            <MintListVal>
-              {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
-              {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
-              {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
-            </MintListVal>
-          </MintList>
-          <FlexCneter style={{marginTop: '30px'}}>
-            <Button onClick={() => {
+        <Wrapper>
+          <UpperSection>
+            <CloseIcon onClick={() =>  {
               setMintDtilView(false)
-            }} >{t('close')}</Button>
-          </FlexCneter>
-        </MintDiv>
+            }}>
+              <CloseColor alt={'close icon'} />
+            </CloseIcon>
+            <HeaderRow>
+              <HoverText>{
+                t('txnsDtil')
+              }</HoverText>
+            </HeaderRow>
+            <ContentWrapper>
+              <MintDiv>
+                <MintList>
+                  <MintListLabel>{t('hash')}:</MintListLabel>
+                  <MintListVal>
+                    <a href={config.ercConfig.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
+                    <Copy toCopy={mintDtil.hash} />
+                  </MintListVal>
+                </MintList>
+                <MintList>
+                  <MintListLabel>{t('from')}:</MintListLabel>
+                  <MintListVal>
+                    {mintDtil.from}
+                    <Copy toCopy={mintDtil.from} />
+                  </MintListVal>
+                </MintList>
+                <MintList>
+                  <MintListLabel>{t('to')}:</MintListLabel>
+                  <MintListVal>
+                    {mintDtil.to}
+                    <Copy toCopy={mintDtil.to} />
+                  </MintListVal>
+                </MintList>
+                <MintList>
+                  <MintListLabel>{t('value')}:</MintListLabel>
+                  <MintListVal>{mintDtil.value}</MintListVal>
+                </MintList>
+                <FlexCneter>
+                  <TokenLogoBox1>
+                    <TokenLogo address={mintDtil.coin} size={'26px'} ></TokenLogo>
+                  </TokenLogoBox1>
+                </FlexCneter>
+                <FlexCneter>
+                  <DepositValue>
+                    <p>{t('ValueDeposited')}</p>
+                    <span>{mintDtil.value} {mintDtil.coin}</span>
+                  </DepositValue>
+                </FlexCneter>
+                <HashStatus className={
+                  mintDtil.status === 0 ? 'yellow' : 'green'
+                }>
+                  <div>
+                    <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
+                    {t('txnsStatus')}
+                  </div>
+                  {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
+                  {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
+                  {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
+                </HashStatus>
+                {/* <MintList>
+                  <MintListLabel>{t('status')}:</MintListLabel>
+                  <MintListVal>
+                    {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
+                    {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
+                    {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
+                  </MintListVal>
+                </MintList> */}
+                {/* <FlexCneter style={{marginTop: '30px'}}>
+                  <Button onClick={() => {
+                    setMintDtilView(false)
+                  }} >{t('close')}</Button>
+                </FlexCneter> */}
+              </MintDiv>
+            </ContentWrapper>
+          </UpperSection>
+        </Wrapper>
+        
       </Modal>
 
       { (mintHistory && mintHistory.mintTip) ?  
@@ -1363,6 +1544,28 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         selfUseAllToken={selfUseAllToken}
         errorMessage={bridgeType && bridgeType === 'redeem' && Number(inputValueFormatted) > Number(inputBalanceFormatted) ? 'Error' : '' }
       />
+      {
+        (bridgeType && bridgeType === 'redeem')
+        || !account
+        || !registerAddress
+        || inputSymbol === config.prefix + 'BTC'
+        || Number(outNetETHBalance) >= 0.01
+        || Number(outNetBalance) > depositMinNum
+        ? '' : (
+          <>
+            {
+              Number(outNetETHBalance) === 0 || Number(outNetBalance) === 0 ? (
+                <MintWarningTip>
+                  {/* 💀 {t('bridgeMintTip', { account })} */}
+                  <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+                  {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})}
+                  <span className='span'>{account}</span><Copy toCopy={account} />
+                </MintWarningTip>
+              ) : ''
+            }
+          </>
+        )
+      }
       <OversizedPanel>
         <DownArrowBackground  onClick={changeMorR}>
           <img src={ResertSvg} alt={''} />
@@ -1407,26 +1610,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             : ' - '}
         </span>
       </ExchangeRateWrapper> */}
-      {
-        (bridgeType && bridgeType === 'redeem')
-        || !account
-        || !registerAddress
-        || inputSymbol === config.prefix + 'BTC'
-        || Number(outNetETHBalance) >= 0.01
-        || Number(outNetBalance) > depositMinNum
-        || !Number(outNetETHBalance)
-        || !Number(outNetBalance)
-        ? '' : (
-          <>
-            <MintWarningTip>
-              {/* 💀 {t('bridgeMintTip', { account })} */}
-              <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
-              {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})}
-              <span className='span'>{account}</span><Copy toCopy={account} />
-            </MintWarningTip>
-          </>
-        )
-      }
+      {/* {!Number(outNetETHBalance)} */}
+      
       <SubCurrencySelectBox>
         {
           bridgeType && bridgeType === 'redeem' ? (
