@@ -283,19 +283,34 @@ const MintHahshList = styled.div`
     list-style:none;
     cursor:pointer;
     margin:0;
-    padding:5px;
+    padding:15px;
     max-height: 200px;
     overflow:auto;
     li {
       border-radius: 0.25rem;
       box-shadow:0 0 5px 0px #E1902E;
-      margin:0 0 10px;
+      margin:0 0 20px;
       padding: 5px;
+      position:relative;
       img {
         display:block;
       }
       .txt {
         width: 0;height: 100%;white-space: nowrap;overflow: hidden;transition: width 0.5s;
+      }
+      .del {
+        ${({ theme }) => theme.FlexC};
+        position:absolute;
+        top: -10px;
+        right:-10px;
+        width: 20px;
+        height:20px;
+        border:1px solid #ddd;
+        border-radius:100%;
+        background: rgba(0,0,0,.2);
+        line-height:1;
+        font-size:12px;
+        color:#fff;
       }
       &:hover {
         .txt {
@@ -867,9 +882,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           })
         } else {
           RegisterAddress(config.CoinInfo[inputSymbol].url, account, inputSymbol.replace(config.prefix, '')).then(res => {
-            // console.log(res)
-            // console.log(res.error.message)
-            // console.log(res.error.message === 'mgoError: Item is duplicate')
             if (
               res
               && (
@@ -883,21 +895,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             }
           })
         }
-        // clearInterval(historyInterval)
-        // historyInterval = setInterval(() => {
-        //   if (depositType === 1) {
-        //     let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
-        //     if (coin) {
-        //       getErcBalance(coin, account).then(res => {
-        //         console.log(res)
-        //         if (res) {
-        //           setOutNetBalance(res.TOKEN)
-        //           setOutNetETHBalance(res.ETH)
-        //         }
-        //       })
-        //     }
-        //   }
-        // })
       }
       if (!account && inputSymbol === config.prefix + 'BTC') {
         dispatchSwapState({
@@ -951,7 +948,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     clearInterval(historyInterval)
     historyInterval = setInterval(() => {
       getOutBalance()
-    }, 1000 * 10)
+    }, 1000 * 30)
   }, [inputCurrency, account])
 
   // get balances for each of the currency types
@@ -961,18 +958,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     ? amountFormatter(inputBalance, inputDecimals, inputDecimals)
     : ''
 
-  // compute useful transforms of the data above
-  // const independentDecimals = independentField === INPUT ? inputDecimals : outputDecimals
-  const dependentDecimals = independentField === OUTPUT ? inputDecimals : outputDecimals
-
   // declare/get parsed and formatted versions of input/output values
   // const [independentValueParsed, setIndependentValueParsed] = useState()
-  const dependentValueFormatted = !!(dependentValue && (dependentDecimals || dependentDecimals === 0))
-    ? amountFormatter(dependentValue, dependentDecimals, Math.min(8, dependentDecimals), false)
+  const dependentValueFormatted = !!(dependentValue && (inputDecimals || inputDecimals === 0))
+    ? amountFormatter(dependentValue, inputDecimals, Math.min(8, inputDecimals), false)
     : ''
   // const inputValueParsed = independentField === INPUT ? independentValueParsed : dependentValue
-  const inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
-
+  let inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
+  inputValueFormatted = inputValueFormatted ? Number(Number(inputValueFormatted).toFixed(inputDecimals)) : ''
+  // console.log(inputValueFormatted)
   function formatBalance(value) {
     return `Balance: ${value}`
   }
@@ -1016,6 +1010,23 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [mintSureBtn, setMintSureBtn] = useState(false)
   const [mintModelTitle, setMintModelTitle] = useState()
   const [mintModelTip, setMintModelTip] = useState()
+  const [balanceError, setBalanceError] = useState()
+  useEffect(() => {
+    // console.log(inputValueFormatted)
+    if (bridgeType && bridgeType === 'redeem') {
+      if (Number(inputValueFormatted) > Number(inputBalanceFormatted)) {
+        setBalanceError('Error')
+      } else {
+        setBalanceError('')
+      }
+    } else {
+      if (Number(inputValueFormatted) > Number(outNetBalance)) {
+        setBalanceError('Error')
+      } else {
+        setBalanceError('')
+      }
+    }
+  }, [bridgeType, inputBalanceFormatted, outNetBalance, outNetETHBalance, inputCurrency, dependentValue, inputValueFormatted])
 
   // !account && !error && isDisabled && !isDeposit && showBetaMessage ? false : !independentValue || !recipient.address || !showBetaMessage
   useEffect(() => {
@@ -1024,11 +1035,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       && isDisabled 
       && isRedeem 
       && !showBetaMessage 
-      && independentValue
+      && inputValueFormatted
       && recipient.address
-      && Number(inputBalanceFormatted) >= Number(independentValue)
-      && Number(independentValue) <= Number(redeemMaxNum)
-      && Number(independentValue) >= Number(redeemMinNum)
+      && Number(inputBalanceFormatted) >= Number(inputValueFormatted)
+      && Number(inputValueFormatted) <= Number(redeemMaxNum)
+      && Number(inputValueFormatted) >= Number(redeemMinNum)
     ) {
       if (inputSymbol === config.prefix + 'BTC' && config.reg[inputSymbol] && config.reg[inputSymbol].test(recipient.address)) {
         setIsRedeem(false)
@@ -1046,11 +1057,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         isDisabled 
         && isDeposit 
         && !showBetaMessage 
-        && independentValue
+        && inputValueFormatted
         && registerAddress
-        && Number(independentValue) <= depositMaxNum
-        && Number(independentValue) >= depositMinNum
-        && Number(independentValue) <= Number(outNetBalance)
+        && Number(inputValueFormatted) <= depositMaxNum
+        && Number(inputValueFormatted) >= depositMinNum
+        && Number(inputValueFormatted) <= Number(outNetBalance)
         && Number(outNetETHBalance) >= 0.01
         && isRegister
       ) {
@@ -1066,7 +1077,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     setTimeout(() => {
       setIsDisableed(true)
     }, 3000)
-    let amountVal = Number(independentValue) * Math.pow(10, inputDecimals)
+    let amountVal = Number(inputValueFormatted) * Math.pow(10, inputDecimals)
     amountVal = amountVal.toFixed(0)
     let address = recipient.address
     if (config.supportWallet.includes(walletType)) {
@@ -1170,16 +1181,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     copyTxt(registerAddress)
   }
   function mintAmount () {
-    // console.log(walletType)
-    // console.log(independentValue)
-    // inputSymbol
     let coin = inputSymbol.replace(config.prefix, '')
     if (walletType === 'Ledger') {
-      setHardwareTxnsInfo(independentValue + ' ' + coin)
+      setHardwareTxnsInfo(inputValueFormatted + ' ' + coin)
       setIsHardwareTip(true)
       setMintSureBtn(false)
       // MintModelView()
-      HDsendERC20Txns(coin, account, registerAddress, independentValue).then(res => {
+      HDsendERC20Txns(coin, account, registerAddress, inputValueFormatted).then(res => {
         console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1188,7 +1196,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               type: 0,
               hashData: {
                 coin: coin,
-                value: independentValue,
+                value: inputValueFormatted,
                 hash: res.info.hash,
                 from: account,
                 to: registerAddress,
@@ -1205,7 +1213,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       })
     } else {
       setMintSureBtn(false)
-      MMsendERC20Txns(coin, account, registerAddress, independentValue).then(res => {
+      MMsendERC20Txns(coin, account, registerAddress, inputValueFormatted).then(res => {
         console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1214,7 +1222,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               type: 0,
               hashData: {
                 coin: coin,
-                value: independentValue,
+                value: inputValueFormatted,
                 hash: res.info.hash,
                 from: account,
                 to: registerAddress,
@@ -1238,6 +1246,24 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       payload: {
         type: 1,
         hashData: []
+      }
+    })
+  }
+  function removeHash (index) {
+    console.log(index)
+    let arr = []
+    for (let i = 0, len = hashArr.length; i < len; i++) {
+      if (index === i) continue
+      arr.push(hashArr[i])
+    }
+    // arr = arr.splice(i, 1)
+    // console.log(i)
+    // console.log(arr)
+    dispatchSwapState({
+      type: 'UPDATE_HASH_STATUS',
+      payload: {
+        type: 1,
+        hashData: arr
       }
     })
   }
@@ -1291,11 +1317,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       )}
       <Modal isOpen={isViewMintModel} maxHeight={800}>
         <MintDiv>
-          {independentValue ? (
+          {inputValueFormatted ? (
             <>
               <MintList>
                 <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace(config.prefix, '')} {t('amount')}:</MintListLabel>
-                <MintListVal>{independentValue}</MintListVal>
+                <MintListVal>{inputValueFormatted}</MintListVal>
               </MintList>
             </>
           ) : ''}
@@ -1453,25 +1479,31 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               return ''
             }
             return (
-              <li key={index} onClick={() => {
-                setMintDtil(item)
-                setMintDtilView(true)
-              }}>
+              <li key={index}>
                 <FlexCneter>
-                  <TokenLogo address={item.coin} size={'2rem'} />
+                  <TokenLogo address={item.coin} size={'2rem'}  onClick={() => {
+                    setMintDtil(item)
+                    setMintDtilView(true)
+                  }}/>
+                  <div
+                    className='del'
+                    onClick={() => {
+                      removeHash(index)
+                    }}
+                  >x</div>
                   {/* <span className="txt"><FlexCneter>Waiting for deposit</FlexCneter></span> */}
                 </FlexCneter>
               </li>
             )
           })}
         </ul>
-        {
+        {/* {
           hashArr.length > 0 ? (
             <div onClick={() => {
               removeHashArr()
             }} className='delete'>x</div>
           ) : ''
-        }
+        } */}
       </MintHahshList>
       
       <NavTabBox>
@@ -1518,15 +1550,33 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           if (inputBalance && inputDecimals) {
             const valueToSet = inputCurrency === 'FSN' ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
             if (valueToSet.gt(ethers.constants.Zero)) {
-              let inputVal = fee || fee === 0
-                ? Number((( Number(inputBalance) * (1 - Number(fee)) / Math.pow(10, inputDecimals)) ).toFixed(Math.min(8, inputDecimals)))
-                : 0
+              // let inputVal = fee || fee === 0
+              //   ? Number((( Number(inputBalance) * (1 - Number(fee)) / Math.pow(10, inputDecimals)) ).toFixed(Math.min(8, inputDecimals)))
+              //   : 0
+              // console.log(inputBalance)
+              let inputVal = Number(inputBalance) / Math.pow(10, inputDecimals)
+              if (bridgeType && bridgeType === 'redeem') {
+                // inputVal = Number(inputBalance) / Math.pow(10, inputDecimals)
+                let _fee = Number(inputVal) * Number(fee)
+                if (_fee < minFee) {
+                  _fee = minFee
+                } else if (_fee > maxFee) {
+                  _fee = maxFee
+                }
+                inputVal = Number(inputVal) - _fee
+                if (inputVal < 0) {
+                  inputVal = ''
+                } else {
+                  inputVal = inputVal.toFixed(Math.min(8, inputDecimals))
+                }
+              } 
+              // console.log(inputVal)
               dispatchSwapState({
                 type: 'UPDATE_INDEPENDENT',
                 payload: {
                   value: amountFormatter(valueToSet, inputDecimals, inputDecimals, false),
                   field: INPUT,
-                  realyValue: inputVal
+                  realyValue: inputVal ? Number(inputVal) : ''
                 }
               })
             }
@@ -1541,9 +1591,27 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         onValueChange={inputValue => {
           // console.log(inputValue)
           // console.log(fee)
-          let inputVal = inputValue && (fee || fee === 0)
-          ? Number(( Number(inputValue) * (1 - Number(fee)) ).toFixed(Math.min(8, inputDecimals)))
-          : 0
+          // let inputVal = inputValue && (fee || fee === 0)
+          // ? Number(( Number(inputValue) * (1 - Number(fee)) ).toFixed(Math.min(8, inputDecimals)))
+          // : 0
+          // console.log(inputValue)
+          let inputVal = inputValue
+          if (bridgeType && bridgeType === 'redeem') {
+            let _fee = Number(inputValue) * Number(fee)
+            if (_fee < minFee) {
+              _fee = minFee
+            } else if (_fee > maxFee) {
+              _fee = maxFee
+            }
+            inputVal = Number(inputValue) - _fee
+            if (inputVal < 0) {
+              inputVal = ''
+            } else {
+              inputVal = inputVal.toFixed(Math.min(8, inputDecimals))
+            }
+          } else {
+            inputVal = Number(inputVal).toFixed(Math.min(8, inputDecimals))
+          }
           // console.log(inputValue)
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
@@ -1551,7 +1619,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               value: inputValue,
               field: INPUT,
               // realyValue: bridgeType && bridgeType === 'redeem' ? inputVal : inputValue
-              realyValue: bridgeType && bridgeType === 'redeem' ? inputVal : inputValue
+              realyValue: inputVal ? Number(inputVal) : ''
             }
           })
         }}
@@ -1564,7 +1632,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         value={inputValueFormatted}
         hideETH={true}
         selfUseAllToken={selfUseAllToken}
-        errorMessage={bridgeType && bridgeType === 'redeem' && Number(inputValueFormatted) > Number(inputBalanceFormatted) ? 'Error' : '' }
+        errorMessage={balanceError}
       />
       {
         (bridgeType && bridgeType === 'redeem')
@@ -1648,10 +1716,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   coin: inputSymbol.replace(config.prefix, ''),
                   maxFee,
                   fee: fee * 100
-                })}</dd>
+                })},</dd>
                 <dd><i></i>{t('redeemTip2')} {redeemMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
                 <dd><i></i>{t('redeemTip3')} {redeemMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
-                <dd><i></i>{t('redeemTip4')}.</dd>
+                <dd><i></i>{t('redeemTip4')},</dd>
                 <dd><i></i>{t('redeemTip5')}.</dd>
               </dl>
             </>
@@ -1685,7 +1753,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       onClick={() => {
                         sendTxns()
                       }}
-                      warning={Number(inputBalanceFormatted) < Number(independentValue)}
+                      warning={Number(inputBalanceFormatted) < Number(inputValueFormatted)}
                       loggedOut={!account}
                     >
                       <StyledBirdgeIcon>
@@ -1699,12 +1767,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       onClick={() => {
                         // MintModelView()
                         setMintSureBtn(true)
-                        setHardwareTxnsInfo(independentValue + ' ' + inputSymbol.replace(config.prefix, ''))
+                        setHardwareTxnsInfo(inputValueFormatted + ' ' + inputSymbol.replace(config.prefix, ''))
                         setIsHardwareTip(true)
                         setMintModelTitle(t('CrossChainDeposit'))
                         setMintModelTip(t('mmMintTip'))
                       }}
-                      warning={account && (!independentValue || Number(independentValue) > depositMaxNum || Number(independentValue) < depositMinNum)}
+                      warning={account && (!inputValueFormatted || Number(inputValueFormatted) > depositMaxNum || Number(inputValueFormatted) < depositMinNum)}
                       loggedOut={!account}
                     >
                       <StyledBirdgeIcon>

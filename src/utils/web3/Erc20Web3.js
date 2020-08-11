@@ -233,9 +233,9 @@ export const getErcBalance = (coin, from) => {
 
 function getBaseInfo (coin, from, to, value) {
   contract.options.address = allToken[coin].token
-  value = ethers.utils.parseUnits(value, allToken[coin].decimals)
   // console.log(value)
   // console.log(value.toString())
+  value = ethers.utils.parseUnits(value.toString(), allToken[coin].decimals)
   let input = contract.methods.transfer(to, value).encodeABI()
   if (coin === 'ETH') {
     input = ''
