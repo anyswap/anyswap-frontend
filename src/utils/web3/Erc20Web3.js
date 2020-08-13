@@ -321,8 +321,7 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
           pecent = (100 + PlusGasPricePercentage) / 100
         }
         let _gasPrice = pecent * parseInt(res)
-        // console.log(_gasPrice)
-        data.gasPrice = web3.utils.toHex(_gasPrice)
+        data.gasPrice = web3.utils.toHex(parseInt(_gasPrice))
         count ++
       }
     }))

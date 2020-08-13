@@ -1748,51 +1748,54 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         </span>
       </ExchangeRateWrapper> */}
       {/* {!Number(outNetETHBalance)} */}
-      
-      <SubCurrencySelectBox>
-        {
-          bridgeType && bridgeType === 'redeem' ? (
-            <>
-              <dl className='list'>
-                <dt>
-                  <img src={BulbIcon} />
-                  {t('Reminder')}:
-                </dt>
-                <dd><i></i>{t('redeemTip1', {
-                  minFee,
-                  coin: inputSymbol.replace(config.prefix, ''),
-                  maxFee,
-                  fee: fee * 100
-                })},</dd>
-                <dd><i></i>{t('redeemTip2')} {redeemMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
-                <dd><i></i>{t('redeemTip3')} {redeemMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
-                <dd><i></i>{t('redeemTip4')},</dd>
-                <dd><i></i>{t('redeemTip5')}.</dd>
-              </dl>
-            </>
-          ) : (
-            <>
-              <dl className='list'>
-                <dt>
-                  <img src={BulbIcon} />
-                  {t('Reminder')}:
-                </dt>
-                <dd><i></i>{t('mintTip1')},</dd>
-                <dd><i></i>{t('mintTip2')} {depositMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
-                <dd><i></i>{t('mintTip3')} {depositMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
-                <dd><i></i>{t('mintTip4')},</dd>
-                <dd><i></i>{t('mintTip5')},</dd>
-                {
-                  account ? (
-                    <dd><i></i>💀 {t('bridgeMintTip', { account })}.</dd>
-                  ) : ''
-                }
-                {/* 💀 {t('bridgeMintTip', { account })} */}
-              </dl>
-            </>
-          )
-        }
-      </SubCurrencySelectBox>
+      {
+        registerAddress ? (
+          <SubCurrencySelectBox>
+            {
+              bridgeType && bridgeType === 'redeem' ? (
+                <>
+                  <dl className='list'>
+                    <dt>
+                      <img src={BulbIcon} />
+                      {t('Reminder')}:
+                    </dt>
+                    <dd><i></i>{t('redeemTip1', {
+                      minFee,
+                      coin: inputSymbol.replace(config.prefix, ''),
+                      maxFee,
+                      fee: fee * 100
+                    })},</dd>
+                    <dd><i></i>{t('redeemTip2')} {redeemMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
+                    <dd><i></i>{t('redeemTip3')} {redeemMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
+                    <dd><i></i>{t('redeemTip4')},</dd>
+                    <dd><i></i>{t('redeemTip5')}.</dd>
+                  </dl>
+                </>
+              ) : (
+                <>
+                  <dl className='list'>
+                    <dt>
+                      <img src={BulbIcon} />
+                      {t('Reminder')}:
+                    </dt>
+                    <dd><i></i>{t('mintTip1')},</dd>
+                    <dd><i></i>{t('mintTip2')} {depositMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
+                    <dd><i></i>{t('mintTip3')} {depositMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
+                    <dd><i></i>{t('mintTip4')},</dd>
+                    <dd><i></i>{t('mintTip5')},</dd>
+                    {
+                      account ? (
+                        <dd><i></i>💀 {t('bridgeMintTip', { account })}.</dd>
+                      ) : ''
+                    }
+                    {/* 💀 {t('bridgeMintTip', { account })} */}
+                  </dl>
+                </>
+              )
+            }
+          </SubCurrencySelectBox>
+        ) : ''
+      }
       <WarningTip></WarningTip>
       {isSwitch ? (
         <>
