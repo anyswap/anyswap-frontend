@@ -10,6 +10,7 @@ import Modal from '../Modal'
 import AccountDetails from '../AccountDetails'
 import PendingView from './PendingView'
 import Option from './Option'
+import NetworkConfig from './NetworkConfig'
 import { SUPPORTED_WALLETS } from '../../constants'
 import { usePrevious } from '../../hooks'
 import { Link } from '../../theme'
@@ -659,11 +660,12 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
           <HeaderRow>{error instanceof UnsupportedChainIdError ? t('WrongNetwork') : t('Errorconnecting')}</HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>
-                {
-                  config.env === 'main' ? t('WrongNetworkMainTip') : t('WrongNetworkTestTip')
-                }
-              </h5>
+              <NetworkConfig></NetworkConfig>
+              // <h5>
+              //   {
+              //     config.env === 'main' ? t('WrongNetworkMainTip') : t('WrongNetworkTestTip')
+              //   }
+              // </h5>
             ) : (
               t('TryTip')
             )}

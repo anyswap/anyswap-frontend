@@ -737,7 +737,17 @@ function swapStateReducer(state, action) {
     case 'UPDATE_SWAPREGISTER': {
       return {
         ...state,
-        registerAddress: action.payload
+        registerAddress: action.payload ? action.payload : '',
+        PlusGasPricePercentage: action.PlusGasPricePercentage ? action.PlusGasPricePercentage : '',
+        isDeposit: action.isDeposit,
+        depositMaxNum: action.depositMaxNum ? action.depositMaxNum : '',
+        depositMinNum: action.depositMinNum ? action.depositMinNum : '',
+        isRedeem: action.isRedeem,
+        redeemMaxNum: action.redeemMaxNum ? action.redeemMaxNum : '',
+        redeemMinNum: action.redeemMinNum ? action.redeemMinNum : '',
+        maxFee: action.maxFee ? action.maxFee : '',
+        minFee: action.minFee ? action.minFee : '',
+        fee: action.fee ? action.fee : '',
       }
     }
     case 'UPDATE_MINTTYPE': {
@@ -832,7 +842,31 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     },
     getInitialSwapState
   )
-  const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency, bridgeType, registerAddress, isViewMintModel, mintHistory, isViewMintInfo, realyValue, hashArr, hashCount } = swapState
+  const {
+    independentValue,
+    dependentValue,
+    independentField,
+    inputCurrency,
+    outputCurrency,
+    bridgeType,
+    registerAddress,
+    PlusGasPricePercentage,
+    isDeposit,
+    depositMaxNum,
+    depositMinNum,
+    isRedeem,
+    redeemMaxNum,
+    redeemMinNum,
+    maxFee,
+    minFee,
+    fee,
+    isViewMintModel,
+    mintHistory,
+    isViewMintInfo,
+    realyValue,
+    hashArr,
+    hashCount
+  } = swapState
 
 
   const [recipient, setRecipient] = useState({
@@ -846,92 +880,64 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [recipientError, setRecipientError] = useState()
 
   // get decimals and exchange address for each of the currency types
-  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, redeemMaxNum , redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum } = useTokenDetails(
+  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, isSwitch, depositType } = useTokenDetails(
     inputCurrency
   )
   // console.log(inputSymbol)
   // console.log(inputCurrency)
-  const {  decimals: outputDecimals} = useTokenDetails(
-    outputCurrency
-  )
 
   const [isRegister, setIsRegister] = useState(false)
 
   useEffect(() => {
-    if (config.CoinInfo[inputSymbol] && config.CoinInfo[inputSymbol].url && isSwitch) {
-      if (account) {
-        if (depositAddress) {
-          dispatchSwapState({
-            type: 'UPDATE_SWAPREGISTER',
-            payload: depositAddress
-          })
+    if (account && config.CoinInfo[inputSymbol] && config.CoinInfo[inputSymbol].url && isSwitch) {
+      let url = config.CoinInfo[inputSymbol].url
+      let coin = inputSymbol.replace(config.prefix, '')
+      RegisterAddress(url, account, coin).then(res => {
+        if ( res && (
+            (res.result && res.result === 'Success')
+            || (res.error && res.error.message === 'mgoError: Item is duplicate')
+          )
+        ) {
+          setIsRegister(true)
         } else {
-          GetServerInfo(config.CoinInfo[inputSymbol].url).then(res => {
-            if (!bridgeType || bridgeType !== 'redeem') {
-              if (inputSymbol !== config.prefix + 'BTC') {
-                dispatchSwapState({
-                  type: 'UPDATE_SWAPREGISTER',
-                  payload: res.swapInfo.SrcToken.DcrmAddress
-                })
-              }
-            }
-          })
+          setIsRegister(false)
         }
-        if (inputSymbol === config.prefix + 'BTC')  {
-          RegisterAddress(config.CoinInfo[inputSymbol].url, account, inputSymbol.replace(config.prefix, '')).then(res => {
-            // console.log(res)
-            if (res && res.result) {
-              dispatchSwapState({
-                type: 'UPDATE_SWAPREGISTER',
-                payload: res.result.P2shAddress
-              })
+        GetServerInfo(url).then(result => {
+          console.log(result)
+          if (result && result.swapInfo && result.swapInfo.SrcToken.DepositAddress) {
+            let DepositAddress = res && res.result && res.result.P2shAddress ? res.result.P2shAddress : ''
+            if (inputSymbol !== config.prefix + 'BTC') {
+              DepositAddress = result.swapInfo.SrcToken.DepositAddress
             }
-          })
-        } else {
-          RegisterAddress(config.CoinInfo[inputSymbol].url, account, inputSymbol.replace(config.prefix, '')).then(res => {
-            if (
-              res
-              && (
-                (res.result && res.result === 'Success')
-                || (res.error && res.error.message === 'mgoError: Item is duplicate')
-              )
-            ) {
-              setIsRegister(true)
-            } else {
-              setIsRegister(false)
-            }
-          })
-        }
-      }
-      if (!account && inputSymbol === config.prefix + 'BTC') {
-        dispatchSwapState({
-          type: 'UPDATE_SWAPREGISTER',
-          payload: ''
+            dispatchSwapState({
+              type: 'UPDATE_SWAPREGISTER',
+              payload: DepositAddress,
+              PlusGasPricePercentage: result.swapInfo.SrcToken.PlusGasPricePercentage,
+              isDeposit: !result.swapInfo.SrcToken.DisableSwap,
+              depositMaxNum: result.swapInfo.SrcToken.MaximumSwap,
+              depositMinNum: result.swapInfo.SrcToken.MinimumSwap,
+              isRedeem: !result.swapInfo.DestToken.DisableSwap,
+              redeemMaxNum: result.swapInfo.DestToken.MaximumSwap,
+              redeemMinNum: result.swapInfo.DestToken.MinimumSwap,
+              maxFee: result.swapInfo.DestToken.MaximumSwapFee,
+              minFee: result.swapInfo.DestToken.MinimumSwapFee,
+              fee: result.swapInfo.DestToken.SwapFeeRate,
+            })
+          } else {
+            dispatchSwapState({
+              type: 'UPDATE_SWAPREGISTER',
+              payload: ''
+            })
+          }
         })
-      }
-      // if (registerAddress && account) {
-      //   if (historyInterval) {
-      //     clearInterval(historyInterval)
-      //   }
-      //   let addrHistory = inputSymbol === config.prefix + 'BTC' ? registerAddress : account
-      //   historyInterval = setInterval(() => {
-      //     GetBTCtxnsAll(config.CoinInfo[inputSymbol].url, addrHistory, inputSymbol, inputDecimals).then(res => {
-      //       // console.log(res)
-      //       dispatchSwapState({
-      //         type: 'UPDATE_MINTHISTORY',
-      //         payload: res
-      //       })
-      //     })
-      //   }, 1000 * 30)
-      // }
+      })
     } else {
-      // clearInterval(historyInterval)
       dispatchSwapState({
         type: 'UPDATE_SWAPREGISTER',
         payload: ''
       })
     }
-  }, [inputCurrency, bridgeType, account, depositAddress])
+  }, [inputCurrency, account])
 
   const [outNetBalance, setOutNetBalance] = useState()
   const [outNetETHBalance, setOutNetETHBalance] = useState()
@@ -1094,14 +1100,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
-      setHardwareTxnsInfo(inputValueFormatted + inputSymbol)
+      setHardwareTxnsInfo(inputValueFormatted + " "  + inputSymbol)
       let web3Contract = getWeb3ConTract(swapBTCABI, inputCurrency)
       // let data = web3Contract.Swapout.getData(amountVal, address)
+      // console.log(amountVal)
+      // console.log(address)
       let data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
       if (inputSymbol !== config.prefix + 'BTC') {
         web3Contract = getWeb3ConTract(swapETHABI, inputCurrency)
         // data = web3Contract.Swapout.getData(amountVal)
-        data = web3Contract.methods.Swapout(amountVal).encodeABI()
+        data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
       }
       getWeb3BaseInfo(inputCurrency, inputCurrency, data, account).then(res => {
         if (res.msg === 'Success') {
@@ -1198,7 +1206,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setIsHardwareTip(true)
       setMintSureBtn(false)
       // MintModelView()
-      HDsendERC20Txns(coin, account, registerAddress, inputValueFormatted).then(res => {
+      HDsendERC20Txns(coin, account, registerAddress, inputValueFormatted, PlusGasPricePercentage).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1227,7 +1235,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       })
     } else {
       setMintSureBtn(false)
-      MMsendERC20Txns(coin, account, registerAddress, inputValueFormatted).then(res => {
+      MMsendERC20Txns(coin, account, registerAddress, inputValueFormatted, PlusGasPricePercentage).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1815,7 +1823,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                         setHardwareTxnsInfo(inputValueFormatted + ' ' + inputSymbol.replace(config.prefix, ''))
                         setIsHardwareTip(true)
                         setMintModelTitle(t('CrossChainDeposit'))
-                        setMintModelTip(t('mmMintTip'))
+                        if (walletType === 'Ledger') {
+                          setMintModelTip(t("confirmHardware"))
+                        } else {
+                          setMintModelTip(t('mmMintTip'))
+                        }
                       }}
                       warning={account && (!inputValueFormatted || Number(inputValueFormatted) > depositMaxNum || Number(inputValueFormatted) < depositMinNum)}
                       loggedOut={!account}

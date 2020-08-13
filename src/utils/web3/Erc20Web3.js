@@ -172,9 +172,9 @@ export function getHashStatus (hash, index, coin, status) {
   })
 }
 
-export function MMsendERC20Txns(coin, from, to, value) {
+export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage) {
   return new Promise(resolve => {
-    getBaseInfo(coin, from, to, value).then(res => {
+    getBaseInfo(coin, from, to, value, PlusGasPricePercentage).then(res => {
       if (res.msg === 'Success') {
         // let eTx = new Tx(res.info)
         // console.log(eTx)
@@ -260,10 +260,10 @@ export const getErcBalance = (coin, from) => {
   // })
 }
 
-function getBaseInfo (coin, from, to, value) {
+function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
   contract.options.address = allToken[coin].token
   // console.log(value)
-  // console.log(value.toString())
+  // console.log(PlusGasPricePercentage)
   value = ethers.utils.parseUnits(value.toString(), allToken[coin].decimals)
   let input = contract.methods.transfer(to, value).encodeABI()
   if (coin === 'ETH') {
@@ -314,8 +314,15 @@ function getBaseInfo (coin, from, to, value) {
       if (err) {
         console.log(err)
       } else {
-        // console.log(3)
-        data.gasPrice = web3.utils.toHex(res)
+        // console.log(res)
+        // console.log(PlusGasPricePercentage)
+        let pecent = 1
+        if (PlusGasPricePercentage) {
+          pecent = (100 + PlusGasPricePercentage) / 100
+        }
+        let _gasPrice = pecent * parseInt(res)
+        // console.log(_gasPrice)
+        data.gasPrice = web3.utils.toHex(_gasPrice)
         count ++
       }
     }))
@@ -362,11 +369,11 @@ function sendTxns (signedTx) {
   })
 }
 
-export function HDsendERC20Txns (coin, from, to, value) {
+export function HDsendERC20Txns (coin, from, to, value, PlusGasPricePercentage) {
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
   return new Promise(resolve => {
-    getBaseInfo(coin, from, to, value).then(res => {
+    getBaseInfo(coin, from, to, value, PlusGasPricePercentage).then(res => {
       if (res.msg === 'Success') {
         let data = res.info
         toLedgerSign(HDPath, data).then(res => {

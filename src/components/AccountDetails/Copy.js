@@ -6,7 +6,7 @@ import { Link } from '../../theme'
 import { CheckCircle, Copy } from 'react-feather'
 
 const CopyIcon = styled(Link)`
-  color: #734be2;
+  // color: #734be2;
   flex-shrink: 0;
   margin-right: 1rem;
   margin-left: 0.5rem;
@@ -24,11 +24,11 @@ const TransactionStatusText = styled.span`
   align-items: center;
 `
 
-export default function CopyHelper({ toCopy }) {
+export default function CopyHelper({ toCopy, color = '#734be2' }) {
   const [isCopied, setCopied] = useCopyClipboard()
 
   return (
-    <CopyIcon onClick={() => setCopied(toCopy)}>
+    <CopyIcon onClick={() => setCopied(toCopy)} style={{color: color}}>
       {isCopied ? (
         <TransactionStatusText>
           <CheckCircle size={'16'} />
