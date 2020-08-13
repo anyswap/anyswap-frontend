@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react'
+import React, { useState, useReducer, useEffect, useRef } from 'react'
 // import ReactGA from 'react-ga'
 import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
@@ -54,7 +54,7 @@ import Copy from '../AccountDetails/Copy'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
 
-import {getErcBalance, HDsendERC20Txns, test, MMsendERC20Txns, getHashStatus} from '../../utils/web3/Erc20Web3'
+import {getErcBalance, HDsendERC20Txns, MMsendERC20Txns, getHashStatus} from '../../utils/web3/Erc20Web3'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -755,16 +755,21 @@ function swapStateReducer(state, action) {
       }
     }
     case 'UPDATE_HASH_STATUS': {
-      const { hashData,  type } = action.payload
-      const { hashArr } = state
+      const { hashData,  type, NewHashCount } = action.payload
+      const { hashArr, hashCount } = state
       if (!type) {
         hashArr.push(hashData)
       }
       let arr = type ? hashData : hashArr
       sessionStorage.setItem(DEPOSIT_HISTORY, JSON.stringify(arr))
+      let count = 0
+      if (hashCount && NewHashCount) {
+        count = hashCount + NewHashCount
+      }
       return {
         ...state,
-        hashArr: arr
+        hashArr: arr,
+        hashCount: count
       }
     }
     default: { //UPDATE_MINTINFOTYPE
@@ -776,7 +781,7 @@ const selfUseAllToken=[
   'FSN',
   config.initToken
  ]
-let historyInterval 
+let historyInterval , hashInterval
 // let swapInfo = ''
 
 // getErcBalance('USDT')
@@ -823,7 +828,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     },
     getInitialSwapState
   )
-  const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency, bridgeType, registerAddress, isViewMintModel, mintHistory, isViewMintInfo, realyValue, hashArr } = swapState
+  const { independentValue, dependentValue, independentField, inputCurrency, outputCurrency, bridgeType, registerAddress, isViewMintModel, mintHistory, isViewMintInfo, realyValue, hashArr, hashCount } = swapState
 
 
   const [recipient, setRecipient] = useState({
@@ -846,8 +851,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     outputCurrency
   )
 
-  const [outNetBalance, setOutNetBalance] = useState()
-  const [outNetETHBalance, setOutNetETHBalance] = useState()
   const [isRegister, setIsRegister] = useState(false)
 
   useEffect(() => {
@@ -926,6 +929,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
   }, [inputCurrency, bridgeType, account, depositAddress])
 
+  const [outNetBalance, setOutNetBalance] = useState()
+  const [outNetETHBalance, setOutNetETHBalance] = useState()
   function getOutBalance () {
     if (depositType === 1 && account) {
       let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
@@ -933,8 +938,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         getErcBalance(coin, account).then(res => {
           // console.log(res)
           if (res) {
-            setOutNetBalance(res.TOKEN)
-            setOutNetETHBalance(res.ETH)
+            if (Number(outNetBalance) !== res.TOKEN || Number(outNetETHBalance) !== res.ETH) {
+              setOutNetBalance(res.TOKEN)
+              setOutNetETHBalance(res.ETH)
+            }
           }
         })
       }
@@ -945,11 +952,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     setOutNetBalance('')
     setOutNetETHBalance('')
     getOutBalance()
-    clearInterval(historyInterval)
-    historyInterval = setInterval(() => {
-      getOutBalance()
-    }, 1000 * 30)
   }, [inputCurrency, account])
+
+  useEffect(() => {
+    getOutBalance()
+  }, [hashCount])
 
   // get balances for each of the currency types
   const inputBalance = useAddressBalance(account, inputCurrency)
@@ -1188,7 +1195,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setMintSureBtn(false)
       // MintModelView()
       HDsendERC20Txns(coin, account, registerAddress, inputValueFormatted).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
             type: 'UPDATE_HASH_STATUS',
@@ -1201,7 +1208,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 from: account,
                 to: registerAddress,
                 status: 0,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                swapHash: '',
+                swapStatus: '',
+                swapTime: '',
               }
             }
           })
@@ -1214,7 +1224,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     } else {
       setMintSureBtn(false)
       MMsendERC20Txns(coin, account, registerAddress, inputValueFormatted).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
             type: 'UPDATE_HASH_STATUS',
@@ -1227,7 +1237,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 from: account,
                 to: registerAddress,
                 status: 0,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                swapHash: '',
+                swapStatus: '',
+                swapTime: '',
               }
             }
           })
@@ -1249,46 +1262,65 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
     })
   }
+  const [removeHashStatus, setRemoveHashStatus] = useState()
   function removeHash (index) {
-    console.log(index)
     let arr = []
     for (let i = 0, len = hashArr.length; i < len; i++) {
       if (index === i) continue
       arr.push(hashArr[i])
     }
-    // arr = arr.splice(i, 1)
-    // console.log(i)
-    // console.log(arr)
     dispatchSwapState({
       type: 'UPDATE_HASH_STATUS',
       payload: {
         type: 1,
-        hashData: arr
+        hashData: arr,
       }
     })
+    setRemoveHashStatus(Date.now())
   }
-  useEffect(() => {
-    setInterval(() => {
-      // console.log(123)
-      if (hashArr.length > 0) {
-        for (let i = 0, len = hashArr.length; i < len; i ++) {
-          if (!hashArr[i].status) {
-            getHashStatus(hashArr[i].hash, i).then(res => {
+
+  function updateHashStatus () {
+    if (hashArr.length > 0) {
+      for (let i = 0, len = hashArr.length; i < len; i ++) {
+        if (
+          !hashArr[i].status
+          || !hashArr[i].swapStatus
+          || hashArr[i].swapStatus === 'confirming'
+          || hashArr[i].swapStatus === 'swapping'
+        ) {
+          getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status).then(res => {
+            if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
               hashArr[res.index].status = res.status
+              hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
+              hashArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
+              hashArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
               dispatchSwapState({
                 type: 'UPDATE_HASH_STATUS',
                 payload: {
                   type: 1,
-                  hashData: hashArr
+                  hashData: hashArr,
+                  NewHashCount: 1
                 }
               })
-            })
-          }
+            }
+          })
         }
       }
-    }, 1000 * 10)
-  }, [])
-  // console.log(hashArr)
+    }
+  }
+
+  useEffect(() => {
+    clearInterval(hashInterval)
+    updateHashStatus()
+    hashInterval = setInterval(() => {
+      if (location.pathname.indexOf('bridge') !== -1) {
+        updateHashStatus()
+      } else {
+        clearInterval(hashInterval)
+      }
+    }, 1000 * 50)
+  }, [removeHashStatus])
+  // console.log(hashCount)
   return (
     <>
       <HardwareTip
@@ -1431,25 +1463,25 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 }>
                   <div>
                     <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
-                    {t('txnsStatus')}
+                    Ethereum {t('txnsStatus')}
                   </div>
                   {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
                   {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
                   {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
                 </HashStatus>
-                {/* <MintList>
-                  <MintListLabel>{t('status')}:</MintListLabel>
-                  <MintListVal>
-                    {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
-                    {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
-                    {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
-                  </MintListVal>
-                </MintList> */}
-                {/* <FlexCneter style={{marginTop: '30px'}}>
-                  <Button onClick={() => {
-                    setMintDtilView(false)
-                  }} >{t('close')}</Button>
-                </FlexCneter> */}
+                {
+                  mintDtil.swapStatus ? (
+                    <HashStatus className={
+                      mintDtil.swapStatus === 'confirming' || mintDtil.swapStatus === 'swapping' ? 'yellow' : 'green'
+                    }>
+                      <div>
+                        <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
+                        Fusion {t('txnsStatus')}
+                      </div>
+                      <span style={{textTransform: 'Capitalize'}}>{mintDtil.swapStatus}</span>
+                    </HashStatus>
+                  ) : ''
+                }
               </MintDiv>
             </ContentWrapper>
           </UpperSection>
@@ -1472,14 +1504,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           ''
       }
 
-      <MintHahshList>
+      <MintHahshList key={hashCount}>
         <ul>
           {hashArr.map((item, index) => {
             if (item.from !== account) {
               return ''
             }
             return (
-              <li key={index}>
+              <li key={hashCount ? index + hashCount : index}>
                 <FlexCneter>
                   <TokenLogo address={item.coin} size={'2rem'}  onClick={() => {
                     setMintDtil(item)
@@ -1640,7 +1672,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         || !registerAddress
         || inputSymbol === config.prefix + 'BTC'
         || Number(outNetETHBalance) >= 0.01
-        || Number(outNetBalance) > depositMinNum
+        || (Number(outNetETHBalance) >= 0.01 && Number(outNetBalance) > Number(depositMinNum))
         ? '' : (
           <>
             {

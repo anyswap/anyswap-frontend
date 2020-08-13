@@ -3,13 +3,12 @@ import ERC20_ABI from '../../constants/abis/erc20'
 import TOKEN from '../../contexts/Tokens_erc20'
 import {toSign as toLedgerSign} from '../wallets/ledger/index'
 import { ethers } from 'ethers'
-
+import axios from 'axios'
 
 import { amountFormatter } from '../index'
-import { resolve } from 'path'
+
 
 const Tx  = require("ethereumjs-tx")
-const ethUtil = require('ethereumjs-util')
 
 
 const ERC20_RPC = config.ercConfig.nodeRpc
@@ -23,47 +22,6 @@ let mmWeb3
 if (typeof window.ethereum !== 'undefined'|| (typeof window.web3 !== 'undefined')) {
   // Web3 browser user detected. You can now use the provider.
   mmWeb3 = window['ethereum'] || window.web3.currentProvider
-}
-// console.log(mmWeb3)
-// console.log(window.web3.eth.sign('123'))
-// console.log(window.web3.isConnected())
-// console.log(window.ethereum)
-// const mmWeb3 = new window.web3()
-// window.web3.then(res => {
-//   console.log(res)
-// })
-// console.log(web3.isConnected())
-// console.log(web3.eth.accounts.recoverTransaction("0xf8a909843b9aca00831339e094b09bad01684f6d47fc7dc9591889cc77eaed8d2280b844a9059cbb0000000000000000000000001ec2a51c8c68071e5ec1e8b7cd0f27d5ac6f207600000000000000000000000000000000000000000000000000000000000186a02ca041484772e9da6c9e0039afd6e7cf3638b2a07e68ea036eac77190b31cecd5233a06bff8c81f095fc9590a0ad81413580138938c7077992d6f0ca8ac95056415821"))
-export function test () {
-  
-  let mmWeb3
-  if (typeof window.ethereum !== 'undefined'|| (typeof window.web3 !== 'undefined')) {
-    // Web3 browser user detected. You can now use the provider.
-    mmWeb3 = window['ethereum'] || window.web3.currentProvider
-  }
-  console.log(mmWeb3)
-  let from = '0x1ec2A51c8C68071E5ec1E8B7Cd0F27D5aC6f2076'
-  let msg = '0x1ec2A51c8C68071E5ec1E8B7Cd0F27D5aC6f2076'
-  msg = ethUtil.bufferToHex(new Buffer(msg, 'utf8'))
-  // window.web3.eth.sign(from, msg, function (err, result) {
-  //   // if (err) return console.error(err)
-  //   console.error(err)
-  //   console.log('SIGNED:' + result)
-  // })
-  // window.web3.personal.sign(msg, from, function (err, result) {
-  //   if (err) return console.error(err)
-  //   console.log('PERSONAL SIGNED:' + result)
-  // })
-  var params = [msg, from]
-  var method = 'personal_sign'
-  mmWeb3.sendAsync({
-    method,
-    params,
-    from,
-  }, function (err, result) {
-    console.log(err)
-    console.log(result)
-  })
 }
 
 function MMsign (from, msg) {
@@ -96,50 +54,121 @@ function MMsign (from, msg) {
         resolve('')
       }
     })
-
-    // var params = [msg, from]
-    // var method = 'personal_sign'
-    // mmWeb3.sendAsync({
-    //   method,
-    //   params,
-    //   from,
-    // }, function (err, rsv) {
-    //   console.log(err)
-    //   console.log(rsv)
-    //   rsv = rsv.result.indexOf('0x') === 0 ? rsv.result.replace('0x', '') : rsv.result
-    //   resolve({
-    //     r: '0x' + rsv.substr(0, 64),
-    //     s: '0x' + rsv.substr(64, 64),
-    //     v: web3.utils.toHex(config.ercConfig.chainID * 2 + 35)
-    //     // v: '0x' + rsv.substr(128),
-    //   })
-    // })
   })
 }
 
-export function getHashStatus (hash, index) {
+function GetTxnStatusAPI (url, hash) {
   return new Promise(resolve => {
-    web3.eth.getTransactionReceipt(hash).then(res => {
+    axios.post(url, {
+      id:0,
+      jsonrpc:"2.0",
+      method:"swap.GetSwapin",
+      params:[hash]
+    }).then(res => {
       // console.log(res)
-      if (res) {
-        if (res.status) {
+      resolve(res.data)
+    }).catch(err => {
+      console.log(err)
+      resolve(err)
+    })
+  })
+}
+
+function getChainHashStatus (hash, coin) {
+  // console.log(coin)
+  return new Promise(resolve => {
+    coin = coin.indexOf(config.prefix) === -1 ? (config.prefix + coin) : coin
+    if (config.CoinInfo[coin] && config.CoinInfo[coin].url) {
+      let url = config.CoinInfo[coin].url
+      GetTxnStatusAPI(url, hash).then(res => {
+        // console.log(res)
+        if (res && res.result) {
+          let status = res.result.status,
+              statusType = ''
+          if ([0, 5, 8].includes(status)) {
+            // obj = { status: this.$t('state').confirming, class: 'color_green' }
+            statusType = 'confirming'
+          } else if ([7, 9].includes(status)) {
+            // obj = { status: this.$t('state').swapping, class: 'color_green' }
+            statusType = 'swapping'
+          } else if ([10].includes(status)) {
+            // obj = { status: this.$t('state').success, class: 'color_green' }
+            statusType = 'success'
+          } else if ([1, 2, 3, 4, 6, 11].includes(status)) {
+            // obj = { status: this.$t('state').fail, class: 'color_red' }
+            statusType = 'failure'
+          } else if ([20].includes(status)) {
+            // obj = { status: this.$t('state').timeout, class: 'color_red' }
+            statusType = 'timeout'
+          }
           resolve({
+            swapHash: res.result.swaptx,
+            swapStatus: statusType,
+            swapTime: res.result.txtime,
+          })
+        } else {
+          resolve('')
+        }
+      })
+    } else {
+      resolve('')
+    }
+  })
+}
+// getChainHashStatus('0x7bf684076b373de6d7b5ff43fddf0b15d580bfc38773d90b4c89fea3388e17d0', 'aUSDT')
+
+export function getHashStatus (hash, index, coin, status) {
+  return new Promise(resolve => {
+    if (status) {
+      getChainHashStatus(hash, coin).then(result => {
+        if (result) {
+          resolve({
+            ...result,
             index,
-            status: 1
+            hash,
+            status
           })
         } else {
           resolve({
             index,
-            status: 2
+            status
           })
         }
-      } else {
-        resolve({
-          index,
-          status: 0
-        })
-      }
-    })
+      })
+    } else {
+      web3.eth.getTransactionReceipt(hash).then(res => {
+        // console.log(res)
+        if (res) {
+          if (res.status) {
+            getChainHashStatus(hash, coin).then(result => {
+              if (result) {
+                resolve({
+                  ...result,
+                  index,
+                  hash,
+                  status: 1
+                })
+              } else {
+                resolve({
+                  index,
+                  status: 1
+                })
+              }
+            })
+          } else {
+            resolve({
+              index,
+              status: 2
+            })
+          }
+        } else {
+          resolve({
+            index,
+            status: 0
+          })
+        }
+      })
+    }
   })
 }
 
@@ -295,7 +324,8 @@ function getBaseInfo (coin, from, to, value) {
       if (count >= 3 && ( (Date.now() - time) <= 30000 )) {
         // this.dataPage = data
         // this.getInputData()
-        // console.log(data)
+        // let _fee = web3.utils.hexToNumber(data.gasPrice) * web3.utils.hexToNumber(data.gas)
+        // console.log(_fee / Math.pow(10, 18))
         resolve({
           msg: 'Success',
           info: data
