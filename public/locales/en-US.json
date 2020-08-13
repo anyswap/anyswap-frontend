@@ -169,7 +169,7 @@
   "txnsStatus": "Transaction Status",
   "CrossChainDeposit": "CrossChain Deposit",
   "Reminder": "Reminder",
-  "mintTip0": "You need to send {{coin}}-ERC20 and ETH fee to your own wallet first: ",
+  "mintTip0": "You need to send <strong>{{coin}}-ERC20 and ETH fee</strong> to your own wallet first: ",
   "mintTip1": "Withdraw Fee is 0.0 %",
   "mintTip2": "Minimum Deposit Amount is",
   "mintTip3": "Maximum Deposit Amount is",

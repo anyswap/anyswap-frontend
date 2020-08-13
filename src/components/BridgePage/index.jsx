@@ -301,20 +301,24 @@ const MintHahshList = styled.div`
       .del {
         ${({ theme }) => theme.FlexC};
         position:absolute;
-        top: -10px;
-        right:-10px;
-        width: 20px;
-        height:20px;
+        top: -9px;
+        right:-9px;
+        width: 18px;
+        height: 18px;
         border:1px solid #ddd;
         border-radius:100%;
-        background: rgba(0,0,0,.2);
+        background: rgba(0,0,0,.1);
         line-height:1;
         font-size:12px;
         color:#fff;
+        opacity: 0;
       }
       &:hover {
         .txt {
           width: 150px;padding: 0 1.25rem;
+        }
+        .del {
+          opacity: 1;
         }
       }
     }
@@ -345,6 +349,7 @@ const StyledQRcode = styled(QRcode)`
 const MintWarningTip = styled.div`
 ${({ theme }) => theme.FlexSC};
   padding: 0.625rem 1rem;
+  width: 100%;
   // color:red;
   
   color: #734be2;
@@ -368,7 +373,6 @@ ${({ theme }) => theme.FlexSC};
   margin-top: 10px;
   
   flex-wrap:wrap;
-  display:inline-block;
   line-height: 1rem;
   .span {
     text-decoration: underline;
@@ -434,7 +438,7 @@ const SubCurrencySelectBox = styled.div`
   }
   .list {
     margin:0;
-    padding: 0 20px 0;
+    padding: 0 0px 0;
     font-size: 12px;
     color: #734be2;
     dt {
@@ -1680,8 +1684,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 <MintWarningTip>
                   {/* 💀 {t('bridgeMintTip', { account })} */}
                   <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
-                  {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})}
-                  <span className='span'>{account}</span><Copy toCopy={account} />
+                  {/* {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})} */}
+                  <span dangerouslySetInnerHTML = { 
+                    {__html: t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})}
+                  }></span>
+                  <span className='span' >{account}</span><Copy toCopy={account} />
                 </MintWarningTip>
               ) : ''
             }
@@ -1766,7 +1773,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 <dd><i></i>{t('mintTip2')} {depositMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
                 <dd><i></i>{t('mintTip3')} {depositMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
                 <dd><i></i>{t('mintTip4')},</dd>
-                <dd><i></i>{t('mintTip5')}.</dd>
+                <dd><i></i>{t('mintTip5')},</dd>
+                {
+                  account ? (
+                    <dd><i></i>💀 {t('bridgeMintTip', { account })}.</dd>
+                  ) : ''
+                }
+                {/* 💀 {t('bridgeMintTip', { account })} */}
               </dl>
             </>
           )
