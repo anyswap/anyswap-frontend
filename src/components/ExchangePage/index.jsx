@@ -1181,7 +1181,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               <DownArrow active={isValid} alt="arrow" />
             </DownArrowBackground>
           </OversizedPanel> */}
-          <AddressInputPanel onChange={setRecipient} onError={setRecipientError} initialInput={recipient} />
+          <AddressInputPanel isShowTip={false} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} />
         </>
       ) : (
         ''

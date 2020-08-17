@@ -28,7 +28,7 @@ import Modal from '../Modal'
 import { ReactComponent as QRcode } from '../../assets/images/QRcode.svg'
 import TokenLogo from '../TokenLogo'
 
-import { GetServerInfo, RegisterAddress, GetBTCtxnsAll } from '../../utils/axios'
+import { GetServerInfo, RegisterAddress } from '../../utils/axios'
 import { copyTxt } from '../../utils/tools'
 
 import config from '../../config'
@@ -880,9 +880,23 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [recipientError, setRecipientError] = useState()
 
   // get decimals and exchange address for each of the currency types
-  const { symbol: inputSymbol, decimals: inputDecimals, name: inputName, isSwitch, depositType } = useTokenDetails(
-    inputCurrency
-  )
+  const {
+    symbol: inputSymbol,
+    decimals: inputDecimals,
+    name: inputName,
+    isSwitch,
+    depositType,
+    depositAddress: initDepositAddress,
+    isDeposit: initIsDeposit,
+    depositMaxNum: initDepositMaxNum,
+    depositMinNum: initDepositMinNum,
+    isRedeem: initIsRedeem,
+    redeemMaxNum: initRedeemMaxNum,
+    redeemMinNum: initRedeemMinNum,
+    maxFee: initMaxFee,
+    minFee: initMinFee,
+    fee: initFee,
+  } = useTokenDetails( inputCurrency )
   // console.log(inputSymbol)
   // console.log(inputCurrency)
 
@@ -905,28 +919,56 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         GetServerInfo(url).then(result => {
           console.log(result)
           if (result && result.swapInfo && result.swapInfo.SrcToken.DepositAddress) {
+            let dObj = result.swapInfo.SrcToken,
+                rObj = result.swapInfo.DestToken
             let DepositAddress = res && res.result && res.result.P2shAddress ? res.result.P2shAddress : ''
             if (inputSymbol !== config.prefix + 'BTC') {
-              DepositAddress = result.swapInfo.SrcToken.DepositAddress
+              DepositAddress = dObj.DepositAddress
+              if (initDepositAddress.toLowerCase() !== DepositAddress.toLowerCase()) {
+                dispatchSwapState({
+                  type: 'UPDATE_SWAPREGISTER',
+                  payload: '',
+                  PlusGasPricePercentage: '',
+                  isDeposit: '',
+                  depositMaxNum: '',
+                  depositMinNum: '',
+                  isRedeem: '',
+                  redeemMaxNum: '',
+                  redeemMinNum: '',
+                  maxFee: '',
+                  minFee: '',
+                  fee: '',
+                })
+                return
+              }
             }
             dispatchSwapState({
               type: 'UPDATE_SWAPREGISTER',
               payload: DepositAddress,
-              PlusGasPricePercentage: result.swapInfo.SrcToken.PlusGasPricePercentage,
-              isDeposit: !result.swapInfo.SrcToken.DisableSwap,
-              depositMaxNum: result.swapInfo.SrcToken.MaximumSwap,
-              depositMinNum: result.swapInfo.SrcToken.MinimumSwap,
-              isRedeem: !result.swapInfo.DestToken.DisableSwap,
-              redeemMaxNum: result.swapInfo.DestToken.MaximumSwap,
-              redeemMinNum: result.swapInfo.DestToken.MinimumSwap,
-              maxFee: result.swapInfo.DestToken.MaximumSwapFee,
-              minFee: result.swapInfo.DestToken.MinimumSwapFee,
-              fee: result.swapInfo.DestToken.SwapFeeRate,
+              PlusGasPricePercentage: dObj.PlusGasPricePercentage,
+              isDeposit: !dObj.DisableSwap,
+              depositMaxNum: dObj.MaximumSwap,
+              depositMinNum: dObj.MinimumSwap,
+              isRedeem: !rObj.DisableSwap,
+              redeemMaxNum: rObj.MaximumSwap,
+              redeemMinNum: rObj.MinimumSwap,
+              maxFee: rObj.MaximumSwapFee,
+              minFee: rObj.MinimumSwapFee,
+              fee: rObj.SwapFeeRate,
             })
           } else {
             dispatchSwapState({
               type: 'UPDATE_SWAPREGISTER',
-              payload: ''
+              payload: initDepositAddress,
+              isDeposit: initIsDeposit,
+              depositMaxNum: initDepositMaxNum,
+              depositMinNum: initDepositMinNum,
+              isRedeem: initIsRedeem,
+              redeemMaxNum: initRedeemMaxNum,
+              redeemMinNum: initRedeemMinNum,
+              maxFee: initMaxFee,
+              minFee: initMinFee,
+              fee: initFee,
             })
           }
         })
@@ -934,7 +976,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     } else {
       dispatchSwapState({
         type: 'UPDATE_SWAPREGISTER',
-        payload: ''
+        payload: '',
       })
     }
   }, [inputCurrency, account])

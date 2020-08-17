@@ -6,6 +6,9 @@ import { transparentize } from 'polished'
 import { isAddress } from '../../utils'
 import { useWeb3React, useDebounce } from '../../hooks'
 
+import Warning from '../../assets/images/icon/warning.svg'
+import { ReactComponent as Close } from '../../assets/images/x.svg'
+
 const InputPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
@@ -75,7 +78,41 @@ const Input = styled.input`
   }
 `
 
-export default function AddressInputPanel({ title, initialInput = '', onChange = () => {}, onError = () => {}, isValid = false, disabled = false }) {
+const SubCurrencySelectBox = styled.div`
+  ${({ theme }) => theme.FlexBC}
+  width: 100%;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 0.5625rem;
+  border: solid 0.5px #b398f9;
+  background-color: #f2edff;
+  padding: 0 20px;
+  margin-top: 0.625rem;
+  div {
+    ${({ theme }) => theme.FlexSC}
+    p {
+      font-family: 'Manrope';
+      font-size: 12px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+      color: #734be2;
+      margin-left:8px;
+    }
+  }
+`
+const CloseColor = styled(Close)`
+  width: 12px;
+  height: 12px;
+  cursor:pointer;
+  path {
+    stroke: #734be2;
+  }
+`
+
+export default function AddressInputPanel({ title, initialInput = '', onChange = () => {}, onError = () => {}, isValid = false, disabled = false, isShowTip = true }) {
   const { t } = useTranslation()
 
   const { library } = useWeb3React()
@@ -170,6 +207,13 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
     setInput(checksummedInput || input)
   }
 
+  const ADDRESS_TIP_VIEW = localStorage.getItem('ADDRESS_TIP_VIEW')
+  const [addressTip, setAddressTip] = useState(ADDRESS_TIP_VIEW)
+
+  function setLoclaAddrTip () {
+    localStorage.setItem('ADDRESS_TIP_VIEW', true)
+  }
+
   return (
     <InputPanel>
       <ContainerRow error={input !== '' && error}>
@@ -195,6 +239,23 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
           </InputRow>
         </InputContainer>
       </ContainerRow>
+      {
+        !ADDRESS_TIP_VIEW && !addressTip && !isShowTip ? (
+          <SubCurrencySelectBox>
+            <div>
+              <img src={Warning} alt={''}/>
+              {/* <p>You need to unlock {allTokens[selectedTokenAddress].symbol} to continue</p> */}
+              <p dangerouslySetInnerHTML = { 
+                  {__html: t('sendTip')}
+                }></p>
+            </div>
+            <CloseColor onClick={() => {
+              setLoclaAddrTip()
+              setAddressTip()
+            }}></CloseColor>
+          </SubCurrencySelectBox>
+        ) : ''
+      }
     </InputPanel>
   )
 }

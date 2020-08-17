@@ -183,5 +183,6 @@
   "redeemTip5": "Withdraw amount larger than 10K USDT will take up to 12 hours",
   "mmMintTip": "Please click confirm button to sign on your Metamask.",
   "ValueDeposited": "Value deposited",
-  "txnsDtil": "Transaction Details"
+  "txnsDtil": "Transaction Details",
+  "sendTip": "Please do NOT send funds to exchanges. To send to an exchange, please use a wallet like Metamask or <a href='https://whallet.net' target='_blank'>whallet.net</a>"
 }

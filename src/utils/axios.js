@@ -15,15 +15,11 @@ export const GetServerInfo = (url) => {
           swapInfo: data
         })
       }else{
-        resolve({
-          swapInfo: {}
-        })
+        resolve({})
       }
     }).catch(err => {
       console.log(err)
-      resolve({
-        swapInfo: {}
-      })
+      resolve({})
     })
   })
 }
