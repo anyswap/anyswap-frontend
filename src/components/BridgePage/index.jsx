@@ -946,10 +946,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               type: 'UPDATE_SWAPREGISTER',
               payload: DepositAddress,
               PlusGasPricePercentage: dObj.PlusGasPricePercentage,
-              isDeposit: !dObj.DisableSwap,
+              isDeposit: !dObj.DisableSwap ? 1 : 0,
               depositMaxNum: dObj.MaximumSwap,
               depositMinNum: dObj.MinimumSwap,
-              isRedeem: !rObj.DisableSwap,
+              isRedeem: !rObj.DisableSwap ? 1 : 0,
               redeemMaxNum: rObj.MaximumSwap,
               redeemMinNum: rObj.MinimumSwap,
               maxFee: rObj.MaximumSwapFee,
@@ -1269,6 +1269,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               }
             }
           })
+          dispatchSwapState({
+            type: 'UPDATE_INDEPENDENT',
+            payload: {
+              value: '',
+              field: INPUT,
+              realyValue: ''
+            }
+          })
         }
         setIsHardwareTip(false)
         setMintSureBtn(false)
@@ -1296,6 +1304,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 swapStatus: '',
                 swapTime: '',
               }
+            }
+          })
+          dispatchSwapState({
+            type: 'UPDATE_INDEPENDENT',
+            payload: {
+              value: '',
+              field: INPUT,
+              realyValue: ''
             }
           })
         }
@@ -1779,17 +1795,19 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       ) : (
         <></>
       )}
-      {/* <OversizedPanel hideBottom>
-      </OversizedPanel> */}
-      {/* <ExchangeRateWrapper>
-        <ExchangeRate>{t('fee')}：</ExchangeRate>
-        <span>
-          {independentValue && (fee || fee === 0) && bridgeType && bridgeType === 'redeem'
-            ? `${Number((Number(independentValue) * Number(fee)).toFixed(Math.min(8, inputDecimals)))} ${inputSymbol}`
-            : ' - '}
-        </span>
-      </ExchangeRateWrapper> */}
-      {/* {!Number(outNetETHBalance)} */}
+      {
+        // isDeposit ? (
+        isDeposit === 0 || isRedeem === 0 ? (
+          <MintWarningTip>
+            {/* 💀 {t('bridgeMintTip', { account })} */}
+            <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+            {/* {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})} */}
+            <span dangerouslySetInnerHTML = { 
+              {__html: t('brStopTip')}
+            }></span>
+          </MintWarningTip>
+        ) : ''
+      }
       {
         registerAddress ? (
           <SubCurrencySelectBox>
