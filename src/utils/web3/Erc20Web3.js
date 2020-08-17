@@ -89,8 +89,8 @@ function getChainHashStatus (hash, coin) {
             // obj = { status: this.$t('state').confirming, class: 'color_green' }
             statusType = 'confirming'
           } else if ([7, 9].includes(status)) {
-            // obj = { status: this.$t('state').swapping, class: 'color_green' }
-            statusType = 'swapping'
+            // obj = { status: this.$t('state').minting, class: 'color_green' }
+            statusType = 'minting'
           } else if ([10].includes(status)) {
             // obj = { status: this.$t('state').success, class: 'color_green' }
             statusType = 'success'

@@ -1340,7 +1340,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           !hashArr[i].status
           || !hashArr[i].swapStatus
           || hashArr[i].swapStatus === 'confirming'
-          || hashArr[i].swapStatus === 'swapping'
+          || hashArr[i].swapStatus === 'minting'
         ) {
           getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status).then(res => {
             if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
@@ -1526,7 +1526,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 {
                   mintDtil.swapStatus ? (
                     <HashStatus className={
-                      mintDtil.swapStatus === 'confirming' || mintDtil.swapStatus === 'swapping' ? 'yellow' : 'green'
+                      mintDtil.swapStatus === 'confirming' || mintDtil.swapStatus === 'minting' ? 'yellow' : 'green'
                     }>
                       <div>
                         <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
