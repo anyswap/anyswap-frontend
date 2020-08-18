@@ -169,7 +169,7 @@
   "CrossChainDeposit": "CrossChain Deposit",
   "Reminder": "Reminder",
   "mintTip0": "You need to send <strong>{{coin}}-ERC20 and ETH fee</strong> to your own wallet first: ",
-  "mintTip1": "Withdraw Fee is 0.0 %",
+  "mintTip1": "Deposit Fee is 0.0 %",
   "mintTip2": "Minimum Deposit Amount is",
   "mintTip3": "Maximum Deposit Amount is",
   "mintTip4": "Estimated Time of Deposit Arrival is 30min",
