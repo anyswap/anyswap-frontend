@@ -62,7 +62,7 @@ export default function NetworkConfig() {
     {label: 'New RPC URL', value: config.nodeRpc},
     {label: 'Chain ID (optional)', value: config.chainID},
     {label: 'Symbol (optional)', value: 'FSN'},
-    {label: 'Block Explorer URL (optional)', value: config.env === 'main' ? 'https://blocks.fusionnetwork.io/' : 'https://blocks.fusionnetwork.io/'},
+    {label: 'Block Explorer URL (optional)', value: config.env === 'main' ? config.explorerUrl : config.explorerUrl},
   ]
   return (
     <>

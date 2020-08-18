@@ -509,7 +509,7 @@ export default function WalletModal({ pendingTransactions, confirmedTransactions
     // tryActivation(option.connector)
     // return
     getLedgerAddressArr(path, pageSize).then(res => {
-      console.log(res)
+      // console.log(res)
       if (res.msg === 'Success') {
         setAddressObj({
           size: res.info.length,

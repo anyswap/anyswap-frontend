@@ -328,10 +328,6 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
     batch.execute()
     let getDataIntervel = setInterval(() => {
       if (count >= 3 && ( (Date.now() - time) <= 30000 )) {
-        // this.dataPage = data
-        // this.getInputData()
-        // let _fee = web3.utils.hexToNumber(data.gasPrice) * web3.utils.hexToNumber(data.gas)
-        // console.log(_fee / Math.pow(10, 18))
         resolve({
           msg: 'Success',
           info: data
@@ -340,7 +336,7 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
       } else if (count < 3 && ( (Date.now() - time) > 30000 )) {
         resolve({
           msg: 'Error',
-          error: res.error
+          error: 'Timeout'
         })
         clearInterval(getDataIntervel)
       }

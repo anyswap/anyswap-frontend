@@ -55,7 +55,7 @@ import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
 
 import {getErcBalance, HDsendERC20Txns, MMsendERC20Txns, getHashStatus} from '../../utils/web3/Erc20Web3'
-
+import ERC20_TOKEN from '../../contexts/Tokens_erc20'
 const INPUT = 0
 const OUTPUT = 1
 
@@ -806,7 +806,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [showBetaMessage] = useBetaMessageManager()
   let walletType = sessionStorage.getItem('walletType')
   // let HDPath = sessionStorage.getItem('HDPath')
-  // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
+  // account = '0xd7928d762a9abFA269ED7D9B82AE43911E687D04'
   // console.log(useWeb3React())
   
   const urlAddedTokens = {}
@@ -917,22 +917,27 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           setIsRegister(false)
         }
         GetServerInfo(url).then(result => {
-          console.log(result)
+          // console.log(result)
           if (result && result.swapInfo && result.swapInfo.SrcToken.DepositAddress) {
             let dObj = result.swapInfo.SrcToken,
                 rObj = result.swapInfo.DestToken
             let DepositAddress = res && res.result && res.result.P2shAddress ? res.result.P2shAddress : ''
             if (inputSymbol !== config.prefix + 'BTC') {
               DepositAddress = dObj.DepositAddress
-              if (initDepositAddress.toLowerCase() !== DepositAddress.toLowerCase()) {
+              let erc20Token = ERC20_TOKEN[config.ercConfig.chainID][coin].token
+              if (
+                (initDepositAddress.toLowerCase() !== DepositAddress.toLowerCase())
+                || (inputCurrency.toLowerCase() !== rObj.ContractAddress.toLowerCase())
+                || (erc20Token.toLowerCase() !== dObj.ContractAddress.toLowerCase())
+              ) {
                 dispatchSwapState({
                   type: 'UPDATE_SWAPREGISTER',
                   payload: '',
                   PlusGasPricePercentage: '',
-                  isDeposit: '',
+                  isDeposit: 0,
                   depositMaxNum: '',
                   depositMinNum: '',
-                  isRedeem: '',
+                  isRedeem: 0,
                   redeemMaxNum: '',
                   redeemMinNum: '',
                   maxFee: '',
@@ -1012,6 +1017,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   // get balances for each of the currency types
   const inputBalance = useAddressBalance(account, inputCurrency)
+  const FSNBalance = useAddressBalance(account, 'FSN')
+  const FSNBalanceNum = FSNBalance ? amountFormatter(FSNBalance) : 0
+  // console.log(FSNBalanceNum)
   // const outputBalance = useAddressBalance(account, outputCurrency)
   const inputBalanceFormatted = !!(inputBalance && Number.isInteger(inputDecimals))
     ? amountFormatter(inputBalance, inputDecimals, inputDecimals)
@@ -1649,16 +1657,24 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         urlAddedTokens={urlAddedTokens}
         extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : (outNetBalance ? formatBalance(outNetBalance) : '')}
         extraTextClickHander={() => {
+          // console.log(inputBalance)
           if (inputBalance && inputDecimals) {
             const valueToSet = inputCurrency === 'FSN' ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
+            // console.log(valueToSet)
             if (valueToSet.gt(ethers.constants.Zero)) {
-              // let inputVal = fee || fee === 0
-              //   ? Number((( Number(inputBalance) * (1 - Number(fee)) / Math.pow(10, inputDecimals)) ).toFixed(Math.min(8, inputDecimals)))
-              //   : 0
-              // console.log(inputBalance)
               let inputVal = Number(inputBalance) / Math.pow(10, inputDecimals)
+              let value = ''
               if (bridgeType && bridgeType === 'redeem') {
                 // inputVal = Number(inputBalance) / Math.pow(10, inputDecimals)
+                if (inputVal < Number(redeemMinNum)) {
+                  inputVal = ''
+                } else if (inputVal > Number(redeemMaxNum)) {
+                  inputVal = redeemMaxNum
+                } else {
+                  // inputVal = inputVal.toFixed(Math.min(8, inputDecimals))
+                  inputVal = inputVal
+                }
+                value = inputVal
                 let _fee = Number(inputVal) * Number(fee)
                 if (_fee < minFee) {
                   _fee = minFee
@@ -1666,17 +1682,22 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   _fee = maxFee
                 }
                 inputVal = Number(inputVal) - _fee
-                if (inputVal < 0) {
+              } else {
+                inputVal = outNetBalance
+                value = inputVal
+                if (inputVal < Number(depositMinNum)) {
                   inputVal = ''
-                } else {
-                  inputVal = inputVal.toFixed(Math.min(8, inputDecimals))
+                } else if (inputVal > Number(depositMaxNum)) {
+                  inputVal = depositMaxNum
                 }
-              } 
+              }
               // console.log(inputVal)
+              // console.log(amountFormatter(valueToSet, inputDecimals, inputDecimals, false))
               dispatchSwapState({
                 type: 'UPDATE_INDEPENDENT',
                 payload: {
-                  value: amountFormatter(valueToSet, inputDecimals, inputDecimals, false),
+                  // value: bridgeType && bridgeType === 'redeem' ? amountFormatter(valueToSet, inputDecimals, inputDecimals, false) : inputVal,
+                  value: value,
                   field: INPUT,
                   realyValue: inputVal ? Number(inputVal) : ''
                 }
@@ -1691,12 +1712,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           })
         }}
         onValueChange={inputValue => {
-          // console.log(inputValue)
-          // console.log(fee)
-          // let inputVal = inputValue && (fee || fee === 0)
-          // ? Number(( Number(inputValue) * (1 - Number(fee)) ).toFixed(Math.min(8, inputDecimals)))
-          // : 0
-          // console.log(inputValue)
           let inputVal = inputValue
           if (bridgeType && bridgeType === 'redeem') {
             let _fee = Number(inputValue) * Number(fee)
@@ -1760,6 +1775,17 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             }
           </>
         )
+      }
+      {
+        bridgeType && bridgeType === 'redeem' && Number(FSNBalanceNum) < 0.001 && account ? (
+          <MintWarningTip>
+            <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+            <span dangerouslySetInnerHTML = { 
+              {__html: t('FSNnoBalance')}
+            }></span>
+            {/* <span className='span' >{account}</span><Copy toCopy={account} /> */}
+          </MintWarningTip>
+        ) : ('')
       }
       <OversizedPanel>
         <DownArrowBackground  onClick={changeMorR}>

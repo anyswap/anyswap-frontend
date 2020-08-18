@@ -9,6 +9,8 @@ import { formatFixed } from '@uniswap/sdk'
 
 import UncheckedJsonRpcSigner from './signer'
 
+import config from '../config'
+
 export const ERROR_CODES = ['TOKEN_NAME', 'TOKEN_SYMBOL', 'TOKEN_DECIMALS'].reduce(
   (accumulator, currentValue, currentIndex) => {
     accumulator[currentValue] = currentIndex
@@ -40,7 +42,7 @@ export function getEtherscanLink(networkId, data, type) {
     case 'transaction': {
       let url = `${prefix}/tx/${data}`
       if (networkId === 46688 || networkId === 32659) {
-        url = `https://block.fusionnetwork.io/#!/transaction/${data}`
+        url = `${config}/transaction/${data}`
       }
       // return `${prefix}/tx/${data}`
       return url
@@ -49,7 +51,7 @@ export function getEtherscanLink(networkId, data, type) {
     default: {
       let url = `${prefix}/address/${data}`
       if (networkId === 46688 || networkId === 32659) {
-        url = `https://block.fusionnetwork.io/#!/address/${data}`
+        url = `${config}/address/${data}`
       }
       return url
       // return `${prefix}/address/${data}`
