@@ -15,7 +15,7 @@ function _inheritsLoose(subClass, superClass) {
   subClass.prototype.constructor = subClass;
   subClass.__proto__ = superClass;
 }
-const POLLING_INTERVAL = 10000
+const POLLING_INTERVAL = 12000
     
 var LedgerConnector = /*#__PURE__*/function (_AbstractConnector) {
   _inheritsLoose(LedgerConnector, _AbstractConnector);

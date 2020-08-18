@@ -42,7 +42,7 @@ export function getEtherscanLink(networkId, data, type) {
     case 'transaction': {
       let url = `${prefix}/tx/${data}`
       if (networkId === 46688 || networkId === 32659) {
-        url = `${config}/transaction/${data}`
+        url = `${config.explorerUrl}/transaction/${data}`
       }
       // return `${prefix}/tx/${data}`
       return url
@@ -51,7 +51,7 @@ export function getEtherscanLink(networkId, data, type) {
     default: {
       let url = `${prefix}/address/${data}`
       if (networkId === 46688 || networkId === 32659) {
-        url = `${config}/address/${data}`
+        url = `${config.explorerUrl}/address/${data}`
       }
       return url
       // return `${prefix}/address/${data}`

@@ -253,14 +253,14 @@ export function Updater() {
         }),
     [library]
   )
-
   // ensure that all balances with >=1 listeners are updated every block
   useEffect(() => {
     if (typeof chainId === 'number' && typeof blockNumber === 'number') {
       for (const address of Object.keys(debouncedState?.[chainId] ?? {})) {
         for (const tokenAddress of Object.keys(debouncedState?.[chainId][address])) {
-          const active = debouncedState[chainId][address][tokenAddress].listenerCount > 0
-          if (active) {
+          // const active = debouncedState[chainId][address][tokenAddress].listenerCount > 0
+          const active = true
+          if (active && address.indexOf('0x') === 0 && tokenAddress.indexOf('0x') === 0) {
             const cachedFetchedAsOf = fetchedAsOfCache.current?.[chainId]?.[address]?.[tokenAddress]
             const fetchedAsOf = debouncedState[chainId][address][tokenAddress]?.blockNumber ?? cachedFetchedAsOf
             if (fetchedAsOf !== blockNumber) {
