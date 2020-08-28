@@ -250,7 +250,7 @@ ${({ theme }) => theme.FlexSC};
 `
 
 const TokenLogoBox = styled(TokenLogo)`
-  padding: 0.625rem;
+  // padding: 0.625rem;
   background: none;
 `
 
@@ -748,6 +748,8 @@ function swapStateReducer(state, action) {
         maxFee: action.maxFee ? action.maxFee : '',
         minFee: action.minFee ? action.minFee : '',
         fee: action.fee ? action.fee : '',
+        redeemBigValMoreTime: action.redeemBigValMoreTime ? action.redeemBigValMoreTime : '',
+        depositBigValMoreTime: action.depositBigValMoreTime ? action.depositBigValMoreTime : '',
       }
     }
     case 'UPDATE_MINTTYPE': {
@@ -865,7 +867,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     isViewMintInfo,
     realyValue,
     hashArr,
-    hashCount
+    hashCount,
+    redeemBigValMoreTime,
+    depositBigValMoreTime
   } = swapState
 
 
@@ -924,11 +928,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             let DepositAddress = res && res.result && res.result.P2shAddress ? res.result.P2shAddress : ''
             if (inputSymbol !== config.prefix + 'BTC') {
               DepositAddress = dObj.DepositAddress
-              let erc20Token = ERC20_TOKEN[config.ercConfig.chainID][coin].token
+              let erc20Token = coin !== 'ETH' ? ERC20_TOKEN[config.ercConfig.chainID][coin].token : ''
               if (
                 (initDepositAddress.toLowerCase() !== DepositAddress.toLowerCase())
                 || (inputCurrency.toLowerCase() !== rObj.ContractAddress.toLowerCase())
-                || (erc20Token.toLowerCase() !== dObj.ContractAddress.toLowerCase())
+                || (coin !== 'ETH' && erc20Token.toLowerCase() !== dObj.ContractAddress.toLowerCase())
               ) {
                 dispatchSwapState({
                   type: 'UPDATE_SWAPREGISTER',
@@ -937,12 +941,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   isDeposit: 0,
                   depositMaxNum: '',
                   depositMinNum: '',
+                  depositBigValMoreTime: '',
                   isRedeem: 0,
                   redeemMaxNum: '',
                   redeemMinNum: '',
                   maxFee: '',
                   minFee: '',
                   fee: '',
+                  redeemBigValMoreTime: ''
                 })
                 return
               }
@@ -954,12 +960,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               isDeposit: !dObj.DisableSwap ? 1 : 0,
               depositMaxNum: dObj.MaximumSwap,
               depositMinNum: dObj.MinimumSwap,
+              depositBigValMoreTime: dObj.BigValueThreshold,
               isRedeem: !rObj.DisableSwap ? 1 : 0,
               redeemMaxNum: rObj.MaximumSwap,
               redeemMinNum: rObj.MinimumSwap,
               maxFee: rObj.MaximumSwapFee,
               minFee: rObj.MinimumSwapFee,
               fee: rObj.SwapFeeRate,
+              redeemBigValMoreTime: rObj.BigValueThreshold,
             })
           } else {
             dispatchSwapState({
@@ -968,12 +976,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               isDeposit: initIsDeposit,
               depositMaxNum: initDepositMaxNum,
               depositMinNum: initDepositMinNum,
+              depositBigValMoreTime: 0,
               isRedeem: initIsRedeem,
               redeemMaxNum: initRedeemMaxNum,
               redeemMinNum: initRedeemMinNum,
               maxFee: initMaxFee,
               minFee: initMinFee,
               fee: initFee,
+              redeemBigValMoreTime: 0
             })
           }
         })
@@ -1591,7 +1601,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             return (
               <li key={hashCount ? index + hashCount : index}>
                 <FlexCneter>
-                  <TokenLogo address={item.coin} size={'2rem'}  onClick={() => {
+                  <TokenLogoBox address={item.coin} size={'2rem'}  onClick={() => {
                     setMintDtil(item)
                     setMintDtilView(true)
                   }}/>
@@ -1854,7 +1864,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     <dd><i></i>{t('redeemTip2')} {redeemMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
                     <dd><i></i>{t('redeemTip3')} {redeemMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
                     <dd><i></i>{t('redeemTip4')},</dd>
-                    <dd><i></i>{t('redeemTip5')}.</dd>
+                    <dd><i></i>{t('redeemTip5', {
+                      redeemBigValMoreTime,
+                      coin: inputSymbol.replace(config.prefix, ''),
+                    })}.</dd>
                   </dl>
                 </>
               ) : (
@@ -1868,7 +1881,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     <dd><i></i>{t('mintTip2')} {depositMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
                     <dd><i></i>{t('mintTip3')} {depositMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
                     <dd><i></i>{t('mintTip4')},</dd>
-                    <dd><i></i>{t('mintTip5')},</dd>
+                    <dd><i></i>{t('mintTip5', {
+                      depositBigValMoreTime,
+                      coin: inputSymbol.replace(config.prefix, ''),
+                    })},</dd>
                     {
                       account ? (
                         <dd><i></i>💀 {t('bridgeMintTip', { account })}.</dd>

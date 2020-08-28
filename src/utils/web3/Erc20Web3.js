@@ -17,7 +17,7 @@ const allToken = TOKEN[config.ercConfig.chainID]
 const Web3 = require('web3')
 const web3 = new Web3(new Web3.providers.HttpProvider(ERC20_RPC))
 let contract = new web3.eth.Contract(ERC20_ABI)
-// console.log(web3)
+// console.log(web3.eth.accounts.recoverTransaction('0xf8763b844190ab008301ec309406cadd991f2ec8e156c0ae66116c5604fdcdc5b592313030303030303030303030303030303030802ba02f22fa4a0876de138c096496a6500e8489c44757ad1d5fa64510ba21191ece49a051a30d66a9accbe384bf56bc461d1630ecb2b46e96af310e46b96dd2955b345b'))
 let mmWeb3
 if (typeof window.ethereum !== 'undefined'|| (typeof window.web3 !== 'undefined')) {
   // Web3 browser user detected. You can now use the provider.
@@ -178,7 +178,7 @@ export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage) {
       if (res.msg === 'Success') {
         // let eTx = new Tx(res.info)
         // console.log(eTx)
-        // console.log(res.info)
+        console.log(res.info)
         let tx = new Tx(res.info)
 
         let hash = Buffer.from(tx.hash(false)).toString('hex')
@@ -261,14 +261,15 @@ export const getErcBalance = (coin, from) => {
 }
 
 function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
-  contract.options.address = allToken[coin].token
-  // console.log(value)
-  // console.log(PlusGasPricePercentage)
-  value = ethers.utils.parseUnits(value.toString(), allToken[coin].decimals)
-  let input = contract.methods.transfer(to, value).encodeABI()
-  if (coin === 'ETH') {
-    input = ''
+  let input = ''
+  if (coin !== 'ETH') {
+    contract.options.address = allToken[coin].token
+    value = ethers.utils.parseUnits(value.toString(), allToken[coin].decimals)
+    input = contract.methods.transfer(to, value).encodeABI()
+  } else {
+    value = ethers.utils.parseUnits(value.toString(), 18)
   }
+  // console.log(value)
   let data = {
     from,
     chainId: web3.utils.toHex(config.ercConfig.chainID),
@@ -276,7 +277,7 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
     gasPrice: "",
     nonce: "",
     to: coin === 'ETH' ? to : allToken[coin].token,
-    value: coin === 'ETH' ? value : "0x0",
+    value: coin === 'ETH' ? value.toHexString() : "0x0",
     data: input
   }
   // console.log(data)
