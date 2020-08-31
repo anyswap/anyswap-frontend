@@ -152,7 +152,7 @@ export default function HardwareTip({
   coin
 }) {
 
-  
+  // console.log(error)
   // setHardwareType(walletType)
   const { t } = useTranslation()
   let walletType = sessionStorage.getItem('walletType')

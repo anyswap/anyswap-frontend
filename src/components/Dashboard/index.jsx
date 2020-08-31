@@ -502,11 +502,6 @@ function thousandBit (num, dec = 2) {
   return num
 }
 
-// let fsnPrice = ''
-// getPrice().then(res => {
-//   // console.log(res)
-//   fsnPrice = res
-// })
 
 export default function DashboardDtil () {
   const { account, library } = useWeb3React()
@@ -545,13 +540,13 @@ export default function DashboardDtil () {
   const [accountRewars, setAccountRewars] = useState([])
 
   const [fsnPrice, setFsnPrice] = useState('')
-  useEffect(() => {
-    getPrice().then(res => {
-      // console.log(res)
-      // fsnPrice = res
-      setFsnPrice(res)
-    })
-  }, [])
+  // useEffect(() => {
+  //   getPrice().then(res => {
+  //     // console.log(res)
+  //     // fsnPrice = res
+  //     setFsnPrice(res)
+  //   })
+  // }, [])
 
   useEffect(() => {
     if (account) {
@@ -707,7 +702,13 @@ export default function DashboardDtil () {
 
   const { reserveETH: USDTreserveETH, reserveToken: USDTreserveToken } = useExchangeReserves(allCoins[config.prefix + 'USDT'].token)
   poolInfoObj[config.prefix + 'USDT'].marketRate = useMemo(() => {
-    return getMarketRate(USDTreserveETH, USDTreserveToken, allCoins[config.prefix + 'USDT'].decimals)
+    let usdtPrice = getMarketRate(USDTreserveETH, USDTreserveToken, allCoins[config.prefix + 'USDT'].decimals)
+    if (usdtPrice) {
+      // console.log(Number(amountFormatter(usdtPrice, 18, 6)))
+      // console.log(usdtPrice.toString())
+      setFsnPrice(Number(amountFormatter(usdtPrice, 18, 6)))
+    }
+    return usdtPrice
   }, [USDTreserveETH, USDTreserveToken])
   
   const [totalPoolTokensUSDT, setTotalPoolTokensUSDT] = useState()

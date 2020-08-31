@@ -1261,6 +1261,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
   function mintAmount () {
     let coin = inputSymbol.replace(config.prefix, '')
+    
     if (walletType === 'Ledger') {
       setHardwareTxnsInfo(inputValueFormatted + ' ' + coin)
       setIsHardwareTip(true)
@@ -1295,11 +1296,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               realyValue: ''
             }
           })
+          setIsHardwareTip(false)
+          setMintModelTitle('')
+          setMintModelTip('')
+          setMintSureBtn(false)
+        } else {
+          setIsHardwareError(true)
         }
-        setIsHardwareTip(false)
-        setMintSureBtn(false)
-        setMintModelTitle('')
-        setMintModelTip('')
       })
     } else {
       setMintSureBtn(false)
@@ -1415,6 +1418,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         HardwareTipOpen={isHardwareTip}
         closeHardwareTip={() => {
           setIsHardwareTip(false)
+          setIsHardwareError(false)
         }}
         error={isHardwareError}
         txnsInfo={hardwareTxnsInfo}
@@ -1777,7 +1781,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
                   {/* {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})} */}
                   <span dangerouslySetInnerHTML = { 
-                    {__html: t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})}
+                    {__html: t('mintTip0', { coin:
+                      inputSymbol.indexOf('ETH') !== -1 ? inputSymbol.replace(config.prefix, '') : (inputSymbol.replace(config.prefix, '') + '-ERC20')
+                    })}
                   }></span>
                   <span className='span' >{account}</span><Copy toCopy={account} />
                 </MintWarningTip>
