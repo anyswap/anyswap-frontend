@@ -34,10 +34,10 @@ export function getWeb3BaseInfo (ContractAddress, DcrmAddress, input, address, v
     batch.add(web3Fn.eth.estimateGas.request({to: ContractAddress}, (err, res) => {
       if (err) {
         // console.log(err)
-        data.gas = web3Fn.utils.toHex(12600 * 100)
+        data.gas = web3Fn.utils.toHex(100000)
         count ++
       } else {
-        data.gas = web3Fn.utils.toHex(res * 6)
+        data.gas = web3Fn.utils.toHex(parseInt(Number(res) * 1.1))
         count ++
       }
     }))
@@ -54,7 +54,8 @@ export function getWeb3BaseInfo (ContractAddress, DcrmAddress, input, address, v
       if (err) {
         console.log(err)
       } else {
-        // console.log(3)
+        // console.log(res)
+        // console.log(Number(res))
         data.gasPrice = web3Fn.utils.toHex(res)
         count ++
       }

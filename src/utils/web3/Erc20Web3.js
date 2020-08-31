@@ -295,7 +295,8 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
         data.gas = web3.utils.toHex(90000)
         count ++
       } else {
-        data.gas = web3.utils.toHex(res * 6)
+        // console.log(parseInt(Number(res) * 1.1))
+        data.gas = web3.utils.toHex(parseInt(Number(res) * 1.1))
         count ++
       }
     }))

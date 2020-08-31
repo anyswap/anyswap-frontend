@@ -180,7 +180,7 @@
   "redeemTip2": "Minimum Withdraw Amount is",
   "redeemTip3": "Maximum Withdraw Amount is",
   "redeemTip4": "Estimated Time of Withdraw Arrival is 10min",
-  "redeemTip5": "Withdraw amount larger than {{redeemBigValMoreTime}} {{coin}} will take up to 12 hours",
+  "redeemTip5": "Withdraw amount larger than {{redeemBigValMoreTime}} {{coin}} will take up to 12 hours.",
   "mmMintTip": "Please click confirm button to sign on your Metamask.",
   "ValueDeposited": "Value deposited",
   "txnsDtil": "Transaction Details",

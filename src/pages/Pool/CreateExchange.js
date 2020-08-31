@@ -163,7 +163,7 @@ function CreateExchange({ location, params }) {
       setErrorMessage()
     }
   }, [tokenAddress.address, symbol, decimals, exchangeAddress, account, t, tokenAddressError])
-
+  console.log(tokenAddress.address)
   async function createExchange() {
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
@@ -172,7 +172,7 @@ function CreateExchange({ location, params }) {
       let web3Contract = getWeb3ConTract(factory_abi, FACTORY_ADDRESSES[chainId])
       // let data = web3Contract.createExchange.getData(tokenAddress.address)
       let data = web3Contract.methods.createExchange(tokenAddress.address).encodeABI()
-      getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
+      getWeb3BaseInfo(FACTORY_ADDRESSES[chainId], FACTORY_ADDRESSES[chainId], data, account).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)

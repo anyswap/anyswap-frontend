@@ -1154,8 +1154,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     setTimeout(() => {
       setIsDisableed(true)
     }, 3000)
-    let amountVal = Number(inputValueFormatted) * Math.pow(10, inputDecimals)
-    amountVal = amountVal.toFixed(0)
+    // console.log(amountVal)
+    // console.log(inputValueFormatted)
+    // let amountVal = Number(inputValueFormatted) * Math.pow(10, inputDecimals)
+    let amountVal = ethers.utils.parseUnits(inputValueFormatted.toString(), inputDecimals)
+    // console.log(amountVal)
+    // amountVal = amountVal.toFixed(0)
+    // console.log(amountVal.toString())
+    // console.log(amountVal.toHexString())
     let address = recipient.address
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
@@ -1173,6 +1179,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
       getWeb3BaseInfo(inputCurrency, inputCurrency, data, account).then(res => {
         if (res.msg === 'Success') {
+          console.log(res.info)
           addTransaction(res.info)
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
@@ -1873,7 +1880,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     <dd><i></i>{t('redeemTip5', {
                       redeemBigValMoreTime,
                       coin: inputSymbol.replace(config.prefix, ''),
-                    })}.</dd>
+                    })}</dd>
                   </dl>
                 </>
               ) : (
