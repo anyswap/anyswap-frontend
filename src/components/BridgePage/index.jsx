@@ -1747,7 +1747,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   // value: bridgeType && bridgeType === 'redeem' ? amountFormatter(valueToSet, inputDecimals, inputDecimals, false) : inputVal,
                   value: value,
                   field: INPUT,
-                  realyValue: inputVal ? Number(inputVal) : ''
+                  realyValue: inputVal && Number(inputVal) > 0 ? Number(inputVal) : ''
                 }
               })
             }
