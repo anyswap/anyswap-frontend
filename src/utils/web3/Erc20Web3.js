@@ -284,19 +284,14 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
   return new Promise(resolve => {
     let count = 0, time = Date.now()
     const batch = new web3.BatchRequest()
-    batch.add(web3.eth.estimateGas.request({
-      to: coin === 'ETH' ? to : allToken[coin].token,
-      from: from,
-      data: input,
-      value: value
-    }, (err, res) => {
+    batch.add(web3.eth.estimateGas.request(data, (err, res) => {
       if (err) {
         // console.log(err)
         data.gas = web3.utils.toHex(90000)
         count ++
       } else {
         // console.log(parseInt(Number(res) * 1.1))
-        data.gas = web3.utils.toHex(parseInt(Number(res) * 1.1))
+        data.gas = web3.utils.toHex(parseInt(Number(res) * 1.2))
         count ++
       }
     }))

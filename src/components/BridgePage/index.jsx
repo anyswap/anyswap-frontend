@@ -907,6 +907,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [isRegister, setIsRegister] = useState(false)
 
   useEffect(() => {
+    setInit()
     if (account && config.CoinInfo[inputSymbol] && config.CoinInfo[inputSymbol].url && isSwitch) {
       let url = config.CoinInfo[inputSymbol].url
       let coin = inputSymbol.replace(config.prefix, '')
@@ -1268,6 +1269,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
   function mintAmount () {
     let coin = inputSymbol.replace(config.prefix, '')
+
+    if (initDepositAddress.toLowerCase() !== registerAddress.toLowerCase()) {
+      alert('Data error, please refresh and try again!')
+      return
+    }
     
     if (walletType === 'Ledger') {
       setHardwareTxnsInfo(inputValueFormatted + ' ' + coin)
@@ -1405,6 +1411,27 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       }
     }
+  }
+
+  function setInit () {
+    setIsRedeem(true)
+    setIsMintBtn(true)
+    dispatchSwapState({
+      type: 'UPDATE_SWAPREGISTER',
+      payload: '',
+      PlusGasPricePercentage: '',
+      isDeposit: 1,
+      depositMaxNum: '',
+      depositMinNum: '',
+      depositBigValMoreTime: '',
+      isRedeem: 1,
+      redeemMaxNum: '',
+      redeemMinNum: '',
+      maxFee: '',
+      minFee: '',
+      fee: '',
+      redeemBigValMoreTime: ''
+    })
   }
 
   useEffect(() => {
@@ -1727,6 +1754,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           }
         }}
         onCurrencySelected={inputCurrency => {
+          setInit()
           dispatchSwapState({
             type: 'SELECT_CURRENCY',
             payload: { currency: inputCurrency, field: INPUT }

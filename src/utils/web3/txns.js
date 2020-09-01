@@ -31,13 +31,14 @@ export function getWeb3BaseInfo (ContractAddress, DcrmAddress, input, address, v
   return new Promise(resolve => {
     let count = 0, time = Date.now()
     const batch = new web3Fn.BatchRequest()
-    batch.add(web3Fn.eth.estimateGas.request({to: ContractAddress}, (err, res) => {
+    // batch.add(web3Fn.eth.estimateGas.request({to: ContractAddress}, (err, res) => {
+    batch.add(web3Fn.eth.estimateGas.request(data, (err, res) => {
       if (err) {
         // console.log(err)
         data.gas = web3Fn.utils.toHex(100000)
         count ++
       } else {
-        data.gas = web3Fn.utils.toHex(parseInt(Number(res) * 1.1))
+        data.gas = web3Fn.utils.toHex(parseInt(Number(res) * 1.2))
         count ++
       }
     }))
