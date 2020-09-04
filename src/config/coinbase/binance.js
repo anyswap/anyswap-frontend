@@ -1,10 +1,13 @@
 import coin from './coin'
+
 const MAINNET = 'https://bsc-dataseed1.binance.org:443'
 const MAIN_CHAINID = 56
+const ANY_MAIN_TOKEN = ''
+
 const TESTNET = ' https://data-seed-prebsc-1-s1.binance.org:8545'
 const TEST_CHAINID = 97
-const ANY_MAIN_TOKEN = ''
 const ANY_TEST_TOKEN = '0x6fb8125c42a53dced3c4c05e1712e4c5ca1c6dc2'
+
 const COIN_BASE ={
   symbol: 'BNB',
   name: 'Binance',
@@ -17,8 +20,7 @@ let coinConfig = {
   nodeRpc: MAINNET,
   chainID: MAIN_CHAINID,
   any: {
-    token: ANY_MAIN_TOKEN,
-    exchange: ''
+    token: ANY_MAIN_TOKEN
   },
   coininfo: {
     // [coin.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
@@ -40,15 +42,14 @@ function getBNBConfig (type) {
     nodeRpc: TESTNET,
     chainID: TEST_CHAINID,
     any: {
-      token: ANY_TEST_TOKEN,
-      exchange: '0x72b60cae10b8b921c648c04acd66104f25de7994'
+      token: ANY_TEST_TOKEN
     },
     coininfo: {
       // [coin.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
       [coin.ETH]: {url: ''},
       [coin.USDT]: {url: ''},
     },
-    initToken: ANY_MAIN_TOKEN,
+    initToken: ANY_TEST_TOKEN,
     initBridge: '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711',
     explorerUrl: 'https://explorer.binance.org/smart-testnet',
     marketsUrl: 'https://markets.anyswap.exchange/#/'

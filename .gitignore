@@ -13,7 +13,8 @@
 /anyswap-test
 /anyswap-main
 #/src/config/index.js
-/src/contexts/Tokens.js
+#/src/contexts/Tokens.js
+
 # misc
 .DS_Store
 .env.local
