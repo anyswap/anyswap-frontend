@@ -531,7 +531,7 @@ export default function DashboardDtil () {
       ethShare: ''
     }
   }
-  const tokenShareFSN =useAddressBalance(account, 'FSN')
+  const tokenShareFSN =useAddressBalance(account, config.symbol)
   // console.log(tokenShareFSN)
 
   const [searchBalance, setSearchBalance] =  useState('')
@@ -589,7 +589,7 @@ export default function DashboardDtil () {
    * BTC start
    *  */
   poolInfoObj[config.prefix + 'BTC'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'BTC'].exchangeAddress)
-  poolInfoObj[config.prefix + 'BTC'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'BTC'].exchangeAddress, 'FSN')
+  poolInfoObj[config.prefix + 'BTC'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'BTC'].exchangeAddress, config.symbol)
   poolInfoObj[config.prefix + 'BTC'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'BTC'].exchangeAddress, allCoins[config.prefix + 'BTC'].token)
   poolInfoObj[config.prefix + 'BTC'].exchangeContract = useExchangeContract(allCoins[config.prefix + 'BTC'].exchangeAddress)
   
@@ -628,7 +628,7 @@ export default function DashboardDtil () {
    * ANY start
    *  */
   poolInfoObj.ANY.poolTokenBalance = useAddressBalance(account, allCoins.ANY.exchangeAddress)
-  poolInfoObj.ANY.exchangeETHBalance = useAddressBalance(allCoins.ANY.exchangeAddress, 'FSN')
+  poolInfoObj.ANY.exchangeETHBalance = useAddressBalance(allCoins.ANY.exchangeAddress, config.symbol)
   poolInfoObj.ANY.exchangeTokenBalancem = useAddressBalance(allCoins.ANY.exchangeAddress, allCoins.ANY.token)
   poolInfoObj.ANY.exchangeContract = useExchangeContract(allCoins.ANY.exchangeAddress)
 
@@ -662,7 +662,7 @@ export default function DashboardDtil () {
    * ETH start
    *  */
   poolInfoObj[config.prefix + 'ETH'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'ETH'].exchangeAddress)
-  poolInfoObj[config.prefix + 'ETH'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'ETH'].exchangeAddress, 'FSN')
+  poolInfoObj[config.prefix + 'ETH'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'ETH'].exchangeAddress, config.symbol)
   poolInfoObj[config.prefix + 'ETH'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'ETH'].exchangeAddress, allCoins[config.prefix + 'ETH'].token)
   poolInfoObj[config.prefix + 'ETH'].exchangeContract = useExchangeContract(allCoins[config.prefix + 'ETH'].exchangeAddress)
 
@@ -696,7 +696,7 @@ export default function DashboardDtil () {
    * USDT start
    *  */
   poolInfoObj[config.prefix + 'USDT'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'USDT'].exchangeAddress)
-  poolInfoObj[config.prefix + 'USDT'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'USDT'].exchangeAddress, 'FSN')
+  poolInfoObj[config.prefix + 'USDT'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'USDT'].exchangeAddress, config.symbol)
   poolInfoObj[config.prefix + 'USDT'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'USDT'].exchangeAddress, allCoins[config.prefix + 'USDT'].token)
   poolInfoObj[config.prefix + 'USDT'].exchangeContract = useExchangeContract(allCoins[config.prefix + 'USDT'].exchangeAddress)
 
@@ -736,7 +736,7 @@ export default function DashboardDtil () {
    * XRP start
    *  */
   poolInfoObj[config.prefix + 'XRP'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'XRP'].exchangeAddress)
-  poolInfoObj[config.prefix + 'XRP'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'XRP'].exchangeAddress, 'FSN')
+  poolInfoObj[config.prefix + 'XRP'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'XRP'].exchangeAddress, config.symbol)
   poolInfoObj[config.prefix + 'XRP'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'XRP'].exchangeAddress, allCoins[config.prefix + 'XRP'].token)
   poolInfoObj[config.prefix + 'XRP'].exchangeContract = useExchangeContract(allCoins[config.prefix + 'XRP'].exchangeAddress)
 
@@ -770,7 +770,7 @@ export default function DashboardDtil () {
    * LTC start
    *  */
   poolInfoObj[config.prefix + 'LTC'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'LTC'].exchangeAddress)
-  poolInfoObj[config.prefix + 'LTC'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'LTC'].exchangeAddress, 'FSN')
+  poolInfoObj[config.prefix + 'LTC'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'LTC'].exchangeAddress, config.symbol)
   poolInfoObj[config.prefix + 'LTC'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'LTC'].exchangeAddress, allCoins[config.prefix + 'LTC'].token)
   poolInfoObj[config.prefix + 'LTC'].exchangeContract = useExchangeContract(allCoins[config.prefix + 'LTC'].exchangeAddress)
 
@@ -803,7 +803,7 @@ export default function DashboardDtil () {
 
   let poolTokenBalanceArr = []
   for (let obj in allCoins) {
-    if (obj === 'FSN') {
+    if (obj === config.symbol) {
       poolInfoObj[obj].poolTokenPercentage =
         poolInfoObj['ANY'].poolTokenBalance && poolInfoObj['ANY'].totalPoolTokens && !poolInfoObj['ANY'].totalPoolTokens.isZero()
             ? poolInfoObj['ANY'].poolTokenBalance.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(poolInfoObj['ANY'].totalPoolTokens)
@@ -920,7 +920,7 @@ export default function DashboardDtil () {
                     <TokenBalanceBox>
                       <h3>{t('balances')}</h3>
                       {
-                        item.symbol === 'FSN' ? (
+                        item.symbol === config.symbol ? (
                           <p>{account ? FSNPool.balance : '-'}</p>
                         ) : (
                           <p>{account ? (!!item.isSwitch ? 
@@ -939,7 +939,7 @@ export default function DashboardDtil () {
                           <>
                             <h3>{t("Percentage")}</h3>
                             {
-                              item.symbol === 'FSN' ? (
+                              item.symbol === config.symbol ? (
                                 <p>{account ? FSNPool.percent + ' %' : '- %'}</p>
                               ) : (
                                 <p>{
@@ -973,7 +973,7 @@ export default function DashboardDtil () {
     if (!fsnPrice || !account) return '-'
     let _marketRate = poolInfoObj[coin].marketRate ? amountFormatter(poolInfoObj[coin].marketRate, 18, 16) : ''
     let _usd = '-'
-    if (coin === 'FSN') {
+    if (coin === config.symbol) {
       // _usd = (Number(val) * fsnPrice).toFixed(3)
       _usd = fsnPrice
       if (_usd > 1) {
@@ -1006,7 +1006,7 @@ export default function DashboardDtil () {
       // console.log(k)
       let balance = '-'
       // only update if we have data
-      if (k === 'FSN' && myAccount && myAccount[k] && myAccount[k].value) {
+      if (k === config.symbol && myAccount && myAccount[k] && myAccount[k].value) {
         balance = formatEthBalance(ethers.utils.bigNumberify(myAccount[k].value))
       } else if (myAccount && myAccount[k] && myAccount[k].value) {
         balance = formatTokenBalance(ethers.utils.bigNumberify(myAccount[k].value), allTokens[k].decimals)

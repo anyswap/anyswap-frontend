@@ -73,8 +73,8 @@ export function getAllQueryParams() {
     : ''
   params.outputCurrency = isAddress(getQueryParam(window.location, 'outputCurrency'))
     ? isAddress(getQueryParam(window.location, 'outputCurrency'))
-    : getQueryParam(window.location, 'outputCurrency') === 'FSN'
-    ? 'FSN'
+    : getQueryParam(window.location, 'outputCurrency') === config.symbol
+    ? config.symbol
     : ''
   params.slippage = !isNaN(getQueryParam(window.location, 'slippage')) ? getQueryParam(window.location, 'slippage') : ''
   params.exactField = getQueryParam(window.location, 'exactField')

@@ -78,8 +78,8 @@ function getChainHashStatus (hash, coin) {
   // console.log(coin)
   return new Promise(resolve => {
     coin = coin.indexOf(config.prefix) === -1 ? (config.prefix + coin) : coin
-    if (config.CoinInfo[coin] && config.CoinInfo[coin].url) {
-      let url = config.CoinInfo[coin].url
+    if (config.coininfo[coin] && config.coininfo[coin].url) {
+      let url = config.coininfo[coin].url
       GetTxnStatusAPI(url, hash).then(res => {
         // console.log(res)
         if (res && res.result) {

@@ -395,7 +395,7 @@ export default function RemoveLiquidity({ params }) {
 
   const [totalPoolTokens, setTotalPoolTokens] = useState()
   const poolTokenBalance = useAddressBalance(account, exchangeAddress)
-  const exchangeETHBalance = useAddressBalance(exchangeAddress, 'FSN')
+  const exchangeETHBalance = useAddressBalance(exchangeAddress, config.symbol)
   const exchangeTokenBalance = useAddressBalance(exchangeAddress, outputCurrency)
 
   const urlAddedTokens = {}
@@ -486,7 +486,7 @@ export default function RemoveLiquidity({ params }) {
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
-      setHardwareTxnsInfo(`${amountFormatter(ethWithdrawn, 18, 6, false)} FSN` + ' + ' + `${amountFormatter(tokenWithdrawn, decimals, Math.min(6, decimals))} ${symbol}`)
+      setHardwareTxnsInfo(`${amountFormatter(ethWithdrawn, 18, 6, false)} ${config.symbol}` + ' + ' + `${amountFormatter(tokenWithdrawn, decimals, Math.min(6, decimals))} ${symbol}`)
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
 
       // let data = web3Contract.removeLiquidity.getData(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline)
@@ -535,7 +535,7 @@ export default function RemoveLiquidity({ params }) {
           <div className='icon'>
             <img alt={''} src={RemoveBlackIcon} />
           </div>
-          {t('youAreRemoving')} {b(`${amountFormatter(ethWithdrawn, 18, 6)} FSN`)} {t('and')}{' '}
+          {t('youAreRemoving')} {b(`${amountFormatter(ethWithdrawn, 18, 6)} ${config.symbol}`)} {t('and')}{' '}
           {b(`${amountFormatter(tokenWithdrawn, decimals, Math.min(decimals, 6))} ${symbol}`)} {t('outPool')}
         </LastSummaryText>
         <LastSummaryText>
@@ -552,8 +552,8 @@ export default function RemoveLiquidity({ params }) {
         </LastSummaryText>
         <LastSummaryText1>
           {t('tokenWorth')} 
-          <LogoBox><img alt={''} src={FSNLogo}/></LogoBox>
-          <CoinInfoBox>{totalPoolTokens ? amountFormatter(ETHPer.div(totalPoolTokens), 18, 6) + ' ' : ''} FSN</CoinInfoBox>
+          <LogoBox><TokenLogo  address={config.symbol} size={'18px'} ></TokenLogo></LogoBox>
+          <CoinInfoBox>{totalPoolTokens ? amountFormatter(ETHPer.div(totalPoolTokens), 18, 6) + ' ' : ''} {config.symbol}</CoinInfoBox>
           {t('and')}{' '}
           {/* {b(amountFormatter(ETHPer.div(totalPoolTokens), 18, 4))}  */}
           <LogoBox><TokenLogo  address={symbol} size={'18px'} ></TokenLogo></LogoBox>
@@ -607,7 +607,7 @@ export default function RemoveLiquidity({ params }) {
     } else if (inputError) {
       contextualInfo = inputError
       isError = true
-    } else if (!outputCurrency || outputCurrency === 'FSN') {
+    } else if (!outputCurrency || outputCurrency === config.symbol) {
       contextualInfo = t('selectTokenCont')
     } else if (!valueParsed) {
       contextualInfo = t('enterValueCont')
@@ -655,7 +655,7 @@ export default function RemoveLiquidity({ params }) {
   const marketRate = getMarketRate(exchangeETHBalance, exchangeTokenBalance, decimals)
 
   const newOutputDetected =
-    outputCurrency !== 'FSN' && outputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(outputCurrency)
+    outputCurrency !== config.symbol && outputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(outputCurrency)
 
   const [showCustomTokenWarning, setShowCustomTokenWarning] = useState(false)
   
@@ -727,7 +727,7 @@ export default function RemoveLiquidity({ params }) {
           !!(ethWithdrawn && tokenWithdrawn) ? (
             <RemoveLiquidityOutput>
               <RemoveLiquidityOutputText>
-                {`${amountFormatter(ethWithdrawn, 18, 6, false)} FSN`}
+                {`${amountFormatter(ethWithdrawn, 18, 6, false)} ${config.symbol}`}
               </RemoveLiquidityOutputText>
               <RemoveLiquidityOutputPlus> + </RemoveLiquidityOutputPlus>
               <RemoveLiquidityOutputText>
@@ -748,12 +748,12 @@ export default function RemoveLiquidity({ params }) {
         <SummaryPanel>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('exchangeRate')}：</ExchangeRate>
-            {marketRate ? <span>{`1 FSN = ${amountFormatter(marketRate, 18, 6)} ${symbol}`}</span> : ' - '}
+            {marketRate ? <span>{`1 ${config.symbol} = ${amountFormatter(marketRate, 18, 6)} ${symbol}`}</span> : ' - '}
           </ExchangeRateWrapper>
           <ExchangeRateWrapper>
             <ExchangeRate>{t('currentPoolSize')}：</ExchangeRate>
             {exchangeETHBalance && exchangeTokenBalance && (decimals || decimals === 0) ? (
-              <span>{`${amountFormatter(exchangeETHBalance, 18, 6)} FSN + ${amountFormatter(
+              <span>{`${amountFormatter(exchangeETHBalance, 18, 6)} ${config.symbol} + ${amountFormatter(
                 exchangeTokenBalance,
                 decimals,
                 Math.min(decimals, 6)
@@ -768,7 +768,7 @@ export default function RemoveLiquidity({ params }) {
             </ExchangeRate>
             {ETHOwnShare && TokenOwnShare ? (
               <span>
-                {`${amountFormatter(ETHOwnShare, 18, 6)} FSN + ${amountFormatter(
+                {`${amountFormatter(ETHOwnShare, 18, 6)} ${config.symbol} + ${amountFormatter(
                   TokenOwnShare,
                   decimals,
                   Math.min(decimals, 6)

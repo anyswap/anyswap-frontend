@@ -680,7 +680,7 @@ export default function CurrencyInputPanel({
   const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
 
   function renderUnlockButton(classType) {
-    if (disableUnlock || !showUnlock || selectedTokenAddress === 'FSN' || !selectedTokenAddress) {
+    if (disableUnlock || !showUnlock || selectedTokenAddress === config.symbol || !selectedTokenAddress) {
       return null
     } else {
       if (!pendingApproval) {
@@ -1004,7 +1004,7 @@ export default function CurrencyInputPanel({
         )}
       </InputPanel>
       {
-        disableUnlock || !showUnlock || selectedTokenAddress === 'FSN' || !selectedTokenAddress ? '' : (
+        disableUnlock || !showUnlock || selectedTokenAddress === config.symbol || !selectedTokenAddress ? '' : (
           <>
             <SubCurrencySelectBox>
               <div>
@@ -1111,7 +1111,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
       .map(k => {
         let balance
         // only update if we have data
-        if (k === 'FSN' && allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
+        if (k === config.symbol && allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
           balance = formatEthBalance(ethers.utils.bigNumberify(allBalances[account][k].value))
         } else if (allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
           balance = formatTokenBalance(ethers.utils.bigNumberify(allBalances[account][k].value), allTokens[k].decimals)
@@ -1183,12 +1183,12 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
     return filteredTokenList.map(({ address, symbol, name, balance, isSwitch }) => {
       const urlAdded = urlAddedTokens && urlAddedTokens.hasOwnProperty(address)
       const customAdded =
-        address !== 'FSN' &&
+        address !== config.symbol &&
         INITIAL_TOKENS_CONTEXT[chainId] &&
         !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(address) &&
         !urlAdded
 
-      if (hideETH && address === 'FSN') {
+      if (hideETH && address === config.symbol) {
         return null
       }
 

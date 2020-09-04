@@ -663,12 +663,11 @@ function getInitialSwapState(state) {
     independentValue: state.exactFieldURL && state.exactAmountURL ? state.exactAmountURL : '', // this is a user input
     dependentValue: '', // this is a calculated number
     independentField: state.exactFieldURL === 'output' ? OUTPUT : INPUT,
-    // inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : state.outputCurrencyURL === 'FSN' ? '' : 'FSN',
     inputCurrency: state.inputCurrencyURL ? state.inputCurrencyURL : config.initBridge,
     outputCurrency: state.outputCurrencyURL
-      ? state.outputCurrencyURL === 'FSN'
-        ? !state.inputCurrencyURL || (state.inputCurrencyURL && state.inputCurrencyURL !== 'FSN')
-          ? 'FSN'
+      ? state.outputCurrencyURL === config.symbol
+        ? !state.inputCurrencyURL || (state.inputCurrencyURL && state.inputCurrencyURL !== config.symbol)
+          ? config.symbol
           : ''
         : state.outputCurrencyURL
       : state.initialCurrency
@@ -794,7 +793,7 @@ function swapStateReducer(state, action) {
   }
 }
 const selfUseAllToken=[ 
-  'FSN',
+  config.symbol,
   config.initToken
  ]
 let historyInterval , hashInterval
@@ -908,8 +907,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   useEffect(() => {
     setInit()
-    if (account && config.CoinInfo[inputSymbol] && config.CoinInfo[inputSymbol].url && isSwitch) {
-      let url = config.CoinInfo[inputSymbol].url
+    if (account && config.coininfo[inputSymbol] && config.coininfo[inputSymbol].url && isSwitch) {
+      let url = config.coininfo[inputSymbol].url
       let coin = inputSymbol.replace(config.prefix, '')
       RegisterAddress(url, account, coin).then(res => {
         if ( res && (
@@ -1028,7 +1027,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   // get balances for each of the currency types
   const inputBalance = useAddressBalance(account, inputCurrency)
-  const FSNBalance = useAddressBalance(account, 'FSN')
+  const FSNBalance = useAddressBalance(account, config.symbol)
   const FSNBalanceNum = FSNBalance ? amountFormatter(FSNBalance) : 0
   // console.log(FSNBalanceNum)
   // const outputBalance = useAddressBalance(account, outputCurrency)
@@ -1051,7 +1050,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const toggleWalletModal = useWalletModalToggle()
 
   const newInputDetected =
-    inputCurrency !== 'FSN' && inputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(inputCurrency)
+    inputCurrency !== config.symbol && inputCurrency && !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(inputCurrency)
 
   const [showInputWarning, setShowInputWarning] = useState(false)
   // const [showOutputWarning, setShowOutputWarning] = useState(false)
@@ -1524,7 +1523,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             <MintListVal>{mintHistory && mintHistory.mintValue && (fee || fee === 0) ? Number(mintHistory.mintValue) * (1 - Number(fee)) : ''}</MintListVal>
           </MintList>
           <MintList>
-            <MintListLabel>{t('receive')} FSN {t('address')}:</MintListLabel>
+            <MintListLabel>{t('receive')} {config.symbol} {t('address')}:</MintListLabel>
             <MintListVal>{account}</MintListVal>
           </MintList>
           <FlexCneter style={{marginTop: '30px'}}>
@@ -1707,7 +1706,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         extraTextClickHander={() => {
           // console.log(inputBalance)
           if (inputBalance && inputDecimals) {
-            const valueToSet = inputCurrency === 'FSN' ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
+            const valueToSet = inputCurrency === config.symbol ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
             // console.log(valueToSet)
             if (valueToSet.gt(ethers.constants.Zero)) {
               let inputVal = Number(inputBalance) / Math.pow(10, inputDecimals)

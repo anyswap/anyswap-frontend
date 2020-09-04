@@ -58,11 +58,11 @@ export default function NetworkConfig() {
   const { t } = useTranslation()
   let walletType = sessionStorage.getItem('walletType')
   const configArr = [
-    {label: 'Network Name', value: 'FSN-' + (config.env === 'main' ? t('mainnet') : t('testnet'))},
+    {label: 'Network Name', value: config.symbol + '-' + (config.env === 'main' ? t('mainnet') : t('testnet'))},
     {label: 'New RPC URL', value: config.nodeRpc},
     {label: 'Chain ID (optional)', value: config.chainID},
-    {label: 'Symbol (optional)', value: 'FSN'},
-    {label: 'Block Explorer URL (optional)', value: config.env === 'main' ? config.explorerUrl : config.explorerUrl},
+    {label: 'Symbol (optional)', value: config.symbol},
+    {label: 'Block Explorer URL (optional)', value:  config.explorerUrl},
   ]
   return (
     <>

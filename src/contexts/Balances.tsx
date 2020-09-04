@@ -18,12 +18,17 @@ import { useBlockNumber } from './Application'
 import { useTokenDetails, useAllTokenDetails } from './Tokens'
 import { getUSDPrice } from '../utils/price'
 
+import config from '../config'
+
 const LOCAL_STORAGE_KEY = 'BALANCES'
 const SHORT_BLOCK_TIMEOUT = (60 * 2) / 15 // in seconds, represented as a block number delta
 const LONG_BLOCK_TIMEOUT = (60 * 15) / 15 // in seconds, represented as a block number delta
 
 const EXCHANGES_BLOCK_TIMEOUT = (60 * 5) / 15 // in seconds, represented as a block number delta
 
+let COIN = (config as any).symbol
+
+// console.log(COIN)
 interface BalancesState {
   [chainId: number]: {
     [address: string]: {
@@ -173,7 +178,7 @@ export default function Provider({ children }: { children: ReactNode }) {
   // const allExchanges = useMemo(
   //   () =>
   //     Object.keys(allTokenDetails)
-  //       .filter(tokenAddress => tokenAddress !== 'FSN')
+  //       .filter(tokenAddress => tokenAddress !== COIN)
   //       .map(tokenAddress => ({
   //         tokenAddress,
   //         exchangeAddress: allTokenDetails[tokenAddress].exchangeAddress
@@ -244,7 +249,7 @@ export function Updater() {
   // generic balances fetcher abstracting away difference between fetching FSN + token balances
   const fetchBalance = useCallback(
     (address: string, tokenAddress: string) =>
-      (tokenAddress === 'FSN' ? getEtherBalance(address, library) : getTokenBalance(tokenAddress, address, library))
+      (tokenAddress === COIN ? getEtherBalance(address, library) : getTokenBalance(tokenAddress, address, library))
         .then(value => {
           return value.toString()
         })
@@ -268,8 +273,8 @@ export function Updater() {
               fetchBalance(address, tokenAddress).then(value => {
                 update(chainId, address, tokenAddress, value, blockNumber)
               })
-              fetchBalance(address, 'FSN').then(value => {
-                update(chainId, address, 'FSN', value, blockNumber)
+              fetchBalance(address, COIN).then(value => {
+                update(chainId, address, COIN, value, blockNumber)
               })
               // ...and cache the fetch
               fetchedAsOfCache.current = {
@@ -352,7 +357,7 @@ export function Updater() {
   const allExchanges = useMemo(
     () =>
       Object.keys(allTokenDetails)
-        .filter(tokenAddress => tokenAddress !== 'FSN')
+        .filter(tokenAddress => tokenAddress !== COIN)
         .map(tokenAddress => ({
           tokenAddress,
           exchangeAddress: allTokenDetails[tokenAddress].exchangeAddress
@@ -365,15 +370,15 @@ export function Updater() {
         allExchanges
           .filter(({ exchangeAddress, tokenAddress }) => {
             const hasValueToken = !!stateRef.current?.[chainId]?.[exchangeAddress]?.[tokenAddress]?.value
-            const hasValueETH = !!stateRef.current?.[chainId]?.[exchangeAddress]?.['FSN']?.value
+            const hasValueETH = !!stateRef.current?.[chainId]?.[exchangeAddress]?.[COIN]?.value
 
             const cachedFetchedAsOfToken = fetchedAsOfCache.current?.[chainId]?.[exchangeAddress]?.[tokenAddress]
-            const cachedFetchedAsOfETH = fetchedAsOfCache.current?.[chainId]?.[exchangeAddress]?.['FSN']
+            const cachedFetchedAsOfETH = fetchedAsOfCache.current?.[chainId]?.[exchangeAddress]?.[COIN]
 
             const fetchedAsOfToken =
               stateRef.current?.[chainId]?.[exchangeAddress]?.[tokenAddress]?.blockNumber ?? cachedFetchedAsOfToken
             const fetchedAsOfETH =
-              stateRef.current?.[chainId]?.[exchangeAddress]?.['FSN']?.blockNumber ?? cachedFetchedAsOfETH
+              stateRef.current?.[chainId]?.[exchangeAddress]?.[COIN]?.blockNumber ?? cachedFetchedAsOfETH
 
             // if there's no values, and they're not being fetched, we need to fetch!
             if (
@@ -403,20 +408,20 @@ export function Updater() {
                 [exchangeAddress]: {
                   ...fetchedAsOfCache.current?.[chainId]?.[exchangeAddress],
                   [tokenAddress]: blockNumber,
-                  FSN: blockNumber
+                  [COIN]: blockNumber
                 }
               }
             }
             return Promise.all([
               fetchBalance(exchangeAddress, tokenAddress),
-              fetchBalance(exchangeAddress, 'FSN')
+              fetchBalance(exchangeAddress, COIN)
             ]).then(([valueToken, valueETH]) => ({ exchangeAddress, tokenAddress, valueToken, valueETH }))
           })
       ).then(results => {
         batchUpdateExchanges(
           chainId,
           results.flatMap(result => [result.exchangeAddress, result.exchangeAddress]),
-          results.flatMap(result => [result.tokenAddress, 'FSN']),
+          results.flatMap(result => [result.tokenAddress, COIN]),
           results.flatMap(result => [result.valueToken, result.valueETH]),
           blockNumber
         )
@@ -454,7 +459,7 @@ export function useAddressBalance(address: string, tokenAddress: string): ethers
 export function useExchangeReserves(tokenAddress: string) {
   const { exchangeAddress } = useTokenDetails(tokenAddress)
 
-  const reserveETH = useAddressBalance(exchangeAddress, 'FSN')
+  const reserveETH = useAddressBalance(exchangeAddress, COIN)
   const reserveToken = useAddressBalance(exchangeAddress, tokenAddress)
 
   return { reserveETH, reserveToken }
@@ -497,11 +502,11 @@ const tusdExchangeAddress = '0x5048b9d01097498Fd72F3F14bC9Bc74A5aAc8fA7'
 export function useETHPriceInUSD() {
   const { chainId } = useWeb3React()
 
-  let daiReserveETH = useAddressBalance(daiExchangeAddress, 'FSN')
+  let daiReserveETH = useAddressBalance(daiExchangeAddress, COIN)
   let daiReserveToken = useAddressBalance(daiExchangeAddress, daiTokenAddress)
-  let usdcReserveETH = useAddressBalance(usdcExchangeAddress, 'FSN')
+  let usdcReserveETH = useAddressBalance(usdcExchangeAddress, COIN)
   let usdcReserveToken = useAddressBalance(usdcExchangeAddress, usdcTokenAddress)
-  let tusdReserveETH = useAddressBalance(tusdExchangeAddress, 'FSN')
+  let tusdReserveETH = useAddressBalance(tusdExchangeAddress, COIN)
   let tusdReserveToken = useAddressBalance(tusdExchangeAddress, tusdTokenAddress)
 
   const [price, setPrice] = useState<undefined | null>()
