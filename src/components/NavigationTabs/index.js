@@ -15,6 +15,7 @@ import TwitterIcon from '../../assets/images/icon/twitter.svg'
 import TwitterIconWhite from '../../assets/images/icon/twitter-white.svg'
 import CodeIcon from '../../assets/images/icon/code.svg'
 import CodeIconWhite from '../../assets/images/icon/code-white.svg'
+import config from '../../config'
 
 const tabOrder = [
   {
@@ -57,7 +58,7 @@ const tabOrder = [
 
 const tabOrder2 = [
   {
-    path: 'https://markets.anyswap.exchange/#/',
+    path: config.marketsUrl,
     textKey: 'Markets',
     icon: require('../../assets/images/icon/markets.svg'),
     iconActive: require('../../assets/images/icon/markets-purpl.svg'),

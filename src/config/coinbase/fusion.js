@@ -28,6 +28,7 @@ let coinConfig = {
   initToken: ANY_MAIN_TOKEN,
   initBridge: '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496',
   explorerUrl: 'https://fsnex.com',
+  marketsUrl: 'https://markets.anyswap.exchange/#/'
 }
 
 function getFSNConfig (type) {
@@ -49,7 +50,8 @@ function getFSNConfig (type) {
     },
     initToken: ANY_MAIN_TOKEN,
     initBridge: '0x3368e6012066bc08ece5f2b2582c883cca1424e5',
-    explorerUrl: 'https://fsnex.com'
+    explorerUrl: 'https://fsnex.com',
+    marketsUrl: 'https://markets.anyswap.exchange/#/'
   }
   return coinConfig
 }

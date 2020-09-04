@@ -148,9 +148,9 @@ export default function Header() {
         </HeaderElement>
         <HeaderElement>
           <NetworkBox>
-            <span>{t('onTestnet')}</span> {config.env === 'test' ? t('testnet') : t('mainnet')}
+  <span>{t('onTestnet')}</span> {config.symbol}{config.env === 'test' ? t('testnet') : t('mainnet')}
             <div className='switchTo' onClick={openUrl}>
-              {t('SwitchTo')}
+              {t('SwitchTo')}{config.symbol}
               {
                 config.env === 'test' ?  t('mainnet') : t('testnet')
               }

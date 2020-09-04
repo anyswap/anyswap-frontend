@@ -28,6 +28,7 @@ let coinConfig = {
   initToken: ANY_MAIN_TOKEN,
   initBridge: '',
   explorerUrl: 'https://fsnex.com',
+  marketsUrl: 'https://markets.anyswap.exchange/#/'
 }
 
 function getBNBConfig (type) {
@@ -48,8 +49,9 @@ function getBNBConfig (type) {
       [coin.USDT]: {url: ''},
     },
     initToken: ANY_MAIN_TOKEN,
-    initBridge: '0x337610d27c682E347C9cD60BD4b3b107C9d34dDd',
-    explorerUrl: 'https://explorer.binance.org/smart-testnet'
+    initBridge: '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711',
+    explorerUrl: 'https://explorer.binance.org/smart-testnet',
+    marketsUrl: 'https://markets.anyswap.exchange/#/'
   }
   return coinConfig
 }
