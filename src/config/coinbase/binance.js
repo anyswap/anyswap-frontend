@@ -29,7 +29,7 @@ let coinConfig = {
   },
   initToken: ANY_MAIN_TOKEN,
   initBridge: '',
-  explorerUrl: 'https://fsnex.com',
+  explorerUrl: 'https://explorer.binance.org/smart',
   marketsUrl: 'https://markets.anyswap.exchange/#/'
 }
 
