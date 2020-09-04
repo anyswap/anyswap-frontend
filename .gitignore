@@ -12,7 +12,7 @@
 /anyswap
 /anyswap-test
 /anyswap-main
-/src/config/index.js
+#/src/config/index.js
 /src/contexts/Tokens.js
 # misc
 .DS_Store
