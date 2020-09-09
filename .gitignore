@@ -41,3 +41,4 @@ notes.txt
 *.zip
 
 package-lock.json
+yarn.lock

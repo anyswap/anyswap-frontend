@@ -4,8 +4,8 @@ import getFSNConfig from './coinbase/fusion'
 import getBNBConfig from './coinbase/binance'
 // console.log(coin)
 // const ENV_CONFIG = 'BNB_MAIN'
-const ENV_CONFIG = 'BNB_TEST'
-// const ENV_CONFIG = 'FSN_TEST'
+// const ENV_CONFIG = 'BNB_TEST'
+const ENV_CONFIG = 'FSN_TEST'
 // const ENV_CONFIG = 'FSN_MAIN'
 let netArr = ENV_CONFIG.split('_')
 let netConfig = {}
@@ -23,7 +23,7 @@ let ercConfig = {
   nodeRpc: 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0',
   lookHash: 'https://rinkeby.etherscan.io/tx/'
 }
-if (netArr[1].toLowerCase() === 'test') {
+if (netArr[1].toLowerCase() === 'main') {
   ercConfig = {
     chainID: 1,
     // nodeRpc: 'https://mainnet.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0',

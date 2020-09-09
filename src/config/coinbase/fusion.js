@@ -29,7 +29,8 @@ let coinConfig = {
   initToken: ANY_MAIN_TOKEN,
   initBridge: '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496',
   explorerUrl: 'https://fsnex.com',
-  marketsUrl: 'https://markets.anyswap.exchange/#/'
+  marketsUrl: 'https://markets.anyswap.exchange/#/',
+  document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html'
 }
 
 function getFSNConfig (type) {
@@ -44,7 +45,7 @@ function getFSNConfig (type) {
       token: ANY_TEST_TOKEN
     },
     coininfo: {
-      // [coin.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
+      [coin.BTC]: {url: 'https://testbtcapi.anyswap.exchange/rpc'},
       [coin.ETH]: {url: 'https://testethapi.anyswap.exchange/rpc'},
       [coin.USDT]: {url: 'https://testusdtapi.anyswap.exchange/rpc'},
     },

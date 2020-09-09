@@ -30,7 +30,8 @@ let coinConfig = {
   initToken: ANY_MAIN_TOKEN,
   initBridge: '',
   explorerUrl: 'https://explorer.binance.org/smart',
-  marketsUrl: 'https://markets.anyswap.exchange/#/'
+  marketsUrl: '',
+  document: ''
 }
 
 function getBNBConfig (type) {

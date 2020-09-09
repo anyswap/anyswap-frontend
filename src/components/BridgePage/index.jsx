@@ -914,6 +914,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         if ( res && (
             (res.result && res.result === 'Success')
             || (res.error && res.error.message === 'mgoError: Item is duplicate')
+            || res && res.result && res.result.P2shAddress
           )
         ) {
           setIsRegister(true)
@@ -922,9 +923,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
         GetServerInfo(url).then(result => {
           // console.log(result)
+          setInit()
           if (result && result.swapInfo && result.swapInfo.SrcToken.DepositAddress) {
             let dObj = result.swapInfo.SrcToken,
-                rObj = result.swapInfo.DestToken
+            rObj = result.swapInfo.DestToken
+            // console.log(rObj.Symbol)
+            // console.log(inputSymbol)
+            // console.log(rObj.Symbol !== inputSymbol)
+            if (rObj.Symbol !== inputSymbol) return
             let DepositAddress = res && res.result && res.result.P2shAddress ? res.result.P2shAddress : ''
             if (inputSymbol !== config.prefix + 'BTC') {
               DepositAddress = dObj.DepositAddress
@@ -999,12 +1005,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [outNetBalance, setOutNetBalance] = useState()
   const [outNetETHBalance, setOutNetETHBalance] = useState()
   function getOutBalance () {
-    if (depositType === 1 && account) {
+    if (depositType === 1 && account && inputSymbol !== config.prefix + 'BTC') {
       let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
       if (coin) {
         getErcBalance(coin, account).then(res => {
-          // console.log(res)
-          if (res) {
+          // console.log(inputSymbol)
+          // console.log(config.prefix + coin)
+          if (inputSymbol !== config.prefix + coin) {
+            setOutNetBalance('')
+            setOutNetETHBalance('')
+          } else if (res) {
             if (Number(outNetBalance) !== res.TOKEN || Number(outNetETHBalance) !== res.ETH) {
               setOutNetBalance(res.TOKEN)
               setOutNetETHBalance(res.ETH)
@@ -1012,6 +1022,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           }
         })
       }
+    } else {
+      setOutNetBalance('')
+      setOutNetETHBalance('')
     }
   }
 
@@ -1136,13 +1149,21 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && !showBetaMessage 
         && inputValueFormatted
         && registerAddress
+        && isRegister
         && Number(inputValueFormatted) <= depositMaxNum
         && Number(inputValueFormatted) >= depositMinNum
-        && Number(inputValueFormatted) <= Number(outNetBalance)
-        && Number(outNetETHBalance) >= 0.01
-        && isRegister
       ) {
-        setIsMintBtn(false)
+        if ( inputSymbol === config.prefix + 'BTC' ) {
+          setIsMintBtn(false)
+        } else if (
+          inputSymbol !== config.prefix + 'BTC'
+          && Number(inputValueFormatted) <= Number(outNetBalance)
+          && Number(outNetETHBalance) >= 0.01
+        ) {
+          setIsMintBtn(false)
+        } else {
+          setIsMintBtn(true)
+        }
       } else {
         setIsMintBtn(true)
       }
@@ -1484,7 +1505,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           ) : ''}
           <MintList>
             <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace(config.prefix, '')} {t('address')}:</MintListLabel>
-            <MintListVal onClick={copyAddr}>{registerAddress ? registerAddress : ''}</MintListVal>
+            <MintListVal>{registerAddress ? registerAddress : ''}<Copy toCopy={registerAddress} /></MintListVal>
           </MintList>
           <MintListCenter>
             <WalletConnectData size={160} uri={registerAddress} />
@@ -1702,7 +1723,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // title={t('input')}
         title={t(bridgeType && bridgeType === 'redeem' ? 'redeem' : 'deposit1')}
         urlAddedTokens={urlAddedTokens}
-        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : (outNetBalance ? formatBalance(outNetBalance) : '')}
+        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : (outNetBalance && inputSymbol !== config.prefix + 'BTC' ? formatBalance(outNetBalance) : '')}
         extraTextClickHander={() => {
           // console.log(inputBalance)
           if (inputBalance && inputDecimals) {
@@ -1846,7 +1867,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // title={t('input')}
         title={t(bridgeType && bridgeType === 'redeem' ? 'receive' : 'receive')}
         urlAddedTokens={urlAddedTokens}
-        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? (outNetBalance ? formatBalance(outNetBalance) : '') : inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
+        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? (outNetBalance && inputSymbol !== config.prefix + 'BTC' ? formatBalance(outNetBalance) : '') : inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
         onCurrencySelected={inputCurrency => {
           dispatchSwapState({
             type: 'SELECT_CURRENCY',
@@ -1926,7 +1947,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       coin: inputSymbol.replace(config.prefix, ''),
                     })},</dd>
                     {
-                      account ? (
+                      account && inputSymbol.replace(config.prefix, '') !== 'BTC' ? (
                         <dd><i></i>💀 {t('bridgeMintTip', { account })}.</dd>
                       ) : ''
                     }
@@ -1964,14 +1985,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       disabled={isMintBtn}
                       onClick={() => {
                         // MintModelView()
-                        setMintSureBtn(true)
-                        setHardwareTxnsInfo(inputValueFormatted + ' ' + inputSymbol.replace(config.prefix, ''))
-                        setIsHardwareTip(true)
-                        setMintModelTitle(t('CrossChainDeposit'))
-                        if (walletType === 'Ledger') {
-                          setMintModelTip(t("confirmHardware"))
+                        if ( inputSymbol === config.prefix + 'BTC' ) {
+                          MintModelView()
                         } else {
-                          setMintModelTip(t('mmMintTip'))
+                          setMintSureBtn(true)
+                          setHardwareTxnsInfo(inputValueFormatted + ' ' + inputSymbol.replace(config.prefix, ''))
+                          setIsHardwareTip(true)
+                          setMintModelTitle(t('CrossChainDeposit'))
+                          if (walletType === 'Ledger') {
+                            setMintModelTip(t("confirmHardware"))
+                          } else {
+                            setMintModelTip(t('mmMintTip'))
+                          }
                         }
                       }}
                       warning={account && (!inputValueFormatted || Number(inputValueFormatted) > depositMaxNum || Number(inputValueFormatted) < depositMinNum)}

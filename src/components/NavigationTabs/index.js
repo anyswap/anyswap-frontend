@@ -82,7 +82,7 @@ const tabOrder2 = [
     className: 'otherInfo'
   },
   {
-    path: '',
+    path: config.document,
     textKey: 'Documents',
     icon: require('../../assets/images/icon/documents.svg'),
     iconActive: require('../../assets/images/icon/documents-purpl.svg'),
