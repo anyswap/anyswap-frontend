@@ -1890,7 +1890,25 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
         </>
       ) : (
-        <></>
+        inputSymbol ===  (config.prefix + 'BTC') && account && registerAddress ? (
+          <>
+          <InputPanel>
+            <ContainerRow>
+              <InputContainer>
+                <LabelRow>
+                  <LabelContainer>
+                    <span>{t('deposit1') + ' ' + (inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol)  + ' ' + t('address')}</span>
+                  </LabelContainer>
+                </LabelRow>
+                <InputRow>
+                  <Input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={account && registerAddress ? registerAddress : ''} readOnly/>
+                  <StyledQRcode size={'1.25rem'} onClick={MintModelView}></StyledQRcode>
+                </InputRow>
+              </InputContainer>
+            </ContainerRow>
+          </InputPanel>
+        </>
+        ) : ''
       )}
       {
         // isDeposit ? (
