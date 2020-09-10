@@ -947,9 +947,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             } else {
               if (res && res.result && res.result.P2shAddress) {
                 DepositAddress = res.result.P2shAddress
-                console.log('DepositAddress', DepositAddress)
+                // console.log('DepositAddress', DepositAddress)
                 let localBTCAddr = createBTCaddress(account)
-                console.log('localBTCAddr', localBTCAddr)
+                // console.log('localBTCAddr', localBTCAddr)
                 if (DepositAddress !== localBTCAddr) {
                   setInit(0)
                   return
@@ -1101,48 +1101,43 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [mintModelTitle, setMintModelTitle] = useState()
   const [mintModelTip, setMintModelTip] = useState()
   const [balanceError, setBalanceError] = useState()
+  
   useEffect(() => {
-    // console.log(inputValueFormatted)
     if (bridgeType && bridgeType === 'redeem') {
-      if (Number(inputValueFormatted) > Number(inputBalanceFormatted)) {
-        setBalanceError('Error')
-      } else {
-        setBalanceError('')
-      }
-    } else {
-      if (Number(inputValueFormatted) > Number(outNetBalance) && inputSymbol.replace(config.prefix, '') !== 'BTC') {
-        setBalanceError('Error')
-      } else {
-        setBalanceError('')
-      }
-    }
-  }, [bridgeType, inputBalanceFormatted, outNetBalance, outNetETHBalance, inputCurrency, dependentValue, inputValueFormatted])
-
-  // !account && !error && isDisabled && !isDeposit && showBetaMessage ? false : !independentValue || !recipient.address || !showBetaMessage
-  useEffect(() => {
-    if (
-      !error
-      && isDisabled 
-      && isRedeem 
-      && !showBetaMessage 
-      && inputValueFormatted
-      && recipient.address
-      && Number(inputBalanceFormatted) >= Number(inputValueFormatted)
-      && Number(inputValueFormatted) <= Number(redeemMaxNum)
-      && Number(inputValueFormatted) >= Number(redeemMinNum)
-    ) {
-      if (inputSymbol === config.prefix + 'BTC' && config.reg[inputSymbol] && config.reg[inputSymbol].test(recipient.address)) {
-        setIsRedeem(false)
-      } else if (inputSymbol !== config.prefix + 'BTC' && isAddress(recipient.address)) {
-        setIsRedeem(false)
+      if (
+        !error
+        && isDisabled 
+        && isRedeem 
+        && !showBetaMessage 
+        && inputValueFormatted
+        && recipient.address
+        && Number(inputBalanceFormatted) >= Number(inputValueFormatted)
+        && Number(inputValueFormatted) <= Number(redeemMaxNum)
+        && Number(inputValueFormatted) >= Number(redeemMinNum)
+      ) {
+        if (inputSymbol === config.prefix + 'BTC' && config.reg[inputSymbol] && config.reg[inputSymbol].test(recipient.address)) {
+          setIsRedeem(false)
+          setBalanceError('')
+        } else if (inputSymbol !== config.prefix + 'BTC' && isAddress(recipient.address)) {
+          setIsRedeem(false)
+          setBalanceError('')
+        } else {
+          setIsRedeem(true)
+          if (inputValueFormatted === '') {
+            setBalanceError('')
+          } else {
+            setBalanceError('Error')
+          }
+        }
       } else {
         setIsRedeem(true)
+        if (inputValueFormatted === '') {
+          setBalanceError('')
+        } else {
+          setBalanceError('Error')
+        }
       }
     } else {
-      setIsRedeem(true)
-    }
-  }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol])
-  useEffect(() => {
       if (
         isDisabled 
         && isDeposit 
@@ -1155,19 +1150,33 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       ) {
         if ( inputSymbol === config.prefix + 'BTC' ) {
           setIsMintBtn(false)
+          setBalanceError('')
         } else if (
           inputSymbol !== config.prefix + 'BTC'
           && Number(inputValueFormatted) <= Number(outNetBalance)
           && Number(outNetETHBalance) >= 0.01
         ) {
           setIsMintBtn(false)
+          setBalanceError('')
         } else {
           setIsMintBtn(true)
+          if (inputValueFormatted === '') {
+            setBalanceError('')
+          } else {
+            setBalanceError('Error')
+          }
         }
       } else {
         setIsMintBtn(true)
+        if (inputValueFormatted === '') {
+          setBalanceError('')
+        } else {
+          setBalanceError('Error')
+        }
       }
-  }, [account, isDisabled, isDeposit, showBetaMessage, registerAddress, independentValue, inputSymbol, outNetBalance])
+    }
+  }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol, isDeposit, registerAddress, outNetBalance, bridgeType])
+  
   function sendTxns () {
     if (inputSymbol === config.prefix + 'BTC' && config.reg[inputSymbol] && !config.reg[inputSymbol].test(recipient.address)) {
       alert('Illegal address!')
@@ -1178,14 +1187,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     setTimeout(() => {
       setIsDisableed(true)
     }, 3000)
-    // console.log(amountVal)
-    // console.log(inputValueFormatted)
-    // let amountVal = Number(inputValueFormatted) * Math.pow(10, inputDecimals)
+    
     let amountVal = ethers.utils.parseUnits(inputValueFormatted.toString(), inputDecimals)
-    // console.log(amountVal)
-    // amountVal = amountVal.toFixed(0)
-    // console.log(amountVal.toString())
-    // console.log(amountVal.toHexString())
+    
     let address = recipient.address
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
@@ -1203,7 +1207,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
       getWeb3BaseInfo(inputCurrency, inputCurrency, data, account).then(res => {
         if (res.msg === 'Success') {
-          console.log(res.info)
+          // console.log(res.info)
           addTransaction(res.info)
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
@@ -1289,9 +1293,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         realyValue: ''
       }
     })
-  }
-  function copyAddr () {
-    copyTxt(registerAddress)
   }
   function mintAmount () {
     let coin = inputSymbol.replace(config.prefix, '')
@@ -1476,7 +1477,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [mintBTCErrorTip, setMintBTCErrorTip] = useState()
   function getBTCtxns () {
     GetBTCtxnsAll(config.coininfo[inputSymbol].url, registerAddress, account, inputSymbol.replace(config.prefix, '')).then(res => {
-      console.log(res)
+      // console.log(res)
       if (res) {
         for (let obj of hashArr) {
           if (res.hash === obj.hash) {
