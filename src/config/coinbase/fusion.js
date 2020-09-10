@@ -60,7 +60,7 @@ function getFSNConfig (type) {
     document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
     btcConfig: {
       lookHash: 'https://sochain.com/tx/BTCTEST/',
-      btcAddr: 'muNMjziFbcj9QLrbSaCAtVk8MQYRVKfYR9'
+      btcAddr: 'mmBUP62PJNDndtSvH4ef65gUAucgQY5dqA'
     },
   }
   return coinConfig

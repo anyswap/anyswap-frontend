@@ -25,8 +25,7 @@ import Modal from '../Modal'
 import { ReactComponent as QRcode } from '../../assets/images/QRcode.svg'
 import TokenLogo from '../TokenLogo'
 
-import { GetServerInfo, RegisterAddress, GetBTCtxnsAll } from '../../utils/axios'
-import { copyTxt } from '../../utils/tools'
+import { GetServerInfo, RegisterAddress, GetBTCtxnsAll, GetBTChashStatus } from '../../utils/axios'
 
 import config from '../../config'
 import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
@@ -1428,36 +1427,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     setRemoveHashStatus(Date.now())
   }
 
-  function updateHashStatus () {
-    if (hashArr.length > 0) {
-      for (let i = 0, len = hashArr.length; i < len; i ++) {
-        if (
-          !hashArr[i].status
-          || !hashArr[i].swapStatus
-          || hashArr[i].swapStatus === 'confirming'
-          || hashArr[i].swapStatus === 'minting'
-        ) {
-          getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status).then(res => {
-            if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
-              hashArr[res.index].status = res.status
-              hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
-              hashArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
-              hashArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
-              dispatchSwapState({
-                type: 'UPDATE_HASH_STATUS',
-                payload: {
-                  type: 1,
-                  hashData: hashArr,
-                  NewHashCount: 1
-                }
-              })
-            }
-          })
-        }
-      }
-    }
-  }
-
   function setInit (disabled) {
     setIsRedeem(true)
     setIsMintBtn(true)
@@ -1477,6 +1446,55 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       fee: '',
       redeemBigValMoreTime: ''
     })
+  }
+
+  function updateHashStatus () {
+    if (hashArr.length > 0) {
+      for (let i = 0, len = hashArr.length; i < len; i ++) {
+        if (
+          !hashArr[i].status
+          || !hashArr[i].swapStatus
+          || hashArr[i].swapStatus === 'confirming'
+          || hashArr[i].swapStatus === 'minting'
+        ) {
+          if (hashArr[i].coin === 'BTC') {
+            GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status).then(res => {
+              if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
+                hashArr[res.index].status = res.status
+                hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
+                hashArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
+                hashArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
+                dispatchSwapState({
+                  type: 'UPDATE_HASH_STATUS',
+                  payload: {
+                    type: 1,
+                    hashData: hashArr,
+                    NewHashCount: 1
+                  }
+                })
+              }
+            })
+          } else {
+            getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status).then(res => {
+              if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
+                hashArr[res.index].status = res.status
+                hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
+                hashArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
+                hashArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
+                dispatchSwapState({
+                  type: 'UPDATE_HASH_STATUS',
+                  payload: {
+                    type: 1,
+                    hashData: hashArr,
+                    NewHashCount: 1
+                  }
+                })
+              }
+            })
+          }
+        }
+      }
+    }
   }
 
   useEffect(() => {
@@ -1518,6 +1536,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             realyValue: ''
           }
         })
+        setMintDtil(res)
+        setMintDtilView(true)
       } else {
         setMintBTCErrorTip(t('BTCmintTip'))
         MintModelView()
@@ -1993,6 +2013,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 </LabelRow>
                 <InputRow>
                   <Input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={account && registerAddress ? registerAddress : ''} readOnly/>
+                  <Copy toCopy={registerAddress} />
                   <StyledQRcode size={'1.25rem'} onClick={MintModelView}></StyledQRcode>
                 </InputRow>
               </InputContainer>

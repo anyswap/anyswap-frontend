@@ -91,6 +91,107 @@ function GetBTCTxnsAPI (url) {
   })
 }
 
+function getChainHashStatus (hash, coin) {
+  // console.log(coin)
+  return new Promise(resolve => {
+    coin = coin.indexOf(config.prefix) === -1 ? (config.prefix + coin) : coin
+    if (config.coininfo[coin] && config.coininfo[coin].url) {
+      let url = config.coininfo[coin].url
+      GetTxnStatusAPI(url, hash).then(res => {
+        // console.log(res)
+        if (res && res.result) {
+          let status = res.result.status,
+              statusType = ''
+          if ([0, 5, 8].includes(status)) {
+            // obj = { status: this.$t('state').confirming, class: 'color_green' }
+            statusType = 'confirming'
+          } else if ([7, 9].includes(status)) {
+            // obj = { status: this.$t('state').minting, class: 'color_green' }
+            statusType = 'minting'
+          } else if ([10].includes(status)) {
+            // obj = { status: this.$t('state').success, class: 'color_green' }
+            statusType = 'success'
+          } else if ([1, 2, 3, 4, 6, 11].includes(status)) {
+            // obj = { status: this.$t('state').fail, class: 'color_red' }
+            statusType = 'failure'
+          } else if ([20].includes(status)) {
+            // obj = { status: this.$t('state').timeout, class: 'color_red' }
+            statusType = 'timeout'
+          }
+          resolve({
+            swapHash: res.result.swaptx,
+            swapStatus: statusType,
+            swapTime: res.result.txtime,
+          })
+        } else {
+          resolve('')
+        }
+      })
+    } else {
+      resolve('')
+    }
+  })
+}
+
+export const GetBTChashStatus = (hash, index, coin, status) => {
+  let sochainUrl = `https://sochain.com/api/v2/get_confidence/BTC/${hash}` // 主网
+  if (config.env === 'test') {
+    sochainUrl = `https://sochain.com/api/v2/get_confidence/BTCTEST/${hash}` // 测试网
+  }
+  return new Promise(resolve => {
+    if (status) {
+      getChainHashStatus(hash, coin).then(result => {
+        if (result) {
+          resolve({
+            ...result,
+            index,
+            hash,
+            status
+          })
+        } else {
+          resolve({
+            index,
+            status
+          })
+        }
+      })
+    } else {
+      GetBTCTxnsAPI(sochainUrl).then(res => {
+        console.log(res)
+        if (res && res.data && res.data.txid) {
+          if (Number(res.data.confirmations) > 0) {
+            getChainHashStatus(hash, coin).then(result => {
+              if (result) {
+                resolve({
+                  ...result,
+                  index,
+                  hash,
+                  status: 1
+                })
+              } else {
+                resolve({
+                  index,
+                  status: 1
+                })
+              }
+            })
+          } else {
+            resolve({
+              index,
+              status: 0
+            })
+          }
+        } else {
+          resolve({
+            index,
+            status: 2
+          })
+        }
+      })
+    }
+  })
+}
+
 export const GetBTCtxnsAll = (url, address, account, coin) => {
   let sochainUrl = `https://sochain.com/api/v2/get_tx_unspent/BTC/${address}` // 主网
   if (config.env === 'test') {
@@ -106,24 +207,10 @@ export const GetBTCtxnsAll = (url, address, account, coin) => {
           resolve(cbData)
           return
         }
-        GetTxnStatusAPI(url, useTxns.txid).then(txns => {
-          // console.log(txns)
-          if (txns.result) {
-            let swapHash = txns.result.swapHash ? txns.result.swapHash : '',
-                swapStatus,
-                swapTime = txns.result.swapTime ? txns.result.swapTime : ''
-            if ([0, 5, 8].includes(txns.result.status)) {
-              swapStatus = 'confirming'
-            } else if ([7, 9].includes(txns.result.status)) {
-              swapStatus = 'minting'
-            } else if ([10].includes(txns.result.status)) {
-              swapStatus = 'success'
-            } else if ([1, 2, 3, 4, 6, 11].includes(txns.result.status)) {
-              swapStatus = 'failure'
-            } else if ([20].includes(txns.result.status)) {
-              swapStatus = 'timeout'
-            }
-            cbData = {
+        getChainHashStatus(useTxns.txid, coin).then(result => {
+          if (result) {
+            resolve({
+              ...result,
               account: account,
               coin: coin,
               value: useTxns.value,
@@ -132,26 +219,22 @@ export const GetBTCtxnsAll = (url, address, account, coin) => {
               to: res.data.address,
               status: 1,
               timestamp: useTxns.time,
-              swapHash: swapHash,
-              swapStatus: swapStatus,
-              swapTime: swapTime,
-            }
+            })
           } else {
-            cbData = {
+            resolve({
               account: account,
               coin: coin,
               value: useTxns.value,
               hash: useTxns.txid,
               from: '',
               to: res.data.address,
-              status: 1,
+              status: 0,
               timestamp: useTxns.time,
               swapHash: '',
               swapStatus: '',
               swapTime: '',
-            }
+            })
           }
-          resolve(cbData)
         })
       } else {
         resolve(cbData)
