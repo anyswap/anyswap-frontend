@@ -1110,7 +1110,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         setBalanceError('')
       }
     } else {
-      if (Number(inputValueFormatted) > Number(outNetBalance)) {
+      if (Number(inputValueFormatted) > Number(outNetBalance) && inputSymbol.replace(config.prefix, '') !== 'BTC') {
         setBalanceError('Error')
       } else {
         setBalanceError('')
