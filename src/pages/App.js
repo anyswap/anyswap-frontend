@@ -10,8 +10,8 @@ import Header from '../components/Header'
 import NavigationTabs from '../components/NavigationTabs'
 import { isAddress, getAllQueryParams } from '../utils'
 
-import { createBrowserHistory } from 'history';
-const browserHistory = createBrowserHistory()
+// import { createBrowserHistory } from 'history';
+// const browserHistory = createBrowserHistory()
 
 const Swap = lazy(() => import('./Swap'))
 const Send = lazy(() => import('./Send'))
@@ -123,7 +123,7 @@ export default function App() {
           <BodyWrapper>
             <Body>
               <Web3ReactManager>
-                <BrowserRouter  history={ browserHistory }>
+                <BrowserRouter>
                   <NavTabBoxLeft>
                     <NavigationTabs />
                   </NavTabBoxLeft>

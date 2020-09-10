@@ -52,7 +52,8 @@ function getFSNConfig (type) {
     initToken: ANY_TEST_TOKEN,
     initBridge: '0x3368e6012066bc08ece5f2b2582c883cca1424e5',
     explorerUrl: 'https://fsnex.com',
-    marketsUrl: 'https://markets.anyswap.exchange/#/'
+    marketsUrl: 'https://markets.anyswap.exchange/#/',
+    document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html'
   }
   return coinConfig
 }

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, useRef, useContext } from 'react'
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
 import copy from 'copy-to-clipboard'
 import { isMobile } from 'react-device-detect'

@@ -1,19 +1,16 @@
-import React, { useState, useReducer, useEffect, useRef } from 'react'
+import React, { useState, useReducer, useEffect } from 'react'
 // import ReactGA from 'react-ga'
-import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
 import { useWeb3React, useSwapTokenContract } from '../../hooks'
-import { brokenTokens } from '../../constants'
 import { amountFormatter, isAddress } from '../../utils'
 
 // import { useExchangeContract } from '../../hooks'
 import { useTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
 import { useTransactionAdder } from '../../contexts/Transactions'
-import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
-import { useAddressAllowance } from '../../contexts/Allowances'
+import { useAddressBalance } from '../../contexts/Balances'
 import { useWalletModalToggle } from '../../contexts/Application'
 
 import { Button, TitleBox } from '../../theme'
@@ -28,7 +25,7 @@ import Modal from '../Modal'
 import { ReactComponent as QRcode } from '../../assets/images/QRcode.svg'
 import TokenLogo from '../TokenLogo'
 
-import { GetServerInfo, RegisterAddress } from '../../utils/axios'
+import { GetServerInfo, RegisterAddress, GetBTCtxnsAll } from '../../utils/axios'
 import { copyTxt } from '../../utils/tools'
 
 import config from '../../config'
@@ -56,6 +53,9 @@ import WarningTip from '../WarningTip'
 
 import {getErcBalance, HDsendERC20Txns, MMsendERC20Txns, getHashStatus} from '../../utils/web3/Erc20Web3'
 import ERC20_TOKEN from '../../contexts/Tokens_erc20'
+
+import createBTCaddress from '../../utils/createBTCaddress'
+
 const INPUT = 0
 const OUTPUT = 1
 
@@ -607,7 +607,7 @@ const CloseColor = styled(Close)`
 
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
-  padding: 1.5rem 1.5rem;
+  padding: 1.5rem 1.5rem 0;
   font-weight: 500;
   color: ${props => (props.color === 'blue' ? ({ theme }) => theme.royalBlue : 'inherit')};
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -906,7 +906,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [isRegister, setIsRegister] = useState(false)
 
   useEffect(() => {
-    setInit()
+    setInit(1)
     if (account && config.coininfo[inputSymbol] && config.coininfo[inputSymbol].url && isSwitch) {
       let url = config.coininfo[inputSymbol].url
       let coin = inputSymbol.replace(config.prefix, '')
@@ -914,7 +914,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         if ( res && (
             (res.result && res.result === 'Success')
             || (res.error && res.error.message === 'mgoError: Item is duplicate')
-            || res && res.result && res.result.P2shAddress
+            || (res && res.result && res.result.P2shAddress)
           )
         ) {
           setIsRegister(true)
@@ -923,7 +923,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
         GetServerInfo(url).then(result => {
           // console.log(result)
-          setInit()
+          setInit(1)
           if (result && result.swapInfo && result.swapInfo.SrcToken.DepositAddress) {
             let dObj = result.swapInfo.SrcToken,
             rObj = result.swapInfo.DestToken
@@ -931,7 +931,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             // console.log(inputSymbol)
             // console.log(rObj.Symbol !== inputSymbol)
             if (rObj.Symbol !== inputSymbol) return
-            let DepositAddress = res && res.result && res.result.P2shAddress ? res.result.P2shAddress : ''
+            // let DepositAddress = res && res.result && res.result.P2shAddress ? res.result.P2shAddress : ''
+            let DepositAddress = ''
             if (inputSymbol !== config.prefix + 'BTC') {
               DepositAddress = dObj.DepositAddress
               let erc20Token = coin !== 'ETH' ? ERC20_TOKEN[config.ercConfig.chainID][coin].token : ''
@@ -940,22 +941,21 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 || (inputCurrency.toLowerCase() !== rObj.ContractAddress.toLowerCase())
                 || (coin !== 'ETH' && erc20Token.toLowerCase() !== dObj.ContractAddress.toLowerCase())
               ) {
-                dispatchSwapState({
-                  type: 'UPDATE_SWAPREGISTER',
-                  payload: '',
-                  PlusGasPricePercentage: '',
-                  isDeposit: 0,
-                  depositMaxNum: '',
-                  depositMinNum: '',
-                  depositBigValMoreTime: '',
-                  isRedeem: 0,
-                  redeemMaxNum: '',
-                  redeemMinNum: '',
-                  maxFee: '',
-                  minFee: '',
-                  fee: '',
-                  redeemBigValMoreTime: ''
-                })
+                setInit(0)
+                return
+              }
+            } else {
+              if (res && res.result && res.result.P2shAddress) {
+                DepositAddress = res.result.P2shAddress
+                console.log('DepositAddress', DepositAddress)
+                let localBTCAddr = createBTCaddress(account)
+                console.log('localBTCAddr', localBTCAddr)
+                if (DepositAddress !== localBTCAddr) {
+                  setInit(0)
+                  return
+                }
+              } else {
+                setInit(0)
                 return
               }
             }
@@ -1000,7 +1000,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         payload: '',
       })
     }
-  }, [inputCurrency, account])
+  }, [inputCurrency, account, initDepositAddress, initIsDeposit, initDepositMaxNum, initDepositMinNum, initIsRedeem, initRedeemMaxNum, initRedeemMinNum, initMaxFee, initMinFee, initFee, inputSymbol, isSwitch])
 
   const [outNetBalance, setOutNetBalance] = useState()
   const [outNetETHBalance, setOutNetETHBalance] = useState()
@@ -1169,7 +1169,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
   }, [account, isDisabled, isDeposit, showBetaMessage, registerAddress, independentValue, inputSymbol, outNetBalance])
   function sendTxns () {
-    // console.log(config)
+    if (inputSymbol === config.prefix + 'BTC' && config.reg[inputSymbol] && !config.reg[inputSymbol].test(recipient.address)) {
+      alert('Illegal address!')
+      return
+    }
     if (!isDisabled) return
     setIsDisableed(false)
     setTimeout(() => {
@@ -1256,6 +1259,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
   function MintModelView () {
     if (!registerAddress) return
+    if (isViewMintModel) {
+      setMintBTCErrorTip('')
+    }
     dispatchSwapState({
       type: 'UPDATE_MINTTYPE',
       payload: isViewMintModel ? false : true
@@ -1308,6 +1314,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             payload: {
               type: 0,
               hashData: {
+                account: account,
                 coin: coin,
                 value: inputValueFormatted,
                 hash: res.info.hash,
@@ -1347,6 +1354,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             payload: {
               type: 0,
               hashData: {
+                account: account,
                 coin: coin,
                 value: inputValueFormatted,
                 hash: res.info.hash,
@@ -1433,18 +1441,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
   }
 
-  function setInit () {
+  function setInit (disabled) {
     setIsRedeem(true)
     setIsMintBtn(true)
     dispatchSwapState({
       type: 'UPDATE_SWAPREGISTER',
       payload: '',
       PlusGasPricePercentage: '',
-      isDeposit: 1,
+      isDeposit: disabled,
       depositMaxNum: '',
       depositMinNum: '',
       depositBigValMoreTime: '',
-      isRedeem: 1,
+      isRedeem: disabled,
       redeemMaxNum: '',
       redeemMinNum: '',
       maxFee: '',
@@ -1465,7 +1473,42 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
     }, 1000 * 50)
   }, [removeHashStatus])
-  // console.log(hashCount)
+  const [mintBTCErrorTip, setMintBTCErrorTip] = useState()
+  function getBTCtxns () {
+    GetBTCtxnsAll(config.coininfo[inputSymbol].url, registerAddress, account, inputSymbol.replace(config.prefix, '')).then(res => {
+      console.log(res)
+      if (res) {
+        for (let obj of hashArr) {
+          if (res.hash === obj.hash) {
+            // alert(t('BTCmintTip'))
+            setMintBTCErrorTip(t('BTCmintTip'))
+            MintModelView()
+            return
+          }
+        }
+        dispatchSwapState({
+          type: 'UPDATE_HASH_STATUS',
+          payload: {
+            type: 0,
+            hashData: res
+          }
+        })
+        dispatchSwapState({
+          type: 'UPDATE_INDEPENDENT',
+          payload: {
+            value: '',
+            field: INPUT,
+            realyValue: ''
+          }
+        })
+      } else {
+        setMintBTCErrorTip(t('BTCmintTip'))
+        MintModelView()
+      }
+    })
+  }
+
+  // console.log(hashArr)
   return (
     <>
       <HardwareTip
@@ -1494,27 +1537,48 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         />
       )}
       <Modal isOpen={isViewMintModel} maxHeight={800}>
-        <MintDiv>
-          {inputValueFormatted ? (
-            <>
-              <MintList>
-                <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace(config.prefix, '')} {t('amount')}:</MintListLabel>
-                <MintListVal>{inputValueFormatted}</MintListVal>
-              </MintList>
-            </>
-          ) : ''}
-          <MintList>
-            <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace(config.prefix, '')} {t('address')}:</MintListLabel>
-            <MintListVal>{registerAddress ? registerAddress : ''}<Copy toCopy={registerAddress} /></MintListVal>
-          </MintList>
-          <MintListCenter>
-            <WalletConnectData size={160} uri={registerAddress} />
-          </MintListCenter>
-          <FlexCneter>
-            <Button onClick={MintModelView}  style={{marginRight: '10px'}}  >{t('close')}</Button>
-            <Button onClick={mintAmount} >{t('mint')}</Button>
-          </FlexCneter>
-        </MintDiv>
+        <Wrapper>
+          <UpperSection>
+            <CloseIcon onClick={() =>  {
+              MintModelView()
+            }}>
+              <CloseColor alt={'close icon'} />
+            </CloseIcon>
+            <HeaderRow>
+              <HoverText>{t('deposit1')}</HoverText>
+            </HeaderRow>
+            <ContentWrapper>
+              <MintDiv>
+                {
+                  mintBTCErrorTip ? (
+                    <>
+                      <FlexCneter>{mintBTCErrorTip}</FlexCneter>
+                    </>
+                  ) : ''
+                }
+                {inputValueFormatted ? (
+                  <>
+                    <MintList>
+                      <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace(config.prefix, '')} {t('amount')}:</MintListLabel>
+                      <MintListVal>{inputValueFormatted}</MintListVal>
+                    </MintList>
+                  </>
+                ) : ''}
+                <MintList>
+                  <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace(config.prefix, '')} {t('address')}:</MintListLabel>
+                  <MintListVal>{registerAddress ? registerAddress : ''}<Copy toCopy={registerAddress} /></MintListVal>
+                </MintList>
+                <MintListCenter>
+                  <WalletConnectData size={160} uri={registerAddress} />
+                </MintListCenter>
+                {/* <FlexCneter>
+                  <Button onClick={MintModelView}  style={{marginRight: '10px'}}  >{t('close')}</Button>
+                  <Button onClick={mintAmount} >{t('mint')}</Button>
+                </FlexCneter> */}
+              </MintDiv>
+            </ContentWrapper>
+          </UpperSection>
+        </Wrapper>
       </Modal>
 
       <Modal isOpen={isViewMintInfo} maxHeight={800}>
@@ -1571,17 +1635,27 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 <MintList>
                   <MintListLabel>{t('hash')}:</MintListLabel>
                   <MintListVal>
-                    <a href={config.ercConfig.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
+                    {
+                      mintDtil.coin === 'BTC' ? (
+                        <a href={config.btcConfig.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
+                      ) : (
+                        <a href={config.ercConfig.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
+                      )
+                    }
                     <Copy toCopy={mintDtil.hash} />
                   </MintListVal>
                 </MintList>
-                <MintList>
-                  <MintListLabel>{t('from')}:</MintListLabel>
-                  <MintListVal>
-                    {mintDtil.from}
-                    <Copy toCopy={mintDtil.from} />
-                  </MintListVal>
-                </MintList>
+                {
+                  mintDtil.from ? (
+                    <MintList>
+                      <MintListLabel>{t('from')}:</MintListLabel>
+                      <MintListVal>
+                        {mintDtil.from}
+                        <Copy toCopy={mintDtil.from} />
+                      </MintListVal>
+                    </MintList>
+                  ) : ''
+                }
                 <MintList>
                   <MintListLabel>{t('to')}:</MintListLabel>
                   <MintListVal>
@@ -1591,7 +1665,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 </MintList>
                 <MintList>
                   <MintListLabel>{t('value')}:</MintListLabel>
-                  <MintListVal>{mintDtil.value}</MintListVal>
+                  <MintListVal>{Number(mintDtil.value)}</MintListVal>
                 </MintList>
                 <FlexCneter>
                   <TokenLogoBox1>
@@ -1601,7 +1675,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 <FlexCneter>
                   <DepositValue>
                     <p>{t('ValueDeposited')}</p>
-                    <span>{mintDtil.value} {mintDtil.coin}</span>
+                    <span>{Number(mintDtil.value)} {mintDtil.coin}</span>
                   </DepositValue>
                 </FlexCneter>
                 <HashStatus className={
@@ -1609,7 +1683,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 }>
                   <div>
                     <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
-                    Ethereum {t('txnsStatus')}
+                    {mintDtil.coin === 'BTC' ? 'Bitcoin' : 'Ethereum'} {t('txnsStatus')}
                   </div>
                   {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
                   {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
@@ -1653,7 +1727,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       <MintHahshList key={hashCount}>
         <ul>
           {hashArr.map((item, index) => {
-            if (item.from !== account) {
+            if (item.account !== account) {
               return ''
             }
             return (
@@ -1774,7 +1848,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           }
         }}
         onCurrencySelected={inputCurrency => {
-          setInit()
+          setInit(1)
           dispatchSwapState({
             type: 'SELECT_CURRENCY',
             payload: { currency: inputCurrency, field: INPUT }
@@ -2003,8 +2077,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       disabled={isMintBtn}
                       onClick={() => {
                         // MintModelView()
+                        if (!isDisabled) return
+                        setIsDisableed(false)
+                        setTimeout(() => {
+                          setIsDisableed(true)
+                        }, 3000)
                         if ( inputSymbol === config.prefix + 'BTC' ) {
-                          MintModelView()
+                          // MintModelView()
+                          getBTCtxns()
                         } else {
                           setMintSureBtn(true)
                           setHardwareTxnsInfo(inputValueFormatted + ' ' + inputSymbol.replace(config.prefix, ''))

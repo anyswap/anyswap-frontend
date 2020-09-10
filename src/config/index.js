@@ -19,16 +19,28 @@ if (netArr[0] === 'FSN') {
 //  * @description 配置以太坊网络节点
 //  */
 let ercConfig = {
-  chainID: 4,
-  nodeRpc: 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0',
-  lookHash: 'https://rinkeby.etherscan.io/tx/'
-}
+      chainID: 4,
+      nodeRpc: 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0',
+      lookHash: 'https://rinkeby.etherscan.io/tx/'
+    },
+    btcConfig = {
+      lookHash: 'https://sochain.com/tx/BTCTEST/'
+    },
+    reg = {
+      [coin.BTC]: /^[13][0-9a-zA-Z]{26,34}$|^[2mn][0-9a-zA-Z]{25,34}$/
+    }
 if (netArr[1].toLowerCase() === 'main') {
   ercConfig = {
     chainID: 1,
     // nodeRpc: 'https://mainnet.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0',
     nodeRpc: 'https://ethmainnet.anyswap.exchange',
     lookHash: 'https://etherscan.io/tx/'
+  }
+  btcConfig = {
+    lookHash: 'https://sochain.com/tx/BTC/'
+  }
+  reg = {
+    [coin.BTC]: /^[13][0-9a-zA-Z]{26,34}$/
   }
 }
 
@@ -37,8 +49,7 @@ export default {
   ...coin,
   env: netArr[1].toLowerCase(),
   supportWallet: ['Ledger'],
-  reg: {
-    [coin.BTC]: /^[13][0-9a-zA-Z]{25,33}$|^[2mn][0-9a-zA-Z]{25,34}$/
-  },
+  reg,
   ercConfig,
+  btcConfig
 }

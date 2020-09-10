@@ -182,7 +182,7 @@ export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage) {
         let tx = new Tx(res.info)
 
         let hash = Buffer.from(tx.hash(false)).toString('hex')
-        hash = hash.indexOf('0x') == 0 ? hash : '0x' + hash
+        hash = hash.indexOf('0x') === 0 ? hash : '0x' + hash
         // console.log(hash)
 
         MMsign(from, hash).then(rsv => {

@@ -91,72 +91,69 @@ function GetBTCTxnsAPI (url) {
   })
 }
 
-export const GetBTCtxnsAll = (url, address, coin, dec) => {
-  // let url = `https://sochain.com/api/v2/get_tx_unspent/BTC/${address}` // 主网
-  let sochainUrl = `https://sochain.com/api/v2/get_tx_received/BTCTEST/${address}` // 测试网
-  let cbData = {
-    mintTip: false,
-    mintValue: 0,
-    mintHash: '',
-    status: '',
-    from: ''
+export const GetBTCtxnsAll = (url, address, account, coin) => {
+  let sochainUrl = `https://sochain.com/api/v2/get_tx_unspent/BTC/${address}` // 主网
+  if (config.env === 'test') {
+    sochainUrl = `https://sochain.com/api/v2/get_tx_received/BTCTEST/${address}` // 测试网
   }
-  if ([config.prefix + 'ETH', config.prefix + 'USDT'].includes(coin)) {
-    return new Promise(resolve => {
-      GetAddressTxnStatusAPI(url, address).then(txns => {
-        // console.log(txns)
-        if (txns.result) {
-          // cbData.mintValue = useTxns.value
-          // cbData.mintTip = true
-          // cbData.mintHash = useTxns.txid
-          // cbData.status = txns.result.status
-          // cbData.from = txns.result.from
-          txns.result = txns.result[0]
-          if ([0,5,7,8,9].includes(txns.result.status)) {
-            cbData.mintValue = Number((txns.result.value / Math.pow(10, dec)).toFixed(16))
-            cbData.mintTip = true
-            cbData.mintHash = txns.result.txid
-            cbData.status = txns.result.status
-            cbData.from = txns.result.from
-          } else {
-            cbData.mintTip = false
-          }
-        } else {
-          cbData.mintTip = false
-        }
-        resolve(cbData)
-      })
-    })
-  } 
+  let cbData = ''
   return new Promise(resolve => {
     GetBTCTxnsAPI(sochainUrl).then(res => {
       // console.log(res)
       if (res.status === "success" && res.data && res.data.txs.length > 0) {
         let useTxns = res.data.txs[res.data.txs.length - 1]
+        if (((Date.now() / 1000) - Number(useTxns.time)) > (60 * 60 * 24)) {
+          resolve(cbData)
+          return
+        }
         GetTxnStatusAPI(url, useTxns.txid).then(txns => {
           // console.log(txns)
           if (txns.result) {
-            // cbData.mintValue = useTxns.value
-            // cbData.mintTip = true
-            // cbData.mintHash = useTxns.txid
-            // cbData.status = txns.result.status
-            // cbData.from = txns.result.from
-            if ([0,5,7,8,9].includes(txns.result.status)) {
-              cbData.mintValue = useTxns.value
-              cbData.mintTip = true
-              cbData.mintHash = useTxns.txid
-              cbData.status = txns.result.status
-              cbData.from = txns.result.from
-            } else {
-              cbData.mintTip = false
+            let swapHash = txns.result.swapHash ? txns.result.swapHash : '',
+                swapStatus,
+                swapTime = txns.result.swapTime ? txns.result.swapTime : ''
+            if ([0, 5, 8].includes(txns.result.status)) {
+              swapStatus = 'confirming'
+            } else if ([7, 9].includes(txns.result.status)) {
+              swapStatus = 'minting'
+            } else if ([10].includes(txns.result.status)) {
+              swapStatus = 'success'
+            } else if ([1, 2, 3, 4, 6, 11].includes(txns.result.status)) {
+              swapStatus = 'failure'
+            } else if ([20].includes(txns.result.status)) {
+              swapStatus = 'timeout'
+            }
+            cbData = {
+              account: account,
+              coin: coin,
+              value: useTxns.value,
+              hash: useTxns.txid,
+              from: '',
+              to: res.data.address,
+              status: 1,
+              timestamp: useTxns.time,
+              swapHash: swapHash,
+              swapStatus: swapStatus,
+              swapTime: swapTime,
             }
           } else {
-            cbData.mintTip = false
+            cbData = {
+              account: account,
+              coin: coin,
+              value: useTxns.value,
+              hash: useTxns.txid,
+              from: '',
+              to: res.data.address,
+              status: 1,
+              timestamp: useTxns.time,
+              swapHash: '',
+              swapStatus: '',
+              swapTime: '',
+            }
           }
           resolve(cbData)
         })
       } else {
-        cbData.mintTip = false
         resolve(cbData)
       }
     })

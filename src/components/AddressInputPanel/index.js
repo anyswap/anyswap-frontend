@@ -136,8 +136,6 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
   // run parser on debounced input
   useEffect(() => {
     let stale = false
-    // console.log('isAddress', isAddress(debouncedInput))
-    // console.log('isValid', isValid)
     if (isAddress(debouncedInput) || isValid) {
       try {
         library
@@ -193,7 +191,7 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
     return () => {
       stale = true
     }
-  }, [debouncedInput, library, onChange, onError])
+  }, [debouncedInput, library, onChange, onError, isValid])
 
   function onInput(event) {
     if (data.address !== undefined || data.name !== undefined) {

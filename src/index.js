@@ -5,7 +5,7 @@ import { Web3ReactProvider, createWeb3ReactRoot } from '@web3-react/core'
 import { ethers } from 'ethers'
 
 import { NetworkContextName } from './constants'
-import { isMobile } from 'react-device-detect'
+// import { isMobile } from 'react-device-detect'
 import LocalStorageContextProvider, { Updater as LocalStorageContextUpdater } from './contexts/LocalStorage'
 import ApplicationContextProvider, { Updater as ApplicationContextUpdater } from './contexts/Application'
 import TransactionContextProvider, { Updater as TransactionContextUpdater } from './contexts/Transactions'

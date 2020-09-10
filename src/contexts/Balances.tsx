@@ -42,12 +42,13 @@ interface BalancesState {
 }
 
 function initialize(): BalancesState {
-  try {
-    // return JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) as string)
-    return {}
-  } catch {
-    return {}
-  }
+  return {}
+  // try {
+  //   // return JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) as string)
+  //   return {}
+  // } catch {
+  //   return {}
+  // }
 }
 
 enum Action {

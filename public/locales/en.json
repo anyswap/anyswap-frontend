@@ -185,5 +185,6 @@
   "txnsDtil": "Transaction Details",
   "sendTip": "Please do NOT send funds to exchanges. To send to an exchange, please use a wallet like Metamask or <a href='https://whallet.net' target='_blank'>whallet.net</a>",
   "brStopTip": "Deposit and Withdraw stopped, node maintenance!",
-  "FSNnoBalance": "Insufficient Balance"
+  "FSNnoBalance": "Insufficient Balance",
+  "BTCmintTip": "No new deposit transaction found. Please send BTC to deposit address first."
 }
