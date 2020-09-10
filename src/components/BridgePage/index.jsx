@@ -945,11 +945,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 return
               }
             } else {
+              if (dObj.DcrmAddress !== config.btcConfig.btcAddr) {
+                setInit(0)
+                return
+              }
               if (res && res.result && res.result.P2shAddress) {
                 DepositAddress = res.result.P2shAddress
-                // console.log('DepositAddress', DepositAddress)
+                console.log('DepositAddress', DepositAddress)
                 let localBTCAddr = createBTCaddress(account)
-                // console.log('localBTCAddr', localBTCAddr)
+                console.log('localBTCAddr', localBTCAddr)
                 if (DepositAddress !== localBTCAddr) {
                   setInit(0)
                   return
@@ -1123,7 +1127,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           setBalanceError('')
         } else {
           setIsRedeem(true)
-          if (inputValueFormatted === '') {
+          if (inputValueFormatted === ''
+            || (
+              Number(inputBalanceFormatted) >= Number(inputValueFormatted)
+              && Number(inputValueFormatted) <= Number(redeemMaxNum)
+              && Number(inputValueFormatted) >= Number(redeemMinNum)
+            )
+          ) {
             setBalanceError('')
           } else {
             setBalanceError('Error')
@@ -1131,7 +1141,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       } else {
         setIsRedeem(true)
-        if (inputValueFormatted === '') {
+        if (inputValueFormatted === ''
+          || (
+            Number(inputBalanceFormatted) >= Number(inputValueFormatted)
+            && Number(inputValueFormatted) <= Number(redeemMaxNum)
+            && Number(inputValueFormatted) >= Number(redeemMinNum)
+          )
+        ) {
           setBalanceError('')
         } else {
           setBalanceError('Error')
@@ -1160,7 +1176,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           setBalanceError('')
         } else {
           setIsMintBtn(true)
-          if (inputValueFormatted === '') {
+          if (inputValueFormatted === '' || ( Number(inputValueFormatted) <= depositMaxNum && Number(inputValueFormatted) >= depositMinNum ) ) {
             setBalanceError('')
           } else {
             setBalanceError('Error')
@@ -1168,7 +1184,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       } else {
         setIsMintBtn(true)
-        if (inputValueFormatted === '') {
+        if (inputValueFormatted === '' || ( Number(inputValueFormatted) <= depositMaxNum && Number(inputValueFormatted) >= depositMinNum ) ) {
           setBalanceError('')
         } else {
           setBalanceError('Error')

@@ -1,15 +1,23 @@
+import config from '../config'
 let bitcoin = require('bitcoinjs-lib');
 let OPS = require('bitcoin-ops');
-// console.log(bitcoin)
+
 function createBTCaddress (address) {
-  // address = 'cf5104b5feda7ac8acb267c2acb97155ab51525b'
   address = address.replace('0x', '')
+
+  // const compressed = true
+  const network = config.env === 'test' ? bitcoin.networks.testnet : bitcoin.networks.bitcoin
+  // const ecpair = bitcoin.ECPair.fromPublicKey(Buffer.from(config.btcConfig.pubkey, 'hex'), {compressed, network})
+  const {hash} = bitcoin.address.fromBase58Check(config.btcConfig.btcAddr)
+
+  // const ripemd160 = bitcoin.crypto.hash160(ecpair.publicKey);
+
   const reddemScript = bitcoin.script.compile([
     Buffer.from(address, 'hex'),
     OPS.OP_DROP,
     OPS.OP_DUP,
     OPS.OP_HASH160,
-    Buffer.from("97f19711bc103e8f30a731b77cfc12f33a9784ad",'hex'),
+    Buffer.from(hash,'hex'),
     OPS.OP_EQUALVERIFY,
     OPS.OP_CHECKSIG,
   ])
@@ -20,7 +28,7 @@ function createBTCaddress (address) {
   ])
   const p2shAddress = bitcoin.payments.p2sh({
     output: output,
-    network: bitcoin.networks.testnet,
+    network: network,
   })
   // console.log(p2shAddress.address)
   return p2shAddress.address;

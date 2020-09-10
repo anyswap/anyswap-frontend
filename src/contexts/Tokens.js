@@ -348,11 +348,11 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
     },
-    '0x003cd1110c0c65d1122f11fc424731577ea775c3': { // BTC
+    '0x9e51f12fe751649d0f1323889f836055fbb67f04': { // BTC
       [NAME]: 'ANY Bitcoin',
       [SYMBOL]: 'aBTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0x0e711afa0da54bc718c777ae404386d3ad4774bc',
+      [EXCHANGE_ADDRESS]: '',
       [REDEEM_MAX_NUM]: 100,
       [REDEEM_MIN_NUM]: 0.00001,
       [FEE]: 0.001,

@@ -23,9 +23,6 @@ let ercConfig = {
       nodeRpc: 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0',
       lookHash: 'https://rinkeby.etherscan.io/tx/'
     },
-    btcConfig = {
-      lookHash: 'https://sochain.com/tx/BTCTEST/'
-    },
     reg = {
       [coin.BTC]: /^[13][0-9a-zA-Z]{26,34}$|^[2mn][0-9a-zA-Z]{25,34}$/
     }
@@ -35,9 +32,6 @@ if (netArr[1].toLowerCase() === 'main') {
     // nodeRpc: 'https://mainnet.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0',
     nodeRpc: 'https://ethmainnet.anyswap.exchange',
     lookHash: 'https://etherscan.io/tx/'
-  }
-  btcConfig = {
-    lookHash: 'https://sochain.com/tx/BTC/'
   }
   reg = {
     [coin.BTC]: /^[13][0-9a-zA-Z]{26,34}$/
@@ -51,5 +45,4 @@ export default {
   supportWallet: ['Ledger'],
   reg,
   ercConfig,
-  btcConfig
 }

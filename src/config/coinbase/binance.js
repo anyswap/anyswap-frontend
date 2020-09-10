@@ -31,7 +31,11 @@ let coinConfig = {
   initBridge: '',
   explorerUrl: 'https://explorer.binance.org/smart',
   marketsUrl: '',
-  document: ''
+  document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
+  btcConfig: {
+    lookHash: 'https://sochain.com/tx/BTCTEST/',
+    btcAddr: ''
+  },
 }
 
 function getBNBConfig (type) {
@@ -53,7 +57,12 @@ function getBNBConfig (type) {
     initToken: ANY_TEST_TOKEN,
     initBridge: '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711',
     explorerUrl: 'https://explorer.binance.org/smart-testnet',
-    marketsUrl: 'https://markets.anyswap.exchange/#/'
+    marketsUrl: 'https://markets.anyswap.exchange/#/',
+    document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
+    btcConfig: {
+      lookHash: 'https://sochain.com/tx/BTCTEST/',
+      btcAddr: ''
+    },
   }
   return coinConfig
 }
