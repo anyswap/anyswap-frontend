@@ -238,7 +238,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MAX_NUM]: 1000,
       [DEPOSIT_MIN_NUM]: 0.01,
     },
-    'BTC': { // BTC
+    '0x783b971453f4f23d7874c2d1ca080265e3360274': { // BTC
       [NAME]: 'ANY Bitcoin',
       [SYMBOL]: config.prefix + 'BTC',
       [DECIMALS]: 8,
@@ -248,10 +248,10 @@ export const INITIAL_TOKENS_CONTEXT = {
       [FEE]: 0.001,
       [MAXFEE]: 50,
       [MINFEE]: 1,
-      [ISSWITCH]: 0,
-      [ISDEPOSIT]: 0,
-      [ISREDEEM]: 0,
-      [DEPOSIT_ADDRESS]: '',
+      [ISSWITCH]: 1,
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '1DCJrZsWJoyVv8SNKsxYNVFRJDZvcSg1sZ',
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,

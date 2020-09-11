@@ -5,8 +5,8 @@ import getBNBConfig from './coinbase/binance'
 // console.log(coin)
 // const ENV_CONFIG = 'BNB_MAIN'
 // const ENV_CONFIG = 'BNB_TEST'
-const ENV_CONFIG = 'FSN_TEST'
-// const ENV_CONFIG = 'FSN_MAIN'
+// const ENV_CONFIG = 'FSN_TEST'
+const ENV_CONFIG = 'FSN_MAIN'
 let netArr = ENV_CONFIG.split('_')
 let netConfig = {}
 if (netArr[0] === 'FSN') {

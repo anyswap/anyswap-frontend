@@ -35,7 +35,7 @@ let coinConfig = {
     lookHash: 'https://sochain.com/tx/BTC/',
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/',
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/',
-    btcAddr: ''
+    btcAddr: '1FJSkpkPYhDJoJzMhA2LRSgrmUJHxtVQpj'
   },
 }
 

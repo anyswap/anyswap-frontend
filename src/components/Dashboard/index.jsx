@@ -26,6 +26,7 @@ import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.sv
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 
 import {getRewards} from '../../utils/axios'
+// import getDashBoards from '../../utils/dashboard'
 
 import IconLiquidityRewards from '../../assets/images/icn-liquidity-rewards.svg'
 import IconLiquidityRewardsBlack from '../../assets/images/icn-liquidity-rewards-black.svg'
@@ -502,7 +503,7 @@ function thousandBit (num, dec = 2) {
   return num
 }
 
-
+// getDashBoards('0xE000E632124aa65B80f74E3e4cc06DC761610583', '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4', '0x4dee5f0705ff478b452419375610155b5873ef5b')
 export default function DashboardDtil () {
   const { account, library } = useWeb3React()
   const allBalances = useAllBalances()
@@ -531,6 +532,39 @@ export default function DashboardDtil () {
       ethShare: ''
     }
   }
+  // console.log(allTokens)
+  // useEffect(() => {
+  //   if (account) {
+  //     let poolArr = []
+  //     for (let obj in allTokens) {
+  //       poolArr.push(
+  //         getDashBoards(
+  //           account,
+  //           obj,
+  //           allTokens[obj].exchangeAddress,
+  //           allTokens[obj]
+  //         )
+  //       )
+  //     }
+  //     Promise.all(poolArr).then(res => {
+  //       console.log(res)
+  //       for (let obj of res) {
+  //         let _pencet = 0
+  //         let _balacne = 0
+  //         if (obj.pecent) {
+  //           _pencet = amountFormatter(obj.pecent, obj.decimals, 6)
+  //         }
+  //         if (obj.balance) {
+  //           _balacne = amountFormatter(obj.balance, obj.decimals, 6)
+  //         }
+  //         console.log(_pencet)
+  //         console.log(_balacne)
+  //       }
+  //     })
+  //   }
+  // }, [allTokens, account])
+
+
   const tokenShareFSN =useAddressBalance(account, config.symbol)
   // console.log(tokenShareFSN)
 
@@ -544,7 +578,7 @@ export default function DashboardDtil () {
   useEffect(() => {
     if (account) {
       getRewards(account).then(res => {
-        // console.log(res)
+        console.log(res)
         let arr = []
         if (res.msg === 'Success') {
           arr = [
@@ -626,6 +660,18 @@ export default function DashboardDtil () {
   const ANY_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins.ANY.exchangeAddress)
 
   const { reserveETH: ANYreserveETH, reserveToken: ANYreserveToken } = useExchangeReserves(allCoins.ANY.token)
+  // if (ANYreserveETH && ANYreserveToken) {
+  //   console.log('poolInfoObj.ANY.poolTokenBalance')
+  //   console.log(poolInfoObj.ANY.poolTokenBalance.toString())
+  //   console.log('poolInfoObj.ANY.exchangeETHBalance')
+  //   console.log(poolInfoObj.ANY.exchangeETHBalance.toString())
+  //   console.log('poolInfoObj.ANY.exchangeTokenBalancem')
+  //   console.log(poolInfoObj.ANY.exchangeTokenBalancem.toString())
+  //   console.log('ANYreserveETH')
+  //   console.log(ANYreserveETH.toString())
+  //   console.log('ANYreserveToken')
+  //   console.log(ANYreserveToken.toString())
+  // }
   poolInfoObj.ANY.marketRate = useMemo(() => {
     return getMarketRate(ANYreserveETH, ANYreserveToken, allCoins.ANY.decimals)
   }, [ANYreserveETH, ANYreserveToken])
@@ -1161,7 +1207,7 @@ export default function DashboardDtil () {
                         </div>
                       </div>
                       <div className='value'>
-                        {item.value ? item.value.toFixed(2) : '0.00'} ANY
+                        {item.value && item.value > 0 ? item.value.toFixed(2) : '0.00'} ANY
                       </div>
                     </li>
                   )
