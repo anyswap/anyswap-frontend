@@ -1189,7 +1189,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       }
     }
-  }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol, isDeposit, registerAddress, outNetBalance, bridgeType])
+  }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol, isDeposit, registerAddress, outNetBalance, bridgeType, depositMaxNum, depositMinNum])
   
   function sendTxns () {
     if (inputSymbol === config.prefix + 'BTC' && isBTCAddress(recipient.address)) {
@@ -2043,7 +2043,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 <>
                   <dl className='list'>
                     <dt>
-                      <img src={BulbIcon} />
+                      <img src={BulbIcon} alt='' />
                       {t('Reminder')}:
                     </dt>
                     <dd><i></i>{t('redeemTip1', {
@@ -2065,7 +2065,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 <>
                   <dl className='list'>
                     <dt>
-                      <img src={BulbIcon} />
+                      <img src={BulbIcon} alt='' />
                       {t('Reminder')}:
                     </dt>
                     <dd><i></i>{t('mintTip1')},</dd>
