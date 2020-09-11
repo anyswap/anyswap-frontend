@@ -25,7 +25,6 @@ import Modal from '../Modal'
 import { ReactComponent as QRcode } from '../../assets/images/QRcode.svg'
 import TokenLogo from '../TokenLogo'
 
-import { GetServerInfo, RegisterAddress, GetBTCtxnsAll, GetBTChashStatus } from '../../utils/axios'
 
 import config from '../../config'
 import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
@@ -53,7 +52,9 @@ import WarningTip from '../WarningTip'
 import {getErcBalance, HDsendERC20Txns, MMsendERC20Txns, getHashStatus} from '../../utils/web3/Erc20Web3'
 import ERC20_TOKEN from '../../contexts/Tokens_erc20'
 
-import createBTCaddress from '../../utils/createBTCaddress'
+import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/BTC'
+import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
+
 
 const INPUT = 0
 const OUTPUT = 1
@@ -733,6 +734,9 @@ function swapStateReducer(state, action) {
       }
     }
     case 'UPDATE_SWAPREGISTER': {
+      if (action.token && state.inputCurrency.toLowerCase() !== action.token.toLowerCase()) {
+        return state
+      }
       return {
         ...state,
         registerAddress: action.payload ? action.payload : '',
@@ -926,11 +930,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           if (result && result.swapInfo && result.swapInfo.SrcToken.DepositAddress) {
             let dObj = result.swapInfo.SrcToken,
             rObj = result.swapInfo.DestToken
-            // console.log(rObj.Symbol)
-            // console.log(inputSymbol)
-            // console.log(rObj.Symbol !== inputSymbol)
-            if (rObj.Symbol !== inputSymbol) return
-            // let DepositAddress = res && res.result && res.result.P2shAddress ? res.result.P2shAddress : ''
+            
             let DepositAddress = ''
             if (inputSymbol !== config.prefix + 'BTC') {
               DepositAddress = dObj.DepositAddress
@@ -977,6 +977,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               minFee: rObj.MinimumSwapFee,
               fee: rObj.SwapFeeRate,
               redeemBigValMoreTime: rObj.BigValueThreshold,
+              token: rObj.ContractAddress
             })
           } else {
             dispatchSwapState({
@@ -992,16 +993,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               maxFee: initMaxFee,
               minFee: initMinFee,
               fee: initFee,
-              redeemBigValMoreTime: 0
+              redeemBigValMoreTime: 0,
+              token: inputCurrency
             })
           }
         })
       })
     } else {
-      dispatchSwapState({
-        type: 'UPDATE_SWAPREGISTER',
-        payload: '',
-      })
+      setInit(0)
     }
   }, [inputCurrency, account, initDepositAddress, initIsDeposit, initDepositMaxNum, initDepositMinNum, initIsRedeem, initRedeemMaxNum, initRedeemMinNum, initMaxFee, initMinFee, initFee, inputSymbol, isSwitch])
 
@@ -1118,7 +1117,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && Number(inputValueFormatted) <= Number(redeemMaxNum)
         && Number(inputValueFormatted) >= Number(redeemMinNum)
       ) {
-        if (inputSymbol === config.prefix + 'BTC' && config.reg[inputSymbol] && config.reg[inputSymbol].test(recipient.address)) {
+        if (inputSymbol === config.prefix + 'BTC' && isBTCAddress(recipient.address)) {
           setIsRedeem(false)
           setBalanceError('')
         } else if (inputSymbol !== config.prefix + 'BTC' && isAddress(recipient.address)) {
@@ -1193,7 +1192,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol, isDeposit, registerAddress, outNetBalance, bridgeType])
   
   function sendTxns () {
-    if (inputSymbol === config.prefix + 'BTC' && config.reg[inputSymbol] && !config.reg[inputSymbol].test(recipient.address)) {
+    if (inputSymbol === config.prefix + 'BTC' && isBTCAddress(recipient.address)) {
       alert('Illegal address!')
       return
     }
@@ -1444,7 +1443,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       maxFee: '',
       minFee: '',
       fee: '',
-      redeemBigValMoreTime: ''
+      redeemBigValMoreTime: '',
+      token: ''
     })
   }
 
@@ -1510,7 +1510,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }, [removeHashStatus])
   const [mintBTCErrorTip, setMintBTCErrorTip] = useState()
   function getBTCtxns () {
-    GetBTCtxnsAll(config.coininfo[inputSymbol].url, registerAddress, account, inputSymbol.replace(config.prefix, '')).then(res => {
+    GetBTCtxnsAll(registerAddress, account, inputSymbol.replace(config.prefix, '')).then(res => {
       // console.log(res)
       if (res) {
         for (let obj of hashArr) {

@@ -25,7 +25,7 @@ import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 
-import {getPrice, getRewards} from '../../utils/axios'
+import {getRewards} from '../../utils/axios'
 
 import IconLiquidityRewards from '../../assets/images/icn-liquidity-rewards.svg'
 import IconLiquidityRewardsBlack from '../../assets/images/icn-liquidity-rewards-black.svg'
@@ -540,13 +540,6 @@ export default function DashboardDtil () {
   const [accountRewars, setAccountRewars] = useState([])
 
   const [fsnPrice, setFsnPrice] = useState('')
-  // useEffect(() => {
-  //   getPrice().then(res => {
-  //     // console.log(res)
-  //     // fsnPrice = res
-  //     setFsnPrice(res)
-  //   })
-  // }, [])
 
   useEffect(() => {
     if (account) {

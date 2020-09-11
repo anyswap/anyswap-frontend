@@ -6,6 +6,7 @@ import { ethers } from 'ethers'
 import axios from 'axios'
 
 import { amountFormatter } from '../index'
+import { getChainHashStatus } from '../birdge'
 
 
 const Tx  = require("ethereumjs-tx")
@@ -56,66 +57,6 @@ function MMsign (from, msg) {
     })
   })
 }
-
-function GetTxnStatusAPI (url, hash) {
-  return new Promise(resolve => {
-    axios.post(url, {
-      id:0,
-      jsonrpc:"2.0",
-      method:"swap.GetSwapin",
-      params:[hash]
-    }).then(res => {
-      // console.log(res)
-      resolve(res.data)
-    }).catch(err => {
-      console.log(err)
-      resolve(err)
-    })
-  })
-}
-
-function getChainHashStatus (hash, coin) {
-  // console.log(coin)
-  return new Promise(resolve => {
-    coin = coin.indexOf(config.prefix) === -1 ? (config.prefix + coin) : coin
-    if (config.coininfo[coin] && config.coininfo[coin].url) {
-      let url = config.coininfo[coin].url
-      GetTxnStatusAPI(url, hash).then(res => {
-        // console.log(res)
-        if (res && res.result) {
-          let status = res.result.status,
-              statusType = ''
-          if ([0, 5, 8].includes(status)) {
-            // obj = { status: this.$t('state').confirming, class: 'color_green' }
-            statusType = 'confirming'
-          } else if ([7, 9].includes(status)) {
-            // obj = { status: this.$t('state').minting, class: 'color_green' }
-            statusType = 'minting'
-          } else if ([10].includes(status)) {
-            // obj = { status: this.$t('state').success, class: 'color_green' }
-            statusType = 'success'
-          } else if ([1, 2, 3, 4, 6, 11].includes(status)) {
-            // obj = { status: this.$t('state').fail, class: 'color_red' }
-            statusType = 'failure'
-          } else if ([20].includes(status)) {
-            // obj = { status: this.$t('state').timeout, class: 'color_red' }
-            statusType = 'timeout'
-          }
-          resolve({
-            swapHash: res.result.swaptx,
-            swapStatus: statusType,
-            swapTime: res.result.txtime,
-          })
-        } else {
-          resolve('')
-        }
-      })
-    } else {
-      resolve('')
-    }
-  })
-}
-// getChainHashStatus('0x7bf684076b373de6d7b5ff43fddf0b15d580bfc38773d90b4c89fea3388e17d0', 'aUSDT')
 
 export function getHashStatus (hash, index, coin, status) {
   return new Promise(resolve => {

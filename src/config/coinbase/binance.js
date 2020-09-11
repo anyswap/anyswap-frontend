@@ -34,6 +34,8 @@ let coinConfig = {
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btcConfig: {
     lookHash: 'https://sochain.com/tx/BTCTEST/',
+    queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/',
+    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/',
     btcAddr: ''
   },
 }
@@ -61,6 +63,8 @@ function getBNBConfig (type) {
     document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
     btcConfig: {
       lookHash: 'https://sochain.com/tx/BTCTEST/',
+      queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTCTEST/',
+      queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
       btcAddr: ''
     },
   }

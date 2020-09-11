@@ -22,7 +22,7 @@ let coinConfig = {
     token: ANY_MAIN_TOKEN
   },
   coininfo: {
-    // [coin.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
+    [coin.BTC]: {url: 'https://btcapi.anyswap.exchange/rpc'},
     [coin.ETH]: {url: 'https://ethapi.anyswap.exchange/rpc'},
     [coin.USDT]: {url: 'https://usdtapi.anyswap.exchange/rpc'},
   },
@@ -32,7 +32,9 @@ let coinConfig = {
   marketsUrl: 'https://markets.anyswap.exchange/#/',
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btcConfig: {
-    lookHash: 'https://sochain.com/tx/BTCTEST/',
+    lookHash: 'https://sochain.com/tx/BTC/',
+    queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/',
+    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/',
     btcAddr: ''
   },
 }
@@ -60,6 +62,8 @@ function getFSNConfig (type) {
     document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
     btcConfig: {
       lookHash: 'https://sochain.com/tx/BTCTEST/',
+      queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTCTEST/',
+      queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
       btcAddr: 'mmBUP62PJNDndtSvH4ef65gUAucgQY5dqA'
     },
   }
