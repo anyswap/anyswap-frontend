@@ -794,6 +794,41 @@ export default function DashboardDtil () {
    * LTC end
    *  */
 
+   /**
+   * DAI start
+   *  */
+  // poolInfoObj[config.prefix + 'DAI'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'DAI'].exchangeAddress)
+  // poolInfoObj[config.prefix + 'DAI'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'DAI'].exchangeAddress, config.symbol)
+  // poolInfoObj[config.prefix + 'DAI'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'DAI'].exchangeAddress, allCoins[config.prefix + 'DAI'].token)
+  // const DAI_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'DAI'].exchangeAddress)
+
+  // const { reserveETH: DAIreserveETH, reserveToken: DAIreserveToken } = useExchangeReserves(allCoins[config.prefix + 'DAI'].token)
+  // poolInfoObj[config.prefix + 'DAI'].marketRate = useMemo(() => {
+  //   return getMarketRate(DAIreserveETH, DAIreserveToken, allCoins[config.prefix + 'DAI'].decimals)
+  // }, [DAIreserveETH, DAIreserveToken])
+  
+  // const [totalPoolTokensDAI, setTotalPoolTokensDAI] = useState()
+  // const DAI_FETCH_POOL_TOKEN_SM = useCallback(() => {
+  //   if (DAI_EXCHANGE_TOKEN_BALANCEM) {
+  //     DAI_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+  //       setTotalPoolTokensDAI(totalSupply)
+  //     })
+  //   }
+  // }, [DAI_EXCHANGE_TOKEN_BALANCEM])
+  
+  // useEffect(() => {
+  //   DAI_FETCH_POOL_TOKEN_SM()
+  //   library.on('block', DAI_FETCH_POOL_TOKEN_SM)
+
+  //   return () => {
+  //     library.removeListener('block', DAI_FETCH_POOL_TOKEN_SM)
+  //   }
+  // }, [DAI_FETCH_POOL_TOKEN_SM, library])
+  // poolInfoObj[config.prefix + 'DAI'].totalPoolTokens = totalPoolTokensDAI
+  /**
+   * DAI end
+   *  */
+
 
   let poolTokenBalanceArr = []
   for (let obj in allCoins) {

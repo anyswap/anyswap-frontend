@@ -18,8 +18,8 @@
 const u2f = require("u2f-api");
 var Ledger3 = function(scrambleKey, timeoutSeconds) {
   this.scrambleKey = new Buffer(scrambleKey, "ascii");
-  // this.timeoutSeconds = timeoutSeconds ? timeoutSeconds : 10000 ;
-  this.timeoutSeconds = 10000 ;
+  this.timeoutSeconds = timeoutSeconds ? timeoutSeconds : 10000 ;
+  // this.timeoutSeconds = timeoutSeconds  ;
 };
 
 Ledger3.wrapApdu = function(apdu, key) {
@@ -76,7 +76,10 @@ Ledger3.prototype.exchange = function(apduHex, callback) {
     // console.log(result)
     self.u2fCallback(result, callback);
   };
+  // console.log(this)
+  // console.log(this.timeoutSeconds)
   u2f.sign([key], this.timeoutSeconds).then(localCallback).catch(err => {
+    // console.log(err)
     callback(undefined, err)
   })
 };
