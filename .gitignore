@@ -13,6 +13,7 @@
 /anyswap-test
 /anyswap-main
 /BSC-MAIN
+/BSC-TEST
 #/src/config/index.js
 #/src/contexts/Tokens.js
 

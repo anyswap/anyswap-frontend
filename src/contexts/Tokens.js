@@ -56,11 +56,11 @@ const ANY_TOKEN = config.any.token
 
 export const INITIAL_TOKENS_CONTEXT = {
   56: {
-    '0xae9269f27437f0fcbc232d39ec814844a51d6b8f': { // BURGER
-      [NAME]: 'Burger-BEP20',
-      [SYMBOL]: config.prefix + 'BURGER',
+    '0x55d398326f99059ff775485246999027b3197955': { // USDT
+      [NAME]: 'Tether-BEP20',
+      [SYMBOL]: config.prefix + 'USDT',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x2296c4a9186b823db1612e831808536ed451cbbe',
+      [EXCHANGE_ADDRESS]: '0x83034714666b0eb2209aafc1b1cbb2ab9c6100db',
       [REDEEM_MAX_NUM]: 100000,
       [REDEEM_MIN_NUM]: 5,
       [FEE]: 0.001,
@@ -74,11 +74,11 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
     },
-    '0x55d398326f99059ff775485246999027b3197955': { // USDT
-      [NAME]: 'Tether-BEP20',
-      [SYMBOL]: config.prefix + 'USDT',
+    '0xae9269f27437f0fcbc232d39ec814844a51d6b8f': { // BURGER
+      [NAME]: 'Burger-BEP20',
+      [SYMBOL]: config.prefix + 'BURGER',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x83034714666b0eb2209aafc1b1cbb2ab9c6100db',
+      [EXCHANGE_ADDRESS]: '0x2296c4a9186b823db1612e831808536ed451cbbe',
       [REDEEM_MAX_NUM]: 100000,
       [REDEEM_MIN_NUM]: 5,
       [FEE]: 0.001,

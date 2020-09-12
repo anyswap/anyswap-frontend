@@ -11,8 +11,8 @@ const ANY_TEST_TOKEN = '0x6fb8125c42a53dced3c4c05e1712e4c5ca1c6dc2'
 const COIN_BASE ={
   symbol: 'BNB',
   name: 'Binance-BEP20',
-  testUrl: '',
-  mainUrl: '',
+  testUrl: 'https://bsctest.anyswap.exchange',
+  mainUrl: 'https://bsc.anyswap.exchange',
   decimals: 18,
   networkNamr: 'BSC'
 }
