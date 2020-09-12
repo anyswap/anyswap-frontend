@@ -15,6 +15,10 @@ const COIN_BASE ={
   decimals: 18,
   networkNamr: 'FSN'
 }
+
+const INIT_MAIN_TOKEN = ANY_MAIN_TOKEN
+const INIT_TEST_TOKEN = ANY_TEST_TOKEN
+
 let coinConfig = {
   ...COIN_BASE,
   nodeRpc: MAINNET,
@@ -27,7 +31,7 @@ let coinConfig = {
     [coin.ETH]: {url: 'https://ethapi.anyswap.exchange/rpc'},
     [coin.USDT]: {url: 'https://usdtapi.anyswap.exchange/rpc'},
   },
-  initToken: ANY_MAIN_TOKEN,
+  initToken: INIT_MAIN_TOKEN,
   initBridge: '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496',
   explorerUrl: 'https://fsnex.com',
   marketsUrl: 'https://markets.anyswap.exchange/#/',
@@ -40,7 +44,8 @@ let coinConfig = {
   },
   isOPenBridge: 1,
   isOpenRewards: 1,
-  isChangeDashboard: 1
+  isChangeDashboard: 1,
+  noSupportBridge: [COIN_BASE.symbol, ANY_MAIN_TOKEN]
 }
 
 function getFSNConfig (type) {
@@ -59,7 +64,7 @@ function getFSNConfig (type) {
       [coin.ETH]: {url: 'https://testethapi.anyswap.exchange/rpc'},
       [coin.USDT]: {url: 'https://testusdtapi.anyswap.exchange/rpc'},
     },
-    initToken: ANY_TEST_TOKEN,
+    initToken: INIT_TEST_TOKEN,
     initBridge: '0x3368e6012066bc08ece5f2b2582c883cca1424e5',
     explorerUrl: 'https://fsnex.com',
     marketsUrl: 'https://markets.anyswap.exchange/#/',
@@ -72,7 +77,8 @@ function getFSNConfig (type) {
     },
     isOPenBridge: 1,
     isOpenRewards: 1,
-    isChangeDashboard: 1
+    isChangeDashboard: 1,
+    noSupportBridge: [COIN_BASE.symbol, ANY_TEST_TOKEN]
   }
   return coinConfig
 }

@@ -10,12 +10,14 @@ const ANY_TEST_TOKEN = '0x6fb8125c42a53dced3c4c05e1712e4c5ca1c6dc2'
 
 const COIN_BASE ={
   symbol: 'BNB',
-  name: 'Binance',
+  name: 'Binance-BEP20',
   testUrl: '',
   mainUrl: '',
   decimals: 18,
   networkNamr: 'BSC'
 }
+const INIT_MAIN_TOKEN = '0xae9269f27437f0fcbc232d39ec814844a51d6b8f'
+const INIT_TEST_TOKEN = ANY_TEST_TOKEN
 let coinConfig = {
   ...COIN_BASE,
   nodeRpc: MAINNET,
@@ -28,9 +30,9 @@ let coinConfig = {
     [coin.ETH]: {url: ''},
     [coin.USDT]: {url: ''},
   },
-  initToken: '0xae9269f27437f0fcbc232d39ec814844a51d6b8f',
-  initBridge: '',
-  explorerUrl: 'https://explorer.binance.org/smart',
+  initToken: INIT_MAIN_TOKEN,
+  initBridge: '0xae9269f27437f0fcbc232d39ec814844a51d6b8f',
+  explorerUrl: 'https://bscscan.com',
   marketsUrl: '',
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btcConfig: {
@@ -41,7 +43,8 @@ let coinConfig = {
   },
   isOPenBridge: 0,
   isOpenRewards: 0,
-  isChangeDashboard: 0
+  isChangeDashboard: 0,
+  noSupportBridge: [COIN_BASE.symbol]
 }
 
 function getBNBConfig (type) {
@@ -60,7 +63,7 @@ function getBNBConfig (type) {
       [coin.ETH]: {url: ''},
       [coin.USDT]: {url: ''},
     },
-    initToken: ANY_TEST_TOKEN,
+    initToken: INIT_TEST_TOKEN,
     initBridge: '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711',
     explorerUrl: 'https://explorer.binance.org/smart-testnet',
     marketsUrl: 'https://markets.anyswap.exchange/#/',
@@ -73,7 +76,8 @@ function getBNBConfig (type) {
     },
     isOPenBridge: 1,
     isOpenRewards: 0,
-    isChangeDashboard: 0
+    isChangeDashboard: 0,
+    noSupportBridge: [COIN_BASE.symbol]
   }
   return coinConfig
 }

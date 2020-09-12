@@ -795,11 +795,8 @@ function swapStateReducer(state, action) {
     }
   }
 }
-const selfUseAllToken=[ 
-  config.symbol,
-  config.initToken
- ]
-let historyInterval , hashInterval
+const selfUseAllToken = config.noSupportBridge
+let hashInterval
 // let swapInfo = ''
 
 // getErcBalance('USDT')
@@ -1007,10 +1004,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [outNetBalance, setOutNetBalance] = useState()
   const [outNetETHBalance, setOutNetETHBalance] = useState()
   function getOutBalance () {
-    if (depositType === 1 && account && inputSymbol !== config.prefix + 'BTC') {
+    if (isDeposit && isRedeem && depositType === 1 && account && inputSymbol !== config.prefix + 'BTC') {
       let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
       if (coin) {
-        getErcBalance(coin, account).then(res => {
+        getErcBalance(coin, account, inputDecimals).then(res => {
           // console.log(inputSymbol)
           // console.log(config.prefix + coin)
           if (inputSymbol !== config.prefix + coin) {
@@ -2090,7 +2087,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         ) : ''
       }
       <WarningTip></WarningTip>
-      {isSwitch ? (
+      {isSwitch && (isDeposit || isRedeem) ? (
         <>
           <Flex>
             {

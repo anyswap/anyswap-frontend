@@ -13,6 +13,7 @@ if (netArr[0] === 'FSN') {
   netConfig = getFSNConfig(netArr[1])
 } else if (netArr[0] === 'BNB') {
   netConfig = getBNBConfig(netArr[1])
+  coin.prefix = ''
 }
 
 // /**

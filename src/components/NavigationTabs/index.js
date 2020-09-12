@@ -373,9 +373,17 @@ function NavigationTabs({ location: { pathname }, history }) {
 
       <Tabs>
         {tabOrder.map(({ path, textKey, regex, icon, iconActive, className, isOpen }, index) => {
-          if (!isOpen) {
-            return
-          }
+          // if (!isOpen) {
+          //   return (
+          //     <StyledNavLink key={index} to={path}>
+          //       <div className={'icon'}>
+          //         {/* <img alt={''} src={iconActive} className={pathname.match(regex) || navHover === textKey ? '' : 'show'}/> */}
+          //         <img alt={''} src={icon}/>
+          //       </div>
+          //       {t(textKey)}
+          //     </StyledNavLink>
+          //   )
+          // }
           return (
             <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={(className ? className : '')} onMouseEnter={() => {toggleHover(textKey)}} onMouseLeave={() => {toggleHover('')}}>
               <div className={'icon'}>

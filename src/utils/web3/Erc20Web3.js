@@ -161,39 +161,46 @@ export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage) {
   })
 }
 
-export const getErcBalance = (coin, from) => {
+export const getErcBalance = (coin, from, dec) => {
   return new Promise(resolve => {
     if (!coin) {
       resolve('')
     } else {
       coin = coin.replace('a', '')
-      web3.eth.getBalance(from).then(res => {
-        // console.log(res)
-        res = ethers.utils.bigNumberify(res)
-        // resolve(amountFormatter(res))
-        if (coin !== 'ETH') {
-          contract.options.address = allToken[coin].token
-          contract.methods.balanceOf(from).call({from: from}, (err, result) => {
-            // console.log(err)
-            if (err) {
-              resolve('')
-            } else {
-              result = ethers.utils.bigNumberify(result)
-              // console.log(result)
-              // resolve(amountFormatter(result, allToken[coin].decimals))
-              resolve({
-                ETH: amountFormatter(res),
-                TOKEN: amountFormatter(result, allToken[coin].decimals)
-              })
-            }
-          })
-        } else {
-          resolve({
-            ETH: amountFormatter(res),
-            TOKEN: amountFormatter(res)
-          })
-        }
-      })
+      if (allToken[coin] && allToken[coin].token && allToken[coin].decimals === dec) {
+        web3.eth.getBalance(from).then(res => {
+          // console.log(res)
+          res = ethers.utils.bigNumberify(res)
+          // resolve(amountFormatter(res))
+          if (coin !== 'ETH') {
+            contract.options.address = allToken[coin].token
+            contract.methods.balanceOf(from).call({from: from}, (err, result) => {
+              // console.log(err)
+              if (err) {
+                resolve('')
+              } else {
+                result = ethers.utils.bigNumberify(result)
+                // console.log(result)
+                // resolve(amountFormatter(result, allToken[coin].decimals))
+                resolve({
+                  ETH: amountFormatter(res),
+                  TOKEN: amountFormatter(result, dec)
+                })
+              }
+            })
+          } else {
+            resolve({
+              ETH: amountFormatter(res),
+              TOKEN: amountFormatter(res)
+            })
+          }
+        })
+      } else {
+        resolve({
+          ETH: '',
+          TOKEN: ''
+        })
+      }
     }
   })
   // web3.eth.getBalance(from).then(res => {
