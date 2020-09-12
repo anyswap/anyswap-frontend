@@ -24,35 +24,40 @@ const tabOrder = [
     icon: require('../../assets/images/icon/application.svg'),
     iconActive: require('../../assets/images/icon/application-purpl.svg'),
     regex: /\/dashboard/,
-    className: ''
+    className: '',
+    isOpen: 1
   },
   {
     path: '/swap',
     textKey: 'swap',
     icon: require('../../assets/images/icon/swap.svg'),
     iconActive: require('../../assets/images/icon/swap-purpl.svg'),
-    regex: /\/swap/
+    regex: /\/swap/,
+    isOpen: 1
   },
   {
     path: '/send',
     textKey: 'send',
     icon: require('../../assets/images/icon/send.svg'),
     iconActive: require('../../assets/images/icon/send-purpl.svg'),
-    regex: /\/send/
+    regex: /\/send/,
+    isOpen: 1
   },
   {
     path: '/add-liquidity',
     textKey: 'pool',
     icon: require('../../assets/images/icon/pool.svg'),
     iconActive: require('../../assets/images/icon/pool-purpl.svg'),
-    regex: /\/add-liquidity|\/remove-liquidity|\/create-exchange.*/
+    regex: /\/add-liquidity|\/remove-liquidity|\/create-exchange.*/,
+    isOpen: 1
   },
   {
     path: '/bridge',
     textKey: 'bridge',
     icon: require('../../assets/images/icon/bridge.svg'),
     iconActive: require('../../assets/images/icon/bridge-purpl.svg'),
-    regex: /\/bridge/
+    regex: /\/bridge/,
+    isOpen: config.isOPenBridge
   },
 ]
 
@@ -367,16 +372,21 @@ function NavigationTabs({ location: { pathname }, history }) {
     <>
 
       <Tabs>
-        {tabOrder.map(({ path, textKey, regex, icon, iconActive, className }, index) => (
-          <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={(className ? className : '')} onMouseEnter={() => {toggleHover(textKey)}} onMouseLeave={() => {toggleHover('')}}>
-            <div className={'icon'}>
-              {/* <img src={pathname.match(regex) || navHover === textKey ? iconActive : icon}/> */}
-              <img alt={''} src={iconActive} className={pathname.match(regex) || navHover === textKey ? '' : 'show'}/>
-              <img alt={''} src={icon} className={pathname.match(regex) || navHover === textKey ? 'show' : ''}/>
-            </div>
-            {t(textKey)}
-          </StyledNavLink>
-        ))}
+        {tabOrder.map(({ path, textKey, regex, icon, iconActive, className, isOpen }, index) => {
+          if (!isOpen) {
+            return
+          }
+          return (
+            <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={(className ? className : '')} onMouseEnter={() => {toggleHover(textKey)}} onMouseLeave={() => {toggleHover('')}}>
+              <div className={'icon'}>
+                {/* <img src={pathname.match(regex) || navHover === textKey ? iconActive : icon}/> */}
+                <img alt={''} src={iconActive} className={pathname.match(regex) || navHover === textKey ? '' : 'show'}/>
+                <img alt={''} src={icon} className={pathname.match(regex) || navHover === textKey ? 'show' : ''}/>
+              </div>
+              {t(textKey)}
+            </StyledNavLink>
+          )
+        })}
       </Tabs>
       <Tabs2>
         {tabOrder2.map(({ path, textKey, regex, icon, iconActive, className }, index) => (

@@ -1,8 +1,8 @@
 import coin from './coin'
 
-const MAINNET = 'https://bsc-dataseed1.binance.org:443'
+const MAINNET = 'https://bsc-dataseed1.binance.org/'
 const MAIN_CHAINID = 56
-const ANY_MAIN_TOKEN = ''
+const ANY_MAIN_TOKEN = 'ANY'
 
 const TESTNET = ' https://data-seed-prebsc-1-s1.binance.org:8545'
 const TEST_CHAINID = 97
@@ -13,7 +13,8 @@ const COIN_BASE ={
   name: 'Binance',
   testUrl: '',
   mainUrl: '',
-  decimals: 18
+  decimals: 18,
+  networkNamr: 'BSC'
 }
 let coinConfig = {
   ...COIN_BASE,
@@ -27,7 +28,7 @@ let coinConfig = {
     [coin.ETH]: {url: ''},
     [coin.USDT]: {url: ''},
   },
-  initToken: ANY_MAIN_TOKEN,
+  initToken: '0xae9269f27437f0fcbc232d39ec814844a51d6b8f',
   initBridge: '',
   explorerUrl: 'https://explorer.binance.org/smart',
   marketsUrl: '',
@@ -38,6 +39,9 @@ let coinConfig = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/',
     btcAddr: ''
   },
+  isOPenBridge: 0,
+  isOpenRewards: 0,
+  isChangeDashboard: 0
 }
 
 function getBNBConfig (type) {
@@ -67,6 +71,9 @@ function getBNBConfig (type) {
       queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
       btcAddr: ''
     },
+    isOPenBridge: 1,
+    isOpenRewards: 0,
+    isChangeDashboard: 0
   }
   return coinConfig
 }

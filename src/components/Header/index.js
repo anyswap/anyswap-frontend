@@ -148,12 +148,11 @@ export default function Header() {
         </HeaderElement>
         <HeaderElement>
           <NetworkBox>
-  <span>{t('onTestnet')}</span> {config.symbol}{config.env === 'test' ? t('testnet') : t('mainnet')}
+            <span>{t('onTestnet')}</span>
+            {config.networkNamr} {config.env === 'test' ? t('testnet') : t('mainnet')}
             <div className='switchTo' onClick={openUrl}>
-              {t('SwitchTo')}{config.symbol}
-              {
-                config.env === 'test' ?  t('mainnet') : t('testnet')
-              }
+              {t('SwitchTo')} {config.networkNamr} 
+              {config.env === 'test' ?  t('mainnet') : t('testnet')}
               <img alt='' src={ArrowRighrPurpleIcon} style={{marginLeft: '8px'}} />
             </div>
           </NetworkBox>

@@ -576,7 +576,7 @@ export default function DashboardDtil () {
   const [fsnPrice, setFsnPrice] = useState('')
 
   useEffect(() => {
-    if (account) {
+    if (account && config.isOpenRewards) {
       getRewards(account).then(res => {
         console.log(res)
         let arr = []
@@ -875,6 +875,76 @@ export default function DashboardDtil () {
    * DAI end
    *  */
 
+  /**
+   * BURGER start
+   *  */
+  poolInfoObj[config.prefix + 'BURGER'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'BURGER'].exchangeAddress)
+  poolInfoObj[config.prefix + 'BURGER'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'BURGER'].exchangeAddress, config.symbol)
+  poolInfoObj[config.prefix + 'BURGER'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'BURGER'].exchangeAddress, allCoins[config.prefix + 'BURGER'].token)
+  const BURGER_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'BURGER'].exchangeAddress)
+
+  const { reserveETH: BURGERreserveETH, reserveToken: BURGERreserveToken } = useExchangeReserves(allCoins[config.prefix + 'BURGER'].token)
+  poolInfoObj[config.prefix + 'BURGER'].marketRate = useMemo(() => {
+    return getMarketRate(BURGERreserveETH, BURGERreserveToken, allCoins[config.prefix + 'BURGER'].decimals)
+  }, [BURGERreserveETH, BURGERreserveToken])
+  
+  const [totalPoolTokensBURGER, setTotalPoolTokensBURGER] = useState()
+  const BURGER_FETCH_POOL_TOKEN_SM = useCallback(() => {
+    if (BURGER_EXCHANGE_TOKEN_BALANCEM) {
+      BURGER_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+        setTotalPoolTokensBURGER(totalSupply)
+      })
+    }
+  }, [BURGER_EXCHANGE_TOKEN_BALANCEM])
+  
+  useEffect(() => {
+    BURGER_FETCH_POOL_TOKEN_SM()
+    library.on('block', BURGER_FETCH_POOL_TOKEN_SM)
+
+    return () => {
+      library.removeListener('block', BURGER_FETCH_POOL_TOKEN_SM)
+    }
+  }, [BURGER_FETCH_POOL_TOKEN_SM, library])
+  poolInfoObj[config.prefix + 'BURGER'].totalPoolTokens = totalPoolTokensBURGER
+  /**
+   * BURGER end
+   *  */
+
+  /**
+   * PEACH start
+   *  */
+  poolInfoObj[config.prefix + 'PEACH'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'PEACH'].exchangeAddress)
+  poolInfoObj[config.prefix + 'PEACH'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'PEACH'].exchangeAddress, config.symbol)
+  poolInfoObj[config.prefix + 'PEACH'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'PEACH'].exchangeAddress, allCoins[config.prefix + 'PEACH'].token)
+  const PEACH_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'PEACH'].exchangeAddress)
+
+  const { reserveETH: PEACHreserveETH, reserveToken: PEACHreserveToken } = useExchangeReserves(allCoins[config.prefix + 'PEACH'].token)
+  poolInfoObj[config.prefix + 'PEACH'].marketRate = useMemo(() => {
+    return getMarketRate(PEACHreserveETH, PEACHreserveToken, allCoins[config.prefix + 'PEACH'].decimals)
+  }, [PEACHreserveETH, PEACHreserveToken])
+  
+  const [totalPoolTokensPEACH, setTotalPoolTokensPEACH] = useState()
+  const PEACH_FETCH_POOL_TOKEN_SM = useCallback(() => {
+    if (PEACH_EXCHANGE_TOKEN_BALANCEM) {
+      PEACH_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+        setTotalPoolTokensPEACH(totalSupply)
+      })
+    }
+  }, [PEACH_EXCHANGE_TOKEN_BALANCEM])
+  
+  useEffect(() => {
+    PEACH_FETCH_POOL_TOKEN_SM()
+    library.on('block', PEACH_FETCH_POOL_TOKEN_SM)
+
+    return () => {
+      library.removeListener('block', PEACH_FETCH_POOL_TOKEN_SM)
+    }
+  }, [PEACH_FETCH_POOL_TOKEN_SM, library])
+  poolInfoObj[config.prefix + 'PEACH'].totalPoolTokens = totalPoolTokensPEACH
+  /**
+   * PEACH end
+   *  */
+
 
   let poolTokenBalanceArr = []
   for (let obj in allCoins) {
@@ -963,15 +1033,17 @@ export default function DashboardDtil () {
   function getPoolToken () {
     // if (!account) return
     // console.log(tokenPoolList)
-    let ANYItem = {}
-    for (let i = 0,len = poolTokenBalanceArr.length; i < len; i++) {
-      if (poolTokenBalanceArr[i].symbol === 'ANY') {
-        ANYItem = poolTokenBalanceArr[i]
-        poolTokenBalanceArr.splice(i, 1)
-        break
+    if (config.isChangeDashboard) {
+      let ANYItem = {}
+      for (let i = 0,len = poolTokenBalanceArr.length; i < len; i++) {
+        if (poolTokenBalanceArr[i].symbol === 'ANY') {
+          ANYItem = poolTokenBalanceArr[i]
+          poolTokenBalanceArr.splice(i, 1)
+          break
+        }
       }
+      poolTokenBalanceArr.unshift(ANYItem)
     }
-    poolTokenBalanceArr.unshift(ANYItem)
     return (
       <MyBalanceTokenBox1>
         <TokenTableBox>
@@ -1095,15 +1167,17 @@ export default function DashboardDtil () {
       }
     })
     // console.log(tokenList)
-    let ANYItem = {}
-    for (let i = 0,len = tokenList.length; i < len; i++) {
-      if (tokenList[i].symbol === 'ANY') {
-        ANYItem = tokenList[i]
-        tokenList.splice(i, 1)
-        break
+    if (config.isChangeDashboard) {
+      let ANYItem = {}
+      for (let i = 0,len = tokenList.length; i < len; i++) {
+        if (tokenList[i].symbol === 'ANY') {
+          ANYItem = tokenList[i]
+          tokenList.splice(i, 1)
+          break
+        }
       }
+      tokenList.unshift(ANYItem)
     }
-    tokenList.unshift(ANYItem)
     return (
         <TokenTableBox>
           {
@@ -1188,7 +1262,7 @@ export default function DashboardDtil () {
         <EarningsBox>
           <div className='bgImg'><img src={AnyillustrationIcon} alt={''} /></div>
           <RewardsBox>
-            {accountRewars.length > 0 ? (
+            {accountRewars.length > 0 && config.isOpenRewards ? (
               <>
                 {accountRewars.map((item, index)  => {
                   return (
@@ -1229,11 +1303,11 @@ export default function DashboardDtil () {
           </div> */}
         </EarningsBox>
         <ProvideLiqBox>
-        <TitleAndSearchBox>
-          <h3>{t('ProvidingLiquidity')}</h3>
-          {searchBox(2)}
-        </TitleAndSearchBox>
-        {getPoolToken()}
+          <TitleAndSearchBox>
+            <h3>{t('ProvidingLiquidity')}</h3>
+            {searchBox(2)}
+          </TitleAndSearchBox>
+          {getPoolToken()}
         </ProvideLiqBox>
       </WrapperBox>
     </>

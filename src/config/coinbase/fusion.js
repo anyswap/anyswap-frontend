@@ -12,7 +12,8 @@ const COIN_BASE ={
   name: 'Fusion',
   testUrl: 'https://test.anyswap.exchange',
   mainUrl: 'https://anyswap.exchange',
-  decimals: 18
+  decimals: 18,
+  networkNamr: 'FSN'
 }
 let coinConfig = {
   ...COIN_BASE,
@@ -37,6 +38,9 @@ let coinConfig = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/',
     btcAddr: '1FJSkpkPYhDJoJzMhA2LRSgrmUJHxtVQpj'
   },
+  isOPenBridge: 1,
+  isOpenRewards: 1,
+  isChangeDashboard: 1
 }
 
 function getFSNConfig (type) {
@@ -66,6 +70,9 @@ function getFSNConfig (type) {
       queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
       btcAddr: 'mmBUP62PJNDndtSvH4ef65gUAucgQY5dqA'
     },
+    isOPenBridge: 1,
+    isOpenRewards: 1,
+    isChangeDashboard: 1
   }
   return coinConfig
 }
