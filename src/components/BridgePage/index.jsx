@@ -2022,14 +2022,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       {
         // isDeposit ? (
         isDeposit === 0 || isRedeem === 0 ? (
-          <MintWarningTip>
-            {/* 💀 {t('bridgeMintTip', { account })} */}
-            <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
-            {/* {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})} */}
-            <span dangerouslySetInnerHTML = { 
-              {__html: t('brStopTip')}
-            }></span>
-          </MintWarningTip>
+          (isDeposit === 0 && isRedeem === 0 ? '' : (
+            <MintWarningTip>
+              {/* 💀 {t('bridgeMintTip', { account })} */}
+              <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+              {/* {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})} */}
+              <span dangerouslySetInnerHTML = { 
+                {__html: t('brStopTip')}
+              }></span>
+            </MintWarningTip>
+          ))
         ) : ''
       }
       {

@@ -31,7 +31,7 @@ let coinConfig = {
     [coin.USDT]: {url: ''},
   },
   initToken: INIT_MAIN_TOKEN,
-  initBridge: '0xae9269f27437f0fcbc232d39ec814844a51d6b8f',
+  initBridge: 'BTC',
   explorerUrl: 'https://bscscan.com',
   marketsUrl: '',
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
@@ -44,7 +44,12 @@ let coinConfig = {
   isOPenBridge: 0,
   isOpenRewards: 0,
   isChangeDashboard: 0,
-  noSupportBridge: [COIN_BASE.symbol]
+  noSupportBridge: [
+    COIN_BASE.symbol,
+    '0xae9269f27437f0fcbc232d39ec814844a51d6b8f',
+    '0x55d398326f99059ff775485246999027b3197955',
+    '0xacd6b5f76db153fb45eae6d5be5bdbd45d1b2a8c',
+  ]
 }
 
 function getBNBConfig (type) {
