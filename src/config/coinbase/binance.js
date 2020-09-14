@@ -21,7 +21,7 @@ const COIN_BASE ={
   decimals: 18,
   networkNamr: 'BSC'
 }
-const INIT_MAIN_TOKEN = '0xae9269f27437f0fcbc232d39ec814844a51d6b8f'
+const INIT_MAIN_TOKEN = '0x55d398326f99059ff775485246999027b3197955'
 const INIT_TEST_TOKEN = ANY_TEST_TOKEN
 let coinConfig = {
   ...COIN_BASE,

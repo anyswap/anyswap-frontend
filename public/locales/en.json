@@ -186,5 +186,9 @@
   "sendTip": "Please do NOT send funds to exchanges. To send to an exchange, please use a wallet like Metamask or <a href='https://whallet.net' target='_blank'>whallet.net</a>",
   "brStopTip": "Deposit and Withdraw stopped, node maintenance!",
   "FSNnoBalance": "Insufficient Balance",
-  "BTCmintTip": "No new deposit transaction found. Please send BTC to deposit address first."
+  "BTCmintTip": "No new deposit transaction found. Please send BTC to deposit address first.",
+  "tokenByUserTip": "The Anyswap smart contracts are designed to support any ERC20 token on Fusion. Any token can be loaded into the interface by entering its Fusion address into the search field or passing it as a URL parameter. Be careful when interacting with imported tokens as they have not been verified.",
+  "validTxnsTip": "Please verify the legitimacy of this token before making any transactions.",
+  "TokenImportedByUser": "Token imported by user",
+  "TokenImportedByURL": "Token imported by URL"
 }

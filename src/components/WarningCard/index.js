@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 import { useWeb3React } from '../../hooks'
 import { useTokenDetails } from '../../contexts/Tokens'
@@ -9,6 +10,8 @@ import { Link } from '../../theme'
 import TokenLogo from '../TokenLogo'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import question from '../../assets/images/question.svg'
+
+import config from '../../config'
 
 const Flex = styled.div`
   display: flex;
@@ -130,6 +133,7 @@ function WarningCard({ onDismiss, urlAddedTokens, currency }) {
   const { chainId } = useWeb3React()
   const { symbol: inputSymbol, name: inputName } = useTokenDetails(currency)
   const fromURL = urlAddedTokens.hasOwnProperty(currency)
+  const { t } = useTranslation()
 
   return (
     <Wrapper>
@@ -137,7 +141,7 @@ function WarningCard({ onDismiss, urlAddedTokens, currency }) {
         <CloseColor alt={'close icon'} />
       </CloseIcon>
       <Row style={{ fontSize: '0.75rem' }}>
-        <Text>{fromURL ? 'Token imported by URL ' : 'Token imported by user'}</Text>
+        <Text>{fromURL ? t('TokenImportedByURL') : t('TokenImportedByUser')}</Text>
         <QuestionWrapper
           onClick={() => {
             setPopup(!showPopup)
@@ -154,9 +158,7 @@ function WarningCard({ onDismiss, urlAddedTokens, currency }) {
         {showPopup ? (
           <Popup>
             <Text>
-              The Anyswap smart contracts are designed to support any ERC20 token on Fusion. Any token can be loaded
-              into the interface by entering its Fusion address into the search field or passing it as a URL
-              parameter. Be careful when interacting with imported tokens as they have not been verified.
+              {t('tokenByUserTip')}
             </Text>
           </Popup>
         ) : (
@@ -167,11 +169,11 @@ function WarningCard({ onDismiss, urlAddedTokens, currency }) {
         <TokenLogo address={currency} />
         <div style={{ fontWeight: 500 }}>{inputName && inputSymbol ? inputName + ' (' + inputSymbol + ')' : ''}</div>
         <Link style={{ fontWeight: 400 }} href={getEtherscanLink(chainId, currency, 'address')}>
-          (View on Etherscan)
+          (View on {config.name})
         </Link>
       </Row>
       <Row style={{ fontSize: '0.75rem', fontStyle: 'italic' }}>
-        <Text>Please verify the legitimacy of this token before making any transactions.</Text>
+        <Text>{t('validTxnsTip')}</Text>
       </Row>
     </Wrapper>
   )
