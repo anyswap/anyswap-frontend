@@ -1,10 +1,17 @@
-import coin from './coin'
-const MAINNET = 'https://mainnet.anyswap.exchange'
-const MAIN_CHAINID = 32659
-const ANY_MAIN_TOKEN = '0x0c74199D22f732039e843366a236Ff4F61986B32'
+import {getBaseCoin} from './coin'
+import {
+  FSN_MAINNET,
+  FSN_MAIN_CHAINID,
+  FSN_MAIN_EXPLORER,
+  FSN_TESTNET,
+  FSN_TEST_CHAINID,
+  FSN_TEST_EXPLORER,
+} from './nodeConfig'
 
-const TESTNET = 'https://testnet.anyswap.exchange'
-const TEST_CHAINID = 46688
+
+const COIN = getBaseCoin('a')
+
+const ANY_MAIN_TOKEN = '0x0c74199D22f732039e843366a236Ff4F61986B32'
 const ANY_TEST_TOKEN = '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
 
 const COIN_BASE ={
@@ -21,19 +28,19 @@ const INIT_TEST_TOKEN = ANY_TEST_TOKEN
 
 let coinConfig = {
   ...COIN_BASE,
-  nodeRpc: MAINNET,
-  chainID: MAIN_CHAINID,
+  nodeRpc: FSN_MAINNET,
+  chainID: FSN_MAIN_CHAINID,
   any: {
     token: ANY_MAIN_TOKEN
   },
   coininfo: {
-    [coin.BTC]: {url: 'https://btcapi.anyswap.exchange/rpc'},
-    [coin.ETH]: {url: 'https://ethapi.anyswap.exchange/rpc'},
-    [coin.USDT]: {url: 'https://usdtapi.anyswap.exchange/rpc'},
+    [COIN.BTC]: {url: 'https://btcapi.anyswap.exchange/rpc'},
+    [COIN.ETH]: {url: 'https://ethapi.anyswap.exchange/rpc'},
+    [COIN.USDT]: {url: 'https://usdtapi.anyswap.exchange/rpc'},
   },
   initToken: INIT_MAIN_TOKEN,
   initBridge: '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496',
-  explorerUrl: 'https://fsnex.com',
+  explorerUrl: FSN_MAIN_EXPLORER,
   marketsUrl: 'https://markets.anyswap.exchange/#/',
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btcConfig: {
@@ -45,7 +52,7 @@ let coinConfig = {
   isOPenBridge: 1,
   isOpenRewards: 1,
   isChangeDashboard: 1,
-  noSupportBridge: [COIN_BASE.symbol, ANY_MAIN_TOKEN]
+  noSupportBridge: [COIN_BASE.symbol, ANY_MAIN_TOKEN],
 }
 
 function getFSNConfig (type) {
@@ -54,19 +61,19 @@ function getFSNConfig (type) {
   }
   coinConfig = {
     ...COIN_BASE,
-    nodeRpc: TESTNET,
-    chainID: TEST_CHAINID,
+    nodeRpc: FSN_TESTNET,
+    chainID: FSN_TEST_CHAINID,
     any: {
       token: ANY_TEST_TOKEN
     },
     coininfo: {
-      [coin.BTC]: {url: 'https://testbtcapi.anyswap.exchange/rpc'},
-      [coin.ETH]: {url: 'https://testethapi.anyswap.exchange/rpc'},
-      [coin.USDT]: {url: 'https://testusdtapi.anyswap.exchange/rpc'},
+      [COIN.BTC]: {url: 'https://testbtcapi.anyswap.exchange/rpc'},
+      [COIN.ETH]: {url: 'https://testethapi.anyswap.exchange/rpc'},
+      [COIN.USDT]: {url: 'https://testusdtapi.anyswap.exchange/rpc'},
     },
     initToken: INIT_TEST_TOKEN,
     initBridge: '0x3368e6012066bc08ece5f2b2582c883cca1424e5',
-    explorerUrl: 'https://fsnex.com',
+    explorerUrl: FSN_TEST_EXPLORER,
     marketsUrl: 'https://markets.anyswap.exchange/#/',
     document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
     btcConfig: {
@@ -78,7 +85,7 @@ function getFSNConfig (type) {
     isOPenBridge: 1,
     isOpenRewards: 1,
     isChangeDashboard: 1,
-    noSupportBridge: [COIN_BASE.symbol, ANY_TEST_TOKEN]
+    noSupportBridge: [COIN_BASE.symbol, ANY_TEST_TOKEN],
   }
   return coinConfig
 }

@@ -49,8 +49,8 @@ import Copy from '../AccountDetails/Copy'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
 
-import {getErcBalance, HDsendERC20Txns, MMsendERC20Txns, getHashStatus} from '../../utils/web3/Erc20Web3'
-import ERC20_TOKEN from '../../contexts/Tokens_erc20'
+import {getErcBalance, HDsendERC20Txns, MMsendERC20Txns, getHashStatus} from '../../utils/web3/BridgeWeb3'
+import BridgeTokens from '../../contexts/BridgeTokens'
 
 import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/BTC'
 import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
@@ -69,65 +69,6 @@ const DownArrowBackground = styled.div`
   border-radius: 6px;
   margin: 3px auto;
   cursor:pointer;
-`
-
-// const WrappedArrowDown = ({ clickable, active, ...rest }) => <ArrowDown {...rest} />
-// const DownArrow = styled(WrappedArrowDown)`
-//   color: ${({ theme, active }) => (active ? theme.royalBlue : theme.chaliceGray)};
-//   width: 0.625rem;
-//   height: 0.625rem;
-//   position: relative;
-//   padding: 0.875rem;
-//   cursor: ${({ clickable }) => clickable && 'pointer'};
-// `
-const DownArrow = styled.div`
-  width: 32px;
-  height: 32px;
-  padding:8px;
-  margin: 3px auto;
-  cursor: pointer;
-  img {
-    height: 100%;
-    display: block;
-  }
-`
-
-const ExchangeRateWrapper = styled.div`
-${({ theme }) => theme.FlexEC};
-  width: 100%;
-  height: 48px;
-  object-fit: contain;
-  border-radius: 0.5625rem;
-  background: ${({ theme }) => theme.dtilContentBg};
-  font-family: 'Manrope';
-  font-size: 0.75rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-align: right;
-  color: #062536;
-  padding: 0 2.5rem;
-  margin-top:0.625rem;
-  span {
-    height: 0.75rem;
-    font-family: 'Manrope';
-    font-size: 0.75rem;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1;
-    letter-spacing: normal;
-    text-align: right;
-    color: #062536;
-  }
-`
-
-const ExchangeRate = styled.div`
-  flex: 1 1 auto;
-  width: 0;
-  color: ${({ theme }) => theme.doveGray};
 `
 
 const Flex = styled.div`
@@ -931,11 +872,19 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             let DepositAddress = ''
             if (inputSymbol !== config.prefix + 'BTC') {
               DepositAddress = dObj.DepositAddress
-              let erc20Token = coin !== 'ETH' ? ERC20_TOKEN[config.ercConfig.chainID][coin].token : ''
+              let erc20Token = ''
+              if (config.symbol === 'FSN') {
+                erc20Token = coin !== 'ETH' ? BridgeTokens[config.bridge.chainID][coin].token : ''
+              } else if (config.symbol === 'BNB') {
+                erc20Token = coin !== 'FSN' ? BridgeTokens[config.bridge.chainID][coin].token : ''
+              }
               if (
                 (initDepositAddress.toLowerCase() !== DepositAddress.toLowerCase())
                 || (inputCurrency.toLowerCase() !== rObj.ContractAddress.toLowerCase())
-                || (coin !== 'ETH' && erc20Token.toLowerCase() !== dObj.ContractAddress.toLowerCase())
+                || (
+                    ((coin !== 'ETH' && config.symbol === 'FSN') || (coin !== 'FSN' && config.symbol === 'BNB')) 
+                    && erc20Token.toLowerCase() !== dObj.ContractAddress.toLowerCase()
+                  )
               ) {
                 setInit(0)
                 return
@@ -1008,7 +957,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
       if (coin) {
         getErcBalance(coin, account, inputDecimals).then(res => {
-          // console.log(inputSymbol)
+          // console.log(res)
           // console.log(config.prefix + coin)
           if (inputSymbol !== config.prefix + coin) {
             setOutNetBalance('')
@@ -1031,7 +980,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     setOutNetBalance('')
     setOutNetETHBalance('')
     getOutBalance()
-  }, [inputCurrency, account])
+  }, [inputCurrency, account, isDeposit, isRedeem])
 
   useEffect(() => {
     getOutBalance()
@@ -1605,10 +1554,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 <MintListCenter>
                   <WalletConnectData size={160} uri={registerAddress} />
                 </MintListCenter>
-                {/* <FlexCneter>
-                  <Button onClick={MintModelView}  style={{marginRight: '10px'}}  >{t('close')}</Button>
-                  <Button onClick={mintAmount} >{t('mint')}</Button>
-                </FlexCneter> */}
               </MintDiv>
             </ContentWrapper>
           </UpperSection>
@@ -1673,7 +1618,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       mintDtil.coin === 'BTC' ? (
                         <a href={config.btcConfig.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
                       ) : (
-                        <a href={config.ercConfig.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
+                        <a href={config.bridge.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
                       )
                     }
                     <Copy toCopy={mintDtil.hash} />
@@ -1846,9 +1791,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   inputVal = ''
                 } else if (inputVal > Number(redeemMaxNum)) {
                   inputVal = redeemMaxNum
-                } else {
-                  // inputVal = inputVal.toFixed(Math.min(8, inputDecimals))
-                  inputVal = inputVal
                 }
                 value = inputVal
                 let _fee = Number(inputVal) * Number(fee)

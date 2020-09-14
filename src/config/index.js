@@ -1,49 +1,120 @@
 
-import coin from './coinbase/coin'
+import {getBaseCoin} from './coinbase/coin'
 import getFSNConfig from './coinbase/fusion'
 import getBNBConfig from './coinbase/binance'
-// console.log(coin)
-const ENV_CONFIG = 'BNB_MAIN'
+import {
+  FSN_MAINNET,
+  FSN_MAIN_CHAINID,
+  FSN_MAIN_EXPLORER,
+  FSN_TESTNET,
+  FSN_TEST_CHAINID,
+  FSN_TEST_EXPLORER,
+
+  BNB_MAINNET,
+  BNB_MAIN_CHAINID,
+  BNB_MAIN_EXPLORER,
+  BNB_TESTNET,
+  BNB_TEST_CHAINID,
+  BNB_TEST_EXPLORER,
+
+  ETH_MAINNET,
+  ETH_MAIN_CHAINID,
+  ETH_MAIN_EXPLORER,
+  ETH_TESTNET,
+  ETH_TEST_CHAINID,
+  ETH_TEST_EXPLORER
+} from './coinbase/nodeConfig'
+
+// const ENV_CONFIG = 'BNB_MAIN'
 // const ENV_CONFIG = 'BNB_TEST'
-// const ENV_CONFIG = 'FSN_TEST'
+const ENV_CONFIG = 'FSN_TEST'
 // const ENV_CONFIG = 'FSN_MAIN'
+
+
 let netArr = ENV_CONFIG.split('_')
+
+let useBridge = ''
+
 let netConfig = {}
+let prefix = 'a'
 if (netArr[0] === 'FSN') {
   netConfig = getFSNConfig(netArr[1])
+  if (netArr[1].toLowerCase() === 'main') {
+    useBridge = ETH_MAIN_CHAINID
+  } else {
+    useBridge = ETH_TEST_CHAINID
+  }
 } else if (netArr[0] === 'BNB') {
   netConfig = getBNBConfig(netArr[1])
-  coin.prefix = ''
+  if (netArr[1].toLowerCase() === 'main') {
+    useBridge = FSN_MAIN_CHAINID
+  } else {
+    useBridge = FSN_TEST_CHAINID
+  }
+  prefix = ''
 }
 
+const COIN = getBaseCoin(prefix)
 // /**
 //  * @description 配置以太坊网络节点
 //  */
-let ercConfig = {
-      chainID: 4,
-      nodeRpc: 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0',
-      lookHash: 'https://rinkeby.etherscan.io/tx/'
-    },
-    reg = {
-      [coin.BTC]: /^[13][0-9a-zA-Z]{26,34}$|^[2mn][0-9a-zA-Z]{25,34}$/
-    }
+let reg = {
+  [COIN.BTC]: /^[13][0-9a-zA-Z]{26,34}$|^[2mn][0-9a-zA-Z]{25,34}$/
+}
+let bridge = {
+  46688: {
+    rpc: FSN_TESTNET,
+    chainID: FSN_TEST_CHAINID,
+    lookHash: FSN_TEST_EXPLORER + '/tx/',
+    isOpen: 1
+  },
+  97: {
+    rpc: BNB_TESTNET,
+    chainID: BNB_TEST_CHAINID,
+    lookHash: BNB_TEST_EXPLORER + '/tx/',
+    isOpen: 0
+  },
+  4: {
+    rpc: ETH_TESTNET,
+    chainID: ETH_TEST_CHAINID,
+    lookHash: ETH_TEST_EXPLORER + '/tx/',
+    isOpen: 0
+  },
+}
 if (netArr[1].toLowerCase() === 'main') {
-  ercConfig = {
-    chainID: 1,
-    // nodeRpc: 'https://mainnet.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0',
-    nodeRpc: 'https://ethmainnet.anyswap.exchange',
-    lookHash: 'https://etherscan.io/tx/'
-  }
   reg = {
-    [coin.BTC]: /^[13][0-9a-zA-Z]{26,34}$/
+    [COIN.BTC]: /^[13][0-9a-zA-Z]{26,34}$/
+  }
+  bridge = {
+    32659: {
+      rpc: FSN_MAINNET,
+      chainID: FSN_MAIN_CHAINID,
+      lookHash: FSN_MAIN_EXPLORER + '/tx/',
+      isOpen: 1
+    },
+    56: {
+      rpc: BNB_MAINNET,
+      chainID: BNB_MAIN_CHAINID,
+      lookHash: BNB_MAIN_EXPLORER + '/tx/',
+      isOpen: 0
+    },
+    1: {
+      rpc: ETH_MAINNET,
+      chainID: ETH_MAIN_CHAINID,
+      lookHash: ETH_MAIN_EXPLORER + '/tx/',
+      isOpen: 1
+    },
   }
 }
 
+// console.log(bridge[useBridge])
+// console.log(useBridge)
 export default {
   ...netConfig,
-  ...coin,
+  ...COIN,
   env: netArr[1].toLowerCase(),
   supportWallet: ['Ledger'],
   reg,
-  ercConfig,
+  bridge: bridge[useBridge],
+  bridgeType: useBridge
 }

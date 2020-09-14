@@ -1,9 +1,8 @@
 import config from '../../config'
 import ERC20_ABI from '../../constants/abis/erc20'
-import TOKEN from '../../contexts/Tokens_erc20'
+import TOKEN from '../../contexts/BridgeTokens'
 import {toSign as toLedgerSign} from '../wallets/ledger/index'
 import { ethers } from 'ethers'
-import axios from 'axios'
 
 import { amountFormatter } from '../index'
 import { getChainHashStatus } from '../birdge'
@@ -12,11 +11,12 @@ import { getChainHashStatus } from '../birdge'
 const Tx  = require("ethereumjs-tx")
 
 
-const ERC20_RPC = config.ercConfig.nodeRpc
-const allToken = TOKEN[config.ercConfig.chainID]
-// console.log(ERC20_RPC)
+const BRIDGE_RPC = config.bridge.rpc
+const BRIDGE_CHAIND = config.bridge.chainID
+const allToken = TOKEN[BRIDGE_CHAIND]
+// console.log(BRIDGE_RPC)
 const Web3 = require('web3')
-const web3 = new Web3(new Web3.providers.HttpProvider(ERC20_RPC))
+const web3 = new Web3(new Web3.providers.HttpProvider(BRIDGE_RPC))
 let contract = new web3.eth.Contract(ERC20_ABI)
 // console.log(web3.eth.accounts.recoverTransaction('0xf8763b844190ab008301ec309406cadd991f2ec8e156c0ae66116c5604fdcdc5b592313030303030303030303030303030303030802ba02f22fa4a0876de138c096496a6500e8489c44757ad1d5fa64510ba21191ece49a051a30d66a9accbe384bf56bc461d1630ecb2b46e96af310e46b96dd2955b345b'))
 let mmWeb3
@@ -37,18 +37,13 @@ function MMsign (from, msg) {
       // console.log(rsv)
       if (!err || rsv.result) {
         rsv = rsv.result.indexOf('0x') === 0 ? rsv.result.replace('0x', '') : rsv.result
-        // console.log(rsv.substr(128))
-        // console.log(parseInt(rsv.substr(128)))
         let v = '0x' + rsv.substr(128)
-        // v = parseInt(v) + 8 + config.ercConfig.chainID * 2
-        v = config.ercConfig.chainID * 2 + 35 + parseInt(v) - 27
+        v = BRIDGE_CHAIND * 2 + 35 + parseInt(v) - 27
         // console.log(v)
         resolve({
           r: '0x' + rsv.substr(0, 64),
           s: '0x' + rsv.substr(64, 64),
-          // v: web3.utils.toHex(config.ercConfig.chainID * 2 + 35 + parseInt(rsv.substr(128)))
           v: web3.utils.toHex(v)
-          // v: '0x' + rsv.substr(128),
         })
       } else {
         console.log(err)
@@ -167,7 +162,7 @@ export const getErcBalance = (coin, from, dec) => {
       resolve('')
     } else {
       coin = coin.replace('a', '')
-      if (allToken[coin] && allToken[coin].token && allToken[coin].decimals === dec) {
+      if (coin === 'ETH' || (allToken[coin] && allToken[coin].token && allToken[coin].decimals === dec)) {
         web3.eth.getBalance(from).then(res => {
           // console.log(res)
           res = ethers.utils.bigNumberify(res)
@@ -220,7 +215,7 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
   // console.log(value)
   let data = {
     from,
-    chainId: web3.utils.toHex(config.ercConfig.chainID),
+    chainId: web3.utils.toHex(BRIDGE_CHAIND),
     gas: '',
     gasPrice: "",
     nonce: "",
@@ -348,4 +343,3 @@ export function HDsendERC20Txns (coin, from, to, value, PlusGasPricePercentage) 
     })
   })
 }
-// export default erc20Web3

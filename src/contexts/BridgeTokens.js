@@ -815,5 +815,58 @@ export default {
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x2fe489c50166bde402f940b86dcb707e0a4505d2'
     }
+  },
+  32659: {
+    'ANY': {
+      [NAME]: 'Anyswap',
+      [TOKEN]: '0x0c74199D22f732039e843366a236Ff4F61986B32',
+      [SYMBOL]: 'ANY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x049ddc3cd20ac7a2f6c867680f7e21de70aca9c3'
+    },
+    'USDT': {
+      [NAME]: 'ANY Tether',
+      [TOKEN]: '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496',
+      [SYMBOL]: 'USDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x78917333bec47cee1022b31a136d31feff90d6fb'
+    },
+    'ETH': {
+      [NAME]: 'ANY Ethereum',
+      [TOKEN]: '0x5e12290c7e7eda58d092632a53bbbc717996c732',
+      [SYMBOL]: 'ETH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x9ced18b0f8d7602f50d0061e6487021ec8114a1d'
+    },
+  },
+  46688: {
+    'ANY': {
+      [NAME]: 'Anyswap',
+      [TOKEN]: '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4',
+      [SYMBOL]: 'ANY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x4dee5f0705ff478b452419375610155b5873ef5b'
+    },
+    'USDT': {
+      [NAME]: 'ANY Tether',
+      [TOKEN]: '0x3368e6012066bc08ece5f2b2582c883cca1424e5',
+      [SYMBOL]: 'USDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0xe7fcfac393216739267f46b35b81e2e0fcea3448'
+    },
+    'ETH': {
+      [NAME]: 'ANY Ethereum',
+      [TOKEN]: '0xb22ab4fb2fed7564915c2356d15ba9bab51953a2',
+      [SYMBOL]: 'ETH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xd7c2a32e474da50dd117670edb95fa4109670880'
+    },
+    'BTC': {
+      [NAME]: 'ANY Bitcoin',
+      [TOKEN]: '0x6159f8524562c7b6954c1134beca6dec62677f51',
+      [SYMBOL]: 'BTC',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xc375117c72c3a5698cf5a37087f8fd3154e498a2'
+    }
   }
 }

@@ -163,7 +163,7 @@ function CreateExchange({ location, params }) {
       setErrorMessage()
     }
   }, [tokenAddress.address, symbol, decimals, exchangeAddress, account, t, tokenAddressError])
-  console.log(tokenAddress.address)
+  // console.log(tokenAddress.address)
   async function createExchange() {
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
