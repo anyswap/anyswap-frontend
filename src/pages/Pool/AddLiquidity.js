@@ -662,6 +662,21 @@ export default function AddLiquidity({ params }) {
       }
     )
 
+    // let estimatedGasLimit
+    // try {
+    //   estimatedGasLimit = await exchangeContract.estimate.addLiquidity(
+    //     isNewExchange ? ethers.constants.Zero : liquidityTokensMin,
+    //     isNewExchange ? outputValueParsed : outputValueMax,
+    //     deadline,
+    //     {
+    //       value: inputValueParsed
+    //     }
+    //   )
+    // } catch (error) {
+    //   // console.log(error)
+    //   estimatedGasLimit = ethers.utils.bigNumberify(200000)
+    // }
+
     const gasLimit = calculateGasMargin(estimatedGasLimit, GAS_MARGIN)
 
     exchangeContract
@@ -948,7 +963,7 @@ export default function AddLiquidity({ params }) {
       />
       <SummaryPanelBox>
         <>
-          {isSwitch ? txnsInfoTaggle() : (<div></div>)}
+          {config.dirSwitchFn(isSwitch) ? txnsInfoTaggle() : (<div></div>)}
         </>
         <SummaryPanel>
           <ExchangeRateWrapper>
@@ -1004,7 +1019,7 @@ export default function AddLiquidity({ params }) {
         </NewExchangeWarningText>
       )}
       <WarningTip></WarningTip>
-      {isSwitch ? (
+      {config.dirSwitchFn(isSwitch) ? (
         <Flex>
           {
             account ? (

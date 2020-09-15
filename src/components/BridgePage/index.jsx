@@ -828,7 +828,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     symbol: inputSymbol,
     decimals: inputDecimals,
     name: inputName,
-    isSwitch,
     depositType,
     depositAddress: initDepositAddress,
     isDeposit: initIsDeposit,
@@ -848,7 +847,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   useEffect(() => {
     setInit(1)
-    if (account && config.coininfo[inputSymbol] && config.coininfo[inputSymbol].url && isSwitch) {
+    if (account && config.coininfo[inputSymbol] && config.coininfo[inputSymbol].url && initIsDeposit && initIsRedeem) {
       let url = config.coininfo[inputSymbol].url
       let coin = inputSymbol.replace(config.prefix, '')
       RegisterAddress(url, account, coin).then(res => {
@@ -948,7 +947,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     } else {
       setInit(0)
     }
-  }, [inputCurrency, account, initDepositAddress, initIsDeposit, initDepositMaxNum, initDepositMinNum, initIsRedeem, initRedeemMaxNum, initRedeemMinNum, initMaxFee, initMinFee, initFee, inputSymbol, isSwitch])
+  }, [inputCurrency, account, initDepositAddress, initIsDeposit, initDepositMaxNum, initDepositMinNum, initIsRedeem, initRedeemMaxNum, initRedeemMinNum, initMaxFee, initMinFee, initFee, inputSymbol])
 
   const [outNetBalance, setOutNetBalance] = useState()
   const [outNetETHBalance, setOutNetETHBalance] = useState()
@@ -2036,7 +2035,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         ) : ''
       }
       <WarningTip></WarningTip>
-      {isSwitch && (isDeposit || isRedeem) ? (
+      {isDeposit || isRedeem ? (
         <>
           <Flex>
             {

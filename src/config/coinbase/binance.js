@@ -8,10 +8,7 @@ import {
   BNB_TEST_EXPLORER,
 } from './nodeConfig'
 
-
 const COIN = getBaseCoin()
-const ANY_MAIN_TOKEN = 'ANY'
-const ANY_TEST_TOKEN = '0x4ce47351aeafbd81f9888187288996fe0322ffa2'
 
 const COIN_BASE ={
   symbol: 'BNB',
@@ -19,17 +16,15 @@ const COIN_BASE ={
   testUrl: 'https://bsctest.anyswap.exchange',
   mainUrl: 'https://bsc.anyswap.exchange',
   decimals: 18,
-  networkNamr: 'BSC'
+  networkNamr: 'BSC',
+  reverseSwitch: 0
 }
 const INIT_MAIN_TOKEN = '0x55d398326f99059ff775485246999027b3197955'
-const INIT_TEST_TOKEN = ANY_TEST_TOKEN
+const INIT_TEST_TOKEN = '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711'
 let coinConfig = {
   ...COIN_BASE,
   nodeRpc: BNB_MAINNET,
   chainID: BNB_MAIN_CHAINID,
-  any: {
-    token: ANY_MAIN_TOKEN
-  },
   coininfo: {
     // [COIN.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
     [COIN.ETH]: {url: ''},
@@ -67,9 +62,6 @@ function getBNBConfig (type) {
     ...COIN_BASE,
     nodeRpc: BNB_TESTNET,
     chainID: BNB_TEST_CHAINID,
-    any: {
-      token: ANY_TEST_TOKEN
-    },
     coininfo: {
       // [COIN.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
       [COIN.ETH]: {url: ''},

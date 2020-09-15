@@ -106,7 +106,15 @@ if (netArr[1].toLowerCase() === 'main') {
     },
   }
 }
-
+const dirSwitchFn = (type) => {
+  if (netConfig.reverseSwitch) {
+    if (type) return 1
+    else return 0
+  } else {
+    if (type) return 0
+    else return 1
+  }
+}
 // console.log(bridge[useBridge])
 // console.log(useBridge)
 export default {
@@ -116,5 +124,6 @@ export default {
   supportWallet: ['Ledger'],
   reg,
   bridge: bridge[useBridge],
-  bridgeType: useBridge
+  bridgeType: useBridge,
+  dirSwitchFn
 }

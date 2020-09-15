@@ -20,7 +20,8 @@ const COIN_BASE ={
   testUrl: 'https://test.anyswap.exchange',
   mainUrl: 'https://anyswap.exchange',
   decimals: 18,
-  networkNamr: 'FSN'
+  networkNamr: 'FSN',
+  reverseSwitch: 0
 }
 
 const INIT_MAIN_TOKEN = ANY_MAIN_TOKEN

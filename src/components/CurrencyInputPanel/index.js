@@ -1209,7 +1209,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
             </TokenSymbolGroup>
           </TokenRowLeft>
           {
-            isSwitch ? '' : (
+            config.dirSwitchFn(isSwitch) ? '' : (
               <>
                 <ComineSoon>
                 <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
@@ -1224,7 +1224,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
                 <TokenRowBalanceText>{t('balances')}</TokenRowBalanceText>
                 <TokenRowBalance>{balance && (balance > 0 || balance === '<0.000001') ? (balance + ' ' + symbol) : '-'}</TokenRowBalance>
               </>
-            ) : (account && isSwitch ? (
+            ) : (account && config.dirSwitchFn(isSwitch) ? (
               <SpinnerWrapper src={Circle} alt="loader" />
             ) : '-'
             )}

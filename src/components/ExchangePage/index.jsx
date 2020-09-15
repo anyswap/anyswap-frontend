@@ -480,9 +480,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const { symbol: outputSymbol, decimals: outputDecimals, exchangeAddress: outputExchangeAddress, isSwitch: outputIsSwitch } = useTokenDetails(
     outputCurrency
   )
-  // console.log(inputIsSwitch)
-  // console.log(outputIsSwitch)
-  // console.log(outputCurrency)
 
   const inputExchangeContract = useExchangeContract(inputExchangeAddress)
   const outputExchangeContract = useExchangeContract(outputExchangeAddress)
@@ -1028,7 +1025,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
     return (
       <>
-        {inputIsSwitch && outputIsSwitch ? (
+        {config.dirSwitchFn(inputIsSwitch) && config.dirSwitchFn(outputIsSwitch) ? (
           <TxnsDtilBtn>
             <div className={'left' + (isError ? ' red' : '')}>
               {!allowExpand && contextualInfo ? contextualInfo : (
@@ -1248,7 +1245,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         ''
       )}
       <WarningTip></WarningTip>
-      {inputIsSwitch && outputIsSwitch ? (
+      {config.dirSwitchFn(inputIsSwitch) && config.dirSwitchFn(outputIsSwitch) ? (
         <Flex>
           <Button
             disabled={

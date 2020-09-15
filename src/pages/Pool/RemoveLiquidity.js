@@ -743,7 +743,7 @@ export default function RemoveLiquidity({ params }) {
       />
       <SummaryPanelBox>
         <>
-          {isSwitch ? txnsInfoTaggle() : (<div></div>)}
+          {config.dirSwitchFn(isSwitch) ? txnsInfoTaggle() : (<div></div>)}
         </>
         <SummaryPanel>
           <ExchangeRateWrapper>
@@ -786,7 +786,7 @@ export default function RemoveLiquidity({ params }) {
       {/* {renderSummary()} */}
       {isViewTxnsDtil ? renderTransactionDetails() : ''}
       <WarningTip></WarningTip>
-      {isSwitch ? (
+      {config.dirSwitchFn(isSwitch) ? (
         <Flex>
           {/* <Button disabled={!isValid} onClick={onRemoveLiquidity}>
             {t('removeLiquidity')}
