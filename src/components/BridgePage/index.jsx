@@ -1890,7 +1890,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               || (Number(outNetETHBalance) < 0.02)
                ? (
                 <MintWarningTip>
-                  {/* 💀 {t('bridgeMintTip', { account })} */}
                   <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
                   {/* {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})} */}
                   <span dangerouslySetInnerHTML = { 
@@ -2028,9 +2027,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     {
                       account && inputSymbol.replace(config.prefix, '') !== 'BTC' ? (
                         <dd><i></i>💀 {t('bridgeMintTip', {
-                          // coin: config.symbol === 'BNB' ? 'FSN' : 'ETH',
-                          account,
-                        })}.</dd>
+                          account
+                        }).replace('ETH', 'FSN')}.</dd>
                       ) : ''
                     }
                   </dl>
