@@ -19,7 +19,7 @@ const COIN_BASE ={
   networkNamr: 'BSC',
   reverseSwitch: 0
 }
-const INIT_MAIN_TOKEN = '0x55d398326f99059ff775485246999027b3197955'
+const INIT_MAIN_TOKEN = '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa'
 const INIT_TEST_TOKEN = '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711'
 let coinConfig = {
   ...COIN_BASE,
@@ -29,9 +29,10 @@ let coinConfig = {
     // [COIN.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
     [COIN.ETH]: {url: ''},
     [COIN.USDT]: {url: ''},
+    ANY: {url: 'https://any2bscapi.anyswap.exchange/rpc'},
   },
   initToken: INIT_MAIN_TOKEN,
-  initBridge: 'BTC',
+  initBridge: '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa',
   explorerUrl: BNB_MAIN_EXPLORER,
   marketsUrl: '',
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
@@ -49,7 +50,11 @@ let coinConfig = {
     '0x55d398326f99059ff775485246999027b3197955',
     '0xacd6b5f76db153fb45eae6d5be5bdbd45d1b2a8c',
     '0xE4Ae305ebE1AbE663f261Bc00534067C80ad677C',
-    '0x8E9f5173e16Ff93F81579d73A7f9723324d6B6aF'
+    '0x8E9f5173e16Ff93F81579d73A7f9723324d6B6aF',
+    '0x40929fb2008c830731a3d972950bc13f70161c75',
+    '0xe02df9e3e622debdd69fb838bb799e3f168902c5',
+    '0xaf53d56ff99f1322515e54fdde93ff8b3b7dafd5',
+    '0xe9e7cea3dedca5984780bafc599bd69add087d56',
   ],
 }
 

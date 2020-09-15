@@ -888,7 +888,6 @@ export default function CurrencyInputPanel({
                           t('selectToken')
                         )
                       }
-                      {/* {isSelfSymbol || t('selectToken')} */}
                     </StyledTokenName>
                   </>
                 ) :  (

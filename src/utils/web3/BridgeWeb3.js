@@ -1,5 +1,6 @@
 import config from '../../config'
 import ERC20_ABI from '../../constants/abis/erc20'
+import FACTORY_ABI from '../../constants/abis/factory'
 import TOKEN from '../../contexts/BridgeTokens'
 import {toSign as toLedgerSign} from '../wallets/ledger/index'
 import { ethers } from 'ethers'
@@ -8,16 +9,32 @@ import { amountFormatter } from '../index'
 import { getChainHashStatus } from '../birdge'
 
 
+const Web3 = require('web3')
 const Tx  = require("ethereumjs-tx")
 
+
+// console.log(config.nodeRpc)
+// const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
+// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b')
+// console.log(factory.methods)
+
+// // console.log(factory.methods.getExchange('0x40929fb2008c830731a3d972950bc13f70161c75').call())
+// factory.methods.getExchange('0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa').call((err, res) => {
+//   console.log(err)
+//   console.log(res)
+// })
 
 const BRIDGE_RPC = config.bridge.rpc
 const BRIDGE_CHAIND = config.bridge.chainID
 const allToken = TOKEN[BRIDGE_CHAIND]
 // console.log(BRIDGE_RPC)
-const Web3 = require('web3')
 const web3 = new Web3(new Web3.providers.HttpProvider(BRIDGE_RPC))
 let contract = new web3.eth.Contract(ERC20_ABI)
+
+
+
+
+
 // console.log(web3.eth.accounts.recoverTransaction('0xf8763b844190ab008301ec309406cadd991f2ec8e156c0ae66116c5604fdcdc5b592313030303030303030303030303030303030802ba02f22fa4a0876de138c096496a6500e8489c44757ad1d5fa64510ba21191ece49a051a30d66a9accbe384bf56bc461d1630ecb2b46e96af310e46b96dd2955b345b'))
 let mmWeb3
 if (typeof window.ethereum !== 'undefined'|| (typeof window.web3 !== 'undefined')) {

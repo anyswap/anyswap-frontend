@@ -167,7 +167,7 @@
   "txnsStatus": "交易状态",
   "CrossChainDeposit": "跨链充值",
   "Reminder": "提醒",
-  "mintTip0": "您需要先将 <strong>{{coin}} 和 0.02 ETH 手续费</strong> 发送到您自己的钱包中: ",
+  "mintTip0": "您需要先将 <strong>{{coin}} 和 0.02 {{coin2}} 手续费</strong> 发送到您自己的钱包中: ",
   "mintTip1": "充值手续费 0.0 %",
   "mintTip2": "最小充值金额",
   "mintTip3": "最大充值金额",

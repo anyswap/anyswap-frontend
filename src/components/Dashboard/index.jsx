@@ -840,180 +840,320 @@ export default function DashboardDtil () {
    * LTC end
    *  */
 
-   /**
-   * DAI start
-   *  */
-  poolInfoObj[config.prefix + 'DAI'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'DAI'].exchangeAddress)
-  poolInfoObj[config.prefix + 'DAI'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'DAI'].exchangeAddress, config.symbol)
-  poolInfoObj[config.prefix + 'DAI'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'DAI'].exchangeAddress, allCoins[config.prefix + 'DAI'].token)
-  const DAI_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'DAI'].exchangeAddress)
+  //  /**
+  //  * DAI start
+  //  *  */
+  // poolInfoObj[config.prefix + 'DAI'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'DAI'].exchangeAddress)
+  // poolInfoObj[config.prefix + 'DAI'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'DAI'].exchangeAddress, config.symbol)
+  // poolInfoObj[config.prefix + 'DAI'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'DAI'].exchangeAddress, allCoins[config.prefix + 'DAI'].token)
+  // const DAI_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'DAI'].exchangeAddress)
 
-  const { reserveETH: DAIreserveETH, reserveToken: DAIreserveToken } = useExchangeReserves(allCoins[config.prefix + 'DAI'].token)
-  poolInfoObj[config.prefix + 'DAI'].marketRate = useMemo(() => {
-    return getMarketRate(DAIreserveETH, DAIreserveToken, allCoins[config.prefix + 'DAI'].decimals)
-  }, [DAIreserveETH, DAIreserveToken])
+  // const { reserveETH: DAIreserveETH, reserveToken: DAIreserveToken } = useExchangeReserves(allCoins[config.prefix + 'DAI'].token)
+  // poolInfoObj[config.prefix + 'DAI'].marketRate = useMemo(() => {
+  //   return getMarketRate(DAIreserveETH, DAIreserveToken, allCoins[config.prefix + 'DAI'].decimals)
+  // }, [DAIreserveETH, DAIreserveToken])
   
-  const [totalPoolTokensDAI, setTotalPoolTokensDAI] = useState()
-  const DAI_FETCH_POOL_TOKEN_SM = useCallback(() => {
-    if (DAI_EXCHANGE_TOKEN_BALANCEM) {
-      DAI_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
-        setTotalPoolTokensDAI(totalSupply)
+  // const [totalPoolTokensDAI, setTotalPoolTokensDAI] = useState()
+  // const DAI_FETCH_POOL_TOKEN_SM = useCallback(() => {
+  //   if (DAI_EXCHANGE_TOKEN_BALANCEM) {
+  //     DAI_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+  //       setTotalPoolTokensDAI(totalSupply)
+  //     })
+  //   }
+  // }, [DAI_EXCHANGE_TOKEN_BALANCEM])
+  
+  // useEffect(() => {
+  //   DAI_FETCH_POOL_TOKEN_SM()
+  //   library.on('block', DAI_FETCH_POOL_TOKEN_SM)
+
+  //   return () => {
+  //     library.removeListener('block', DAI_FETCH_POOL_TOKEN_SM)
+  //   }
+  // }, [DAI_FETCH_POOL_TOKEN_SM, library])
+  // poolInfoObj[config.prefix + 'DAI'].totalPoolTokens = totalPoolTokensDAI
+  // /**
+  //  * DAI end
+  //  *  */
+
+  /**
+   * BURGER start
+   *  */
+  poolInfoObj[config.prefix + 'BURGER'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'BURGER'].exchangeAddress)
+  poolInfoObj[config.prefix + 'BURGER'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'BURGER'].exchangeAddress, config.symbol)
+  poolInfoObj[config.prefix + 'BURGER'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'BURGER'].exchangeAddress, allCoins[config.prefix + 'BURGER'].token)
+  const BURGER_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'BURGER'].exchangeAddress)
+
+  const { reserveETH: BURGERreserveETH, reserveToken: BURGERreserveToken } = useExchangeReserves(allCoins[config.prefix + 'BURGER'].token)
+  poolInfoObj[config.prefix + 'BURGER'].marketRate = useMemo(() => {
+    return getMarketRate(BURGERreserveETH, BURGERreserveToken, allCoins[config.prefix + 'BURGER'].decimals)
+  }, [BURGERreserveETH, BURGERreserveToken])
+  
+  const [totalPoolTokensBURGER, setTotalPoolTokensBURGER] = useState()
+  const BURGER_FETCH_POOL_TOKEN_SM = useCallback(() => {
+    if (BURGER_EXCHANGE_TOKEN_BALANCEM) {
+      BURGER_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+        setTotalPoolTokensBURGER(totalSupply)
       })
     }
-  }, [DAI_EXCHANGE_TOKEN_BALANCEM])
+  }, [BURGER_EXCHANGE_TOKEN_BALANCEM])
   
   useEffect(() => {
-    DAI_FETCH_POOL_TOKEN_SM()
-    library.on('block', DAI_FETCH_POOL_TOKEN_SM)
+    BURGER_FETCH_POOL_TOKEN_SM()
+    library.on('block', BURGER_FETCH_POOL_TOKEN_SM)
 
     return () => {
-      library.removeListener('block', DAI_FETCH_POOL_TOKEN_SM)
+      library.removeListener('block', BURGER_FETCH_POOL_TOKEN_SM)
     }
-  }, [DAI_FETCH_POOL_TOKEN_SM, library])
-  poolInfoObj[config.prefix + 'DAI'].totalPoolTokens = totalPoolTokensDAI
+  }, [BURGER_FETCH_POOL_TOKEN_SM, library])
+  poolInfoObj[config.prefix + 'BURGER'].totalPoolTokens = totalPoolTokensBURGER
   /**
-   * DAI end
+   * BURGER end
    *  */
 
-  // /**
-  //  * BURGER start
-  //  *  */
-  // poolInfoObj[config.prefix + 'BURGER'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'BURGER'].exchangeAddress)
-  // poolInfoObj[config.prefix + 'BURGER'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'BURGER'].exchangeAddress, config.symbol)
-  // poolInfoObj[config.prefix + 'BURGER'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'BURGER'].exchangeAddress, allCoins[config.prefix + 'BURGER'].token)
-  // const BURGER_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'BURGER'].exchangeAddress)
+  /**
+   * PEACH start
+   *  */
+  poolInfoObj[config.prefix + 'PEACH'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'PEACH'].exchangeAddress)
+  poolInfoObj[config.prefix + 'PEACH'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'PEACH'].exchangeAddress, config.symbol)
+  poolInfoObj[config.prefix + 'PEACH'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'PEACH'].exchangeAddress, allCoins[config.prefix + 'PEACH'].token)
+  const PEACH_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'PEACH'].exchangeAddress)
 
-  // const { reserveETH: BURGERreserveETH, reserveToken: BURGERreserveToken } = useExchangeReserves(allCoins[config.prefix + 'BURGER'].token)
-  // poolInfoObj[config.prefix + 'BURGER'].marketRate = useMemo(() => {
-  //   return getMarketRate(BURGERreserveETH, BURGERreserveToken, allCoins[config.prefix + 'BURGER'].decimals)
-  // }, [BURGERreserveETH, BURGERreserveToken])
+  const { reserveETH: PEACHreserveETH, reserveToken: PEACHreserveToken } = useExchangeReserves(allCoins[config.prefix + 'PEACH'].token)
+  poolInfoObj[config.prefix + 'PEACH'].marketRate = useMemo(() => {
+    return getMarketRate(PEACHreserveETH, PEACHreserveToken, allCoins[config.prefix + 'PEACH'].decimals)
+  }, [PEACHreserveETH, PEACHreserveToken])
   
-  // const [totalPoolTokensBURGER, setTotalPoolTokensBURGER] = useState()
-  // const BURGER_FETCH_POOL_TOKEN_SM = useCallback(() => {
-  //   if (BURGER_EXCHANGE_TOKEN_BALANCEM) {
-  //     BURGER_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
-  //       setTotalPoolTokensBURGER(totalSupply)
-  //     })
-  //   }
-  // }, [BURGER_EXCHANGE_TOKEN_BALANCEM])
+  const [totalPoolTokensPEACH, setTotalPoolTokensPEACH] = useState()
+  const PEACH_FETCH_POOL_TOKEN_SM = useCallback(() => {
+    if (PEACH_EXCHANGE_TOKEN_BALANCEM) {
+      PEACH_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+        setTotalPoolTokensPEACH(totalSupply)
+      })
+    }
+  }, [PEACH_EXCHANGE_TOKEN_BALANCEM])
   
-  // useEffect(() => {
-  //   BURGER_FETCH_POOL_TOKEN_SM()
-  //   library.on('block', BURGER_FETCH_POOL_TOKEN_SM)
+  useEffect(() => {
+    PEACH_FETCH_POOL_TOKEN_SM()
+    library.on('block', PEACH_FETCH_POOL_TOKEN_SM)
 
-  //   return () => {
-  //     library.removeListener('block', BURGER_FETCH_POOL_TOKEN_SM)
-  //   }
-  // }, [BURGER_FETCH_POOL_TOKEN_SM, library])
-  // poolInfoObj[config.prefix + 'BURGER'].totalPoolTokens = totalPoolTokensBURGER
-  // /**
-  //  * BURGER end
-  //  *  */
+    return () => {
+      library.removeListener('block', PEACH_FETCH_POOL_TOKEN_SM)
+    }
+  }, [PEACH_FETCH_POOL_TOKEN_SM, library])
+  poolInfoObj[config.prefix + 'PEACH'].totalPoolTokens = totalPoolTokensPEACH
+  /**
+   * PEACH end
+   *  */
 
-  // /**
-  //  * PEACH start
-  //  *  */
-  // poolInfoObj[config.prefix + 'PEACH'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'PEACH'].exchangeAddress)
-  // poolInfoObj[config.prefix + 'PEACH'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'PEACH'].exchangeAddress, config.symbol)
-  // poolInfoObj[config.prefix + 'PEACH'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'PEACH'].exchangeAddress, allCoins[config.prefix + 'PEACH'].token)
-  // const PEACH_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'PEACH'].exchangeAddress)
+  /**
+   * SPARTAN start
+   *  */
+  poolInfoObj[config.prefix + 'SPARTAN'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'SPARTAN'].exchangeAddress)
+  poolInfoObj[config.prefix + 'SPARTAN'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'SPARTAN'].exchangeAddress, config.symbol)
+  poolInfoObj[config.prefix + 'SPARTAN'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'SPARTAN'].exchangeAddress, allCoins[config.prefix + 'SPARTAN'].token)
+  const SPARTAN_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'SPARTAN'].exchangeAddress)
 
-  // const { reserveETH: PEACHreserveETH, reserveToken: PEACHreserveToken } = useExchangeReserves(allCoins[config.prefix + 'PEACH'].token)
-  // poolInfoObj[config.prefix + 'PEACH'].marketRate = useMemo(() => {
-  //   return getMarketRate(PEACHreserveETH, PEACHreserveToken, allCoins[config.prefix + 'PEACH'].decimals)
-  // }, [PEACHreserveETH, PEACHreserveToken])
+  const { reserveETH: SPARTANreserveETH, reserveToken: SPARTANreserveToken } = useExchangeReserves(allCoins[config.prefix + 'SPARTAN'].token)
+  poolInfoObj[config.prefix + 'SPARTAN'].marketRate = useMemo(() => {
+    return getMarketRate(SPARTANreserveETH, SPARTANreserveToken, allCoins[config.prefix + 'SPARTAN'].decimals)
+  }, [SPARTANreserveETH, SPARTANreserveToken])
   
-  // const [totalPoolTokensPEACH, setTotalPoolTokensPEACH] = useState()
-  // const PEACH_FETCH_POOL_TOKEN_SM = useCallback(() => {
-  //   if (PEACH_EXCHANGE_TOKEN_BALANCEM) {
-  //     PEACH_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
-  //       setTotalPoolTokensPEACH(totalSupply)
-  //     })
-  //   }
-  // }, [PEACH_EXCHANGE_TOKEN_BALANCEM])
+  const [totalPoolTokensSPARTAN, setTotalPoolTokensSPARTAN] = useState()
+  const SPARTAN_FETCH_POOL_TOKEN_SM = useCallback(() => {
+    if (SPARTAN_EXCHANGE_TOKEN_BALANCEM) {
+      SPARTAN_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+        setTotalPoolTokensSPARTAN(totalSupply)
+      })
+    }
+  }, [SPARTAN_EXCHANGE_TOKEN_BALANCEM])
   
-  // useEffect(() => {
-  //   PEACH_FETCH_POOL_TOKEN_SM()
-  //   library.on('block', PEACH_FETCH_POOL_TOKEN_SM)
+  useEffect(() => {
+    SPARTAN_FETCH_POOL_TOKEN_SM()
+    library.on('block', SPARTAN_FETCH_POOL_TOKEN_SM)
 
-  //   return () => {
-  //     library.removeListener('block', PEACH_FETCH_POOL_TOKEN_SM)
-  //   }
-  // }, [PEACH_FETCH_POOL_TOKEN_SM, library])
-  // poolInfoObj[config.prefix + 'PEACH'].totalPoolTokens = totalPoolTokensPEACH
-  // /**
-  //  * PEACH end
-  //  *  */
+    return () => {
+      library.removeListener('block', SPARTAN_FETCH_POOL_TOKEN_SM)
+    }
+  }, [SPARTAN_FETCH_POOL_TOKEN_SM, library])
+  poolInfoObj[config.prefix + 'SPARTAN'].totalPoolTokens = totalPoolTokensSPARTAN
+  /**
+   * SPARTAN end
+   *  */
 
-  // /**
-  //  * SPARTAN start
-  //  *  */
-  // poolInfoObj[config.prefix + 'SPARTAN'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'SPARTAN'].exchangeAddress)
-  // poolInfoObj[config.prefix + 'SPARTAN'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'SPARTAN'].exchangeAddress, config.symbol)
-  // poolInfoObj[config.prefix + 'SPARTAN'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'SPARTAN'].exchangeAddress, allCoins[config.prefix + 'SPARTAN'].token)
-  // const SPARTAN_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'SPARTAN'].exchangeAddress)
+   /**
+   * MILK start
+   *  */
+  poolInfoObj[config.prefix + 'MILK'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'MILK'].exchangeAddress)
+  poolInfoObj[config.prefix + 'MILK'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'MILK'].exchangeAddress, config.symbol)
+  poolInfoObj[config.prefix + 'MILK'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'MILK'].exchangeAddress, allCoins[config.prefix + 'MILK'].token)
+  const MILK_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'MILK'].exchangeAddress)
 
-  // const { reserveETH: SPARTANreserveETH, reserveToken: SPARTANreserveToken } = useExchangeReserves(allCoins[config.prefix + 'SPARTAN'].token)
-  // poolInfoObj[config.prefix + 'SPARTAN'].marketRate = useMemo(() => {
-  //   return getMarketRate(SPARTANreserveETH, SPARTANreserveToken, allCoins[config.prefix + 'SPARTAN'].decimals)
-  // }, [SPARTANreserveETH, SPARTANreserveToken])
+  const { reserveETH: MILKreserveETH, reserveToken: MILKreserveToken } = useExchangeReserves(allCoins[config.prefix + 'MILK'].token)
+  poolInfoObj[config.prefix + 'MILK'].marketRate = useMemo(() => {
+    return getMarketRate(MILKreserveETH, MILKreserveToken, allCoins[config.prefix + 'MILK'].decimals)
+  }, [MILKreserveETH, MILKreserveToken])
   
-  // const [totalPoolTokensSPARTAN, setTotalPoolTokensSPARTAN] = useState()
-  // const SPARTAN_FETCH_POOL_TOKEN_SM = useCallback(() => {
-  //   if (SPARTAN_EXCHANGE_TOKEN_BALANCEM) {
-  //     SPARTAN_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
-  //       setTotalPoolTokensSPARTAN(totalSupply)
-  //     })
-  //   }
-  // }, [SPARTAN_EXCHANGE_TOKEN_BALANCEM])
+  const [totalPoolTokensMILK, setTotalPoolTokensMILK] = useState()
+  const MILK_FETCH_POOL_TOKEN_SM = useCallback(() => {
+    if (MILK_EXCHANGE_TOKEN_BALANCEM) {
+      MILK_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+        setTotalPoolTokensMILK(totalSupply)
+      })
+    }
+  }, [MILK_EXCHANGE_TOKEN_BALANCEM])
   
-  // useEffect(() => {
-  //   SPARTAN_FETCH_POOL_TOKEN_SM()
-  //   library.on('block', SPARTAN_FETCH_POOL_TOKEN_SM)
+  useEffect(() => {
+    MILK_FETCH_POOL_TOKEN_SM()
+    library.on('block', MILK_FETCH_POOL_TOKEN_SM)
 
-  //   return () => {
-  //     library.removeListener('block', SPARTAN_FETCH_POOL_TOKEN_SM)
-  //   }
-  // }, [SPARTAN_FETCH_POOL_TOKEN_SM, library])
-  // poolInfoObj[config.prefix + 'SPARTAN'].totalPoolTokens = totalPoolTokensSPARTAN
-  // /**
-  //  * SPARTAN end
-  //  *  */
+    return () => {
+      library.removeListener('block', MILK_FETCH_POOL_TOKEN_SM)
+    }
+  }, [MILK_FETCH_POOL_TOKEN_SM, library])
+  poolInfoObj[config.prefix + 'MILK'].totalPoolTokens = totalPoolTokensMILK
+  /**
+   * MILK end
+   *  */
 
-  //  /**
-  //  * MILK start
-  //  *  */
-  // poolInfoObj[config.prefix + 'MILK'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'MILK'].exchangeAddress)
-  // poolInfoObj[config.prefix + 'MILK'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'MILK'].exchangeAddress, config.symbol)
-  // poolInfoObj[config.prefix + 'MILK'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'MILK'].exchangeAddress, allCoins[config.prefix + 'MILK'].token)
-  // const MILK_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'MILK'].exchangeAddress)
+  /**
+   * TUNA start
+   *  */
+  poolInfoObj[config.prefix + 'TUNA'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'TUNA'].exchangeAddress)
+  poolInfoObj[config.prefix + 'TUNA'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'TUNA'].exchangeAddress, config.symbol)
+  poolInfoObj[config.prefix + 'TUNA'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'TUNA'].exchangeAddress, allCoins[config.prefix + 'TUNA'].token)
+  const TUNA_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'TUNA'].exchangeAddress)
 
-  // const { reserveETH: MILKreserveETH, reserveToken: MILKreserveToken } = useExchangeReserves(allCoins[config.prefix + 'MILK'].token)
-  // poolInfoObj[config.prefix + 'MILK'].marketRate = useMemo(() => {
-  //   return getMarketRate(MILKreserveETH, MILKreserveToken, allCoins[config.prefix + 'MILK'].decimals)
-  // }, [MILKreserveETH, MILKreserveToken])
+  const { reserveETH: TUNAreserveETH, reserveToken: TUNAreserveToken } = useExchangeReserves(allCoins[config.prefix + 'TUNA'].token)
+  poolInfoObj[config.prefix + 'TUNA'].marketRate = useMemo(() => {
+    return getMarketRate(TUNAreserveETH, TUNAreserveToken, allCoins[config.prefix + 'TUNA'].decimals)
+  }, [TUNAreserveETH, TUNAreserveToken])
   
-  // const [totalPoolTokensMILK, setTotalPoolTokensMILK] = useState()
-  // const MILK_FETCH_POOL_TOKEN_SM = useCallback(() => {
-  //   if (MILK_EXCHANGE_TOKEN_BALANCEM) {
-  //     MILK_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
-  //       setTotalPoolTokensMILK(totalSupply)
-  //     })
-  //   }
-  // }, [MILK_EXCHANGE_TOKEN_BALANCEM])
+  const [totalPoolTokensTUNA, setTotalPoolTokensTUNA] = useState()
+  const TUNA_FETCH_POOL_TOKEN_SM = useCallback(() => {
+    if (TUNA_EXCHANGE_TOKEN_BALANCEM) {
+      TUNA_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+        setTotalPoolTokensTUNA(totalSupply)
+      })
+    }
+  }, [TUNA_EXCHANGE_TOKEN_BALANCEM])
   
-  // useEffect(() => {
-  //   MILK_FETCH_POOL_TOKEN_SM()
-  //   library.on('block', MILK_FETCH_POOL_TOKEN_SM)
+  useEffect(() => {
+    TUNA_FETCH_POOL_TOKEN_SM()
+    library.on('block', TUNA_FETCH_POOL_TOKEN_SM)
 
-  //   return () => {
-  //     library.removeListener('block', MILK_FETCH_POOL_TOKEN_SM)
-  //   }
-  // }, [MILK_FETCH_POOL_TOKEN_SM, library])
-  // poolInfoObj[config.prefix + 'MILK'].totalPoolTokens = totalPoolTokensMILK
-  // /**
-  //  * MILK end
-  //  *  */
+    return () => {
+      library.removeListener('block', TUNA_FETCH_POOL_TOKEN_SM)
+    }
+  }, [TUNA_FETCH_POOL_TOKEN_SM, library])
+  poolInfoObj[config.prefix + 'TUNA'].totalPoolTokens = totalPoolTokensTUNA
+  /**
+   * TUNA end
+   *  */
+
+  /**
+   * BAKE start
+   *  */
+  poolInfoObj[config.prefix + 'BAKE'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'BAKE'].exchangeAddress)
+  poolInfoObj[config.prefix + 'BAKE'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'BAKE'].exchangeAddress, config.symbol)
+  poolInfoObj[config.prefix + 'BAKE'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'BAKE'].exchangeAddress, allCoins[config.prefix + 'BAKE'].token)
+  const BAKE_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'BAKE'].exchangeAddress)
+
+  const { reserveETH: BAKEreserveETH, reserveToken: BAKEreserveToken } = useExchangeReserves(allCoins[config.prefix + 'BAKE'].token)
+  poolInfoObj[config.prefix + 'BAKE'].marketRate = useMemo(() => {
+    return getMarketRate(BAKEreserveETH, BAKEreserveToken, allCoins[config.prefix + 'BAKE'].decimals)
+  }, [BAKEreserveETH, BAKEreserveToken])
+  
+  const [totalPoolTokensBAKE, setTotalPoolTokensBAKE] = useState()
+  const BAKE_FETCH_POOL_TOKEN_SM = useCallback(() => {
+    if (BAKE_EXCHANGE_TOKEN_BALANCEM) {
+      BAKE_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+        setTotalPoolTokensBAKE(totalSupply)
+      })
+    }
+  }, [BAKE_EXCHANGE_TOKEN_BALANCEM])
+  
+  useEffect(() => {
+    BAKE_FETCH_POOL_TOKEN_SM()
+    library.on('block', BAKE_FETCH_POOL_TOKEN_SM)
+
+    return () => {
+      library.removeListener('block', BAKE_FETCH_POOL_TOKEN_SM)
+    }
+  }, [BAKE_FETCH_POOL_TOKEN_SM, library])
+  poolInfoObj[config.prefix + 'BAKE'].totalPoolTokens = totalPoolTokensBAKE
+  /**
+   * BAKE end
+   *  */
+
+  /**
+   * PROM start
+   *  */
+  poolInfoObj[config.prefix + 'PROM'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'PROM'].exchangeAddress)
+  poolInfoObj[config.prefix + 'PROM'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'PROM'].exchangeAddress, config.symbol)
+  poolInfoObj[config.prefix + 'PROM'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'PROM'].exchangeAddress, allCoins[config.prefix + 'PROM'].token)
+  const PROM_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'PROM'].exchangeAddress)
+
+  const { reserveETH: PROMreserveETH, reserveToken: PROMreserveToken } = useExchangeReserves(allCoins[config.prefix + 'PROM'].token)
+  poolInfoObj[config.prefix + 'PROM'].marketRate = useMemo(() => {
+    return getMarketRate(PROMreserveETH, PROMreserveToken, allCoins[config.prefix + 'PROM'].decimals)
+  }, [PROMreserveETH, PROMreserveToken])
+  
+  const [totalPoolTokensPROM, setTotalPoolTokensPROM] = useState()
+  const PROM_FETCH_POOL_TOKEN_SM = useCallback(() => {
+    if (PROM_EXCHANGE_TOKEN_BALANCEM) {
+      PROM_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+        setTotalPoolTokensPROM(totalSupply)
+      })
+    }
+  }, [PROM_EXCHANGE_TOKEN_BALANCEM])
+  
+  useEffect(() => {
+    PROM_FETCH_POOL_TOKEN_SM()
+    library.on('block', PROM_FETCH_POOL_TOKEN_SM)
+
+    return () => {
+      library.removeListener('block', PROM_FETCH_POOL_TOKEN_SM)
+    }
+  }, [PROM_FETCH_POOL_TOKEN_SM, library])
+  poolInfoObj[config.prefix + 'PROM'].totalPoolTokens = totalPoolTokensPROM
+  /**
+   * PROM end
+   *  */
+
+  /**
+   * BUSD start
+   *  */
+  poolInfoObj[config.prefix + 'BUSD'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'BUSD'].exchangeAddress)
+  poolInfoObj[config.prefix + 'BUSD'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'BUSD'].exchangeAddress, config.symbol)
+  poolInfoObj[config.prefix + 'BUSD'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'BUSD'].exchangeAddress, allCoins[config.prefix + 'BUSD'].token)
+  const BUSD_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'BUSD'].exchangeAddress)
+
+  const { reserveETH: BUSDreserveETH, reserveToken: BUSDreserveToken } = useExchangeReserves(allCoins[config.prefix + 'BUSD'].token)
+  poolInfoObj[config.prefix + 'BUSD'].marketRate = useMemo(() => {
+    return getMarketRate(BUSDreserveETH, BUSDreserveToken, allCoins[config.prefix + 'BUSD'].decimals)
+  }, [BUSDreserveETH, BUSDreserveToken])
+  
+  const [totalPoolTokensBUSD, setTotalPoolTokensBUSD] = useState()
+  const BUSD_FETCH_POOL_TOKEN_SM = useCallback(() => {
+    if (BUSD_EXCHANGE_TOKEN_BALANCEM) {
+      BUSD_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+        setTotalPoolTokensBUSD(totalSupply)
+      })
+    }
+  }, [BUSD_EXCHANGE_TOKEN_BALANCEM])
+  
+  useEffect(() => {
+    BUSD_FETCH_POOL_TOKEN_SM()
+    library.on('block', BUSD_FETCH_POOL_TOKEN_SM)
+
+    return () => {
+      library.removeListener('block', BUSD_FETCH_POOL_TOKEN_SM)
+    }
+  }, [BUSD_FETCH_POOL_TOKEN_SM, library])
+  poolInfoObj[config.prefix + 'BUSD'].totalPoolTokens = totalPoolTokensBUSD
+  /**
+   * BUSD end
+   *  */
 
 
   let poolTokenBalanceArr = []

@@ -1865,7 +1865,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && inputSymbol.replace(config.prefix, ''))}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && inputSymbol.replace(config.prefix, ''))}
-        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : inputName.replace('ANY ', '')}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : inputName.replace(config.symbol === 'BNB' ? '-BEP20' : 'ANY', '')}
         showUnlock={false}
         selectedTokens={[inputCurrency, outputCurrency]}
         selectedTokenAddress={inputCurrency}
@@ -1875,23 +1875,28 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         errorMessage={balanceError}
       />
       {
-        (bridgeType && bridgeType === 'redeem')
+           (bridgeType && bridgeType === 'redeem')
         || !account
         || !registerAddress
         || inputSymbol === config.prefix + 'BTC'
-        || Number(outNetETHBalance) >= 0.01
-        || (Number(outNetETHBalance) >= 0.01 && Number(outNetBalance) > Number(depositMinNum))
+        || (Number(outNetETHBalance) >= 0.02 && Number(outNetBalance) > Number(depositMinNum))
+        || false
         ? '' : (
           <>
             {
-              (Number(outNetETHBalance) === 0 && outNetETHBalance !== '') || (Number(outNetBalance) === 0 && outNetBalance !== '') ? (
+                 (Number(outNetETHBalance) === 0 && outNetETHBalance !== '')
+              || (Number(outNetBalance) === 0 && outNetBalance !== '')
+              || (Number(outNetBalance) < Number(depositMinNum))
+              || (Number(outNetETHBalance) < 0.02)
+               ? (
                 <MintWarningTip>
                   {/* 💀 {t('bridgeMintTip', { account })} */}
                   <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
                   {/* {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})} */}
                   <span dangerouslySetInnerHTML = { 
-                    {__html: t('mintTip0', { coin:
-                      inputSymbol.indexOf('ETH') !== -1 ? inputSymbol.replace(config.prefix, '') : (inputSymbol.replace(config.prefix, '') + '-ERC20')
+                    {__html: t('mintTip0', { 
+                      coin: inputSymbol.indexOf('ETH') !== -1 ? inputSymbol.replace(config.prefix, '') : (inputSymbol.replace(config.prefix, '') + (config.symbol === 'BNB' ? '' : '-ERC20')),
+                      coin2: config.symbol === 'BNB' ? 'FSN' : 'ETH'
                     })}
                   }></span>
                   <span className='span' >{account}</span><Copy toCopy={account} />
