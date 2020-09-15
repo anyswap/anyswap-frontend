@@ -1662,7 +1662,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 }>
                   <div>
                     <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
-                    {mintDtil.coin === 'BTC' ? 'Bitcoin' : 'Ethereum'} {t('txnsStatus')}
+                    {mintDtil.coin === 'BTC' ? 'Bitcoin' : ''}
+                    {config.symbol === 'FSN' && mintDtil.coin !== 'BTC' ? 'Ethereum' : ''}
+                    {config.symbol === 'BNB' && mintDtil.coin !== 'BTC' ? 'Fusion' : ''}
+                    {t('txnsStatus')}
                   </div>
                   {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
                   {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
@@ -1675,7 +1678,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     }>
                       <div>
                         <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
-                        Fusion {t('txnsStatus')}
+                        {config.symbol === 'FSN' ? 'Fusion' : ''}
+                        {config.symbol === 'BNB' ? 'BSC' : ''}
+                        {t('txnsStatus')}
                       </div>
                       <span style={{textTransform: 'Capitalize'}}>{mintDtil.swapStatus}</span>
                     </HashStatus>

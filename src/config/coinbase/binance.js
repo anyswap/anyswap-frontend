@@ -11,7 +11,7 @@ import {
 
 const COIN = getBaseCoin()
 const ANY_MAIN_TOKEN = 'ANY'
-const ANY_TEST_TOKEN = '0x6fb8125c42a53dced3c4c05e1712e4c5ca1c6dc2'
+const ANY_TEST_TOKEN = '0x4ce47351aeafbd81f9888187288996fe0322ffa2'
 
 const COIN_BASE ={
   symbol: 'BNB',
@@ -74,9 +74,10 @@ function getBNBConfig (type) {
       // [COIN.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
       [COIN.ETH]: {url: ''},
       [COIN.USDT]: {url: ''},
+      ANY: {url: 'https://testany2bscapi.anyswap.exchange/rpc'},
     },
     initToken: INIT_TEST_TOKEN,
-    initBridge: '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711',
+    initBridge: '0x4ce47351aeafbd81f9888187288996fe0322ffa2',
     explorerUrl: BNB_TEST_EXPLORER,
     marketsUrl: 'https://markets.anyswap.exchange/#/',
     document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
