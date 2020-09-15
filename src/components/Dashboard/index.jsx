@@ -1154,6 +1154,41 @@ export default function DashboardDtil () {
   /**
    * BUSD end
    *  */
+  
+   /**
+   * FOR start
+   *  */
+  poolInfoObj[config.prefix + 'FOR'].poolTokenBalance = useAddressBalance(account, allCoins[config.prefix + 'FOR'].exchangeAddress)
+  poolInfoObj[config.prefix + 'FOR'].exchangeETHBalance = useAddressBalance(allCoins[config.prefix + 'FOR'].exchangeAddress, config.symbol)
+  poolInfoObj[config.prefix + 'FOR'].exchangeTokenBalancem = useAddressBalance(allCoins[config.prefix + 'FOR'].exchangeAddress, allCoins[config.prefix + 'FOR'].token)
+  const FOR_EXCHANGE_TOKEN_BALANCEM = useExchangeContract(allCoins[config.prefix + 'FOR'].exchangeAddress)
+
+  const { reserveETH: FORreserveETH, reserveToken: FORreserveToken } = useExchangeReserves(allCoins[config.prefix + 'FOR'].token)
+  poolInfoObj[config.prefix + 'FOR'].marketRate = useMemo(() => {
+    return getMarketRate(FORreserveETH, FORreserveToken, allCoins[config.prefix + 'FOR'].decimals)
+  }, [FORreserveETH, FORreserveToken])
+  
+  const [totalPoolTokensFOR, setTotalPoolTokensFOR] = useState()
+  const FOR_FETCH_POOL_TOKEN_SM = useCallback(() => {
+    if (FOR_EXCHANGE_TOKEN_BALANCEM) {
+      FOR_EXCHANGE_TOKEN_BALANCEM.totalSupply().then(totalSupply => {
+        setTotalPoolTokensFOR(totalSupply)
+      })
+    }
+  }, [FOR_EXCHANGE_TOKEN_BALANCEM])
+  
+  useEffect(() => {
+    FOR_FETCH_POOL_TOKEN_SM()
+    library.on('block', FOR_FETCH_POOL_TOKEN_SM)
+
+    return () => {
+      library.removeListener('block', FOR_FETCH_POOL_TOKEN_SM)
+    }
+  }, [FOR_FETCH_POOL_TOKEN_SM, library])
+  poolInfoObj[config.prefix + 'FOR'].totalPoolTokens = totalPoolTokensFOR
+  /**
+   * FOR end
+   *  */
 
 
   let poolTokenBalanceArr = []

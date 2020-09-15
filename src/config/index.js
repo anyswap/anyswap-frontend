@@ -65,7 +65,7 @@ let bridge = {
   46688: {
     rpc: FSN_TESTNET,
     chainID: FSN_TEST_CHAINID,
-    lookHash: FSN_TEST_EXPLORER + '/tx/',
+    lookHash: FSN_TEST_EXPLORER + '/transaction/',
     isOpen: 1
   },
   97: {
@@ -89,7 +89,7 @@ if (netArr[1].toLowerCase() === 'main') {
     32659: {
       rpc: FSN_MAINNET,
       chainID: FSN_MAIN_CHAINID,
-      lookHash: FSN_MAIN_EXPLORER + '/tx/',
+      lookHash: FSN_MAIN_EXPLORER + '/transaction/',
       isOpen: 1
     },
     56: {

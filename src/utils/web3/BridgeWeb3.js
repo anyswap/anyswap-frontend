@@ -19,7 +19,7 @@ const Tx  = require("ethereumjs-tx")
 // console.log(factory.methods)
 
 // // console.log(factory.methods.getExchange('0x40929fb2008c830731a3d972950bc13f70161c75').call())
-// factory.methods.getExchange('0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa').call((err, res) => {
+// factory.methods.getExchange('0x658A109C5900BC6d2357c87549B651670E5b0539').call((err, res) => {
 //   console.log(err)
 //   console.log(res)
 // })

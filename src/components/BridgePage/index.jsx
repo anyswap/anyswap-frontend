@@ -1975,7 +1975,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         isDeposit === 0 || isRedeem === 0 ? (
           (isDeposit === 0 && isRedeem === 0 ? '' : (
             <MintWarningTip>
-              {/* 💀 {t('bridgeMintTip', { account })} */}
               <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
               {/* {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})} */}
               <span dangerouslySetInnerHTML = { 
@@ -2028,10 +2027,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     })},</dd>
                     {
                       account && inputSymbol.replace(config.prefix, '') !== 'BTC' ? (
-                        <dd><i></i>💀 {t('bridgeMintTip', { account })}.</dd>
+                        <dd><i></i>💀 {t('bridgeMintTip', {
+                          // coin: config.symbol === 'BNB' ? 'FSN' : 'ETH',
+                          account,
+                        })}.</dd>
                       ) : ''
                     }
-                    {/* 💀 {t('bridgeMintTip', { account })} */}
                   </dl>
                 </>
               )

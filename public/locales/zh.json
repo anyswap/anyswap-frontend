@@ -142,7 +142,7 @@
   "forAtLeast": "交易至少 ",
   "brokenToken": "所选令牌与Anyswap V1不兼容。增加流动性将导致资金锁定。",
   "broken777": "在Anyswap V1中不支持ERC-777令牌。",
-  "bridgeMintTip": "只有从与当前钱包一致的ETH钱包地址 {{ account }} 转帐到充值地址才会到账！！！",
+  "bridgeMintTip": "只有从与当前钱包一致的{{coin2}}钱包地址 {{ account }} 转帐到充值地址才会到账！！！",
   "enterMax": "输入最大值",
   "custom": "自定义",
   "WrongNetwork":"网络配置错误",

@@ -55,6 +55,7 @@ let coinConfig = {
     '0xe02df9e3e622debdd69fb838bb799e3f168902c5',
     '0xaf53d56ff99f1322515e54fdde93ff8b3b7dafd5',
     '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+    '0x658A109C5900BC6d2357c87549B651670E5b0539'
   ],
 }
 
