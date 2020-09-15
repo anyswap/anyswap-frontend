@@ -41,7 +41,6 @@ let coinConfig = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/',
     btcAddr: ''
   },
-  isOPenBridge: 0,
   isOpenRewards: 0,
   isChangeDashboard: 0,
   noSupportBridge: [
@@ -79,7 +78,6 @@ function getBNBConfig (type) {
       queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
       btcAddr: ''
     },
-    isOPenBridge: 1,
     isOpenRewards: 0,
     isChangeDashboard: 0,
     noSupportBridge: [COIN_BASE.symbol]

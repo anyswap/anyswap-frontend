@@ -25,7 +25,6 @@ const tabOrder = [
     iconActive: require('../../assets/images/icon/application-purpl.svg'),
     regex: /\/dashboard/,
     className: '',
-    isOpen: 1
   },
   {
     path: '/swap',
@@ -33,7 +32,6 @@ const tabOrder = [
     icon: require('../../assets/images/icon/swap.svg'),
     iconActive: require('../../assets/images/icon/swap-purpl.svg'),
     regex: /\/swap/,
-    isOpen: 1
   },
   {
     path: '/send',
@@ -41,7 +39,6 @@ const tabOrder = [
     icon: require('../../assets/images/icon/send.svg'),
     iconActive: require('../../assets/images/icon/send-purpl.svg'),
     regex: /\/send/,
-    isOpen: 1
   },
   {
     path: '/add-liquidity',
@@ -49,7 +46,6 @@ const tabOrder = [
     icon: require('../../assets/images/icon/pool.svg'),
     iconActive: require('../../assets/images/icon/pool-purpl.svg'),
     regex: /\/add-liquidity|\/remove-liquidity|\/create-exchange.*/,
-    isOpen: 1
   },
   {
     path: '/bridge',
@@ -57,7 +53,6 @@ const tabOrder = [
     icon: require('../../assets/images/icon/bridge.svg'),
     iconActive: require('../../assets/images/icon/bridge-purpl.svg'),
     regex: /\/bridge/,
-    isOpen: config.isOPenBridge
   },
 ]
 
@@ -372,18 +367,7 @@ function NavigationTabs({ location: { pathname }, history }) {
     <>
 
       <Tabs>
-        {tabOrder.map(({ path, textKey, regex, icon, iconActive, className, isOpen }, index) => {
-          // if (!isOpen) {
-          //   return (
-          //     <StyledNavLink key={index} to={path}>
-          //       <div className={'icon'}>
-          //         {/* <img alt={''} src={iconActive} className={pathname.match(regex) || navHover === textKey ? '' : 'show'}/> */}
-          //         <img alt={''} src={icon}/>
-          //       </div>
-          //       {t(textKey)}
-          //     </StyledNavLink>
-          //   )
-          // }
+        {tabOrder.map(({ path, textKey, regex, icon, iconActive, className }, index) => {
           return (
             <StyledNavLink key={index} to={path} isActive={(_, { pathname }) => pathname.match(regex)} className={(className ? className : '')} onMouseEnter={() => {toggleHover(textKey)}} onMouseLeave={() => {toggleHover('')}}>
               <div className={'icon'}>
