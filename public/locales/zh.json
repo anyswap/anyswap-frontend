@@ -182,7 +182,7 @@
   "mmMintTip": "请在Metamask上确认签名",
   "ValueDeposited": "充值金额",
   "txnsDtil": "交易明细",
-  "sendTip": "不要直接发送代币充值到交易所(不支持合约充值)，请使用metamask或<a href='https://whallet.net' target='_blank'>whallet.net</a>钱包充值到交易所。",
+  "sendTip": "不要直接发送代币充值到交易所(不支持合约充值)，请使用metamask钱包充值到交易所。",
   "brStopTip": "节点维护中，暂停充提！",
   "FSNnoBalance": "余额不足",
   "BTCmintTip": "没有查询到新的充值交易，请先发送BTC至充值地址。",
