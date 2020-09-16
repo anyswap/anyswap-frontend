@@ -27,7 +27,7 @@ const Tx  = require("ethereumjs-tx")
 const BRIDGE_RPC = config.bridge.rpc
 const BRIDGE_CHAIND = config.bridge.chainID
 const allToken = TOKEN[BRIDGE_CHAIND]
-// console.log(BRIDGE_RPC)
+console.log(allToken)
 const web3 = new Web3(new Web3.providers.HttpProvider(BRIDGE_RPC))
 let contract = new web3.eth.Contract(ERC20_ABI)
 

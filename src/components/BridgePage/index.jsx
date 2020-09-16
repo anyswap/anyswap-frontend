@@ -722,7 +722,7 @@ function swapStateReducer(state, action) {
       let arr = type ? hashData : hashArr
       sessionStorage.setItem(DEPOSIT_HISTORY, JSON.stringify(arr))
       let count = 0
-      if (hashCount && NewHashCount) {
+      if ((hashCount || hashCount === 0) && NewHashCount) {
         count = hashCount + NewHashCount
       }
       return {
@@ -975,6 +975,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
   }
 
+  // get balances for each of the currency types
+  const inputBalance = useAddressBalance(account, inputCurrency)
+  const FSNBalance = useAddressBalance(account, config.symbol)
+  const FSNBalanceNum = FSNBalance ? amountFormatter(FSNBalance) : 0
+
   useEffect(() => {
     setOutNetBalance('')
     setOutNetETHBalance('')
@@ -983,12 +988,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   useEffect(() => {
     getOutBalance()
-  }, [hashCount])
+  }, [hashCount, hashArr, FSNBalance, inputBalance])
 
-  // get balances for each of the currency types
-  const inputBalance = useAddressBalance(account, inputCurrency)
-  const FSNBalance = useAddressBalance(account, config.symbol)
-  const FSNBalanceNum = FSNBalance ? amountFormatter(FSNBalance) : 0
   // console.log(FSNBalanceNum)
   // const outputBalance = useAddressBalance(account, outputCurrency)
   const inputBalanceFormatted = !!(inputBalance && Number.isInteger(inputDecimals))
@@ -1003,7 +1004,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   // const inputValueParsed = independentField === INPUT ? independentValueParsed : dependentValue
   let inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
   inputValueFormatted = inputValueFormatted ? Number(Number(inputValueFormatted).toFixed(inputDecimals)) : ''
+  // console.log(independentValue)
   // console.log(inputValueFormatted)
+  // console.log(dependentValueFormatted)
+  // console.log(amountFormatter(dependentValue, inputDecimals, Math.min(8, inputDecimals), false))
   function formatBalance(value) {
     return `Balance: ${value}`
   }
