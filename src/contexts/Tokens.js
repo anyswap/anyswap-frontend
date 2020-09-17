@@ -67,7 +67,7 @@ const ANY_TOKEN = config.any && config.any.token ? config.any.token : 'ANY'
 export const INITIAL_TOKENS_CONTEXT = {
   56: {
     '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa': { // ANY
-      [NAME]: 'Anyswap-BEP20',
+      [NAME]: 'Anyswap' + config.suffix,
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x095418A82BC2439703b69fbE1210824F2247D77c',
@@ -85,7 +85,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
     },
     '0x658A109C5900BC6d2357c87549B651670E5b0539': { // FOR
-      [NAME]: 'Force-BEP20',
+      [NAME]: 'Force' + config.suffix,
       [SYMBOL]: 'FOR',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x1d396c3fC33A44e106665fc45cA39B3042120241',
@@ -103,8 +103,8 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
     },
     '0x55d398326f99059ff775485246999027b3197955': { // USDT
-      [NAME]: 'Tether-BEP20',
-      [SYMBOL]: config.prefix + 'USDT',
+      [NAME]: 'Tether' + config.suffix,
+      [SYMBOL]: 'USDT',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x83034714666b0eb2209aafc1b1cbb2ab9c6100db',
       [REDEEM_MAX_NUM]: 100000,
@@ -121,7 +121,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
     },
     '0xe9e7cea3dedca5984780bafc599bd69add087d56': { // BUSD
-      [NAME]: 'BUSD-BEP20',
+      [NAME]: 'BUSD' + config.suffix,
       [SYMBOL]: 'BUSD',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x34358Ff75D78652F1797ebd73E8f7aFA92DaB501',
@@ -139,7 +139,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
     },
     '0xae9269f27437f0fcbc232d39ec814844a51d6b8f': { // BURGER
-      [NAME]: 'Burger-BEP20',
+      [NAME]: 'Burger' + config.suffix,
       [SYMBOL]: config.prefix + 'BURGER',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x2296c4a9186b823db1612e831808536ed451cbbe',
@@ -157,7 +157,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
     },
     '0xE4Ae305ebE1AbE663f261Bc00534067C80ad677C': { // SPARTAN
-      [NAME]: 'SPARTAN-BEP20',
+      [NAME]: 'SPARTAN' + config.suffix,
       [SYMBOL]: config.prefix + 'SPARTAN',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xd1D0C2f4291F7002E1591d2a87975f0701a3fa2C',
@@ -175,7 +175,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
     },
     '0xe02df9e3e622debdd69fb838bb799e3f168902c5': { // BAKE
-      [NAME]: 'Bakery-BEP20',
+      [NAME]: 'Bakery' + config.suffix,
       [SYMBOL]: 'BAKE',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x90C8EA8ec7710034274868971C4e27edE33d9c10',
@@ -193,7 +193,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
     },
     '0xacd6b5f76db153fb45eae6d5be5bdbd45d1b2a8c': { // PEACH
-      [NAME]: 'Peach-BEP20',
+      [NAME]: 'Peach' + config.suffix,
       [SYMBOL]: config.prefix + 'PEACH',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xdcb18e3230605a4c5ee6fb86031eefa8ecd63430',
@@ -211,7 +211,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
     },
     '0x8E9f5173e16Ff93F81579d73A7f9723324d6B6aF': { // MILK
-      [NAME]: 'Milk-BEP20',
+      [NAME]: 'Milk' + config.suffix,
       [SYMBOL]: config.prefix + 'MILK',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xbd1f974bc2730e9620d91924993d30c2f96983b8',
@@ -229,7 +229,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
     },
     '0x40929fb2008c830731a3d972950bc13f70161c75': { // TUNA
-      [NAME]: 'Tuna-BEP20',
+      [NAME]: 'Tuna' + config.suffix,
       [SYMBOL]: 'TUNA',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x4F171A4aEcbfcEc6467464DA7401F88dED8C891C',
@@ -247,7 +247,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
     },
     '0xaf53d56ff99f1322515e54fdde93ff8b3b7dafd5': { // PROM
-      [NAME]: 'Prometeus-BEP20',
+      [NAME]: 'Prometeus' + config.suffix,
       [SYMBOL]: 'PROM',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xfeBc57bBA705C6142Cc4586F1aC6A96ce88047Be',

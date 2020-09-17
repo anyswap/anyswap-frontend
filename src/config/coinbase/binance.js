@@ -8,7 +8,13 @@ import {
   BNB_TEST_EXPLORER,
 } from './nodeConfig'
 
-const COIN = getBaseCoin()
+const PREFIX = ''
+const SUFFIX = '-BEP20'
+const NAME_PREFIX = ''
+
+const COIN = getBaseCoin(PREFIX)
+
+const REWARDS_DAY = 33000 / 2
 
 const COIN_BASE ={
   symbol: 'BNB',
@@ -17,11 +23,34 @@ const COIN_BASE ={
   mainUrl: 'https://bsc.anyswap.exchange',
   decimals: 18,
   networkNamr: 'BSC',
-  reverseSwitch: 0
+  reverseSwitch: 0,
+  suffix: SUFFIX,
+  keepDec: 6,
+  namePrefix: NAME_PREFIX,
+  rewardRate (token, dec) {
+    if (!token || !Number(token)) {
+      return {
+        // pr: Number(amount) ? personRewards : 0, // 你每天的奖励
+        ROIPerDay: '0.00', // 每天的投资回报率
+        AnnualizedROI: '0.00' // 年化投资回报率
+      }
+    }
+    // let market = Number(bace) / Number(token)
+    let tokenAll = Number(token) * 2 / Math.pow(10, dec)
+    let accountAllPoolAmount = 10000
+    let poolShare = accountAllPoolAmount / tokenAll
+    let personRewards = REWARDS_DAY * poolShare
+    let ROIPerDay = personRewards / accountAllPoolAmount
+    return {
+      // pr: Number(amount) ? personRewards : 0, // 你每天的奖励
+      ROIPerDay: (ROIPerDay * 100).toFixed(2), // 每天的投资回报率
+      AnnualizedROI: (personRewards * 365 * 100 / accountAllPoolAmount).toFixed(2) // 年化投资回报率
+    }
+  }
 }
 const INIT_MAIN_TOKEN = '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa'
 const INIT_TEST_TOKEN = '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711'
-let coinConfig = {
+const MAIN_CONFIG = {
   ...COIN_BASE,
   nodeRpc: BNB_MAINNET,
   chainID: BNB_MAIN_CHAINID,
@@ -59,36 +88,37 @@ let coinConfig = {
   ],
 }
 
+const TEST_CONFIG = {
+  ...COIN_BASE,
+  nodeRpc: BNB_TESTNET,
+  chainID: BNB_TEST_CHAINID,
+  coininfo: {
+    // [COIN.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
+    [COIN.ETH]: {url: ''},
+    [COIN.USDT]: {url: ''},
+    ANY: {url: 'https://testany2bscapi.anyswap.exchange/rpc'},
+  },
+  initToken: INIT_TEST_TOKEN,
+  initBridge: '0x4ce47351aeafbd81f9888187288996fe0322ffa2',
+  explorerUrl: BNB_TEST_EXPLORER,
+  marketsUrl: 'https://markets.anyswap.exchange/#/',
+  document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
+  btcConfig: {
+    lookHash: 'https://sochain.com/tx/BTCTEST/',
+    queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTCTEST/',
+    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
+    btcAddr: ''
+  },
+  isOpenRewards: 0,
+  isChangeDashboard: 0,
+  noSupportBridge: [COIN_BASE.symbol]
+}
+
 function getBNBConfig (type) {
   if (type.toLowerCase() === 'main') {
-    return coinConfig
+    return MAIN_CONFIG
   }
-  coinConfig = {
-    ...COIN_BASE,
-    nodeRpc: BNB_TESTNET,
-    chainID: BNB_TEST_CHAINID,
-    coininfo: {
-      // [COIN.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
-      [COIN.ETH]: {url: ''},
-      [COIN.USDT]: {url: ''},
-      ANY: {url: 'https://testany2bscapi.anyswap.exchange/rpc'},
-    },
-    initToken: INIT_TEST_TOKEN,
-    initBridge: '0x4ce47351aeafbd81f9888187288996fe0322ffa2',
-    explorerUrl: BNB_TEST_EXPLORER,
-    marketsUrl: 'https://markets.anyswap.exchange/#/',
-    document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
-    btcConfig: {
-      lookHash: 'https://sochain.com/tx/BTCTEST/',
-      queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTCTEST/',
-      queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
-      btcAddr: ''
-    },
-    isOpenRewards: 0,
-    isChangeDashboard: 0,
-    noSupportBridge: [COIN_BASE.symbol]
-  }
-  return coinConfig
+  return TEST_CONFIG
 }
 
 export default getBNBConfig

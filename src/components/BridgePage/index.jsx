@@ -1494,6 +1494,22 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     })
   }
 
+  function walletTip () {
+    if (config.symbol === 'FSN') {
+      return (
+        <dd><i></i>💀 {t('bridgeMintTip', {
+          account
+        })}.</dd>
+      )
+    } else if (config.symbol === 'BNB') {
+      return (
+        <dd><i></i>💀 {t('bridgeMintTip', {
+          account
+        }).replace('ETH', 'FSN')}.</dd>
+      )
+    }
+  }
+
   // console.log(hashArr)
   return (
     <>
@@ -1869,7 +1885,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && inputSymbol.replace(config.prefix, ''))}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && inputSymbol.replace(config.prefix, ''))}
-        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : inputName.replace(config.symbol === 'BNB' ? '-BEP20' : 'ANY', '')}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : inputName.replace(config.symbol === 'BNB' ? config.suffix : config.namePrefix, '')}
         showUnlock={false}
         selectedTokens={[inputCurrency, outputCurrency]}
         selectedTokenAddress={inputCurrency}
@@ -1938,7 +1954,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace(config.prefix, '') : ''}
-        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? inputName.replace('ANY ', '') : ''}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? inputName.replace(config.suffix, '') : ''}
         showUnlock={false}
         disableUnlock={true}
         selectedTokens={[inputCurrency, outputCurrency]}
@@ -2030,9 +2046,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     })},</dd>
                     {
                       account && inputSymbol.replace(config.prefix, '') !== 'BTC' ? (
-                        <dd><i></i>💀 {t('bridgeMintTip', {
-                          account
-                        }).replace('ETH', 'FSN')}.</dd>
+                        walletTip()
+                        // config.symbol === 'FSN' ? (
+                        //   <dd><i></i>💀 {t('bridgeMintTip', {
+                        //     account
+                        //   })}.</dd>
+                        // ) :(
+                        //   <dd><i></i>💀 {t('bridgeMintTip', {
+                        //     account
+                        //   }).replace('ETH', 'FSN')}.</dd>
+                        // )
                       ) : ''
                     }
                   </dl>
