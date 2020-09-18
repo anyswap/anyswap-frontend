@@ -411,7 +411,8 @@ const RewardsBox = styled.div`
 `
 
 const DBTables = styled.table`
-  width: 100%;
+  min-width: 100%;
+  table-layer:fixed;
   border-spacing:0px 10px;
 `
 const DBThead = styled.thead`
@@ -640,7 +641,7 @@ export default function DashboardDtil () {
         setPoolObj(poolInfoObj)
         setPoolList(arr)
       })
-    }, 100)
+    }, 1000)
   }, [allTokens, account])
 
   function rewardsPencent (coin, isSwitch) {
@@ -669,10 +670,10 @@ export default function DashboardDtil () {
         <DBTables>
           <DBThead>
             <tr>
-              <th align='center' width='226px'>{t('Pairs')}</th>
-              <th align='right' width='190px'>{t('PoolLiquidity')}</th>
-              <th align='right'>{t('MyLiquidity')}</th>
-              <th align='right'>{t('MyPecent')}</th>
+              <th align='center' width='20%'>{t('Pairs')}</th>
+              <th align='right' width='20%'>{t('PoolLiquidity')}</th>
+              <th align='right' width='20%'>{t('MyLiquidity')}</th>
+              <th align='right' width='20%'>{t('MyPecent')}</th>
               <th align='right'>{t('APY')}</th>
             </tr>
           </DBThead>
@@ -769,35 +770,37 @@ export default function DashboardDtil () {
 
   useEffect(() => {
     if (account && config.isOpenRewards) {
-      getRewards(account).then(res => {
-        console.log(res)
-        let arr = []
-        if (res.msg === 'Success') {
-          arr = [
-            {
-              icon: IconSwapRewards,
-              iconDark: IconSwapRewardsBlack,
-              value: res.latest.vr ? res.latest.vr : 0,
-              name: t('swap')
-            },
-            {
-              icon: IconLiquidityRewards,
-              iconDark: IconLiquidityRewardsBlack,
-              value: res.latest.lr ? res.latest.lr : 0,
-              name: t('lr')
-            },
-            {
-              icon: IconTotalRewards,
-              iconDark: IconTotalRewardsBlack,
-              value: res.totalReward.ar ? res.totalReward.ar : 0,
-              name: t('total')
-            },
-          ]
-        } else {
-          arr = []
-        }
-        setAccountRewars(arr)
-      })
+      setTimeout(() => {
+        getRewards(account).then(res => {
+          console.log(res)
+          let arr = []
+          if (res.msg === 'Success') {
+            arr = [
+              {
+                icon: IconSwapRewards,
+                iconDark: IconSwapRewardsBlack,
+                value: res.latest.vr ? res.latest.vr : 0,
+                name: t('swap')
+              },
+              {
+                icon: IconLiquidityRewards,
+                iconDark: IconLiquidityRewardsBlack,
+                value: res.latest.lr ? res.latest.lr : 0,
+                name: t('lr')
+              },
+              {
+                icon: IconTotalRewards,
+                iconDark: IconTotalRewardsBlack,
+                value: res.totalReward.ar ? res.totalReward.ar : 0,
+                name: t('total')
+              },
+            ]
+          } else {
+            arr = []
+          }
+          setAccountRewars(arr)
+        })
+      }, 1000)
     }
   }, [account])
 
@@ -869,11 +872,11 @@ export default function DashboardDtil () {
       <DBTables>
         <DBThead>
           <tr>
-            <th align='center'>{t('Coins')}</th>
-            <th align='center'>{t('price')}</th>
-            <th align='center'>{t('balances')}</th>
-            <th align='center'>{t('lr')}</th>
-            <th align='center'>{t('TotalBalance')}</th>
+            <th align='center' width='20%'>{t('Coins')}</th>
+            <th align='center' width='10%'>{t('price')}</th>
+            <th align='center' width='15%'>{t('balances')}</th>
+            <th align='center' width='15%'>{t('lr')}</th>
+            <th align='center' width='15%'>{t('TotalBalance')}</th>
             <th align='center'>{t('Action')}</th>
           </tr>
         </DBThead>
@@ -945,10 +948,10 @@ export default function DashboardDtil () {
                         )
                       ) : (
                         <>
-                          <td align='center'>$-</td>
-                          <td align='center'>-</td>
-                          <td align='center'>-</td>
-                          <td align='center'>-</td>
+                          <td align='left'>$-</td>
+                          <td align='right'>-</td>
+                          <td align='right'>-</td>
+                          <td align='right'>-</td>
                           <td align='center'>-</td>
                         </>
                       )
