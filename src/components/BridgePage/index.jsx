@@ -1657,7 +1657,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       mintDtil.coin === 'BTC' ? (
                         <a href={config.btcConfig.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
                       ) : (
-                        <a href={config.bridge.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
+                        mintDtil.node && config.bridgeAll[mintDtil.node] && config.bridgeAll[mintDtil.node].lookHash ? (
+                          <a href={config.bridgeAll[mintDtil.node].lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
+                        ) : ''
                       )
                     }
                     <Copy toCopy={mintDtil.hash} />

@@ -190,5 +190,13 @@
   "tokenByUserTip": "The Anyswap smart contracts are designed to support any ERC20 token on Fusion. Any token can be loaded into the interface by entering its Fusion address into the search field or passing it as a URL parameter. Be careful when interacting with imported tokens as they have not been verified.",
   "validTxnsTip": "Please verify the legitimacy of this token before making any transactions.",
   "TokenImportedByUser": "Token imported by user",
-  "TokenImportedByURL": "Token imported by URL"
+  "TokenImportedByURL": "Token imported by URL",
+  "Pairs": "Pairs",
+  "PoolLiquidity": "Pool Liquidity",
+  "MyLiquidity": "My Liquidity",
+  "MyPecent": "My Pecent",
+  "APY": "APY",
+  "TotalBalance": "Total Balance",
+  "Action": "Action",
+  "Coins": "Coins"
 }

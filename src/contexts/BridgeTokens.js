@@ -785,6 +785,11 @@ export default {
     }
   },
   4: {
+    'USDT': {
+      [NAME]: 'USDTERC20',
+      [TOKEN]: '0xb09bad01684f6d47fc7dc9591889cc77eaed8d22',
+      [DECIMALS]: 6,
+    },
   },
   56: {
     'UNI': { // 

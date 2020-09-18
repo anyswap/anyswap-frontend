@@ -419,6 +419,10 @@ const DBThead = styled.thead`
     th {
       padding: 12px 8px;
       white-space:nowrap;
+      font-size: 0.875rem;
+      font-weight: bold;
+      line-height: 1.5;
+      color: #062536;
     }
   }
   @media screen and (max-width: 960px) {
@@ -438,6 +442,10 @@ const DBTbody = styled.tbody`
     td {
       padding: 12px 8px;
       white-space:nowrap;
+      font-size: 0.875rem;
+      font-weight: bold;
+      line-height: 1.5;
+      color: #062536;
       p {
         margin:0;
         &.lr {
@@ -642,12 +650,7 @@ export default function DashboardDtil () {
         return '-%'
       }
     } else if (config.symbol === 'BNB') {
-      return (
-        <ComineSoon>
-          <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
-          {t('ComineSoon')}
-        </ComineSoon>
-      )
+      return '-%'
     }
   }
 
@@ -657,12 +660,11 @@ export default function DashboardDtil () {
         <DBTables>
           <DBThead>
             <tr>
-              <th></th>
-              <th align='left' width='226px'>Pairs</th>
-              <th align='center' width='190px'>Pool Liquidity</th>
-              <th align='center'>Your Liquidity</th>
-              <th align='right'>Your Pecent</th>
-              <th align='right'>APY</th>
+              <th align='center' width='226px'>{t('Pairs')}</th>
+              <th align='center' width='190px'>{t('PoolLiquidity')}</th>
+              <th align='center'>{t('MyLiquidity')}</th>
+              <th align='center'>{t('MyPecent')}</th>
+              <th align='center'>{t('APY')}</th>
             </tr>
           </DBThead>
           <DBTbody>
@@ -677,12 +679,11 @@ export default function DashboardDtil () {
                   ) {
                     return (
                       <tr key={index}>
-                        <td align='center'>{index}</td>
                         <td>
                           <TokenTableCoinBox>
                             <TokenTableLogo><TokenLogo address={item.symbol} size={'1.625rem'} ></TokenLogo></TokenTableLogo>
                             <TokenNameBox>
-                              <h3 style={{width: '100px', textAlign: 'right'}}>{item.symbol} - {config.symbol}</h3>
+                              <h3 style={{width: '100px', textAlign: 'right'}}>{item.symbol}_{config.symbol}</h3>
                             </TokenNameBox>
                           </TokenTableCoinBox>
                         </td>
@@ -692,11 +693,11 @@ export default function DashboardDtil () {
                               <td align='right'>
                                 <p className='lr'>
                                   <span>{item.symbol}</span>
-                                  {item.exchangeTokenBalancem ? amountFormatter( item.exchangeTokenBalancem, item.decimals, 6 ) : '0.000000'}
+                                  {item.exchangeTokenBalancem ? amountFormatter( item.exchangeTokenBalancem, item.decimals, 6 ) : '0'}
                                 </p>
                                 <p className='lr'>
                                   <span>{config.symbol}</span>
-                                  {item.exchangeETHBalance ? amountFormatter( item.exchangeETHBalance, 18, 6 ) : '0.000000'}
+                                  {item.exchangeETHBalance ? amountFormatter( item.exchangeETHBalance, 18, 6 ) : '0'}
                                 </p>
                               </td>
                               <td align='right'>
@@ -733,10 +734,16 @@ export default function DashboardDtil () {
                       </tr>
                     )
                   } else {
-                    return <tr key='Null0' style={{display: 'none'}}></tr>
+                    return <tr key={index} style={{display: 'none'}}></tr>
                   }
                 })
-              ) : (<tr><td colSpan='6' align='center'>Loading...</td></tr>)
+              ) : (<tr key={0}>
+                <td align='center'>-</td>
+                <td align='center'>-</td>
+                <td align='center'>-</td>
+                <td align='center'>-</td>
+                <td align='center'>-%</td>
+                </tr>)
             }
           </DBTbody>
         </DBTables>
@@ -810,10 +817,10 @@ export default function DashboardDtil () {
 
   function getPrice (market, coin) {
     // console.log(coin)
-    if (coin.indexOf('USDT') !== -1) return 1
+    if (coin.indexOf('USDT') !== -1) return '1.000000'
     if (!market) return '-'
     let mt1 = Number(amountFormatter( market, 18 ))
-    if (!mt1) return 0
+    if (!mt1) return '0'
     return (baseMarket / mt1).toFixed(6)
   }
   function getMyAccount () {
@@ -853,13 +860,12 @@ export default function DashboardDtil () {
       <DBTables>
         <DBThead>
           <tr>
-            <th></th>
-            <th align='left'>Coins</th>
-            <th align='right'>Price</th>
-            <th align='right'>Balance</th>
-            <th align='right'>Liquidity</th>
-            <th align='right'>Total Balance</th>
-            <th align='center'>Action</th>
+            <th align='center'>{t('Coins')}</th>
+            <th align='center'>{t('price')}</th>
+            <th align='center'>{t('balances')}</th>
+            <th align='center'>{t('lr')}</th>
+            <th align='center'>{t('TotalBalance')}</th>
+            <th align='center'>{t('Action')}</th>
           </tr>
         </DBThead>
         <DBTbody>
@@ -873,7 +879,6 @@ export default function DashboardDtil () {
               ) {
                 return (
                   <tr key={index}>
-                    <td align='center'>{index + 1}</td>
                     <td>
                       <TokenTableCoinBox>
                         <TokenTableLogo><TokenLogo address={item.symbol} size={'1.625rem'} ></TokenLogo></TokenTableLogo>
@@ -887,20 +892,33 @@ export default function DashboardDtil () {
                       poolObj[item.symbol] ? (
                         config.dirSwitchFn(poolObj[item.symbol].isSwitch) ? (
                           <>
-                            <td align='right'>{poolObj[item.symbol] && baseMarket ? 
+                            <td align='right'>$ {poolObj[item.symbol] && baseMarket ? 
                               (item.symbol === config.symbol ? baseMarket.toFixed(6) : getPrice(poolObj[item.symbol].market, item.symbol)) : '-'
                             }</td>
                             <td align='right'>{account ? item.balance : '-'}</td>
                             {
                               item.symbol === config.symbol ? (
                                 <>
-                                  <td align='right'>{poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch)? amountFormatter(poolObj[item.symbol].Basebalance, 18) : '-'}</td>
-                                  <td align='right'>{poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch)? (Number(amountFormatter(poolObj[item.symbol].Basebalance, 18)) + Number(item.balance)).toFixed(6) : '-'}</td>
+                                  <td align='right'>
+                                    {poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch) ? amountFormatter(poolObj[item.symbol].Basebalance, 18) : '0'}
+                                  </td>
+                                  <td align='right'>
+                                    {
+                                      poolObj[item.symbol]
+                                      && config.dirSwitchFn(poolObj[item.symbol].isSwitch)
+                                      && item.balance !== '-'
+                                      ? (Number(amountFormatter(poolObj[item.symbol].Basebalance, 18)) + Number(item.balance)).toFixed(6) : '0'}
+                                  </td>
                                 </>
                               ) : (
                                 <>
-                                  <td align='right'>{poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch)? poolObj[item.symbol].balance : '-'}</td>
-                                  <td align='right'>{poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch)? (Number(poolObj[item.symbol].balance) + Number(item.balance)).toFixed(6) : '-'}</td>
+                                  <td align='right'>{poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch) ? poolObj[item.symbol].balance : '0'}</td>
+                                  <td align='right'>
+                                    {
+                                      poolObj[item.symbol]
+                                      && config.dirSwitchFn(poolObj[item.symbol].isSwitch)
+                                      && item.balance !== '-'
+                                      ? (Number(poolObj[item.symbol].balance) + Number(item.balance) === 0 ? '0' : (Number(poolObj[item.symbol].balance) + Number(item.balance)).toFixed(6)) : '0'}</td>
                                 </>
                               )
                             }
@@ -917,15 +935,34 @@ export default function DashboardDtil () {
                           </td>
                         )
                       ) : (
-                        <td colSpan='5' align='center'>Loading...</td>
+                        <>
+                          <td align='center'>$-</td>
+                          <td align='center'>-</td>
+                          <td align='center'>-</td>
+                          <td align='center'>-</td>
+                          <td align='center'>-</td>
+                        </>
                       )
                     }
                   </tr>
                 )
               } else {
-                return (<tr key='Loading'><td colSpan='7' align='center'>Loading...</td></tr>)
+                return (<tr key={index} style={{display:'none'}}>
+                <td align='center'>$-</td>
+                <td align='center'>-</td>
+                <td align='center'>-</td>
+                <td align='center'>-</td>
+                <td align='center'>-</td>
+                <td align='center'>-</td>
+                </tr>)
               }
-            }) : (<tr><td colSpan='7' align='center'>Loading...</td></tr>)
+            }) : (<tr key={0}>
+                <td align='center'>$-</td>
+                <td align='center'>-</td>
+                <td align='center'>-</td>
+                <td align='center'>-</td>
+                <td align='center'>-</td>
+                <td align='center'>-</td></tr>)
           }
         </DBTbody>
       </DBTables>

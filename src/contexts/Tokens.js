@@ -764,7 +764,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]:  {
         ETH: {
-          type: 2,
+          type: 4,
           isSwitch: 1
         }
       }
