@@ -738,9 +738,6 @@ function swapStateReducer(state, action) {
 }
 const selfUseAllToken = config.noSupportBridge
 let hashInterval
-// let swapInfo = ''
-
-// getErcBalance('USDT')
 
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
@@ -839,13 +836,40 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     maxFee: initMaxFee,
     minFee: initMinFee,
     fee: initFee,
+    extendObj
   } = useTokenDetails( inputCurrency )
-  // console.log(inputSymbol)
-  // console.log(inputCurrency)
 
   const [isRegister, setIsRegister] = useState(false)
+  
+  const [isHardwareTip, setIsHardwareTip] = useState(false)
+  const [isHardwareError, setIsHardwareError] = useState(false)
+  const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
+  const [isDisabled, setIsDisableed] = useState(true)
+  const [isMintBtn, setIsMintBtn] = useState(false)
+  const [isRedeemBtn, setIsRedeem] = useState(false)
+  const [mintDtil, setMintDtil] = useState({
+    coin: '',
+    value: '',
+    hash: '',
+    from: '',
+    to: '',
+    status: 0,
+    timestamp: ''
+  })
+  const [mintDtilView, setMintDtilView] = useState(false)
+  const [mintSureBtn, setMintSureBtn] = useState(false)
+  const [mintModelTitle, setMintModelTitle] = useState()
+  const [mintModelTip, setMintModelTip] = useState()
+  const [balanceError, setBalanceError] = useState()
+  const [depositNode, setDepositNode] = useState()
 
   useEffect(() => {
+    let node
+    if (extendObj.FSN && extendObj.FSN.isSwitch) {
+      node = extendObj.FSN.type
+    } else if (extendObj.ETH && extendObj.ETH.isSwitch) {
+      node = extendObj.ETH.type
+    }
     setInit(1)
     if (account && config.coininfo[inputSymbol] && config.coininfo[inputSymbol].url && initIsDeposit && initIsRedeem) {
       let url = config.coininfo[inputSymbol].url
@@ -872,10 +896,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             if (inputSymbol !== config.prefix + 'BTC') {
               DepositAddress = dObj.DepositAddress
               let erc20Token = ''
-              if (config.symbol === 'FSN') {
-                erc20Token = coin !== 'ETH' ? BridgeTokens[config.bridge.chainID][coin].token : ''
-              } else if (config.symbol === 'BNB') {
-                erc20Token = coin !== 'FSN' ? BridgeTokens[config.bridge.chainID][coin].token : ''
+              console.log(node)
+              try {
+                if (config.symbol === 'FSN') {
+                  erc20Token = coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
+                } else if (config.symbol === 'BNB') {
+                  erc20Token = coin !== 'FSN' ? BridgeTokens[node][coin].token : ''
+                }
+              } catch (error) {
+                setInit(0)
+                return
               }
               if (
                 (initDepositAddress.toLowerCase() !== DepositAddress.toLowerCase())
@@ -955,7 +985,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     if (isDeposit && isRedeem && depositType === 1 && account && inputSymbol !== config.prefix + 'BTC') {
       let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
       if (coin) {
-        getErcBalance(coin, account, inputDecimals).then(res => {
+        let node
+        if (extendObj.FSN && extendObj.FSN.isSwitch) {
+          node = extendObj.FSN.type
+        } else if (extendObj.ETH && extendObj.ETH.isSwitch) {
+          node = extendObj.ETH.type
+        }
+        getErcBalance(coin, account, inputDecimals, node).then(res => {
           // console.log(res)
           // console.log(config.prefix + coin)
           if (inputSymbol !== config.prefix + coin) {
@@ -1032,26 +1068,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const tokenContract = useSwapTokenContract(inputCurrency, swapBTCABI)
   const tokenETHContract = useSwapTokenContract(inputCurrency, swapETHABI)
 
-  const [isHardwareTip, setIsHardwareTip] = useState(false)
-  const [isHardwareError, setIsHardwareError] = useState(false)
-  const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
-  const [isDisabled, setIsDisableed] = useState(true)
-  const [isMintBtn, setIsMintBtn] = useState(false)
-  const [isRedeemBtn, setIsRedeem] = useState(false)
-  const [mintDtil, setMintDtil] = useState({
-    coin: '',
-    value: '',
-    hash: '',
-    from: '',
-    to: '',
-    status: 0,
-    timestamp: ''
-  })
-  const [mintDtilView, setMintDtilView] = useState(false)
-  const [mintSureBtn, setMintSureBtn] = useState(false)
-  const [mintModelTitle, setMintModelTitle] = useState()
-  const [mintModelTip, setMintModelTip] = useState()
-  const [balanceError, setBalanceError] = useState()
   
   useEffect(() => {
     if (bridgeType && bridgeType === 'redeem') {
@@ -1270,7 +1286,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setIsHardwareTip(true)
       setMintSureBtn(false)
       // MintModelView()
-      HDsendERC20Txns(coin, account, registerAddress, inputValueFormatted, PlusGasPricePercentage).then(res => {
+      HDsendERC20Txns(coin, account, registerAddress, inputValueFormatted, PlusGasPricePercentage, depositNode).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1289,6 +1305,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 swapHash: '',
                 swapStatus: '',
                 swapTime: '',
+                node: depositNode
               }
             }
           })
@@ -1310,7 +1327,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       })
     } else {
       setMintSureBtn(false)
-      MMsendERC20Txns(coin, account, registerAddress, inputValueFormatted, PlusGasPricePercentage).then(res => {
+      MMsendERC20Txns(coin, account, registerAddress, inputValueFormatted, PlusGasPricePercentage, depositNode).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1329,6 +1346,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 swapHash: '',
                 swapStatus: '',
                 swapTime: '',
+                node: depositNode
               }
             }
           })
@@ -1424,7 +1442,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               }
             })
           } else {
-            getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status).then(res => {
+            getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].node).then(res => {
               if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
                 hashArr[res.index].status = res.status
                 hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
@@ -1495,13 +1513,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
 
   function walletTip () {
-    if (config.symbol === 'FSN') {
+    if (extendObj.ETH && extendObj.ETH.isSwitch) {
       return (
         <dd><i></i>💀 {t('bridgeMintTip', {
           account
         })}.</dd>
       )
-    } else if (config.symbol === 'BNB') {
+    } else if (extendObj.FSN && extendObj.FSN.isSwitch) {
       return (
         <dd><i></i>💀 {t('bridgeMintTip', {
           account
@@ -1528,7 +1546,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         title={mintModelTitle}
         tipInfo={mintModelTip}
         coin={inputSymbol}
-      ></HardwareTip>
+      >
+
+      </HardwareTip>
       {showInputWarning && (
         <WarningCard
           onDismiss={() => {
@@ -1681,9 +1701,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 }>
                   <div>
                     <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
-                    {mintDtil.coin === 'BTC' ? 'Bitcoin' : ''}
-                    {config.symbol === 'FSN' && mintDtil.coin !== 'BTC' ? 'Ethereum' : ''}
-                    {config.symbol === 'BNB' && mintDtil.coin !== 'BTC' ? 'Fusion' : ''}
+                    {mintDtil.node === 0 ? 'Bitcoin' : ''}
+                    {mintDtil.node === 1 || mintDtil.node === 4 ? 'Ethereum' : ''}
+                    {mintDtil.node === 32659 || mintDtil.node === 46688 ? 'Fusion' : ''}
                     {t('txnsStatus')}
                   </div>
                   {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
@@ -1915,7 +1935,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   <span dangerouslySetInnerHTML = { 
                     {__html: t('mintTip0', { 
                       coin: inputSymbol.indexOf('ETH') !== -1 ? inputSymbol.replace(config.prefix, '') : (inputSymbol.replace(config.prefix, '') + (config.symbol === 'BNB' ? '' : '-ERC20')),
-                      coin2: config.symbol === 'BNB' ? 'FSN' : 'ETH'
+                      coin2: extendObj.FSN && extendObj.FSN.isSwitch ? 'FSN' : 'ETH'
                     })}
                   }></span>
                   <span className='span' >{account}</span><Copy toCopy={account} />
@@ -2047,15 +2067,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     {
                       account && inputSymbol.replace(config.prefix, '') !== 'BTC' ? (
                         walletTip()
-                        // config.symbol === 'FSN' ? (
-                        //   <dd><i></i>💀 {t('bridgeMintTip', {
-                        //     account
-                        //   })}.</dd>
-                        // ) :(
-                        //   <dd><i></i>💀 {t('bridgeMintTip', {
-                        //     account
-                        //   }).replace('ETH', 'FSN')}.</dd>
-                        // )
                       ) : ''
                     }
                   </dl>
@@ -2100,6 +2111,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                           // MintModelView()
                           getBTCtxns()
                         } else {
+                          if (extendObj.FSN && extendObj.FSN.isSwitch) {
+                            setDepositNode(extendObj.FSN.type)
+                          } else if (extendObj.ETH && extendObj.ETH.isSwitch) {
+                            setDepositNode(extendObj.ETH.type)
+                          }
                           setMintSureBtn(true)
                           setHardwareTxnsInfo(inputValueFormatted + ' ' + inputSymbol.replace(config.prefix, ''))
                           setIsHardwareTip(true)

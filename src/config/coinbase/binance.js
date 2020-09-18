@@ -15,6 +15,7 @@ const NAME_PREFIX = ''
 const COIN = getBaseCoin(PREFIX)
 
 const REWARDS_DAY = 33000 / 2
+const DEPOSIT_AMOUNT = 10000
 
 const COIN_BASE ={
   symbol: 'BNB',
@@ -59,6 +60,7 @@ const MAIN_CONFIG = {
     [COIN.ETH]: {url: ''},
     [COIN.USDT]: {url: ''},
     ANY: {url: 'https://any2bscapi.anyswap.exchange/rpc'},
+    [COIN.UNI]: {url: 'https://uni2bscapi.anyswap.exchange/rpc'}
   },
   initToken: INIT_MAIN_TOKEN,
   initBridge: '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa',

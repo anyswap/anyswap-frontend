@@ -26,6 +26,7 @@ const DEPOSIT_ADDRESS = 'depositAddress'  // 充值地址
 const DEPOSIT_TYPE = 'depositType'  // 充值类型 0：btc； 1：erc20
 const DEPOSIT_MAX_NUM = 'depositMaxNum'  // 最大充值额
 const DEPOSIT_MIN_NUM = 'depositMinNum'  // 最小充值额
+const EXTENDOBJ = 'extendObj'  // 扩展 例如：{FSN: { type: 1, isSwitch: 1 }, ETH: { type: 2, isSwitch: 1}}，FSN表示当前网络 type表示网chainid,isSwitch表示是否开启
 
 
 
@@ -59,6 +60,7 @@ const COIN = {
     [DEPOSIT_TYPE]: '',
     [DEPOSIT_MAX_NUM]: 0,
     [DEPOSIT_MIN_NUM]: 0,
+    [EXTENDOBJ]: {},
   }
 }
 
@@ -83,24 +85,12 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
-    },
-    '0x658A109C5900BC6d2357c87549B651670E5b0539': { // FOR
-      [NAME]: 'Force' + config.suffix,
-      [SYMBOL]: 'FOR',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x1d396c3fC33A44e106665fc45cA39B3042120241',
-      [REDEEM_MAX_NUM]: 200000,
-      [REDEEM_MIN_NUM]: 10,
-      [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 200000,
-      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        FSN: {
+          type: 32659,
+          isSwitch: 1
+        }
+      },
     },
     '0x55d398326f99059ff775485246999027b3197955': { // USDT
       [NAME]: 'Tether' + config.suffix,
@@ -119,6 +109,31 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
+    },
+    '0x99c5a2fcc97b59fe6d0b56e21e72b002f644123f': { // UNI
+      [NAME]: 'Uniswap' + config.suffix,
+      [SYMBOL]: config.prefix + 'UNI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x2f9755c371C7f23AEcdF1C136D233b41cE3E0D55',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xCc6140a667980fbA8bF650b4aEC4f6e7Aff3a37F',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        ETH: {
+          type: 1,
+          isSwitch: 1
+        }
+      }
     },
     '0xe9e7cea3dedca5984780bafc599bd69add087d56': { // BUSD
       [NAME]: 'BUSD' + config.suffix,
@@ -137,6 +152,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
     },
     '0xae9269f27437f0fcbc232d39ec814844a51d6b8f': { // BURGER
       [NAME]: 'Burger' + config.suffix,
@@ -155,6 +171,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
     },
     '0xE4Ae305ebE1AbE663f261Bc00534067C80ad677C': { // SPARTAN
       [NAME]: 'SPARTAN' + config.suffix,
@@ -173,6 +190,26 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
+    },
+    '0x658A109C5900BC6d2357c87549B651670E5b0539': { // FOR
+      [NAME]: 'Force' + config.suffix,
+      [SYMBOL]: 'FOR',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1d396c3fC33A44e106665fc45cA39B3042120241',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
     },
     '0xe02df9e3e622debdd69fb838bb799e3f168902c5': { // BAKE
       [NAME]: 'Bakery' + config.suffix,
@@ -191,6 +228,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
     },
     '0xacd6b5f76db153fb45eae6d5be5bdbd45d1b2a8c': { // PEACH
       [NAME]: 'Peach' + config.suffix,
@@ -209,6 +247,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
     },
     '0x8E9f5173e16Ff93F81579d73A7f9723324d6B6aF': { // MILK
       [NAME]: 'Milk' + config.suffix,
@@ -227,6 +266,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
     },
     '0x40929fb2008c830731a3d972950bc13f70161c75': { // TUNA
       [NAME]: 'Tuna' + config.suffix,
@@ -245,6 +285,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
     },
     '0xaf53d56ff99f1322515e54fdde93ff8b3b7dafd5': { // PROM
       [NAME]: 'Prometeus' + config.suffix,
@@ -263,6 +304,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
     },
     'BTC': { // BTC
       [NAME]: 'ANY Bitcoin',
@@ -281,6 +323,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     },
     'FSN': { // DAI
       [NAME]: 'Fusion',
@@ -299,6 +342,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 1000,
       [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]: {},
     },
     'DAI': { // DAI
       [NAME]: 'ANY Dai',
@@ -317,6 +361,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 1000,
       [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]: {},
     },
     'ETH': { // ETH
       [NAME]: 'ANY Ethereum',
@@ -335,6 +380,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 1000,
       [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]: {},
     },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
@@ -353,6 +399,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     },
     'LTC': { // LTC
       [NAME]: 'ANY Litecoin',
@@ -371,6 +418,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     }
   },
   97: {
@@ -391,6 +439,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
     },
     '0x4ce47351aeafbd81f9888187288996fe0322ffa2': { // ANY
       [NAME]: 'Anyswap',
@@ -409,6 +458,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     },
     '0xa5a3c93776ba2e1a78c79e88a2cb5abab2a0097f': { // FOOD
       [NAME]: 'ANY FoodToken',
@@ -427,6 +477,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
     },
     '0xEC5dCb5Dbf4B114C9d0F65BcCAb49EC54F6A0867': { // DAI
       [NAME]: 'ANY Dai',
@@ -445,6 +496,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 1000,
       [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]: {},
     },
     '0xd66c6b4f0be8ce5b39d52e0fd1344c389929b378': { // ETH
       [NAME]: 'ANY Ethereum',
@@ -463,6 +515,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 1000,
       [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]: {},
     },
     'BTC': { // BTC
       [NAME]: 'ANY Bitcoin',
@@ -481,6 +534,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
@@ -499,6 +553,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     },
     'LTC': { // LTC
       [NAME]: 'ANY Litecoin',
@@ -517,6 +572,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     }
   },
   32659: {
@@ -537,6 +593,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     },
     '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496': { // USDT
       [NAME]: 'ANY Tether',
@@ -555,6 +612,12 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        ETH: {
+          type: 1,
+          isSwitch: 1
+        }
+      }
     },
     '0x5e12290c7e7eda58d092632a53bbbc717996c732': { // ETH
       [NAME]: 'ANY Ethereum',
@@ -573,6 +636,36 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 1000,
       [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]:  {
+        ETH: {
+          type: 1,
+          isSwitch: 1
+        }
+      }
+    },
+    '0x6780bc1357dc0b6aa39224f53dc8aeceb093b6ff': { // UNI
+      [NAME]: 'ANY Uniswap',
+      [SYMBOL]: config.prefix + 'UNI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x2F8cC99f9dea45306ec91612c67c2de36b825f9A',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x94e840798e333cB1974E086B58c10C374E966bc7',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        ETH: {
+          type: 1,
+          isSwitch: 1
+        }
+      }
     },
     '0x783b971453f4f23d7874c2d1ca080265e3360274': { // BTC
       [NAME]: 'ANY Bitcoin',
@@ -591,6 +684,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
@@ -609,6 +703,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     },
     'LTC': { // LTC
       [NAME]: 'ANY Litecoin',
@@ -627,6 +722,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     }
   },
   46688: {
@@ -647,6 +743,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     },
     '0x3368e6012066bc08ece5f2b2582c883cca1424e5': { // USDT
       [NAME]: 'ANY Tether',
@@ -665,6 +762,12 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        ETH: {
+          type: 2,
+          isSwitch: 1
+        }
+      }
     },
     '0xb22ab4fb2fed7564915c2356d15ba9bab51953a2': { // ETH
       [NAME]: 'ANY Ethereum',
@@ -683,6 +786,12 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]:  {
+        ETH: {
+          type: 2,
+          isSwitch: 1
+        }
+      }
     },
     '0x6159f8524562c7b6954c1134beca6dec62677f51': { // BTC
       [NAME]: 'ANY Bitcoin',
@@ -701,6 +810,12 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 20,
       [DEPOSIT_MIN_NUM]: 0.0005,
+      [EXTENDOBJ]:  {
+        ETH: {
+          type: 2,
+          isSwitch: 1
+        }
+      }
     },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
@@ -719,6 +834,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     },
     'LTC': { // LTC
       [NAME]: 'ANY Litecoin',
@@ -737,6 +853,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
     }
   }
 }
@@ -750,7 +867,7 @@ function useTokensContext() {
 function reducer(state, { type, payload }) {
   switch (type) {
     case UPDATE: {
-      const { networkId, tokenAddress, name, symbol, decimals, exchangeAddress, redeemMaxNum, redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum } = payload
+      const { networkId, tokenAddress, name, symbol, decimals, exchangeAddress, redeemMaxNum, redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum, extendObj } = payload
       return {
         ...state,
         [networkId]: {
@@ -772,6 +889,7 @@ function reducer(state, { type, payload }) {
             [DEPOSIT_TYPE]: depositType,
             [DEPOSIT_MAX_NUM]: depositMaxNum,
             [DEPOSIT_MIN_NUM]: depositMinNum,
+            [EXTENDOBJ]: extendObj,
           }
         }
       }
@@ -785,8 +903,8 @@ function reducer(state, { type, payload }) {
 export default function Provider({ children }) {
   const [state, dispatch] = useReducer(reducer, INITIAL_TOKENS_CONTEXT)
 
-  const update = useCallback((networkId, tokenAddress, name, symbol, decimals, exchangeAddress, redeemMaxNum, redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum) => {
-    dispatch({ type: UPDATE, payload: { networkId, tokenAddress, name, symbol, decimals, exchangeAddress, redeemMaxNum, redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum } })
+  const update = useCallback((networkId, tokenAddress, name, symbol, decimals, exchangeAddress, redeemMaxNum, redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum, extendObj) => {
+    dispatch({ type: UPDATE, payload: { networkId, tokenAddress, name, symbol, decimals, exchangeAddress, redeemMaxNum, redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum, extendObj } })
   }, [])
 
   return (
@@ -819,6 +937,7 @@ export function useTokenDetails(tokenAddress) {
     [DEPOSIT_TYPE]: depositType,
     [DEPOSIT_MAX_NUM]: depositMaxNum,
     [DEPOSIT_MIN_NUM]: depositMinNum,
+    [EXTENDOBJ]: extendObj,
   } =
     safeAccess(allTokensInNetwork, [tokenAddress]) || {}
 
@@ -850,7 +969,7 @@ export function useTokenDetails(tokenAddress) {
   }, [tokenAddress, name, symbol, decimals, exchangeAddress, chainId, library, update])
   // console.log(chainId)
   // console.log(isSwitch)
-  return { name, symbol, decimals, exchangeAddress, redeemMaxNum, redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum }
+  return { name, symbol, decimals, exchangeAddress, redeemMaxNum, redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum, extendObj }
 }
 
 export function useAllTokenDetails() {

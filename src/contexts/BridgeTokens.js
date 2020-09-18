@@ -778,65 +778,41 @@ export default {
       [DECIMALS]: 6,
       [EXCHANGE_ADDRESS]: '0x36928500bc1dcd7af6a2b4008875cc336b927d57'
     },
+    'UNI': { // 
+      [NAME]: 'Uniswap',
+      [TOKEN]: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
+      [DECIMALS]: 18,
+    }
   },
   4: {
-    '0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa': {
-      [NAME]: 'Dai',
-      [TOKEN]: '0xB6eD7644C69416d67B522e20bC294A9a9B405B31',
-      [SYMBOL]: 'DAI',
+  },
+  56: {
+    'UNI': { // 
+      [NAME]: 'Uniswap',
+      [TOKEN]: '0x99c5a2fcc97b59fe6d0b56e21e72b002f644123f',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xaF51BaAA766b65E8B3Ee0C2c33186325ED01eBD5'
-    },
-    '0x72778a05fc72dd56d5b5a6bac2f045a2a1eb78f2': {
-      [NAME]: 'RMBTToken',
-      [TOKEN]: '0xB6eD7644C69416d67B522e20bC294A9a9B405B31',
-      [SYMBOL]: 'RMBT',
-      [DECIMALS]: 5,
-      [EXCHANGE_ADDRESS]: '0xa157aA373DDA0D6d48A151aA630af986Cc8a7F26'
-    },
-    '0x61b8c4d6d28d5f7edadbea5456db3b4f7f836b64': {
-      [NAME]: 'ANY Bitcoin',
-      [TOKEN]: '0xB6eD7644C69416d67B522e20bC294A9a9B405B31',
-      [SYMBOL]: 'mBTC',
-      [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0x3fe85d9ddc82adfad81eac73f9f21e05cdf76f21'
-    },
-    'USDT': {
-      [NAME]: 'USDTERC20',
-      [TOKEN]: '0xb09bad01684f6d47fc7dc9591889cc77eaed8d22',
-      [SYMBOL]: 'USDT',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '0xef2a905135c66fa04bdb41356ecf64e7df8ba776'
-    },
-    '0x6ca8f5eea9ff47386a7af20acd4b0257f58fba39': { // ANY
-      [NAME]: 'Anyswap',
-      [TOKEN]: '0xB6eD7644C69416d67B522e20bC294A9a9B405B31',
-      [SYMBOL]: 'ANY',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x2fe489c50166bde402f940b86dcb707e0a4505d2'
     }
   },
   32659: {
     'ANY': {
       [NAME]: 'Anyswap',
       [TOKEN]: '0x0c74199D22f732039e843366a236Ff4F61986B32',
-      [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x049ddc3cd20ac7a2f6c867680f7e21de70aca9c3'
     },
     'USDT': {
       [NAME]: 'ANY Tether',
       [TOKEN]: '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496',
-      [SYMBOL]: 'USDT',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '0x78917333bec47cee1022b31a136d31feff90d6fb'
+      [DECIMALS]: 6
     },
     'ETH': {
       [NAME]: 'ANY Ethereum',
       [TOKEN]: '0x5e12290c7e7eda58d092632a53bbbc717996c732',
-      [SYMBOL]: 'ETH',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x9ced18b0f8d7602f50d0061e6487021ec8114a1d'
+      [DECIMALS]: 18
+    },
+    'UNI': {
+      [NAME]: 'ANY Uniswap',
+      [TOKEN]: '0x6780bc1357dc0b6aa39224f53dc8aeceb093b6ff',
+      [DECIMALS]: 18
     },
   },
   46688: {

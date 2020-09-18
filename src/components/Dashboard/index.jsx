@@ -566,64 +566,81 @@ export default function DashboardDtil () {
   const [poolList, setPoolList] = useState([])
   const [poolObj, setPoolObj] = useState({})
   const [baseMarket, setSaseMarket] = useState()
+  const [rewardAPY, setRewardAPY] = useState({})
   useEffect(() => {
-    let poolArr = []
-    let poolInfoObj = {}
-    for (let obj in allTokens) {
-      poolArr.push(
-        getDashBoards(
-          account,
-          obj,
-          allTokens[obj].exchangeAddress,
-          allTokens[obj],
-          allTokens[obj].symbol
+    setTimeout(() => {
+
+      let poolArr = []
+      let poolInfoObj = {}
+      for (let obj in allTokens) {
+        poolArr.push(
+          getDashBoards(
+            account,
+            obj,
+            allTokens[obj].exchangeAddress,
+            allTokens[obj],
+            allTokens[obj].symbol
+          )
         )
-      )
-    }
-    Promise.all(poolArr).then(res => {
-      // console.log(res)
-      let arr = []
-      let baseAccountBalance = ethers.utils.bigNumberify(0)
-      let baseAllBalance = ethers.utils.bigNumberify(0)
-      for (let obj of res) {
-        obj.pecent = amountFormatter(obj.pecent, obj.decimals, 6)
-        obj.balance = amountFormatter(obj.balance, obj.decimals, 6)
-        obj.rewardsRate = config.rewardRate(obj.exchangeTokenBalancem ? obj.exchangeTokenBalancem.toString() : 0, obj.decimals)
-        if (obj.Basebalance) {
-          baseAccountBalance = baseAccountBalance.add(obj.Basebalance)
-        }
-        if (obj.exchangeETHBalance) {
-          baseAllBalance = baseAllBalance.add(obj.exchangeETHBalance)
-        }
-        if (obj.symbol === 'ANY') {
-          console.log(obj.exchangeETHBalance.toString())
-          console.log(obj.exchangeTokenBalancem.toString())
-          console.log(obj.market.toString())
-        }
-        if (obj.symbol.indexOf('USDT') !== -1) {
-          setSaseMarket(Number(amountFormatter(
-            obj.market,
-            18,
-            Math.min(6, obj.decimals)
-          )))
-        }
-        poolInfoObj[obj.symbol] = obj
-        arr.push(obj)
       }
-      console.log(arr)
-      arr[0].Basebalance = baseAccountBalance
-      poolInfoObj[config.symbol].Basebalance = baseAccountBalance
-      setPoolObj(poolInfoObj)
-      setPoolList(arr)
-    })
+      Promise.all(poolArr).then(res => {
+        // console.log(res)
+        let arr = []
+        let baseAccountBalance = ethers.utils.bigNumberify(0)
+        let baseAllBalance = ethers.utils.bigNumberify(0)
+        let rwArr = []
+        for (let obj of res) {
+          obj.pecent = amountFormatter(obj.pecent, obj.decimals, 6)
+          obj.balance = amountFormatter(obj.balance, obj.decimals, 6)
+          if (obj.Basebalance) {
+            baseAccountBalance = baseAccountBalance.add(obj.Basebalance)
+          }
+          if (obj.exchangeETHBalance) {
+            baseAllBalance = baseAllBalance.add(obj.exchangeETHBalance)
+          }
+          if (obj.symbol.indexOf('USDT') !== -1) {
+            setSaseMarket(Number(amountFormatter(
+              obj.market,
+              18,
+              Math.min(6, obj.decimals)
+            )))
+          }
+          poolInfoObj[obj.symbol] = obj
+          arr.push(obj)
+          if (obj.exchangeETHBalance && obj.exchangeTokenBalancem && obj.market) {
+            rwArr.push({
+              coin: obj.symbol,
+              market: obj.market ? obj.market.toString() : 0,
+              baseAmount: obj.exchangeETHBalance ? obj.exchangeETHBalance.toString() : 0,
+              tokenAmount: obj.exchangeTokenBalancem ? obj.exchangeTokenBalancem.toString() : 0
+            })
+          }
+        }
+        // console.log(config.rewardRate(rwArr))
+        arr[0].Basebalance = baseAccountBalance
+        poolInfoObj[config.symbol].Basebalance = baseAccountBalance
+        setRewardAPY(config.rewardRate(rwArr))
+        setPoolObj(poolInfoObj)
+        setPoolList(arr)
+      })
+    }, 100)
   }, [allTokens, account])
 
-  function rewardsPencent (exchangeTokenBalancem, dec) {
+  function rewardsPencent (coin, isSwitch) {
+    if (!config.dirSwitchFn(isSwitch)) {
+      return (
+        <ComineSoon>
+          <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
+          {t('ComineSoon')}
+        </ComineSoon>
+      )
+    }
     if (config.symbol === 'FSN') {
-      if (exchangeTokenBalancem) {
-        return config.rewardRate(exchangeTokenBalancem.toString(), dec).AnnualizedROI + '%'
+      if (rewardAPY[coin]) {
+        return rewardAPY[coin].AnnualizedROI.toFixed(2) + '%'
+      } else {
+        return '-%'
       }
-      return '-'
     } else if (config.symbol === 'BNB') {
       return (
         <ComineSoon>
@@ -700,7 +717,7 @@ export default function DashboardDtil () {
                               (Number(item.pecent) < 0.01 ? '<0.01' : Number(item.pecent).toFixed(2) )
                               : '-'} %</td>
                               <td align='right'>
-                                {rewardsPencent(item.exchangeTokenBalancem, item.decimals)}
+                                {rewardsPencent(item.symbol, item.isSwitch)}
                                 {/* {item.exchangeTokenBalancem ? config.rewardRate(item.exchangeTokenBalancem.toString(), item.decimals).AnnualizedROI : '-'}% */}
                               </td>
                             </>

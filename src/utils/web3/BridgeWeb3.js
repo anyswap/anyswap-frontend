@@ -7,26 +7,50 @@ import { ethers } from 'ethers'
 
 import { amountFormatter } from '../index'
 import { getChainHashStatus } from '../birdge'
+import {
+  BNB_MAINNET,
+  BNB_TESTNET,
+  FSN_MAINNET,
+  FSN_TESTNET,
+  ETH_MAINNET,
+  ETH_TESTNET
+} from '../../config/coinbase/nodeConfig'
 
 
 const Web3 = require('web3')
 const Tx  = require("ethereumjs-tx")
 
+const BRIDGE_RPC = config.bridge.rpc
 
-// console.log(config.nodeRpc)
+function getNodeRpc (node) {
+  switch (node) {
+    case 56:
+      return BNB_MAINNET
+    case 97:
+      return BNB_TESTNET
+    case 32659:
+      return FSN_MAINNET
+    case 46688:
+      return FSN_TESTNET
+    case 1:
+      return ETH_MAINNET
+    case 4:
+      return ETH_TESTNET
+    default: 
+      return BRIDGE_RPC
+  }
+}
+
 // const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b')
-// console.log(factory.methods)
+// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
+// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
 
 // // console.log(factory.methods.getExchange('0x40929fb2008c830731a3d972950bc13f70161c75').call())
-// factory.methods.getExchange('0x658A109C5900BC6d2357c87549B651670E5b0539').call((err, res) => {
+// factory.methods.getExchange('0x99c5a2fcc97b59fe6d0b56e21e72b002f644123f').call((err, res) => {
 //   console.log(err)
 //   console.log(res)
 // })
 
-const BRIDGE_RPC = config.bridge.rpc
-const BRIDGE_CHAIND = config.bridge.chainID
-const allToken = TOKEN[BRIDGE_CHAIND]
 // console.log(allToken)
 const web3 = new Web3(new Web3.providers.HttpProvider(BRIDGE_RPC))
 let contract = new web3.eth.Contract(ERC20_ABI)
@@ -42,7 +66,7 @@ if (typeof window.ethereum !== 'undefined'|| (typeof window.web3 !== 'undefined'
   mmWeb3 = window['ethereum'] || window.web3.currentProvider
 }
 
-function MMsign (from, msg) {
+function MMsign (from, msg, node) {
   return new Promise(resolve => {
     var params = [from, msg]
     var method = 'eth_sign'
@@ -55,7 +79,7 @@ function MMsign (from, msg) {
       if (!err || rsv.result) {
         rsv = rsv.result.indexOf('0x') === 0 ? rsv.result.replace('0x', '') : rsv.result
         let v = '0x' + rsv.substr(128)
-        v = BRIDGE_CHAIND * 2 + 35 + parseInt(v) - 27
+        v = Number(node) * 2 + 35 + parseInt(v) - 27
         // console.log(v)
         resolve({
           r: '0x' + rsv.substr(0, 64),
@@ -70,10 +94,10 @@ function MMsign (from, msg) {
   })
 }
 
-export function getHashStatus (hash, index, coin, status) {
+export function getHashStatus (hash, index, coin, status, node) {
   return new Promise(resolve => {
     if (status) {
-      getChainHashStatus(hash, coin).then(result => {
+      getChainHashStatus(hash, coin, node).then(result => {
         if (result) {
           resolve({
             ...result,
@@ -89,11 +113,12 @@ export function getHashStatus (hash, index, coin, status) {
         }
       })
     } else {
+      web3.setProvider(getNodeRpc(node))
       web3.eth.getTransactionReceipt(hash).then(res => {
         // console.log(res)
         if (res) {
           if (res.status) {
-            getChainHashStatus(hash, coin).then(result => {
+            getChainHashStatus(hash, coin, node).then(result => {
               if (result) {
                 resolve({
                   ...result,
@@ -125,9 +150,9 @@ export function getHashStatus (hash, index, coin, status) {
   })
 }
 
-export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage) {
+export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage, node) {
   return new Promise(resolve => {
-    getBaseInfo(coin, from, to, value, PlusGasPricePercentage).then(res => {
+    getBaseInfo(coin, from, to, value, PlusGasPricePercentage, node).then(res => {
       if (res.msg === 'Success') {
         // let eTx = new Tx(res.info)
         // console.log(eTx)
@@ -138,7 +163,7 @@ export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage) {
         hash = hash.indexOf('0x') === 0 ? hash : '0x' + hash
         // console.log(hash)
 
-        MMsign(from, hash).then(rsv => {
+        MMsign(from, hash, node).then(rsv => {
           let rawTx = {
             ...res.info,
             ...rsv
@@ -148,7 +173,7 @@ export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage) {
           signTx = signTx.indexOf("0x") === 0 ? signTx : ("0x" + signTx)
           // console.log(rawTx)
           // console.log(signTx)
-          sendTxns(signTx).then(hash => {
+          sendTxns(signTx, node).then(hash => {
             if (hash.msg === 'Success') {
               res.info.hash = hash.info
               resolve({
@@ -173,12 +198,14 @@ export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage) {
   })
 }
 
-export const getErcBalance = (coin, from, dec) => {
+export const getErcBalance = (coin, from, dec, node) => {
   return new Promise(resolve => {
     if (!coin) {
       resolve('')
     } else {
       coin = coin.replace('a', '')
+      web3.setProvider(getNodeRpc(node))
+      let allToken = TOKEN[node]
       if (coin === 'ETH' || (allToken[coin] && allToken[coin].token && allToken[coin].decimals === dec)) {
         web3.eth.getBalance(from).then(res => {
           // console.log(res)
@@ -215,13 +242,11 @@ export const getErcBalance = (coin, from, dec) => {
       }
     }
   })
-  // web3.eth.getBalance(from).then(res => {
-  //   console.log(res)
-  // })
 }
 
-function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
+function getBaseInfo (coin, from, to, value, PlusGasPricePercentage, node) {
   let input = ''
+  let allToken = TOKEN[node]
   if (coin !== 'ETH') {
     contract.options.address = allToken[coin].token
     value = ethers.utils.parseUnits(value.toString(), allToken[coin].decimals)
@@ -232,7 +257,7 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
   // console.log(value)
   let data = {
     from,
-    chainId: web3.utils.toHex(BRIDGE_CHAIND),
+    chainId: web3.utils.toHex(node),
     gas: '',
     gasPrice: "",
     nonce: "",
@@ -240,6 +265,7 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
     value: coin === 'ETH' ? value.toHexString() : "0x0",
     data: input
   }
+  web3.setProvider(getNodeRpc(node))
   // console.log(data)
   return new Promise(resolve => {
     let count = 0, time = Date.now()
@@ -301,8 +327,9 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage) {
   })
 }
 
-function sendTxns (signedTx) {
+function sendTxns (signedTx, node) {
   return new Promise(resolve => {
+    web3.setProvider(getNodeRpc(node))
     web3.eth.sendSignedTransaction(signedTx, (err, hash) => {
       // console.log(err)
       // console.log(hash)
@@ -321,16 +348,16 @@ function sendTxns (signedTx) {
   })
 }
 
-export function HDsendERC20Txns (coin, from, to, value, PlusGasPricePercentage) {
+export function HDsendERC20Txns (coin, from, to, value, PlusGasPricePercentage, node) {
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
   return new Promise(resolve => {
-    getBaseInfo(coin, from, to, value, PlusGasPricePercentage).then(res => {
+    getBaseInfo(coin, from, to, value, PlusGasPricePercentage, node).then(res => {
       if (res.msg === 'Success') {
         let data = res.info
         toLedgerSign(HDPath, data).then(res => {
           if (res.msg === 'Success') {
-            sendTxns(res.info.signedTx).then(result => {
+            sendTxns(res.info.signedTx, node).then(result => {
               if (result.msg === 'Success') {
                 data.hash = result.info
                 resolve({

@@ -8,6 +8,7 @@ export const getBaseCoin = (prefix) => {
   coinObj[coinObj['DAI'] = prefix + 'DAI'] = 'DAI'
   coinObj[coinObj['LTC'] = prefix + 'LTC'] = 'LTC'
   coinObj[coinObj['XRP'] = prefix + 'XRP'] = 'XRP'
+  coinObj[coinObj['UNI'] = prefix + 'UNI'] = 'UNI'
   coinObj['prefix'] = prefix
   // console.log(coinObj)
   return coinObj
