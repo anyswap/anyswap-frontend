@@ -350,13 +350,18 @@ font-family: 'Manrope';
 
 const RewardsBox = styled.div`
   width:100%;
-  height:100%;
+  border-radius: 0.5625rem;
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
+  background-color: ${({ theme }) => theme.contentBg};
+  padding:1rem;
+  font-family: 'Manrope';
+  margin: 15px 0;
+  ${({theme}) => theme.FlexBC}
   li {
     ${({theme}) => theme.FlexBC}
     width: 100%;
     list-style:none;
-    height: 66px;
-    border-bottom: 1px solid #ededed;
+    padding: 0 15px;
 
     .left {
       ${({theme}) => theme.FlexSC};
@@ -396,9 +401,12 @@ const RewardsBox = styled.div`
   }
   .tip {
     width: 100%;
-    height: 100px;
     ${({theme}) => theme.FlexC};
     color:#999;
+    margin:0;
+  }
+  @media screen and (max-width: 960px) {
+    flex-wrap:wrap;
   }
 `
 
@@ -575,6 +583,7 @@ export default function DashboardDtil () {
   const [poolObj, setPoolObj] = useState({})
   const [baseMarket, setSaseMarket] = useState()
   const [rewardAPY, setRewardAPY] = useState({})
+  const [darkMode] = useDarkModeManager()
   useEffect(() => {
     setTimeout(() => {
 
@@ -598,8 +607,8 @@ export default function DashboardDtil () {
         let baseAllBalance = ethers.utils.bigNumberify(0)
         let rwArr = []
         for (let obj of res) {
-          obj.pecent = amountFormatter(obj.pecent, obj.decimals, 6)
-          obj.balance = amountFormatter(obj.balance, obj.decimals, 6)
+          obj.pecent = amountFormatter(obj.pecent, 18, 5)
+          obj.balance = amountFormatter(obj.balance, obj.decimals, 5)
           if (obj.Basebalance) {
             baseAccountBalance = baseAccountBalance.add(obj.Basebalance)
           }
@@ -610,7 +619,7 @@ export default function DashboardDtil () {
             setSaseMarket(Number(amountFormatter(
               obj.market,
               18,
-              Math.min(6, obj.decimals)
+              Math.min(5, obj.decimals)
             )))
           }
           poolInfoObj[obj.symbol] = obj
@@ -624,7 +633,7 @@ export default function DashboardDtil () {
             })
           }
         }
-        // console.log(config.rewardRate(rwArr))
+        console.log(arr)
         arr[0].Basebalance = baseAccountBalance
         poolInfoObj[config.symbol].Basebalance = baseAccountBalance
         setRewardAPY(config.rewardRate(rwArr))
@@ -661,10 +670,10 @@ export default function DashboardDtil () {
           <DBThead>
             <tr>
               <th align='center' width='226px'>{t('Pairs')}</th>
-              <th align='center' width='190px'>{t('PoolLiquidity')}</th>
-              <th align='center'>{t('MyLiquidity')}</th>
-              <th align='center'>{t('MyPecent')}</th>
-              <th align='center'>{t('APY')}</th>
+              <th align='right' width='190px'>{t('PoolLiquidity')}</th>
+              <th align='right'>{t('MyLiquidity')}</th>
+              <th align='right'>{t('MyPecent')}</th>
+              <th align='right'>{t('APY')}</th>
             </tr>
           </DBThead>
           <DBTbody>
@@ -693,11 +702,11 @@ export default function DashboardDtil () {
                               <td align='right'>
                                 <p className='lr'>
                                   <span>{item.symbol}</span>
-                                  {item.exchangeTokenBalancem ? amountFormatter( item.exchangeTokenBalancem, item.decimals, 6 ) : '0'}
+                                  {item.exchangeTokenBalancem ? amountFormatter( item.exchangeTokenBalancem, item.decimals, 5 ) : '0'}
                                 </p>
                                 <p className='lr'>
                                   <span>{config.symbol}</span>
-                                  {item.exchangeETHBalance ? amountFormatter( item.exchangeETHBalance, 18, 6 ) : '0'}
+                                  {item.exchangeETHBalance ? amountFormatter( item.exchangeETHBalance, 18, 5 ) : '0'}
                                 </p>
                               </td>
                               <td align='right'>
@@ -705,17 +714,17 @@ export default function DashboardDtil () {
                                   Number(item.balance) && Number(amountFormatter(item.Basebalance, 18)) ? (
                                     <>
                                       <p>
-                                        {item.balance ? (Number(item.balance).toFixed(6)) : ''}
+                                        {item.balance ? Number(Number(item.balance).toFixed(5)) : ''}
                                       </p>
                                       <p>
-                                        {item.Basebalance ? (Number(amountFormatter(item.Basebalance, 18)).toFixed(6)) : ''}
+                                        {item.Basebalance ? Number(Number(amountFormatter(item.Basebalance, 18)).toFixed(5)) : ''}
                                       </p>
                                     </>
                                   ) : '0'
                                 }
                               </td>
                               <td align='right'>{Number(item.pecent) && config.dirSwitchFn(item.isSwitch) ?
-                              (Number(item.pecent) < 0.01 ? '<0.01' : Number(item.pecent).toFixed(2) )
+                              (Number(item.pecent) < 0.01 ? '<0.01' : (Number(item.pecent) * 100).toFixed(2) )
                               : '-'} %</td>
                               <td align='right'>
                                 {rewardsPencent(item.symbol, item.isSwitch)}
@@ -817,11 +826,11 @@ export default function DashboardDtil () {
 
   function getPrice (market, coin) {
     // console.log(coin)
-    if (coin.indexOf('USDT') !== -1) return '1.000000'
+    if (coin.indexOf('USDT') !== -1) return '1'
     if (!market) return '-'
     let mt1 = Number(amountFormatter( market, 18 ))
     if (!mt1) return '0'
-    return (baseMarket / mt1).toFixed(6)
+    return Number((baseMarket / mt1).toFixed(5))
   }
   function getMyAccount () {
     // if (!account) return
@@ -892,8 +901,8 @@ export default function DashboardDtil () {
                       poolObj[item.symbol] ? (
                         config.dirSwitchFn(poolObj[item.symbol].isSwitch) ? (
                           <>
-                            <td align='right'>$ {poolObj[item.symbol] && baseMarket ? 
-                              (item.symbol === config.symbol ? baseMarket.toFixed(6) : getPrice(poolObj[item.symbol].market, item.symbol)) : '-'
+                            <td align='left'>$ {poolObj[item.symbol] && baseMarket ? 
+                              (item.symbol === config.symbol ? Number(baseMarket.toFixed(5)) : getPrice(poolObj[item.symbol].market, item.symbol)) : '-'
                             }</td>
                             <td align='right'>{account ? item.balance : '-'}</td>
                             {
@@ -907,7 +916,7 @@ export default function DashboardDtil () {
                                       poolObj[item.symbol]
                                       && config.dirSwitchFn(poolObj[item.symbol].isSwitch)
                                       && item.balance !== '-'
-                                      ? (Number(amountFormatter(poolObj[item.symbol].Basebalance, 18)) + Number(item.balance)).toFixed(6) : '0'}
+                                      ? Number((Number(amountFormatter(poolObj[item.symbol].Basebalance, 18)) + Number(item.balance)).toFixed(5)) : '0'}
                                   </td>
                                 </>
                               ) : (
@@ -918,7 +927,7 @@ export default function DashboardDtil () {
                                       poolObj[item.symbol]
                                       && config.dirSwitchFn(poolObj[item.symbol].isSwitch)
                                       && item.balance !== '-'
-                                      ? (Number(poolObj[item.symbol].balance) + Number(item.balance) === 0 ? '0' : (Number(poolObj[item.symbol].balance) + Number(item.balance)).toFixed(6)) : '0'}</td>
+                                      ? (Number(poolObj[item.symbol].balance) + Number(item.balance) === 0 ? '0' : Number((Number(poolObj[item.symbol].balance) + Number(item.balance)).toFixed(5))) : '0'}</td>
                                 </>
                               )
                             }
@@ -970,40 +979,9 @@ export default function DashboardDtil () {
   }
   return (
     <>
+        {/* <div className='bgImg'><img src={AnyillustrationIcon} alt={''} /></div> */}
+      
       {/* <EarningsBox>
-        <div className='bgImg'><img src={AnyillustrationIcon} alt={''} /></div>
-        <RewardsBox>
-          {accountRewars.length > 0 && config.isOpenRewards ? (
-            <>
-              {accountRewars.map((item, index)  => {
-                return (
-                  <li key={index}>
-                    <div className='left'>
-                      <div className='icon'>
-                        {darkMode ? (
-                          <img src={item.iconDark} alt={''} />
-                        ) : (
-                          <img src={item.icon} alt={''} />
-                        )}
-                      </div>
-                      <div className='name'>
-                        {item.name}
-                        <br />{t('rewards')}
-                      </div>
-                    </div>
-                    <div className='value'>
-                      {item.value && item.value > 0 ? item.value.toFixed(2) : '0.00'} ANY
-                    </div>
-                  </li>
-                )
-              })}
-            </>
-          ) : (
-            <p className='tip'>
-              {t('noRewards')}
-            </p>
-          )}
-        </RewardsBox>
       </EarningsBox> */}
 
       <TitleBox>{t('dashboard')}</TitleBox>
@@ -1034,6 +1012,34 @@ export default function DashboardDtil () {
           }
         </MoreBtnBox>
       </MyBalanceBox>
+      {accountRewars.length > 0 && config.isOpenRewards ? (
+        <RewardsBox>
+          {accountRewars.map((item, index)  => {
+            return (
+              <li key={index}>
+                <div className='left'>
+                  <div className='icon'>
+                    {darkMode ? (
+                      <img src={item.iconDark} alt={''} />
+                    ) : (
+                      <img src={item.icon} alt={''} />
+                    )}
+                  </div>
+                  <div className='name'>
+                    {item.name}
+                    <br />{t('rewards')}
+                  </div>
+                </div>
+                <div className='value'>
+                  {item.value && item.value > 0 ? item.value.toFixed(2) : '0.00'} ANY
+                </div>
+              </li>
+            )
+          })}
+        </RewardsBox>
+      ) : (
+        ''
+      )}
       <MyBalanceBox>
         <TitleAndSearchBox>
           <h3>{t('ProvidingLiquidity')}</h3>

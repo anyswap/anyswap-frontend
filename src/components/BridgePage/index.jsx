@@ -1976,7 +1976,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace(config.prefix, '') : ''}
-        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? inputName.replace(config.suffix, '') : ''}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? inputName.replace(config.symbol === 'BNB' ? config.suffix : config.namePrefix, '') : ''}
         showUnlock={false}
         disableUnlock={true}
         selectedTokens={[inputCurrency, outputCurrency]}

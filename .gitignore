@@ -16,6 +16,8 @@
 /BSC-TEST
 /BNB-MAIN
 /BNB-TEST
+/FSN-MAIN
+/FSN-TEST
 #/src/config/index.js
 #/src/contexts/Tokens.js
 
