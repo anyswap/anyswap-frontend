@@ -559,7 +559,7 @@ function thousandBit (num, dec = 2) {
 
 // getDashBoards('0xE000E632124aa65B80f74E3e4cc06DC761610583', '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4', '0x4dee5f0705ff478b452419375610155b5873ef5b')
 export default function DashboardDtil () {
-  const { account, library } = useWeb3React()
+  const { account } = useWeb3React()
   const allBalances = useAllBalances()
   const allTokens = useAllTokenDetails()
   const { t } = useTranslation()
@@ -728,16 +728,11 @@ export default function DashboardDtil () {
   }
 
 
-  const tokenShareFSN =useAddressBalance(account, config.symbol)
-  // console.log(tokenShareFSN)
-
   const [searchBalance, setSearchBalance] =  useState('')
   const [searchPool, setSearchPool] =  useState('')
   const [showMore, setShowMore] =  useState(false)
   const [showMorePool, setShowMorePool] =  useState(false)
   const [accountRewars, setAccountRewars] = useState([])
-
-  const [fsnPrice, setFsnPrice] = useState('')
 
   useEffect(() => {
     if (account && config.isOpenRewards) {
@@ -1011,50 +1006,6 @@ export default function DashboardDtil () {
           }
         </MoreBtnBox>
       </MyBalanceBox>
-      {/* <WrapperBox>
-        <EarningsBox>
-          <div className='bgImg'><img src={AnyillustrationIcon} alt={''} /></div>
-          <RewardsBox>
-            {accountRewars.length > 0 && config.isOpenRewards ? (
-              <>
-                {accountRewars.map((item, index)  => {
-                  return (
-                    <li key={index}>
-                      <div className='left'>
-                        <div className='icon'>
-                          {darkMode ? (
-                            <img src={item.iconDark} alt={''} />
-                          ) : (
-                            <img src={item.icon} alt={''} />
-                          )}
-                        </div>
-                        <div className='name'>
-                          {item.name}
-                          <br />{t('rewards')}
-                        </div>
-                      </div>
-                      <div className='value'>
-                        {item.value && item.value > 0 ? item.value.toFixed(2) : '0.00'} ANY
-                      </div>
-                    </li>
-                  )
-                })}
-              </>
-            ) : (
-              <p className='tip'>
-                {t('noRewards')}
-              </p>
-            )}
-          </RewardsBox>
-        </EarningsBox>
-        <ProvideLiqBox>
-          <TitleAndSearchBox>
-            <h3>{t('ProvidingLiquidity')}</h3>
-            {searchBox(2)}
-          </TitleAndSearchBox>
-          {PoolListView()}
-        </ProvideLiqBox>
-      </WrapperBox> */}
     </>
   )
 }

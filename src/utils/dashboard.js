@@ -61,18 +61,6 @@ function getPoolTokenBalance (token, exchangeAddress) { // exchangeTokenBalancem
     })
   })
 }
-function getPoolTokenBalance2 (token, exchangeAddress) { // exchangeTokenBalancem
-  return new Promise(resolve => {
-    let contract = new web3.eth.Contract(EXCHANGE_ABI, exchangeAddress)
-    contract.methods.balanceOf(token).call({from: token}, (err, res) => {
-      let balance = 0
-      if (!err) {
-        balance = res
-      }
-      resolve(balance)
-    })
-  })
-}
 
 // 获取账户地址在合约中的余额
 function getAccountTokenBalance (exchangeAddress, account) {  // poolTokenBalance
@@ -118,7 +106,6 @@ function getDashBoards (account, token, exchangeAddress, obj, coin) {
       getPoolTokenBalance(token, exchangeAddress), // pool token balance
       getPoolExchangeBalance(exchangeAddress), // pool coin balance
       getAccountTokenBalance(exchangeAddress, account), 
-      getPoolTokenBalance2(token, exchangeAddress)
     ]).then(res => {
       // if (coin === 'ANY') {
       //   console.log(coin)
