@@ -66,7 +66,7 @@ const COIN_BASE ={
         coinObj[obj].AnnualizedROI = coinObj[obj].ROIPerDay * 100 * 365
       }
     }
-    console.log(coinObj)
+    // console.log(coinObj)
     return coinObj
   }
 }

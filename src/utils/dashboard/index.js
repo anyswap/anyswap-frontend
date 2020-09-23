@@ -1,7 +1,7 @@
 import { ethers } from 'ethers'
-import web3 from './web3'
-import ERC20_ABI from '../constants/abis/erc20'
-import EXCHANGE_ABI from '../constants/abis/exchange'
+import web3 from '../web3'
+import ERC20_ABI from '../../constants/abis/erc20'
+import EXCHANGE_ABI from '../../constants/abis/exchange'
 
 function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
   try {

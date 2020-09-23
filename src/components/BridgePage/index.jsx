@@ -52,10 +52,13 @@ import WarningTip from '../WarningTip'
 import {getErcBalance, HDsendERC20Txns, MMsendERC20Txns, getHashStatus} from '../../utils/web3/BridgeWeb3'
 import BridgeTokens from '../../contexts/BridgeTokens'
 
-import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/BTC'
+import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/birdge/BTC'
 import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
 
 
+import test from '../../utils/dashboard/test'
+
+test()
 const INPUT = 0
 const OUTPUT = 1
 
@@ -617,7 +620,16 @@ function getInitialSwapState(state) {
     hashArr: sessionStorage.getItem('DEPOSIT_HISTORY') ? JSON.parse(sessionStorage.getItem('DEPOSIT_HISTORY')) : []
   }
 }
-
+function formatDecimal(num, decimal) {
+  num = num.toString()
+  let index = num.indexOf('.')
+  if (index !== -1) {
+      num = num.substring(0, decimal + index + 1)
+  } else {
+      num = num.substring(0)
+  }
+  return parseFloat(num).toFixed(decimal)
+}
 function swapStateReducer(state, action) {
   switch (action.type) {
     case 'FLIP_INDEPENDENT': {
@@ -896,7 +908,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             if (inputSymbol !== config.prefix + 'BTC') {
               DepositAddress = dObj.DepositAddress
               let erc20Token = ''
-              console.log(node)
+              // console.log(node)
               try {
                 if (config.symbol === 'FSN') {
                   erc20Token = coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
@@ -1039,7 +1051,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     : ''
   // const inputValueParsed = independentField === INPUT ? independentValueParsed : dependentValue
   let inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
-  inputValueFormatted = inputValueFormatted ? Number(Number(inputValueFormatted).toFixed(inputDecimals)) : ''
+  // if (inputValueFormatted) {
+  //   console.log(independentField === INPUT)
+  //   console.log(independentValue)
+  //   console.log(inputValueFormatted)
+  //   console.log(ethers.utils.parseUnits(inputValueFormatted.toString(), inputDecimals).toString())
+  // }
+  
+  inputValueFormatted = inputValueFormatted ? Number(formatDecimal(inputValueFormatted, inputDecimals)) : ''
   // console.log(independentValue)
   // console.log(inputValueFormatted)
   // console.log(dependentValueFormatted)
@@ -1156,6 +1175,17 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
   }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol, isDeposit, registerAddress, outNetBalance, bridgeType, depositMaxNum, depositMinNum])
   
+  function cleanInput () {
+    dispatchSwapState({
+      type: 'UPDATE_INDEPENDENT',
+      payload: {
+        value: '',
+        field: INPUT,
+        realyValue: ''
+      }
+    })
+  }
+
   function sendTxns () {
     if (inputSymbol === config.prefix + 'BTC' && isBTCAddress(recipient.address)) {
       alert('Illegal address!')
@@ -1175,9 +1205,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setIsHardwareTip(true)
       setHardwareTxnsInfo(inputValueFormatted + " "  + inputSymbol)
       let web3Contract = getWeb3ConTract(swapBTCABI, inputCurrency)
-      // let data = web3Contract.Swapout.getData(amountVal, address)
-      // console.log(amountVal)
-      // console.log(address)
+
       let data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
       if (inputSymbol !== config.prefix + 'BTC') {
         web3Contract = getWeb3ConTract(swapETHABI, inputCurrency)
@@ -1188,14 +1216,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         if (res.msg === 'Success') {
           // console.log(res.info)
           addTransaction(res.info)
-          dispatchSwapState({
-            type: 'UPDATE_INDEPENDENT',
-            payload: {
-              value: '',
-              field: INPUT,
-              realyValue: ''
-            }
-          })
+          cleanInput()
         } else {
           alert(res.error)
         }
@@ -1209,14 +1230,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       tokenETHContract.Swapout(amountVal, address).then(res => {
         // console.log(res)
         addTransaction(res)
-        dispatchSwapState({
-          type: 'UPDATE_INDEPENDENT',
-          payload: {
-            value: '',
-            field: INPUT,
-            realyValue: ''
-          }
-        })
+        cleanInput()
         setIsHardwareTip(false)
       }).catch(err => {
         console.log(err)
@@ -1225,14 +1239,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     } else {
       tokenContract.Swapout(amountVal, address).then(res => {
         addTransaction(res)
-        dispatchSwapState({
-          type: 'UPDATE_INDEPENDENT',
-          payload: {
-            value: '',
-            field: INPUT,
-            realyValue: ''
-          }
-        })
+        cleanInput()
         setIsHardwareTip(false)
       }).catch(err => {
         console.log(err)
@@ -1264,19 +1271,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       bt = 'redeem'
     }
     dispatchSwapState({ type: 'UPDATE_BREDGETYPE', payload: bt })
-    dispatchSwapState({
-      type: 'UPDATE_INDEPENDENT',
-      payload: {
-        value: '',
-        field: INPUT,
-        realyValue: ''
-      }
-    })
+    cleanInput()
   }
-  function mintAmount () {
-    let coin = inputSymbol.replace(config.prefix, '')
-
-    if (initDepositAddress.toLowerCase() !== registerAddress.toLowerCase()) {
+  function mintAmount (mintAddress, mintCoin) {
+    let coin = mintCoin.replace(config.prefix, '')
+    console.log(initDepositAddress)
+    console.log(mintAddress)
+    console.log(registerAddress)
+    if (initDepositAddress.toLowerCase() !== mintAddress.toLowerCase()) {
       alert('Data error, please refresh and try again!')
       return
     }
@@ -1286,7 +1288,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setIsHardwareTip(true)
       setMintSureBtn(false)
       // MintModelView()
-      HDsendERC20Txns(coin, account, registerAddress, inputValueFormatted, PlusGasPricePercentage, depositNode).then(res => {
+      HDsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, depositNode).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1299,7 +1301,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 value: inputValueFormatted,
                 hash: res.info.hash,
                 from: account,
-                to: registerAddress,
+                to: mintAddress,
                 status: 0,
                 timestamp: Date.now(),
                 swapHash: '',
@@ -1309,14 +1311,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               }
             }
           })
-          dispatchSwapState({
-            type: 'UPDATE_INDEPENDENT',
-            payload: {
-              value: '',
-              field: INPUT,
-              realyValue: ''
-            }
-          })
+          cleanInput()
           setIsHardwareTip(false)
           setMintModelTitle('')
           setMintModelTip('')
@@ -1327,7 +1322,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       })
     } else {
       setMintSureBtn(false)
-      MMsendERC20Txns(coin, account, registerAddress, inputValueFormatted, PlusGasPricePercentage, depositNode).then(res => {
+      MMsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, depositNode).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1340,7 +1335,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 value: inputValueFormatted,
                 hash: res.info.hash,
                 from: account,
-                to: registerAddress,
+                to: mintAddress,
                 status: 0,
                 timestamp: Date.now(),
                 swapHash: '',
@@ -1350,20 +1345,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               }
             }
           })
-          dispatchSwapState({
-            type: 'UPDATE_INDEPENDENT',
-            payload: {
-              value: '',
-              field: INPUT,
-              realyValue: ''
-            }
-          })
+          cleanInput()
         }
         setIsHardwareTip(false)
         setMintSureBtn(false)
         setMintModelTitle('')
         setMintModelTip('')
-        // MintModelView()
       })
     }
   }
@@ -1495,14 +1482,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             hashData: res
           }
         })
-        dispatchSwapState({
-          type: 'UPDATE_INDEPENDENT',
-          payload: {
-            value: '',
-            field: INPUT,
-            realyValue: ''
-          }
-        })
+        cleanInput()
         setMintDtil(res)
         setMintDtilView(true)
       } else {
@@ -1541,7 +1521,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         txnsInfo={hardwareTxnsInfo}
         isSelfBtn={mintSureBtn}
         onSure={() => {
-          mintAmount()
+          mintAmount(registerAddress, inputSymbol)
         }}
         title={mintModelTitle}
         tipInfo={mintModelTip}
@@ -1855,8 +1835,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   inputVal = depositMaxNum
                 }
               }
-              // console.log(inputVal)
-              // console.log(amountFormatter(valueToSet, inputDecimals, inputDecimals, false))
               dispatchSwapState({
                 type: 'UPDATE_INDEPENDENT',
                 payload: {
@@ -1889,10 +1867,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             if (inputVal < 0) {
               inputVal = ''
             } else {
-              inputVal = inputVal.toFixed(Math.min(8, inputDecimals))
+              inputVal = formatDecimal(inputVal, Math.min(8, inputDecimals))
             }
           } else {
-            inputVal = Number(inputVal).toFixed(Math.min(8, inputDecimals))
+            inputVal = formatDecimal(inputVal, Math.min(8, inputDecimals))
           }
           // console.log(inputValue)
           dispatchSwapState({

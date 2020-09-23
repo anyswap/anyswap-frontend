@@ -7,6 +7,7 @@
   "dependencies": {
     "@0x/subproviders": "^6.1.1",
     "@babel/core": "7.7.4",
+    "@makerdao/multicall": "^0.11.0",
     "@reach/dialog": "^0.2.8",
     "@reach/tooltip": "^0.2.0",
     "@svgr/webpack": "4.3.3",

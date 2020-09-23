@@ -26,7 +26,7 @@ import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.sv
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 
 import {getRewards} from '../../utils/axios'
-import getDashBoards from '../../utils/dashboard'
+import getDashBoards from '../../utils/dashboard/index.js'
 
 import IconLiquidityRewards from '../../assets/images/icn-liquidity-rewards.svg'
 import IconLiquidityRewardsBlack from '../../assets/images/icn-liquidity-rewards-black.svg'
@@ -616,6 +616,7 @@ export default function DashboardDtil () {
           if (obj.exchangeETHBalance) {
             baseAllBalance = baseAllBalance.add(obj.exchangeETHBalance)
           }
+          // console.log(obj.symbol)
           if (obj.symbol.indexOf('USDT') !== -1) {
             setSaseMarket(Number(amountFormatter(
               obj.market,

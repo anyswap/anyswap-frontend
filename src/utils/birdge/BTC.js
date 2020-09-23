@@ -1,6 +1,6 @@
-import config from '../config'
+import config from '../../config'
 import axios from 'axios'
-import { getChainHashStatus } from './birdge'
+import { getChainHashStatus } from '../birdge'
 const bitcoin = require('bitcoinjs-lib');
 const OPS = require('bitcoin-ops');
 
