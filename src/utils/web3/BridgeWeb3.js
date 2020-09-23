@@ -2,6 +2,8 @@ import config from '../../config'
 import ERC20_ABI from '../../constants/abis/erc20'
 import FACTORY_ABI from '../../constants/abis/factory'
 import TOKEN from '../../contexts/BridgeTokens'
+import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
+
 import {toSign as toLedgerSign} from '../wallets/ledger/index'
 import { ethers } from 'ethers'
 
@@ -51,12 +53,12 @@ function getNodeRpc (node) {
 //   console.log(res)
 // })
 
-// console.log(allToken)
+// console.log(BridgeToken)
 const web3 = new Web3(new Web3.providers.HttpProvider(BRIDGE_RPC))
 let contract = new web3.eth.Contract(ERC20_ABI)
 
-
-
+const CUR_TOKEN = INITIAL_TOKENS_CONTEXT[config.chainID]
+// console.log(CUR_TOKEN)
 
 
 // console.log(web3.eth.accounts.recoverTransaction('0xf8763b844190ab008301ec309406cadd991f2ec8e156c0ae66116c5604fdcdc5b592313030303030303030303030303030303030802ba02f22fa4a0876de138c096496a6500e8489c44757ad1d5fa64510ba21191ece49a051a30d66a9accbe384bf56bc461d1630ecb2b46e96af310e46b96dd2955b345b'))
@@ -82,13 +84,19 @@ function MMsign (from, msg, node) {
         v = Number(node) * 2 + 35 + parseInt(v) - 27
         // console.log(v)
         resolve({
-          r: '0x' + rsv.substr(0, 64),
-          s: '0x' + rsv.substr(64, 64),
-          v: web3.utils.toHex(v)
+          msg: 'Success',
+          info: {
+            r: '0x' + rsv.substr(0, 64),
+            s: '0x' + rsv.substr(64, 64),
+            v: web3.utils.toHex(v)
+          }
         })
       } else {
         console.log(err)
-        resolve('')
+        resolve({
+          msg: 'Error',
+          error: err.message ? err.message : err.toString()
+        })
       }
     })
   })
@@ -150,8 +158,15 @@ export function getHashStatus (hash, index, coin, status, node) {
   })
 }
 
-export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage, node) {
+export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage, node, inputCurrency) {
   return new Promise(resolve => {
+    if (CUR_TOKEN[inputCurrency].depositAddress.toLowerCase() !== to.toLowerCase()) {
+      resolve({
+        msg: 'Error',
+        error: 'Data error, please refresh and try again!'
+      })
+      return
+    }
     getBaseInfo(coin, from, to, value, PlusGasPricePercentage, node).then(res => {
       if (res.msg === 'Success') {
         // let eTx = new Tx(res.info)
@@ -164,29 +179,37 @@ export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage, n
         // console.log(hash)
 
         MMsign(from, hash, node).then(rsv => {
-          let rawTx = {
-            ...res.info,
-            ...rsv
-          }
-          let tx2 = new Tx(rawTx)
-          let signTx = tx2.serialize().toString("hex")
-          signTx = signTx.indexOf("0x") === 0 ? signTx : ("0x" + signTx)
-          // console.log(rawTx)
-          // console.log(signTx)
-          sendTxns(signTx, node).then(hash => {
-            if (hash.msg === 'Success') {
-              res.info.hash = hash.info
-              resolve({
-                msg: 'Success',
-                info: res.info
-              })
-            } else {
-              resolve({
-                msg: 'Error',
-                error: hash.error
-              })
+          console.log(rsv)
+          if (res.msg === 'Success') {
+            let rawTx = {
+              ...res.info,
+              ...rsv.info
             }
-          })
+            let tx2 = new Tx(rawTx)
+            let signTx = tx2.serialize().toString("hex")
+            signTx = signTx.indexOf("0x") === 0 ? signTx : ("0x" + signTx)
+            // console.log(rawTx)
+            // console.log(signTx)
+            sendTxns(signTx, node).then(hash => {
+              if (hash.msg === 'Success') {
+                res.info.hash = hash.info
+                resolve({
+                  msg: 'Success',
+                  info: res.info
+                })
+              } else {
+                resolve({
+                  msg: 'Error',
+                  error: hash.error
+                })
+              }
+            })
+          } else {
+            resolve({
+              msg: 'Error',
+              error: rsv.error
+            })
+          }
         })
       } else {
         resolve({
@@ -198,6 +221,7 @@ export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage, n
   })
 }
 
+
 export const getErcBalance = (coin, from, dec, node) => {
   return new Promise(resolve => {
     if (!coin) {
@@ -205,14 +229,14 @@ export const getErcBalance = (coin, from, dec, node) => {
     } else {
       coin = coin.replace('a', '')
       web3.setProvider(getNodeRpc(node))
-      let allToken = TOKEN[node]
-      if (coin === 'ETH' || (allToken[coin] && allToken[coin].token && allToken[coin].decimals === dec)) {
+      let BridgeToken = TOKEN[node]
+      if (coin === 'ETH' || (BridgeToken[coin] && BridgeToken[coin].token && BridgeToken[coin].decimals === dec)) {
         web3.eth.getBalance(from).then(res => {
           // console.log(res)
           res = ethers.utils.bigNumberify(res)
           // resolve(amountFormatter(res))
           if (coin !== 'ETH') {
-            contract.options.address = allToken[coin].token
+            contract.options.address = BridgeToken[coin].token
             contract.methods.balanceOf(from).call({from: from}, (err, result) => {
               // console.log(err)
               if (err) {
@@ -220,7 +244,7 @@ export const getErcBalance = (coin, from, dec, node) => {
               } else {
                 result = ethers.utils.bigNumberify(result)
                 // console.log(result)
-                // resolve(amountFormatter(result, allToken[coin].decimals))
+                // resolve(amountFormatter(result, BridgeToken[coin].decimals))
                 resolve({
                   ETH: amountFormatter(res),
                   TOKEN: amountFormatter(result, dec)
@@ -246,10 +270,10 @@ export const getErcBalance = (coin, from, dec, node) => {
 
 function getBaseInfo (coin, from, to, value, PlusGasPricePercentage, node) {
   let input = ''
-  let allToken = TOKEN[node]
+  let BridgeToken = TOKEN[node]
   if (coin !== 'ETH') {
-    contract.options.address = allToken[coin].token
-    value = ethers.utils.parseUnits(value.toString(), allToken[coin].decimals)
+    contract.options.address = BridgeToken[coin].token
+    value = ethers.utils.parseUnits(value.toString(), BridgeToken[coin].decimals)
     input = contract.methods.transfer(to, value).encodeABI()
   } else {
     value = ethers.utils.parseUnits(value.toString(), 18)
@@ -261,7 +285,7 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage, node) {
     gas: '',
     gasPrice: "",
     nonce: "",
-    to: coin === 'ETH' ? to : allToken[coin].token,
+    to: coin === 'ETH' ? to : BridgeToken[coin].token,
     value: coin === 'ETH' ? value.toHexString() : "0x0",
     data: input
   }
@@ -348,10 +372,17 @@ function sendTxns (signedTx, node) {
   })
 }
 
-export function HDsendERC20Txns (coin, from, to, value, PlusGasPricePercentage, node) {
+export function HDsendERC20Txns (coin, from, to, value, PlusGasPricePercentage, node, inputCurrency) {
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
   return new Promise(resolve => {
+    if (CUR_TOKEN[inputCurrency].depositAddress.toLowerCase() !== to.toLowerCase()) {
+      resolve({
+        msg: 'Error',
+        error: 'Data error, please refresh and try again!'
+      })
+      return
+    }
     getBaseInfo(coin, from, to, value, PlusGasPricePercentage, node).then(res => {
       if (res.msg === 'Success') {
         let data = res.info

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo  } from 'react'
+import React, { useState, useEffect } from 'react'
 // import ReactGA from 'react-ga'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next'
 
 import { useWeb3React } from '../../hooks'
 import { formatTokenBalance, formatEthBalance, amountFormatter } from '../../utils'
-import { useAddressBalance} from '../../contexts/Balances'
+// import { useAddressBalance} from '../../contexts/Balances'
 import { useAllTokenDetails} from '../../contexts/Tokens'
-import { useExchangeContract } from '../../hooks'
+// import { useExchangeContract } from '../../hooks'
 import TokenLogo from '../TokenLogo'
 import { useAllBalances, useExchangeReserves } from '../../contexts/Balances'
 import { TitleBox, BorderlessInput } from '../../theme'
@@ -18,8 +18,8 @@ import { NavLink } from 'react-router-dom'
 
 import { useDarkModeManager } from '../../contexts/LocalStorage'
 
-import GraphUpIcon from '../../assets/images/icon/graph-up.svg'
-import AnyillustrationIcon from '../../assets/images/icon/any-illustration.svg'
+// import GraphUpIcon from '../../assets/images/icon/graph-up.svg'
+// import AnyillustrationIcon from '../../assets/images/icon/any-illustration.svg'
 
 import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'

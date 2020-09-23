@@ -53,12 +53,14 @@ import {getErcBalance, HDsendERC20Txns, MMsendERC20Txns, getHashStatus} from '..
 import BridgeTokens from '../../contexts/BridgeTokens'
 
 import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/birdge/BTC'
-import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
+// import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
 
+import {getServerInfo, removeLocalConfig} from '../../utils/birdge/getServerInfo'
 
-import test from '../../utils/dashboard/test'
+// import test from '../../utils/dashboard/test'
 
-test()
+// test()
+// getServerInfo('0xE000E632124aa65B80f74E3e4cc06DC761610583', '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496', 'aUSDT')
 const INPUT = 0
 const OUTPUT = 1
 
@@ -882,65 +884,66 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     } else if (extendObj.ETH && extendObj.ETH.isSwitch) {
       node = extendObj.ETH.type
     }
+    let tokenOnlyOne = inputCurrency
+    let initBridge = {
+      type: 'UPDATE_SWAPREGISTER',
+      payload: initDepositAddress,
+      isDeposit: initIsDeposit,
+      depositMaxNum: initDepositMaxNum,
+      depositMinNum: initDepositMinNum,
+      depositBigValMoreTime: 0,
+      isRedeem: initIsRedeem,
+      redeemMaxNum: initRedeemMaxNum,
+      redeemMinNum: initRedeemMinNum,
+      maxFee: initMaxFee,
+      minFee: initMinFee,
+      fee: initFee,
+      redeemBigValMoreTime: 0,
+      token: inputCurrency
+    }
     setInit(1)
     if (account && config.coininfo[inputSymbol] && config.coininfo[inputSymbol].url && initIsDeposit && initIsRedeem) {
-      let url = config.coininfo[inputSymbol].url
+      // let url = config.coininfo[inputSymbol].url
       let coin = inputSymbol.replace(config.prefix, '')
-      RegisterAddress(url, account, coin).then(res => {
-        if ( res && (
-            (res.result && res.result === 'Success')
-            || (res.error && res.error.message === 'mgoError: Item is duplicate')
-            || (res && res.result && res.result.P2shAddress)
-          )
-        ) {
+      getServerInfo(account, tokenOnlyOne, inputSymbol).then(res => {
+        // console.log(res)
+        // console.log(tokenOnlyOne)
+        if (res.msg === 'Success' && res.info) {
+          let serverInfo = res.info
           setIsRegister(true)
-        } else {
-          setIsRegister(false)
-        }
-        GetServerInfo(url).then(result => {
-          // console.log(result)
-          setInit(1)
-          if (result && result.swapInfo && result.swapInfo.SrcToken.DepositAddress) {
-            let dObj = result.swapInfo.SrcToken,
-            rObj = result.swapInfo.DestToken
-            
+          try {
             let DepositAddress = ''
             if (inputSymbol !== config.prefix + 'BTC') {
-              DepositAddress = dObj.DepositAddress
               let erc20Token = ''
-              // console.log(node)
-              try {
-                if (config.symbol === 'FSN') {
-                  erc20Token = coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
-                } else if (config.symbol === 'BNB') {
-                  erc20Token = coin !== 'FSN' ? BridgeTokens[node][coin].token : ''
-                }
-              } catch (error) {
-                setInit(0)
-                return
+              if (config.symbol === 'FSN') {
+                erc20Token = coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
+              } else if (config.symbol === 'BNB') {
+                erc20Token = coin !== 'FSN' ? BridgeTokens[node][coin].token : ''
               }
               if (
-                (initDepositAddress.toLowerCase() !== DepositAddress.toLowerCase())
-                || (inputCurrency.toLowerCase() !== rObj.ContractAddress.toLowerCase())
+                (initDepositAddress.toLowerCase() !== serverInfo.depositAddress.toLowerCase())
+                || (tokenOnlyOne.toLowerCase() !== serverInfo.token.toLowerCase())
                 || (
                     ((coin !== 'ETH' && config.symbol === 'FSN') || (coin !== 'FSN' && config.symbol === 'BNB')) 
-                    && erc20Token.toLowerCase() !== dObj.ContractAddress.toLowerCase()
+                    && erc20Token.toLowerCase() !== serverInfo.outnetToken.toLowerCase()
                   )
               ) {
+                removeLocalConfig(account, tokenOnlyOne)
                 setInit(0)
                 return
               }
+              DepositAddress = serverInfo.depositAddress
             } else {
-              if (dObj.DcrmAddress !== config.btcConfig.btcAddr) {
+              if (serverInfo.dcrmAddress.toLowerCase() !== config.btcConfig.btcAddr.toLowerCase()) {
                 setInit(0)
                 return
               }
-              if (res && res.result && res.result.P2shAddress) {
-                DepositAddress = res.result.P2shAddress
+              if (serverInfo.P2shAddress) {
+                DepositAddress = serverInfo.P2shAddress
                 console.log('DepositAddress', DepositAddress)
                 let localBTCAddr = createBTCaddress(account)
                 console.log('localBTCAddr', localBTCAddr)
-                if (DepositAddress !== localBTCAddr) {
+                if (serverInfo.P2shAddress !== localBTCAddr) {
                   setInit(0)
                   return
                 }
@@ -952,40 +955,132 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             dispatchSwapState({
               type: 'UPDATE_SWAPREGISTER',
               payload: DepositAddress,
-              PlusGasPricePercentage: dObj.PlusGasPricePercentage,
-              isDeposit: !dObj.DisableSwap ? 1 : 0,
-              depositMaxNum: dObj.MaximumSwap,
-              depositMinNum: dObj.MinimumSwap,
-              depositBigValMoreTime: dObj.BigValueThreshold,
-              isRedeem: !rObj.DisableSwap ? 1 : 0,
-              redeemMaxNum: rObj.MaximumSwap,
-              redeemMinNum: rObj.MinimumSwap,
-              maxFee: rObj.MaximumSwapFee,
-              minFee: rObj.MinimumSwapFee,
-              fee: rObj.SwapFeeRate,
-              redeemBigValMoreTime: rObj.BigValueThreshold,
-              token: rObj.ContractAddress
+              PlusGasPricePercentage: serverInfo.PlusGasPricePercentage,
+              isDeposit: serverInfo.isDeposit,
+              depositMaxNum: serverInfo.depositMaxNum,
+              depositMinNum: serverInfo.depositMinNum,
+              depositBigValMoreTime: serverInfo.depositBigValMoreTime,
+              isRedeem: serverInfo.isRedeem,
+              redeemMaxNum: serverInfo.redeemMaxNum,
+              redeemMinNum: serverInfo.redeemMinNum,
+              maxFee: serverInfo.maxFee,
+              minFee: serverInfo.minFee,
+              fee: serverInfo.fee,
+              redeemBigValMoreTime: serverInfo.redeemBigValMoreTime,
+              token: serverInfo.token,
             })
-          } else {
-            dispatchSwapState({
-              type: 'UPDATE_SWAPREGISTER',
-              payload: initDepositAddress,
-              isDeposit: initIsDeposit,
-              depositMaxNum: initDepositMaxNum,
-              depositMinNum: initDepositMinNum,
-              depositBigValMoreTime: 0,
-              isRedeem: initIsRedeem,
-              redeemMaxNum: initRedeemMaxNum,
-              redeemMinNum: initRedeemMinNum,
-              maxFee: initMaxFee,
-              minFee: initMinFee,
-              fee: initFee,
-              redeemBigValMoreTime: 0,
-              token: inputCurrency
-            })
+          } catch (error) {
+            setInit(0)
+            return
           }
-        })
+        } else if (res.msg === 'Error') {
+          setInit(0)
+          setIsRegister(false)
+        } else {
+          dispatchSwapState(initBridge)
+          setIsRegister(false)
+        }
       })
+      // RegisterAddress(url, account, coin).then(res => {
+      //   if ( res && (
+      //       (res.result && res.result === 'Success')
+      //       || (res.error && res.error.message === 'mgoError: Item is duplicate')
+      //       || (res && res.result && res.result.P2shAddress)
+      //     )
+      //   ) {
+      //     setIsRegister(true)
+      //   } else {
+      //     setIsRegister(false)
+      //   }
+      //   GetServerInfo(url).then(result => {
+      //     // console.log(result)
+      //     setInit(1)
+      //     if (result && result.swapInfo && result.swapInfo.SrcToken.DepositAddress) {
+      //       let dObj = result.swapInfo.SrcToken,
+      //       rObj = result.swapInfo.DestToken
+            
+      //       let DepositAddress = ''
+      //       if (inputSymbol !== config.prefix + 'BTC') {
+      //         DepositAddress = dObj.DepositAddress
+      //         let erc20Token = ''
+      //         // console.log(node)
+      //         try {
+      //           if (config.symbol === 'FSN') {
+      //             erc20Token = coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
+      //           } else if (config.symbol === 'BNB') {
+      //             erc20Token = coin !== 'FSN' ? BridgeTokens[node][coin].token : ''
+      //           }
+      //         } catch (error) {
+      //           setInit(0)
+      //           return
+      //         }
+      //         if (
+      //           (initDepositAddress.toLowerCase() !== DepositAddress.toLowerCase())
+      //           || (inputCurrency.toLowerCase() !== rObj.ContractAddress.toLowerCase())
+      //           || (
+      //               ((coin !== 'ETH' && config.symbol === 'FSN') || (coin !== 'FSN' && config.symbol === 'BNB')) 
+      //               && erc20Token.toLowerCase() !== dObj.ContractAddress.toLowerCase()
+      //             )
+      //         ) {
+      //           setInit(0)
+      //           return
+      //         }
+      //       } else {
+      //         if (dObj.DcrmAddress !== config.btcConfig.btcAddr) {
+      //           setInit(0)
+      //           return
+      //         }
+      //         if (res && res.result && res.result.P2shAddress) {
+      //           DepositAddress = res.result.P2shAddress
+      //           console.log('DepositAddress', DepositAddress)
+      //           let localBTCAddr = createBTCaddress(account)
+      //           console.log('localBTCAddr', localBTCAddr)
+      //           if (DepositAddress !== localBTCAddr) {
+      //             setInit(0)
+      //             return
+      //           }
+      //         } else {
+      //           setInit(0)
+      //           return
+      //         }
+      //       }
+      //       dispatchSwapState({
+      //         type: 'UPDATE_SWAPREGISTER',
+      //         payload: DepositAddress,
+      //         PlusGasPricePercentage: dObj.PlusGasPricePercentage,
+      //         isDeposit: !dObj.DisableSwap ? 1 : 0,
+      //         depositMaxNum: dObj.MaximumSwap,
+      //         depositMinNum: dObj.MinimumSwap,
+      //         depositBigValMoreTime: dObj.BigValueThreshold,
+      //         isRedeem: !rObj.DisableSwap ? 1 : 0,
+      //         redeemMaxNum: rObj.MaximumSwap,
+      //         redeemMinNum: rObj.MinimumSwap,
+      //         maxFee: rObj.MaximumSwapFee,
+      //         minFee: rObj.MinimumSwapFee,
+      //         fee: rObj.SwapFeeRate,
+      //         redeemBigValMoreTime: rObj.BigValueThreshold,
+      //         token: rObj.ContractAddress
+      //       })
+      //     } else {
+      //       dispatchSwapState({
+      //         type: 'UPDATE_SWAPREGISTER',
+      //         payload: initDepositAddress,
+      //         isDeposit: initIsDeposit,
+      //         depositMaxNum: initDepositMaxNum,
+      //         depositMinNum: initDepositMinNum,
+      //         depositBigValMoreTime: 0,
+      //         isRedeem: initIsRedeem,
+      //         redeemMaxNum: initRedeemMaxNum,
+      //         redeemMinNum: initRedeemMinNum,
+      //         maxFee: initMaxFee,
+      //         minFee: initMinFee,
+      //         fee: initFee,
+      //         redeemBigValMoreTime: 0,
+      //         token: inputCurrency
+      //       })
+      //     }
+      //   })
+      // })
     } else {
       setInit(0)
     }
@@ -1280,6 +1375,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     console.log(registerAddress)
     if (initDepositAddress.toLowerCase() !== mintAddress.toLowerCase()) {
       alert('Data error, please refresh and try again!')
+      setIsHardwareTip(false)
+      setMintSureBtn(false)
+      setMintModelTitle('')
+      setMintModelTip('')
       return
     }
     
@@ -1288,7 +1387,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setIsHardwareTip(true)
       setMintSureBtn(false)
       // MintModelView()
-      HDsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, depositNode).then(res => {
+      HDsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, depositNode, inputCurrency).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1318,11 +1417,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           setMintSureBtn(false)
         } else {
           setIsHardwareError(true)
+          alert(res.error.toString())
         }
       })
     } else {
       setMintSureBtn(false)
-      MMsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, depositNode).then(res => {
+      MMsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, depositNode, inputCurrency).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1346,6 +1446,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             }
           })
           cleanInput()
+        } else {
+          console.log(res.error)
+          alert(res.error.toString())
         }
         setIsHardwareTip(false)
         setMintSureBtn(false)
