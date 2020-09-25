@@ -58,7 +58,6 @@ import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '.
 import {getServerInfo, removeLocalConfig} from '../../utils/birdge/getServerInfo'
 
 // import test from '../../utils/dashboard/test'
-
 // test()
 // getServerInfo('0xE000E632124aa65B80f74E3e4cc06DC761610583', '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496', 'aUSDT')
 const INPUT = 0
@@ -938,12 +937,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 setInit(0)
                 return
               }
-              if (serverInfo.P2shAddress) {
-                DepositAddress = serverInfo.P2shAddress
+              if (serverInfo.p2pAddress) {
+                DepositAddress = serverInfo.p2pAddress
                 console.log('DepositAddress', DepositAddress)
                 let localBTCAddr = createBTCaddress(account)
                 console.log('localBTCAddr', localBTCAddr)
-                if (serverInfo.P2shAddress !== localBTCAddr) {
+                if (serverInfo.p2pAddress !== localBTCAddr) {
                   setInit(0)
                   return
                 }
@@ -1282,7 +1281,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
 
   function sendTxns () {
-    if (inputSymbol === config.prefix + 'BTC' && isBTCAddress(recipient.address)) {
+    if (inputSymbol === config.prefix + 'BTC' && !isBTCAddress(recipient.address)) {
       alert('Illegal address!')
       return
     }

@@ -32,7 +32,7 @@
     "babel-plugin-named-asset-import": "^0.3.5",
     "babel-preset-react-app": "^9.1.0",
     "bitcoin-ops": "^1.4.1",
-    "bitcoinjs-lib": "^5.1.10",
+    "bitcoinjs-lib": "5.2.0",
     "camelcase": "^5.3.1",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "compression-webpack-plugin": "^5.0.2",
