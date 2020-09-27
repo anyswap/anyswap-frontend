@@ -970,11 +970,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               token: serverInfo.token,
             })
           } catch (error) {
-            setInit(0)
+            setInit('')
             return
           }
         } else if (res.msg === 'Error') {
-          setInit(0)
+          setInit('')
           setIsRegister(false)
         } else {
           dispatchSwapState(initBridge)
@@ -1082,7 +1082,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       //   })
       // })
     } else {
-      setInit(0)
+      setInit('')
     }
   }, [inputCurrency, account, initDepositAddress, initIsDeposit, initDepositMaxNum, initDepositMinNum, initIsRedeem, initRedeemMaxNum, initRedeemMinNum, initMaxFee, initMinFee, initFee, inputSymbol])
 
@@ -1280,7 +1280,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
     })
   }
-
+  
   function sendTxns () {
     if (inputSymbol === config.prefix + 'BTC' && !isBTCAddress(recipient.address)) {
       alert('Illegal address!')
@@ -1293,12 +1293,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }, 3000)
     
     let amountVal = ethers.utils.parseUnits(inputValueFormatted.toString(), inputDecimals)
-    
+    if (amountVal.gt(inputBalance)) {
+      amountVal = inputBalance
+    }
     let address = recipient.address
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
-      setHardwareTxnsInfo(inputValueFormatted + " "  + inputSymbol)
+      setHardwareTxnsInfo(amountFormatter(amountVal, inputDecimals, inputDecimals) + " "  + inputSymbol)
       let web3Contract = getWeb3ConTract(swapBTCABI, inputCurrency)
 
       let data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
@@ -1600,13 +1602,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       return (
         <dd><i></i>💀 {t('bridgeMintTip', {
           account
-        })}.</dd>
+        })}</dd>
       )
     } else if (extendObj.FSN && extendObj.FSN.isSwitch) {
       return (
         <dd><i></i>💀 {t('bridgeMintTip', {
           account
-        }).replace('ETH', 'FSN')}.</dd>
+        }).replace('ETH', 'FSN')}</dd>
       )
     }
   }
@@ -2231,9 +2233,17 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       ) : (
         <>
           <Flex>
-            <Button disabled={true}>
-              {t('ComineSoon')}
-            </Button>
+            {
+              isDeposit === 0 && isRedeem === 0 ? (
+                <Button disabled={true}>
+                  {t('ComineSoon')}
+                </Button>
+              ) : (
+                <Button disabled={true}>
+                  {t('CrossChainDeposit')}
+                </Button>
+              )
+            }
           </Flex>
         </>
       )}

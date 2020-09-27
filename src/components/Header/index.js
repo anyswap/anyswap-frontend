@@ -158,7 +158,7 @@ export default function Header() {
             <span>{t('onTestnet')}</span>
             {config.networkNamr} {t('mainnet')}
             <div className='switchTo' onClick={openUrl}>
-              {t('SwitchTo')} {config.symbol === 'FSN' ? 'Binance' : 'Fusion'} 
+              {t('SwitchTo')} {config.symbol === 'FSN' ? 'BSC' : 'FSN'} 
               {t('mainnet')}
               <img alt='' src={ArrowRighrPurpleIcon} style={{marginLeft: '8px'}} />
             </div>
