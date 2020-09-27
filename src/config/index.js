@@ -123,6 +123,10 @@ export default {
   bridgeAll: bridge,
   env: netArr[1].toLowerCase(),
   supportWallet: ['Ledger'],
+  FSNtestUrl: 'https://test.anyswap.exchange', // 测试交易所地址
+  FSNmainUrl: 'https://anyswap.exchange', // 主网交易所地址
+  BSCtestUrl: 'https://bsctest.anyswap.exchange',
+  BSCmainUrl: 'https://bsc.anyswap.exchange',
   reg,
   bridge: bridge[useBridge],
   bridgeType: useBridge,

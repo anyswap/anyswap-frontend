@@ -59,7 +59,8 @@ import {getServerInfo, removeLocalConfig} from '../../utils/birdge/getServerInfo
 
 // import test from '../../utils/dashboard/test'
 // test()
-// getServerInfo('0xE000E632124aa65B80f74E3e4cc06DC761610583', '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496', 'aUSDT')
+
+
 const INPUT = 0
 const OUTPUT = 1
 

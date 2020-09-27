@@ -20,8 +20,6 @@ const DEPOSIT_AMOUNT = 10000
 const COIN_BASE ={
   symbol: 'BNB',
   name: 'Binance-BEP20',
-  testUrl: 'https://bsctest.anyswap.exchange',
-  mainUrl: 'https://bsc.anyswap.exchange',
   decimals: 18,
   networkNamr: 'BSC',
   reverseSwitch: 0,

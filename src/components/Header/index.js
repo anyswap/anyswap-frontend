@@ -134,10 +134,10 @@ export default function Header() {
   const { t } = useTranslation()
   const [isDark, toggleDarkMode] = useDarkModeManager()
   function openUrl () {
-    if (config.env === 'test') {
-      window.open(config.mainUrl)
+    if (config.symbol === 'FSN') {
+      window.open(config.BSCmainUrl)
     } else {
-      window.open(config.testUrl)
+      window.open(config.FSNmainUrl)
     }
   }
   return (
@@ -148,11 +148,18 @@ export default function Header() {
         </HeaderElement>
         <HeaderElement>
           <NetworkBox>
-            <span>{t('onTestnet')}</span>
+            {/* <span>{t('onTestnet')}</span>
             {config.networkNamr} {config.env === 'test' ? t('testnet') : t('mainnet')}
             <div className='switchTo' onClick={openUrl}>
               {t('SwitchTo')} {config.networkNamr} 
               {config.env === 'test' ?  t('mainnet') : t('testnet')}
+              <img alt='' src={ArrowRighrPurpleIcon} style={{marginLeft: '8px'}} />
+            </div> */}
+            <span>{t('onTestnet')}</span>
+            {config.networkNamr} {t('mainnet')}
+            <div className='switchTo' onClick={openUrl}>
+              {t('SwitchTo')} {config.symbol === 'FSN' ? 'Binance' : 'Fusion'} 
+              {t('mainnet')}
               <img alt='' src={ArrowRighrPurpleIcon} style={{marginLeft: '8px'}} />
             </div>
           </NetworkBox>

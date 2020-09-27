@@ -25,8 +25,6 @@ const DEPOSIT_AMOUNT = 10000
 const COIN_BASE ={
   symbol: 'FSN', // 符号
   name: 'Fusion', // 代币名
-  testUrl: 'https://test.anyswap.exchange', // 测试交易所地址
-  mainUrl: 'https://anyswap.exchange', // 主网交易所地址
   decimals: 18, // 小数位
   networkNamr: 'FSN', // 网络名称
   reverseSwitch: 0,  // 是否反向禁用,
