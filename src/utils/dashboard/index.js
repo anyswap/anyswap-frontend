@@ -43,7 +43,7 @@ function formatCellData(str, len) {
 const ZERO = ethers.utils.bigNumberify('0')
 // web3.eth.call.
 export function getDashBoards (arr) {
-  console.log(arr)
+  // console.log(arr)
   return new Promise(resolve => {
 
     let exchangeContract = new web3.eth.Contract(EXCHANGE_ABI)
@@ -71,7 +71,7 @@ export function getDashBoards (arr) {
       // exchangeTokenBalancem
       tokenContract.options.address = obj.token
       let etbData = tokenContract.methods.balanceOf(obj.exchangeAddress).encodeABI()
-      console.log(etbData)
+      // console.log(etbData)
       batch.add(web3.eth.call.request({data: etbData, to: obj.token, from: obj.exchangeAddress}, 'latest', (err, res) => {
         let bl
         if (err) {
@@ -99,7 +99,7 @@ export function getDashBoards (arr) {
       // poolTokenBalance
       tokenContract.options.address = obj.exchangeAddress
       let ptbData = tokenContract.methods.balanceOf(obj.account).encodeABI()
-      console.log(ptbData)
+      // console.log(ptbData)
       batch.add(web3.eth.call.request({data: ptbData, to: obj.exchangeAddress}, 'latest', (err, res) => {
         let bl
         if (err) {
@@ -116,7 +116,7 @@ export function getDashBoards (arr) {
   
     let getDataIntervel = setInterval(() => {
       if (count >= 4 && ( (Date.now() - time) <= 60000 )) {
-        console.log(arr)
+        // console.log(arr)
         for (let i = 0, len = arr.length; i < len; i++) {
           let obj = arr[i]
           let poolTokenPercentage = ethers.utils.bigNumberify(0)
@@ -139,7 +139,7 @@ export function getDashBoards (arr) {
         resolve(arr)
         clearInterval(getDataIntervel)
       } else if (count < 4 && ( (Date.now() - time) > 30000 )) {
-        console.log(arr)
+        // console.log(arr)
         clearInterval(getDataIntervel)
       }
     }, 500)
