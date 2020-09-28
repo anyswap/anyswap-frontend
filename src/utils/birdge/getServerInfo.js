@@ -102,6 +102,15 @@ function setRegisterInfo (account, token, localInfo) {
   localStorage.setItem(SERVER_BRIDGE_REGISTER, JSON.stringify(lboj))
 }
 
+export function removeRegisterInfo (account, token) {
+  let lstr = localStorage.getItem(SERVER_BRIDGE_REGISTER)
+  if (lstr) {
+    let lboj = JSON.parse(lstr)
+    lboj[account][token] = undefined
+    localStorage.setItem(SERVER_BRIDGE_REGISTER, JSON.stringify(lboj))
+  }
+}
+
 function getCoinInfo (url, account, token) {
   return new Promise(resolve => {
     let data = {
@@ -141,7 +150,7 @@ function getCoinInfo (url, account, token) {
           token: rObj.ContractAddress,
           p2pAddress: getRegisterInfo(account, token).p2pAddress
         }
-        setLocalConfig(account, rObj.ContractAddress, bridgeData)
+        setLocalConfig(account, token, bridgeData)
       }
       resolve(data)
     }).catch(err => {
@@ -224,6 +233,7 @@ export function getServerInfo (account, token, coin) {
   getInfoObj = {account, token, coin}
   return new Promise(resolve => {
     // getAllCoinInfo(account)
+    console.log(getInfoObj)
     if (!account) {
       resolve('')
     } else {

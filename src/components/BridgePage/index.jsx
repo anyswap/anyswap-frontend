@@ -55,7 +55,7 @@ import BridgeTokens from '../../contexts/BridgeTokens'
 import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/birdge/BTC'
 // import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
 
-import {getServerInfo, removeLocalConfig} from '../../utils/birdge/getServerInfo'
+import {getServerInfo, removeLocalConfig, removeRegisterInfo} from '../../utils/birdge/getServerInfo'
 
 // import test from '../../utils/dashboard/test'
 // test()
@@ -877,6 +877,30 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [balanceError, setBalanceError] = useState()
   const [depositNode, setDepositNode] = useState()
 
+  function setInit (disabled) {
+    setIsRedeem(true)
+    setIsMintBtn(true)
+    dispatchSwapState({
+      type: 'UPDATE_SWAPREGISTER',
+      payload: '',
+      PlusGasPricePercentage: '',
+      isDeposit: disabled,
+      depositMaxNum: '',
+      depositMinNum: '',
+      depositBigValMoreTime: '',
+      isRedeem: disabled,
+      redeemMaxNum: '',
+      redeemMinNum: '',
+      maxFee: '',
+      minFee: '',
+      fee: '',
+      redeemBigValMoreTime: '',
+      token: ''
+    })
+  }
+
+  console.log(inputCurrency)
+
   useEffect(() => {
     let node
     if (extendObj.FSN && extendObj.FSN.isSwitch) {
@@ -902,9 +926,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       token: inputCurrency
     }
     setInit(1)
+    let coin = inputSymbol.replace(config.prefix, '')
     if (account && config.coininfo[inputSymbol] && config.coininfo[inputSymbol].url && initIsDeposit && initIsRedeem) {
       // let url = config.coininfo[inputSymbol].url
-      let coin = inputSymbol.replace(config.prefix, '')
       getServerInfo(account, tokenOnlyOne, inputSymbol).then(res => {
         // console.log(res)
         // console.log(tokenOnlyOne)
@@ -913,7 +937,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           setIsRegister(true)
           try {
             let DepositAddress = ''
-            if (inputSymbol !== config.prefix + 'BTC') {
+            if (coin !== 'BTC') {
               let erc20Token = ''
               if (config.symbol === 'FSN') {
                 erc20Token = coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
@@ -928,6 +952,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     && erc20Token.toLowerCase() !== serverInfo.outnetToken.toLowerCase()
                   )
               ) {
+                removeRegisterInfo(account, tokenOnlyOne)
                 removeLocalConfig(account, tokenOnlyOne)
                 setInit(0)
                 return
@@ -935,6 +960,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               DepositAddress = serverInfo.depositAddress
             } else {
               if (serverInfo.dcrmAddress.toLowerCase() !== config.btcConfig.btcAddr.toLowerCase()) {
+                removeRegisterInfo(account, tokenOnlyOne)
+                removeLocalConfig(account, tokenOnlyOne)
                 setInit(0)
                 return
               }
@@ -944,15 +971,19 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 let localBTCAddr = createBTCaddress(account)
                 console.log('localBTCAddr', localBTCAddr)
                 if (serverInfo.p2pAddress !== localBTCAddr) {
+                  removeRegisterInfo(account, tokenOnlyOne)
+                  removeLocalConfig(account, tokenOnlyOne)
                   setInit(0)
                   return
                 }
               } else {
+                removeRegisterInfo(account, tokenOnlyOne)
+                removeLocalConfig(account, tokenOnlyOne)
                 setInit(0)
                 return
               }
             }
-            dispatchSwapState({
+            let serverObj = {
               type: 'UPDATE_SWAPREGISTER',
               payload: DepositAddress,
               PlusGasPricePercentage: serverInfo.PlusGasPricePercentage,
@@ -968,8 +999,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               fee: serverInfo.fee,
               redeemBigValMoreTime: serverInfo.redeemBigValMoreTime,
               token: serverInfo.token,
-            })
+            }
+            dispatchSwapState(serverObj)
           } catch (error) {
+            console.log(error)
             setInit('')
             return
           }
@@ -977,110 +1010,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           setInit('')
           setIsRegister(false)
         } else {
-          dispatchSwapState(initBridge)
+          setInit('')
+          // dispatchSwapState(initBridge)
           setIsRegister(false)
         }
       })
-      // RegisterAddress(url, account, coin).then(res => {
-      //   if ( res && (
-      //       (res.result && res.result === 'Success')
-      //       || (res.error && res.error.message === 'mgoError: Item is duplicate')
-      //       || (res && res.result && res.result.P2shAddress)
-      //     )
-      //   ) {
-      //     setIsRegister(true)
-      //   } else {
-      //     setIsRegister(false)
-      //   }
-      //   GetServerInfo(url).then(result => {
-      //     // console.log(result)
-      //     setInit(1)
-      //     if (result && result.swapInfo && result.swapInfo.SrcToken.DepositAddress) {
-      //       let dObj = result.swapInfo.SrcToken,
-      //       rObj = result.swapInfo.DestToken
-            
-      //       let DepositAddress = ''
-      //       if (inputSymbol !== config.prefix + 'BTC') {
-      //         DepositAddress = dObj.DepositAddress
-      //         let erc20Token = ''
-      //         // console.log(node)
-      //         try {
-      //           if (config.symbol === 'FSN') {
-      //             erc20Token = coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
-      //           } else if (config.symbol === 'BNB') {
-      //             erc20Token = coin !== 'FSN' ? BridgeTokens[node][coin].token : ''
-      //           }
-      //         } catch (error) {
-      //           setInit(0)
-      //           return
-      //         }
-      //         if (
-      //           (initDepositAddress.toLowerCase() !== DepositAddress.toLowerCase())
-      //           || (inputCurrency.toLowerCase() !== rObj.ContractAddress.toLowerCase())
-      //           || (
-      //               ((coin !== 'ETH' && config.symbol === 'FSN') || (coin !== 'FSN' && config.symbol === 'BNB')) 
-      //               && erc20Token.toLowerCase() !== dObj.ContractAddress.toLowerCase()
-      //             )
-      //         ) {
-      //           setInit(0)
-      //           return
-      //         }
-      //       } else {
-      //         if (dObj.DcrmAddress !== config.btcConfig.btcAddr) {
-      //           setInit(0)
-      //           return
-      //         }
-      //         if (res && res.result && res.result.P2shAddress) {
-      //           DepositAddress = res.result.P2shAddress
-      //           console.log('DepositAddress', DepositAddress)
-      //           let localBTCAddr = createBTCaddress(account)
-      //           console.log('localBTCAddr', localBTCAddr)
-      //           if (DepositAddress !== localBTCAddr) {
-      //             setInit(0)
-      //             return
-      //           }
-      //         } else {
-      //           setInit(0)
-      //           return
-      //         }
-      //       }
-      //       dispatchSwapState({
-      //         type: 'UPDATE_SWAPREGISTER',
-      //         payload: DepositAddress,
-      //         PlusGasPricePercentage: dObj.PlusGasPricePercentage,
-      //         isDeposit: !dObj.DisableSwap ? 1 : 0,
-      //         depositMaxNum: dObj.MaximumSwap,
-      //         depositMinNum: dObj.MinimumSwap,
-      //         depositBigValMoreTime: dObj.BigValueThreshold,
-      //         isRedeem: !rObj.DisableSwap ? 1 : 0,
-      //         redeemMaxNum: rObj.MaximumSwap,
-      //         redeemMinNum: rObj.MinimumSwap,
-      //         maxFee: rObj.MaximumSwapFee,
-      //         minFee: rObj.MinimumSwapFee,
-      //         fee: rObj.SwapFeeRate,
-      //         redeemBigValMoreTime: rObj.BigValueThreshold,
-      //         token: rObj.ContractAddress
-      //       })
-      //     } else {
-      //       dispatchSwapState({
-      //         type: 'UPDATE_SWAPREGISTER',
-      //         payload: initDepositAddress,
-      //         isDeposit: initIsDeposit,
-      //         depositMaxNum: initDepositMaxNum,
-      //         depositMinNum: initDepositMinNum,
-      //         depositBigValMoreTime: 0,
-      //         isRedeem: initIsRedeem,
-      //         redeemMaxNum: initRedeemMaxNum,
-      //         redeemMinNum: initRedeemMinNum,
-      //         maxFee: initMaxFee,
-      //         minFee: initMinFee,
-      //         fee: initFee,
-      //         redeemBigValMoreTime: 0,
-      //         token: inputCurrency
-      //       })
-      //     }
-      //   })
-      // })
     } else {
       setInit('')
     }
@@ -1485,27 +1419,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     setRemoveHashStatus(Date.now())
   }
 
-  function setInit (disabled) {
-    setIsRedeem(true)
-    setIsMintBtn(true)
-    dispatchSwapState({
-      type: 'UPDATE_SWAPREGISTER',
-      payload: '',
-      PlusGasPricePercentage: '',
-      isDeposit: disabled,
-      depositMaxNum: '',
-      depositMinNum: '',
-      depositBigValMoreTime: '',
-      isRedeem: disabled,
-      redeemMaxNum: '',
-      redeemMinNum: '',
-      maxFee: '',
-      minFee: '',
-      fee: '',
-      redeemBigValMoreTime: '',
-      token: ''
-    })
-  }
 
   function updateHashStatus () {
     if (hashArr.length > 0) {
@@ -1956,7 +1869,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           }
         }}
         onCurrencySelected={inputCurrency => {
-          setInit(1)
           dispatchSwapState({
             type: 'SELECT_CURRENCY',
             payload: { currency: inputCurrency, field: INPUT }
@@ -2100,15 +2012,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       {
         // isDeposit ? (
         isDeposit === 0 || isRedeem === 0 ? (
-          (isDeposit === 0 && isRedeem === 0 ? '' : (
-            <MintWarningTip>
-              <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
-              {/* {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})} */}
-              <span dangerouslySetInnerHTML = { 
-                {__html: t('brStopTip')}
-              }></span>
-            </MintWarningTip>
-          ))
+          (isDeposit === 0 && isRedeem === 0 ? 
+            (
+              <MintWarningTip>
+                <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+                <span dangerouslySetInnerHTML = { 
+                  {__html: t('brStopTip')}
+                }></span>
+              </MintWarningTip>
+            )
+            : 
+            ''
+          )
         ) : ''
       }
       {

@@ -80,7 +80,8 @@ const MAIN_CONFIG = {
     token: ANY_MAIN_TOKEN,  // ANY合约地址
   },
   coininfo: { // 跨链桥配置
-    [COIN.BTC]: {url: 'https://btcapi.anyswap.exchange/rpc'},
+    // [COIN.BTC]: {url: 'https://btcapi.anyswap.exchange/rpc'},
+    [COIN.BTC]: {url: 'https://btc2fsnapi.anyswap.exchange/rpc'},
     [COIN.ETH]: {url: 'https://ethapi.anyswap.exchange/rpc'},
     [COIN.USDT]: {url: 'https://usdtapi.anyswap.exchange/rpc'},
     [COIN.UNI]: {url: 'https://uni2fsnapi.anyswap.exchange/rpc'},
@@ -94,7 +95,7 @@ const MAIN_CONFIG = {
     lookHash: 'https://sochain.com/tx/BTC/', // 
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/', // 
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
-    btcAddr: '1FJSkpkPYhDJoJzMhA2LRSgrmUJHxtVQpj',  // 
+    btcAddr: '1HvrEMgxsYadWGhijpfygKSqPZ5p418g45',  // 
   },
   isOpenRewards: 1, // 是否打开奖励数据
   isChangeDashboard: 1, // 是否改变资产顺序

@@ -667,23 +667,23 @@ export const INITIAL_TOKENS_CONTEXT = {
         }
       }
     },
-    '0x783b971453f4f23d7874c2d1ca080265e3360274': { // BTC
+    '0x445166c4854836292a5af7e3f165a3b8b4eedf97': { // BTC
       [NAME]: 'ANY Bitcoin',
       [SYMBOL]: config.prefix + 'BTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: config.prefix + 'BTC',
-      [REDEEM_MAX_NUM]: 100,
-      [REDEEM_MIN_NUM]: 0.00001,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 20,
+      [REDEEM_MIN_NUM]: 0.002,
       [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 1,
+      [MAXFEE]: 0.01,
+      [MINFEE]: 0.001,
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '1DCJrZsWJoyVv8SNKsxYNVFRJDZvcSg1sZ',
+      [DEPOSIT_ADDRESS]: '1HvrEMgxsYadWGhijpfygKSqPZ5p418g45',
       [DEPOSIT_TYPE]: 0,
-      [DEPOSIT_MAX_NUM]: 0,
-      [DEPOSIT_MIN_NUM]: 0,
+      [DEPOSIT_MAX_NUM]: 20,
+      [DEPOSIT_MIN_NUM]: 0.0005,
       [EXTENDOBJ]: {},
     },
     'XRP': { // XRP
