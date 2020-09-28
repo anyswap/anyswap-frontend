@@ -34,115 +34,115 @@ function getMarketRate(reserveETH, reserveToken, decimals, invert = false) {
   return getExchangeRate(reserveETH, 18, reserveToken, decimals, invert)
 }
 
-function getTotalSupply (exchangeAddress) {
-  return new Promise(resolve => {
-    let contract = new web3.eth.Contract(EXCHANGE_ABI, exchangeAddress)
-    // console.log(contract.methods)
-    contract.methods.totalSupply().call((err, res) => {
-      let balance = 0
-      if (!err) {
-        balance = res
-      }
-      resolve(balance)
-    })
-  })
+
+function formatCellData(str, len) {
+  let str1 = str.substr(0, len)
+  return ethers.utils.bigNumberify(str1)
 }
 
-// 获取交易地址在资金池上的数量
-function getPoolTokenBalance (token, exchangeAddress) { // exchangeTokenBalancem
+const ZERO = ethers.utils.bigNumberify('0')
+// web3.eth.call.
+export function getDashBoards (arr) {
+  console.log(arr)
   return new Promise(resolve => {
-    let contract = new web3.eth.Contract(ERC20_ABI, token)
-    contract.methods.balanceOf(exchangeAddress).call({from: exchangeAddress}, (err, res) => {
-      let balance = 0
-      if (!err) {
-        balance = res
-      }
-      resolve(balance)
-    })
-  })
-}
 
-// 获取账户地址在合约中的余额
-function getAccountTokenBalance (exchangeAddress, account) {  // poolTokenBalance
-  return new Promise(resolve => {
-    if (!account) {
-      resolve('0')
-    }
-    let contract = new web3.eth.Contract(ERC20_ABI, exchangeAddress)
-    contract.methods.balanceOf(account).call( (err, res) => {
-      let balance = 0
-      if (!err) {
-        balance = res
-      }
-      resolve(balance)
-    })
-  })
-}
-
-// 获取交易地址在资金池上的数量
-function getPoolExchangeBalance (exchangeAddress) { // exchangeETHBalance
-  return new Promise(resolve => {
-    web3.eth.getBalance(exchangeAddress).then(res => {
-      resolve(res)
-    })
-  })
-}
-
-function getDashBoards (account, token, exchangeAddress, obj, coin) {
-  return new Promise(resolve => {
-    // console.log(exchangeAddress)
-    if (!exchangeAddress || exchangeAddress.indexOf('0x') !== 0) {
-      resolve({
-        ...obj,
-        token,
-        pecent: 0,
-        balance: 0,
-        poolTokenBalance: 0
-      })
-      return
-    }
-    Promise.all([
-      getTotalSupply(exchangeAddress),
-      getPoolTokenBalance(token, exchangeAddress), // pool token balance
-      getPoolExchangeBalance(exchangeAddress), // pool coin balance
-      getAccountTokenBalance(exchangeAddress, account), 
-    ]).then(res => {
-      // if (coin === 'ANY') {
-      //   console.log(coin)
-      //   console.log(token)
-      //   console.log(exchangeAddress)
-      //   console.log(res)
-      // }
-      let supply = res[0],
-          exchangeTokenBalancem = res[1], // exchangeTokenBalancem
-          exchangeETHBalance = res[2], // exchangeETHBalance
-          poolTokenBalance = res[3] // poolTokenBalance
-      let poolTokenPercentage = ethers.utils.bigNumberify(0)
-      let balance = ethers.utils.bigNumberify(0), Basebalance = 0, market = ethers.utils.bigNumberify(0)
-      if (Number(supply) && Number(exchangeTokenBalancem)) {
-        poolTokenPercentage = ethers.utils.bigNumberify(poolTokenBalance).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(ethers.utils.bigNumberify(supply))
-        if (exchangeTokenBalancem) {
-          balance = ethers.utils.bigNumberify(exchangeTokenBalancem).mul(poolTokenPercentage).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+    let exchangeContract = new web3.eth.Contract(EXCHANGE_ABI)
+    let tokenContract = new web3.eth.Contract(ERC20_ABI)
+    const batch = new web3.BatchRequest()
+    let count = 0, time = Date.now()
+    for (let i = 0, len = arr.length; i < len; i++) {
+      let obj = arr[i]
+      if (!obj.exchangeAddress || obj.exchangeAddress.indexOf('0x') !== 0) continue
+      // totalSupply
+      exchangeContract.options.address = obj.exchangeAddress
+      let tsData = exchangeContract.methods.totalSupply().encodeABI()
+      batch.add(web3.eth.call.request({data: tsData, to: obj.exchangeAddress}, 'latest', (err, res) => {
+        let bl
+        if (err) {
+          bl = ZERO
+        } else {
+          bl = formatCellData(res, 66)
         }
-        if (exchangeETHBalance) {
-          Basebalance = ethers.utils.bigNumberify(exchangeETHBalance).mul(poolTokenPercentage).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-          market = getMarketRate(ethers.utils.bigNumberify(exchangeETHBalance), ethers.utils.bigNumberify(exchangeTokenBalancem), obj.decimals)
+        arr[i].supply = bl
+        count ++
+        // console.log(web3.utils.toWei(res))
+      }))
+  
+      // exchangeTokenBalancem
+      tokenContract.options.address = obj.token
+      let etbData = tokenContract.methods.balanceOf(obj.exchangeAddress).encodeABI()
+      console.log(etbData)
+      batch.add(web3.eth.call.request({data: etbData, to: obj.token, from: obj.exchangeAddress}, 'latest', (err, res) => {
+        let bl
+        if (err) {
+          bl = ZERO
+        } else {
+          bl = formatCellData(res, 66)
         }
-      }
-      resolve({
-        ...obj,
-        token,
-        pecent: poolTokenPercentage,
-        balance: balance,
-        poolTokenBalance: ethers.utils.bigNumberify(poolTokenBalance),
-        exchangeTokenBalancem: ethers.utils.bigNumberify(exchangeTokenBalancem),
-        exchangeETHBalance: ethers.utils.bigNumberify(exchangeETHBalance),
-        Basebalance: ethers.utils.bigNumberify(Basebalance),
-        market: market
-        // poolBaseBalance
-      })
-    })
-  })
-}
+        arr[i].exchangeTokenBalancem = bl
+        count ++
+      }))
+  
+      // exchangeETHBalance 
+      batch.add(web3.eth.getBalance.request(obj.exchangeAddress, 'latest', (err, res) => {
+        let bl
+        if (err) {
+          bl = ZERO
+        } else {
+          bl = ethers.utils.bigNumberify(res)
+        }
+        arr[i].exchangeETHBalance = bl
+        count ++
+      }))
 
-export default getDashBoards
+            
+      // poolTokenBalance
+      tokenContract.options.address = obj.exchangeAddress
+      let ptbData = tokenContract.methods.balanceOf(obj.account).encodeABI()
+      console.log(ptbData)
+      batch.add(web3.eth.call.request({data: ptbData, to: obj.exchangeAddress}, 'latest', (err, res) => {
+        let bl
+        if (err) {
+          bl = ZERO
+        } else {
+          bl = formatCellData(res, 66)
+        }
+        arr[i].poolTokenBalance = bl
+        count ++
+      }))
+    }
+    // console.log(batch)
+    batch.execute()
+  
+    let getDataIntervel = setInterval(() => {
+      if (count >= 4 && ( (Date.now() - time) <= 60000 )) {
+        console.log(arr)
+        for (let i = 0, len = arr.length; i < len; i++) {
+          let obj = arr[i]
+          let poolTokenPercentage = ethers.utils.bigNumberify(0)
+          let balance = ethers.utils.bigNumberify(0), Basebalance = 0, market = ethers.utils.bigNumberify(0)
+          if (Number(obj.supply) && Number(obj.exchangeTokenBalancem)) {
+            poolTokenPercentage = obj.poolTokenBalance.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(obj.supply)
+            if (Number(obj.exchangeTokenBalancem)) {
+              balance = obj.exchangeTokenBalancem.mul(poolTokenPercentage).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+            }
+            if (Number(obj.exchangeETHBalance)) {
+              Basebalance = obj.exchangeETHBalance.mul(poolTokenPercentage).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+              market = getMarketRate(obj.exchangeETHBalance, obj.exchangeTokenBalancem, obj.decimals)
+            }
+          }
+          arr[i].pecent = poolTokenPercentage
+          arr[i].balance = balance
+          arr[i].Basebalance = Basebalance
+          arr[i].market = market
+        }
+        resolve(arr)
+        clearInterval(getDataIntervel)
+      } else if (count < 4 && ( (Date.now() - time) > 30000 )) {
+        console.log(arr)
+        clearInterval(getDataIntervel)
+      }
+    }, 500)
+  })
+  
+}

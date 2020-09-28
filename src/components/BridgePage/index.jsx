@@ -1574,7 +1574,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       if (res) {
         for (let obj of hashArr) {
           if (res.hash === obj.hash) {
-            // alert(t('BTCmintTip'))
             setMintBTCErrorTip(t('BTCmintTip'))
             MintModelView()
             return
@@ -1656,13 +1655,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             </HeaderRow>
             <ContentWrapper>
               <MintDiv>
-                {
-                  mintBTCErrorTip ? (
-                    <>
-                      <FlexCneter>{mintBTCErrorTip}</FlexCneter>
-                    </>
-                  ) : ''
-                }
+                
                 {inputValueFormatted ? (
                   <>
                     <MintList>
@@ -1678,6 +1671,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 <MintListCenter>
                   <WalletConnectData size={160} uri={registerAddress} />
                 </MintListCenter>
+                {
+                  mintBTCErrorTip ? (
+                    <>
+                      <MintWarningTip>
+                        <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+                        {mintBTCErrorTip}
+                      </MintWarningTip>
+                    </>
+                  ) : ''
+                }
               </MintDiv>
             </ContentWrapper>
           </UpperSection>

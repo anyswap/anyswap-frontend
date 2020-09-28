@@ -227,12 +227,12 @@ export function getServerInfo (account, token, coin) {
     if (!account) {
       resolve('')
     } else {
-      console.log(getLocalConfig(account, token))
+      // console.log(getLocalConfig(account, token))
       if (!getLocalConfig(account, token)) {
         RegisterAddress(account, token, coin).then(res => {
           if (res.msg === 'Success') {
             // resolve(getLocalConfig(account, token))
-            console.log(getInfoObj)
+            // console.log(getInfoObj)
             let lData = getLocalConfig(getInfoObj.account, getInfoObj.token)
             if (lData) {
               resolve(lData)

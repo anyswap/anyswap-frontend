@@ -26,7 +26,7 @@ import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.sv
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 
 import {getRewards} from '../../utils/axios'
-import getDashBoards from '../../utils/dashboard/index.js'
+import {getDashBoards} from '../../utils/dashboard/index.js'
 
 import IconLiquidityRewards from '../../assets/images/icn-liquidity-rewards.svg'
 import IconLiquidityRewardsBlack from '../../assets/images/icn-liquidity-rewards-black.svg'
@@ -574,7 +574,6 @@ function thousandBit (num, dec = 2) {
   return num
 }
 
-// getDashBoards('0xE000E632124aa65B80f74E3e4cc06DC761610583', '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4', '0x4dee5f0705ff478b452419375610155b5873ef5b')
 export default function DashboardDtil () {
   const { account } = useWeb3React()
   const allBalances = useAllBalances()
@@ -591,18 +590,14 @@ export default function DashboardDtil () {
       let poolArr = []
       let poolInfoObj = {}
       for (let obj in allTokens) {
-        poolArr.push(
-          getDashBoards(
-            account,
-            obj,
-            allTokens[obj].exchangeAddress,
-            allTokens[obj],
-            allTokens[obj].symbol
-          )
-        )
+        poolArr.push({
+          account,
+          token: obj,
+          exchangeAddress: allTokens[obj].exchangeAddress,
+          ...allTokens[obj]
+        })
       }
-      Promise.all(poolArr).then(res => {
-        // console.log(res)
+      getDashBoards(poolArr).then(res => {
         let arr = []
         let baseAccountBalance = ethers.utils.bigNumberify(0)
         let baseAllBalance = ethers.utils.bigNumberify(0)
@@ -925,12 +920,14 @@ export default function DashboardDtil () {
                                 </>
                               ) : (
                                 <>
-                                  <td align='right'>{poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch) ? poolObj[item.symbol].balance : '0'}</td>
+                                  <td align='right'>{poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch) && poolObj[item.symbol].balance && !isNaN(poolObj[item.symbol].balance) ? poolObj[item.symbol].balance : '0'}</td>
                                   <td align='right'>
                                     {
                                       poolObj[item.symbol]
                                       && config.dirSwitchFn(poolObj[item.symbol].isSwitch)
                                       && item.balance !== '-'
+                                      && !isNaN(item.balance)
+                                      && !isNaN(poolObj[item.symbol].balance)
                                       ? (Number(poolObj[item.symbol].balance) + Number(item.balance) === 0 ? '0' : Number((Number(poolObj[item.symbol].balance) + Number(item.balance)).toFixed(5))) : '0'}</td>
                                 </>
                               )
