@@ -13,7 +13,7 @@ import { useTransactionAdder } from '../../contexts/Transactions'
 import { useAddressBalance } from '../../contexts/Balances'
 import { useWalletModalToggle } from '../../contexts/Application'
 
-import { Button, TitleBox } from '../../theme'
+import { Button, TitleBox, Spinner } from '../../theme'
 import CurrencyInputPanel from '../CurrencyInputPanel'
 import AddressInputPanel from '../AddressInputPanel'
 import OversizedPanel from '../OversizedPanel'
@@ -44,8 +44,9 @@ import WithdrawActiveIcon from '../../assets/images/icon/withdraw-purple.svg'
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 
-import Copy from '../AccountDetails/Copy'
+import Circle from '../../assets/images/circle.svg'
 
+import Copy from '../AccountDetails/Copy'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
 
@@ -600,6 +601,35 @@ width: 100%;
   background-color: ${({ theme }) => theme.backgroundColor};
   padding: 0rem;
   ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1rem`};
+`
+
+const LoadingBody = styled.div`
+  ${({ theme }) => theme.FlexC};
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:9999;
+  background:rgba(0,0,0,.5);
+  .content {
+    text-align: center;
+    p {
+      margin-top: 30px;
+      font-size: 20px;
+      color:#ccc;
+    }
+  }
+`
+
+const SpinnerWrapper = styled(Spinner)`
+  font-size: 4rem;
+
+  svg {
+    path {
+      color: ${({ theme }) => theme.uniswapPink};
+    }
+  }
 `
 
 const DEPOSIT_HISTORY = 'DEPOSIT_HISTORY'
@@ -1285,9 +1315,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
   function mintAmount (mintAddress, mintCoin) {
     let coin = mintCoin.replace(config.prefix, '')
-    console.log(initDepositAddress)
-    console.log(mintAddress)
-    console.log(registerAddress)
+
     if (initDepositAddress.toLowerCase() !== mintAddress.toLowerCase()) {
       alert('Data error, please refresh and try again!')
       setIsHardwareTip(false)
@@ -1460,7 +1488,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }, 1000 * 50)
   }, [removeHashStatus])
   const [mintBTCErrorTip, setMintBTCErrorTip] = useState()
+  const [loadingState, setLoadingState] = useState(false)
   function getBTCtxns () {
+    setLoadingState(true)
     GetBTCtxnsAll(registerAddress, account, inputSymbol.replace(config.prefix, '')).then(res => {
       // console.log(res)
       if (res) {
@@ -1485,6 +1515,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         setMintBTCErrorTip(t('BTCmintTip'))
         MintModelView()
       }
+      setLoadingState(false)
     })
   }
 
@@ -1503,6 +1534,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       )
     }
   }
+
 
   // console.log(hashArr)
   return (
@@ -1854,23 +1886,48 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           })
         }}
         onValueChange={inputValue => {
-          let inputVal = inputValue
+          // console.log(inputValue)
+          inputValue = formatDecimal(inputValue, inputDecimals)
+          let inputVal = inputValue && Number(inputValue) ? ethers.utils.parseUnits(inputValue.toString(), inputDecimals) : ethers.utils.bigNumberify(0)
           if (bridgeType && bridgeType === 'redeem') {
-            let _fee = Number(inputValue) * Number(fee)
-            if (_fee < minFee) {
-              _fee = minFee
-            } else if (_fee > maxFee) {
-              _fee = maxFee
-            }
-            inputVal = Number(inputValue) - _fee
-            if (inputVal < 0) {
+            let _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+            let _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
+            let _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
+
+            if (_fee.isZero()) {
               inputVal = ''
             } else {
-              inputVal = formatDecimal(inputVal, Math.min(8, inputDecimals))
+              if (_fee.lt(_minFee)) {
+                _fee = _minFee
+              } else if (_fee.gt(_maxFee)) {
+                _fee = _maxFee
+              }
+              inputVal = inputVal.sub(_fee)
             }
-          } else {
-            inputVal = formatDecimal(inputVal, Math.min(8, inputDecimals))
           }
+          if (inputVal) {
+            inputVal = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
+          } else {
+            inputVal = ''
+          }
+          // console.log(inputVal)
+          // let inputVal = inputValue
+          // if (bridgeType && bridgeType === 'redeem') {
+          //   let _fee = Number(inputValue) * Number(fee)
+          //   if (_fee < minFee) {
+          //     _fee = minFee
+          //   } else if (_fee > maxFee) {
+          //     _fee = maxFee
+          //   }
+          //   inputVal = Number(inputValue) - _fee
+          //   if (inputVal < 0) {
+          //     inputVal = ''
+          //   } else {
+          //     inputVal = formatDecimal(inputVal, Math.min(8, inputDecimals))
+          //   }
+          // } else {
+          //   inputVal = formatDecimal(inputVal, Math.min(8, inputDecimals))
+          // }
           // console.log(inputValue)
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
@@ -2045,7 +2102,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     <dd><i></i>{t('mintTip5', {
                       depositBigValMoreTime,
                       coin: inputSymbol.replace(config.prefix, ''),
-                    })},</dd>
+                    }) + (inputSymbol.replace(config.prefix, '') !== 'BTC' ? ',' : '.')}</dd>
                     {
                       account && inputSymbol.replace(config.prefix, '') !== 'BTC' ? (
                         walletTip()
@@ -2078,6 +2135,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                         <img src={BirdgeIcon} alt={''} />
                         {t('redeem')}
                       </StyledBirdgeIcon>
+                    </Button>
+                  ) : (loadingState ? (
+                    <Button disabled={true} >
+                      <SpinnerWrapper src={Circle}/>
+                      {t('querying')}
                     </Button>
                   ) : (
                     <Button
@@ -2117,6 +2179,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                         {t('CrossChainDeposit')}
                       </StyledBirdgeIcon>
                     </Button>
+                  )
                   )}
                 </>
               ) : (

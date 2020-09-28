@@ -1,8 +1,8 @@
 {
   "ComineSoon":"Coming soon!",
 	"onTestnet":"You are on",
-  "mainnet":"Mainnet",
-  "testnet":"Testnet",
+  "mainnet":" Mainnet",
+  "testnet":" Testnet",
   "noWallet": "No Fusion wallet found",
   "wrongNetwork": "You are on the wrong network",
   "switchNetwork": "Please switch to {{ correctNetwork }}",
@@ -199,5 +199,6 @@
   "TotalBalance": "Total Balance",
   "Action": "Action",
   "Coins": "Coins",
-  "Linking": "Node connection..."
+  "Linking": "Node connection...",
+  "querying": "Querying"
 }
