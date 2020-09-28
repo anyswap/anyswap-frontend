@@ -89,7 +89,6 @@ const MAIN_CONFIG = {
   initToken: INIT_MAIN_TOKEN, // 交易默认合约
   initBridge: '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496', // 跨链桥默认合约
   explorerUrl: FSN_MAIN_EXPLORER, // 浏览器地址
-  marketsUrl: 'https://markets.anyswap.exchange/#/', // K线图地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
   btcConfig: { // btc配置
     lookHash: 'https://sochain.com/tx/BTC/', // 
@@ -117,7 +116,6 @@ const TEST_CONFIG = {
   initToken: INIT_TEST_TOKEN,
   initBridge: '0x3368e6012066bc08ece5f2b2582c883cca1424e5',
   explorerUrl: FSN_TEST_EXPLORER,
-  marketsUrl: 'https://markets.anyswap.exchange/#/',
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btcConfig: {
     lookHash: 'https://sochain.com/tx/BTCTEST/',

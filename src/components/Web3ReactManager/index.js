@@ -10,6 +10,11 @@ import Circle from '../../assets/images/circle.svg'
 import { NetworkContextName } from '../../constants'
 
 const MessageWrapper = styled.div`
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +22,8 @@ const MessageWrapper = styled.div`
 `
 
 const Message = styled.h2`
-  color: ${({ theme }) => theme.uniswapPink};
+  color: #031a6e;
+  font-size:14px;
 `
 
 const SpinnerWrapper = styled(Spinner)`
@@ -77,7 +83,13 @@ export default function Web3ReactManager({ children }) {
 
   // on page load, do nothing until we've tried to connect to the injected connector
   if (!triedEager) {
-    return null
+    // return null
+    return (
+      <MessageWrapper>
+        {/* <SpinnerWrapper src={Circle} /> */}
+        <Message>{t('Linking')}</Message>
+      </MessageWrapper>
+    )
   }
 
   // if the account context isn't active, and there's an error on the network context, it's an irrecoverable error

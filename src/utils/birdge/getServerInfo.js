@@ -233,7 +233,7 @@ export function getServerInfo (account, token, coin) {
   getInfoObj = {account, token, coin}
   return new Promise(resolve => {
     // getAllCoinInfo(account)
-    console.log(getInfoObj)
+    // console.log(getInfoObj)
     if (!account) {
       resolve('')
     } else {

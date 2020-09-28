@@ -63,7 +63,6 @@ const MAIN_CONFIG = {
   initToken: INIT_MAIN_TOKEN,
   initBridge: '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa',
   explorerUrl: BNB_MAIN_EXPLORER,
-  marketsUrl: '',
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btcConfig: {
     lookHash: 'https://sochain.com/tx/BTCTEST/',
@@ -101,7 +100,6 @@ const TEST_CONFIG = {
   initToken: INIT_TEST_TOKEN,
   initBridge: '0x4ce47351aeafbd81f9888187288996fe0322ffa2',
   explorerUrl: BNB_TEST_EXPLORER,
-  marketsUrl: 'https://markets.anyswap.exchange/#/',
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btcConfig: {
     lookHash: 'https://sochain.com/tx/BTCTEST/',

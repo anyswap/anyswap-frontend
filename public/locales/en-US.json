@@ -198,5 +198,6 @@
   "APY": "APY",
   "TotalBalance": "Total Balance",
   "Action": "Action",
-  "Coins": "Coins"
+  "Coins": "Coins",
+  "Linking": "Node connection..."
 }

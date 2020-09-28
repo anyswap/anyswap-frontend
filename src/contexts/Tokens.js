@@ -671,7 +671,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [NAME]: 'ANY Bitcoin',
       [SYMBOL]: config.prefix + 'BTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '',
+      [EXCHANGE_ADDRESS]: '0x361450E73d63031feBE35Ca9fD772F3FD53E1013',
       [REDEEM_MAX_NUM]: 20,
       [REDEEM_MIN_NUM]: 0.002,
       [FEE]: 0.001,

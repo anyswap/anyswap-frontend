@@ -127,6 +127,7 @@ export default {
   FSNmainUrl: 'https://anyswap.exchange', // 主网交易所地址
   BSCtestUrl: 'https://bsctest.anyswap.exchange',
   BSCmainUrl: 'https://bsc.anyswap.exchange',
+  marketsUrl: 'https://markets.anyswap.exchange/#/', // K线图地址
   reg,
   bridge: bridge[useBridge],
   bridgeType: useBridge,

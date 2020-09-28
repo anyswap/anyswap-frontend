@@ -197,5 +197,6 @@
   "APY": "APY",
   "TotalBalance": "总资产",
   "Action": "操作",
-  "Coins": "币种"
+  "Coins": "币种",
+  "Linking": "节点连接中..."
 }

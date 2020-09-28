@@ -899,8 +899,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     })
   }
 
-  console.log(inputCurrency)
-
   useEffect(() => {
     let node
     if (extendObj.FSN && extendObj.FSN.isSwitch) {
@@ -909,22 +907,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       node = extendObj.ETH.type
     }
     let tokenOnlyOne = inputCurrency
-    let initBridge = {
-      type: 'UPDATE_SWAPREGISTER',
-      payload: initDepositAddress,
-      isDeposit: initIsDeposit,
-      depositMaxNum: initDepositMaxNum,
-      depositMinNum: initDepositMinNum,
-      depositBigValMoreTime: 0,
-      isRedeem: initIsRedeem,
-      redeemMaxNum: initRedeemMaxNum,
-      redeemMinNum: initRedeemMinNum,
-      maxFee: initMaxFee,
-      minFee: initMinFee,
-      fee: initFee,
-      redeemBigValMoreTime: 0,
-      token: inputCurrency
-    }
+
     setInit(1)
     let coin = inputSymbol.replace(config.prefix, '')
     if (account && config.coininfo[inputSymbol] && config.coininfo[inputSymbol].url && initIsDeposit && initIsRedeem) {
@@ -1006,12 +989,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             setInit('')
             return
           }
-        } else if (res.msg === 'Error') {
-          setInit('')
-          setIsRegister(false)
         } else {
           setInit('')
-          // dispatchSwapState(initBridge)
           setIsRegister(false)
         }
       })
