@@ -1,6 +1,7 @@
 import config from '../../config'
 import axios from 'axios'
 import { getChainHashStatus } from '../birdge'
+import { resolve } from 'path';
 const bitcoin = require('bitcoinjs-lib');
 const OPS = require('bitcoin-ops');
 
@@ -113,7 +114,7 @@ function GetBTChashStatus (hash, index, coin, status) {
   })
 }
 
-function GetBTCtxnsAll (address, account, coin) {
+function getSochcainTxns (address, account, coin) {
   let sochainUrl = config.btcConfig.queryTxns + address // 主网
   let cbData = ''
   return new Promise(resolve => {
@@ -157,6 +158,26 @@ function GetBTCtxnsAll (address, account, coin) {
       } else {
         resolve(cbData)
       }
+    })
+  })
+}
+
+function timeout () {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('')
+    }, 1000 * 30)
+  })
+}
+
+function GetBTCtxnsAll (address, account, coin) {
+  return new Promise(resolve => {
+    Promise.race([
+      getSochcainTxns(address, account, coin),
+      timeout()
+    ]).then(res => {
+      // console.log(res)
+      resolve(res)
     })
   })
 }

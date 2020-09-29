@@ -763,7 +763,7 @@ export default function CurrencyInputPanel({
       setValueRange(0)
     }
   }, [value])
-
+  
   function _renderInput() {
     if (typeof renderInput === 'function') {
       return renderInput()
@@ -846,7 +846,7 @@ export default function CurrencyInputPanel({
                     e.stopPropagation()
                   }
                 }}
-                value={value}
+                value={isNaN(value) ? '' : value}
               />
             )
           }

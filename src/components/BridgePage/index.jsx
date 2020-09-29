@@ -1836,37 +1836,79 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         urlAddedTokens={urlAddedTokens}
         extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : (outNetBalance && inputSymbol !== config.prefix + 'BTC' ? formatBalance(outNetBalance) : '')}
         extraTextClickHander={() => {
-          // console.log(inputBalance)
           if (inputBalance && inputDecimals) {
             const valueToSet = inputCurrency === config.symbol ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
-            // console.log(valueToSet)
+
             if (valueToSet.gt(ethers.constants.Zero)) {
-              let inputVal = Number(inputBalance) / Math.pow(10, inputDecimals)
+              let inputVal = inputBalance
               let value = ''
+              let _redeemMinNum = ethers.utils.parseUnits(redeemMinNum.toString(), inputDecimals)
+              let _redeemMaxNum = ethers.utils.parseUnits(redeemMaxNum.toString(), inputDecimals)
               if (bridgeType && bridgeType === 'redeem') {
-                // inputVal = Number(inputBalance) / Math.pow(10, inputDecimals)
-                if (inputVal < Number(redeemMinNum)) {
+                if (inputVal.lt(_redeemMinNum)) {
                   inputVal = ''
-                } else if (inputVal > Number(redeemMaxNum)) {
-                  inputVal = redeemMaxNum
+                } else if (inputVal.gt(_redeemMaxNum)) {
+                  inputVal = _redeemMaxNum
                 }
-                value = inputVal
-                let _fee = Number(inputVal) * Number(fee)
-                if (_fee < minFee) {
-                  _fee = minFee
-                } else if (_fee > maxFee) {
-                  _fee = maxFee
+                if (inputVal) {
+                  value = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
+                  let _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+                  let _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
+                  let _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
+  
+                  if (_fee.isZero()) {
+                    inputVal = ''
+                  } else {
+                    if (_fee.lt(_minFee)) {
+                      _fee = _minFee
+                    } else if (_fee.gt(_maxFee)) {
+                      _fee = _maxFee
+                    }
+                    inputVal = inputVal.sub(_fee)
+                  }
                 }
-                inputVal = Number(inputVal) - _fee
+                // inputVal = Number(inputVal) - _fee
               } else {
-                inputVal = outNetBalance
-                value = inputVal
-                if (inputVal < Number(depositMinNum)) {
+                inputVal = ethers.utils.parseUnits(outNetBalance.toString(), inputDecimals)
+                let _depositMinNum = ethers.utils.parseUnits(depositMinNum.toString(), inputDecimals)
+                let _depositMaxNum = ethers.utils.parseUnits(depositMaxNum.toString(), inputDecimals)
+                value = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
+                if (inputVal.lt(_depositMinNum)) {
                   inputVal = ''
-                } else if (inputVal > Number(depositMaxNum)) {
-                  inputVal = depositMaxNum
+                } else if (inputVal.gt(_depositMaxNum)) {
+                  inputVal = _depositMaxNum
                 }
               }
+              if (inputVal) {
+                inputVal = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
+              } else {
+                inputVal = ''
+              }
+              // let inputVal = Number(inputBalance) / Math.pow(10, inputDecimals)
+              // let value = ''
+              // if (bridgeType && bridgeType === 'redeem') {
+              //   if (inputVal < Number(redeemMinNum)) {
+              //     inputVal = ''
+              //   } else if (inputVal > Number(redeemMaxNum)) {
+              //     inputVal = redeemMaxNum
+              //   }
+              //   value = inputVal
+              //   let _fee = Number(inputVal) * Number(fee)
+              //   if (_fee < minFee) {
+              //     _fee = minFee
+              //   } else if (_fee > maxFee) {
+              //     _fee = maxFee
+              //   }
+              //   inputVal = Number(inputVal) - _fee
+              // } else {
+              //   inputVal = outNetBalance
+              //   value = inputVal
+              //   if (inputVal < Number(depositMinNum)) {
+              //     inputVal = ''
+              //   } else if (inputVal > Number(depositMaxNum)) {
+              //     inputVal = depositMaxNum
+              //   }
+              // }
               dispatchSwapState({
                 type: 'UPDATE_INDEPENDENT',
                 payload: {
@@ -1910,7 +1952,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           } else {
             inputVal = ''
           }
-          // console.log(inputVal)
           // let inputVal = inputValue
           // if (bridgeType && bridgeType === 'redeem') {
           //   let _fee = Number(inputValue) * Number(fee)
