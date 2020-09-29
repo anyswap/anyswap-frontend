@@ -461,6 +461,9 @@ const DBTbody = styled.tbody`
         &.lr {
           ${({theme}) => theme.FlexBC};
         }
+        &.textR {
+          ${({theme}) => theme.FlexEC};
+        }
       }
     }
   }
@@ -700,12 +703,12 @@ export default function DashboardDtil () {
                           config.dirSwitchFn(item.isSwitch) ? (
                             <>
                               <td align='right'>
-                                <p className='lr'>
-                                  <span>{item.symbol}</span>
+                                <p className='textR'>
+                                  {/* <span>{item.symbol}</span> */}
                                   {item.exchangeTokenBalancem ? amountFormatter( item.exchangeTokenBalancem, item.decimals, 5 ) : '0'}
                                 </p>
-                                <p className='lr'>
-                                  <span>{config.symbol}</span>
+                                <p className='textR'>
+                                  {/* <span>{config.symbol}</span> */}
                                   {item.exchangeETHBalance ? amountFormatter( item.exchangeETHBalance, 18, 5 ) : '0'}
                                 </p>
                               </td>
@@ -872,10 +875,10 @@ export default function DashboardDtil () {
         <DBThead>
           <tr>
             <th align='center' width='20%'>{t('Coins')}</th>
-            <th align='center' width='10%'>{t('price')}</th>
-            <th align='center' width='15%'>{t('balances')}</th>
-            <th align='center' width='15%'>{t('lr')}</th>
-            <th align='center' width='15%'>{t('TotalBalance')}</th>
+            <th align='left' width='10%'>{t('price')}</th>
+            <th align='right' width='15%'>{t('balances')}</th>
+            <th align='right' width='15%'>{t('lr')}</th>
+            <th align='right' width='15%'>{t('TotalBalance')}</th>
             <th align='center'>{t('Action')}</th>
           </tr>
         </DBThead>
