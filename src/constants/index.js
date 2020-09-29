@@ -41,14 +41,13 @@ export const SUPPORTED_WALLETS =
     ? {
         ...MAINNET_WALLETS,
         LEDGER: {
-          // connector: ledger,
           connector: '',
           name: 'Ledger',
           iconName: 'ledger.png',
           description: 'The world’s popular hardware wallet.',
           href: null,
           color: '#E8831D'
-        }
+        },
       }
     : {
         ...MAINNET_WALLETS,

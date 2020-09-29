@@ -84,6 +84,7 @@ export default function Web3ReactManager({ children }) {
   // on page load, do nothing until we've tried to connect to the injected connector
   if (!triedEager) {
     // return null
+    // return null
     return (
       <MessageWrapper>
         {/* <SpinnerWrapper src={Circle} /> */}
