@@ -97,19 +97,24 @@ export function getDashBoards (arr) {
 
             
       // poolTokenBalance
-      tokenContract.options.address = obj.exchangeAddress
-      let ptbData = tokenContract.methods.balanceOf(obj.account).encodeABI()
-      // console.log(ptbData)
-      batch.add(web3.eth.call.request({data: ptbData, to: obj.exchangeAddress}, 'latest', (err, res) => {
-        let bl
-        if (err) {
-          bl = ZERO
-        } else {
-          bl = formatCellData(res, 66)
-        }
-        arr[i].poolTokenBalance = bl
+      if (obj.account) {
+        tokenContract.options.address = obj.exchangeAddress
+        let ptbData = tokenContract.methods.balanceOf(obj.account).encodeABI()
+        // console.log(ptbData)
+        batch.add(web3.eth.call.request({data: ptbData, to: obj.exchangeAddress}, 'latest', (err, res) => {
+          let bl
+          if (err) {
+            bl = ZERO
+          } else {
+            bl = formatCellData(res, 66)
+          }
+          arr[i].poolTokenBalance = bl
+          count ++
+        }))
+      } else {
+        arr[i].poolTokenBalance = ZERO
         count ++
-      }))
+      }
     }
     // console.log(batch)
     batch.execute()

@@ -26,7 +26,8 @@ import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.sv
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 
 import {getRewards} from '../../utils/axios'
-import {getDashBoards} from '../../utils/dashboard/index.js'
+// import {getDashBoards} from '../../utils/dashboard/index.js'
+import {getPoolInfo} from '../../utils/dashboard/getPoolInfo'
 
 import IconLiquidityRewards from '../../assets/images/icn-liquidity-rewards.svg'
 import IconLiquidityRewardsBlack from '../../assets/images/icn-liquidity-rewards-black.svg'
@@ -597,7 +598,9 @@ export default function DashboardDtil () {
           ...allTokens[obj]
         })
       }
-      getDashBoards(poolArr).then(res => {
+      
+      getPoolInfo(poolArr).then(res => {
+      // getDashBoards(poolArr).then(res => {
         let arr = []
         let baseAccountBalance = ethers.utils.bigNumberify(0)
         let baseAllBalance = ethers.utils.bigNumberify(0)
@@ -630,7 +633,7 @@ export default function DashboardDtil () {
             })
           }
         }
-        console.log(arr)
+        // console.log(arr)
         arr[0].Basebalance = baseAccountBalance
         poolInfoObj[config.symbol].Basebalance = baseAccountBalance
         setRewardAPY(config.rewardRate(rwArr))

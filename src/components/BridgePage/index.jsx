@@ -58,8 +58,6 @@ import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '.
 
 import {getServerInfo, removeLocalConfig, removeRegisterInfo} from '../../utils/birdge/getServerInfo'
 
-// import test from '../../utils/dashboard/test'
-// test()
 
 
 const INPUT = 0

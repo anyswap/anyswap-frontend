@@ -85,6 +85,7 @@ const MAIN_CONFIG = {
     '0xe9e7cea3dedca5984780bafc599bd69add087d56',
     '0x658A109C5900BC6d2357c87549B651670E5b0539'
   ],
+  queryToken: '0x7e8b5b722f1a3c5ab2bd8510eaba24dae97565d1' // 查询余额合约
 }
 
 const TEST_CONFIG = {
@@ -109,7 +110,8 @@ const TEST_CONFIG = {
   },
   isOpenRewards: 0,
   isChangeDashboard: 0,
-  noSupportBridge: [COIN_BASE.symbol]
+  noSupportBridge: [COIN_BASE.symbol],
+  queryToken: '' // 查询余额合约
 }
 
 function getBNBConfig (type) {

@@ -91,7 +91,7 @@ const MAIN_CONFIG = {
   explorerUrl: FSN_MAIN_EXPLORER, // 浏览器地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
   btcConfig: { // btc配置
-    lookHash: 'https://sochain.com/tx/BTC/', // 
+    lookHash: 'https://www.blockchain.com/btc/tx/', // 
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/', // 
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
     btcAddr: '1HvrEMgxsYadWGhijpfygKSqPZ5p418g45',  // 
@@ -99,6 +99,7 @@ const MAIN_CONFIG = {
   isOpenRewards: 1, // 是否打开奖励数据
   isChangeDashboard: 1, // 是否改变资产顺序
   noSupportBridge: [COIN_BASE.symbol, ANY_MAIN_TOKEN], // 不支持的跨链合约或币种
+  queryToken: '0x25afd2058b6e5e00995467d58778a2790a0e5038' // 查询余额合约
 }
 
 const TEST_CONFIG = {
@@ -126,6 +127,7 @@ const TEST_CONFIG = {
   isOpenRewards: 1,
   isChangeDashboard: 1,
   noSupportBridge: [COIN_BASE.symbol, ANY_TEST_TOKEN],
+  queryToken: '0x2fd94457b707b2776d4f4e4292a4280164fe8a15' // 查询余额合约
 }
 
 function getFSNConfig (type) {
