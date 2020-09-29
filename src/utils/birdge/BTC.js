@@ -138,6 +138,7 @@ function getSochcainTxns (address, account, coin) {
               to: res.data.address,
               status: 1,
               timestamp: useTxns.time,
+              node: 0
             })
           } else {
             resolve({
@@ -152,6 +153,7 @@ function getSochcainTxns (address, account, coin) {
               swapHash: '',
               swapStatus: '',
               swapTime: '',
+              node: 0
             })
           }
         })

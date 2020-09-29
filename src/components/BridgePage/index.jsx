@@ -787,7 +787,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [showBetaMessage] = useBetaMessageManager()
   let walletType = sessionStorage.getItem('walletType')
   // let HDPath = sessionStorage.getItem('HDPath')
-  // account = '0xd7928d762a9abFA269ED7D9B82AE43911E687D04'
+  // account = '0x445166c4854836292a5af7e3f165a3b8b4eedf97'
   // console.log(useWeb3React())
   
   const urlAddedTokens = {}
@@ -2117,9 +2117,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       coin: inputSymbol.replace(config.prefix, ''),
                       maxFee,
                       fee: fee * 100
-                    })},</dd>
-                    <dd><i></i>{t('redeemTip2')} {redeemMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
-                    <dd><i></i>{t('redeemTip3')} {redeemMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
+                    })}</dd>
+                    <dd><i></i>{t('redeemTip2')} {redeemMinNum} {inputSymbol.replace(config.prefix, '')}</dd>
+                    <dd><i></i>{t('redeemTip3')} {redeemMaxNum} {inputSymbol.replace(config.prefix, '')}</dd>
                     <dd><i></i>{t('redeemTip4')},</dd>
                     <dd><i></i>{t('redeemTip5', {
                       redeemBigValMoreTime,
@@ -2135,13 +2135,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       {t('Reminder')}:
                     </dt>
                     <dd><i></i>{t('mintTip1')},</dd>
-                    <dd><i></i>{t('mintTip2')} {depositMinNum} {inputSymbol.replace(config.prefix, '')},</dd>
-                    <dd><i></i>{t('mintTip3')} {depositMaxNum} {inputSymbol.replace(config.prefix, '')},</dd>
-                    <dd><i></i>{t('mintTip4')},</dd>
+                    <dd><i></i>{t('mintTip2')} {depositMinNum} {inputSymbol.replace(config.prefix, '')}</dd>
+                    <dd><i></i>{t('mintTip3')} {depositMaxNum} {inputSymbol.replace(config.prefix, '')}</dd>
+                    <dd><i></i>{t('mintTip4')}</dd>
                     <dd><i></i>{t('mintTip5', {
                       depositBigValMoreTime,
                       coin: inputSymbol.replace(config.prefix, ''),
-                    }) + (inputSymbol.replace(config.prefix, '') !== 'BTC' ? ',' : '.')}</dd>
+                    }) + (inputSymbol ? '' : '')}</dd>
                     {
                       account && inputSymbol.replace(config.prefix, '') !== 'BTC' ? (
                         walletTip()
