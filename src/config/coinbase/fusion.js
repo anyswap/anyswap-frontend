@@ -87,7 +87,7 @@ const MAIN_CONFIG = {
     [COIN.UNI]: {url: 'https://uni2fsnapi.anyswap.exchange/rpc'},
   },
   initToken: INIT_MAIN_TOKEN, // 交易默认合约
-  initBridge: '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496', // 跨链桥默认合约
+  initBridge: '0x445166c4854836292a5af7e3f165a3b8b4eedf97', // 跨链桥默认合约
   explorerUrl: FSN_MAIN_EXPLORER, // 浏览器地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
   btcConfig: { // btc配置
