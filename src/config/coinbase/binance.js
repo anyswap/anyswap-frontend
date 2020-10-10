@@ -26,6 +26,7 @@ const COIN_BASE ={
   suffix: SUFFIX,
   keepDec: 6,
   namePrefix: NAME_PREFIX,
+  marketsUrl: 'https://markets.anyswap.exchange/?trade=ANY_BNB', // K线图地址
   rewardRate (token, dec) {
     if (!token || !Number(token)) {
       return {
@@ -83,7 +84,10 @@ const MAIN_CONFIG = {
     '0xe02df9e3e622debdd69fb838bb799e3f168902c5',
     '0xaf53d56ff99f1322515e54fdde93ff8b3b7dafd5',
     '0xe9e7cea3dedca5984780bafc599bd69add087d56',
-    '0x658A109C5900BC6d2357c87549B651670E5b0539'
+    '0x658A109C5900BC6d2357c87549B651670E5b0539',
+    '0x4b0f1812e5df2a09796481ff14017e6005508003',
+    '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82',
+    '0xd4cb328a82bdf5f03eb737f37fa6b370aef3e888',
   ],
   queryToken: '0x7e8b5b722f1a3c5ab2bd8510eaba24dae97565d1' // 查询余额合约
 }

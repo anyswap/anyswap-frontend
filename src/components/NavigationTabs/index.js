@@ -15,6 +15,9 @@ import TwitterIcon from '../../assets/images/icon/twitter.svg'
 import TwitterIconWhite from '../../assets/images/icon/twitter-white.svg'
 import CodeIcon from '../../assets/images/icon/code.svg'
 import CodeIconWhite from '../../assets/images/icon/code-white.svg'
+
+import GithubIcon from '../../assets/images/icon/github.png'
+import GithubIconWhite from '../../assets/images/icon/github-white.png'
 import config from '../../config'
 
 const tabOrder = [
@@ -292,11 +295,13 @@ const OutLinkImg = styled.div`
   background-color: #ecf6ff;
   border-radius: 100%;
   margin-right: 0.625rem;
+  padding: 10px;
   &:hover {
     background-color: #5f6cfc;
   }
   img {
     display:block;
+    width:100%;
     &.show {
       display:none;
     }
@@ -416,10 +421,17 @@ function NavigationTabs({ location: { pathname }, history }) {
             </OutLinkImg>
           </Link>
           <Link id="link" href="https://github.com/anyswap">
-            <OutLinkImg onMouseEnter={() => {toggleHover('CodeIcon')}} onMouseLeave={() => {toggleHover('')}}>
+            <OutLinkImg onMouseEnter={() => {toggleHover('GithubIcon')}} onMouseLeave={() => {toggleHover('')}}>
               {/* <img src={CodeIcon} /> */}
-              <img alt={''} src={CodeIconWhite} className={navHover === 'CodeIcon' ? '' : 'show'}/>
-              <img alt={''} src={CodeIcon} className={navHover === 'CodeIcon' ? 'show' : ''}/>
+              <img alt={''} src={GithubIconWhite} className={navHover === 'GithubIcon' ? '' : 'show'}/>
+              <img alt={''} src={GithubIcon} className={navHover === 'GithubIcon' ? 'show' : ''}/>
+            </OutLinkImg>
+          </Link>
+          <Link id="link" href="https://coinmarketcap.com/exchanges/anyswap">
+            <OutLinkImg onMouseEnter={() => {toggleHover('coinmarketcap')}} onMouseLeave={() => {toggleHover('')}}>
+              {/* <img src={CodeIcon} /> */}
+              <img alt={''} src={CodeIconWhite} className={navHover === 'coinmarketcap' ? '' : 'show'}/>
+              <img alt={''} src={CodeIcon} className={navHover === 'coinmarketcap' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
         </OutLinkImgBox>

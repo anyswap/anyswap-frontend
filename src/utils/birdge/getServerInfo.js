@@ -161,8 +161,65 @@ function getCoinInfo (url, account, token) {
   })
 }
 
+function setLocalinfo (account, res) {
+  let dObj = res.SrcToken, // 充值信息
+      rObj = res.DestToken // 提现信息
+  let bridgeData = {
+    depositAddress: dObj.DepositAddress,
+    PlusGasPricePercentage: dObj.PlusGasPricePercentage,
+    isDeposit: !dObj.DisableSwap ? 1 : 0,
+    depositMaxNum: dObj.MaximumSwap,
+    depositMinNum: dObj.MinimumSwap,
+    depositBigValMoreTime: dObj.BigValueThreshold,
+    outnetToken: dObj.ContractAddress,
+    dcrmAddress: dObj.DcrmAddress,
+    isRedeem: !rObj.DisableSwap ? 1 : 0,
+    redeemMaxNum: rObj.MaximumSwap,
+    redeemMinNum: rObj.MinimumSwap,
+    maxFee: rObj.MaximumSwapFee,
+    minFee: rObj.MinimumSwapFee,
+    fee: rObj.SwapFeeRate,
+    redeemBigValMoreTime: rObj.BigValueThreshold,
+    token: rObj.ContractAddress,
+    p2pAddress: getRegisterInfo(account, rObj.ContractAddress).p2pAddress
+  }
+  setLocalConfig(account, rObj.ContractAddress, bridgeData)
+}
 
-function RegisterAddress(account, token, coin) {
+function getServerData (account, chainID) {
+  return new Promise(resolve => {
+    let url = config.serverInfoUrl + chainID
+    let data = {
+      msg: 'Error',
+      info: ''
+    }
+    axios.get(url).then(res => {
+      console.log(res)
+      if(res.status === 200){
+        data = {
+          msg: 'Success',
+          info: res.data.result
+        }
+        let serverData = res.data
+        console.log(serverData)
+        for (let obj in serverData) {
+          console.log(obj)
+          setLocalinfo(account, serverData[obj])
+        }
+      }
+      resolve(data)
+    }).catch(err => {
+      console.log(err)
+      data.error = err
+      resolve(data)
+    })
+  })
+}
+
+// getServerData('0xC03033d8b833fF7ca08BF2A58C9BC9d711257249', 32659)
+
+
+function RegisterAddress(account, token, coin, chainID) {
   return new Promise(resolve => {
     let lrInfo = getRegisterInfo(account, token)
     let url = config.coininfo[coin].url
@@ -193,6 +250,7 @@ function RegisterAddress(account, token, coin) {
             p2pAddress: rsData.result && rsData.result.P2shAddress
           })
           getCoinInfo(url, account, token).then(result => {
+          // getServerData(account, chainID).then(result => {
             if (result.msg === 'Success') {
               data = {
                 msg: 'Success',
@@ -214,6 +272,7 @@ function RegisterAddress(account, token, coin) {
       })
     } else {
       getCoinInfo(url, account, token).then(result => {
+      // getServerData(account, chainID).then(result => {
         if (result.msg === 'Success') {
           data = {
             msg: 'Success',
@@ -229,7 +288,7 @@ function RegisterAddress(account, token, coin) {
 }
 
 let getInfoObj = {}
-export function getServerInfo (account, token, coin) {
+export function getServerInfo (account, token, coin, chainID) {
   getInfoObj = {account, token, coin}
   return new Promise(resolve => {
     // getAllCoinInfo(account)
@@ -239,7 +298,7 @@ export function getServerInfo (account, token, coin) {
     } else {
       // console.log(getLocalConfig(account, token))
       if (!getLocalConfig(account, token)) {
-        RegisterAddress(account, token, coin).then(res => {
+        RegisterAddress(account, token, coin, chainID).then(res => {
           if (res.msg === 'Success') {
             // resolve(getLocalConfig(account, token))
             // console.log(getInfoObj)

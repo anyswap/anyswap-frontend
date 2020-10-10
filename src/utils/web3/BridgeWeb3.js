@@ -44,9 +44,9 @@ function getNodeRpc (node) {
 }
 
 // const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
-// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
-// factory.methods.getExchange('0x445166c4854836292a5af7e3f165A3B8b4EedF97').call((err, res) => {
+// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
+// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
+// factory.methods.getExchange('0xd4cb328a82bdf5f03eb737f37fa6b370aef3e888').call((err, res) => {
 //   console.log(err)
 //   console.log(res)
 // })
