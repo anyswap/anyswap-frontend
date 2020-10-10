@@ -15,9 +15,11 @@ import TwitterIcon from '../../assets/images/icon/twitter.svg'
 import TwitterIconWhite from '../../assets/images/icon/twitter-white.svg'
 import CodeIcon from '../../assets/images/icon/code.svg'
 import CodeIconWhite from '../../assets/images/icon/code-white.svg'
-
 import GithubIcon from '../../assets/images/icon/github.png'
 import GithubIconWhite from '../../assets/images/icon/github-white.png'
+
+import CoinmarketcapIcon from '../../assets/images/icon/coinmarketcap.png'
+import CoinmarketcapIconWhite from '../../assets/images/icon/coinmarketcap-white.png'
 import config from '../../config'
 
 const tabOrder = [
@@ -430,8 +432,8 @@ function NavigationTabs({ location: { pathname }, history }) {
           <Link id="link" href="https://coinmarketcap.com/exchanges/anyswap">
             <OutLinkImg onMouseEnter={() => {toggleHover('coinmarketcap')}} onMouseLeave={() => {toggleHover('')}}>
               {/* <img src={CodeIcon} /> */}
-              <img alt={''} src={CodeIconWhite} className={navHover === 'coinmarketcap' ? '' : 'show'}/>
-              <img alt={''} src={CodeIcon} className={navHover === 'coinmarketcap' ? 'show' : ''}/>
+              <img alt={''} src={CoinmarketcapIconWhite} className={navHover === 'coinmarketcap' ? '' : 'show'}/>
+              <img alt={''} src={CoinmarketcapIcon} className={navHover === 'coinmarketcap' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
         </OutLinkImgBox>
