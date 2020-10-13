@@ -940,9 +940,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let coin = inputSymbol.replace(config.prefix, '')
     if (account && config.coininfo[inputSymbol] && config.coininfo[inputSymbol].url && initIsDeposit && initIsRedeem) {
       // let url = config.coininfo[inputSymbol].url
-      getServerInfo(account, tokenOnlyOne, inputSymbol).then(res => {
-        // console.log(res)
-        // console.log(tokenOnlyOne)
+      getServerInfo(account, tokenOnlyOne, inputSymbol, chainId).then(res => {
+        console.log(res)
+        console.log(tokenOnlyOne)
         if (res.msg === 'Success' && res.info) {
           let serverInfo = res.info
           setIsRegister(true)

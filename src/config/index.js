@@ -25,8 +25,8 @@ import {
   ETH_TEST_EXPLORER
 } from './coinbase/nodeConfig'
 
-const ENV_CONFIG = 'BNB_MAIN'
-// const ENV_CONFIG = 'FSN_MAIN'
+// const ENV_CONFIG = 'BNB_MAIN'
+const ENV_CONFIG = 'FSN_MAIN'
 // const ENV_CONFIG = 'BNB_TEST'
 // const ENV_CONFIG = 'FSN_TEST'
 
@@ -130,6 +130,7 @@ export default {
   reg,
   bridge: bridge[useBridge],
   bridgeType: useBridge,
-  serverInfoUrl: 'http://localhost:8106/serverInfo/',
+  // serverInfoUrl: 'http://localhost:8107/serverInfo/',
+  serverInfoUrl: 'https://bridgeapi.anyswap.exchange/serverInfo/',
   dirSwitchFn
 }

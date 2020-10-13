@@ -512,7 +512,7 @@ export default function RemoveLiquidity({ params }) {
       tokenWithdrawnMin,
       deadline
     )
-
+    
     exchange
       .removeLiquidity(valueParsed, ethWithdrawnMin, tokenWithdrawnMin, deadline, {
         gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN)

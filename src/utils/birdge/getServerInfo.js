@@ -249,8 +249,8 @@ function RegisterAddress(account, token, coin, chainID) {
             isRegister: true,
             p2pAddress: rsData.result && rsData.result.P2shAddress
           })
-          getCoinInfo(url, account, token).then(result => {
-          // getServerData(account, chainID).then(result => {
+          // getCoinInfo(url, account, token).then(result => {
+          getServerData(account, chainID).then(result => {
             if (result.msg === 'Success') {
               data = {
                 msg: 'Success',
@@ -271,8 +271,8 @@ function RegisterAddress(account, token, coin, chainID) {
         resolve(data)
       })
     } else {
-      getCoinInfo(url, account, token).then(result => {
-      // getServerData(account, chainID).then(result => {
+      // getCoinInfo(url, account, token).then(result => {
+      getServerData(account, chainID).then(result => {
         if (result.msg === 'Success') {
           data = {
             msg: 'Success',
