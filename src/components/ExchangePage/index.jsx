@@ -120,7 +120,7 @@ ${({ theme }) => theme.FlexEC};
   line-height: 1;
   letter-spacing: normal;
   text-align: right;
-  color: #062536;
+  color: ${({ theme }) => theme.textColorBold};
   span {
     height: 0.75rem;
     font-size: 0.75rem;
@@ -130,7 +130,7 @@ ${({ theme }) => theme.FlexEC};
     line-height: 1;
     letter-spacing: normal;
     text-align: right;
-    color: #062536;
+    color: ${({ theme }) => theme.textColorBold};
   }
   @media screen and (max-width: 960px) {
     width: 100%;
@@ -175,7 +175,7 @@ const TxnsDtilBtn = styled.div`
   height: 34px;
   object-fit: contain;
   border-radius: 6px;
-  background-color: #f9fafb;
+  background-color: ${({ theme }) => theme.moreBtn};
   font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
@@ -201,7 +201,7 @@ const TxnsDtilBtn = styled.div`
     font-style: normal;
     line-height: 0.83;
     letter-spacing: normal;
-    color: #062536;
+    color: ${({ theme }) => theme.textColorBold};
     padding-left:0.75rem;
     border-left:0.0625rem solid #ededed;
     img {

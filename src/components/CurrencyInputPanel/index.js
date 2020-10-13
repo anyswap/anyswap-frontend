@@ -97,7 +97,7 @@ const Input = styled(BorderlessInput)`
   font-size: 44px;
   font-family: 'Manrope';
   height: 70px;
-  color: ${({ error, theme }) => error ? 'rgb(255, 104, 113)' : '#062536'};
+  color: ${({ error, theme }) => error ? 'rgb(255, 104, 113)' : theme.textColorBold};
   background: none;
   border-bottom: 0.0625rem solid #062536;
   -moz-appearance: textfield;

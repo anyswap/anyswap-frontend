@@ -59,7 +59,7 @@ const TitleAndSearchBox = styled.div`
     font-size: 1rem;
     font-weight: bold;
     line-height: 1.5;
-    color: #062536;
+    color: ${({theme}) => theme.textColorBold};
     margin:0 1.25rem 0 0;
     white-space:nowrap;
   }
@@ -72,7 +72,8 @@ const SearchBox = styled.div`
   border-radius: 0.5625rem;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
   border: solid 0.0625rem rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+  // background-color: #ffffff;
+  background-color: ${({theme}) => theme.searchBg};
   padding-left: 2.5rem;
   position:relative;
 
@@ -100,7 +101,7 @@ const SearchInput = styled(BorderlessInput)`
   
   line-height: 1.67;
   
-  color: #062536;
+  color: ${({theme}) => theme.textColorBold};
   padding-right:0.625rem;
 
   ::placeholder {
@@ -136,7 +137,7 @@ const EarningsBox = styled.div`
     line-height: 1.15;
     letter-spacing: -1.18px;
     text-align: center;
-    color: #062536;
+    color: ${({theme}) => theme.textColorBold};
     text-align:center;
     white-space:nowrap;
     margin: 1.875rem 0 6px;
@@ -146,7 +147,7 @@ const EarningsBox = styled.div`
     font-weight: 600;
     line-height: 1.43;
     text-align: center;
-    color: #062536;
+    color: ${({theme}) => theme.textColorBold};
     text-align:center;
     margin: 0 0 1.5625rem;
   }
@@ -186,7 +187,7 @@ padding: 1rem 2.5rem;
 `
 const MyBalanceTokenBox  = styled.div`
 width:100%;
-height: 240px;
+height: 230px;
 overflow-y:hidden;
 overflow-x:auto;
 &.showMore {
@@ -236,7 +237,7 @@ font-family: 'Manrope';
     
     line-height: 1;
     
-    color: #062536;
+    color: ${({theme}) => theme.textColorBold};
     white-space:nowrap;
   }
   p {
@@ -249,7 +250,7 @@ font-family: 'Manrope';
     
     line-height: 1.43;
     
-    color: #062536;
+    color: ${({theme}) => theme.textColorBold};
   }
   @media screen and (max-width: 960px) {
     min-width: 80px;
@@ -284,7 +285,7 @@ font-family: 'Manrope';
   
   line-height: 1;
   
-  color: #062536;
+  color: ${({theme}) => theme.textColorBold};
   box-shadow: none;
   padding:0;
   text-decoration: none;
@@ -307,7 +308,7 @@ font-family: 'Manrope';
   height: 34px;
   
   border-radius: 6px;
-  background-color: #f9fafb;
+  background-color: ${({theme}) => theme.viewMoreBtn};
   
   font-size: 0.75rem;
   font-weight: 500;
@@ -376,7 +377,7 @@ const RewardsBox = styled.div`
       .name {
         font-size: 12px;
         line-height: 1.17;
-        color: #062536;
+        color: ${({theme}) => theme.textColorBold};
         // word-break: break-all;
         margin:0 0 0 14px;
       }
@@ -386,7 +387,7 @@ const RewardsBox = styled.div`
       font-weight: 800;
       line-height: 1.67;
       text-align: right;
-      color: #062536;
+      color: ${({theme}) => theme.textColorBold};
     }
     &:last-child {
       border-bottom:none;
@@ -412,9 +413,10 @@ const RewardsBox = styled.div`
 `
 
 const DBTables = styled.table`
+  
   min-width: 100%;
   table-layer:fixed;
-  border-spacing:0px 10px;
+  // border-spacing:0px 10px;
 `
 const DBThead = styled.thead`
   width: 100%;
@@ -426,18 +428,19 @@ const DBThead = styled.thead`
   font-size: 12px;
   tr {
     box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
-    th {
-      padding: 12px 8px;
-      white-space:nowrap;
-      font-size: 0.875rem;
-      font-weight: bold;
-      line-height: 1.5;
-      color: #062536;
-    }
   }
   @media screen and (max-width: 960px) {
     padding: 1rem 5px;
   }
+`
+const DBTh = styled.th`
+  color: ${({ theme }) => theme.textColorBold};
+  background-color: ${({ theme }) => theme.contentBg};
+  padding: 12px 8px;
+  white-space:nowrap;
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 1.5;
 `
 const DBTbody = styled.tbody`
   width: 100%;
@@ -447,28 +450,30 @@ const DBTbody = styled.tbody`
   margin-bottom: 0.625rem;
   font-size: 12px;
   tr {
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
     box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
-    td {
-      padding: 12px 8px;
-      white-space:nowrap;
-      font-size: 0.875rem;
-      font-weight: bold;
-      line-height: 1.5;
-      color: #062536;
-      p {
-        margin:0;
-        &.lr {
-          ${({theme}) => theme.FlexBC};
-        }
-        &.textR {
-          ${({theme}) => theme.FlexEC};
-        }
-      }
-    }
   }
   @media screen and (max-width: 960px) {
     padding: 1rem 5px;
+  }
+`
+
+const DBTd = styled.td`
+  background-color: ${({ theme }) => theme.contentBg};
+  padding: 12px 8px;
+  white-space:nowrap;
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.textColorBold};
+  p {
+    margin:0;
+    &.lr {
+      ${({theme}) => theme.FlexBC};
+    }
+    &.textR {
+      ${({theme}) => theme.FlexEC};
+    }
   }
 `
 
@@ -507,7 +512,7 @@ font-family: 'Manrope';
     font-size: 1rem;
     font-weight: 800;
     line-height: 1.25;
-    color: #031a6e;
+    color: ${({ theme }) => theme.textColorBold};
     white-space:nowrap;
   }
   p {
@@ -516,7 +521,7 @@ font-family: 'Manrope';
     font-weight: normal;
     white-space:nowrap;
     line-height: 1;
-    color: #031a6e;
+    color: ${({ theme }) => theme.textColorBold};
   }
 `
 
@@ -672,11 +677,11 @@ export default function DashboardDtil () {
         <DBTables>
           <DBThead>
             <tr>
-              <th align='center' width='20%'>{t('Pairs')}</th>
-              <th align='right' width='20%'>{t('PoolLiquidity')}</th>
-              <th align='right' width='20%'>{t('MyLiquidity')}</th>
-              <th align='right' width='20%'>{t('MyPecent')}</th>
-              <th align='right'>{t('APY')}</th>
+              <DBTh align='center' width='20%'>{t('Pairs')}</DBTh>
+              <DBTh align='right' width='20%'>{t('PoolLiquidity')}</DBTh>
+              <DBTh align='right' width='20%'>{t('MyLiquidity')}</DBTh>
+              <DBTh align='right' width='20%'>{t('MyPecent')}</DBTh>
+              <DBTh align='right'>{t('APY')}</DBTh>
             </tr>
           </DBThead>
           <DBTbody>
@@ -691,18 +696,18 @@ export default function DashboardDtil () {
                   ) {
                     return (
                       <tr key={index}>
-                        <td>
+                        <DBTd>
                           <TokenTableCoinBox>
                             <TokenTableLogo><TokenLogo address={item.symbol} size={'1.625rem'} ></TokenLogo></TokenTableLogo>
                             <TokenNameBox>
                               <h3 style={{width: '100px', textAlign: 'right'}}>{item.symbol}_{config.symbol}</h3>
                             </TokenNameBox>
                           </TokenTableCoinBox>
-                        </td>
+                        </DBTd>
                         {
                           config.dirSwitchFn(item.isSwitch) ? (
                             <>
-                              <td align='right'>
+                              <DBTd align='right'>
                                 <p className='textR'>
                                   {/* <span>{item.symbol}</span> */}
                                   {item.exchangeTokenBalancem ? amountFormatter( item.exchangeTokenBalancem, item.decimals, 5 ) : '0'}
@@ -711,8 +716,8 @@ export default function DashboardDtil () {
                                   {/* <span>{config.symbol}</span> */}
                                   {item.exchangeETHBalance ? amountFormatter( item.exchangeETHBalance, 18, 5 ) : '0'}
                                 </p>
-                              </td>
-                              <td align='right'>
+                              </DBTd>
+                              <DBTd align='right'>
                                 {
                                   Number(item.balance) && Number(amountFormatter(item.Basebalance, 18)) ? (
                                     <>
@@ -725,22 +730,22 @@ export default function DashboardDtil () {
                                     </>
                                   ) : '0'
                                 }
-                              </td>
-                              <td align='right'>{Number(item.pecent) && config.dirSwitchFn(item.isSwitch) ?
+                              </DBTd>
+                              <DBTd align='right'>{Number(item.pecent) && config.dirSwitchFn(item.isSwitch) ?
                               (Number(item.pecent) < 0.01 ? '<0.01' : (Number(item.pecent) * 100).toFixed(2) )
-                              : '-'} %</td>
-                              <td align='right'>
+                              : '-'} %</DBTd>
+                              <DBTd align='right'>
                                 {rewardsPencent(item.symbol, item.isSwitch)}
                                 {/* {item.exchangeTokenBalancem ? config.rewardRate(item.exchangeTokenBalancem.toString(), item.decimals).AnnualizedROI : '-'}% */}
-                              </td>
+                              </DBTd>
                             </>
                           ) : (
-                            <td colSpan={4} align='center'>
+                            <DBTd colSpan={4} align='center'>
                               <ComineSoon>
                                 <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
                                 {t('ComineSoon')}
                               </ComineSoon>
-                            </td>
+                            </DBTd>
                           )
                         }
                       </tr>
@@ -750,11 +755,11 @@ export default function DashboardDtil () {
                   }
                 })
               ) : (<tr key={0}>
-                <td align='center'>-</td>
-                <td align='center'>-</td>
-                <td align='center'>-</td>
-                <td align='center'>-</td>
-                <td align='center'>-%</td>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-%</DBTd>
                 </tr>)
             }
           </DBTbody>
@@ -874,12 +879,12 @@ export default function DashboardDtil () {
       <DBTables>
         <DBThead>
           <tr>
-            <th align='center' width='20%'>{t('Coins')}</th>
-            <th align='left' width='10%'>{t('price')}</th>
-            <th align='right' width='15%'>{t('balances')}</th>
-            <th align='right' width='15%'>{t('lr')}</th>
-            <th align='right' width='15%'>{t('TotalBalance')}</th>
-            <th align='center'>{t('Action')}</th>
+            <DBTh align='center' width='20%'>{t('Coins')}</DBTh>
+            <DBTh align='left' width='10%'>{t('price')}</DBTh>
+            <DBTh align='right' width='15%'>{t('balances')}</DBTh>
+            <DBTh align='right' width='15%'>{t('lr')}</DBTh>
+            <DBTh align='right' width='15%'>{t('TotalBalance')}</DBTh>
+            <DBTh align='center'>{t('Action')}</DBTh>
           </tr>
         </DBThead>
         <DBTbody>
@@ -893,7 +898,7 @@ export default function DashboardDtil () {
               ) {
                 return (
                   <tr key={index}>
-                    <td>
+                    <DBTd>
                       <TokenTableCoinBox>
                         <TokenTableLogo><TokenLogo address={item.symbol} size={'1.625rem'} ></TokenLogo></TokenTableLogo>
                         <TokenNameBox>
@@ -901,62 +906,62 @@ export default function DashboardDtil () {
                           <p>{item.name}</p>
                         </TokenNameBox>
                       </TokenTableCoinBox>
-                    </td>
+                    </DBTd>
                     {
                       poolObj[item.symbol] ? (
                         config.dirSwitchFn(poolObj[item.symbol].isSwitch) ? (
                           <>
-                            <td align='left'>$ {poolObj[item.symbol] && baseMarket ? 
+                            <DBTd align='left'>$ {poolObj[item.symbol] && baseMarket ? 
                               (item.symbol === config.symbol ? Number(baseMarket.toFixed(5)) : getPrice(poolObj[item.symbol].market, item.symbol)) : '-'
-                            }</td>
-                            <td align='right'>{account ? item.balance : '-'}</td>
+                            }</DBTd>
+                            <DBTd align='right'>{account ? item.balance : '-'}</DBTd>
                             {
                               item.symbol === config.symbol ? (
                                 <>
-                                  <td align='right'>
+                                  <DBTd align='right'>
                                     {poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch) ? amountFormatter(poolObj[item.symbol].Basebalance, 18) : '0'}
-                                  </td>
-                                  <td align='right'>
+                                  </DBTd>
+                                  <DBTd align='right'>
                                     {
                                       poolObj[item.symbol]
                                       && config.dirSwitchFn(poolObj[item.symbol].isSwitch)
                                       && item.balance !== '-'
                                       ? Number((Number(amountFormatter(poolObj[item.symbol].Basebalance, 18)) + Number(item.balance)).toFixed(5)) : '0'}
-                                  </td>
+                                  </DBTd>
                                 </>
                               ) : (
                                 <>
-                                  <td align='right'>{poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch) && poolObj[item.symbol].balance && !isNaN(poolObj[item.symbol].balance) ? poolObj[item.symbol].balance : '0'}</td>
-                                  <td align='right'>
+                                  <DBTd align='right'>{poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch) && poolObj[item.symbol].balance && !isNaN(poolObj[item.symbol].balance) ? poolObj[item.symbol].balance : '0'}</DBTd>
+                                  <DBTd align='right'>
                                     {
                                       poolObj[item.symbol]
                                       && config.dirSwitchFn(poolObj[item.symbol].isSwitch)
                                       && item.balance !== '-'
                                       && !isNaN(item.balance)
                                       && !isNaN(poolObj[item.symbol].balance)
-                                      ? (Number(poolObj[item.symbol].balance) + Number(item.balance) === 0 ? '0' : Number((Number(poolObj[item.symbol].balance) + Number(item.balance)).toFixed(5))) : '0'}</td>
+                                      ? (Number(poolObj[item.symbol].balance) + Number(item.balance) === 0 ? '0' : Number((Number(poolObj[item.symbol].balance) + Number(item.balance)).toFixed(5))) : '0'}</DBTd>
                                 </>
                               )
                             }
-                            <td align='center'>
+                            <DBTd align='center'>
                               <TokenActionBtnSwap to={'/swap?inputCurrency=' + item.address}>{t('swap')}</TokenActionBtnSwap>
-                            </td>
+                            </DBTd>
                           </>
                         ) : (
-                          <td colSpan='5' align='center'>
+                          <DBTd colSpan='5' align='center'>
                             <ComineSoon>
                               <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
                               {t('ComineSoon')}
                             </ComineSoon>
-                          </td>
+                          </DBTd>
                         )
                       ) : (
                         <>
-                          <td align='left'>$-</td>
-                          <td align='right'>-</td>
-                          <td align='right'>-</td>
-                          <td align='right'>-</td>
-                          <td align='center'>-</td>
+                          <DBTd align='left'>$-</DBTd>
+                          <DBTd align='right'>-</DBTd>
+                          <DBTd align='right'>-</DBTd>
+                          <DBTd align='right'>-</DBTd>
+                          <DBTd align='center'>-</DBTd>
                         </>
                       )
                     }
@@ -964,21 +969,21 @@ export default function DashboardDtil () {
                 )
               } else {
                 return (<tr key={index} style={{display:'none'}}>
-                <td align='center'>$-</td>
-                <td align='center'>-</td>
-                <td align='center'>-</td>
-                <td align='center'>-</td>
-                <td align='center'>-</td>
-                <td align='center'>-</td>
+                <DBTd align='center'>$-</DBTd>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-</DBTd>
                 </tr>)
               }
             }) : (<tr key={0}>
-                <td align='center'>$-</td>
-                <td align='center'>-</td>
-                <td align='center'>-</td>
-                <td align='center'>-</td>
-                <td align='center'>-</td>
-                <td align='center'>-</td></tr>)
+                <DBTd align='center'>$-</DBTd>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-</DBTd>
+                <DBTd align='center'>-</DBTd></tr>)
           }
         </DBTbody>
       </DBTables>

@@ -55,7 +55,7 @@ font-family: 'Manrope';
   font-style: normal;
   line-height: 1.17;
   letter-spacing: normal;
-  color: #062536;
+  color: ${({ theme }) => theme.textColorBold};
   margin: 0 5px;
 `
 
@@ -138,15 +138,15 @@ const LastSummaryTextBox = styled.div`
   }
 `
 const LastSummaryText = styled.div`
-${({ theme }) => theme.FlexSC}
-font-family: 'Manrope';
+  ${({ theme }) => theme.FlexSC}
+  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.17;
   letter-spacing: normal;
-  color: #062536;
+  color: ${({ theme }) => theme.textColorBold};
   margin-bottom: 0.625rem;
   flex-wrap:wrap;
   .icon {
@@ -184,7 +184,7 @@ font-family: 'Manrope';
   font-style: normal;
   line-height: 1.43;
   letter-spacing: normal;
-  color: #062536;
+  color: ${({ theme }) => theme.textColorBold};
   margin: 0 8px;
 `
 
@@ -194,8 +194,10 @@ flex-wrap:wrap;
   width: 100%;
   object-fit: contain;
   border-radius: 0.5625rem;
-  border: solid 0.5px #c0d6ea;
-  background-color: #ecf6ff;
+  // border: solid 0.5px #c0d6ea;
+  // background-color: #ecf6ff;
+  border: solid 0.5px ${({ theme }) => theme.selectedBorder};
+  background-color: ${({ theme }) => theme.selectedBg};
   padding: 5px 1.25rem;
   font-family: 'Manrope';
   font-size: 0.75rem;
@@ -204,7 +206,7 @@ flex-wrap:wrap;
   font-style: normal;
   line-height: 1.17;
   letter-spacing: normal;
-  color: #062536;
+  color: ${({ theme }) => theme.textColorBold};
   margin-top:1.25rem;
 `
 
@@ -227,7 +229,7 @@ const ExchangeRateWrapper = styled.div`
     line-height: 1;
     letter-spacing: normal;
     text-align: right;
-    color: #062536;
+    color: ${({ theme }) => theme.textColorBold};
   }
 `
 
@@ -241,7 +243,7 @@ const ExchangeRate = styled.div`
   line-height: 1;
   letter-spacing: normal;
   text-align: right;
-  color: #062536;
+  color: ${({ theme }) => theme.textColorBold};
   margin-right: 5px;
 `
 
@@ -259,7 +261,7 @@ const TxnsDtilBtn = styled.div`
   height: 34px;
   object-fit: contain;
   border-radius: 6px;
-  background-color: #f9fafb;
+  background-color: ${({ theme }) => theme.moreBtn};
   font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;

@@ -263,8 +263,6 @@ font-family: 'Manrope';
 `
 
 const Bold = styled.span`
-font-family: 'Manrope';
-  font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: bold;
   font-stretch: normal;
@@ -272,7 +270,7 @@ font-family: 'Manrope';
   line-height: 1.17;
   letter-spacing: normal;
   white-space:nowrap;
-  color: #062536;
+  color: ${({ theme }) => theme.textColorBold};
   margin: 0 5px;
 `
 
@@ -285,7 +283,7 @@ font-family: 'Manrope';
   font-style: normal;
   line-height: 1.17;
   letter-spacing: normal;
-  color: #062536;
+  color: ${({ theme }) => theme.textColorBold};
   height: 32px;
   margin-bottom: 0.625rem;
   .icon {
@@ -349,7 +347,8 @@ const ValueWrapper = styled.span`
 ${({ theme }) => theme.FlexC};
   font-family: 'Manrope';
   padding: 0.125rem 0.3rem 0.1rem 0.3rem;
-  background-color: ${({ theme }) => darken(0.04, theme.concreteGray)};
+  // background-color: ${({ theme }) => darken(0.04, theme.concreteGray)};
+  background-color: ${({ theme }) => theme.dtilTxtBg};
   border-radius: 0.75rem;
   font-variant: tabular-nums;
 `
@@ -380,7 +379,7 @@ font-family: 'Manrope';
   font-style: normal;
   line-height: 1.71;
   letter-spacing: normal;
-  color: #062536;
+  color: ${({ theme }) => theme.textColorBold};
 `
 
 const DeadlineRow = SlippageRow

@@ -103,7 +103,7 @@ const TxnsDtilBtn = styled.div`
   height: 34px;
   object-fit: contain;
   border-radius: 6px;
-  background-color: #f9fafb;
+  background-color: ${({ theme }) => theme.moreBtn};
   font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;

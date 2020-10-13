@@ -138,7 +138,7 @@ const StyledNavLink = styled(NavLink).attrs({
   outline: none;
   cursor: pointer;
   text-decoration: none;
-  color: ${({theme}) => theme.textColorBold};
+  color: ${({theme}) => theme.navColor};
   font-size: 0.875rem;
   font-family: 'Manrope';
   box-sizing: border-box;
@@ -155,7 +155,7 @@ const StyledNavLink = styled(NavLink).attrs({
     height: 38px;
     width: 38px;
     margin-right: 1rem;
-    background:rgba(0,0,0,0.05);
+    background:${({theme}) => theme.navBg2};
     border-radius:100%;
     display: flex;
     justify-content: center;
@@ -170,10 +170,10 @@ const StyledNavLink = styled(NavLink).attrs({
   }
 
   &:hover {
-    color: #031a6e;
+    color: ${({theme}) => theme.textColor};
     font-weight: 600;
     .icon {
-      background: #031a6e;
+      background: ${({theme}) => theme.navBg2};
     }
   }
   &.${activeClassName} {
@@ -183,7 +183,7 @@ const StyledNavLink = styled(NavLink).attrs({
     font-weight: 800;
     box-shadow: 0 0.25rem 0.75rem 0 rgba(115, 75, 226, 0.51);
     .icon {
-      background:#031a6e;
+      background: ${({theme}) => theme.navBg};
       box-shadow: 0 0.25rem 0.75rem 0 rgba(115, 75, 226, 0.51);
     }
   }
@@ -266,7 +266,7 @@ ${({ theme }) => theme.flexRowNoWrap}
       }
     }
     &:hover {
-      color: #031a6e;
+      color: ${({theme}) => theme.textColor};
       font-weight: 600;
     }
   }
@@ -294,7 +294,7 @@ const OutLinkImg = styled.div`
   ${({theme}) => theme.FlexC};
   width: 38px;
   height: 38px;
-  background-color: #ecf6ff;
+  background-color: ${({theme}) => theme.selectedBg};
   border-radius: 100%;
   margin-right: 0.625rem;
   padding: 10px;
@@ -318,7 +318,7 @@ font-family: 'Manrope';
     font-style: normal;
     line-height: 1.17;
     letter-spacing: normal;
-    color: #062536;
+    color: ${({ theme }) => theme.textColorBold};
     margin: 1rem 0 0px;
     span { 
       font-weight: bold;

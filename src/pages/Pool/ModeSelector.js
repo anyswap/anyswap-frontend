@@ -103,14 +103,14 @@ const StyledNavLink = styled(NavLink).attrs({
   font-stretch: normal;
   font-style: normal;
   letter-spacing: normal;
-  color: #96989e;
+  color: ${({ theme }) => theme.tabColor};
   border-top: 0.0625rem solid rgba(0, 0, 0, 0.04);
   border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.04);
   border-left: 0.0625rem solid rgba(0, 0, 0, 0.04);
   cursor:pointer;
   text-decoration: none;
   padding: 0 0.625rem;
-  background:#fff;
+  background: ${({ theme }) => theme.tabBg};
   white-space:nowrap;
 
   .icon {
@@ -125,7 +125,7 @@ const StyledNavLink = styled(NavLink).attrs({
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     &.active {
-      border: 0.0625rem solid #734be2;
+      border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
     }
   }
   &:last-child {
@@ -133,13 +133,14 @@ const StyledNavLink = styled(NavLink).attrs({
     border-bottom-right-radius: 6px;
     border-right: 0.0625rem solid rgba(0, 0, 0, 0.04);
     &.active {
-      border: 0.0625rem solid #734be2;
+      border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
     }
   }
 
   &.${activeClassName} {
-    border: 0.0625rem solid #734be2;
-    color: #734be2;
+    background: ${({ theme }) => theme.tabActiveBg};
+    border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
+    color: ${({ theme }) => theme.tabActiveColor};
     font-weight: bold;
     .icon {
       background: #734be2;

@@ -50,7 +50,7 @@ const HeaderElement = styled.div`
   padding:0.875rem 0;
 `
 const NetworkBox  = styled.div`
-${({ theme }) => theme.FlexC};
+  ${({ theme }) => theme.FlexC};
   height: 36px;
   object-fit: contain;
   border-radius: 0.5625rem;
@@ -61,7 +61,7 @@ ${({ theme }) => theme.FlexC};
   font-style: normal;
   line-height: 1.43;
   letter-spacing: normal;
-  color: #031a6e;
+  color: ${({theme}) => theme.textColor};
   white-space:nowrap;
   padding: 0 1rem;
   margin-right: 1rem;
@@ -164,7 +164,7 @@ export default function Header() {
             </div>
           </NetworkBox>
           <Web3Status />
-          {/* <StyleDarkToggle
+          <StyleDarkToggle
             onClick={() => {
               toggleDarkMode()
             }}
@@ -178,7 +178,7 @@ export default function Header() {
                 <img src={IconNight} alt="" />
               )
             }
-          </StyleDarkToggle> */}
+          </StyleDarkToggle>
           {/* <StyledToggle
             checked={!isDark}
             uncheckedIcon={

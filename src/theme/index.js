@@ -43,8 +43,8 @@ export default function ThemeProvider({ children }) {
       : darkMode
     : darkMode
   useEffect(() => {
-    // toggleDarkMode(themeToRender)
-    toggleDarkMode(false)
+    toggleDarkMode(themeToRender)
+    // toggleDarkMode(false)
   }, [toggleDarkMode, themeToRender])
   // console.log(themeToRender)
   return <StyledComponentsThemeProvider theme={theme(themeToRender)}>{children}</StyledComponentsThemeProvider>
@@ -87,8 +87,26 @@ const theme = darkMode => ({
   selectedBorderNo: darkMode ? '#363d5f' : '#d9d9e2',
   selectedHoverBorderNo: darkMode ? '#4a5482' : '#9c9cb0',
 
+  moreBtn: darkMode ? '#363d5f' : '#f9fafb',
+  viewMoreBtn: darkMode ? darkSelectBg : '#f9fafb',
+
+  searchBg: darkMode ? darkSelectBg : '#fff',
+
   tipContentBg: darkMode ? darkSelectBg : '#ededed',
   dtilContentBg: darkMode ? darkSelectBg : white,
+
+  navBg: darkMode ? '#21263e' : '#031a6e',
+  navBg2: darkMode ? '#363d5f' : 'rgba(0,0,0,0.05)',
+  navColor: darkMode ? '#979dac' : '#062536',
+
+  tabBg: darkMode ? '#2b314f' : '#fff',
+  tabActiveBg: darkMode ? '#6725fc' : 'none',
+  tabColor: darkMode ? '#fff' : '#96989e',
+  tabActiveColor: darkMode ? '#fff' : '#734be2',
+  tabBdColor: darkMode ? 'none' : '#734be2',
+  // tabIconBg: darkMode ? '#f5f5f5' : '#734be2',
+
+  dtilTxtBg: darkMode ? 'none' : 'rgb(240, 240, 240)',
 
   
 
@@ -207,6 +225,7 @@ export const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
+  table,thead,tr,th,td {background:none;}
 
   /* 滚动条凹槽的颜色，还可以设置边框属性 */
   ::-webkit-scrollbar-track-piece {
