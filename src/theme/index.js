@@ -111,6 +111,8 @@ const theme = darkMode => ({
   tipBorder: darkMode ? '#2b314f' : '#b398f9',
   tipColor: darkMode ? white : '#734be2',
 
+  inputBorder: darkMode ? '#5c677d' : '#062536',
+
   
 
 

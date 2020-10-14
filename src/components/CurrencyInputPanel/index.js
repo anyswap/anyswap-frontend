@@ -99,7 +99,7 @@ const Input = styled(BorderlessInput)`
   height: 70px;
   color: ${({ error, theme }) => error ? 'rgb(255, 104, 113)' : theme.textColorBold};
   background: none;
-  border-bottom: 0.0625rem solid ${({theme}) => theme.textColorBold};
+  border-bottom: 0.0625rem solid ${({theme}) => theme.inputBorder};
   -moz-appearance: textfield;
   margin-right: 1.875rem;
   ::placeholder {
@@ -528,7 +528,7 @@ const InputRangeRow = styled.div`
     line-height: 36px;
     letter-spacing: normal;
     text-align: center;
-    color: #062536;
+    color: ${({ theme }) => theme.textColorBold};
   }
 `
 const InputRangeBox = styled.div`

@@ -60,7 +60,7 @@ const Input = styled.input`
   flex: 1 1 auto;
   width: 0;
   background-color: transparent;
-  border-bottom: 0.0625rem solid ${({theme}) => theme.textColorBold};
+  border-bottom: 0.0625rem solid ${({theme}) => theme.inputBorder};
 
   color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
   overflow: hidden;

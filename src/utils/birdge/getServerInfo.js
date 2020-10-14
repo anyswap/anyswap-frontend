@@ -79,27 +79,33 @@ function setRegisterInfo (account, token, localInfo) {
   let lstr = localStorage.getItem(SERVER_BRIDGE_REGISTER)
   let lboj = {}
   if (!lstr) {
+    // console.log(1)
     lboj[account] = {}
     lboj[account][token] = {
       ...localInfo,
       timestamp: Date.now()
     }
   } else {
+    // console.log(2)
     lboj = JSON.parse(lstr)
     if (!lboj[account]) {
+      // console.log(3)
       lboj[account] = {}
       lboj[account][token] = {
         ...localInfo,
         timestamp: Date.now()
       }
     } else {
+      // console.log(4)
       lboj[account][token] = {
         ...localInfo,
         timestamp: Date.now()
       }
     }
   }
+  // console.log(lboj)
   localStorage.setItem(SERVER_BRIDGE_REGISTER, JSON.stringify(lboj))
+  // console.log(localStorage.getItem(SERVER_BRIDGE_REGISTER))
 }
 
 export function removeRegisterInfo (account, token) {
@@ -194,16 +200,16 @@ function getServerData (account, chainID) {
       info: ''
     }
     axios.get(url).then(res => {
-      console.log(res)
+      // console.log(res)
       if(res.status === 200){
         data = {
           msg: 'Success',
           info: res.data.result
         }
         let serverData = res.data
-        console.log(serverData)
+        // console.log(serverData)
         for (let obj in serverData) {
-          console.log(obj)
+          // console.log(obj)
           setLocalinfo(account, serverData[obj])
         }
       }
@@ -221,87 +227,109 @@ function getServerData (account, chainID) {
 
 function RegisterAddress(account, token, coin, chainID) {
   return new Promise(resolve => {
-    let lrInfo = getRegisterInfo(account, token)
+    // let lrInfo = getRegisterInfo(account, token)
     let url = config.coininfo[coin].url
     let data = {
       msg: 'Error',
       info: ''
     }
-    if (!lrInfo) {
-      let methods = 'swap.RegisterAddress'
-      if (coin.replace(config.prefix, '') === 'BTC')  {
-        methods = 'swap.RegisterP2shAddress'
-      }
-      axios.post(url, {
-        id:0,
-        jsonrpc:"2.0",
-        method: methods,
-        params:[account]
-      }).then(res => {
-        let rsData = res.data
-        if ( rsData && (
-            (rsData.result && rsData.result === 'Success')
-            || (rsData.error && rsData.error.message === 'mgoError: Item is duplicate')
-            || (rsData.result && rsData.result.P2shAddress)
-          )
-        ) {
-          setRegisterInfo(account, token, {
-            isRegister: true,
-            p2pAddress: rsData.result && rsData.result.P2shAddress
-          })
-          // getCoinInfo(url, account, token).then(result => {
-          getServerData(account, chainID).then(result => {
-            if (result.msg === 'Success') {
-              data = {
-                msg: 'Success',
-                info: ''
-              }
-            } else {
-              data.error = 'Get server info error!'
-            }
-            resolve(data)
-          })
-        } else {
-          data.error = 'Register error!'
-          resolve(data)
-        }
-      }).catch(err => {
-        console.log(err)
-        data.error = err
-        resolve(data)
-      })
-    } else {
-      // getCoinInfo(url, account, token).then(result => {
-      getServerData(account, chainID).then(result => {
-        if (result.msg === 'Success') {
-          data = {
-            msg: 'Success',
-            info: ''
-          }
-        } else {
-          data.error = 'Get server info error!'
-        }
-        resolve(data)
-      })
+    let methods = 'swap.RegisterAddress'
+    if (coin.replace(config.prefix, '') === 'BTC')  {
+      methods = 'swap.RegisterP2shAddress'
     }
+    axios.post(url, {
+      id:0,
+      jsonrpc:"2.0",
+      method: methods,
+      params:[account]
+    }).then(res => {
+      let rsData = res.data
+      if ( rsData && (
+          (rsData.result && rsData.result === 'Success')
+          || (rsData.error && rsData.error.message === 'mgoError: Item is duplicate')
+          || (rsData.result && rsData.result.P2shAddress)
+        )
+      ) {
+        // console.log('token', token)
+        // console.log(res)
+        setRegisterInfo(account, token, {
+          isRegister: true,
+          p2pAddress: rsData.result && rsData.result.P2shAddress
+        })
+        resolve({
+          msg: 'Success',
+          info: ''
+        })
+      } else {
+        data.error = 'Register error!'
+        resolve(data)
+      }
+    }).catch(err => {
+      console.log(err)
+      data.error = err
+      resolve(data)
+    })
+
+    // if (!lrInfo) {
+    // } else {
+    //   // getCoinInfo(url, account, token).then(result => {
+    //   getServerData(account, chainID).then(result => {
+    //     if (result.msg === 'Success') {
+    //       data = {
+    //         msg: 'Success',
+    //         info: ''
+    //       }
+    //     } else {
+    //       data.error = 'Get server info error!'
+    //     }
+    //     resolve(data)
+    //   })
+    // }
   })
 }
 
 let getInfoObj = {}
+// let count = 0
+// let count1 = 0
 export function getServerInfo (account, token, coin, chainID) {
   getInfoObj = {account, token, coin}
+  // count ++
   return new Promise(resolve => {
     // getAllCoinInfo(account)
     // console.log(getInfoObj)
+    // console.log(count)
     if (!account) {
       resolve('')
     } else {
       // console.log(getLocalConfig(account, token))
-      if (!getLocalConfig(account, token)) {
+      let lrInfo = getRegisterInfo(account, token)
+      if (!lrInfo) {
+      // if (!getLocalConfig(account, token) || !lrInfo) {
         RegisterAddress(account, token, coin, chainID).then(res => {
+          // count1 ++ 
           if (res.msg === 'Success') {
-            // resolve(getLocalConfig(account, token))
-            // console.log(getInfoObj)
+            let lData = getLocalConfig(getInfoObj.account, getInfoObj.token)
+            if (lData) {
+              resolve(lData)
+            } else {
+              getServerData(account, chainID).then(result => {
+                let lData1 = getLocalConfig(getInfoObj.account, getInfoObj.token)
+                if (lData1) {
+                  resolve(lData1)
+                } else {
+                  resolve({
+                    msg: 'Null'
+                  })
+                }
+              })
+            }
+          } else {
+            resolve(res)
+          }
+        })
+      } else {
+        if (!getLocalConfig(account, token)) {
+          getServerData(account, chainID).then(result => {
             let lData = getLocalConfig(getInfoObj.account, getInfoObj.token)
             if (lData) {
               resolve(lData)
@@ -310,12 +338,10 @@ export function getServerInfo (account, token, coin, chainID) {
                 msg: 'Null'
               })
             }
-          } else {
-            resolve(res)
-          }
-        })
-      } else {
-        resolve(getLocalConfig(account, token))
+          })
+        } else {
+          resolve(getLocalConfig(account, token))
+        }
       }
     }
   })

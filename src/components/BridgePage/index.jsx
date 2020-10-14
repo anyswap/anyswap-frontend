@@ -138,7 +138,7 @@ border: none;
 flex: 1 1 auto;
 width: 0;
 background-color: transparent;
-border-bottom: 0.0625rem solid ${({theme}) => theme.textColorBold};
+border-bottom: 0.0625rem solid ${({theme}) => theme.inputBorder};
 
 color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
 overflow: hidden;
@@ -938,12 +938,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let tokenOnlyOne = inputCurrency
 
     setInit(1)
+    console.log(inputCurrency)
     let coin = inputSymbol.replace(config.prefix, '')
     if (account && config.coininfo[inputSymbol] && config.coininfo[inputSymbol].url && initIsDeposit && initIsRedeem) {
       // let url = config.coininfo[inputSymbol].url
       getServerInfo(account, tokenOnlyOne, inputSymbol, chainId).then(res => {
         console.log(res)
         console.log(tokenOnlyOne)
+        console.log(inputCurrency)
         if (res.msg === 'Success' && res.info) {
           let serverInfo = res.info
           setIsRegister(true)
@@ -964,7 +966,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     && erc20Token.toLowerCase() !== serverInfo.outnetToken.toLowerCase()
                   )
               ) {
-                removeRegisterInfo(account, tokenOnlyOne)
+                console.log(1)
+                // removeRegisterInfo(account, tokenOnlyOne)
                 removeLocalConfig(account, tokenOnlyOne)
                 setInit(0)
                 return
@@ -972,7 +975,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               DepositAddress = serverInfo.depositAddress
             } else {
               if (serverInfo.dcrmAddress.toLowerCase() !== config.btcConfig.btcAddr.toLowerCase()) {
-                removeRegisterInfo(account, tokenOnlyOne)
+                console.log(2)
+                // removeRegisterInfo(account, tokenOnlyOne)
                 removeLocalConfig(account, tokenOnlyOne)
                 setInit(0)
                 return
@@ -983,13 +987,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 let localBTCAddr = createBTCaddress(account)
                 console.log('localBTCAddr', localBTCAddr)
                 if (serverInfo.p2pAddress !== localBTCAddr) {
-                  removeRegisterInfo(account, tokenOnlyOne)
+                  console.log(3)
+                  // removeRegisterInfo(account, tokenOnlyOne)
                   removeLocalConfig(account, tokenOnlyOne)
                   setInit(0)
                   return
                 }
               } else {
-                removeRegisterInfo(account, tokenOnlyOne)
+                console.log(4)
+                // removeRegisterInfo(account, tokenOnlyOne)
                 removeLocalConfig(account, tokenOnlyOne)
                 setInit(0)
                 return

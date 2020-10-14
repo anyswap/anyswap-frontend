@@ -218,7 +218,7 @@ const ExchangeRateWrapper = styled.div`
   font-family: 'Manrope';
   padding: 8px 1rem ;
   height: 28px;
-  border-bottom:0.0625rem solid #dadada;
+  border-bottom:0.0625rem solid ${({theme}) => theme.inputBorder};
   white-space:nowrap;
   span {
     height: 0.75rem;
