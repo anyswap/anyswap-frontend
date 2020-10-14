@@ -197,7 +197,7 @@ export default function Web3Status() {
       return (
         <Web3StatusConnected onClick={toggleWalletModal} pending={hasPendingTransactions}>
           {hasPendingTransactions && <SpinnerWrapper src={Circle} alt="loader" />}
-          <img src={WalletIcon} alt={''} />
+          {/* <img src={WalletIcon} alt={''} /> */}
           <Text>{ENSName || shortenAddress(account)}</Text>
           {getStatusIcon()}
         </Web3StatusConnected>

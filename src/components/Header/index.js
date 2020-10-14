@@ -74,7 +74,7 @@ const NetworkBox  = styled.div`
     ${({ theme }) => theme.FlexC};
     margin-left: 42px;
     font-size: 12px;
-    color: #734be2;
+    color: ${({ theme }) => theme.switchColor};
     cursor:pointer;
   }
   @media screen and (max-width: 960px) {

@@ -73,7 +73,7 @@ const theme = darkMode => ({
   contentShadow: darkMode ? '7px 2px 26px 0 rgba(5, 6, 13, 0.24)' : '7px 2px 26px 0 rgba(0, 0, 0, 0.06)',
   dayOrNight: darkMode ? darkSelectBg : purple,
   bodyBg: darkMode ? '#151a2f' : '#f9fafb',
-  lightPuroleBg: darkMode ? darkSelectBg : '#f6f4ff',
+  lightPuroleBg: darkMode ? darkSelectBg : 'rgb(246, 244, 255)',
 
   selectedBg: darkMode ? darkSelectBg : '#ecf6ff',
   selectedHoverBg: darkMode ? '#252b49' : '#deefff',
@@ -112,6 +112,8 @@ const theme = darkMode => ({
   tipColor: darkMode ? white : '#734be2',
 
   inputBorder: darkMode ? '#5c677d' : '#062536',
+
+  switchColor: darkMode ? '#00bde3' : '#734be2',
 
   
 
