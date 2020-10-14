@@ -96,7 +96,8 @@ const theme = darkMode => ({
   dtilContentBg: darkMode ? darkSelectBg : white,
 
   navBg: darkMode ? '#21263e' : '#031a6e',
-  navBg2: darkMode ? '#363d5f' : 'rgba(0,0,0,0.05)',
+  navBg2: darkMode ? '#363d5f' : '#031a6e',
+  navBg3: darkMode ? '#363d5f' : 'rgba(0,0,0,0.05)',
   navColor: darkMode ? '#979dac' : '#062536',
 
   tabBg: darkMode ? '#2b314f' : white,
@@ -106,6 +107,7 @@ const theme = darkMode => ({
   tabBdColor: darkMode ? 'none' : '#734be2',
 
   dtilTxtBg: darkMode ? 'none' : 'rgb(240, 240, 240)',
+  dtilTxtBorder: darkMode ? '#5c677d' : 'rgb(218, 218, 218)',
 
   tipBg: darkMode ? '#2b314f' : '#f2edff',
   tipBorder: darkMode ? '#2b314f' : '#b398f9',

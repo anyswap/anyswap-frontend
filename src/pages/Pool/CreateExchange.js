@@ -44,7 +44,7 @@ const ExchangeRateWrapper = styled.div`
   font-family: 'Manrope';
   padding: 8px 1rem ;
   height: 28px;
-  border-bottom:0.0625rem solid #dadada;
+  border-bottom:0.0625rem solid ${({theme}) => theme.dtilTxtBorder};
   span {
     height: 0.75rem;
     font-size: 0.75rem;
@@ -54,7 +54,7 @@ const ExchangeRateWrapper = styled.div`
     line-height: 1;
     letter-spacing: normal;
     text-align: right;
-    color: #062536;
+    color: ${({ theme }) => theme.textColorBold};
   }
 `
 
@@ -68,7 +68,7 @@ const ExchangeRate = styled.div`
   line-height: 1;
   letter-spacing: normal;
   text-align: right;
-  color: #062536;
+  color: ${({ theme }) => theme.textColorBold};
   margin-right: 5px;
 `
 

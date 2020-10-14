@@ -155,7 +155,7 @@ const StyledNavLink = styled(NavLink).attrs({
     height: 38px;
     width: 38px;
     margin-right: 1rem;
-    background:${({theme}) => theme.navBg2};
+    background:${({theme}) => theme.navBg3};
     border-radius:100%;
     display: flex;
     justify-content: center;

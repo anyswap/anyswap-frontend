@@ -199,7 +199,7 @@ const ExchangeRateWrapper = styled.div`
   font-size: 0.75rem;
   font-family: 'Manrope';
   padding: 8px 1rem ;
-  border-bottom:0.0625rem solid ${({theme}) => theme.inputBorder};
+  border-bottom:0.0625rem solid ${({theme}) => theme.dtilTxtBorder};
   white-space:nowrap;
   span {
     height: 0.75rem;
