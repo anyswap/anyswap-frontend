@@ -21,7 +21,7 @@ const mediaWidthTemplates = Object.keys(MEDIA_WIDTHS).reduce((accumulator, size)
   return accumulator
 }, {})
 
-const white = '#FFFFFF'
+const white = '#f8f8f8'
 const black = '#000000'
 
 const purple = '#734be2'
@@ -66,8 +66,8 @@ const theme = darkMode => ({
   greyText: darkMode ? white : '#6C7284',
 
   // for setting css on <html>
-  backgroundColor: darkMode ? '#333639' : white,
-  backgroundColorCont: darkMode ? '#333639' : '#f9fafb',
+  backgroundColor: darkMode ? darkContentBg : white,
+  backgroundColorCont: darkMode ? darkContentBg : '#f9fafb',
 
   contentBg: darkMode ? darkContentBg : white,
   contentShadow: darkMode ? '7px 2px 26px 0 rgba(5, 6, 13, 0.24)' : '7px 2px 26px 0 rgba(0, 0, 0, 0.06)',
@@ -90,7 +90,7 @@ const theme = darkMode => ({
   moreBtn: darkMode ? '#363d5f' : '#f9fafb',
   viewMoreBtn: darkMode ? darkSelectBg : '#f9fafb',
 
-  searchBg: darkMode ? darkSelectBg : '#fff',
+  searchBg: darkMode ? darkSelectBg : white,
 
   tipContentBg: darkMode ? darkSelectBg : '#ededed',
   dtilContentBg: darkMode ? darkSelectBg : white,
@@ -99,14 +99,17 @@ const theme = darkMode => ({
   navBg2: darkMode ? '#363d5f' : 'rgba(0,0,0,0.05)',
   navColor: darkMode ? '#979dac' : '#062536',
 
-  tabBg: darkMode ? '#2b314f' : '#fff',
+  tabBg: darkMode ? '#2b314f' : white,
   tabActiveBg: darkMode ? '#6725fc' : 'none',
-  tabColor: darkMode ? '#fff' : '#96989e',
-  tabActiveColor: darkMode ? '#fff' : '#734be2',
+  tabColor: darkMode ? white : '#96989e',
+  tabActiveColor: darkMode ? white : '#734be2',
   tabBdColor: darkMode ? 'none' : '#734be2',
-  // tabIconBg: darkMode ? '#f5f5f5' : '#734be2',
 
   dtilTxtBg: darkMode ? 'none' : 'rgb(240, 240, 240)',
+
+  tipBg: darkMode ? '#2b314f' : '#f2edff',
+  tipBorder: darkMode ? '#2b314f' : '#b398f9',
+  tipColor: darkMode ? white : '#734be2',
 
   
 
@@ -120,13 +123,13 @@ const theme = darkMode => ({
   bgColorLinear: 'linear-gradient(to right, #734ce2 , #606bfb)',
 
   // grays
-  concreteGray: darkMode ? '#292C2F' : '#FAFAFA',
+  concreteGray: darkMode ? '#363d5f' : '#FAFAFA',
   mercuryGray: darkMode ? '#333333' : '#E1E1E1',
   silverGray: darkMode ? '#737373' : '#C4C4C4',
   chaliceGray: darkMode ? '#7B7B7B' : '#AEAEAE',
   doveGray: darkMode ? '#C4C4C4' : '#737373',
   mineshaftGray: darkMode ? '#E1E1E1' : '#2B2B2B',
-  activeGray: darkMode ? '#292C2F' : '#F7F8FA',
+  activeGray: darkMode ? '#363d5f' : '#F7F8FA',
   buttonOutlineGrey: darkMode ? '#FAFAFA' : '#F2F2F2',
   tokenRowHover: darkMode ? '#404040' : '#F2F2F2',
 

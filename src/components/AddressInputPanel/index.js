@@ -84,8 +84,8 @@ const SubCurrencySelectBox = styled.div`
   height: 48px;
   object-fit: contain;
   border-radius: 0.5625rem;
-  border: solid 0.5px #b398f9;
-  background-color: #f2edff;
+  border: solid 0.5px ${({ theme }) => theme.tipBorder};
+  background-color: ${({ theme }) => theme.tipBg};
   padding: 0 20px;
   margin-top: 0.625rem;
   div {
@@ -98,7 +98,7 @@ const SubCurrencySelectBox = styled.div`
       font-style: normal;
       line-height: 1;
       letter-spacing: normal;
-      color: #734be2;
+      color: ${({ theme }) => theme.tipColor};
       margin-left:8px;
     }
   }

@@ -83,7 +83,7 @@ const Web3StatusConnected = styled(Web3StatusGeneric)`
   border-radius: 9px;
   background: ${({ theme }) => theme.lightPuroleBg};
   font-family: 'Manrope';
-  color: #031a6e;
+  color: ${({ theme }) => theme.textColor};
   font-size: 14px;
   font-weight: 400;
   border:none;

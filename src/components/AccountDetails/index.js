@@ -29,7 +29,7 @@ ${({ theme }) => theme.FlexC}
   height: 1.875rem;
   object-fit: contain;
   border-radius: 6px;
-  background-color: #f6f4ff;
+  background-color: ${({ theme }) => theme.lightPuroleBg};
   font-family: 'Manrope';
   font-size: 0.75rem;
   font-weight: 500;
@@ -56,6 +56,7 @@ const UpperSection = styled.div`
   position: relative;
   font-family: 'Manrope';
   background-color: ${({ theme }) => theme.concreteGray};
+  padding-bottom:10px;
 
   h5 {
     margin: 0;
@@ -192,7 +193,7 @@ const StyledLink = styled(Link)`
   height: 48px;
   object-fit: contain;
   border-radius: 0.5625rem;
-  background-color: #ecf6ff;
+  background-color: ${({ theme }) => theme.tipBg};
   padding: 0 1rem;
 
   font-family: 'Manrope';
@@ -202,7 +203,7 @@ const StyledLink = styled(Link)`
   font-style: normal;
   line-height: 1;
   letter-spacing: normal;
-  color: #031a6e;
+  color: ${({ theme }) => theme.selectTextColor};
   span{
     font-weight: normal;
   }
@@ -234,7 +235,7 @@ const WalletName = styled.div`
   font-style: normal;
   line-height: 1.25;
   letter-spacing: normal;
-  color: #031a6e;
+  color: ${({ theme }) => theme.textColor};
 `
 
 const IconWrapper = styled.div`

@@ -65,8 +65,8 @@ const SubCurrencySelectBox = styled.div`
   height: 48px;
   object-fit: contain;
   border-radius: 0.5625rem;
-  border: solid 0.5px #b398f9;
-  background-color: #f2edff;
+  border: solid 0.5px ${({ theme }) => theme.tipBorder};
+  background-color: ${({ theme }) => theme.tipBg};
   padding: 0 2.5rem;
   margin-top: 0.625rem;
   div {
@@ -99,7 +99,7 @@ const Input = styled(BorderlessInput)`
   height: 70px;
   color: ${({ error, theme }) => error ? 'rgb(255, 104, 113)' : theme.textColorBold};
   background: none;
-  border-bottom: 0.0625rem solid #062536;
+  border-bottom: 0.0625rem solid ${({theme}) => theme.textColorBold};
   -moz-appearance: textfield;
   margin-right: 1.875rem;
   ::placeholder {

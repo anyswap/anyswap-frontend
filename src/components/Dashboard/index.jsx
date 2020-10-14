@@ -276,7 +276,7 @@ font-family: 'Manrope';
   height: 38px;
   
   border-radius: 0.5625rem;
-  background: #ecf6ff;
+  background: ${({theme}) => theme.selectedBg};
   margin-right: 0.125rem;
   
   font-size: 0.75rem;
@@ -290,15 +290,11 @@ font-family: 'Manrope';
   padding:0;
   text-decoration: none;
   &:hover,&:focus,&:active {
-    background:#ecf6ff;
+    background:${({theme}) => theme.selectedBg};
   }
 `
 const TokenActionBtnSwap = styled(TokenActionBtn)`
 margin-right:0.125rem;
-`
-
-const TokenActionBtnSend = styled(TokenActionBtn)`
-
 `
 
 const MoreBtnBox = styled.div`

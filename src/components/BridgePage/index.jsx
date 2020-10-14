@@ -184,7 +184,7 @@ const MintListVal = styled.div`
 ${({ theme }) => theme.FlexSC};
   width: 100%;
   cursor:pointer
-  color:#062536;
+  color:${({ theme }) => theme.textColorBold};
   font-size:12px;
   .green {
     color: green
@@ -297,7 +297,7 @@ ${({ theme }) => theme.FlexSC};
   width: 100%;
   // color:red;
   
-  color: #734be2;
+  color: ${({ theme }) => theme.tipColor};
   font-family: 'Manrope';
   cursor: pointer;
   flex: 1 0 auto;
@@ -309,8 +309,8 @@ ${({ theme }) => theme.FlexSC};
   // border: 0.0625rem solid ${({ theme }) => transparentize(0.6, 'red')};
   // background-color: ${({ theme }) => transparentize(0.9, 'red')};
   
-  border: solid 0.5px #b398f9;
-  background-color: #f2edff;
+  border: solid 0.5px ${({ theme }) => theme.tipBorder};
+  background-color: ${({ theme }) => theme.tipBg};
   border-radius: 1rem;
   font-size: 0.75rem;
   line-height: 1rem;
@@ -348,8 +348,8 @@ const SubCurrencySelectBox = styled.div`
   width: 100%;
   object-fit: contain;
   border-radius: 0.5625rem;
-  border: solid 0.5px #b398f9;
-  background-color: #f2edff;
+  border: solid 0.5px ${({ theme }) => theme.tipBorder};
+  background-color: ${({ theme }) => theme.tipBg};
   padding: 1rem 1.25rem;
   margin-top: 0.625rem;
 
@@ -357,7 +357,7 @@ const SubCurrencySelectBox = styled.div`
     ${({ theme }) => theme.FlexSC};
     font-size: 12px;
     font-weight: 500;
-    color: #734be2;
+    color: ${({ theme }) => theme.tipColor};
     padding: 2px 20px 18px;
     border-bottom: 1px solid #f1f6fa;
     word-break:break-all;
@@ -385,7 +385,7 @@ const SubCurrencySelectBox = styled.div`
     margin:0;
     padding: 0 0px 0;
     font-size: 12px;
-    color: #734be2;
+    color: ${({ theme }) => theme.tipColor};
     dt {
       ${({ theme }) => theme.FlexSC};
       font-weight: bold;
@@ -402,7 +402,7 @@ const SubCurrencySelectBox = styled.div`
         width:4px;
         height: 4px;
         border-radius:100%;
-        background:#734be2;
+        background:${({ theme }) => theme.tipColor};
         margin-right: 10px;
       }
     }
@@ -445,7 +445,7 @@ const TabLinkBox = styled.ul`
     cursor:pointer;
     text-decoration: none;
     padding: 0 0.625rem;
-    background:#fff;
+    background: ${({ theme }) => theme.tabBg};
     white-space:nowrap;
 
     .icon {
@@ -460,7 +460,7 @@ const TabLinkBox = styled.ul`
       border-top-left-radius: 6px;
       border-bottom-left-radius: 6px;
       &.active {
-        border: 0.0625rem solid #734be2;
+        border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
       }
     }
     &:last-child {
@@ -468,13 +468,14 @@ const TabLinkBox = styled.ul`
       border-bottom-right-radius: 6px;
       border-right: 0.0625rem solid rgba(0, 0, 0, 0.04);
       &.active {
-        border: 0.0625rem solid #734be2;
+        border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
       }
     }
 
     &.active {
-      border: 0.0625rem solid #734be2;
-      color: #734be2;
+      background: ${({ theme }) => theme.tabActiveBg};
+      border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
+      color: ${({ theme }) => theme.tabActiveColor};
       font-weight: bold;
       .icon {
         background: #734be2;
@@ -511,7 +512,7 @@ p {
   margin: 15px 0 8px;
 }
 span {
-  color:#062536;
+  color:${({ theme }) => theme.textColorBold};
   font-size:22px;
 }
 `
@@ -520,7 +521,7 @@ const HashStatus = styled.div`
   ${({ theme }) => theme.FlexBC};
   width: 100%;
   font-size:12px;
-  color: ##062536;
+  color: ${({ theme }) => theme.textColorBold};
   font-weight:bold;
   padding: 12px 15px;
   border-radius:9px;
