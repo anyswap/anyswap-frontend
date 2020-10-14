@@ -51,7 +51,7 @@ function init() {
     [BETA_MESSAGE_DISMISSED]: false,
     [GENERAL_DAI__MESSAGE_DISMISSED]: false,
     [SAI_HOLDER__MESSAGE_DISMISSED]: false,
-    [DARK_MODE]: true
+    [DARK_MODE]: false
   }
 
   try {

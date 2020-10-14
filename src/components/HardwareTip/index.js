@@ -112,7 +112,7 @@ font-family: 'Manrope';
   line-height: 1;
   letter-spacing: -0.0625rem;
   text-align: center;
-  color: #062536;
+  color: ${({ theme }) => theme.textColorBold};
   margin-top: 1rem;
 `
 
