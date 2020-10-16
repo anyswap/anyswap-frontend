@@ -73,6 +73,7 @@ const DownArrowBackground = styled.div`
   border-radius: 6px;
   margin: 3px auto;
   cursor:pointer;
+  background: ${({ theme }) => theme.swapBg}
 `
 
 const Flex = styled.div`
@@ -191,6 +192,9 @@ ${({ theme }) => theme.FlexSC};
   }
   .red {
     color: red
+  }
+  .link {
+    color:${({ theme }) => theme.textColorBold};
   }
 `
 
@@ -527,12 +531,12 @@ const HashStatus = styled.div`
   border-radius:9px;
   margin-top:30px;
   &.yellow {
-    border: 1px solid #e3d1aa;
-    background: #fff5e0;
+    border: 1px solid ${({ theme }) => theme.birdgeStateBorder};
+    background: ${({ theme }) => theme.birdgeStateBg};
   }
   &.green{
-    border: 1px solid #a3daab;
-    background: #e2f9e5;
+    border: 1px solid ${({ theme }) => theme.birdgeStateBorder1};
+    background: ${({ theme }) => theme.birdgeStateBg1};
   }
 `
 
@@ -1672,10 +1676,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   <MintListVal>
                     {
                       mintDtil.coin === 'BTC' ? (
-                        <a href={config.btcConfig.lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
+                        <a href={config.btcConfig.lookHash + mintDtil.hash} target="_blank" className='link'>{mintDtil.hash}</a>
                       ) : (
                         mintDtil.node && config.bridgeAll[mintDtil.node] && config.bridgeAll[mintDtil.node].lookHash ? (
-                          <a href={config.bridgeAll[mintDtil.node].lookHash + mintDtil.hash} target="_blank">{mintDtil.hash}</a>
+                          <a href={config.bridgeAll[mintDtil.node].lookHash + mintDtil.hash} target="_blank" className='link'>{mintDtil.hash}</a>
                         ) : ''
                       )
                     }

@@ -67,6 +67,7 @@ const DownArrowBackground = styled.div`
   border-radius: 6px;
   margin: 3px auto;
   cursor:pointer;
+  background: ${({ theme }) => theme.swapBg}
 `
 
 // const WrappedArrowDown = ({ clickable, active, ...rest }) => <ArrowDown {...rest} />

@@ -68,6 +68,7 @@ const DownArrowBackground = styled.div`
   object-fit: contain;
   border-radius: 6px;
   margin: 3px auto;
+  background: ${({ theme }) => theme.swapBg}
 `
 
 const DownArrow = styled(ArrowDown)`

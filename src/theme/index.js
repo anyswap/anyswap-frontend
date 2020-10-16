@@ -117,7 +117,12 @@ const theme = darkMode => ({
 
   switchColor: darkMode ? '#00bde3' : '#734be2',
 
-  
+  birdgeStateBg: darkMode ? 'rgba(0,0,0,0.6)' : '#fff5e0',
+  birdgeStateBorder: darkMode ? 'rgba(0,0,0,0.6)' : '#e3d1aa',
+  birdgeStateBg1: darkMode ? 'rgba(0,0,0,0.6)' : '#e2f9e5',
+  birdgeStateBorder1: darkMode ? 'rgba(0,0,0,0.6)' : '#a3daab',
+
+  swapBg: darkMode ? 'rgba(255,255,255,0.1)' : '',
 
 
   modalBackground: darkMode ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.5)',

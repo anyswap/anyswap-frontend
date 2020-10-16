@@ -126,7 +126,7 @@ const SelectHDPathPage = styled.div`
   height: 34px;
   object-fit: contain;
   border-radius: 6px;
-  background-color: #f9fafb;
+  background-color: ${({ theme }) => theme.moreBtn};
   padding: 0 1.25rem;
 `
 const SelfText = styled.div`
@@ -137,7 +137,7 @@ const SelfText = styled.div`
   font-style: normal;
   line-height: 1.71;
   letter-spacing: normal;
-  color: #062536;
+  color: ${({theme}) => theme.textColorBold};
   margin-bottom: 0.75rem
 `
 const SelfInputBox = styled.div`
@@ -149,6 +149,7 @@ ${({ theme }) => theme.FlexSC};
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
   border: solid 0.5px rgba(0, 0, 0, 0.1);
   padding: 0.125rem;
+  background-color: ${({ theme }) => theme.tipBg};
 `
 const SelfInput = styled.input`
   outline: none;
@@ -157,7 +158,7 @@ const SelfInput = styled.input`
   width: 100%;
   height: 100%;
   padding: 0 0.75rem;
-  background-color: none;
+  background-color: ${({ theme }) => theme.tipBg};
 
   font-family: 'Manrope';
   font-size: 0.75rem;
@@ -166,7 +167,7 @@ const SelfInput = styled.input`
   font-style: normal;
   line-height: 1.67;
   letter-spacing: normal;
-  color: #062536;
+  color: ${({theme}) => theme.textColorBold};
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -189,7 +190,7 @@ ${({ theme }) => theme.FlexC};
   height: 1.875rem;
   object-fit: contain;
   border-radius: 6px;
-  background-color: #f6f4ff;
+  background-color: ${({ theme }) => theme.tipBg};
 
   font-family: 'Manrope';
   font-size: 0.75rem;
@@ -199,14 +200,15 @@ ${({ theme }) => theme.FlexC};
   line-height: 1;
   letter-spacing: normal;
   color: #734be2;
+  white-space:nowrap;
 
   :hover,
   :focus {
-    background-color: ${() => darken(0.05, '#f6f4ff')};
+    background-color: ${({ theme }) => theme.tipBg};
   }
 
   :active {
-    background-color: ${() => darken(0.1, '#f6f4ff')};
+    background-color: ${({ theme }) => theme.tipBg};
   }
 
   :disabled {
@@ -229,7 +231,6 @@ const AddrList = styled.li`
   margin:0.625rem 0;
   list-style-type:none;
   color:#666;
-  background:#eee;
   border-radius: 5px;
 
   :hover,
@@ -252,7 +253,7 @@ ${({theme}) => theme.FlexC}
   font-style: normal;
   line-height: 1;
   letter-spacing: normal;
-  color: #062536;
+  color: ${({theme}) => theme.textColorBold};
   cursor:pointer;
 `
 

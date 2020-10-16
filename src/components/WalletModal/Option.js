@@ -86,6 +86,7 @@ const IconWrapper = styled.div`
   justify-content: center;
   margin-right: 1.25rem;
   border: solid 0.0625rem rgba(0, 0, 0, 0.1);
+  background:#fff;
   width:46px;
   height:46px;
   border-radius:100%;
