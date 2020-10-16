@@ -71,7 +71,7 @@ const tabOrder2 = [
     className: 'otherInfo'
   },
   {
-    path: '',
+    path: 'https://vote.anyswap.exchange/',
     textKey: 'ANYToken',
     icon: require('../../assets/images/icon/any.svg'),
     iconActive: require('../../assets/images/icon/any-purpl.svg'),
