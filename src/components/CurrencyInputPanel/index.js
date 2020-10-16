@@ -658,6 +658,7 @@ export default function CurrencyInputPanel({
   let HDPath = sessionStorage.getItem('HDPath')
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [modalIsOpenTime, setModalIsOpenTime] = useState(1)
 
   const tokenContract = useTokenContract(selectedTokenAddress)
   const { exchangeAddress: selectedTokenExchangeAddress, isSwitch } = useTokenDetails(selectedTokenAddress)
@@ -854,7 +855,13 @@ export default function CurrencyInputPanel({
             selected={!!selectedTokenAddress}
             onClick={() => {
               if (!disableTokenSelect) {
-                setModalIsOpen(true)
+                if (modalIsOpenTime) {
+                  setModalIsOpenTime(0)
+                  setTimeout(() => {
+                    setModalIsOpenTime(1)
+                  }, 2000)
+                  setModalIsOpen(true)
+                }
               }
             }}
           >

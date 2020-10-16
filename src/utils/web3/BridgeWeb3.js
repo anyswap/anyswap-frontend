@@ -103,7 +103,7 @@ function MMsign (from, msg, node) {
 export function getHashStatus (hash, index, coin, status, node) {
   return new Promise(resolve => {
     if (status) {
-      getChainHashStatus(hash, coin, node).then(result => {
+      getChainHashStatus(hash, coin).then(result => {
         if (result) {
           resolve({
             ...result,
@@ -124,7 +124,7 @@ export function getHashStatus (hash, index, coin, status, node) {
         // console.log(res)
         if (res) {
           if (res.status) {
-            getChainHashStatus(hash, coin, node).then(result => {
+            getChainHashStatus(hash, coin).then(result => {
               if (result) {
                 resolve({
                   ...result,

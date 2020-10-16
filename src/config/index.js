@@ -131,6 +131,6 @@ export default {
   bridge: bridge[useBridge],
   bridgeType: useBridge,
   // serverInfoUrl: 'http://localhost:8107/serverInfo/',
-  serverInfoUrl: 'https://bridgeapi.anyswap.exchange/serverInfo/',
+  serverInfoUrl: 'https://bridgeapi.anyswap.exchange',
   dirSwitchFn
 }
