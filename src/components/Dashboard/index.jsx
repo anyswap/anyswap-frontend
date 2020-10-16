@@ -437,6 +437,15 @@ const DBTh = styled.th`
   font-size: 0.875rem;
   font-weight: bold;
   line-height: 1.5;
+  &.r{
+    text-align:right;
+  }
+  &.l{
+    text-align:left;
+  }
+  &.c{
+    text-align:center;
+  }
 `
 const DBTbody = styled.tbody`
   width: 100%;

@@ -942,13 +942,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let tokenOnlyOne = inputCurrency
 
     setInit(1)
-    console.log(inputCurrency)
+    // console.log(inputCurrency)
     let coin = inputSymbol.replace(config.prefix, '')
     if (account && initIsDeposit && initIsRedeem) {
       getServerInfo(account, tokenOnlyOne, inputSymbol, chainId).then(res => {
-        console.log(res)
-        console.log(tokenOnlyOne)
-        console.log(inputCurrency)
+        // console.log(res)
+        // console.log(tokenOnlyOne)
+        // console.log(inputCurrency)
         if (res.msg === 'Success' && res.info) {
           let serverInfo = res.info
           setIsRegister(true)
@@ -1892,31 +1892,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               } else {
                 inputVal = ''
               }
-              // let inputVal = Number(inputBalance) / Math.pow(10, inputDecimals)
-              // let value = ''
-              // if (bridgeType && bridgeType === 'redeem') {
-              //   if (inputVal < Number(redeemMinNum)) {
-              //     inputVal = ''
-              //   } else if (inputVal > Number(redeemMaxNum)) {
-              //     inputVal = redeemMaxNum
-              //   }
-              //   value = inputVal
-              //   let _fee = Number(inputVal) * Number(fee)
-              //   if (_fee < minFee) {
-              //     _fee = minFee
-              //   } else if (_fee > maxFee) {
-              //     _fee = maxFee
-              //   }
-              //   inputVal = Number(inputVal) - _fee
-              // } else {
-              //   inputVal = outNetBalance
-              //   value = inputVal
-              //   if (inputVal < Number(depositMinNum)) {
-              //     inputVal = ''
-              //   } else if (inputVal > Number(depositMaxNum)) {
-              //     inputVal = depositMaxNum
-              //   }
-              // }
               dispatchSwapState({
                 type: 'UPDATE_INDEPENDENT',
                 payload: {
@@ -1936,7 +1911,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           })
         }}
         onValueChange={inputValue => {
-          // console.log(inputValue)
+          console.log(inputValue)
           inputValue = formatDecimal(inputValue, inputDecimals)
           let inputVal = inputValue && Number(inputValue) ? ethers.utils.parseUnits(inputValue.toString(), inputDecimals) : ethers.utils.bigNumberify(0)
           if (bridgeType && bridgeType === 'redeem') {
@@ -1956,28 +1931,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             }
           }
           if (inputVal) {
+            console.log(inputVal)
             inputVal = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
+            console.log(inputVal)
           } else {
             inputVal = ''
           }
-          // let inputVal = inputValue
-          // if (bridgeType && bridgeType === 'redeem') {
-          //   let _fee = Number(inputValue) * Number(fee)
-          //   if (_fee < minFee) {
-          //     _fee = minFee
-          //   } else if (_fee > maxFee) {
-          //     _fee = maxFee
-          //   }
-          //   inputVal = Number(inputValue) - _fee
-          //   if (inputVal < 0) {
-          //     inputVal = ''
-          //   } else {
-          //     inputVal = formatDecimal(inputVal, Math.min(8, inputDecimals))
-          //   }
-          // } else {
-          //   inputVal = formatDecimal(inputVal, Math.min(8, inputDecimals))
-          // }
-          // console.log(inputValue)
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
             payload: {
