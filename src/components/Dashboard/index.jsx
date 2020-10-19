@@ -681,7 +681,12 @@ export default function DashboardDtil () {
         return '-%'
       }
     } else if (config.symbol === 'BNB') {
-      return '-%'
+      // return '-%'
+      if (rewardAPY[coin]) {
+        return rewardAPY[coin].AnnualizedROI.toFixed(2) + '%'
+      } else {
+        return '-%'
+      }
     }
   }
 

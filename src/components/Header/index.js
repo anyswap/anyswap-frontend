@@ -3,9 +3,9 @@ import styled from 'styled-components'
 
 // import { Link } from '../../theme'
 import Web3Status from '../Web3Status'
-import Toggle from 'react-switch'
-import { transparentize } from 'polished'
-import { darken } from 'polished'
+// import Toggle from 'react-switch'
+// import { transparentize } from 'polished'
+// import { darken } from 'polished'
 import { useTranslation } from 'react-i18next'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
 
@@ -127,7 +127,7 @@ ${({ theme }) => theme.FlexC};
   border-radius: 9px;
   margin-left: 15px;
   cursor: pointer;
-  background-color: ${({ theme }) => theme.dayOrNight};
+  background-color: ${({ theme }) => theme.lightPuroleBg};
 `
 
 export default function Header() {

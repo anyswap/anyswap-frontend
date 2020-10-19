@@ -14,7 +14,8 @@ const NAME_PREFIX = ''
 
 const COIN = getBaseCoin(PREFIX)
 
-const REWARDS_DAY = 33000 / 2
+const REWARDS_DAY = 10000 / 2
+const REWARDS_ANY_DAY = 5000
 const DEPOSIT_AMOUNT = 10000
 
 const COIN_BASE ={
@@ -27,25 +28,44 @@ const COIN_BASE ={
   keepDec: 6,
   namePrefix: NAME_PREFIX,
   marketsUrl: 'https://markets.anyswap.exchange/?trade=ANY_BNB', // K线图地址
-  rewardRate (token, dec) {
-    if (!token || !Number(token)) {
-      return {
-        // pr: Number(amount) ? personRewards : 0, // 你每天的奖励
-        ROIPerDay: '0.00', // 每天的投资回报率
-        AnnualizedROI: '0.00' // 年化投资回报率
+  rewardUrl: 'https://rewardapiv2.anyswap.exchange/accounts/getBSCReward/', // 获取奖励地址
+  rewardRate (arr) {
+    let totalLq = 0
+    let coinObj = {}
+    for (let obj of arr) {
+      let mt = Number(obj.market) / Math.pow(10, 18)
+      // let totalBaseAmount = Number(obj.baseAmount) + Number(obj.tokenAmount) / mt
+      let totalBaseAmount = Number(obj.baseAmount) * 2 /  Math.pow(10, 18)
+      if (obj.coin === 'ANY') {
+        totalBaseAmount = totalBaseAmount * 2
+      }
+      totalLq += totalBaseAmount
+      coinObj[obj.coin] = {
+        ...obj,
+        market: mt,
+        totalBaseAmount
       }
     }
-    // let market = Number(bace) / Number(token)
-    let tokenAll = Number(token) * 2 / Math.pow(10, dec)
-    let accountAllPoolAmount = 10000
-    let poolShare = accountAllPoolAmount / tokenAll
-    let personRewards = REWARDS_DAY * poolShare
-    let ROIPerDay = personRewards / accountAllPoolAmount
-    return {
-      // pr: Number(amount) ? personRewards : 0, // 你每天的奖励
-      ROIPerDay: (ROIPerDay * 100).toFixed(2), // 每天的投资回报率
-      AnnualizedROI: (personRewards * 365 * 100 / accountAllPoolAmount).toFixed(2) // 年化投资回报率
+    // totalLq = totalLq  /  Math.pow(10, 18)
+    for (let obj in coinObj) {
+      coinObj[obj].pecent = coinObj[obj].totalBaseAmount / totalLq
+      if (obj === 'ANY') {
+        coinObj[obj].totalReward = (REWARDS_DAY + REWARDS_ANY_DAY) * coinObj[obj].pecent
+        coinObj[obj].poolShare = (DEPOSIT_AMOUNT / coinObj[obj].totalBaseAmount) * 2
+        coinObj[obj].accountReward = coinObj[obj].poolShare * coinObj[obj].totalReward / coinObj[obj].market
+        coinObj[obj].ROIPerDay = coinObj[obj].accountReward / DEPOSIT_AMOUNT
+        coinObj[obj].AnnualizedROI = coinObj[obj].ROIPerDay * 100 * 365
+      } else {
+        coinObj[obj].totalReward = REWARDS_DAY * coinObj[obj].pecent
+        coinObj[obj].poolShare = (DEPOSIT_AMOUNT / coinObj[obj].totalBaseAmount)
+        coinObj[obj].accountReward = coinObj[obj].poolShare * coinObj[obj].totalReward / coinObj['ANY'].market
+        coinObj[obj].ROIPerDay = coinObj[obj].accountReward / DEPOSIT_AMOUNT
+        coinObj[obj].AnnualizedROI = coinObj[obj].ROIPerDay * 100 * 365
+      }
     }
+    // console.log(coinObj)
+    // console.log(totalLq)
+    return coinObj
   }
 }
 const INIT_MAIN_TOKEN = '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa'
@@ -71,7 +91,7 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/',
     btcAddr: ''
   },
-  isOpenRewards: 0,
+  isOpenRewards: 1,
   isChangeDashboard: 0,
   noSupportBridge: [
     COIN_BASE.symbol,

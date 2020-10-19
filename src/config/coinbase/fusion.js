@@ -32,6 +32,7 @@ const COIN_BASE ={
   keepDec: 6, // 保留小数位
   namePrefix: NAME_PREFIX, // 币名前缀
   marketsUrl: 'https://markets.anyswap.exchange/?trade=ANY_FSN', // K线图地址
+  rewardUrl: 'https://rewardapiv2.anyswap.exchange/accounts/getReward/', // 获取奖励地址
   rewardRate (arr) {
     let totalLq = 0
     let coinObj = {}
@@ -66,6 +67,7 @@ const COIN_BASE ={
       }
     }
     // console.log(coinObj)
+    // console.log(totalBaseAmount)
     return coinObj
   }
 }

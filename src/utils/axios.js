@@ -103,8 +103,8 @@ function getApiData (url, token, intarval, address) {
 export const getRewards = (address) => {
   return new Promise(resolve => {
     // let url = `https://rewardapi.anyswap.exchange/accounts/getRewards/${address}`
-    let url = `https://rewardapiv2.anyswap.exchange/accounts/getReward/${address}`
-    
+    let url = config.rewardUrl + address
+    console.log(url)
     getApiData(url, 'REWARDS', 3 * 60 * 1000, address).then(res => {
       // console.log(res)
       if (res && res.msg === 'Success') {
