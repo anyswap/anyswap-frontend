@@ -136,6 +136,8 @@ export function getDashBoards (arr) {
               market = getMarketRate(obj.exchangeETHBalance, obj.exchangeTokenBalancem, obj.decimals)
             }
           }
+          // console.log(poolTokenPercentage)
+          // console.log(poolTokenPercentage.toString())
           arr[i].pecent = poolTokenPercentage
           arr[i].balance = balance
           arr[i].Basebalance = Basebalance
