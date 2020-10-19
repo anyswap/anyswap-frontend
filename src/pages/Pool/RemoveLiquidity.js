@@ -120,7 +120,7 @@ const SummaryPanel = styled.div`
   padding: 1rem 0;
   min-width: 30%;
   @media screen and (max-width: 960px) {
-    background-color: #ededed;
+    background-color: ${({ theme }) => theme.tipContentBg};
     width:100%;
     padding: 1rem 1rem;
   }

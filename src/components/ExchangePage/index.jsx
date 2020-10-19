@@ -135,7 +135,7 @@ ${({ theme }) => theme.FlexEC};
   }
   @media screen and (max-width: 960px) {
     width: 100%;
-    background-color: #ededed;
+    background-color: ${({ theme }) => theme.tipContentBg};
     padding: 8px 1rem;
     ${({ theme }) => theme.FlexSC};
   }
@@ -204,7 +204,7 @@ const TxnsDtilBtn = styled.div`
     letter-spacing: normal;
     color: ${({ theme }) => theme.textColorBold};
     padding-left:0.75rem;
-    border-left:0.0625rem solid #ededed;
+    border-left:0.0625rem solid ${({ theme }) => theme.tipContentBg};
     img {
       margin-right: 0.4375rem;
     }
