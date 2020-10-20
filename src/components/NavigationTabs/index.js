@@ -38,13 +38,13 @@ const tabOrder = [
     iconActive: require('../../assets/images/icon/swap-purpl.svg'),
     regex: /\/swap/,
   },
-  {
-    path: '/send',
-    textKey: 'send',
-    icon: require('../../assets/images/icon/send.svg'),
-    iconActive: require('../../assets/images/icon/send-purpl.svg'),
-    regex: /\/send/,
-  },
+  // {
+  //   path: '/send',
+  //   textKey: 'send',
+  //   icon: require('../../assets/images/icon/send.svg'),
+  //   iconActive: require('../../assets/images/icon/send-purpl.svg'),
+  //   regex: /\/send/,
+  // },
   {
     path: '/add-liquidity',
     textKey: 'pool',
