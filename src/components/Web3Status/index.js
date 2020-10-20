@@ -130,6 +130,13 @@ const IconWrapper = styled.div`
   }
 `
 
+const ScreenView = styled.div`
+display:block;
+@media screen and (max-width: 960px) {
+display:none;
+}
+`
+
 export default function Web3Status() {
   const { t } = useTranslation()
   let { active, account, connector, error } = useWeb3React()
@@ -198,7 +205,7 @@ export default function Web3Status() {
         <Web3StatusConnected onClick={toggleWalletModal} pending={hasPendingTransactions}>
           {hasPendingTransactions && <SpinnerWrapper src={Circle} alt="loader" />}
           {/* <img src={WalletIcon} alt={''} /> */}
-          <Text>{ENSName || shortenAddress(account)}</Text>
+          <ScreenView><Text>{ENSName || shortenAddress(account)}</Text></ScreenView>
           {getStatusIcon()}
         </Web3StatusConnected>
       )

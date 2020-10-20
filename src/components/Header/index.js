@@ -128,6 +128,9 @@ ${({ theme }) => theme.FlexC};
   margin-left: 15px;
   cursor: pointer;
   background-color: ${({ theme }) => theme.lightPuroleBg};
+  @media screen and (max-width: 960px) {
+    margin-left: 5px;
+  }
 `
 
 export default function Header() {

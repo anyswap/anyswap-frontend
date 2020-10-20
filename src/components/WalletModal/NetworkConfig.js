@@ -19,14 +19,14 @@ const ConfigTip = styled.div`
   width: 100%;
   padding: 15px;
   border-radius: 9px;
-  background-color: #ecf6ff;
-  border: #ecf6ff;
+  background-color: ${({ theme }) => theme.selectedBg};
+  border: ${({ theme }) => theme.selectedBg};
   p {
     margin:0;
     font-size: 14px;
     line-height: 1;
     letter-spacing: normal;
-    color: #031a6e;
+    color: ${({ theme }) => theme.textColor};
   }
 `
 
@@ -39,7 +39,7 @@ const ConfigList = styled.ul`
     padding: 10px 15px;
     border-bottom: 1px  solid #dadada;
     .left {
-      color: #062536;
+      color: ${({ theme }) => theme.inputBorder};
       .label {
         font-size: 12px;
         font-weight: 500;
