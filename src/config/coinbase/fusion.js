@@ -1,6 +1,7 @@
 import {getBaseCoin} from './coin'
 import {
   FSN_MAINNET,
+  FSN_MAINNET1,
   FSN_MAIN_CHAINID,
   FSN_MAIN_EXPLORER,
   FSN_TESTNET,
@@ -78,6 +79,7 @@ const INIT_TEST_TOKEN = ANY_TEST_TOKEN
 const MAIN_CONFIG = {
   ...COIN_BASE,
   nodeRpc: FSN_MAINNET, // 节点地址
+  nodeRpc1: FSN_MAINNET1, // 节点地址
   chainID: FSN_MAIN_CHAINID, // 节点chainID
   any: {
     token: ANY_MAIN_TOKEN,  // ANY合约地址
@@ -108,6 +110,7 @@ const MAIN_CONFIG = {
 const TEST_CONFIG = {
   ...COIN_BASE,
   nodeRpc: FSN_TESTNET,
+  nodeRpc1: FSN_TESTNET, // 节点地址
   chainID: FSN_TEST_CHAINID,
   any: {
     token: ANY_TEST_TOKEN

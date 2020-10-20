@@ -114,6 +114,8 @@ const theme = darkMode => ({
   tipColor: darkMode ? white : '#734be2',
 
   inputBorder: darkMode ? '#5c677d' : '#062536',
+  
+  networkBorder: darkMode ? '#5c677d' : '#dadada',
 
   switchColor: darkMode ? '#00bde3' : '#734be2',
 

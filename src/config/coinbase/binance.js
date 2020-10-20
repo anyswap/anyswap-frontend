@@ -73,6 +73,7 @@ const INIT_TEST_TOKEN = '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711'
 const MAIN_CONFIG = {
   ...COIN_BASE,
   nodeRpc: BNB_MAINNET,
+  nodeRpc1: BNB_MAINNET, // 节点地址
   chainID: BNB_MAIN_CHAINID,
   coininfo: {
     // [COIN.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
@@ -115,6 +116,7 @@ const MAIN_CONFIG = {
 const TEST_CONFIG = {
   ...COIN_BASE,
   nodeRpc: BNB_TESTNET,
+  nodeRpc1: BNB_TESTNET, // 节点地址
   chainID: BNB_TEST_CHAINID,
   coininfo: {
     // [COIN.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},

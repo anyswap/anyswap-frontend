@@ -37,9 +37,9 @@ const ConfigList = styled.ul`
   li {
     ${({ theme }) => theme.FlexBC};
     padding: 10px 15px;
-    border-bottom: 1px  solid #dadada;
+    border-bottom: 1px  solid ${({ theme }) => theme.networkBorder};
     .left {
-      color: ${({ theme }) => theme.inputBorder};
+      color: ${({ theme }) => theme.textColor};
       .label {
         font-size: 12px;
         font-weight: 500;
@@ -59,7 +59,7 @@ export default function NetworkConfig() {
   let walletType = sessionStorage.getItem('walletType')
   const configArr = [
     {label: 'Network Name', value: config.symbol + '-' + (config.env === 'main' ? t('mainnet') : t('testnet'))},
-    {label: 'New RPC URL', value: config.nodeRpc},
+    {label: 'New RPC URL', value: config.nodeRpc1},
     {label: 'Chain ID (optional)', value: config.chainID},
     {label: 'Symbol (optional)', value: config.symbol},
     {label: 'Block Explorer URL (optional)', value:  config.explorerUrl},

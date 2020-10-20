@@ -105,7 +105,7 @@ export const getRewards = (address) => {
     // let url = `https://rewardapi.anyswap.exchange/accounts/getRewards/${address}`
     let url = config.rewardUrl + address
     console.log(url)
-    getApiData(url, 'REWARDS', 3 * 60 * 1000, address).then(res => {
+    getApiData(url, 'REWARDS' + config.chainID, 3 * 60 * 1000, address).then(res => {
       // console.log(res)
       if (res && res.msg === 'Success') {
         // let price = res.data[0].current_price
