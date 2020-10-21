@@ -163,8 +163,7 @@ export function getWithdrawHashStatus (hash, index, coin, status, node) {
         resolve({
           ...result,
           index,
-          hash,
-          status
+          hash
         })
       } else {
         resolve({

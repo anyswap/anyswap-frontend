@@ -182,6 +182,7 @@
   "redeemTip5": "Withdraw amount larger than {{redeemBigValMoreTime}} {{coin}} could take up to 12 hours",
   "mmMintTip": "Please click confirm button to sign on your Metamask.",
   "ValueDeposited": "Value deposited",
+  "ValueWithdraw": "Value withdraw",
   "txnsDtil": "Transaction Details",
   "sendTip": "Please do NOT send funds to exchanges. To send to an exchange, please use a wallet like Metamask",
   "brStopTip": "Deposit and Withdraw stopped, node maintenance!",

@@ -164,7 +164,7 @@ const MintDiv = styled.div`
 
 const MintList = styled.div`
   border-bottom: 0.0625rem  solid ${({ error, theme }) => (error ? theme.salmonRed : theme.mercuryGray)};
-  padding: 12px 8px;
+  padding: 8px 8px;
   font-family: 'Manrope';
   font-size: 0.875rem;
 `
@@ -503,7 +503,7 @@ const TokenLogoBox1 = styled.div`
   background: ${ ({theme}) => theme.white};
   box-sizing:border-box;
   border-radius: 100%;
-  margin-top: 30px;
+  margin-top: 15px;
   border:1px solid #ddd;
 `
 
@@ -513,7 +513,7 @@ text-align: center;
 p {
   font-size:12px;
   color:#96989e;
-  margin: 15px 0 8px;
+  margin: 8px 0 8px;
 }
 span {
   color:${({ theme }) => theme.textColorBold};
@@ -529,7 +529,7 @@ const HashStatus = styled.div`
   font-weight:bold;
   padding: 12px 15px;
   border-radius:9px;
-  margin-top:30px;
+  margin-top:15px;
   &.yellow {
     border: 1px solid ${({ theme }) => theme.birdgeStateBorder};
     background: ${({ theme }) => theme.birdgeStateBg};
@@ -1258,7 +1258,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
     })
   }
-  function sendTxnsEnd (data, value, address) {
+  function sendTxnsEnd (data, value, address, node) {
     addTransaction(data)
     dispatchSwapState({
       type: 'UPDATE_WITHDRAW_STATUS',
@@ -1276,13 +1276,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           swapHash: '',
           swapStatus: '',
           swapTime: '',
-          node: bridgeNode
+          node: node
         }
       }
     })
     cleanInput()
   }
-  function sendTxns () {
+  function sendTxns (node) {
     if (inputSymbol === config.prefix + 'BTC' && !isBTCAddress(recipient.address)) {
       alert('Illegal address!')
       return
@@ -1313,7 +1313,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       getWeb3BaseInfo(inputCurrency, inputCurrency, data, account).then(res => {
         if (res.msg === 'Success') {
           // console.log(res.info)
-          sendTxnsEnd(res.info, amountVal, address)
+          sendTxnsEnd(res.info, amountVal, address, node)
         } else {
           alert(res.error)
         }
@@ -1328,7 +1328,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // console.log(res)
         // addTransaction(res)
         // cleanInput()
-        sendTxnsEnd(res, amountVal, address)
+        sendTxnsEnd(res, amountVal, address, node)
         setIsHardwareTip(false)
       }).catch(err => {
         console.log(err)
@@ -1336,7 +1336,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       })
     } else {
       tokenContract.Swapout(amountVal, address).then(res => {
-        sendTxnsEnd(res, amountVal, address)
+        sendTxnsEnd(res, amountVal, address, node)
         setIsHardwareTip(false)
       }).catch(err => {
         console.log(err)
@@ -1551,18 +1551,19 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     if (withdrawArr.length > 0) {
       for (let i = 0, len = withdrawArr.length; i < len; i ++) {
         if (
-          !withdrawArr[i].swapStatus
+          !withdrawArr[i].status
+          || !withdrawArr[i].swapStatus
           || withdrawArr[i].swapStatus === 'confirming'
           || withdrawArr[i].swapStatus === 'minting'
         ) {
           getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node).then(res => {
             // console.log(res)
             if (withdrawArr[res.index] && res.hash === withdrawArr[res.index].hash) {
-              if (withdrawArr[i].swapStatus === 'success') {
-                withdrawArr[res.index].status = 1
-              } else if (withdrawArr[i].swapStatus === 'failure' || withdrawArr[i].swapStatus === 'timeout') {
-                withdrawArr[res.index].status = 2
-              }
+              // if (withdrawArr[i].swapStatus === 'success') {
+              //   withdrawArr[res.index].status = 1
+              // } else if (withdrawArr[i].swapStatus === 'failure' || withdrawArr[i].swapStatus === 'timeout') {
+              // }
+              withdrawArr[res.index].status = res.status ? res.status : 0
               withdrawArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
               withdrawArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
               withdrawArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
@@ -1677,6 +1678,148 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           ) : ''
         } */}
       </MintHahshList>
+    )
+  }
+
+  function txnsListDtil () {
+    if (!mintDtil || !mintDtil.hash) return ''
+    let hashCurObj = {
+      hash: mintDtil.hash,
+      url: config.bridgeAll[mintDtil.node].lookHash + mintDtil.hash
+    }
+    let hashOutObj = {
+      hash: mintDtil.swapHash,
+      url: config.bridgeAll[chainId].lookHash + mintDtil.swapHash
+    }
+    if (mintDtil.coin === 'BTC') {
+      hashCurObj = {
+        hash: mintDtil.hash,
+        url: config.btcConfig.lookHash + mintDtil.hash
+      }
+    }
+    if (bridgeType === 'redeem') {
+      hashCurObj = {
+        hash: mintDtil.hash,
+        url: config.bridgeAll[chainId].lookHash + mintDtil.hash
+      }
+      hashOutObj = {
+        hash: mintDtil.swapHash,
+        url: config.bridgeAll[mintDtil.node].lookHash + mintDtil.swapHash
+      }
+      if (mintDtil.coin === 'BTC') {
+        hashOutObj = {
+          hash: mintDtil.swapHash,
+          url: config.btcConfig.lookHash + mintDtil.hash
+        }
+      }
+    }
+    let outNodeName = '', curNodeName = ''
+    if (mintDtil.node === 0) {
+      outNodeName = 'Bitcoin'
+    } else if (mintDtil.node === 1 || mintDtil.node === 4) {
+      outNodeName = 'Ethereum'
+    } else if (mintDtil.node === 32659 || mintDtil.node === 46688) {
+      outNodeName = 'Fusion'
+    }
+    if (config.symbol === 'FSN') {
+      curNodeName = 'Fusion'
+    } else if (config.symbol === 'BNB') {
+      curNodeName = 'BSC'
+    }
+    let curHash = (
+      <MintListVal>
+        <a href={hashCurObj.url} target="_blank" className='link'>{hashCurObj.hash}</a>
+        <Copy toCopy={hashCurObj.hash} />
+      </MintListVal>
+    )
+    let outHash = (
+      <MintListVal>
+        <a href={hashOutObj.url} target="_blank" className='link'>{hashOutObj.hash}</a>
+        <Copy toCopy={hashOutObj.hash} />
+      </MintListVal>
+    )
+    let outStatus = (
+      <HashStatus className={
+        mintDtil.status === 0 ? 'yellow' : (mintDtil.status === 1 ? 'green' : 'red')
+      }>
+        <div>
+          <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
+          {outNodeName}
+          {t('txnsStatus')}
+        </div>
+        {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
+        {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
+        {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
+      </HashStatus>
+    )
+    return (
+      <MintDiv>
+        <MintList>
+          <MintListLabel>{(bridgeType === 'redeem' ? curNodeName : outNodeName) + ' ' + t('hash')}:</MintListLabel>
+          {curHash}
+        </MintList>
+        {
+          hashOutObj.hash ? (
+            <MintList>
+              <MintListLabel>{(bridgeType === 'redeem' ? outNodeName : curNodeName) + ' ' + t('hash')}:</MintListLabel>
+              {outHash}
+            </MintList>
+          ) : ''
+        }
+        {
+          mintDtil.from ? (
+            <MintList>
+              <MintListLabel>{t('from')}:</MintListLabel>
+              <MintListVal>
+                {mintDtil.from}
+                <Copy toCopy={mintDtil.from} />
+              </MintListVal>
+            </MintList>
+          ) : ''
+        }
+        <MintList>
+          <MintListLabel>{t('to')}:</MintListLabel>
+          <MintListVal>
+            {mintDtil.to}
+            <Copy toCopy={mintDtil.to} />
+          </MintListVal>
+        </MintList>
+        <MintList>
+          <MintListLabel>{t('value')}:</MintListLabel>
+          <MintListVal>{Number(mintDtil.value)}</MintListVal>
+        </MintList>
+        <FlexCneter>
+          <TokenLogoBox1>
+            <TokenLogo address={mintDtil.coin} size={'26px'} ></TokenLogo>
+          </TokenLogoBox1>
+        </FlexCneter>
+        <FlexCneter>
+          <DepositValue>
+            <p>{bridgeType === 'redeem' ? t('ValueWithdraw') : t('ValueDeposited')}</p>
+            <span>{Number(mintDtil.value)} {mintDtil.coin}</span>
+          </DepositValue>
+        </FlexCneter>
+        {
+          bridgeType && bridgeType === 'redeem' && mintDtil ? '' : outStatus
+        }
+        {
+          mintDtil.swapStatus ? (
+            <HashStatus className={
+              mintDtil.swapStatus === 'confirming' || mintDtil.swapStatus === 'minting' ? 'yellow' : (mintDtil.swapStatus === 'failure' || mintDtil.swapStatus === 'timeout' ? 'red' : 'green')
+            }>
+              <div>
+                <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
+                {curNodeName}
+                {t('txnsStatus')}
+              </div>
+              <span style={{textTransform: 'Capitalize'}}>{mintDtil.swapStatus}</span>
+            </HashStatus>
+          ) : ''
+        }
+        {
+          bridgeType && bridgeType === 'redeem' && mintDtil.status ? outStatus : ''
+        }
+      </MintDiv>
     )
   }
 
@@ -1806,7 +1949,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               }</HoverText>
             </HeaderRow>
             <ContentWrapper>
-              <MintDiv>
+              {mintDtil ? txnsListDtil() : ''}
+              {/* <MintDiv>
                 <MintList>
                   <MintListLabel>{t('hash')}:</MintListLabel>
                   <MintListVal>
@@ -1851,7 +1995,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 </FlexCneter>
                 <FlexCneter>
                   <DepositValue>
-                    <p>{t('ValueDeposited')}</p>
+                    <p>{bridgeType === 'redeem' ? t('ValueWithdraw') : t('ValueDeposited')}</p>
                     <span>{Number(mintDtil.value)} {mintDtil.coin}</span>
                   </DepositValue>
                 </FlexCneter>
@@ -1890,7 +2034,27 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     </HashStatus>
                   ) : ''
                 }
-              </MintDiv>
+                {
+                  bridgeType && bridgeType === 'redeem' && mintDtil.status ? (
+                    <>
+                      <HashStatus className={
+                        mintDtil.status === 0 ? 'yellow' : (mintDtil.status === 1 ? 'green' : 'red')
+                      }>
+                        <div>
+                          <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
+                          {mintDtil.node === 0 ? 'Bitcoin ' : ''}
+                          {mintDtil.node === 1 || mintDtil.node === 4 ? 'Ethereum ' : ''}
+                          {mintDtil.node === 32659 || mintDtil.node === 46688 ? 'Fusion ' : ''}
+                          {t('txnsStatus')}
+                        </div>
+                        {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
+                        {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
+                        {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
+                      </HashStatus>
+                    </>
+                  ) : ''
+                }
+              </MintDiv> */}
             </ContentWrapper>
           </UpperSection>
         </Wrapper>
@@ -2269,7 +2433,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     <Button
                       disabled={ isRedeemBtn }
                       onClick={() => {
-                        sendTxns()
+                        let bnt = ''
+                        if (extendObj.FSN && extendObj.FSN.isSwitch) {
+                          bnt = extendObj.FSN.type
+                        } else if (extendObj.ETH && extendObj.ETH.isSwitch) {
+                          bnt = extendObj.ETH.type
+                        }
+                        sendTxns(bnt)
                       }}
                       warning={Number(inputBalanceFormatted) < Number(inputValueFormatted)}
                       loggedOut={!account}
@@ -2298,11 +2468,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                           // MintModelView()
                           getBTCtxns()
                         } else {
+                          let bnt = ''
                           if (extendObj.FSN && extendObj.FSN.isSwitch) {
-                            setBridgeNode(extendObj.FSN.type)
+                            bnt = extendObj.FSN.type
                           } else if (extendObj.ETH && extendObj.ETH.isSwitch) {
-                            setBridgeNode(extendObj.ETH.type)
+                            bnt = extendObj.ETH.type
                           }
+                          setBridgeNode(bnt)
                           setMintSureBtn(true)
                           setHardwareTxnsInfo(inputValueFormatted + ' ' + inputSymbol.replace(config.prefix, ''))
                           setIsHardwareTip(true)

@@ -845,7 +845,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]:  {
         ETH: {
-          type: 2,
+          type: 4,
           isSwitch: 1
         }
       }
@@ -867,12 +867,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 20,
       [DEPOSIT_MIN_NUM]: 0.0005,
-      [EXTENDOBJ]:  {
-        ETH: {
-          type: 2,
-          isSwitch: 1
-        }
-      }
+      [EXTENDOBJ]:  {}
     },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',

@@ -26,9 +26,9 @@ import {
 } from './coinbase/nodeConfig'
 
 // const ENV_CONFIG = 'BNB_MAIN'
-// const ENV_CONFIG = 'FSN_MAIN'
+const ENV_CONFIG = 'FSN_MAIN'
 // const ENV_CONFIG = 'BNB_TEST'
-const ENV_CONFIG = 'FSN_TEST'
+// const ENV_CONFIG = 'FSN_TEST'
 
 
 let netArr = ENV_CONFIG.split('_')
@@ -130,7 +130,7 @@ export default {
   reg,
   bridge: bridge[useBridge],
   bridgeType: useBridge,
-  serverInfoUrl: 'http://localhost:8107',
-  // serverInfoUrl: 'https://bridgeapi.anyswap.exchange',
+  // serverInfoUrl: 'http://localhost:8107',
+  serverInfoUrl: 'https://bridgeapi.anyswap.exchange',
   dirSwitchFn
 }
