@@ -22,7 +22,7 @@ const COIN_BASE ={
   symbol: 'BNB',
   name: 'Binance-BEP20',
   decimals: 18,
-  networkNamr: 'BSC',
+  networkName: 'BSC',
   reverseSwitch: 0,
   suffix: SUFFIX,
   keepDec: 6,

@@ -431,6 +431,8 @@ export default function AddLiquidity({ params }) {
     if (exchangeContract) {
       exchangeContract.totalSupply().then(totalSupply => {
         setTotalPoolTokens(totalSupply)
+      }).catch(err => {
+        console.log(err)
       })
     }
   }, [exchangeContract])
@@ -544,7 +546,7 @@ export default function AddLiquidity({ params }) {
           <div className='icon'>
             <img alt={''} src={WeekIcon} />
           </div>
-            {t('totalSupplyIs')} {b(amountFormatter(totalPoolTokens, 18, 6))}
+            {t('totalSupplyIs')} {totalPoolTokens ? b(amountFormatter(totalPoolTokens, 18, 6)) : ''}
           </LastSummaryText>
           <LastSummaryText1>
             {t('tokenWorth')}

@@ -152,14 +152,14 @@ export default function Header() {
         <HeaderElement>
           <NetworkBox>
             {/* <span>{t('onTestnet')}</span>
-            {config.networkNamr} {config.env === 'test' ? t('testnet') : t('mainnet')}
+            {config.networkName} {config.env === 'test' ? t('testnet') : t('mainnet')}
             <div className='switchTo' onClick={openUrl}>
-              {t('SwitchTo')} {config.networkNamr} 
+              {t('SwitchTo')} {config.networkName} 
               {config.env === 'test' ?  t('mainnet') : t('testnet')}
               <img alt='' src={ArrowRighrPurpleIcon} style={{marginLeft: '8px'}} />
             </div> */}
             <span>{t('onTestnet')}</span>
-            {config.networkNamr} {t('mainnet')}
+            {config.networkName} {config.env === 'test' ?  t('testnet') : t('mainnet')}
             <div className='switchTo' onClick={openUrl}>
               {t('SwitchTo')} {config.symbol === 'FSN' ? 'BSC' : 'FSN'} 
               {t('mainnet')}

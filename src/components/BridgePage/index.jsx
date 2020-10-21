@@ -1691,7 +1691,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       hash: mintDtil.swapHash,
       url: config.bridgeAll[chainId].lookHash + mintDtil.swapHash
     }
-    if (mintDtil.coin === 'BTC') {
+    if (mintDtil.coin.indexOf('BTC') !== -1) {
       hashCurObj = {
         hash: mintDtil.hash,
         url: config.btcConfig.lookHash + mintDtil.hash
@@ -1706,7 +1706,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         hash: mintDtil.swapHash,
         url: config.bridgeAll[mintDtil.node].lookHash + mintDtil.swapHash
       }
-      if (mintDtil.coin === 'BTC') {
+      if (mintDtil.coin.indexOf('BTC') !== -1) {
         hashOutObj = {
           hash: mintDtil.swapHash,
           url: config.btcConfig.lookHash + mintDtil.hash
@@ -1950,111 +1950,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             </HeaderRow>
             <ContentWrapper>
               {mintDtil ? txnsListDtil() : ''}
-              {/* <MintDiv>
-                <MintList>
-                  <MintListLabel>{t('hash')}:</MintListLabel>
-                  <MintListVal>
-                    {
-                      mintDtil.coin === 'BTC' ? (
-                        <a href={config.btcConfig.lookHash + mintDtil.hash} target="_blank" className='link'>{mintDtil.hash}</a>
-                      ) : (
-                        mintDtil.node && config.bridgeAll[mintDtil.node] && config.bridgeAll[mintDtil.node].lookHash ? (
-                          <a href={config.bridgeAll[mintDtil.node].lookHash + mintDtil.hash} target="_blank" className='link'>{mintDtil.hash}</a>
-                        ) : mintDtil.hash
-                      )
-                    }
-                    <Copy toCopy={mintDtil.hash} />
-                  </MintListVal>
-                </MintList>
-                {
-                  mintDtil.from ? (
-                    <MintList>
-                      <MintListLabel>{t('from')}:</MintListLabel>
-                      <MintListVal>
-                        {mintDtil.from}
-                        <Copy toCopy={mintDtil.from} />
-                      </MintListVal>
-                    </MintList>
-                  ) : ''
-                }
-                <MintList>
-                  <MintListLabel>{t('to')}:</MintListLabel>
-                  <MintListVal>
-                    {mintDtil.to}
-                    <Copy toCopy={mintDtil.to} />
-                  </MintListVal>
-                </MintList>
-                <MintList>
-                  <MintListLabel>{t('value')}:</MintListLabel>
-                  <MintListVal>{Number(mintDtil.value)}</MintListVal>
-                </MintList>
-                <FlexCneter>
-                  <TokenLogoBox1>
-                    <TokenLogo address={mintDtil.coin} size={'26px'} ></TokenLogo>
-                  </TokenLogoBox1>
-                </FlexCneter>
-                <FlexCneter>
-                  <DepositValue>
-                    <p>{bridgeType === 'redeem' ? t('ValueWithdraw') : t('ValueDeposited')}</p>
-                    <span>{Number(mintDtil.value)} {mintDtil.coin}</span>
-                  </DepositValue>
-                </FlexCneter>
-                {
-                  bridgeType && bridgeType === 'redeem' && mintDtil ? '' : (
-                    <>
-                      <HashStatus className={
-                        mintDtil.status === 0 ? 'yellow' : (mintDtil.status === 1 ? 'green' : 'red')
-                      }>
-                        <div>
-                          <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
-                          {mintDtil.node === 0 ? 'Bitcoin ' : ''}
-                          {mintDtil.node === 1 || mintDtil.node === 4 ? 'Ethereum ' : ''}
-                          {mintDtil.node === 32659 || mintDtil.node === 46688 ? 'Fusion ' : ''}
-                          {t('txnsStatus')}
-                        </div>
-                        {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
-                        {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
-                        {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
-                      </HashStatus>
-                    </>
-                  )
-                }
-                {
-                  mintDtil.swapStatus ? (
-                    <HashStatus className={
-                      mintDtil.swapStatus === 'confirming' || mintDtil.swapStatus === 'minting' ? 'yellow' : (mintDtil.swapStatus === 'failure' || mintDtil.swapStatus === 'timeout' ? 'red' : 'green')
-                    }>
-                      <div>
-                        <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
-                        {config.symbol === 'FSN' ? 'Fusion ' : ''}
-                        {config.symbol === 'BNB' ? 'BSC ' : ''}
-                        {t('txnsStatus')}
-                      </div>
-                      <span style={{textTransform: 'Capitalize'}}>{mintDtil.swapStatus}</span>
-                    </HashStatus>
-                  ) : ''
-                }
-                {
-                  bridgeType && bridgeType === 'redeem' && mintDtil.status ? (
-                    <>
-                      <HashStatus className={
-                        mintDtil.status === 0 ? 'yellow' : (mintDtil.status === 1 ? 'green' : 'red')
-                      }>
-                        <div>
-                          <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
-                          {mintDtil.node === 0 ? 'Bitcoin ' : ''}
-                          {mintDtil.node === 1 || mintDtil.node === 4 ? 'Ethereum ' : ''}
-                          {mintDtil.node === 32659 || mintDtil.node === 46688 ? 'Fusion ' : ''}
-                          {t('txnsStatus')}
-                        </div>
-                        {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
-                        {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
-                        {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
-                      </HashStatus>
-                    </>
-                  ) : ''
-                }
-              </MintDiv> */}
             </ContentWrapper>
           </UpperSection>
         </Wrapper>

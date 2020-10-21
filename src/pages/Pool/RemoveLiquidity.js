@@ -462,6 +462,8 @@ export default function RemoveLiquidity({ params }) {
     if (exchange) {
       exchange.totalSupply().then(totalSupply => {
         setTotalPoolTokens(totalSupply)
+      }).catch(err => {
+        console.log(err)
       })
     }
   }, [exchange])

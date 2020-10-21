@@ -27,7 +27,7 @@ const COIN_BASE ={
   symbol: 'FSN', // 符号
   name: 'Fusion', // 代币名
   decimals: 18, // 小数位
-  networkNamr: 'FSN', // 网络名称
+  networkName: 'FSN', // 网络名称
   reverseSwitch: 0,  // 是否反向禁用,
   suffix: SUFFIX, // 后缀
   keepDec: 6, // 保留小数位
