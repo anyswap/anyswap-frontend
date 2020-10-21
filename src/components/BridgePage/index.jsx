@@ -2267,7 +2267,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 <>
                   {bridgeType && bridgeType === 'redeem' ? (
                     <Button
-                      // disabled={ isRedeemBtn }
+                      disabled={ isRedeemBtn }
                       onClick={() => {
                         sendTxns()
                       }}
