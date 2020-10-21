@@ -21,7 +21,7 @@ const mediaWidthTemplates = Object.keys(MEDIA_WIDTHS).reduce((accumulator, size)
   return accumulator
 }, {})
 
-const white = '#f8f8f8'
+const white = '#ffffff'
 const black = '#000000'
 
 const purple = '#734be2'
@@ -123,6 +123,8 @@ const theme = darkMode => ({
   birdgeStateBorder: darkMode ? 'rgba(0,0,0,0.6)' : '#e3d1aa',
   birdgeStateBg1: darkMode ? 'rgba(0,0,0,0.6)' : '#e2f9e5',
   birdgeStateBorder1: darkMode ? 'rgba(0,0,0,0.6)' : '#a3daab',
+  birdgeStateBg2: darkMode ? 'rgba(0,0,0,0.6)' : 'rgb(255,104,113,.2)',
+  birdgeStateBorder2: darkMode ? 'rgba(0,0,0,0.6)' : 'rgb(255,104,113)',
 
   swapBg: darkMode ? 'rgba(255,255,255,0.1)' : '',
 

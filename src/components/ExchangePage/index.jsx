@@ -34,14 +34,14 @@ import ResertSvg from '../../assets/images/icon/revert.svg'
 
 import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
-import SwapIcon from '../../assets/images/icon/swap-white.svg'
-import SendIcon from '../../assets/images/icon/send-white.svg'
+import SwapIcon from '../../assets/images/icon/swap.svg'
+import SwapWhiteIcon from '../../assets/images/icon/swap-white.svg'
+import SendIcon from '../../assets/images/icon/send.svg'
+import SendWhiteIcon from '../../assets/images/icon/send-white.svg'
 
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
 
-// import SwapIcon from '../../assets/images/icon/swap.svg'
-// import SendIcon from '../../assets/images/icon/send.svg'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -1199,7 +1199,7 @@ export default function ExchangePage({ initialCurrency, params }) {
                 sending ? (
                   <img alt={''} src={SwapIcon}/>
                 ) : (
-                  <img alt={''} src={SwapIcon}/>
+                  <img alt={''} src={SwapWhiteIcon}/>
                 )
               }
             </div>
@@ -1214,7 +1214,7 @@ export default function ExchangePage({ initialCurrency, params }) {
             <div className='icon'>
               {
                 sending ? (
-                  <img alt={''} src={SendIcon}/>
+                  <img alt={''} src={SendWhiteIcon}/>
                 ) : (
                   <img alt={''} src={SendIcon}/>
                 )
@@ -1386,9 +1386,9 @@ export default function ExchangePage({ initialCurrency, params }) {
           >
             {
               sending ? (
-                <img alt={''} src={SendIcon} style={{marginRight: '15px'}} />
+                <img alt={''} src={SendWhiteIcon} style={{marginRight: '15px'}} />
               ) : (
-                <img alt={''} src={SwapIcon} style={{marginRight: '15px'}} />
+                <img alt={''} src={SwapWhiteIcon} style={{marginRight: '15px'}} />
               )
             }
             {brokenTokenWarning

@@ -283,6 +283,7 @@ ${({ theme }) => theme.flexRowNoWrap}
 
 const OutLink = styled.div`
 padding-left: 44px;
+margin-top:78px;
 `
 const OutLinkImgBox = styled.div`
   ${({theme}) => theme.FlexSC};

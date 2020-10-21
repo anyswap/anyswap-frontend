@@ -8,7 +8,7 @@ import {toSign as toLedgerSign} from '../wallets/ledger/index'
 import { ethers } from 'ethers'
 
 import { amountFormatter } from '../index'
-import { getChainHashStatus } from '../birdge'
+import { getChainHashStatus, getSwapoutHashStatus } from '../birdge'
 import {
   BNB_MAINNET,
   BNB_TESTNET,
@@ -156,6 +156,28 @@ export function getHashStatus (hash, index, coin, status, node) {
   })
 }
 
+export function getWithdrawHashStatus (hash, index, coin, status, node) {
+  return new Promise(resolve => {
+    getSwapoutHashStatus(hash, coin).then(result => {
+      if (result) {
+        resolve({
+          ...result,
+          index,
+          hash,
+          status
+        })
+      } else {
+        resolve({
+          index,
+          status
+        })
+      }
+    })
+    // if (status) {
+    // }
+  })
+}
+
 export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage, node, inputCurrency) {
   return new Promise(resolve => {
     if (CUR_TOKEN[inputCurrency].depositAddress.toLowerCase() !== to.toLowerCase()) {
@@ -169,7 +191,7 @@ export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage, n
       if (res.msg === 'Success') {
         // let eTx = new Tx(res.info)
         // console.log(eTx)
-        console.log(res.info)
+        // console.log(res.info)
         let tx = new Tx(res.info)
 
         let hash = Buffer.from(tx.hash(false)).toString('hex')
@@ -177,7 +199,7 @@ export function MMsendERC20Txns(coin, from, to, value, PlusGasPricePercentage, n
         // console.log(hash)
 
         MMsign(from, hash, node).then(rsv => {
-          console.log(rsv)
+          // console.log(rsv)
           if (res.msg === 'Success') {
             let rawTx = {
               ...res.info,

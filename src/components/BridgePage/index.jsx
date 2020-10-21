@@ -50,7 +50,7 @@ import Copy from '../AccountDetails/Copy'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
 
-import {getErcBalance, HDsendERC20Txns, MMsendERC20Txns, getHashStatus} from '../../utils/web3/BridgeWeb3'
+import {getErcBalance, HDsendERC20Txns, MMsendERC20Txns, getHashStatus, getWithdrawHashStatus} from '../../utils/web3/BridgeWeb3'
 import BridgeTokens from '../../contexts/BridgeTokens'
 
 import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/birdge/BTC'
@@ -538,6 +538,10 @@ const HashStatus = styled.div`
     border: 1px solid ${({ theme }) => theme.birdgeStateBorder1};
     background: ${({ theme }) => theme.birdgeStateBg1};
   }
+  &.red{
+    border: 1px solid ${({ theme }) => theme.birdgeStateBorder2};
+    background: ${({ theme }) => theme.birdgeStateBg2};
+  }
 `
 
 const CloseIcon = styled.div`
@@ -636,7 +640,7 @@ const SpinnerWrapper = styled(Spinner)`
 `
 
 const DEPOSIT_HISTORY = 'DEPOSIT_HISTORY'
-
+const WITHDRAW_HISTORY = 'WITHDRAW_HISTORY'
 function getInitialSwapState(state) {
   return {
     independentValue: state.exactFieldURL && state.exactAmountURL ? state.exactAmountURL : '', // this is a user input
@@ -652,7 +656,9 @@ function getInitialSwapState(state) {
       : state.initialCurrency
       ? state.initialCurrency
       : config.initBridge,
-    hashArr: sessionStorage.getItem('DEPOSIT_HISTORY') ? JSON.parse(sessionStorage.getItem('DEPOSIT_HISTORY')) : []
+    hashArr: sessionStorage.getItem('DEPOSIT_HISTORY') ? JSON.parse(sessionStorage.getItem('DEPOSIT_HISTORY')) : [],
+    withdrawArr: sessionStorage.getItem('WITHDRAW_HISTORY') && sessionStorage.getItem('WITHDRAW_HISTORY') !== 'undefined' ? JSON.parse(sessionStorage.getItem('WITHDRAW_HISTORY')) : [],
+    bridgeType: 'mint'
   }
 }
 function formatDecimal(num, decimal) {
@@ -718,7 +724,7 @@ function swapStateReducer(state, action) {
     case 'UPDATE_BREDGETYPE': {
       return {
         ...state,
-        bridgeType: action.payload ? action.payload : 'mint'
+        bridgeType: action.payload
       }
     }
     case 'UPDATE_SWAPREGISTER': {
@@ -776,6 +782,25 @@ function swapStateReducer(state, action) {
         ...state,
         hashArr: arr,
         hashCount: count
+      }
+    }
+    case 'UPDATE_WITHDRAW_STATUS': {
+      const { withdrawData,  type, NewHashCount } = action.payload
+      const { withdrawArr, withdrawCount } = state
+      if (!type) {
+        withdrawArr.push(withdrawData)
+      }
+      let arr = type ? withdrawData : withdrawArr
+      console.log(arr)
+      sessionStorage.setItem(WITHDRAW_HISTORY, JSON.stringify(arr))
+      let count = 0
+      if ((withdrawCount || withdrawCount === 0) && NewHashCount) {
+        count = withdrawCount + NewHashCount
+      }
+      return {
+        ...state,
+        withdrawArr: arr,
+        withdrawCount: count
       }
     }
     default: { //UPDATE_MINTINFOTYPE
@@ -852,6 +877,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     realyValue,
     hashArr,
     hashCount,
+    withdrawArr,
+    withdrawCount,
     redeemBigValMoreTime,
     depositBigValMoreTime
   } = swapState
@@ -908,7 +935,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [mintModelTitle, setMintModelTitle] = useState()
   const [mintModelTip, setMintModelTip] = useState()
   const [balanceError, setBalanceError] = useState()
-  const [depositNode, setDepositNode] = useState()
+  const [bridgeNode, setBridgeNode] = useState()
 
   function setInit (disabled) {
     setIsRedeem(true)
@@ -1082,7 +1109,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   useEffect(() => {
     getOutBalance()
-  }, [hashCount, hashArr, FSNBalance, inputBalance])
+  }, [hashCount, hashArr, FSNBalance, inputBalance,withdrawArr, withdrawCount])
 
   // console.log(FSNBalanceNum)
   // const outputBalance = useAddressBalance(account, outputCurrency)
@@ -1231,7 +1258,30 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
     })
   }
-  
+  function sendTxnsEnd (data, value, address) {
+    addTransaction(data)
+    dispatchSwapState({
+      type: 'UPDATE_WITHDRAW_STATUS',
+      payload: {
+        type: 0,
+        withdrawData: {
+          account: account,
+          coin: inputSymbol,
+          value: amountFormatter(value, inputDecimals, inputDecimals),
+          hash: data.hash,
+          from: account,
+          to: address,
+          status: 0,
+          timestamp: Date.now(),
+          swapHash: '',
+          swapStatus: '',
+          swapTime: '',
+          node: bridgeNode
+        }
+      }
+    })
+    cleanInput()
+  }
   function sendTxns () {
     if (inputSymbol === config.prefix + 'BTC' && !isBTCAddress(recipient.address)) {
       alert('Illegal address!')
@@ -1263,8 +1313,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       getWeb3BaseInfo(inputCurrency, inputCurrency, data, account).then(res => {
         if (res.msg === 'Success') {
           // console.log(res.info)
-          addTransaction(res.info)
-          cleanInput()
+          sendTxnsEnd(res.info, amountVal, address)
         } else {
           alert(res.error)
         }
@@ -1277,8 +1326,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       // console.log(amountVal)
       tokenETHContract.Swapout(amountVal, address).then(res => {
         // console.log(res)
-        addTransaction(res)
-        cleanInput()
+        // addTransaction(res)
+        // cleanInput()
+        sendTxnsEnd(res, amountVal, address)
         setIsHardwareTip(false)
       }).catch(err => {
         console.log(err)
@@ -1286,8 +1336,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       })
     } else {
       tokenContract.Swapout(amountVal, address).then(res => {
-        addTransaction(res)
-        cleanInput()
+        sendTxnsEnd(res, amountVal, address)
         setIsHardwareTip(false)
       }).catch(err => {
         console.log(err)
@@ -1338,7 +1387,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setIsHardwareTip(true)
       setMintSureBtn(false)
       // MintModelView()
-      HDsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, depositNode, inputCurrency).then(res => {
+      HDsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, bridgeNode, inputCurrency).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1357,7 +1406,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 swapHash: '',
                 swapStatus: '',
                 swapTime: '',
-                node: depositNode
+                node: bridgeNode
               }
             }
           })
@@ -1373,7 +1422,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       })
     } else {
       setMintSureBtn(false)
-      MMsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, depositNode, inputCurrency).then(res => {
+      MMsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, bridgeNode, inputCurrency).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           dispatchSwapState({
@@ -1392,7 +1441,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 swapHash: '',
                 swapStatus: '',
                 swapTime: '',
-                node: depositNode
+                node: bridgeNode
               }
             }
           })
@@ -1420,17 +1469,31 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [removeHashStatus, setRemoveHashStatus] = useState()
   function removeHash (index) {
     let arr = []
-    for (let i = 0, len = hashArr.length; i < len; i++) {
-      if (index === i) continue
-      arr.push(hashArr[i])
-    }
-    dispatchSwapState({
-      type: 'UPDATE_HASH_STATUS',
-      payload: {
-        type: 1,
-        hashData: arr,
+    if (bridgeType === 'redeem') {
+      for (let i = 0, len = withdrawArr.length; i < len; i++) {
+        if (index === i) continue
+        arr.push(withdrawArr[i])
       }
-    })
+      dispatchSwapState({
+        type: 'UPDATE_WITHDRAW_STATUS',
+        payload: {
+          type: 1,
+          withdrawData: arr,
+        }
+      })
+    } else {
+      for (let i = 0, len = hashArr.length; i < len; i++) {
+        if (index === i) continue
+        arr.push(hashArr[i])
+      }
+      dispatchSwapState({
+        type: 'UPDATE_HASH_STATUS',
+        payload: {
+          type: 1,
+          hashData: arr,
+        }
+      })
+    }
     setRemoveHashStatus(Date.now())
   }
 
@@ -1484,12 +1547,48 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
   }
 
+  function updateWithdrawStatus () {
+    if (withdrawArr.length > 0) {
+      for (let i = 0, len = withdrawArr.length; i < len; i ++) {
+        if (
+          !withdrawArr[i].swapStatus
+          || withdrawArr[i].swapStatus === 'confirming'
+          || withdrawArr[i].swapStatus === 'minting'
+        ) {
+          getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node).then(res => {
+            // console.log(res)
+            if (withdrawArr[res.index] && res.hash === withdrawArr[res.index].hash) {
+              if (withdrawArr[i].swapStatus === 'success') {
+                withdrawArr[res.index].status = 1
+              } else if (withdrawArr[i].swapStatus === 'failure' || withdrawArr[i].swapStatus === 'timeout') {
+                withdrawArr[res.index].status = 2
+              }
+              withdrawArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
+              withdrawArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
+              withdrawArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
+              dispatchSwapState({
+                type: 'UPDATE_WITHDRAW_STATUS',
+                payload: {
+                  type: 1,
+                  withdrawData: withdrawArr,
+                  withdrawCount: 1
+                }
+              })
+            }
+          })
+        }
+      }
+    }
+  }
+
   useEffect(() => {
     clearInterval(hashInterval)
     updateHashStatus()
+    updateWithdrawStatus()
     hashInterval = setInterval(() => {
       if (location.pathname.indexOf('bridge') !== -1) {
         updateHashStatus()
+        updateWithdrawStatus()
       } else {
         clearInterval(hashInterval)
       }
@@ -1541,6 +1640,44 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }).replace('ETH', 'FSN')}</dd>
       )
     }
+  }
+
+  function txnsList (arr, count) {
+    // console.log(arr)
+    return (
+      <MintHahshList key={count}>
+        <ul>
+          {arr.map((item, index) => {
+            if (item.account !== account) {
+              return ''
+            }
+            return (
+              <li key={count ? index + count : index}>
+                <FlexCneter>
+                  <TokenLogoBox address={item.coin} size={'2rem'}  onClick={() => {
+                    setMintDtil(item)
+                    setMintDtilView(true)
+                  }}/>
+                  <div
+                    className='del'
+                    onClick={() => {
+                      removeHash(index)
+                    }}
+                  >x</div>
+                </FlexCneter>
+              </li>
+            )
+          })}
+        </ul>
+        {/* {
+          hashArr.length > 0 ? (
+            <div onClick={() => {
+              removeHashArr()
+            }} className='delete'>x</div>
+          ) : ''
+        } */}
+      </MintHahshList>
+    )
   }
 
 
@@ -1679,7 +1816,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       ) : (
                         mintDtil.node && config.bridgeAll[mintDtil.node] && config.bridgeAll[mintDtil.node].lookHash ? (
                           <a href={config.bridgeAll[mintDtil.node].lookHash + mintDtil.hash} target="_blank" className='link'>{mintDtil.hash}</a>
-                        ) : ''
+                        ) : mintDtil.hash
                       )
                     }
                     <Copy toCopy={mintDtil.hash} />
@@ -1718,24 +1855,30 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     <span>{Number(mintDtil.value)} {mintDtil.coin}</span>
                   </DepositValue>
                 </FlexCneter>
-                <HashStatus className={
-                  mintDtil.status === 0 ? 'yellow' : 'green'
-                }>
-                  <div>
-                    <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
-                    {mintDtil.node === 0 ? 'Bitcoin ' : ''}
-                    {mintDtil.node === 1 || mintDtil.node === 4 ? 'Ethereum ' : ''}
-                    {mintDtil.node === 32659 || mintDtil.node === 46688 ? 'Fusion ' : ''}
-                    {t('txnsStatus')}
-                  </div>
-                  {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
-                  {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
-                  {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
-                </HashStatus>
+                {
+                  bridgeType && bridgeType === 'redeem' && mintDtil ? '' : (
+                    <>
+                      <HashStatus className={
+                        mintDtil.status === 0 ? 'yellow' : (mintDtil.status === 1 ? 'green' : 'red')
+                      }>
+                        <div>
+                          <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
+                          {mintDtil.node === 0 ? 'Bitcoin ' : ''}
+                          {mintDtil.node === 1 || mintDtil.node === 4 ? 'Ethereum ' : ''}
+                          {mintDtil.node === 32659 || mintDtil.node === 46688 ? 'Fusion ' : ''}
+                          {t('txnsStatus')}
+                        </div>
+                        {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
+                        {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
+                        {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
+                      </HashStatus>
+                    </>
+                  )
+                }
                 {
                   mintDtil.swapStatus ? (
                     <HashStatus className={
-                      mintDtil.swapStatus === 'confirming' || mintDtil.swapStatus === 'minting' ? 'yellow' : 'green'
+                      mintDtil.swapStatus === 'confirming' || mintDtil.swapStatus === 'minting' ? 'yellow' : (mintDtil.swapStatus === 'failure' || mintDtil.swapStatus === 'timeout' ? 'red' : 'green')
                     }>
                       <div>
                         <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
@@ -1768,8 +1911,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           :
           ''
       }
-
-      <MintHahshList key={hashCount}>
+      {bridgeType && bridgeType === 'redeem' ? txnsList(withdrawArr, withdrawCount) : txnsList(hashArr, hashCount)}
+      {/* <MintHahshList key={hashCount}>
         <ul>
           {hashArr.map((item, index) => {
             if (item.account !== account) {
@@ -1788,20 +1931,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       removeHash(index)
                     }}
                   >x</div>
-                  {/* <span className="txt"><FlexCneter>Waiting for deposit</FlexCneter></span> */}
                 </FlexCneter>
               </li>
             )
           })}
         </ul>
-        {/* {
-          hashArr.length > 0 ? (
-            <div onClick={() => {
-              removeHashArr()
-            }} className='delete'>x</div>
-          ) : ''
-        } */}
-      </MintHahshList>
+      </MintHahshList> */}
       
       <NavTabBox>
         <TitleBoxPool>{t('bridge')}</TitleBoxPool>
@@ -2132,7 +2267,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 <>
                   {bridgeType && bridgeType === 'redeem' ? (
                     <Button
-                      disabled={ isRedeemBtn }
+                      // disabled={ isRedeemBtn }
                       onClick={() => {
                         sendTxns()
                       }}
@@ -2164,9 +2299,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                           getBTCtxns()
                         } else {
                           if (extendObj.FSN && extendObj.FSN.isSwitch) {
-                            setDepositNode(extendObj.FSN.type)
+                            setBridgeNode(extendObj.FSN.type)
                           } else if (extendObj.ETH && extendObj.ETH.isSwitch) {
-                            setDepositNode(extendObj.ETH.type)
+                            setBridgeNode(extendObj.ETH.type)
                           }
                           setMintSureBtn(true)
                           setHardwareTxnsInfo(inputValueFormatted + ' ' + inputSymbol.replace(config.prefix, ''))
