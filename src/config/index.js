@@ -80,30 +80,28 @@ let bridge = {
     lookHash: ETH_TEST_EXPLORER + '/tx/',
     isOpen: 0
   },
+  32659: {
+    rpc: FSN_MAINNET,
+    chainID: FSN_MAIN_CHAINID,
+    lookHash: FSN_MAIN_EXPLORER + '/transaction/',
+    isOpen: 1
+  },
+  56: {
+    rpc: BNB_MAINNET,
+    chainID: BNB_MAIN_CHAINID,
+    lookHash: BNB_MAIN_EXPLORER + '/tx/',
+    isOpen: 0
+  },
+  1: {
+    rpc: ETH_MAINNET,
+    chainID: ETH_MAIN_CHAINID,
+    lookHash: ETH_MAIN_EXPLORER + '/tx/',
+    isOpen: 1
+  },
 }
 if (netArr[1].toLowerCase() === 'main') {
   reg = {
     [COIN.BTC]: /^[13][0-9a-zA-Z]{26,34}$/
-  }
-  bridge = {
-    32659: {
-      rpc: FSN_MAINNET,
-      chainID: FSN_MAIN_CHAINID,
-      lookHash: FSN_MAIN_EXPLORER + '/transaction/',
-      isOpen: 1
-    },
-    56: {
-      rpc: BNB_MAINNET,
-      chainID: BNB_MAIN_CHAINID,
-      lookHash: BNB_MAIN_EXPLORER + '/tx/',
-      isOpen: 0
-    },
-    1: {
-      rpc: ETH_MAINNET,
-      chainID: ETH_MAIN_CHAINID,
-      lookHash: ETH_MAIN_EXPLORER + '/tx/',
-      isOpen: 1
-    },
   }
 }
 const dirSwitchFn = (type) => {

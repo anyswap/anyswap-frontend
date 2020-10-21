@@ -1683,38 +1683,45 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   function txnsListDtil () {
     if (!mintDtil || !mintDtil.hash) return ''
-    let hashCurObj = {
-      hash: mintDtil.hash,
-      url: config.bridgeAll[mintDtil.node].lookHash + mintDtil.hash
-    }
-    let hashOutObj = {
-      hash: mintDtil.swapHash,
-      url: config.bridgeAll[chainId].lookHash + mintDtil.swapHash
-    }
-    if (mintDtil.coin.indexOf('BTC') !== -1) {
-      hashCurObj = {
-        hash: mintDtil.hash,
-        url: config.btcConfig.lookHash + mintDtil.hash
-      }
-    }
+    console.log(mintDtil)
+    let hashCurObj = {}
+    let hashOutObj = {}
     if (bridgeType === 'redeem') {
       hashCurObj = {
         hash: mintDtil.hash,
         url: config.bridgeAll[chainId].lookHash + mintDtil.hash
-      }
-      hashOutObj = {
-        hash: mintDtil.swapHash,
-        url: config.bridgeAll[mintDtil.node].lookHash + mintDtil.swapHash
       }
       if (mintDtil.coin.indexOf('BTC') !== -1) {
         hashOutObj = {
           hash: mintDtil.swapHash,
           url: config.btcConfig.lookHash + mintDtil.hash
         }
+      } else {
+        hashOutObj = {
+          hash: mintDtil.swapHash,
+          url: config.bridgeAll[mintDtil.node].lookHash + mintDtil.swapHash
+        }
+      }
+    } else {
+      hashOutObj = {
+        hash: mintDtil.swapHash,
+        url: config.bridgeAll[chainId].lookHash + mintDtil.swapHash
+      }
+      if (mintDtil.coin.indexOf('BTC') !== -1) {
+        hashCurObj = {
+          hash: mintDtil.hash,
+          url: config.btcConfig.lookHash + mintDtil.hash
+        }
+      } else {
+        hashCurObj = {
+          hash: mintDtil.hash,
+          url: config.bridgeAll[mintDtil.node].lookHash + mintDtil.hash
+        }
       }
     }
+    console.log(hashOutObj)
     let outNodeName = '', curNodeName = ''
-    if (mintDtil.node === 0) {
+    if (!mintDtil.node) {
       outNodeName = 'Bitcoin'
     } else if (mintDtil.node === 1 || mintDtil.node === 4) {
       outNodeName = 'Ethereum'
