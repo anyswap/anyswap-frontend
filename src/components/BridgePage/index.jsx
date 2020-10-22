@@ -885,9 +885,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
 
   const [recipient, setRecipient] = useState({
-    address: initialRecipient(),
+    address: '',
     name: ''
   })
+  const [recipientCount, setRecipientCount] = useState(0)
+
+  useEffect(() => {
+    let count = recipientCount + 1
+    setRecipientCount(count)
+  }, [inputCurrency, bridgeType])
+
 
   // get swap type from the currency types
   // const swapType = getSwapType(inputCurrency, outputCurrency)
@@ -1063,6 +1070,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setInit('')
     }
   }, [inputCurrency, account, initDepositAddress, initIsDeposit, initDepositMaxNum, initDepositMinNum, initIsRedeem, initRedeemMaxNum, initRedeemMinNum, initMaxFee, initMinFee, initFee, inputSymbol])
+
 
   const [outNetBalance, setOutNetBalance] = useState()
   const [outNetETHBalance, setOutNetETHBalance] = useState()
@@ -1683,7 +1691,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   function txnsListDtil () {
     if (!mintDtil || !mintDtil.hash) return ''
-    console.log(mintDtil)
+    // console.log(mintDtil)
     let hashCurObj = {}
     let hashOutObj = {}
     if (bridgeType === 'redeem') {
@@ -1694,7 +1702,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       if (mintDtil.coin.indexOf('BTC') !== -1) {
         hashOutObj = {
           hash: mintDtil.swapHash,
-          url: config.btcConfig.lookHash + mintDtil.hash
+          url: config.btcConfig.lookHash + mintDtil.swapHash
         }
       } else {
         hashOutObj = {
@@ -1719,7 +1727,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       }
     }
-    console.log(hashOutObj)
+    // console.log(hashOutObj)
     let outNodeName = '', curNodeName = ''
     if (!mintDtil.node) {
       outNodeName = 'Bitcoin'
@@ -1747,14 +1755,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     )
     let outStatus = (
       <HashStatus className={
-        mintDtil.status === 0 ? 'yellow' : (mintDtil.status === 1 ? 'green' : 'red')
+        !mintDtil.status ? 'yellow' : (mintDtil.status === 1 ? 'green' : 'red')
       }>
         <div>
           <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
-          {outNodeName}
-          {t('txnsStatus')}
+          {outNodeName + ' ' + t('txnsStatus')}
         </div>
-        {mintDtil.status === 0 ? (<span className='green'>Pending</span>) : ''}
+        {!mintDtil.status ? (<span className='green'>{bridgeType === 'redeem' ? 'Redeeming' : 'Pending'}</span>) : ''}
         {mintDtil.status === 1 ? (<span className='green'>Success</span>) : ''}
         {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
       </HashStatus>
@@ -1807,7 +1814,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           </DepositValue>
         </FlexCneter>
         {
-          bridgeType && bridgeType === 'redeem' && mintDtil ? '' : outStatus
+          bridgeType && bridgeType === 'redeem' ? '' : outStatus
         }
         {
           mintDtil.swapStatus ? (
@@ -1816,15 +1823,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             }>
               <div>
                 <img src={ScheduleIcon} alt='' style={{marginRight: '10px'}}/>
-                {curNodeName}
-                {t('txnsStatus')}
+                {curNodeName + ' ' + t('txnsStatus')}
               </div>
               <span style={{textTransform: 'Capitalize'}}>{mintDtil.swapStatus}</span>
             </HashStatus>
           ) : ''
         }
         {
-          bridgeType && bridgeType === 'redeem' && mintDtil.status ? outStatus : ''
+          bridgeType && bridgeType === 'redeem' ? outStatus : ''
         }
       </MintDiv>
     )
@@ -2230,7 +2236,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       {bridgeType && bridgeType === 'redeem' ? (
         <>
-          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false}/>
+          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false} changeCount={recipientCount}/>
         </>
       ) : (
         inputSymbol ===  (config.prefix + 'BTC') && account && registerAddress ? (

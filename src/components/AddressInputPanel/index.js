@@ -112,7 +112,7 @@ const CloseColor = styled(Close)`
   }
 `
 
-export default function AddressInputPanel({ title, initialInput = '', onChange = () => {}, onError = () => {}, isValid = false, disabled = false, isShowTip = true }) {
+export default function AddressInputPanel({ title, initialInput = '', onChange = () => {}, onError = () => {}, isValid = false, disabled = false, isShowTip = true, changeCount }) {
   const { t } = useTranslation()
 
   const { library } = useWeb3React()
@@ -129,6 +129,12 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
   useEffect(() => {
     onChange({ address: data.address, name: data.name })
   }, [onChange, data.address, data.name])
+
+  useEffect(() => {
+    onChange({ address: '', name: ''})
+    setInput('')
+  }, [onChange, changeCount])
+
   useEffect(() => {
     onError(error)
   }, [onError, error])
