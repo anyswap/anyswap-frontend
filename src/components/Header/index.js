@@ -138,10 +138,14 @@ export default function Header() {
   const [isDark, toggleDarkMode] = useDarkModeManager()
   function openUrl () {
     if (config.symbol === 'FSN') {
-      window.open(config.BSCmainUrl)
+      // window.open(config.BSCmainUrl)
+      localStorage.setItem('ENV_CONFIG', 'BNB_MAIN')
     } else {
-      window.open(config.FSNmainUrl)
+      // window.open(config.FSNmainUrl)
+      localStorage.setItem('ENV_CONFIG', 'FSN_MAIN')
     }
+    // console.log(localStorage.getItem('ENV_CONFIG'))
+    history.go(0)
   }
   return (
     <HeaderFrame>

@@ -604,7 +604,7 @@ font-family: 'Manrope';
   height: 30px;
   padding: 0 10px;
   border-radius: 6px;
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.CommingSoon};
   position:absolute;
   margin-left: -60px;
   left: 50%;

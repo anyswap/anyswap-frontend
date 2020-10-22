@@ -641,7 +641,24 @@ const SpinnerWrapper = styled(Spinner)`
 
 const DEPOSIT_HISTORY = 'DEPOSIT_HISTORY'
 const WITHDRAW_HISTORY = 'WITHDRAW_HISTORY'
+function isArray(o){
+  return Object.prototype.toString.call(o) === '[object Array]'
+}
 function getInitialSwapState(state) {
+  let wdInit = sessionStorage.getItem('WITHDRAW_HISTORY') && sessionStorage.getItem('WITHDRAW_HISTORY') !== 'undefined' ? JSON.parse(sessionStorage.getItem('WITHDRAW_HISTORY')) : {}
+  let wdArr = []
+  if (isArray(wdInit)) {
+    wdArr = wdInit
+  } else {
+    wdArr = wdInit[config.chainID] ? wdInit[config.chainID] : []
+  }
+  let dpInit = sessionStorage.getItem('DEPOSIT_HISTORY') && sessionStorage.getItem('DEPOSIT_HISTORY') !== 'undefined' ? JSON.parse(sessionStorage.getItem('DEPOSIT_HISTORY')) : {}
+  let dpArr = []
+  if (isArray(dpInit)) {
+    dpArr = dpInit
+  } else {
+    dpArr = dpInit[config.chainID] ? dpInit[config.chainID] : []
+  }
   return {
     independentValue: state.exactFieldURL && state.exactAmountURL ? state.exactAmountURL : '', // this is a user input
     dependentValue: '', // this is a calculated number
@@ -656,8 +673,10 @@ function getInitialSwapState(state) {
       : state.initialCurrency
       ? state.initialCurrency
       : config.initBridge,
-    hashArr: sessionStorage.getItem('DEPOSIT_HISTORY') ? JSON.parse(sessionStorage.getItem('DEPOSIT_HISTORY')) : [],
-    withdrawArr: sessionStorage.getItem('WITHDRAW_HISTORY') && sessionStorage.getItem('WITHDRAW_HISTORY') !== 'undefined' ? JSON.parse(sessionStorage.getItem('WITHDRAW_HISTORY')) : [],
+    // hashArr: sessionStorage.getItem('DEPOSIT_HISTORY') ? JSON.parse(sessionStorage.getItem('DEPOSIT_HISTORY')) : [],
+    // withdrawArr: sessionStorage.getItem('WITHDRAW_HISTORY') && sessionStorage.getItem('WITHDRAW_HISTORY') !== 'undefined' ? JSON.parse(sessionStorage.getItem('WITHDRAW_HISTORY')) : [],
+    hashArr: dpArr,
+    withdrawArr: wdArr,
     bridgeType: 'mint'
   }
 }
@@ -671,6 +690,8 @@ function formatDecimal(num, decimal) {
   }
   return parseFloat(num).toFixed(decimal)
 }
+
+
 function swapStateReducer(state, action) {
   switch (action.type) {
     case 'FLIP_INDEPENDENT': {
@@ -773,7 +794,15 @@ function swapStateReducer(state, action) {
         hashArr.push(hashData)
       }
       let arr = type ? hashData : hashArr
-      sessionStorage.setItem(DEPOSIT_HISTORY, JSON.stringify(arr))
+      let initObj = sessionStorage.getItem(DEPOSIT_HISTORY) ? JSON.parse(sessionStorage.getItem(DEPOSIT_HISTORY)) : {}
+      let obj = {}
+      if (isArray(initObj)) {
+        obj[config.chainID] = arr
+      } else {
+        obj = initObj
+        obj[config.chainID] = arr
+      }
+      sessionStorage.setItem(DEPOSIT_HISTORY, JSON.stringify(obj))
       let count = 0
       if ((hashCount || hashCount === 0) && NewHashCount) {
         count = hashCount + NewHashCount
@@ -791,8 +820,16 @@ function swapStateReducer(state, action) {
         withdrawArr.push(withdrawData)
       }
       let arr = type ? withdrawData : withdrawArr
-      console.log(arr)
-      sessionStorage.setItem(WITHDRAW_HISTORY, JSON.stringify(arr))
+      let initObj = sessionStorage.getItem(WITHDRAW_HISTORY) ? JSON.parse(sessionStorage.getItem(WITHDRAW_HISTORY)) : {}
+      let obj = {}
+      if (isArray(initObj)) {
+        obj[config.chainID] = arr
+      } else {
+        obj = initObj
+        obj[config.chainID] = arr
+      }
+      console.log(obj)
+      sessionStorage.setItem(WITHDRAW_HISTORY, JSON.stringify(obj))
       let count = 0
       if ((withdrawCount || withdrawCount === 0) && NewHashCount) {
         count = withdrawCount + NewHashCount
@@ -1282,9 +1319,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           status: 0,
           timestamp: Date.now(),
           swapHash: '',
-          swapStatus: '',
+          swapStatus: 'pending',
           swapTime: '',
-          node: node
+          node: node,
+          chainID: config.chainID
         }
       }
     })
@@ -1414,7 +1452,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 swapHash: '',
                 swapStatus: '',
                 swapTime: '',
-                node: bridgeNode
+                node: bridgeNode,
+                chainID: config.chainID
               }
             }
           })
@@ -1449,7 +1488,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 swapHash: '',
                 swapStatus: '',
                 swapTime: '',
-                node: bridgeNode
+                node: bridgeNode,
+                chainID: config.chainID
               }
             }
           })
@@ -1509,9 +1549,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   function updateHashStatus () {
     if (hashArr.length > 0) {
       for (let i = 0, len = hashArr.length; i < len; i ++) {
+        if (hashArr[i].chainID && hashArr[i].chainID !== config.chainID) continue
         if (
           !hashArr[i].status
           || !hashArr[i].swapStatus
+          || hashArr[i].swapStatus === 'pending'
           || hashArr[i].swapStatus === 'confirming'
           || hashArr[i].swapStatus === 'minting'
         ) {
@@ -1558,9 +1600,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   function updateWithdrawStatus () {
     if (withdrawArr.length > 0) {
       for (let i = 0, len = withdrawArr.length; i < len; i ++) {
+        if (withdrawArr[i].chainID && withdrawArr[i].chainID !== config.chainID) continue
         if (
           !withdrawArr[i].status
           || !withdrawArr[i].swapStatus
+          || withdrawArr[i].swapStatus === 'pending'
           || withdrawArr[i].swapStatus === 'confirming'
           || withdrawArr[i].swapStatus === 'minting'
         ) {
@@ -1573,7 +1617,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               // }
               withdrawArr[res.index].status = res.status ? res.status : 0
               withdrawArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
-              withdrawArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
+              withdrawArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : 'pending'
               withdrawArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
               dispatchSwapState({
                 type: 'UPDATE_WITHDRAW_STATUS',
@@ -1830,7 +1874,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           ) : ''
         }
         {
-          bridgeType && bridgeType === 'redeem' ? outStatus : ''
+          bridgeType && bridgeType === 'redeem' && mintDtil.swapStatus === 'success' ? outStatus : ''
         }
       </MintDiv>
     )

@@ -137,6 +137,8 @@ const theme = darkMode => ({
   bgColor: darkMode ? 'rgba(0,0,0,0.1)' : white,
   bgColorLinear: 'linear-gradient(to right, #734ce2 , #606bfb)',
 
+  CommingSoon: darkMode ? 'rgba(0,0,0,0.6)' : '#f5f5f5',
+
   // grays
   concreteGray: darkMode ? '#363d5f' : '#FAFAFA',
   mercuryGray: darkMode ? '#333333' : '#E1E1E1',

@@ -342,7 +342,7 @@ font-family: 'Manrope';
   height: 30px;
   padding: 0 8px;
   border-radius: 6px;
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.CommingSoon};
   white-space: nowrap;
 `
 

@@ -57,13 +57,11 @@ export function getSwapoutHashStatus (hash, coin) {
     GetTxnStatusAPI(hash, coin, 'getWithdrawHashStatus').then(res => {
       // console.log(res)
       if (res) {
-        let statusType = '', status = res.status, outStatus = 0
+        let statusType = 'pending', status = res.status, outStatus = 0
         if ([0, 5].includes(status)) {
           statusType = 'confirming'
-        } else if ([8].includes(status)) {
+        } else if ([8, 9].includes(status)) {
           statusType = 'success' // fusionsuccess
-        } else if ([9].includes(status)) {
-          statusType = 'redeeming'
         } else if ([10].includes(status)) {
           outStatus = 1
           statusType = 'success' // outnetsuccess
@@ -73,6 +71,8 @@ export function getSwapoutHashStatus (hash, coin) {
         } else if ([20].includes(status)) {
           outStatus = 2
           statusType = 'timeout'
+        } else {
+          statusType = 'pending'
         }
         resolve({
           status: outStatus,
