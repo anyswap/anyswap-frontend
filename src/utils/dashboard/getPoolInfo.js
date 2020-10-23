@@ -117,6 +117,7 @@ export function getPoolInfo (arr) {
           arr[i].market = market
         }
       }
+      // console.log(arr)
       resolve(arr)
     }).catch(err => {
       console.log(err)

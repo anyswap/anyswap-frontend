@@ -49,10 +49,11 @@ export function getDashBoards (arr) {
     let exchangeContract = new web3.eth.Contract(EXCHANGE_ABI)
     let tokenContract = new web3.eth.Contract(ERC20_ABI)
     const batch = new web3.BatchRequest()
-    let count = 0, time = Date.now()
+    let count = 0, time = Date.now(), count2 = 0
     for (let i = 0, len = arr.length; i < len; i++) {
       let obj = arr[i]
       if (!obj.exchangeAddress || obj.exchangeAddress.indexOf('0x') !== 0) continue
+      count2 ++
       // totalSupply
       exchangeContract.options.address = obj.exchangeAddress
       let tsData = exchangeContract.methods.totalSupply().encodeABI()
@@ -120,20 +121,23 @@ export function getDashBoards (arr) {
     batch.execute()
   
     let getDataIntervel = setInterval(() => {
-      if (count >= 4 && ( (Date.now() - time) <= 60000 )) {
+      if (count >= (4 * count2) && ( (Date.now() - time) <= 60000 )) {
         // console.log(arr)
         for (let i = 0, len = arr.length; i < len; i++) {
           let obj = arr[i]
           let poolTokenPercentage = ethers.utils.bigNumberify(0)
           let balance = ethers.utils.bigNumberify(0), Basebalance = 0, market = ethers.utils.bigNumberify(0)
+          // console.log(obj.exchangeTokenBalancem)
           if (Number(obj.supply) && Number(obj.exchangeTokenBalancem)) {
             poolTokenPercentage = obj.poolTokenBalance.mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))).div(obj.supply)
             if (Number(obj.exchangeTokenBalancem)) {
               balance = obj.exchangeTokenBalancem.mul(poolTokenPercentage).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
             }
+            // console.log(obj.exchangeETHBalance.toString())
             if (Number(obj.exchangeETHBalance)) {
               Basebalance = obj.exchangeETHBalance.mul(poolTokenPercentage).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
               market = getMarketRate(obj.exchangeETHBalance, obj.exchangeTokenBalancem, obj.decimals)
+              // console.log(market.toString())
             }
           }
           // console.log(poolTokenPercentage)
