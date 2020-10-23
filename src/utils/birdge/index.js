@@ -1,8 +1,8 @@
 import axios from 'axios'
 import config from '../../config'
-function GetTxnStatusAPI (hash, coin, api) {
+function GetTxnStatusAPI (hash, coin, api, account) {
   return new Promise(resolve => {
-    let url = config.serverInfoUrl + '/' + api + '/' + hash + '/' + config.chainID + '/' + coin
+    let url = config.serverInfoUrl + '/' + api + '/' + account + '/' + hash + '/' + config.chainID + '/' + coin
     // console.log(url)
     axios.get(url).then(res => {
       // console.log(res)
@@ -31,11 +31,11 @@ function getStatus (status) {
   return statusType
 }
 
-export function getChainHashStatus (hash, coin) {
+export function getChainHashStatus (hash, coin, account) {
   // console.log(coin)
   return new Promise(resolve => {
     // let symbol = coin
-    GetTxnStatusAPI(hash, coin, 'getHashStatus').then(res => {
+    GetTxnStatusAPI(hash, coin, 'getHashStatus', account).then(res => {
       // console.log(res)
       if (res) {
         resolve({
@@ -50,11 +50,11 @@ export function getChainHashStatus (hash, coin) {
   })
 }
 
-export function getSwapoutHashStatus (hash, coin) {
+export function getSwapoutHashStatus (hash, coin, account) {
   // console.log(coin)
   return new Promise(resolve => {
     // let symbol = coin
-    GetTxnStatusAPI(hash, coin, 'getWithdrawHashStatus').then(res => {
+    GetTxnStatusAPI(hash, coin, 'getWithdrawHashStatus', account).then(res => {
       // console.log(res)
       if (res) {
         let statusType = 'pending', status = res.status, outStatus = 0

@@ -1575,7 +1575,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               }
             })
           } else {
-            getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].node).then(res => {
+            getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].node, account).then(res => {
               if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
                 hashArr[res.index].status = res.status
                 hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
@@ -1608,7 +1608,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || withdrawArr[i].swapStatus === 'confirming'
           || withdrawArr[i].swapStatus === 'minting'
         ) {
-          getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node).then(res => {
+          getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node, account).then(res => {
             // console.log(res)
             if (withdrawArr[res.index] && res.hash === withdrawArr[res.index].hash) {
               // if (withdrawArr[i].swapStatus === 'success') {
@@ -1635,6 +1635,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
 
   useEffect(() => {
+    if (!account) return
     clearInterval(hashInterval)
     updateHashStatus()
     updateWithdrawStatus()
@@ -1646,7 +1647,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         clearInterval(hashInterval)
       }
     }, 1000 * 50)
-  }, [removeHashStatus])
+  }, [removeHashStatus, account])
   const [mintBTCErrorTip, setMintBTCErrorTip] = useState()
   const [loadingState, setLoadingState] = useState(false)
   function getBTCtxns () {
