@@ -26,6 +26,7 @@ import {
 } from './coinbase/nodeConfig'
 
 const ENV_CONFIG = localStorage.getItem('ENV_CONFIG') ? localStorage.getItem('ENV_CONFIG') : 'FSN_MAIN'
+// const ENV_CONFIG = localStorage.getItem('ENV_CONFIG') ? localStorage.getItem('ENV_CONFIG') : 'BNB_MAIN'
 // console.log(localStorage.getItem('ENV_CONFIG'))
 // const ENV_CONFIG = 'BNB_MAIN'
 // const ENV_CONFIG = 'FSN_MAIN'

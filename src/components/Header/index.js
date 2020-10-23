@@ -11,6 +11,7 @@ import { useDarkModeManager } from '../../contexts/LocalStorage'
 
 import config from '../../config'
 import {ReactComponent as ANYLogo} from '../../assets/images/logo.svg'
+import {ReactComponent as ANYLogoNight} from '../../assets/images/logo-white.svg'
 import ArrowRighrPurpleIcon from '../../assets/images/icon/arrowRighr-purple.svg'
 import IconDay from '../../assets/images/icon/day.svg'
 import IconNight from '../../assets/images/icon/night.svg'
@@ -41,6 +42,9 @@ const HeaderSpan = styled.span`
 `
 
 const StyleAnyLogo = styled(ANYLogo)`
+  height: 100%;
+`
+const StyleAnyNightLogo = styled(ANYLogoNight)`
   height: 100%;
 `
 
@@ -151,7 +155,13 @@ export default function Header() {
     <HeaderFrame>
       <HeaderSpan>
         <HeaderElement>
-          <StyleAnyLogo></StyleAnyLogo>
+          {
+            isDark ? (
+              <StyleAnyNightLogo></StyleAnyNightLogo>
+            ) : (
+              <StyleAnyLogo></StyleAnyLogo>
+            )
+          }
         </HeaderElement>
         <HeaderElement>
           <NetworkBox>
