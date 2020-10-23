@@ -121,7 +121,7 @@ const TEST_CONFIG = {
     [COIN.USDT]: {url: 'https://testusdtapi.anyswap.exchange/rpc'},
   },
   initToken: INIT_TEST_TOKEN,
-  initBridge: '0x3368e6012066bc08ece5f2b2582c883cca1424e5',
+  initBridge: '0x67198ea7208d00864a36bcf9c98a6352b2941de9',
   explorerUrl: FSN_TEST_EXPLORER,
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btcConfig: {

@@ -25,13 +25,13 @@ import {
   ETH_TEST_EXPLORER
 } from './coinbase/nodeConfig'
 
-const ENV_CONFIG = localStorage.getItem('ENV_CONFIG') ? localStorage.getItem('ENV_CONFIG') : 'FSN_MAIN'
+// const ENV_CONFIG = localStorage.getItem('ENV_CONFIG') ? localStorage.getItem('ENV_CONFIG') : 'FSN_MAIN'
 // const ENV_CONFIG = localStorage.getItem('ENV_CONFIG') ? localStorage.getItem('ENV_CONFIG') : 'BNB_MAIN'
 // console.log(localStorage.getItem('ENV_CONFIG'))
 // const ENV_CONFIG = 'BNB_MAIN'
 // const ENV_CONFIG = 'FSN_MAIN'
 // const ENV_CONFIG = 'BNB_TEST'
-// const ENV_CONFIG = 'FSN_TEST'
+const ENV_CONFIG = 'FSN_TEST'
 
 
 let netArr = ENV_CONFIG.split('_')
@@ -118,6 +118,10 @@ const dirSwitchFn = (type) => {
 }
 // console.log(bridge[useBridge])
 // console.log(useBridge)
+let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
+if (netArr[1].toLowerCase() === 'test') {
+  serverInfoUrl = 'https://testbridgeapi.anyswap.exchange/v2'
+}
 export default {
   ...netConfig,
   ...COIN,
@@ -132,6 +136,7 @@ export default {
   bridge: bridge[useBridge],
   bridgeType: useBridge,
   // serverInfoUrl: 'http://localhost:8107',
-  serverInfoUrl: 'https://bridgeapi.anyswap.exchange',
+  // serverInfoUrl: 'https://bridgeapi.anyswap.exchange',
+  serverInfoUrl: serverInfoUrl,
   dirSwitchFn
 }

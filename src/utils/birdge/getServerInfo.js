@@ -117,56 +117,6 @@ export function removeRegisterInfo (account, token) {
   }
 }
 
-function getCoinInfo (url, account, token) {
-  return new Promise(resolve => {
-    let data = {
-      msg: 'Error',
-      info: ''
-    }
-    let bridgeData = {}
-    axios.post(url, {
-      id:0,
-      jsonrpc:"2.0",
-      method:"swap.GetServerInfo",
-      params:[]
-    }).then((res) => {
-      if(res.status === 200){
-        data = {
-          msg: 'Success',
-          info: res.data.result
-        }
-        let dObj = res.data.result.SrcToken, // 充值信息
-            rObj = res.data.result.DestToken // 提现信息
-        bridgeData = {
-          depositAddress: dObj.DepositAddress,
-          PlusGasPricePercentage: dObj.PlusGasPricePercentage,
-          isDeposit: !dObj.DisableSwap ? 1 : 0,
-          depositMaxNum: dObj.MaximumSwap,
-          depositMinNum: dObj.MinimumSwap,
-          depositBigValMoreTime: dObj.BigValueThreshold,
-          outnetToken: dObj.ContractAddress,
-          dcrmAddress: dObj.DcrmAddress,
-          isRedeem: !rObj.DisableSwap ? 1 : 0,
-          redeemMaxNum: rObj.MaximumSwap,
-          redeemMinNum: rObj.MinimumSwap,
-          maxFee: rObj.MaximumSwapFee,
-          minFee: rObj.MinimumSwapFee,
-          fee: rObj.SwapFeeRate,
-          redeemBigValMoreTime: rObj.BigValueThreshold,
-          token: rObj.ContractAddress,
-          p2pAddress: getRegisterInfo(account, token).p2pAddress
-        }
-        setLocalConfig(account, token, bridgeData)
-      }
-      resolve(data)
-    }).catch(err => {
-      console.log(err)
-      data.error = err
-      resolve(data)
-    })
-  })
-}
-
 function setLocalinfo (account, res) {
   let dObj = res.SrcToken, // 充值信息
       rObj = res.DestToken // 提现信息
@@ -189,6 +139,7 @@ function setLocalinfo (account, res) {
     token: rObj.ContractAddress,
     p2pAddress: getRegisterInfo(account, rObj.ContractAddress).p2pAddress
   }
+  // console.log(rObj.ContractAddress)
   setLocalConfig(account, rObj.ContractAddress, bridgeData)
 }
 
@@ -212,6 +163,7 @@ function getServerData (account, chainID) {
           // console.log(obj)
           setLocalinfo(account, serverData[obj])
         }
+        // console.log(sessionStorage.getItem(SERVER_BRIDGE_CONFIG))
       }
       resolve(data)
     }).catch(err => {

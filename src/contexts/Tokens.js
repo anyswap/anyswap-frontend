@@ -802,7 +802,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
-    '0x3368e6012066bc08ece5f2b2582c883cca1424e5': { // USDT
+    '0x67198ea7208d00864a36bcf9c98a6352b2941de9': { // USDT
       [NAME]: 'ANY Tether',
       [SYMBOL]: 'aUSDT',
       [DECIMALS]: 6,
@@ -815,7 +815,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x06CAdD991f2EC8e156c0Ae66116C5604fdCdC5b5',
+      [DEPOSIT_ADDRESS]: '0x801372C03D571eC2114191bd94bbEDd794457924',
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
@@ -826,7 +826,7 @@ export const INITIAL_TOKENS_CONTEXT = {
         }
       }
     },
-    '0xb22ab4fb2fed7564915c2356d15ba9bab51953a2': { // ETH
+    '0xbe7da13819d99af2c67aeeb77300dd209efc25d3': { // ETH
       [NAME]: 'ANY Ethereum',
       [SYMBOL]: 'aETH',
       [DECIMALS]: 18,
@@ -839,7 +839,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x06CAdD991f2EC8e156c0Ae66116C5604fdCdC5b5',
+      [DEPOSIT_ADDRESS]: '0x801372C03D571eC2114191bd94bbEDd794457924',
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,

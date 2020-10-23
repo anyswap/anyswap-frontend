@@ -830,14 +830,14 @@ export default {
     },
     'USDT': {
       [NAME]: 'ANY Tether',
-      [TOKEN]: '0x3368e6012066bc08ece5f2b2582c883cca1424e5',
+      [TOKEN]: '0x67198ea7208d00864a36bcf9c98a6352b2941de9',
       [SYMBOL]: 'USDT',
       [DECIMALS]: 6,
       [EXCHANGE_ADDRESS]: '0xe7fcfac393216739267f46b35b81e2e0fcea3448'
     },
     'ETH': {
       [NAME]: 'ANY Ethereum',
-      [TOKEN]: '0xb22ab4fb2fed7564915c2356d15ba9bab51953a2',
+      [TOKEN]: '0xbe7da13819d99af2c67aeeb77300dd209efc25d3',
       [SYMBOL]: 'ETH',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xd7c2a32e474da50dd117670edb95fa4109670880'
