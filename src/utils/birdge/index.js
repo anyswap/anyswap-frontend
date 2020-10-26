@@ -2,7 +2,10 @@ import axios from 'axios'
 import config from '../../config'
 function GetTxnStatusAPI (hash, coin, api, account) {
   return new Promise(resolve => {
-    let url = config.serverInfoUrl + '/' + api + '/' + account + '/' + hash + '/' + config.chainID + '/' + coin
+    let url = config.serverInfoUrl + '/' + api + '/' + hash + '/' + config.chainID + '/' + coin
+    if (config.env === 'test') {
+      url = config.serverInfoUrl + '/' + api + '/' + account + '/' + hash + '/' + config.chainID + '/' + coin
+    }
     // console.log(url)
     axios.get(url).then(res => {
       // console.log(res)

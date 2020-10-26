@@ -51,10 +51,10 @@ const SubCurrencySelect = styled.button`
   user-select: none;
   background: #734be2;
   border: #734be2;
-  color: #fff;
+  color: ${({ theme }) => theme.inputBackground};
 
   &.otherView {
-    background:#fff;
+    background:${({ theme }) => theme.bgColor};
     color: ${({ theme }) => theme.textColorBold}
   }
 `

@@ -44,18 +44,13 @@ function getNodeRpc (node) {
 }
 
 // const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
-// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x421d35f8f8fd822f898e75db43f057f7ea448298') // FSN-test
+// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
+// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x421d35f8f8fd822f898e75db43f057f7ea448298') // FSN-test
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
 // setTimeout(() => {
 
-//   factory.methods.getExchange('0x67198ea7208d00864a36bcf9c98a6352b2941de9').call((err, res) => {
+//   factory.methods.getExchange('0x20dd2f2bfa4ce3eaec5f57629583dad8a325872a').call((err, res) => {
 //     console.log('USDT')
-//     console.log(err)
-//     console.log(res)
-//   })
-//   factory.methods.getExchange('0xbe7da13819d99af2c67aeeb77300dd209efc25d3').call((err, res) => {
-//     console.log('ETH')
 //     console.log(err)
 //     console.log(res)
 //   })

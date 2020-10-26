@@ -103,7 +103,11 @@ const MAIN_CONFIG = {
   },
   isOpenRewards: 1, // 是否打开奖励数据
   isChangeDashboard: 1, // 是否改变资产顺序
-  noSupportBridge: [COIN_BASE.symbol, ANY_MAIN_TOKEN], // 不支持的跨链合约或币种
+  noSupportBridge: [
+    COIN_BASE.symbol,
+    ANY_MAIN_TOKEN,
+    '0x20dd2f2bfa4ce3eaec5f57629583dad8a325872a'
+  ], // 不支持的跨链合约或币种
   queryToken: '0x25afd2058b6e5e00995467d58778a2790a0e5038' // 查询余额合约
 }
 

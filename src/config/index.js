@@ -25,13 +25,13 @@ import {
   ETH_TEST_EXPLORER
 } from './coinbase/nodeConfig'
 
-// const ENV_CONFIG = localStorage.getItem('ENV_CONFIG') ? localStorage.getItem('ENV_CONFIG') : 'FSN_MAIN'
+const ENV_CONFIG = localStorage.getItem('ENV_CONFIG') ? localStorage.getItem('ENV_CONFIG') : 'FSN_MAIN'
 // const ENV_CONFIG = localStorage.getItem('ENV_CONFIG') ? localStorage.getItem('ENV_CONFIG') : 'BNB_MAIN'
 // console.log(localStorage.getItem('ENV_CONFIG'))
 // const ENV_CONFIG = 'BNB_MAIN'
 // const ENV_CONFIG = 'FSN_MAIN'
 // const ENV_CONFIG = 'BNB_TEST'
-const ENV_CONFIG = 'FSN_TEST'
+// const ENV_CONFIG = 'FSN_TEST'
 
 
 let netArr = ENV_CONFIG.split('_')

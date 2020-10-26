@@ -743,6 +743,25 @@ export const INITIAL_TOKENS_CONTEXT = {
         }
       }
     },
+    '0x20dd2f2bfa4ce3eaec5f57629583dad8a325872a': { // FUSE
+      [NAME]: 'Fusionite',
+      [SYMBOL]: 'FUSE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xe96aC326eceA1a09aE6E47487c5D8717f73d5A7e',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {}
+    },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
       [SYMBOL]: config.prefix + 'XRP',

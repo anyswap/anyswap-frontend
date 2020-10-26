@@ -392,7 +392,7 @@ font-family: 'Manrope';
   border-radius: 0.5625rem;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
   border: solid 0.5px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+  background-color: ${({theme}) => theme.inputBackground};
 `
 const InputMin = styled(BorderlessInput)`
 font-family: 'Manrope';
