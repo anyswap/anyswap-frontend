@@ -284,6 +284,9 @@ ${({ theme }) => theme.flexRowNoWrap}
 const OutLink = styled.div`
 padding-left: 44px;
 margin-top:78px;
+@media screen and (max-width: 960px) {
+  display:none;
+}
 `
 const OutLinkImgBox = styled.div`
   ${({theme}) => theme.FlexSC};
