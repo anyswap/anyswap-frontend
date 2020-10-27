@@ -1,10 +1,10 @@
 import axios from 'axios'
 import config from '../../config'
-function GetTxnStatusAPI (hash, coin, api, account) {
+function GetTxnStatusAPI (hash, coin, api, account, version) {
   return new Promise(resolve => {
-    let url = config.serverInfoUrl + '/' + api + '/' + hash + '/' + config.chainID + '/' + coin
-    if (config.env === 'test') {
-      url = config.serverInfoUrl + '/' + api + '/' + account + '/' + hash + '/' + config.chainID + '/' + coin
+    let url = config.serverInfoUrl['V1'] + '/' + api + '/' + hash + '/' + config.chainID + '/' + coin
+    if (version === 'V2') {
+      url = config.serverInfoUrl['V2'] + '/' + api + '/' + account + '/' + hash + '/' + config.chainID + '/' + coin
     }
     // console.log(url)
     axios.get(url).then(res => {
@@ -34,11 +34,11 @@ function getStatus (status) {
   return statusType
 }
 
-export function getChainHashStatus (hash, coin, account) {
+export function getChainHashStatus (hash, coin, account, version) {
   // console.log(coin)
   return new Promise(resolve => {
     // let symbol = coin
-    GetTxnStatusAPI(hash, coin, 'getHashStatus', account).then(res => {
+    GetTxnStatusAPI(hash, coin, 'getHashStatus', account, version).then(res => {
       // console.log(res)
       if (res) {
         resolve({
@@ -53,11 +53,11 @@ export function getChainHashStatus (hash, coin, account) {
   })
 }
 
-export function getSwapoutHashStatus (hash, coin, account) {
+export function getSwapoutHashStatus (hash, coin, account, version) {
   // console.log(coin)
   return new Promise(resolve => {
     // let symbol = coin
-    GetTxnStatusAPI(hash, coin, 'getWithdrawHashStatus', account).then(res => {
+    GetTxnStatusAPI(hash, coin, 'getWithdrawHashStatus', account, version).then(res => {
       // console.log(res)
       if (res) {
         let statusType = 'pending', status = res.status, outStatus = 0

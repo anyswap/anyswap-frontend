@@ -86,10 +86,10 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]: {
-        FSN: {
-          type: 32659,
-          isSwitch: 1
-        }
+        BRIDGE: [
+          { type: 32659, isSwitch: 1 }
+        ],
+        VERSION: 'V1'
       },
     },
     '0x55d398326f99059ff775485246999027b3197955': { // USDT
@@ -129,10 +129,10 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]:  {
-        ETH: {
-          type: 1,
-          isSwitch: 1
-        }
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V1'
       }
     },
     '0xe9e7cea3dedca5984780bafc599bd69add087d56': { // BUSD
@@ -669,7 +669,9 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 20,
       [DEPOSIT_MIN_NUM]: 0.0005,
-      [EXTENDOBJ]: {},
+      [EXTENDOBJ]: {
+        VERSION: 'V1'
+      },
     },
     '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496': { // USDT
       [NAME]: 'ANY Tether',
@@ -689,10 +691,10 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]: {
-        ETH: {
-          type: 1,
-          isSwitch: 1
-        }
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V1'
       }
     },
     '0x5e12290c7e7eda58d092632a53bbbc717996c732': { // ETH
@@ -713,10 +715,10 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MAX_NUM]: 1000,
       [DEPOSIT_MIN_NUM]: 0.01,
       [EXTENDOBJ]:  {
-        ETH: {
-          type: 1,
-          isSwitch: 1
-        }
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V1'
       }
     },
     '0x6780bc1357dc0b6aa39224f53dc8aeceb093b6ff': { // UNI
@@ -737,10 +739,10 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]:  {
-        ETH: {
-          type: 1,
-          isSwitch: 1
-        }
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V1'
       }
     },
     '0x20dd2f2bfa4ce3eaec5f57629583dad8a325872a': { // FUSE
@@ -839,10 +841,10 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]:  {
-        ETH: {
-          type: 4,
-          isSwitch: 1
-        }
+        BRIDGE: [
+          { type: 4, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
       }
     },
     '0xbe7da13819d99af2c67aeeb77300dd209efc25d3': { // ETH
@@ -863,10 +865,10 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]:  {
-        ETH: {
-          type: 4,
-          isSwitch: 1
-        }
+        BRIDGE: [
+          { type: 4, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
       }
     },
     '0x6159f8524562c7b6954c1134beca6dec62677f51': { // BTC

@@ -105,10 +105,10 @@ function MMsign (from, msg, node) {
   })
 }
 
-export function getHashStatus (hash, index, coin, status, node, account) {
+export function getHashStatus (hash, index, coin, status, node, account, version) {
   return new Promise(resolve => {
     if (status) {
-      getChainHashStatus(hash, coin, account).then(result => {
+      getChainHashStatus(hash, coin, account, version).then(result => {
         if (result) {
           resolve({
             ...result,
@@ -165,9 +165,9 @@ export function getHashStatus (hash, index, coin, status, node, account) {
   })
 }
 
-export function getWithdrawHashStatus (hash, index, coin, status, node, account) {
+export function getWithdrawHashStatus (hash, index, coin, status, node, account, version) {
   return new Promise(resolve => {
-    getSwapoutHashStatus(hash, coin, account).then(result => {
+    getSwapoutHashStatus(hash, coin, account, version).then(result => {
       if (result) {
         resolve({
           ...result,

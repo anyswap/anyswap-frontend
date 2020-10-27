@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react'
+import React, { useState, useReducer, useEffect, useCallback } from 'react'
 // import ReactGA from 'react-ga'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
@@ -1004,22 +1004,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
 
   useEffect(() => {
-    let node
-    if (extendObj.FSN && extendObj.FSN.isSwitch) {
-      node = extendObj.FSN.type
-    } else if (extendObj.ETH && extendObj.ETH.isSwitch) {
-      node = extendObj.ETH.type
-    }
+    let node = extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
+    let version = extendObj.VERSION ? extendObj.VERSION : ''
     let tokenOnlyOne = inputCurrency
 
     setInit(1)
     // console.log(inputCurrency)
     let coin = inputSymbol.replace(config.prefix, '')
     if (account && initIsDeposit && initIsRedeem) {
-      getServerInfo(account, tokenOnlyOne, inputSymbol, chainId).then(res => {
-        // console.log(res)
-        // console.log(tokenOnlyOne)
-        // console.log(inputCurrency)
+      getServerInfo(account, tokenOnlyOne, inputSymbol, chainId, version).then(res => {
         if (res.msg === 'Success' && res.info) {
           let serverInfo = res.info
           setIsRegister(true)
@@ -1042,7 +1035,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               ) {
                 console.log(1)
                 // removeRegisterInfo(account, tokenOnlyOne)
-                removeLocalConfig(account, tokenOnlyOne)
+                removeLocalConfig(account, tokenOnlyOne, chainId)
                 setInit(0)
                 return
               }
@@ -1051,7 +1044,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               if (serverInfo.dcrmAddress.toLowerCase() !== config.btcConfig.btcAddr.toLowerCase()) {
                 console.log(2)
                 // removeRegisterInfo(account, tokenOnlyOne)
-                removeLocalConfig(account, tokenOnlyOne)
+                removeLocalConfig(account, tokenOnlyOne, chainId)
                 setInit(0)
                 return
               }
@@ -1063,14 +1056,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 if (serverInfo.p2pAddress !== localBTCAddr) {
                   console.log(3)
                   // removeRegisterInfo(account, tokenOnlyOne)
-                  removeLocalConfig(account, tokenOnlyOne)
+                  removeLocalConfig(account, tokenOnlyOne, chainId)
                   setInit(0)
                   return
                 }
               } else {
                 console.log(4)
                 // removeRegisterInfo(account, tokenOnlyOne)
-                removeLocalConfig(account, tokenOnlyOne)
+                removeLocalConfig(account, tokenOnlyOne, chainId)
                 setInit(0)
                 return
               }
@@ -1115,12 +1108,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     if (isDeposit && isRedeem && depositType === 1 && account && inputSymbol !== config.prefix + 'BTC') {
       let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
       if (coin) {
-        let node
-        if (extendObj.FSN && extendObj.FSN.isSwitch) {
-          node = extendObj.FSN.type
-        } else if (extendObj.ETH && extendObj.ETH.isSwitch) {
-          node = extendObj.ETH.type
-        }
+        let node = extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
         getErcBalance(coin, account, inputDecimals, node).then(res => {
           // console.log(res)
           // console.log(config.prefix + coin)
@@ -1322,6 +1310,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           swapStatus: 'pending',
           swapTime: '',
           node: node,
+          bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
           chainID: config.chainID
         }
       }
@@ -1453,6 +1442,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 swapStatus: '',
                 swapTime: '',
                 node: bridgeNode,
+                bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
                 chainID: config.chainID
               }
             }
@@ -1489,6 +1479,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 swapStatus: '',
                 swapTime: '',
                 node: bridgeNode,
+                bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
                 chainID: config.chainID
               }
             }
@@ -1558,7 +1549,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || hashArr[i].swapStatus === 'minting'
         ) {
           if (hashArr[i].coin === 'BTC') {
-            GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status).then(res => {
+            GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].bridgeVersion).then(res => {
               if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
                 hashArr[res.index].status = res.status
                 hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
@@ -1575,7 +1566,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               }
             })
           } else {
-            getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].node, account).then(res => {
+            getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].node, account, hashArr[i].bridgeVersion).then(res => {
               if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
                 hashArr[res.index].status = res.status
                 hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
@@ -1608,7 +1599,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || withdrawArr[i].swapStatus === 'confirming'
           || withdrawArr[i].swapStatus === 'minting'
         ) {
-          getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node, account).then(res => {
+          getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node, account, withdrawArr[i].bridgeVersion).then(res => {
             // console.log(res)
             if (withdrawArr[res.index] && res.hash === withdrawArr[res.index].hash) {
               // if (withdrawArr[i].swapStatus === 'success') {
@@ -1681,13 +1672,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
 
   function walletTip () {
-    if (extendObj.ETH && extendObj.ETH.isSwitch) {
+    let node = extendObj.BRIDGE ? extendObj.BRIDGE[0] : ''
+    if (node && (node.type === 1 || node.type === 4) && node.isSwitch) {
       return (
         <dd><i></i>💀 {t('bridgeMintTip', {
           account
         })}</dd>
       )
-    } else if (extendObj.FSN && extendObj.FSN.isSwitch) {
+    } else if (node && (node.type === 32659 || node.type === 46688) && node.isSwitch) {
       return (
         <dd><i></i>💀 {t('bridgeMintTip', {
           account
@@ -1881,6 +1873,103 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     )
   }
 
+  function redeemBtn (type) {
+    return (
+      <>
+        <Button
+          disabled={ isRedeemBtn }
+          onClick={() => {
+            sendTxns(type)
+          }}
+          warning={Number(inputBalanceFormatted) < Number(inputValueFormatted)}
+          loggedOut={!account}
+        >
+          <StyledBirdgeIcon>
+            <img src={BirdgeIcon} alt={''} />
+            {t('redeem')}
+          </StyledBirdgeIcon>
+        </Button>
+      </>
+    )
+  }
+  function mintBtn (type) {
+    return (
+      <>
+        <Button
+          disabled={isMintBtn}
+          onClick={() => {
+            // MintModelView()
+            if (!isDisabled) return
+            setIsDisableed(false)
+            setTimeout(() => {
+              setIsDisableed(true)
+            }, 3000)
+            if ( inputSymbol === config.prefix + 'BTC' ) {
+              // MintModelView()
+              getBTCtxns()
+            } else {
+              setBridgeNode(type)
+              setMintSureBtn(true)
+              setHardwareTxnsInfo(inputValueFormatted + ' ' + inputSymbol.replace(config.prefix, ''))
+              setIsHardwareTip(true)
+              setMintModelTitle(t('CrossChainDeposit'))
+              if (walletType === 'Ledger') {
+                setMintModelTip(t("confirmHardware"))
+              } else {
+                setMintModelTip(t('mmMintTip'))
+              }
+            }
+          }}
+          warning={account && (!inputValueFormatted || Number(inputValueFormatted) > depositMaxNum || Number(inputValueFormatted) < depositMinNum)}
+          loggedOut={!account}
+        >
+          <StyledBirdgeIcon>
+            <img src={BirdgeBtnIcon} alt={''} />
+            {t('CrossChainDeposit')}
+          </StyledBirdgeIcon>
+        </Button>
+      </>
+    )
+  }
+  function viewBtn (type) {
+    let btn = ''
+    if (type === 'redeem') {
+      if (extendObj.BRIDGE) {
+        btn = extendObj.BRIDGE.map((item) => {
+          if (item.isSwitch) {
+            return redeemBtn(item.type)
+          } else {
+            return ''
+          }
+        })
+      } else {
+        btn = redeemBtn('')
+      }
+    } else {
+      if (loadingState) {
+        btn = (
+          <Button disabled={true} >
+            <SpinnerWrapper src={Circle}/>
+            {t('querying')}
+          </Button>
+        )
+      } else {
+        if (extendObj.BRIDGE) {
+          btn = extendObj.BRIDGE.map((item) => {
+            if (item.isSwitch) {
+              return mintBtn(item.type)
+            } else {
+              return ''
+            }
+          })
+        } else {
+          btn = mintBtn('')
+        }
+      }
+    }
+    return btn
+  }
+
 
   // console.log(hashArr)
   return (
@@ -2029,32 +2118,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           ''
       }
       {bridgeType && bridgeType === 'redeem' ? txnsList(withdrawArr, withdrawCount) : txnsList(hashArr, hashCount)}
-      {/* <MintHahshList key={hashCount}>
-        <ul>
-          {hashArr.map((item, index) => {
-            if (item.account !== account) {
-              return ''
-            }
-            return (
-              <li key={hashCount ? index + hashCount : index}>
-                <FlexCneter>
-                  <TokenLogoBox address={item.coin} size={'2rem'}  onClick={() => {
-                    setMintDtil(item)
-                    setMintDtilView(true)
-                  }}/>
-                  <div
-                    className='del'
-                    onClick={() => {
-                      removeHash(index)
-                    }}
-                  >x</div>
-                </FlexCneter>
-              </li>
-            )
-          })}
-        </ul>
-      </MintHahshList> */}
-      
+
       <NavTabBox>
         <TitleBoxPool>{t('bridge')}</TitleBoxPool>
         <TabLinkBox>
@@ -2231,7 +2295,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   <span dangerouslySetInnerHTML = { 
                     {__html: t('mintTip0', { 
                       coin: inputSymbol.indexOf('ETH') !== -1 ? inputSymbol.replace(config.prefix, '') : (inputSymbol.replace(config.prefix, '') + (config.symbol === 'BNB' ? '' : '-ERC20')),
-                      coin2: extendObj.FSN && extendObj.FSN.isSwitch ? 'FSN' : 'ETH'
+                      coin2: extendObj.BRIDGE && extendObj.BRIDGE[0] && extendObj.BRIDGE[0].type === 32659 ? 'FSN' : 'ETH'
                     })}
                   }></span>
                   <span className='span' >{account}</span><Copy toCopy={account} />
@@ -2380,77 +2444,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         <>
           <Flex>
             {
-              account ? (
-                <>
-                  {bridgeType && bridgeType === 'redeem' ? (
-                    <Button
-                      disabled={ isRedeemBtn }
-                      onClick={() => {
-                        let bnt = ''
-                        if (extendObj.FSN && extendObj.FSN.isSwitch) {
-                          bnt = extendObj.FSN.type
-                        } else if (extendObj.ETH && extendObj.ETH.isSwitch) {
-                          bnt = extendObj.ETH.type
-                        }
-                        sendTxns(bnt)
-                      }}
-                      warning={Number(inputBalanceFormatted) < Number(inputValueFormatted)}
-                      loggedOut={!account}
-                    >
-                      <StyledBirdgeIcon>
-                        <img src={BirdgeIcon} alt={''} />
-                        {t('redeem')}
-                      </StyledBirdgeIcon>
-                    </Button>
-                  ) : (loadingState ? (
-                    <Button disabled={true} >
-                      <SpinnerWrapper src={Circle}/>
-                      {t('querying')}
-                    </Button>
-                  ) : (
-                    <Button
-                      disabled={isMintBtn}
-                      onClick={() => {
-                        // MintModelView()
-                        if (!isDisabled) return
-                        setIsDisableed(false)
-                        setTimeout(() => {
-                          setIsDisableed(true)
-                        }, 3000)
-                        if ( inputSymbol === config.prefix + 'BTC' ) {
-                          // MintModelView()
-                          getBTCtxns()
-                        } else {
-                          let bnt = ''
-                          if (extendObj.FSN && extendObj.FSN.isSwitch) {
-                            bnt = extendObj.FSN.type
-                          } else if (extendObj.ETH && extendObj.ETH.isSwitch) {
-                            bnt = extendObj.ETH.type
-                          }
-                          setBridgeNode(bnt)
-                          setMintSureBtn(true)
-                          setHardwareTxnsInfo(inputValueFormatted + ' ' + inputSymbol.replace(config.prefix, ''))
-                          setIsHardwareTip(true)
-                          setMintModelTitle(t('CrossChainDeposit'))
-                          if (walletType === 'Ledger') {
-                            setMintModelTip(t("confirmHardware"))
-                          } else {
-                            setMintModelTip(t('mmMintTip'))
-                          }
-                        }
-                      }}
-                      warning={account && (!inputValueFormatted || Number(inputValueFormatted) > depositMaxNum || Number(inputValueFormatted) < depositMinNum)}
-                      loggedOut={!account}
-                    >
-                      <StyledBirdgeIcon>
-                        <img src={BirdgeBtnIcon} alt={''} />
-                        {t('CrossChainDeposit')}
-                      </StyledBirdgeIcon>
-                    </Button>
-                  )
-                  )}
-                </>
-              ) : (
+              account ? viewBtn(bridgeType) : (
                 <Button disabled={showBetaMessage} onClick={toggleWalletModal} >
                   {t('connectToWallet')}
                 </Button>

@@ -118,10 +118,11 @@ const dirSwitchFn = (type) => {
 }
 // console.log(bridge[useBridge])
 // console.log(useBridge)
-let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
-if (netArr[1].toLowerCase() === 'test') {
-  serverInfoUrl = 'https://testbridgeapi.anyswap.exchange/v2'
-}
+// let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
+// if (netArr[1].toLowerCase() === 'test') {
+//   // serverInfoUrl = 'https://testbridgeapi.anyswap.exchange/v2'
+//   serverInfoUrl = 'http://localhost:8107/v2'
+// }
 export default {
   ...netConfig,
   ...COIN,
@@ -137,6 +138,9 @@ export default {
   bridgeType: useBridge,
   // serverInfoUrl: 'http://localhost:8107',
   // serverInfoUrl: 'https://bridgeapi.anyswap.exchange',
-  serverInfoUrl: serverInfoUrl,
+  serverInfoUrl: {
+    V1: 'https://bridgeapi.anyswap.exchange',
+    V2: 'http://localhost:8107/v2'
+  },
   dirSwitchFn
 }
