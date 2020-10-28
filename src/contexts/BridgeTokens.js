@@ -782,6 +782,16 @@ export default {
       [NAME]: 'Uniswap',
       [TOKEN]: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
       [DECIMALS]: 18,
+    },
+    'YFI': { // 
+      [NAME]: 'YFI',
+      [TOKEN]: '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e',
+      [DECIMALS]: 18,
+    },
+    'OMG': { // 
+      [NAME]: 'OMG',
+      [TOKEN]: '0xd26114cd6EE289AccF82350c8d8487fedB8A0C07',
+      [DECIMALS]: 18,
     }
   },
   4: {

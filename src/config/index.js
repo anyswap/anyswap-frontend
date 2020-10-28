@@ -24,14 +24,61 @@ import {
   ETH_TEST_CHAINID,
   ETH_TEST_EXPLORER
 } from './coinbase/nodeConfig'
+// console.log(location.href)
+const ENV_NODE_CONFIG = 'ENV_NODE_CONFIG'
+const INIT_NODE = 'FSN_MAIN'
+// const INIT_NODE = 'BNB_MAIN'
+// const INIT_NODE = 'BNB_TEST'
+// const INIT_NODE = 'FSN_TEST'
 
-const ENV_CONFIG = localStorage.getItem('ENV_CONFIG') ? localStorage.getItem('ENV_CONFIG') : 'FSN_MAIN'
-// const ENV_CONFIG = localStorage.getItem('ENV_CONFIG') ? localStorage.getItem('ENV_CONFIG') : 'BNB_MAIN'
-// console.log(localStorage.getItem('ENV_CONFIG'))
-// const ENV_CONFIG = 'BNB_MAIN'
-// const ENV_CONFIG = 'FSN_MAIN'
-// const ENV_CONFIG = 'BNB_TEST'
-// const ENV_CONFIG = 'FSN_TEST'
+function getNode (type) {
+  switch (type) {
+    case 'fusion':
+      return 'FSN_MAIN'
+    case 'fusiontestnet':
+      return 'FSN_TEST'
+    case 'bsc':
+      return 'BNB_MAIN'
+    case 'bsctestnet':
+      return 'BNB_TEST'
+    default:
+      return INIT_NODE
+  }
+}
+
+function getParams (url, param) {
+  let str = url.indexOf('?') ? url.split('?')[1] : ''
+  let nc = ''
+  // console.log(str)
+  if (str) {
+    let arr = str.split('&')
+    let value = ''
+    for (let str2 of arr) {
+      let arr2 = str2.split('=')
+      if (arr2[0] === param) {
+        value = arr2[1]
+        break
+      }
+    }
+    if (value) {
+      nc = getNode(value)
+      localStorage.setItem(ENV_NODE_CONFIG, nc)
+    } else {
+      nc = INIT_NODE
+    }
+  } else {
+    let localStr = localStorage.getItem(ENV_NODE_CONFIG)
+    // console.log(localStr)
+    if (localStr) {
+      nc = localStr
+    } else {
+      nc = INIT_NODE
+    }
+  }
+  return nc
+}
+
+const ENV_CONFIG = getParams(location.href, 'network')
 
 
 let netArr = ENV_CONFIG.split('_')
@@ -118,14 +165,14 @@ const dirSwitchFn = (type) => {
 }
 // console.log(bridge[useBridge])
 // console.log(useBridge)
-// let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
-// if (netArr[1].toLowerCase() === 'test') {
-//   // serverInfoUrl = 'https://testbridgeapi.anyswap.exchange/v2'
-//   serverInfoUrl = 'http://localhost:8107/v2'
-// }
+let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
+if (netArr[1].toLowerCase() === 'test') {
+  serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
+}
 export default {
   ...netConfig,
   ...COIN,
+  ENV_NODE_CONFIG,
   bridgeAll: bridge,
   env: netArr[1].toLowerCase(),
   supportWallet: ['Ledger'],
@@ -139,8 +186,9 @@ export default {
   // serverInfoUrl: 'http://localhost:8107',
   // serverInfoUrl: 'https://bridgeapi.anyswap.exchange',
   serverInfoUrl: {
-    V1: 'https://bridgeapi.anyswap.exchange',
-    V2: 'http://localhost:8107/v2'
+    V1: serverInfoUrl,
+    // V2: 'http://localhost:8107/v2'
+    V2: serverInfoUrl + '/v2'
   },
   dirSwitchFn
 }

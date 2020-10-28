@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
 
 // import { Link } from '../../theme'
@@ -15,7 +15,7 @@ import {ReactComponent as ANYLogoNight} from '../../assets/images/logo-white.svg
 import ArrowRighrPurpleIcon from '../../assets/images/icon/arrowRighr-purple.svg'
 import IconDay from '../../assets/images/icon/day.svg'
 import IconNight from '../../assets/images/icon/night.svg'
-
+import { createBrowserHistory } from 'history'
 const HeaderFrame = styled.div`
   display: flex;
   align-items: center;
@@ -142,15 +142,16 @@ export default function Header() {
   const [isDark, toggleDarkMode] = useDarkModeManager()
   function openUrl () {
     if (config.symbol === 'FSN') {
-      // window.open(config.BSCmainUrl)
-      localStorage.setItem('ENV_CONFIG', 'BNB_MAIN')
+      localStorage.setItem(config.ENV_NODE_CONFIG, 'BNB_MAIN')
     } else {
-      // window.open(config.FSNmainUrl)
-      localStorage.setItem('ENV_CONFIG', 'FSN_MAIN')
+      localStorage.setItem(config.ENV_NODE_CONFIG, 'FSN_MAIN')
     }
-    // console.log(localStorage.getItem('ENV_CONFIG'))
     history.go(0)
   }
+  useEffect(() => {
+    const history = createBrowserHistory()
+    history.push(window.location.pathname + '')
+  }, [])
   return (
     <HeaderFrame>
       <HeaderSpan>
