@@ -43,18 +43,28 @@ function getNodeRpc (node) {
   }
 }
 
-// const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
-// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x421d35f8f8fd822f898e75db43f057f7ea448298') // FSN-test
-// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
-// setTimeout(() => {
+const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
+let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
+// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x421d35f8f8fd822f898e75db43f057f7ea448298') // FSN-test
+// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
+setTimeout(() => {
 
-//   factory.methods.getExchange('0x20dd2f2bfa4ce3eaec5f57629583dad8a325872a').call((err, res) => {
-//     console.log('USDT')
-//     console.log(err)
-//     console.log(res)
-//   })
-// }, 2000)
+  factory.methods.getExchange('0x871501a8d698169d1fe4c1af3c7e011959f484a6').call((err, res) => {
+    console.log('link')
+    console.log(err)
+    console.log(res)
+  })
+  factory.methods.getExchange('0x709abf1d66b1758676940a3ee995a39056a66faf').call((err, res) => {
+    console.log('omg')
+    console.log(err)
+    console.log(res)
+  })
+  factory.methods.getExchange('0x041f279c67faef37544014d7247824c0945098a8').call((err, res) => {
+    console.log('yli')
+    console.log(err)
+    console.log(res)
+  })
+}, 2000)
 
 // console.log(BridgeToken)
 const web3 = new Web3(new Web3.providers.HttpProvider(BRIDGE_RPC))
