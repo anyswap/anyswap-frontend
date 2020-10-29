@@ -721,47 +721,23 @@ export const INITIAL_TOKENS_CONTEXT = {
         VERSION: 'V1'
       }
     },
-    '0x480327ccb4e3fd906212868e2f4b6dfa564aabca': { // DAI
-      [NAME]: 'ANY Dai',
-      [SYMBOL]: config.prefix + 'DAI',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xD21097E7566dd64b86cB23eE98aE66d2734e229F',
-      [REDEEM_MAX_NUM]: 200000,
-      [REDEEM_MIN_NUM]: 0.05,
-      [FEE]: 0.001,
-      [MAXFEE]: 0.1,
-      [MINFEE]: 0.005,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 200000,
-      [DEPOSIT_MIN_NUM]: 20,
-      [EXTENDOBJ]:  {
-        BRIDGE: [
-          { type: 1, isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      }
-    },
-    '0x871501a8d698169d1fe4c1af3c7e011959f484a6': { // LINK
+    '0x871501a8d698169d1fe4c1af3c7e011959f484a6': { // LINK 6
       [NAME]: 'ANY Chainlink',
       [SYMBOL]: config.prefix + 'LINK',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x05E63B49F0046dbaFeeCe7180Ca1d447706AEff3',
       [REDEEM_MAX_NUM]: 20000,
-      [REDEEM_MIN_NUM]: 0.5,
+      [REDEEM_MIN_NUM]: 2,
       [FEE]: 0.001,
-      [MAXFEE]: 0.1,
-      [MINFEE]: 0.005,
+      [MAXFEE]: 5,
+      [MINFEE]: 0.5,
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
       [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 20000,
-      [DEPOSIT_MIN_NUM]: 2,
+      [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]:  {
         BRIDGE: [
           { type: 1, isSwitch: 1 }
@@ -769,23 +745,23 @@ export const INITIAL_TOKENS_CONTEXT = {
         VERSION: 'V2'
       }
     },
-    '0x709abf1d66b1758676940a3ee995a39056a66faf': { // OMG
-      [NAME]: 'ANY OMG',
-      [SYMBOL]: config.prefix + 'OMG',
+    '0x480327ccb4e3fd906212868e2f4b6dfa564aabca': { // DAI 23
+      [NAME]: 'ANY Dai',
+      [SYMBOL]: config.prefix + 'DAI',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x5c98B4a17dc92340eA6340719137cBc91c727928',
-      [REDEEM_MAX_NUM]: 100000,
-      [REDEEM_MIN_NUM]: 0.5,
+      [EXCHANGE_ADDRESS]: '0xD21097E7566dd64b86cB23eE98aE66d2734e229F',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
       [FEE]: 0.001,
-      [MAXFEE]: 0.1,
-      [MINFEE]: 0.005,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
       [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
       [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 100000,
-      [DEPOSIT_MIN_NUM]: 8,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]:  {
         BRIDGE: [
           { type: 1, isSwitch: 1 }
@@ -793,31 +769,7 @@ export const INITIAL_TOKENS_CONTEXT = {
         VERSION: 'V2'
       }
     },
-    '0x041f279c67faef37544014d7247824c0945098a8': { // YFI
-      [NAME]: 'ANY yearn.finance',
-      [SYMBOL]: config.prefix + 'YFI',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xca3AeA410F70bEd55c992B6c418C23f86723D601',
-      [REDEEM_MAX_NUM]: 20,
-      [REDEEM_MIN_NUM]: 0.0005,
-      [FEE]: 0.001,
-      [MAXFEE]: 0.1,
-      [MINFEE]: 0.005,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 20,
-      [DEPOSIT_MIN_NUM]: 0.002,
-      [EXTENDOBJ]:  {
-        BRIDGE: [
-          { type: 1, isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      }
-    },
-    '0x6780bc1357dc0b6aa39224f53dc8aeceb093b6ff': { // UNI
+    '0x6780bc1357dc0b6aa39224f53dc8aeceb093b6ff': { // UNI 34
       [NAME]: 'ANY Uniswap',
       [SYMBOL]: config.prefix + 'UNI',
       [DECIMALS]: 18,
@@ -839,6 +791,78 @@ export const INITIAL_TOKENS_CONTEXT = {
           { type: 1, isSwitch: 1 }
         ],
         VERSION: 'V1'
+      }
+    },
+    '0xc0d7857b10551f784c80942b7e8b5abfa373d802': { // COMP 36
+      [NAME]: 'ANY Compound',
+      [SYMBOL]: config.prefix + 'COMP',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x077DE35f802FD5f062036Ff47182Cb73f537b215',
+      [REDEEM_MAX_NUM]: 2000,
+      [REDEEM_MIN_NUM]: 0.2,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.5,
+      [MINFEE]: 0.05,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 2000,
+      [DEPOSIT_MIN_NUM]: 0.05,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x709abf1d66b1758676940a3ee995a39056a66faf': { // OMG 37
+      [NAME]: 'ANY OMG',
+      [SYMBOL]: config.prefix + 'OMG',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x5c98B4a17dc92340eA6340719137cBc91c727928',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 8,
+      [FEE]: 0.001,
+      [MAXFEE]: 20,
+      [MINFEE]: 2,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 100000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x041f279c67faef37544014d7247824c0945098a8': { // YFI 40
+      [NAME]: 'ANY yearn.finance',
+      [SYMBOL]: config.prefix + 'YFI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xca3AeA410F70bEd55c992B6c418C23f86723D601',
+      [REDEEM_MAX_NUM]: 20,
+      [REDEEM_MIN_NUM]: 0.002,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.01,
+      [MINFEE]: 0.001,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20,
+      [DEPOSIT_MIN_NUM]: 0.0005,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
       }
     },
     '0x20dd2f2bfa4ce3eaec5f57629583dad8a325872a': { // FUSE

@@ -2,7 +2,7 @@ export const BNB_MAINNET = 'https://bsc-dataseed1.binance.org/'
 export const BNB_MAIN_CHAINID = 56
 export const BNB_MAIN_EXPLORER = 'https://bscscan.com'
 
-export const BNB_TESTNET = ' https://data-seed-prebsc-1-s1.binance.org:8545'
+export const BNB_TESTNET = 'https://data-seed-prebsc-1-s1.binance.org:8545'
 export const BNB_TEST_CHAINID = 97
 export const BNB_TEST_EXPLORER = 'https://explorer.binance.org/smart-testnet'
 

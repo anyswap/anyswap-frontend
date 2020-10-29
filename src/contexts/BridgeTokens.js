@@ -792,6 +792,11 @@ export default {
       [NAME]: 'OMG',
       [TOKEN]: '0xd26114cd6EE289AccF82350c8d8487fedB8A0C07',
       [DECIMALS]: 18,
+    },
+    'COMP': { // 
+      [NAME]: 'COMP',
+      [TOKEN]: '0xc00e94cb662c3520282e6f5717214004a7f26888',
+      [DECIMALS]: 18,
     }
   },
   4: {
