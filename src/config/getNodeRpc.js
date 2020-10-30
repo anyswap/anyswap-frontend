@@ -4,7 +4,9 @@ import {
   FSN_MAINNET,
   FSN_TESTNET,
   ETH_MAINNET,
-  ETH_TESTNET
+  ETH_TESTNET,
+  FTM_MAINNET,
+  FTM_TESTNET
 } from './coinbase/nodeConfig'
 import config from './index'
 
@@ -16,6 +18,8 @@ export function getNodeRpc (node) {
       return BNB_MAINNET
     case 97:
       return BNB_TESTNET
+    case 250:
+      return FTM_MAINNET
     case 32659:
       return FSN_MAINNET
     case 46688:

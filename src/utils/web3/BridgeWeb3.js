@@ -2,7 +2,7 @@ import config from '../../config'
 import ERC20_ABI from '../../constants/abis/erc20'
 import FACTORY_ABI from '../../constants/abis/factory'
 import TOKEN from '../../contexts/BridgeTokens'
-import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
+import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
 
 import {toSign as toLedgerSign} from '../wallets/ledger/index'
 import { ethers } from 'ethers'

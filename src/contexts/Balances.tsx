@@ -15,7 +15,7 @@ import { ethers } from 'ethers'
 import { useWeb3React, useDebounce } from '../hooks'
 import { getEtherBalance, getTokenBalance, isAddress } from '../utils'
 import { useBlockNumber } from './Application'
-import { useTokenDetails, useAllTokenDetails } from './Tokens'
+import { useTokenDetails, useAllTokenDetails } from './Tokens/index.js'
 import { getUSDPrice } from '../utils/price'
 
 import config from '../config'

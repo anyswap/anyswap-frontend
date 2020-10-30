@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import { useWeb3React, useExchangeContract } from '../../hooks'
 import { useTransactionAdder } from '../../contexts/Transactions'
-import { useTokenDetails, useAllTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
+import { useTokenDetails, useAllTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
 import { useAddressBalance } from '../../contexts/Balances'
 
 import { calculateGasMargin, amountFormatter } from '../../utils'

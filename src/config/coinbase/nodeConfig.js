@@ -24,3 +24,12 @@ export const ETH_MAIN_EXPLORER = 'https://etherscan.io'
 export const ETH_TESTNET = 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0'
 export const ETH_TEST_CHAINID = 4
 export const ETH_TEST_EXPLORER = 'https://rinkeby.etherscan.io'
+
+export const FTM_MAINNET = 'https://rpc.fantom.network'
+export const FTM_MAINNET1 = 'https://rpc.fantom.network'
+export const FTM_MAIN_CHAINID = 250
+export const FTM_MAIN_EXPLORER = 'https://explorer.fantom.network'
+
+export const FTM_TESTNET = ''
+export const FTM_TEST_CHAINID = ''
+export const FTM_TEST_EXPLORER = ''

@@ -2,6 +2,7 @@
 import {getBaseCoin} from './coinbase/coin'
 import getFSNConfig from './coinbase/fusion'
 import getBNBConfig from './coinbase/binance'
+import getFTMConfig from './coinbase/fantom'
 import {
   FSN_MAINNET,
   FSN_MAIN_CHAINID,
@@ -22,7 +23,15 @@ import {
   ETH_MAIN_EXPLORER,
   ETH_TESTNET,
   ETH_TEST_CHAINID,
-  ETH_TEST_EXPLORER
+  ETH_TEST_EXPLORER,
+
+  
+  FTM_MAINNET,
+  FTM_MAIN_CHAINID,
+  FTM_MAIN_EXPLORER,
+  FTM_TESTNET,
+  FTM_TEST_CHAINID,
+  FTM_TEST_EXPLORER,
 } from './coinbase/nodeConfig'
 // console.log(location.href)
 const ENV_NODE_CONFIG = 'ENV_NODE_CONFIG'
@@ -78,7 +87,8 @@ function getParams (url, param) {
   return nc
 }
 
-const ENV_CONFIG = getParams(location.href, 'network')
+let ENV_CONFIG = getParams(location.href, 'network')
+// let ENV_CONFIG = 'FTM_MAIN'
 
 
 let netArr = ENV_CONFIG.split('_')
@@ -102,6 +112,14 @@ if (netArr[0] === 'FSN') {
     useBridge = FSN_TEST_CHAINID
   }
   prefix = ''
+} else if (netArr[0] === 'FTM') {
+  netConfig = getFTMConfig(netArr[1])
+  if (netArr[1].toLowerCase() === 'main') {
+    useBridge = FTM_MAIN_CHAINID
+  } else {
+    useBridge = FTM_TEST_CHAINID
+  }
+  prefix = ''
 }
 
 const COIN = getBaseCoin(prefix)
@@ -117,6 +135,12 @@ let bridge = {
     chainID: FSN_TEST_CHAINID,
     lookHash: FSN_TEST_EXPLORER + '/transaction/',
     isOpen: 1
+  },
+  250: {
+    rpc: FTM_TESTNET,
+    chainID: FTM_TEST_CHAINID,
+    lookHash: FTM_TEST_EXPLORER + '/tx/',
+    isOpen: 0
   },
   97: {
     rpc: BNB_TESTNET,

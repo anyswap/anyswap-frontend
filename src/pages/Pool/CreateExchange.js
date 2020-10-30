@@ -10,7 +10,7 @@ import { useWeb3React, useFactoryContract } from '../../hooks'
 import { Button } from '../../theme'
 import AddressInputPanel from '../../components/AddressInputPanel'
 import OversizedPanel from '../../components/OversizedPanel'
-import { useTokenDetails } from '../../contexts/Tokens'
+import { useTokenDetails } from '../../contexts/Tokens/index.js'
 import { useTransactionAdder } from '../../contexts/Transactions'
 import { useWalletModalToggle } from '../../contexts/Application'
 

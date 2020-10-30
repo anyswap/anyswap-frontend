@@ -10,7 +10,7 @@ import { brokenTokens } from '../../constants'
 import { amountFormatter, calculateGasMargin, isAddress } from '../../utils'
 
 import { useExchangeContract } from '../../hooks'
-import { useTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens'
+import { useTokenDetails, INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
 import { useTransactionAdder } from '../../contexts/Transactions'
 import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useAddressAllowance } from '../../contexts/Allowances'

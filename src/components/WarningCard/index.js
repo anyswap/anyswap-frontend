@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components'
 import { useTranslation } from 'react-i18next'
 
 import { useWeb3React } from '../../hooks'
-import { useTokenDetails } from '../../contexts/Tokens'
+import { useTokenDetails } from '../../contexts/Tokens/index.js'
 import { getEtherscanLink } from '../../utils'
 
 import { Link } from '../../theme'

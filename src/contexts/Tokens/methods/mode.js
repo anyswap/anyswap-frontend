@@ -1,0 +1,17 @@
+export const NAME = 'name'  // 名称
+export const SYMBOL = 'symbol'  // 符号
+export const DECIMALS = 'decimals'  // 小数位
+export const EXCHANGE_ADDRESS = 'exchangeAddress'  // 交易所地址
+export const REDEEM_MAX_NUM = 'redeemMaxNum'  // 最大提现额
+export const REDEEM_MIN_NUM = 'redeemMinNum'  // 最小提现额
+export const FEE = 'fee'  // 手续费
+export const MAXFEE = 'maxFee'  // 最大手续费
+export const MINFEE = 'minFee'  // 最小手续费
+export const ISSWITCH = 'isSwitch'  // 是否开启此币种 0：关闭；1开启
+export const ISDEPOSIT = 'isDeposit'  // 是否开启充值 0：关闭；1开启
+export const ISREDEEM = 'isRedeem'  // 是否开启提现 0：关闭；1开启
+export const DEPOSIT_ADDRESS = 'depositAddress'  // 充值地址
+export const DEPOSIT_TYPE = 'depositType'  // 充值类型 0：btc； 1：erc20
+export const DEPOSIT_MAX_NUM = 'depositMaxNum'  // 最大充值额
+export const DEPOSIT_MIN_NUM = 'depositMinNum'  // 最小充值额
+export const EXTENDOBJ = 'extendObj'  // 扩展 例如：{FSN: { type: 1, isSwitch: 1 }, ETH: { type: 2, isSwitch: 1}}，FSN表示当前网络 type表示网chainid,isSwitch表示是否开启

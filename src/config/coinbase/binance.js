@@ -75,13 +75,6 @@ const MAIN_CONFIG = {
   nodeRpc: BNB_MAINNET,
   nodeRpc1: BNB_MAINNET, // 节点地址
   chainID: BNB_MAIN_CHAINID,
-  coininfo: {
-    // [COIN.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
-    [COIN.ETH]: {url: ''},
-    [COIN.USDT]: {url: ''},
-    ANY: {url: 'https://any2bscapi.anyswap.exchange/rpc'},
-    [COIN.UNI]: {url: 'https://uni2bscapi.anyswap.exchange/rpc'}
-  },
   initToken: INIT_MAIN_TOKEN,
   initBridge: '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa',
   explorerUrl: BNB_MAIN_EXPLORER,
@@ -118,12 +111,6 @@ const TEST_CONFIG = {
   nodeRpc: BNB_TESTNET,
   nodeRpc1: BNB_TESTNET, // 节点地址
   chainID: BNB_TEST_CHAINID,
-  coininfo: {
-    // [COIN.BTC]: {url: 'https://testnet.smpcwallet.com/btc2fsn'},
-    [COIN.ETH]: {url: ''},
-    [COIN.USDT]: {url: ''},
-    ANY: {url: 'https://testany2bscapi.anyswap.exchange/rpc'},
-  },
   initToken: INIT_TEST_TOKEN,
   initBridge: '0x4ce47351aeafbd81f9888187288996fe0322ffa2',
   explorerUrl: BNB_TEST_EXPLORER,
