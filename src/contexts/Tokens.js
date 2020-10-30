@@ -111,9 +111,76 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]: {},
     },
+    '0x3af577f9d8c86ae8dbcbf51fe9836c9df825759d': { // LINK 6
+      [NAME]: 'Chainlink' + config.suffix,
+      [SYMBOL]: 'anyLINK',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x7868b674fCeB31c8d29f1606eA60D51cc442188B',
+      [REDEEM_MAX_NUM]: 20000,
+      [REDEEM_MIN_NUM]: 2,
+      [FEE]: 0.001,
+      [MAXFEE]: 5,
+      [MINFEE]: 0.5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x1dc56f2705ff2983f31fb5964cc3e19749a7cba7': { // DAI 23
+      [NAME]: 'Dai' + config.suffix,
+      [SYMBOL]: 'anyDAI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x76BB67676B2c9a6f366Aa517b806ed0Fa317Aa46',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xe9e7cea3dedca5984780bafc599bd69add087d56': { // BUSD 28
+      [NAME]: 'BUSD' + config.suffix,
+      [SYMBOL]: 'BUSD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x34358Ff75D78652F1797ebd73E8f7aFA92DaB501',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
+    },
     '0x99c5a2fcc97b59fe6d0b56e21e72b002f644123f': { // UNI
       [NAME]: 'Uniswap' + config.suffix,
-      [SYMBOL]: config.prefix + 'UNI',
+      [SYMBOL]: 'anyUNI',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x2f9755c371C7f23AEcdF1C136D233b41cE3E0D55',
       [REDEEM_MAX_NUM]: 100000,
@@ -135,24 +202,77 @@ export const INITIAL_TOKENS_CONTEXT = {
         VERSION: 'V1'
       }
     },
-    '0xe9e7cea3dedca5984780bafc599bd69add087d56': { // BUSD
-      [NAME]: 'BUSD' + config.suffix,
-      [SYMBOL]: 'BUSD',
+    '0x2ede13880e11b19b7d6113a86ac7ac84ac651042': { // COMP 36
+      [NAME]: 'Compound' + config.suffix,
+      [SYMBOL]: 'anyCOMP',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x34358Ff75D78652F1797ebd73E8f7aFA92DaB501',
-      [REDEEM_MAX_NUM]: 200000,
-      [REDEEM_MIN_NUM]: 10,
+      [EXCHANGE_ADDRESS]: '0x16cad2ca4FE9b42B9dE19F4DAd60003124472f30',
+      [REDEEM_MAX_NUM]: 2000,
+      [REDEEM_MIN_NUM]: 0.2,
       [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 1,
+      [MAXFEE]: 0.5,
+      [MINFEE]: 0.05,
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
       [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MAX_NUM]: 2000,
+      [DEPOSIT_MIN_NUM]: 0.05,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xe6358c1d7a91915abba46d9855bd6418898fc091': { // OMG 37
+      [NAME]: 'OMG' + config.suffix,
+      [SYMBOL]: 'anyOMG',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xD5556F7F0088915B651F6A9d68Bb0670c7D80554',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 8,
+      [FEE]: 0.001,
+      [MAXFEE]: 20,
+      [MINFEE]: 2,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
-      [EXTENDOBJ]: {},
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x9883ae441105f815b472517389b979f031b5c87e': { // YFI 40
+      [NAME]: 'yearn.finance' + config.suffix,
+      [SYMBOL]: 'anyYFI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xB2A16966fD1aA09D4F50AB371873f17ab4A86F42',
+      [REDEEM_MAX_NUM]: 20,
+      [REDEEM_MIN_NUM]: 0.002,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.01,
+      [MINFEE]: 0.001,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20,
+      [DEPOSIT_MIN_NUM]: 0.0005,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
     },
     '0x4b0f1812e5df2a09796481ff14017e6005508003': { // TWT
       [NAME]: 'Trust Wallet' + config.suffix,
@@ -382,28 +502,9 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
-    'FSN': { // DAI
+    'FSN': { // FSN
       [NAME]: 'Fusion',
       [SYMBOL]: 'FSN',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '',
-      [REDEEM_MAX_NUM]: 1000,
-      [REDEEM_MIN_NUM]: 0.05,
-      [FEE]: 0.001,
-      [MAXFEE]: 0.1,
-      [MINFEE]: 0.005,
-      [ISSWITCH]: dirSwitch(1),
-      [ISDEPOSIT]: 0,
-      [ISREDEEM]: 0,
-      [DEPOSIT_ADDRESS]: '',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 1000,
-      [DEPOSIT_MIN_NUM]: 0.01,
-      [EXTENDOBJ]: {},
-    },
-    'DAI': { // DAI
-      [NAME]: 'ANY Dai',
-      [SYMBOL]: config.prefix + 'DAI',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '',
       [REDEEM_MAX_NUM]: 1000,

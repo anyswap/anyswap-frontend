@@ -1,3 +1,5 @@
+import config from '../config'
+
 export const copyTxt = (cont) => {
   if (!cont) return
   // cont = cont.replace(/\s/, '')
@@ -19,4 +21,19 @@ export const copyTxt = (cont) => {
   document.getElementById(id).remove()
   _input = null
   id = null
+}
+
+export function formatCoin (coin) {
+  return coin.replace(config.prefix, '').replace('any', '')
+}
+
+export function formatDecimal(num, decimal) {
+  num = num.toString()
+  let index = num.indexOf('.')
+  if (index !== -1) {
+      num = num.substring(0, decimal + index + 1)
+  } else {
+      num = num.substring(0)
+  }
+  return parseFloat(num).toFixed(decimal)
 }

@@ -27,6 +27,7 @@ import TokenLogo from '../TokenLogo'
 
 
 import config from '../../config'
+import {formatCoin, formatDecimal} from '../../utils/tools'
 import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 import swapBTCABI from '../../constants/abis/swapBTCABI'
 import swapETHABI from '../../constants/abis/swapETHABI'
@@ -43,7 +44,7 @@ import WithdrawIcon from '../../assets/images/icon/withdraw.svg'
 import WithdrawActiveIcon from '../../assets/images/icon/withdraw-purple.svg'
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
-
+import { useAllTokenDetails} from '../../contexts/Tokens'
 import Circle from '../../assets/images/circle.svg'
 
 import Copy from '../AccountDetails/Copy'
@@ -57,6 +58,8 @@ import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '.
 // import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
 
 import {getServerInfo, removeLocalConfig, removeRegisterInfo} from '../../utils/birdge/getServerInfo'
+
+import {getAllOutBalance, getLocalOutBalance} from '../../utils/birdge/getOutBalance'
 
 
 
@@ -680,16 +683,6 @@ function getInitialSwapState(state) {
     bridgeType: 'mint'
   }
 }
-function formatDecimal(num, decimal) {
-  num = num.toString()
-  let index = num.indexOf('.')
-  if (index !== -1) {
-      num = num.substring(0, decimal + index + 1)
-  } else {
-      num = num.substring(0)
-  }
-  return parseFloat(num).toFixed(decimal)
-}
 
 
 function swapStateReducer(state, action) {
@@ -828,7 +821,7 @@ function swapStateReducer(state, action) {
         obj = initObj
         obj[config.chainID] = arr
       }
-      console.log(obj)
+      // console.log(obj)
       sessionStorage.setItem(WITHDRAW_HISTORY, JSON.stringify(obj))
       let count = 0
       if ((withdrawCount || withdrawCount === 0) && NewHashCount) {
@@ -845,17 +838,19 @@ function swapStateReducer(state, action) {
     }
   }
 }
+
 const selfUseAllToken = config.noSupportBridge
 let hashInterval
 
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
-  let { account, chainId, error } = useWeb3React()
+  const { account, chainId, error } = useWeb3React()
   const [showBetaMessage] = useBetaMessageManager()
+  const allTokens = useAllTokenDetails()
   let walletType = sessionStorage.getItem('walletType')
   // let HDPath = sessionStorage.getItem('HDPath')
-  // account = '0x445166c4854836292a5af7e3f165a3b8b4eedf97'
-  // console.log(useWeb3React())
+  // account = '0x12139f3afa1C93303e1EfE3Df142039CC05C6c58'
+  // console.log(allTokens)
   
   const urlAddedTokens = {}
   if (params.inputCurrency) {
@@ -876,6 +871,37 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
     return ''
   }
+
+  // const fetchPoolTokens = useCallback(() => {
+  //   if (exchangeContract) {
+  //     exchangeContract.totalSupply().then(totalSupply => {
+  //       setTotalPoolTokens(totalSupply)
+  //     }).catch(err => {
+  //       console.log(err)
+  //     })
+  //   }
+  // }, [exchangeContract])
+  function getAllOutBalanceFn () {
+    let tokenClass = {}
+    for (let tk in allTokens) {
+      if (allTokens[tk].extendObj && allTokens[tk].extendObj.BRIDGE) {
+        for (let cd of allTokens[tk].extendObj.BRIDGE) {
+          if (cd.isSwitch) {
+            if (!tokenClass[cd.type]) {
+              tokenClass[cd.type] = {}
+            }
+            tokenClass[cd.type][tk] = allTokens[tk]
+          }
+        }
+      }
+    }
+    getAllOutBalance(tokenClass, account)
+  }
+  useEffect(() => {
+    if (account) {
+      getAllOutBalanceFn()
+    }
+  }, [account])
 
 
   // core swap state
@@ -1010,7 +1036,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
     setInit(1)
     // console.log(inputCurrency)
-    let coin = inputSymbol.replace(config.prefix, '')
+    let coin = formatCoin(inputSymbol)
     if (account && initIsDeposit && initIsRedeem) {
       getServerInfo(account, tokenOnlyOne, inputSymbol, chainId, version).then(res => {
         if (res.msg === 'Success' && res.info) {
@@ -1041,6 +1067,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               }
               DepositAddress = serverInfo.depositAddress
             } else {
+
               if (serverInfo.dcrmAddress.toLowerCase() !== config.btcConfig.btcAddr.toLowerCase()) {
                 console.log(2)
                 // removeRegisterInfo(account, tokenOnlyOne)
@@ -1104,45 +1131,63 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   const [outNetBalance, setOutNetBalance] = useState()
   const [outNetETHBalance, setOutNetETHBalance] = useState()
-  function getOutBalance () {
-    if (isDeposit && isRedeem && depositType === 1 && account && inputSymbol !== config.prefix + 'BTC') {
-      let coin = inputSymbol ? inputSymbol.replace(config.prefix, '') : ''
-      if (coin) {
-        let node = extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
-        getErcBalance(coin, account, inputDecimals, node).then(res => {
-          // console.log(res)
-          // console.log(config.prefix + coin)
-          if (inputSymbol !== config.prefix + coin) {
-            setOutNetBalance('')
-            setOutNetETHBalance('')
-          } else if (res) {
-            if (Number(outNetBalance) !== res.TOKEN || Number(outNetETHBalance) !== res.ETH) {
-              setOutNetBalance(res.TOKEN)
-              setOutNetETHBalance(res.ETH)
-            }
-          }
-        })
-      }
-    } else {
-      setOutNetBalance('')
-      setOutNetETHBalance('')
-    }
-  }
+  // function getOutBalance () {
+  //   if (isDeposit && isRedeem && depositType === 1 && account && inputSymbol !== config.prefix + 'BTC') {
+  //     let coin = inputSymbol ? formatCoin(inputSymbol) : ''
+  //     if (coin) {
+  //       let node = extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
+  //       getErcBalance(coin, account, inputDecimals, node).then(res => {
+  //         // console.log(res)
+  //         // console.log(config.prefix + coin)
+  //         if (inputSymbol !== config.prefix + coin) {
+  //           setOutNetBalance('')
+  //           setOutNetETHBalance('')
+  //         } else if (res) {
+  //           if (Number(outNetBalance) !== res.TOKEN || Number(outNetETHBalance) !== res.ETH) {
+  //             setOutNetBalance(res.TOKEN)
+  //             setOutNetETHBalance(res.ETH)
+  //           }
+  //         }
+  //       })
+  //     }
+  //   } else {
+  //     setOutNetBalance('')
+  //     setOutNetETHBalance('')
+  //   }
+  // }
 
   // get balances for each of the currency types
   const inputBalance = useAddressBalance(account, inputCurrency)
   const FSNBalance = useAddressBalance(account, config.symbol)
   const FSNBalanceNum = FSNBalance ? amountFormatter(FSNBalance) : 0
 
-  useEffect(() => {
-    setOutNetBalance('')
-    setOutNetETHBalance('')
-    getOutBalance()
-  }, [inputCurrency, account, isDeposit, isRedeem])
+  // useEffect(() => {
+  //   setOutNetBalance('')
+  //   setOutNetETHBalance('')
+  //   getOutBalance()
+  // }, [inputCurrency, account, isDeposit, isRedeem])
 
   useEffect(() => {
-    getOutBalance()
-  }, [hashCount, hashArr, FSNBalance, inputBalance,withdrawArr, withdrawCount])
+    // getOutBalance()
+    let node = extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
+    if (node && account) {
+      let lob = getLocalOutBalance(node, account, inputCurrency)
+      if (lob && lob.info) {
+        let bl = amountFormatter(ethers.utils.bigNumberify(lob.info.balance), inputDecimals, Math.min(8, inputDecimals))
+        setOutNetBalance(bl)
+      } else {
+        setOutNetBalance('')
+      }
+      let lobBase = getLocalOutBalance(node, account, 'BASE')
+      if (lobBase && lobBase.info) {
+        let bl = amountFormatter(ethers.utils.bigNumberify(lobBase.info.balance), 18, 8)
+        setOutNetETHBalance(bl)
+      } else {
+        setOutNetETHBalance('')
+      }
+    }
+  }, [inputCurrency, account, extendObj, inputBalance, hashCount, hashArr, FSNBalance])
+// }, [hashCount, hashArr, FSNBalance, inputBalance, withdrawArr, withdrawCount])
 
   // console.log(FSNBalanceNum)
   // const outputBalance = useAddressBalance(account, outputCurrency)
@@ -1406,7 +1451,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     cleanInput()
   }
   function mintAmount (mintAddress, mintCoin) {
-    let coin = mintCoin.replace(config.prefix, '')
+    let coin = formatCoin(mintCoin)
 
     if (initDepositAddress.toLowerCase() !== mintAddress.toLowerCase()) {
       alert('Data error, please refresh and try again!')
@@ -1643,7 +1688,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [loadingState, setLoadingState] = useState(false)
   function getBTCtxns () {
     setLoadingState(true)
-    GetBTCtxnsAll(registerAddress, account, inputSymbol.replace(config.prefix, '')).then(res => {
+    GetBTCtxnsAll(registerAddress, account, formatCoin(inputSymbol)).then(res => {
       // console.log(res)
       if (res) {
         for (let obj of hashArr) {
@@ -1873,11 +1918,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     )
   }
 
-  function redeemBtn (type) {
+  function redeemBtn (type, index) {
     return (
       <>
         <Button
           disabled={ isRedeemBtn }
+          key={index}
           onClick={() => {
             sendTxns(type)
           }}
@@ -1892,11 +1938,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       </>
     )
   }
-  function mintBtn (type) {
+  function mintBtn (type, index) {
     return (
       <>
         <Button
           disabled={isMintBtn}
+          key={index}
           onClick={() => {
             // MintModelView()
             if (!isDisabled) return
@@ -1910,7 +1957,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             } else {
               setBridgeNode(type)
               setMintSureBtn(true)
-              setHardwareTxnsInfo(inputValueFormatted + ' ' + inputSymbol.replace(config.prefix, ''))
+              setHardwareTxnsInfo(inputValueFormatted + ' ' + formatCoin(inputSymbol))
               setIsHardwareTip(true)
               setMintModelTitle(t('CrossChainDeposit'))
               if (walletType === 'Ledger') {
@@ -1935,9 +1982,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let btn = ''
     if (type === 'redeem') {
       if (extendObj.BRIDGE) {
-        btn = extendObj.BRIDGE.map((item) => {
+        btn = extendObj.BRIDGE.map((item, index) => {
           if (item.isSwitch) {
-            return redeemBtn(item.type)
+            return redeemBtn(item.type, index)
           } else {
             return ''
           }
@@ -1955,9 +2002,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         )
       } else {
         if (extendObj.BRIDGE) {
-          btn = extendObj.BRIDGE.map((item) => {
+          btn = extendObj.BRIDGE.map((item, index) => {
             if (item.isSwitch) {
-              return mintBtn(item.type)
+              return mintBtn(item.type, index)
             } else {
               return ''
             }
@@ -2018,13 +2065,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 {inputValueFormatted ? (
                   <>
                     <MintList>
-                      <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace(config.prefix, '')} {t('amount')}:</MintListLabel>
+                      <MintListLabel>{t('deposit1')} {inputSymbol && formatCoin(inputSymbol)} {t('amount')}:</MintListLabel>
                       <MintListVal>{inputValueFormatted}</MintListVal>
                     </MintList>
                   </>
                 ) : ''}
                 <MintList>
-                  <MintListLabel>{t('deposit1')} {inputSymbol && inputSymbol.replace(config.prefix, '')} {t('address')}:</MintListLabel>
+                  <MintListLabel>{t('deposit1')} {inputSymbol && formatCoin(inputSymbol)} {t('address')}:</MintListLabel>
                   <MintListVal>{registerAddress ? registerAddress : ''}<Copy toCopy={registerAddress} /></MintListVal>
                 </MintList>
                 <MintListCenter>
@@ -2108,7 +2155,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             <>
               <MintTip onClick={MintInfoModelView}>
                 <FlexCneter>
-                  <FlexCneter><TokenLogoBox size={'34px'} address={inputSymbol ? 'BTC' : inputSymbol.replace(config.prefix, '')} /></FlexCneter>
+                  <FlexCneter><TokenLogoBox size={'34px'} address={inputSymbol ? 'BTC' : formatCoin(inputSymbol)} /></FlexCneter>
                   <span className="txt"><FlexCneter>Waiting for deposit</FlexCneter></span>
                 </FlexCneter>
               </MintTip>
@@ -2160,65 +2207,62 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         urlAddedTokens={urlAddedTokens}
         extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : (outNetBalance && inputSymbol !== config.prefix + 'BTC' ? formatBalance(outNetBalance) : '')}
         extraTextClickHander={() => {
-          if (inputBalance && inputDecimals) {
-            const valueToSet = inputCurrency === config.symbol ? inputBalance.sub(ethers.utils.parseEther('.1')) : inputBalance
-
-            if (valueToSet.gt(ethers.constants.Zero)) {
-              let inputVal = inputBalance
-              let value = ''
+          let inputVal
+          let value = ''
+          if (bridgeType && bridgeType === 'redeem' && inputBalance && inputDecimals) {
+            inputVal = inputBalance
+            if (inputVal.gt(ethers.constants.Zero)) {
               let _redeemMinNum = ethers.utils.parseUnits(redeemMinNum.toString(), inputDecimals)
               let _redeemMaxNum = ethers.utils.parseUnits(redeemMaxNum.toString(), inputDecimals)
-              if (bridgeType && bridgeType === 'redeem') {
-                if (inputVal.lt(_redeemMinNum)) {
-                  inputVal = ''
-                } else if (inputVal.gt(_redeemMaxNum)) {
-                  inputVal = _redeemMaxNum
-                }
-                if (inputVal) {
-                  value = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
-                  let _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-                  let _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
-                  let _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
-  
-                  if (_fee.isZero()) {
-                    inputVal = ''
-                  } else {
-                    if (_fee.lt(_minFee)) {
-                      _fee = _minFee
-                    } else if (_fee.gt(_maxFee)) {
-                      _fee = _maxFee
-                    }
-                    inputVal = inputVal.sub(_fee)
-                  }
-                }
-                // inputVal = Number(inputVal) - _fee
-              } else {
-                inputVal = ethers.utils.parseUnits(outNetBalance.toString(), inputDecimals)
-                let _depositMinNum = ethers.utils.parseUnits(depositMinNum.toString(), inputDecimals)
-                let _depositMaxNum = ethers.utils.parseUnits(depositMaxNum.toString(), inputDecimals)
-                value = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
-                if (inputVal.lt(_depositMinNum)) {
-                  inputVal = ''
-                } else if (inputVal.gt(_depositMaxNum)) {
-                  inputVal = _depositMaxNum
-                }
+              if (inputVal.lt(_redeemMinNum)) {
+                inputVal = ''
+              } else if (inputVal.gt(_redeemMaxNum)) {
+                inputVal = _redeemMaxNum
               }
               if (inputVal) {
-                inputVal = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
-              } else {
-                inputVal = ''
-              }
-              dispatchSwapState({
-                type: 'UPDATE_INDEPENDENT',
-                payload: {
-                  // value: bridgeType && bridgeType === 'redeem' ? amountFormatter(valueToSet, inputDecimals, inputDecimals, false) : inputVal,
-                  value: value,
-                  field: INPUT,
-                  realyValue: inputVal && Number(inputVal) > 0 ? Number(inputVal) : ''
+                value = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
+                let _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+                let _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
+                let _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
+
+                if (_fee.isZero()) {
+                  inputVal = ''
+                } else {
+                  if (_fee.lt(_minFee)) {
+                    _fee = _minFee
+                  } else if (_fee.gt(_maxFee)) {
+                    _fee = _maxFee
+                  }
+                  inputVal = inputVal.sub(_fee)
                 }
-              })
+              }
+            }
+          } else if (bridgeType && bridgeType !== 'redeem' && outNetBalance && inputDecimals) {
+            inputVal = ethers.utils.parseUnits(outNetBalance.toString(), inputDecimals)
+            let _depositMinNum = ethers.utils.parseUnits(depositMinNum.toString(), inputDecimals)
+            let _depositMaxNum = ethers.utils.parseUnits(depositMaxNum.toString(), inputDecimals)
+            value = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
+            if (inputVal.lt(_depositMinNum)) {
+              inputVal = ''
+            } else if (inputVal.gt(_depositMaxNum)) {
+              inputVal = _depositMaxNum
             }
           }
+
+          if (inputVal) {
+            inputVal = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
+          } else {
+            inputVal = ''
+          }
+          console.log(inputVal)
+          dispatchSwapState({
+            type: 'UPDATE_INDEPENDENT',
+            payload: {
+              value: value,
+              field: INPUT,
+              realyValue: inputVal && Number(inputVal) > 0 ? Number(inputVal) : ''
+            }
+          })
         }}
         onCurrencySelected={inputCurrency => {
           dispatchSwapState({
@@ -2247,9 +2291,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             }
           }
           if (inputVal) {
-            console.log(inputVal)
-            inputVal = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
-            console.log(inputVal)
+            // console.log(inputVal)
+            inputVal = amountFormatter(inputVal, inputDecimals, Math.min(10, inputDecimals))
+            // console.log(inputVal)
+            // inputVal = Number(inputVal.toString().toFixed(8))
+            // console.log(inputVal)
           } else {
             inputVal = ''
           }
@@ -2259,12 +2305,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               value: inputValue,
               field: INPUT,
               // realyValue: bridgeType && bridgeType === 'redeem' ? inputVal : inputValue
-              realyValue: inputVal ? Number(inputVal) : ''
+              realyValue: inputVal ? Number(Number(inputVal).toFixed(8)) : ''
             }
           })
         }}
-        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && inputSymbol.replace(config.prefix, ''))}
-        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && inputSymbol.replace(config.prefix, ''))}
+        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && formatCoin(inputSymbol))}
+        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && formatCoin(inputSymbol))}
         isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : inputName.replace(config.symbol === 'BNB' ? config.suffix : config.namePrefix, '')}
         showUnlock={false}
         selectedTokens={[inputCurrency, outputCurrency]}
@@ -2291,10 +2337,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                ? (
                 <MintWarningTip>
                   <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
-                  {/* {t('mintTip0', { coin: inputSymbol.replace(config.prefix, '')})} */}
+                  {/* {t('mintTip0', { coin: formatCoin(inputSymbol)})} */}
                   <span dangerouslySetInnerHTML = { 
                     {__html: t('mintTip0', { 
-                      coin: inputSymbol.indexOf('ETH') !== -1 ? inputSymbol.replace(config.prefix, '') : (inputSymbol.replace(config.prefix, '') + (config.symbol === 'BNB' ? '' : '-ERC20')),
+                      coin: inputSymbol.indexOf('ETH') !== -1 ? formatCoin(inputSymbol) : (formatCoin(inputSymbol) + (config.symbol === 'BNB' ? '' : '-ERC20')),
                       coin2: extendObj.BRIDGE && extendObj.BRIDGE[0] && extendObj.BRIDGE[0].type === 32659 ? 'FSN' : 'ETH'
                     })}
                   }></span>
@@ -2332,8 +2378,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             payload: { currency: inputCurrency, field: INPUT }
           })
         }}
-        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol}
-        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol.replace(config.prefix, '') : ''}
+        isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? formatCoin(inputSymbol) : inputSymbol}
+        isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? formatCoin(inputSymbol) : ''}
         isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? inputName.replace(config.symbol === 'BNB' ? config.suffix : config.namePrefix, '') : ''}
         showUnlock={false}
         disableUnlock={true}
@@ -2345,7 +2391,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       />
       {bridgeType && bridgeType === 'redeem' ? (
         <>
-          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false} changeCount={recipientCount}/>
+          <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? formatCoin(inputSymbol) : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false} changeCount={recipientCount}/>
         </>
       ) : (
         inputSymbol ===  (config.prefix + 'BTC') && account && registerAddress ? (
@@ -2355,7 +2401,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               <InputContainer>
                 <LabelRow>
                   <LabelContainer>
-                    <span>{t('deposit1') + ' ' + (inputSymbol ? inputSymbol.replace(config.prefix, '') : inputSymbol)  + ' ' + t('address')}</span>
+                    <span>{t('deposit1') + ' ' + (inputSymbol ? formatCoin(inputSymbol) : inputSymbol)  + ' ' + t('address')}</span>
                   </LabelContainer>
                 </LabelRow>
                 <InputRow>
@@ -2399,16 +2445,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                     </dt>
                     <dd><i></i>{t('redeemTip1', {
                       minFee,
-                      coin: inputSymbol.replace(config.prefix, ''),
+                      coin: formatCoin(inputSymbol),
                       maxFee,
                       fee: fee * 100
                     })}</dd>
-                    <dd><i></i>{t('redeemTip2')} {redeemMinNum} {inputSymbol.replace(config.prefix, '')}</dd>
-                    <dd><i></i>{t('redeemTip3')} {redeemMaxNum} {inputSymbol.replace(config.prefix, '')}</dd>
+                    <dd><i></i>{t('redeemTip2')} {redeemMinNum} {formatCoin(inputSymbol)}</dd>
+                    <dd><i></i>{t('redeemTip3')} {redeemMaxNum} {formatCoin(inputSymbol)}</dd>
                     <dd><i></i>{t('redeemTip4')},</dd>
                     <dd><i></i>{t('redeemTip5', {
                       redeemBigValMoreTime,
-                      coin: inputSymbol.replace(config.prefix, ''),
+                      coin: formatCoin(inputSymbol),
                     })}</dd>
                   </dl>
                 </>
@@ -2420,15 +2466,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       {t('Reminder')}:
                     </dt>
                     <dd><i></i>{t('mintTip1')},</dd>
-                    <dd><i></i>{t('mintTip2')} {depositMinNum} {inputSymbol.replace(config.prefix, '')}</dd>
-                    <dd><i></i>{t('mintTip3')} {depositMaxNum} {inputSymbol.replace(config.prefix, '')}</dd>
+                    <dd><i></i>{t('mintTip2')} {depositMinNum} {formatCoin(inputSymbol)}</dd>
+                    <dd><i></i>{t('mintTip3')} {depositMaxNum} {formatCoin(inputSymbol)}</dd>
                     <dd><i></i>{t('mintTip4')}</dd>
                     <dd><i></i>{t('mintTip5', {
                       depositBigValMoreTime,
-                      coin: inputSymbol.replace(config.prefix, ''),
+                      coin: formatCoin(inputSymbol),
                     }) + (inputSymbol ? '' : '')}</dd>
                     {
-                      account && inputSymbol.replace(config.prefix, '') !== 'BTC' ? (
+                      account && formatCoin(inputSymbol) !== 'BTC' ? (
                         walletTip()
                       ) : ''
                     }

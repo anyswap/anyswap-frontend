@@ -9,14 +9,7 @@ import { ethers } from 'ethers'
 
 import { amountFormatter } from '../index'
 import { getChainHashStatus, getSwapoutHashStatus } from '../birdge'
-import {
-  BNB_MAINNET,
-  BNB_TESTNET,
-  FSN_MAINNET,
-  FSN_TESTNET,
-  ETH_MAINNET,
-  ETH_TESTNET
-} from '../../config/coinbase/nodeConfig'
+import {getNodeRpc} from '../../config/getNodeRpc'
 
 
 const Web3 = require('web3')
@@ -24,33 +17,14 @@ const Tx  = require("ethereumjs-tx")
 
 const BRIDGE_RPC = config.bridge.rpc
 
-function getNodeRpc (node) {
-  switch (node) {
-    case 56:
-      return BNB_MAINNET
-    case 97:
-      return BNB_TESTNET
-    case 32659:
-      return FSN_MAINNET
-    case 46688:
-      return FSN_TESTNET
-    case 1:
-      return ETH_MAINNET
-    case 4:
-      return ETH_TESTNET
-    default: 
-      return BRIDGE_RPC
-  }
-}
-
 // const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
+// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x421d35f8f8fd822f898e75db43f057f7ea448298') // FSN-test
-// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
+// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
 // setTimeout(() => {
 
-//   factory.methods.getExchange('0xc0d7857b10551f784c80942b7e8b5abfa373d802').call((err, res) => {
-//     console.log('link')
+//   factory.methods.getExchange('0x9883ae441105f815b472517389b979f031b5c87e').call((err, res) => {
+//     console.log('yli')
 //     console.log(err)
 //     console.log(res)
 //   })

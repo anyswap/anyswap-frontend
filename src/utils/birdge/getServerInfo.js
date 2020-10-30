@@ -72,8 +72,11 @@ export function removeLocalConfig (account, token, chainId) {
 }
 
 
-function getRegisterInfo (account, token, chainID) {
+function getRegisterInfo (account, token, chainID, version, coin) {
   let lrInfo = localStorage.getItem(SERVER_BRIDGE_REGISTER)
+  if (version === 'V2' && coin.indexOf('BTC') === -1) {
+    token = 'V2'
+  }
   if (!lrInfo) {
     return false
   } else {
@@ -85,9 +88,12 @@ function getRegisterInfo (account, token, chainID) {
   }
 }
 
-function setRegisterInfo (account, token, localInfo, chainID) {
+function setRegisterInfo (account, token, localInfo, chainID, version, coin) {
   let lstr = localStorage.getItem(SERVER_BRIDGE_REGISTER)
   let lboj = {}
+  if (version === 'V2' && coin.indexOf('BTC') === -1) {
+    token = 'V2'
+  }
   if (!lstr) {
     // console.log(1)
     lboj[chainID] = {}
@@ -135,7 +141,7 @@ export function removeRegisterInfo (account, token, chainID) {
   }
 }
 
-function setLocalinfo (account, res, chainID) {
+function setLocalinfo (account, res, chainID, version, coin) {
   let dObj = res.SrcToken, // 充值信息
       rObj = res.DestToken // 提现信息
   let bridgeData = {
@@ -155,13 +161,13 @@ function setLocalinfo (account, res, chainID) {
     fee: rObj.SwapFeeRate,
     redeemBigValMoreTime: rObj.BigValueThreshold,
     token: rObj.ContractAddress,
-    p2pAddress: getRegisterInfo(account, rObj.ContractAddress, chainID).p2pAddress
+    p2pAddress: getRegisterInfo(account, rObj.ContractAddress, chainID, version, coin).p2pAddress
   }
   // console.log(rObj.ContractAddress)
   setLocalConfig(account, rObj.ContractAddress, bridgeData, chainID)
 }
 
-function getServerData (account, chainID, version) {
+function getServerData (account, chainID, version, coin) {
   return new Promise(resolve => {
     let url = config.serverInfoUrl['V1'] + '/serverInfo/' + chainID
     if (version === 'V2') {
@@ -180,7 +186,7 @@ function getServerData (account, chainID, version) {
         }
         let serverData = res.data
         for (let obj in serverData) {
-          setLocalinfo(account, serverData[obj], chainID)
+          setLocalinfo(account, serverData[obj], chainID, version, coin)
         }
       }
       resolve(data)
@@ -211,7 +217,7 @@ function RegisterAddress(account, token, coin, chainID, version) {
         setRegisterInfo(account, token, {
           isRegister: true,
           p2pAddress: rsData.info && rsData.info.P2shAddress
-        }, chainID)
+        }, chainID, version, coin)
         resolve({
           msg: 'Success',
           info: ''
@@ -238,7 +244,7 @@ export function getServerInfo (account, token, coin, chainID, version) {
     if (!account) {
       resolve('')
     } else {
-      let lrInfo = getRegisterInfo(account, token, chainID)
+      let lrInfo = getRegisterInfo(account, token, chainID, version, coin)
       if (!lrInfo) {
         RegisterAddress(account, token, coin, chainID, version).then(res => {
           if (res.msg === 'Success') {
@@ -246,7 +252,7 @@ export function getServerInfo (account, token, coin, chainID, version) {
             if (lData) {
               resolve(lData)
             } else {
-              getServerData(account, chainID, version).then(result => {
+              getServerData(account, chainID, version, coin).then(result => {
                 let lData1 = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID)
                 if (lData1) {
                   resolve(lData1)
@@ -263,7 +269,7 @@ export function getServerInfo (account, token, coin, chainID, version) {
         })
       } else {
         if (!getLocalConfig(account, token, chainID)) {
-          getServerData(account, chainID, version).then(result => {
+          getServerData(account, chainID, version, coin).then(result => {
             let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID)
             if (lData) {
               resolve(lData)

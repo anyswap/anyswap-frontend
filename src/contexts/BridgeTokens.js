@@ -299,8 +299,7 @@ export default {
       [NAME]: 'ChainLink Token',
       [TOKEN]: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
       [SYMBOL]: 'LINK',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xF173214C720f58E03e194085B1DB28B50aCDeeaD'
+      [DECIMALS]: 18
     },
     'HOT': {
       [NAME]: 'HoloToken',
