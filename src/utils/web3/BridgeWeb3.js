@@ -20,12 +20,11 @@ const BRIDGE_RPC = config.bridge.rpc
 // const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x421d35f8f8fd822f898e75db43f057f7ea448298') // FSN-test
-// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x0911fD5BCbC574c59bee6D7B772587B4A03D2778') // FTM-MAIN
+// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
+// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x0911fD5BCbC574c59bee6D7B772587B4A03D2778') // FTM-MAIN
 // setTimeout(() => {
-
-//   factory.methods.getExchange('0xa389eec0adb193ee73dc6e3621a10434f98057ee').call((err, res) => {
-//     console.log('yli')
+//   factory.methods.getExchange('0x6f817a0ce8f7640add3bc0c1c2298635043c2423').call((err, res) => {
+//     console.log('ETH')
 //     console.log(err)
 //     console.log(res)
 //   })

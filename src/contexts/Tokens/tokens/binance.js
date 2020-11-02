@@ -46,7 +46,7 @@ export default {
         VERSION: 'V1'
       },
     },
-    '0x55d398326f99059ff775485246999027b3197955': { // USDT
+    '0x55d398326f99059ff775485246999027b3197955': { // USDT-BEP20
       [NAME]: 'Tether' + config.suffix,
       [SYMBOL]: 'USDT',
       [DECIMALS]: 18,
@@ -64,6 +64,54 @@ export default {
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]: {},
+    },
+    '0xb46d67fb63770052a07d5b7c14ed858a8c90f825': { // USDT-ERC20
+      [NAME]: 'Tether-ERC20',
+      [SYMBOL]: 'USDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0xfD942FCFAcB5FbdCb19D1263e1c329379dA9A98f',
+      [REDEEM_MAX_NUM]: 20000,
+      [REDEEM_MIN_NUM]: 2,
+      [FEE]: 0.001,
+      [MAXFEE]: 5,
+      [MINFEE]: 0.5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x6f817a0ce8f7640add3bc0c1c2298635043c2423': { // ETH
+      [NAME]: 'Ethereum' + config.suffix,
+      [SYMBOL]: 'ETH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xbC2910DEe5e78dBEFa6579fc6b56bAb2b7C8fFBf',
+      [REDEEM_MAX_NUM]: 20000,
+      [REDEEM_MIN_NUM]: 2,
+      [FEE]: 0.001,
+      [MAXFEE]: 5,
+      [MINFEE]: 0.5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
     },
     '0x3af577f9d8c86ae8dbcbf51fe9836c9df825759d': { // LINK 6
       [NAME]: 'Chainlink' + config.suffix,
@@ -459,25 +507,6 @@ export default {
     'FSN': { // FSN
       [NAME]: 'Fusion',
       [SYMBOL]: 'FSN',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '',
-      [REDEEM_MAX_NUM]: 1000,
-      [REDEEM_MIN_NUM]: 0.05,
-      [FEE]: 0.001,
-      [MAXFEE]: 0.1,
-      [MINFEE]: 0.005,
-      [ISSWITCH]: dirSwitch(1),
-      [ISDEPOSIT]: 0,
-      [ISREDEEM]: 0,
-      [DEPOSIT_ADDRESS]: '',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 1000,
-      [DEPOSIT_MIN_NUM]: 0.01,
-      [EXTENDOBJ]: {},
-    },
-    'ETH': { // ETH
-      [NAME]: 'ANY Ethereum',
-      [SYMBOL]: config.prefix + 'ETH',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '',
       [REDEEM_MAX_NUM]: 1000,

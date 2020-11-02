@@ -638,7 +638,7 @@ export default function DashboardDtil () {
             baseAllBalance = baseAllBalance.add(obj.exchangeETHBalance)
           }
           // console.log(obj.symbol)
-          if (obj.symbol.indexOf('USDT') !== -1) {
+          if (obj.symbol.indexOf('USDT') !== -1 && obj.name.indexOf('ERC20') === -1) {
             setSaseMarket(Number(amountFormatter(
               obj.market,
               18,
