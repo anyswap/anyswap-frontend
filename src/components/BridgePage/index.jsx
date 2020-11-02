@@ -1044,18 +1044,19 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           try {
             let DepositAddress = ''
             if (coin !== 'BTC') {
-              let erc20Token = ''
-              if (config.symbol === 'FSN') {
-                erc20Token = coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
-              } else if (config.symbol === 'BNB') {
-                erc20Token = coin !== 'FSN' ? BridgeTokens[node][coin].token : ''
-              }
+              let erc20Token = BridgeTokens[node] && BridgeTokens[node][coin] && BridgeTokens[node][coin].token ? BridgeTokens[node][coin].token : ''
+              // if (config.symbol === 'FSN') {
+              //   erc20Token = coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
+              // } else if (config.symbol === 'BNB') {
+              //   erc20Token = coin !== 'FSN' || coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
+              // }
               if (
                 (initDepositAddress.toLowerCase() !== serverInfo.depositAddress.toLowerCase())
                 || (tokenOnlyOne.toLowerCase() !== serverInfo.token.toLowerCase())
                 || (
-                    ((coin !== 'ETH' && config.symbol === 'FSN') || (coin !== 'FSN' && config.symbol === 'BNB')) 
-                    && erc20Token.toLowerCase() !== serverInfo.outnetToken.toLowerCase()
+                    // ((coin !== 'ETH' && config.symbol === 'FSN') || (coin !== 'ETH' && coin !== 'FSN' && config.symbol === 'BNB')) 
+                    // && erc20Token.toLowerCase() !== serverInfo.outnetToken.toLowerCase()
+                    erc20Token && erc20Token.toLowerCase() !== serverInfo.outnetToken.toLowerCase()
                   )
               ) {
                 console.log(1)
