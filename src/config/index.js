@@ -35,10 +35,11 @@ import {
 } from './coinbase/nodeConfig'
 // console.log(location.href)
 const ENV_NODE_CONFIG = 'ENV_NODE_CONFIG'
-const INIT_NODE = 'FSN_MAIN'
+// const INIT_NODE = 'FSN_MAIN'
 // const INIT_NODE = 'BNB_MAIN'
 // const INIT_NODE = 'BNB_TEST'
 // const INIT_NODE = 'FSN_TEST'
+const INIT_NODE = 'FTM_MAIN'
 
 function getNode (type) {
   switch (type) {
@@ -50,6 +51,8 @@ function getNode (type) {
       return 'BNB_MAIN'
     case 'bsctestnet':
       return 'BNB_TEST'
+    case 'fantom':
+      return 'FTM_MAIN'
     default:
       return INIT_NODE
   }
@@ -88,7 +91,7 @@ function getParams (url, param) {
 }
 
 let ENV_CONFIG = getParams(location.href, 'network')
-// let ENV_CONFIG = 'FTM_MAIN'
+// ENV_CONFIG = 'FTM_MAIN'
 
 
 let netArr = ENV_CONFIG.split('_')
@@ -190,7 +193,7 @@ const dirSwitchFn = (type) => {
 // console.log(bridge[useBridge])
 // console.log(useBridge)
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
-serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
+// serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
 // if (netArr[1].toLowerCase() === 'test') {
 // }
 export default {

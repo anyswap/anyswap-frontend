@@ -48,7 +48,7 @@ const COIN = {
     [FEE]: null,
     [MAXFEE]: 50,
     [MINFEE]: 1,
-    [ISSWITCH]: 1,
+    [ISSWITCH]: 0,
     [ISDEPOSIT]: 0,
     [ISREDEEM]: 0,
     [DEPOSIT_ADDRESS]: '',

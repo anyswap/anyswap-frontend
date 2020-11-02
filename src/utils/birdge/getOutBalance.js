@@ -4,7 +4,6 @@ import ERC20_ABI from '../../constants/abis/erc20'
 import TOKEN from '../../contexts/BridgeTokens'
 import {getNodeRpc} from '../../config/getNodeRpc'
 import {formatCoin} from '../tools'
-import { resolve } from 'path'
 
 const Web3 = require('web3')
 const web3 = new Web3()
@@ -105,9 +104,9 @@ function getOutTokenBalance (chainId, account, tokenList) {
             bl = ZERO
           } else {
             bl = ethers.utils.bigNumberify(res)
+            setLocalOutBalance(chainId, account, token, {balance: bl.toString()})
+            setLocalOutBalance(chainId, account, 'BASE', {balance: bl.toString()})
           }
-          setLocalOutBalance(chainId, account, token, {balance: bl.toString()})
-          setLocalOutBalance(chainId, account, 'BASE', {balance: bl.toString()})
           resolve('OVER')
         }))
       } else {
@@ -118,10 +117,9 @@ function getOutTokenBalance (chainId, account, tokenList) {
           if (err) {
             bl = ZERO
           } else {
-            bl = res
+            bl = ethers.utils.bigNumberify(res)
+            setLocalOutBalance(chainId, account, token, {balance: bl.toString()})
           }
-          bl = ethers.utils.bigNumberify(res)
-          setLocalOutBalance(chainId, account, token, {balance: bl.toString()})
         }))
       }
     }
@@ -132,8 +130,8 @@ function getOutTokenBalance (chainId, account, tokenList) {
           bl = ZERO
         } else {
           bl = ethers.utils.bigNumberify(res)
+          setLocalOutBalance(chainId, account, 'BASE', {balance: bl.toString()})
         }
-        setLocalOutBalance(chainId, account, 'BASE', {balance: bl.toString()})
         resolve('OVER')
       }))
     }
@@ -141,13 +139,16 @@ function getOutTokenBalance (chainId, account, tokenList) {
   })
 }
 
+let getBalanceInterval = ''
+
 function getAllOutBalanceFn (allToken, account) {
+  if (getBalanceInterval) clearTimeout(getBalanceInterval) 
   let arr = []
   for (let chainId in allToken) {
     arr.push(getOutTokenBalance(chainId, account, allToken[chainId]))
   }
   Promise.all(arr).then(res => {
-    setTimeout(() => {
+    getBalanceInterval = setTimeout(() => {
       getAllOutBalance(allToken, account)
     }, 12000)
   })
