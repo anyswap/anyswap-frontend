@@ -35,32 +35,33 @@ const ETHERSCAN_PREFIXES = {
   5: 'goerli.',
   42: 'kovan.'
 }
-
 export function getEtherscanLink(networkId, data, type) {
   let prefix = `https://${ETHERSCAN_PREFIXES[networkId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
   switch (type) {
     case 'transaction': {
       let url = `${prefix}/tx/${data}`
-      if (networkId === 46688 || networkId === 32659) {
-        url = `${config.explorerUrl}/transaction/${data}`
-      } else if (networkId === 97 || networkId === 56) {
-        url = `${config.explorerUrl}/tx/${data}`
-      } else if (networkId === 250) {
-        url = `${config.explorerUrl}/transactions/${data}`
-      }
+      // if (networkId === 46688 || networkId === 32659) {
+      //   url = `${config.explorerUrl}/transaction/${data}`
+      // } else if (networkId === 97 || networkId === 56) {
+      //   url = `${config.explorerUrl}/tx/${data}`
+      // } else if (networkId === 250) {
+      //   url = `${config.explorerUrl}/transactions/${data}`
+      // }
+      url = config.bridgeAll[networkId].lookHash + data
       // return `${prefix}/tx/${data}`
       return url
     }
     case 'address':
     default: {
       let url = `${prefix}/address/${data}`
-      if (networkId === 46688 || networkId === 32659) {
-        url = `${config.explorerUrl}/address/${data}`
-      } else if (networkId === 97 || networkId === 56) {
-        url = `${config.explorerUrl}/address/${data}`
-      } else if (networkId === 250) {
-        url = `${config.explorerUrl}/address/${data}`
-      }
+      // if (networkId === 46688 || networkId === 32659) {
+      //   url = `${config.explorerUrl}/address/${data}`
+      // } else if (networkId === 97 || networkId === 56) {
+      //   url = `${config.explorerUrl}/address/${data}`
+      // } else if (networkId === 250) {
+      //   url = `${config.explorerUrl}/address/${data}`
+      // }
+      url = config.bridgeAll[networkId].lookAddr + data
       return url
       // return `${prefix}/address/${data}`
     }

@@ -641,6 +641,12 @@ const SpinnerWrapper = styled(Spinner)`
   }
 `
 
+const AutoDiv = styled.div`
+width:100%;
+height: auto;
+${({ theme }) => theme.FlexC};
+`
+
 const DEPOSIT_HISTORY = 'DEPOSIT_HISTORY'
 const WITHDRAW_HISTORY = 'WITHDRAW_HISTORY'
 function isArray(o){
@@ -1993,7 +1999,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       if (extendObj.BRIDGE) {
         btn = extendObj.BRIDGE.map((item, index) => {
           if (item.isSwitch) {
-            return redeemBtn(item.type, index)
+            return (
+              <AutoDiv key={index}>
+                {redeemBtn(item.type, index)}
+              </AutoDiv>
+            )
           } else {
             return ''
           }
@@ -2013,7 +2023,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         if (extendObj.BRIDGE) {
           btn = extendObj.BRIDGE.map((item, index) => {
             if (item.isSwitch) {
-              return mintBtn(item.type, index)
+              // return mintBtn(item.type, index)
+              return (
+                <AutoDiv key={index}>
+                  {mintBtn(item.type, index)}
+                </AutoDiv>
+              )
             } else {
               return ''
             }
