@@ -193,7 +193,7 @@ const dirSwitchFn = (type) => {
 // console.log(bridge[useBridge])
 // console.log(useBridge)
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
-// serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
+serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
 // if (netArr[1].toLowerCase() === 'test') {
 // }
 export default {

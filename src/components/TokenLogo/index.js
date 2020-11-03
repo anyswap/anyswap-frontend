@@ -49,7 +49,7 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
   const [error, setError] = useState(false)
   let path = ''
   // console.log(address)
-  address = address.replace('any', '')
+  address = address ? address.replace('any', '') : ''
   if (address) {
     try {
       path = require('../../assets/images/coin/' + address + '.svg')

@@ -843,7 +843,7 @@ let hashInterval
 
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
-  const { account, chainId, error } = useWeb3React()
+  const { account, chainId, error, library } = useWeb3React()
   const [showBetaMessage] = useBetaMessageManager()
   const allTokens = useAllTokenDetails()
   let walletType = sessionStorage.getItem('walletType')
@@ -1166,9 +1166,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   //   setOutNetETHBalance('')
   //   getOutBalance()
   // }, [inputCurrency, account, isDeposit, isRedeem])
-
-  useEffect(() => {
-    // getOutBalance()
+  function setOutBalance () {
     let node = extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
     if (node && account) {
       let lob = getLocalOutBalance(node, account, inputCurrency)
@@ -1186,7 +1184,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         setOutNetETHBalance('')
       }
     }
-  }, [inputCurrency, account, extendObj, inputBalance, hashCount, hashArr, FSNBalance])
+  }
+  useEffect(() => {
+    // getOutBalance()
+    library.on('block', block => {
+      // console.log(block)
+      setOutBalance()
+    })
+
+    // return () => {
+    //   library.removeListener('block', setOutBalance)
+    // }
+  }, [inputCurrency, account, extendObj, inputBalance, hashCount, hashArr, FSNBalance, library])
 // }, [hashCount, hashArr, FSNBalance, inputBalance, withdrawArr, withdrawCount])
 
   // console.log(FSNBalanceNum)

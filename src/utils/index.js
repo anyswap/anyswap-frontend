@@ -45,6 +45,8 @@ export function getEtherscanLink(networkId, data, type) {
         url = `${config.explorerUrl}/transaction/${data}`
       } else if (networkId === 97 || networkId === 56) {
         url = `${config.explorerUrl}/tx/${data}`
+      } else if (networkId === 250) {
+        url = `${config.explorerUrl}/transactions/${data}`
       }
       // return `${prefix}/tx/${data}`
       return url
@@ -55,6 +57,8 @@ export function getEtherscanLink(networkId, data, type) {
       if (networkId === 46688 || networkId === 32659) {
         url = `${config.explorerUrl}/address/${data}`
       } else if (networkId === 97 || networkId === 56) {
+        url = `${config.explorerUrl}/address/${data}`
+      } else if (networkId === 250) {
         url = `${config.explorerUrl}/address/${data}`
       }
       return url

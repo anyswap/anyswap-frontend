@@ -15,7 +15,7 @@ const NAME_PREFIX = 'ANY'
 
 const COIN = getBaseCoin(PREFIX)
 
-const ANY_MAIN_TOKEN = '0xa0782d8CFB27e6Ac9D158B0d024Bc7924a29d740'
+const ANY_MAIN_TOKEN = '0xAd84341756Bf337f5a0164515b1f6F993D194E1f'
 const ANY_TEST_TOKEN = '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
 
 const REWARDS_DAY = 33000 / 2
@@ -38,6 +38,7 @@ const COIN_BASE ={
   rewardRate (arr) {
     let totalLq = 0
     let coinObj = {}
+    return coinObj
     for (let obj of arr) {
       let mt = Number(obj.market) / Math.pow(10, 18)
       // let totalBaseAmount = Number(obj.baseAmount) + Number(obj.tokenAmount) / mt
@@ -86,18 +87,19 @@ const MAIN_CONFIG = {
     token: ANY_MAIN_TOKEN,  // ANY合约地址
   },
   initToken: INIT_MAIN_TOKEN, // 交易默认合约
-  initBridge: INIT_MAIN_TOKEN, // 跨链桥默认合约
+  initBridge: '0xe56bade49ef1a31ec98b4cba245e301d06525cfe', // 跨链桥默认合约
   explorerUrl: FTM_MAIN_EXPLORER, // 浏览器地址
   btcConfig: { // btc配置
     lookHash: 'https://www.blockchain.com/btc/tx/', // 
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/', // 
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
-    btcAddr: '1HvrEMgxsYadWGhijpfygKSqPZ5p418g45',  // 
+    btcAddr: '',  // 
   },
-  isOpenRewards: 1, // 是否打开奖励数据
-  isChangeDashboard: 1, // 是否改变资产顺序
+  isOpenRewards: 0, // 是否打开奖励数据
+  isChangeDashboard: 0, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
+    '0xAd84341756Bf337f5a0164515b1f6F993D194E1f'
   ], // 不支持的跨链合约或币种
   queryToken: '0x938fD483657Fd233CF93D78f99698662674c1894' // 查询余额合约
 }
