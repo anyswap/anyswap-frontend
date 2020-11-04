@@ -42,6 +42,8 @@ import SendWhiteIcon from '../../assets/images/icon/send-white.svg'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
 
+import {recordTxns} from '../../utils/records'
+
 
 const INPUT = 0
 const OUTPUT = 1
@@ -844,6 +846,7 @@ export default function ExchangePage({ initialCurrency, params }) {
     const deadline = Math.ceil(Date.now() / 1000) + deadlineFromNow
 
     let estimate, method, args, value
+    let txnsType = sending ? 'SEND' : 'SWAP'
 
     
     // if (config.supportWallet.includes(walletType)) {
@@ -913,14 +916,6 @@ export default function ExchangePage({ initialCurrency, params }) {
         } else if (swapType === TOKEN_TO_TOKEN) {
           value = ethers.constants.Zero
           data = sending ?
-          // web3Contract.tokenToTokenTransferOutput.getData(
-          //       independentValueParsed.toHexString(),
-          //       dependentValueMaximum.toHexString(),
-          //       ethers.constants.MaxUint256.toHexString(),
-          //       deadline,
-          //       recipient.address,
-          //       outputCurrency
-          // )
           web3Contract.methods.tokenToTokenTransferOutput(
                 independentValueParsed.toHexString(),
                 dependentValueMaximum.toHexString(),
@@ -937,10 +932,12 @@ export default function ExchangePage({ initialCurrency, params }) {
       // console.log(data)
       value = swapType === ETH_TO_TOKEN ? value.toHexString() : 0
       // console.log(value)
+      
       getWeb3BaseInfo(contractAddress, contractAddress, data, account, value).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)
+          recordTxns(res.info, txnsType, inputSymbol + '/' + outputSymbol, account, recipient.address)
           setIsHardwareTip(false)
           dispatchSwapState({
             type: 'UPDATE_INDEPENDENT',
@@ -954,7 +951,6 @@ export default function ExchangePage({ initialCurrency, params }) {
         } else {
           setIsHardwareError(true)
         }
-        // addTransaction(response)
       })
       return
     }
@@ -1027,6 +1023,7 @@ export default function ExchangePage({ initialCurrency, params }) {
     }).then(response => {
       // console.log(response)
       addTransaction(response)
+      recordTxns(response, txnsType, inputSymbol + '/' + outputSymbol, account, recipient.address)
       dispatchSwapState({
         type: 'UPDATE_INDEPENDENT',
         payload: { value: '', field: INPUT }

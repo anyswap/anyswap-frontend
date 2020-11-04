@@ -60,7 +60,7 @@ import {getServerInfo, removeLocalConfig, removeRegisterInfo} from '../../utils/
 
 import {getAllOutBalance, getLocalOutBalance} from '../../utils/birdge/getOutBalance'
 
-
+import {recordTxns} from '../../utils/records'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -1353,6 +1353,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
   function sendTxnsEnd (data, value, address, node) {
     addTransaction(data)
+    recordTxns(data, 'WITHDRAW', inputSymbol, account, address, node)
     dispatchSwapState({
       type: 'UPDATE_WITHDRAW_STATUS',
       payload: {
@@ -1485,6 +1486,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       HDsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, bridgeNode, inputCurrency).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
+          recordTxns(res.info, 'DEPOSIT', inputSymbol, account, mintAddress, bridgeNode)
           dispatchSwapState({
             type: 'UPDATE_HASH_STATUS',
             payload: {
@@ -1522,6 +1524,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       MMsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, bridgeNode, inputCurrency).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
+          recordTxns(res.info, 'DEPOSIT', inputSymbol, account, mintAddress, bridgeNode)
           dispatchSwapState({
             type: 'UPDATE_HASH_STATUS',
             payload: {

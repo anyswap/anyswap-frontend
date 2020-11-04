@@ -8,8 +8,6 @@ import styled from 'styled-components'
 import { Button } from '../../theme'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import OversizedPanel from '../../components/OversizedPanel'
-import ContextualInfo from '../../components/ContextualInfo'
-import { ReactComponent as Plus } from '../../assets/images/plus-blue.svg'
 import WarningCard from '../../components/WarningCard'
 
 import { useWeb3React, useExchangeContract } from '../../hooks'
@@ -40,6 +38,8 @@ import TokenLogo from '../../components/TokenLogo'
 
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../../components/WarningTip'
+
+import {recordTxns} from '../../utils/records'
 
 
 const INPUT = 0
@@ -644,6 +644,7 @@ export default function AddLiquidity({ params }) {
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account, inputValueParsed.toHexString()).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
+          recordTxns(res.info, 'ADDLIQUIDITY', symbol, account)
           addTransaction(res.info)
           setIsHardwareTip(false)
           dispatchAddLiquidityState({ type: 'UPDATE_VALUE', payload: { value: '', field: INPUT } })
@@ -693,6 +694,7 @@ export default function AddLiquidity({ params }) {
         }
       )
       .then(response => {
+        recordTxns(response, 'ADDLIQUIDITY', symbol, account)
         addTransaction(response)
         dispatchAddLiquidityState({ type: 'UPDATE_VALUE', payload: { value: '', field: INPUT } })
         dispatchAddLiquidityState({ type: 'UPDATE_VALUE', payload: { value: '', field: OUTPUT } })

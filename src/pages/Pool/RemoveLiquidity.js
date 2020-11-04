@@ -38,6 +38,9 @@ import RemoveIcon from '../../assets/images/icon/remove-white.svg'
 import TokenLogo from '../../components/TokenLogo'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../../components/WarningTip'
+
+import {recordTxns} from '../../utils/records'
+
 // denominated in bips
 const ALLOWED_SLIPPAGE = ethers.utils.bigNumberify(200)
 
@@ -499,6 +502,7 @@ export default function RemoveLiquidity({ params }) {
       getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
+          recordTxns(res.info, 'REMOVELIQUIDITY', symbol, account)
           addTransaction(res.info)
           setIsHardwareTip(false)
           setIsViewTxnsDtil(false)
@@ -523,6 +527,7 @@ export default function RemoveLiquidity({ params }) {
         gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN)
       })
       .then(response => {
+        recordTxns(response, 'REMOVELIQUIDITY', symbol, account)
         addTransaction(response)
         setIsViewTxnsDtil(false)
         setValue('')

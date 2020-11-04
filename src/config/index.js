@@ -33,66 +33,20 @@ import {
   FTM_TEST_CHAINID,
   FTM_TEST_EXPLORER,
 } from './coinbase/nodeConfig'
+
+import {getNetwork, getIdCode} from './getUrlParams'
 // console.log(location.href)
 const ENV_NODE_CONFIG = 'ENV_NODE_CONFIG'
-// const INIT_NODE = 'FSN_MAIN'
+const INIT_NODE = 'FSN_MAIN'
 // const INIT_NODE = 'BNB_MAIN'
 // const INIT_NODE = 'BNB_TEST'
 // const INIT_NODE = 'FSN_TEST'
-const INIT_NODE = 'FTM_MAIN'
+// const INIT_NODE = 'FTM_MAIN'
 
-function getNode (type) {
-  switch (type) {
-    case 'fusion':
-      return 'FSN_MAIN'
-    case 'fusiontestnet':
-      return 'FSN_TEST'
-    case 'bsc':
-      return 'BNB_MAIN'
-    case 'bsctestnet':
-      return 'BNB_TEST'
-    case 'fantom':
-      return 'FTM_MAIN'
-    default:
-      return INIT_NODE
-  }
-}
-
-function getParams (url, param) {
-  let str = url.indexOf('?') ? url.split('?')[1] : ''
-  let nc = ''
-  // console.log(str)
-  if (str) {
-    let arr = str.split('&')
-    let value = ''
-    for (let str2 of arr) {
-      let arr2 = str2.split('=')
-      if (arr2[0] === param) {
-        value = arr2[1]
-        break
-      }
-    }
-    if (value) {
-      nc = getNode(value)
-      localStorage.setItem(ENV_NODE_CONFIG, nc)
-    } else {
-      nc = INIT_NODE
-    }
-  } else {
-    let localStr = localStorage.getItem(ENV_NODE_CONFIG)
-    // console.log(localStr)
-    if (localStr) {
-      nc = localStr
-    } else {
-      nc = INIT_NODE
-    }
-  }
-  return nc
-}
-
-let ENV_CONFIG = getParams(location.href, 'network')
+getIdCode()
+let ENV_CONFIG = getNetwork(ENV_NODE_CONFIG, INIT_NODE)
 // ENV_CONFIG = 'FTM_MAIN'
-
+console.log(ENV_CONFIG)
 
 let netArr = ENV_CONFIG.split('_')
 
@@ -126,9 +80,6 @@ if (netArr[0] === 'FSN') {
 }
 
 const COIN = getBaseCoin(prefix)
-// /**
-//  * @description 配置以太坊网络节点
-//  */
 
 let bridge = {
   46688: {
@@ -185,7 +136,7 @@ let bridge = {
 // console.log(bridge[useBridge])
 // console.log(useBridge)
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
-serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
+// serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
 // if (netArr[1].toLowerCase() === 'test') {
 // }
 export default {
