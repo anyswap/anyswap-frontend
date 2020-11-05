@@ -50,7 +50,7 @@ import Copy from '../AccountDetails/Copy'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
 
-import {getErcBalance, HDsendERC20Txns, MMsendERC20Txns, getHashStatus, getWithdrawHashStatus} from '../../utils/web3/BridgeWeb3'
+import {HDsendERC20Txns, MMsendERC20Txns, getHashStatus, getWithdrawHashStatus} from '../../utils/web3/BridgeWeb3'
 import BridgeTokens from '../../contexts/BridgeTokens'
 
 import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/birdge/BTC'
@@ -844,6 +844,14 @@ function swapStateReducer(state, action) {
   }
 }
 
+function isBTC (coin) {
+  if (formatCoin(coin) === 'BTC') {
+    return true
+  } else {
+    return false
+  }
+}
+
 const selfUseAllToken = config.noSupportBridge
 let hashInterval
 
@@ -1049,13 +1057,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           setIsRegister(true)
           try {
             let DepositAddress = ''
-            if (coin !== 'BTC') {
+            if (!isBTC(coin)) {
               let erc20Token = BridgeTokens[node] && BridgeTokens[node][coin] && BridgeTokens[node][coin].token ? BridgeTokens[node][coin].token : ''
-              // if (config.symbol === 'FSN') {
-              //   erc20Token = coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
-              // } else if (config.symbol === 'BNB') {
-              //   erc20Token = coin !== 'FSN' || coin !== 'ETH' ? BridgeTokens[node][coin].token : ''
-              // }
               if (
                 (initDepositAddress.toLowerCase() !== serverInfo.depositAddress.toLowerCase())
                 || (tokenOnlyOne.toLowerCase() !== serverInfo.token.toLowerCase())
@@ -1073,7 +1076,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               }
               DepositAddress = serverInfo.depositAddress
             } else {
-
               if (serverInfo.dcrmAddress.toLowerCase() !== config.btcConfig.btcAddr.toLowerCase()) {
                 console.log(2)
                 // removeRegisterInfo(account, tokenOnlyOne)
@@ -1246,10 +1248,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && Number(inputValueFormatted) <= Number(redeemMaxNum)
         && Number(inputValueFormatted) >= Number(redeemMinNum)
       ) {
-        if (inputSymbol === config.prefix + 'BTC' && isBTCAddress(recipient.address)) {
+        if (isBTC(inputSymbol) && isBTCAddress(recipient.address)) {
           setIsRedeem(false)
           setBalanceError('')
-        } else if (inputSymbol !== config.prefix + 'BTC' && isAddress(recipient.address)) {
+        } else if (!isBTC(inputSymbol) && isAddress(recipient.address)) {
           setIsRedeem(false)
           setBalanceError('')
         } else {
@@ -1291,11 +1293,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && Number(inputValueFormatted) <= depositMaxNum
         && Number(inputValueFormatted) >= depositMinNum
       ) {
-        if ( inputSymbol === config.prefix + 'BTC' ) {
+        if ( isBTC(inputSymbol) ) {
           setIsMintBtn(false)
           setBalanceError('')
         } else if (
-          inputSymbol !== config.prefix + 'BTC'
+          !isBTC(inputSymbol)
           && Number(inputValueFormatted) <= Number(outNetBalance)
           && Number(outNetETHBalance) >= 0.01
         ) {
@@ -1358,7 +1360,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     cleanInput()
   }
   function sendTxns (node) {
-    if (inputSymbol === config.prefix + 'BTC' && !isBTCAddress(recipient.address)) {
+    if (isBTC(inputSymbol) && !isBTCAddress(recipient.address)) {
       alert('Illegal address!')
       return
     }
@@ -1380,7 +1382,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       let web3Contract = getWeb3ConTract(swapBTCABI, inputCurrency)
 
       let data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
-      if (inputSymbol !== config.prefix + 'BTC') {
+      if (!isBTC(inputSymbol)) {
         web3Contract = getWeb3ConTract(swapETHABI, inputCurrency)
         // data = web3Contract.Swapout.getData(amountVal)
         data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
@@ -1397,7 +1399,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       return
     }
 
-    if (inputSymbol !== config.prefix + 'BTC') {
+    if (!isBTC(inputSymbol)) {
       // console.log(amountVal)
       tokenETHContract.Swapout(amountVal, address).then(res => {
         // console.log(res)
@@ -1590,7 +1592,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || hashArr[i].swapStatus === 'confirming'
           || hashArr[i].swapStatus === 'minting'
         ) {
-          if (hashArr[i].coin === 'BTC') {
+          if (isBTC(hashArr[i].coin)) {
             GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].bridgeVersion).then(res => {
               if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
                 hashArr[res.index].status = res.status
@@ -1778,7 +1780,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         hash: mintDtil.hash,
         url: config.bridgeAll[chainId].lookHash + mintDtil.hash
       }
-      if (mintDtil.coin.indexOf('BTC') !== -1) {
+      if (isBTC(mintDtil.coin)) {
         hashOutObj = {
           hash: mintDtil.swapHash,
           url: config.btcConfig.lookHash + mintDtil.swapHash
@@ -1794,7 +1796,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         hash: mintDtil.swapHash,
         url: config.bridgeAll[chainId].lookHash + mintDtil.swapHash
       }
-      if (mintDtil.coin.indexOf('BTC') !== -1) {
+      if (isBTC(mintDtil.coin)) {
         hashCurObj = {
           hash: mintDtil.hash,
           url: config.btcConfig.lookHash + mintDtil.hash
@@ -1948,7 +1950,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             setTimeout(() => {
               setIsDisableed(true)
             }, 3000)
-            if ( inputSymbol === config.prefix + 'BTC' ) {
+            if ( isBTC(inputSymbol) ) {
               // MintModelView()
               getBTCtxns()
             } else {
@@ -2211,7 +2213,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // title={t('input')}
         title={t(bridgeType && bridgeType === 'redeem' ? 'redeem' : 'deposit1')}
         urlAddedTokens={urlAddedTokens}
-        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : (outNetBalance && inputSymbol !== config.prefix + 'BTC' ? formatBalance(outNetBalance) : '')}
+        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : (outNetBalance && !isBTC(inputSymbol) ? formatBalance(outNetBalance) : '')}
         extraTextClickHander={() => {
           let inputVal
           let value = ''
@@ -2330,7 +2332,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
            (bridgeType && bridgeType === 'redeem')
         || !account
         || !registerAddress
-        || inputSymbol === config.prefix + 'BTC'
+        || isBTC(inputSymbol)
         || (Number(outNetETHBalance) >= 0.02 && Number(outNetBalance) > Number(depositMinNum))
         || false
         ? '' : (
@@ -2377,7 +2379,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // title={t('input')}
         title={t(bridgeType && bridgeType === 'redeem' ? 'receive' : 'receive')}
         urlAddedTokens={urlAddedTokens}
-        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? (outNetBalance && inputSymbol !== config.prefix + 'BTC' ? formatBalance(outNetBalance) : '') : inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
+        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? (outNetBalance && !isBTC(inputSymbol) ? formatBalance(outNetBalance) : '') : inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
         onCurrencySelected={inputCurrency => {
           dispatchSwapState({
             type: 'SELECT_CURRENCY',
@@ -2400,7 +2402,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? formatCoin(inputSymbol) : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false} changeCount={recipientCount}/>
         </>
       ) : (
-        inputSymbol ===  (config.prefix + 'BTC') && account && registerAddress ? (
+        isBTC(inputSymbol) && account && registerAddress ? (
           <>
           <InputPanel>
             <ContainerRow>
@@ -2480,7 +2482,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       coin: formatCoin(inputSymbol),
                     }) + (inputSymbol ? '' : '')}</dd>
                     {
-                      account && formatCoin(inputSymbol) !== 'BTC' ? (
+                      account && !isBTC(inputSymbol) ? (
                         walletTip()
                       ) : ''
                     }

@@ -75,7 +75,7 @@ const MAIN_CONFIG = {
     lookHash: 'https://sochain.com/tx/BTCTEST/',
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/',
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/',
-    btcAddr: ''
+    btcAddr: '1MECwqonAq9UDKN838vnBuqsUCWpWyB1pN'
   },
   isOpenRewards: 1,
   isChangeDashboard: 0,

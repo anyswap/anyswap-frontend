@@ -1,15 +1,16 @@
+import {chainInfo} from './coinbase/nodeConfig'
 function getNode (type, INIT_NODE) {
   switch (type) {
     case 'fusion':
-      return 'FSN_MAIN'
+      return chainInfo['32659'].label
     case 'fusiontestnet':
-      return 'FSN_TEST'
+      return chainInfo['46688'].label
     case 'bsc':
-      return 'BNB_MAIN'
+      return chainInfo['56'].label
     case 'bsctestnet':
-      return 'BNB_TEST'
+      return chainInfo['97'].label
     case 'fantom':
-      return 'FTM_MAIN'
+      return chainInfo['250'].label
     default:
       return INIT_NODE
   }

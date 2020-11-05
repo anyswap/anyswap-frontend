@@ -122,9 +122,6 @@ let chainInfo = {
 }
 
 let chainList = {
-  // { name: 'Fusion', list: [ chainInfo['32659'], chainInfo['46688'] ] },
-  // { name: 'BSC', list: [ chainInfo['56'], chainInfo['97'] ] },
-  // { name: 'Fantom', list: [ chainInfo['250'] ] },
   main: [
     chainInfo['32659'],
     chainInfo['56'],

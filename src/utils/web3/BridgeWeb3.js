@@ -21,7 +21,7 @@ const Tx  = require("ethereumjs-tx")
 // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x0911fD5BCbC574c59bee6D7B772587B4A03D2778') // FTM-MAIN
 // setTimeout(() => {
-//   factory.methods.getExchange('0x4f6318e97011fe21fdfce3ffcf868d44e5f6994a').call((err, res) => {
+//   factory.methods.getExchange('0x54261774905f3e6e9718f2abb10ed6555cae308a').call((err, res) => {
 //     console.log('ETH')
 //     console.log(err)
 //     console.log(res)
