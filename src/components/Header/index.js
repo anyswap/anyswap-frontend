@@ -253,9 +253,9 @@ const IconWrapper = styled.div`
     height: ${({ size }) => (size ? size + 'px' : '1.625rem')};
     width: ${({ size }) => (size ? size + 'px' : '1.625rem')};
   }
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    align-items: flex-end;
-  `};
+  // ${({ theme }) => theme.mediaWidth.upToMedium`
+  //   align-items: flex-end;
+  // `};
 `
 const HeaderText = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
@@ -339,6 +339,7 @@ export default function Header() {
                   ''
                 )}
                 {item.name}
+                {t(config.env)}
               </HeaderText>
             </OptionCardLeft>
           </WalletLogoBox2>

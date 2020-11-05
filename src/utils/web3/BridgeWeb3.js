@@ -272,7 +272,15 @@ export const getErcBalance = (coin, from, dec, node) => {
 function getBaseInfo (coin, from, to, value, PlusGasPricePercentage, node) {
   let input = ''
   let BridgeToken = TOKEN[node]
-  if (coin !== 'ETH') {
+  console.log(node)
+  let isBridgeBaseCoin = false
+  if (
+    (coin === 'ETH' && (node === 1 || node === 4)) || 
+    (coin === 'FSN' && (node === 32659 || node === 46688))
+  ) {
+    isBridgeBaseCoin = true
+  }
+  if (!isBridgeBaseCoin) {
     contract.options.address = BridgeToken[coin].token
     value = ethers.utils.parseUnits(value.toString(), BridgeToken[coin].decimals)
     input = contract.methods.transfer(to, value).encodeABI()
@@ -286,8 +294,8 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage, node) {
     gas: '',
     gasPrice: "",
     nonce: "",
-    to: coin === 'ETH' ? to : BridgeToken[coin].token,
-    value: coin === 'ETH' ? value.toHexString() : "0x0",
+    to: isBridgeBaseCoin ? to : BridgeToken[coin].token,
+    value: isBridgeBaseCoin ? value.toHexString() : "0x0",
     data: input
   }
   web3.setProvider(getNodeRpc(node))
