@@ -3,6 +3,8 @@
   "onTestnet":"当前是",
   "mainnet":"主网",
   "testnet":"测试网",
+  "main":"主网",
+  "test":"测试网",
   "noWallet": "未发现钱包",
   "wrongNetwork": "网络错误",
   "switchNetwork": "请切换到 {{ correctNetwork }}",

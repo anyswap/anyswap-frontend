@@ -1,22 +1,13 @@
-import {getBaseCoin} from './coin'
-import {
-  BNB_MAINNET,
-  BNB_MAIN_CHAINID,
-  BNB_MAIN_EXPLORER,
-  BNB_TESTNET,
-  BNB_TEST_CHAINID,
-  BNB_TEST_EXPLORER,
-} from './nodeConfig'
+import {chainInfo} from './nodeConfig'
 
-const PREFIX = ''
-const SUFFIX = '-BEP20'
 const NAME_PREFIX = ''
-
-const COIN = getBaseCoin(PREFIX)
 
 const REWARDS_DAY = 10000 / 2
 const REWARDS_ANY_DAY = 5000
 const DEPOSIT_AMOUNT = 10000
+
+const CHAIN_MAIN_INFO = chainInfo['56']
+const CHAIN_TEST_INFO = chainInfo['97']
 
 const COIN_BASE ={
   symbol: 'BNB',
@@ -24,7 +15,8 @@ const COIN_BASE ={
   decimals: 18,
   networkName: 'BSC',
   reverseSwitch: 0,
-  suffix: SUFFIX,
+  suffix: '-BEP20',
+  prefix: '',
   keepDec: 6,
   namePrefix: NAME_PREFIX,
   marketsUrl: 'https://markets.anyswap.exchange/?trade=ANY_BNB', // K线图地址
@@ -72,12 +64,12 @@ const INIT_MAIN_TOKEN = '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa'
 const INIT_TEST_TOKEN = '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711'
 const MAIN_CONFIG = {
   ...COIN_BASE,
-  nodeRpc: BNB_MAINNET,
-  nodeRpc1: BNB_MAINNET, // 节点地址
-  chainID: BNB_MAIN_CHAINID,
+  nodeRpc: CHAIN_MAIN_INFO.rpc,
+  nodeRpc1: CHAIN_MAIN_INFO.rpc, // 节点地址
+  chainID: CHAIN_MAIN_INFO.chainID,
   initToken: INIT_MAIN_TOKEN,
   initBridge: '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa',
-  explorerUrl: BNB_MAIN_EXPLORER,
+  explorerUrl: CHAIN_MAIN_INFO.explorer,
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btcConfig: {
     lookHash: 'https://sochain.com/tx/BTCTEST/',
@@ -110,12 +102,12 @@ const MAIN_CONFIG = {
 
 const TEST_CONFIG = {
   ...COIN_BASE,
-  nodeRpc: BNB_TESTNET,
-  nodeRpc1: BNB_TESTNET, // 节点地址
-  chainID: BNB_TEST_CHAINID,
+  nodeRpc: CHAIN_TEST_INFO.rpc,
+  nodeRpc1: CHAIN_TEST_INFO.rpc, // 节点地址
+  chainID: CHAIN_TEST_INFO.chainID,
   initToken: INIT_TEST_TOKEN,
   initBridge: '0x4ce47351aeafbd81f9888187288996fe0322ffa2',
-  explorerUrl: BNB_TEST_EXPLORER,
+  explorerUrl: CHAIN_TEST_INFO.explorer,
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btcConfig: {
     lookHash: 'https://sochain.com/tx/BTCTEST/',

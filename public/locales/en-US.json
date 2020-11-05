@@ -3,6 +3,8 @@
 	"onTestnet":"You are on",
   "mainnet":" Mainnet",
   "testnet":" Testnet",
+  "main":" Mainnet",
+  "test":" Testnet",
   "noWallet": "No Fusion wallet found",
   "wrongNetwork": "You are on the wrong network",
   "switchNetwork": "Please switch to {{ correctNetwork }}",

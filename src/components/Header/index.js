@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 
 // import { Link } from '../../theme'
@@ -15,7 +15,14 @@ import {ReactComponent as ANYLogoNight} from '../../assets/images/logo-white.svg
 import ArrowRighrPurpleIcon from '../../assets/images/icon/arrowRighr-purple.svg'
 import IconDay from '../../assets/images/icon/day.svg'
 import IconNight from '../../assets/images/icon/night.svg'
+import { ReactComponent as Close } from '../../assets/images/x.svg'
+import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 import { createBrowserHistory } from 'history'
+
+import {chainList} from '../../config/coinbase/nodeConfig'
+import TokenLogo from '../TokenLogo'
+import Modal from '../Modal'
+
 const HeaderFrame = styled.div`
   display: flex;
   align-items: center;
@@ -70,13 +77,14 @@ const NetworkBox  = styled.div`
   padding: 0 1rem;
   margin-right: 1rem;
   font-weight: bold;
+  cursor:pointer;
   span {
     font-weight: normal;
     margin-right:0.625rem;
   }
   .switchTo {
     ${({ theme }) => theme.FlexC};
-    margin-left: 42px;
+    margin-left: 8px;
     font-size: 12px;
     color: ${({ theme }) => theme.switchColor};
     cursor:pointer;
@@ -98,31 +106,6 @@ const NetworkBox  = styled.div`
   }
 `
 
-// const StyledToggle = styled(Toggle)`
-//   margin-right: 24px;
-
-//   .react-switch-bg[style] {
-//     background-color: ${({ theme }) => darken(0.05, theme.inputBackground)} !important;
-//     border: 0.0625rem solid ${({ theme }) => theme.concreteGray} !important;
-//   }
-
-//   .react-switch-handle[style] {
-//     background-color: ${({ theme }) => theme.inputBackground};
-//     box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.93, theme.shadowColor)};
-//     border: 0.0625rem solid ${({ theme }) => theme.mercuryGray};
-//     border-color: ${({ theme }) => theme.mercuryGray} !important;
-//     top: 0.125rem !important;
-//   }
-// `
-
-// const EmojiToggle = styled.span`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   height: 100%;
-//   font-family: 'Manrope';
-// `
-
 const StyleDarkToggle = styled.div`
 ${({ theme }) => theme.FlexC};
   width: 36px;
@@ -137,84 +120,338 @@ ${({ theme }) => theme.FlexC};
   }
 `
 
+const Wrapper = styled.div`
+  ${({ theme }) => theme.flexColumnNoWrap}
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: ${({ theme }) => theme.backgroundColor};
+`
+
+const HeaderRow = styled.div`
+  ${({ theme }) => theme.flexRowNoWrap};
+  padding: 1.5rem 1.5rem;
+  font-weight: 500;
+  color: ${props => (props.color === 'blue' ? ({ theme }) => theme.royalBlue : 'inherit')};
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    padding: 1rem;
+  `};
+`
+const HoverText = styled.div`
+  :hover {
+    cursor: pointer;
+  }
+`
+
+const ContentWrapper = styled.div`
+  width: 100%;
+  background-color: ${({ theme }) => theme.backgroundColor};
+  padding: 0px 0.625rem 0.625rem;
+  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1rem`};
+`
+
+const CloseIcon = styled.div`
+  position: absolute;
+  right: 1rem;
+  top: 0.875rem;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+`
+const CloseColor = styled(Close)`
+  path {
+    stroke: ${({ theme }) => theme.chaliceGray};
+  }
+`
+const UpperSection = styled.div`
+  position: relative;
+  width: 100%;
+  font-family: 'Manrope';
+
+  h5 {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  h5:last-child {
+    margin-bottom: 0px;
+  }
+
+  h4 {
+    margin-top: 0;
+    font-weight: 500;
+  }
+`
+
+const NetWorkList = styled.div`
+  width:100%;
+  overflow:auth;
+`
+
+const InfoCard = styled.button`
+  background-color: ${({ theme, active }) => (active ? theme.activeGray : theme.backgroundColor)};
+  padding: 1rem;
+  outline: none;
+  border: 0.0625rem solid transparent;
+  width: 100% !important;
+  // &:focus {
+  //   box-shadow: 0 0 0 0.0625rem ${({ theme }) => theme.royalBlue};
+  // }
+  cursor:pointer;
+  border-bottom: 0.0625rem solid ${({ theme, active }) => (active ? 'transparent' : theme.placeholderGray)};
+`
+
+const OptionCard = styled(InfoCard)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding: 0.625rem 1rem;
+`
+
+const OptionCardLeft = styled.div`
+  ${({ theme }) => theme.flexColumnNoWrap};
+  justify-content: center;
+  height: 100%;
+`
+
+const OptionCardClickable = styled(OptionCard)`
+  margin-top: 0;
+  &:hover {
+    cursor: ${({ clickable }) => (clickable ? 'pointer' : '')};
+    background: rgba(0,0,0,.1);
+  }
+  opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
+  &:last-child{
+    border-bottom:none;
+  }
+`
+const WalletLogoBox = styled.div`
+  width:100%;
+  ${({theme}) => theme.FlexBC}
+`
+const WalletLogoBox2 = styled.div`
+width:100%;
+  ${({theme}) => theme.FlexSC}
+`
+const IconWrapper = styled.div`
+  ${({ theme }) => theme.flexColumnNoWrap};
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.25rem;
+  border: solid 0.0625rem rgba(0, 0, 0, 0.1);
+  background:#fff;
+  width:46px;
+  height:46px;
+  border-radius:100%;
+  & > img,
+  span {
+    height: ${({ size }) => (size ? size + 'px' : '1.625rem')};
+    width: ${({ size }) => (size ? size + 'px' : '1.625rem')};
+  }
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    align-items: flex-end;
+  `};
+`
+const HeaderText = styled.div`
+  ${({ theme }) => theme.flexRowNoWrap};
+  color: ${props => (props.color === 'blue' ? ({ theme }) => theme.royalBlue : ({ theme }) => theme.textColor)};
+  font-size: 1rem;
+  font-family: 'Manrope';
+  font-weight: 500;
+`
+const CircleWrapper = styled.div`
+  color: ${({ theme }) => theme.connectedGreen};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+const GreenCircle = styled.div`
+  ${({ theme }) => theme.flexRowNoWrap}
+  justify-content: center;
+  align-items: center;
+
+  &:first-child {
+    height: 8px;
+    width: 8px;
+    margin-right: 8px;
+    background-color: ${({ theme }) => theme.connectedGreen};
+    border-radius: 50%;
+  }
+`
+const ComineSoon = styled.div`
+${({theme}) => theme.FlexC}
+width: 118px;
+font-family: 'Manrope';
+  font-size: 0.75rem;
+  color: #96989e;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background-color: ${({ theme }) => theme.CommingSoon};
+  white-space: nowrap;
+`
 export default function Header() {
   const { t } = useTranslation()
   const [isDark, toggleDarkMode] = useDarkModeManager()
-  function openUrl () {
-    if (config.symbol === 'FSN') {
-      localStorage.setItem(config.ENV_NODE_CONFIG, 'BNB_MAIN')
-    } else {
-      localStorage.setItem(config.ENV_NODE_CONFIG, 'FSN_MAIN')
+  function openUrl (item) {
+    // if (config.symbol === 'FSN') {
+    //   localStorage.setItem(config.ENV_NODE_CONFIG, 'BNB_MAIN')
+    // } else {
+    //   localStorage.setItem(config.ENV_NODE_CONFIG, 'FSN_MAIN')
+    // }
+    if (item.symbol === config.symbol || !item.isSwitch) {
+      return
     }
+    localStorage.setItem(config.ENV_NODE_CONFIG, item.label)
     history.go(0)
   }
   useEffect(() => {
     const history = createBrowserHistory()
     history.push(window.location.pathname + '')
   }, [])
-  return (
-    <HeaderFrame>
-      <HeaderSpan>
-        <HeaderElement>
+
+  const [networkView, setNetworkView] = useState(false)
+
+  function Option (item) {
+    return (
+      <>
+        <WalletLogoBox>
+          <WalletLogoBox2>
+            <IconWrapper active={config.symbol === item.symbol && item.type === config.env}>
+              {/* <img src={icon} alt={'Icon'} /> */}
+              <TokenLogo address={item.symbol} size={'46px'}></TokenLogo>
+            </IconWrapper>
+            <OptionCardLeft>
+              <HeaderText>
+                {' '}
+                {config.symbol === item.symbol && item.type === config.env ? (
+                  <CircleWrapper>
+                    <GreenCircle>
+                      <div />
+                    </GreenCircle>
+                  </CircleWrapper>
+                ) : (
+                  ''
+                )}
+                {item.name}
+              </HeaderText>
+            </OptionCardLeft>
+          </WalletLogoBox2>
           {
-            isDark ? (
-              <StyleAnyNightLogo></StyleAnyNightLogo>
-            ) : (
-              <StyleAnyLogo></StyleAnyLogo>
-            )
+            !item.isSwitch ? (
+              <ComineSoon>
+                <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
+                {t('ComineSoon')}
+              </ComineSoon>
+            ) : ''
           }
-        </HeaderElement>
-        <HeaderElement>
-          <NetworkBox>
-            {/* <span>{t('onTestnet')}</span>
-            {config.networkName} {config.env === 'test' ? t('testnet') : t('mainnet')}
-            <div className='switchTo' onClick={openUrl}>
-              {t('SwitchTo')} {config.networkName} 
-              {config.env === 'test' ?  t('mainnet') : t('testnet')}
-              <img alt='' src={ArrowRighrPurpleIcon} style={{marginLeft: '8px'}} />
-            </div> */}
-            <span>{t('onTestnet')}</span>
-            {config.networkName} {config.env === 'test' ?  t('testnet') : t('mainnet')}
-            <div className='switchTo' onClick={openUrl}>
-              {t('SwitchTo')} {config.symbol === 'FSN' ? 'BSC' : 'FSN'} 
-              {t('mainnet')}
-              <img alt='' src={ArrowRighrPurpleIcon} style={{marginLeft: '8px'}} />
-            </div>
-          </NetworkBox>
-          <Web3Status />
-          <StyleDarkToggle
-            onClick={() => {
-              toggleDarkMode()
-            }}
-          >
+        </WalletLogoBox>
+      </>
+    )
+  }
+  function changeNetwork () {
+    let curChainList = chainList[config.env]
+    return (
+      <Modal
+        isOpen={networkView}
+        onDismiss={() => { setNetworkView(false) }}
+        minHeight={null}
+        maxHeight={300}
+      >
+        <Wrapper>
+          <UpperSection>
+            <CloseIcon onClick={() => {setNetworkView(false)}}>
+              <CloseColor alt={'close icon'} />
+            </CloseIcon>
+            <HeaderRow>
+              <HoverText>{t('SwitchTo')}</HoverText>
+            </HeaderRow>
+            <ContentWrapper>
+              <NetWorkList>
+                {
+                  curChainList.map((item, index) => {
+                    return (
+                      <OptionCardClickable key={index} active={config.symbol === item.symbol && item.type === config.env} onClick={() => {openUrl(item)}}>
+                        {Option(item)}
+                        {/* <img alt={''} src={AddIcon} /> */}
+                      </OptionCardClickable>
+                    )
+                  })
+                }
+              </NetWorkList>
+            </ContentWrapper>
+          </UpperSection>
+        </Wrapper>
+      </Modal>
+    )
+  }
+
+  return (
+    <>
+      {changeNetwork()}
+      <HeaderFrame>
+        <HeaderSpan>
+          <HeaderElement>
             {
               isDark ? (
-
-                <img src={IconDay} alt="" />
+                <StyleAnyNightLogo></StyleAnyNightLogo>
               ) : (
-
-                <img src={IconNight} alt="" />
+                <StyleAnyLogo></StyleAnyLogo>
               )
             }
-          </StyleDarkToggle>
-          {/* <StyledToggle
-            checked={!isDark}
-            uncheckedIcon={
-              <EmojiToggle role="img" aria-label="moon">
-                🌙️
-              </EmojiToggle>
-            }
-            checkedIcon={
-              <EmojiToggle role="img" aria-label="sun">
-                {'☀️'}
-              </EmojiToggle>
-            }
-            onChange={() => {
-              toggleDarkMode()
-            }}
-          /> */}
-        </HeaderElement>
-      </HeaderSpan>
-    </HeaderFrame>
+          </HeaderElement>
+          <HeaderElement>
+            <NetworkBox onClick={() => {setNetworkView(true)}}>
+              {/* <span>{t('onTestnet')}</span> */}
+              {config.networkName} {config.env === 'test' ?  t('testnet') : t('mainnet')}
+              {/* <div className='switchTo' onClick={openUrl}> */}
+              <div className='switchTo'>
+                {/* {t('SwitchTo')} */}
+                {/* {config.symbol === 'FSN' ? 'BSC' : 'FSN'} 
+                {t('mainnet')} */}
+                <img alt='' src={ArrowRighrPurpleIcon} style={{marginLeft: '8px'}} />
+              </div>
+            </NetworkBox>
+            <Web3Status />
+            <StyleDarkToggle
+              onClick={() => {
+                toggleDarkMode()
+              }}
+            >
+              {
+                isDark ? (
+
+                  <img src={IconDay} alt="" />
+                ) : (
+
+                  <img src={IconNight} alt="" />
+                )
+              }
+            </StyleDarkToggle>
+            {/* <StyledToggle
+              checked={!isDark}
+              uncheckedIcon={
+                <EmojiToggle role="img" aria-label="moon">
+                  🌙️
+                </EmojiToggle>
+              }
+              checkedIcon={
+                <EmojiToggle role="img" aria-label="sun">
+                  {'☀️'}
+                </EmojiToggle>
+              }
+              onChange={() => {
+                toggleDarkMode()
+              }}
+            /> */}
+          </HeaderElement>
+        </HeaderSpan>
+      </HeaderFrame>
+    </>
   )
 }

@@ -15,8 +15,6 @@ import {getNodeRpc} from '../../config/getNodeRpc'
 const Web3 = require('web3')
 const Tx  = require("ethereumjs-tx")
 
-const BRIDGE_RPC = config.bridge.rpc
-
 // const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x421d35f8f8fd822f898e75db43f057f7ea448298') // FSN-test
@@ -31,7 +29,8 @@ const BRIDGE_RPC = config.bridge.rpc
 // }, 2000)
 
 // console.log(BridgeToken)
-const web3 = new Web3(new Web3.providers.HttpProvider(BRIDGE_RPC))
+// const web3 = new Web3(new Web3.providers.HttpProvider(BRIDGE_RPC))
+const web3 = new Web3()
 let contract = new web3.eth.Contract(ERC20_ABI)
 
 const CUR_TOKEN = INITIAL_TOKENS_CONTEXT[config.chainID]
