@@ -46,6 +46,68 @@ export default {
         VERSION: 'V1'
       },
     },
+    '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c': { // BTCB
+      [NAME]: 'Bitcoin' + config.suffix,
+      [SYMBOL]: 'BTCB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xB63d5B98fA56C1a2E3b4Ec7C41E38b2Cf7d6dc12',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 5,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 100000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
+    },
+    '0x2170ed0880ac9a755fd29b2688956bd959f933f8': { // ETH-BEP20
+      [NAME]: 'Ethereum' + config.suffix,
+      [SYMBOL]: 'ETH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xad2C1D2A9a599EeF950f5baF6830D68e2Be34d38',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 5,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 100000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
+    },
+    '0x6f817a0ce8f7640add3bc0c1c2298635043c2423': { // ETH
+      [NAME]: 'Ethereum' + config.suffix,
+      [SYMBOL]: 'anyETH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xbC2910DEe5e78dBEFa6579fc6b56bAb2b7C8fFBf',
+      [REDEEM_MAX_NUM]: 1000,
+      [REDEEM_MIN_NUM]: 0.05,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.1,
+      [MINFEE]: 0.008,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 1000,
+      [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     '0x55d398326f99059ff775485246999027b3197955': { // USDT-BEP20
       [NAME]: 'Tether' + config.suffix,
       [SYMBOL]: 'USDT',
@@ -89,26 +151,26 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0x6f817a0ce8f7640add3bc0c1c2298635043c2423': { // ETH
-      [NAME]: 'Ethereum' + config.suffix,
-      [SYMBOL]: 'anyETH',
+    '0x4f6318e97011fe21fdfce3ffcf868d44e5f6994a': { // FSN
+      [NAME]: 'Fusion' + config.suffix,
+      [SYMBOL]: 'FSN',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xbC2910DEe5e78dBEFa6579fc6b56bAb2b7C8fFBf',
-      [REDEEM_MAX_NUM]: 1000,
-      [REDEEM_MIN_NUM]: 0.05,
+      [EXCHANGE_ADDRESS]: '0xA4c40c9743039D3836E5DaFE62E84D274349D802',
+      [REDEEM_MAX_NUM]: 500000,
+      [REDEEM_MIN_NUM]: 40,
       [FEE]: 0.001,
-      [MAXFEE]: 0.1,
-      [MINFEE]: 0.008,
+      [MAXFEE]: 200,
+      [MINFEE]: 20,
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
+      [DEPOSIT_ADDRESS]: '0xf38C36bc1B2Fe5E9029C91AB520457bE7DFC68D8',
       [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 1000,
-      [DEPOSIT_MIN_NUM]: 0.01,
+      [DEPOSIT_MAX_NUM]: 500000,
+      [DEPOSIT_MIN_NUM]: 1,
       [EXTENDOBJ]:  {
         BRIDGE: [
-          { type: 1, isSwitch: 1 }
+          { type: 32659, isSwitch: 1 }
         ],
         VERSION: 'V2'
       }

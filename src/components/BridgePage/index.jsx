@@ -1137,30 +1137,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   const [outNetBalance, setOutNetBalance] = useState()
   const [outNetETHBalance, setOutNetETHBalance] = useState()
-  // function getOutBalance () {
-  //   if (isDeposit && isRedeem && depositType === 1 && account && inputSymbol !== config.prefix + 'BTC') {
-  //     let coin = inputSymbol ? formatCoin(inputSymbol) : ''
-  //     if (coin) {
-  //       let node = extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
-  //       getErcBalance(coin, account, inputDecimals, node).then(res => {
-  //         // console.log(res)
-  //         // console.log(config.prefix + coin)
-  //         if (inputSymbol !== config.prefix + coin) {
-  //           setOutNetBalance('')
-  //           setOutNetETHBalance('')
-  //         } else if (res) {
-  //           if (Number(outNetBalance) !== res.TOKEN || Number(outNetETHBalance) !== res.ETH) {
-  //             setOutNetBalance(res.TOKEN)
-  //             setOutNetETHBalance(res.ETH)
-  //           }
-  //         }
-  //       })
-  //     }
-  //   } else {
-  //     setOutNetBalance('')
-  //     setOutNetETHBalance('')
-  //   }
-  // }
 
   // get balances for each of the currency types
   const inputBalance = useAddressBalance(account, inputCurrency)
@@ -1193,15 +1169,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
   useEffect(() => {
     // getOutBalance()
-    library.on('block', block => {
-      // console.log(block)
-      setOutBalance()
-    })
+    setOutNetBalance('')
+    setOutNetETHBalance('')
+    setOutBalance()
+    // library.on('block', block => {
+    //   // console.log(block)
+    //   setOutBalance()
+    // })
 
     // return () => {
     //   library.removeListener('block', setOutBalance)
     // }
-  }, [inputCurrency, account, extendObj, inputBalance, hashCount, hashArr, FSNBalance, library])
+  }, [inputCurrency, account, extendObj, inputBalance, hashCount, hashArr, FSNBalance])
 // }, [hashCount, hashArr, FSNBalance, inputBalance, withdrawArr, withdrawCount])
 
   // console.log(FSNBalanceNum)
