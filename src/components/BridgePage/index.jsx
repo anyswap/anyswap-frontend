@@ -1446,26 +1446,28 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
 
   function insertMintHistory (coin, value, hash, from, to, node) {
+    let data = {
+      account: account,
+      coin: coin,
+      value: value,
+      hash: hash,
+      from: from,
+      to: to,
+      status: 0,
+      timestamp: Date.now(),
+      swapHash: '',
+      swapStatus: '',
+      swapTime: '',
+      node: node,
+      bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
+      chainID: config.chainID
+    }
+    console.log(data)
     dispatchSwapState({
       type: 'UPDATE_HASH_STATUS',
       payload: {
         type: 0,
-        hashData: {
-          account: account,
-          coin: coin,
-          value: value,
-          hash: hash,
-          from: from,
-          to: to,
-          status: 0,
-          timestamp: Date.now(),
-          swapHash: '',
-          swapStatus: '',
-          swapTime: '',
-          node: node,
-          bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
-          chainID: config.chainID
-        }
+        hashData: data
       }
     })
   }
@@ -1491,7 +1493,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // console.log(res)
         if (res.msg === 'Success') {
           recordTxns(res.info, 'DEPOSIT', inputSymbol, account, mintAddress, bridgeNode)
-          insertMintHistory(coin, inputValueFormatted, res.info.hash, mintAddress, bridgeNode)
+          insertMintHistory(coin, inputValueFormatted, res.info.hash, account, mintAddress, bridgeNode)
           cleanInput()
           setIsHardwareTip(false)
           setMintModelTitle('')
@@ -1507,8 +1509,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       MMsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, bridgeNode, inputCurrency).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
+          console.log(bridgeNode)
           recordTxns(res.info, 'DEPOSIT', inputSymbol, account, mintAddress, bridgeNode)
-          insertMintHistory(coin, inputValueFormatted, res.info.hash, mintAddress, bridgeNode)
+          insertMintHistory(coin, inputValueFormatted, res.info.hash, account, mintAddress, bridgeNode)
           cleanInput()
         } else {
           console.log(res.error)
@@ -1691,7 +1694,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             return
           }
         }
-        insertMintHistory(res.coin, res.value, res.hash, res.to, 0)
+        insertMintHistory(res.coin, res.value, res.hash, account, res.to, 0)
         cleanInput()
         setMintDtil(res)
         setMintDtilView(true)
@@ -1756,7 +1759,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   function txnsListDtil () {
     if (!mintDtil || !mintDtil.hash) return ''
-    // console.log(mintDtil)
+    console.log(mintDtil)
     let hashCurObj = {}
     let hashOutObj = {}
     if (bridgeType === 'redeem') {
