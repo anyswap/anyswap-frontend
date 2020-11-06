@@ -857,12 +857,12 @@ let hashInterval
 
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
-  const { account, chainId, error, library } = useWeb3React()
+  let { account, chainId, error } = useWeb3React()
   const [showBetaMessage] = useBetaMessageManager()
   const allTokens = useAllTokenDetails()
   let walletType = sessionStorage.getItem('walletType')
   // let HDPath = sessionStorage.getItem('HDPath')
-  // account = '0x12139f3afa1C93303e1EfE3Df142039CC05C6c58'
+  // account = '0x8c270c4ef7f62C6663EbCd116D4b2dc038fCF8BB'
   // console.log(allTokens)
   
   const urlAddedTokens = {}
@@ -1444,6 +1444,32 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     dispatchSwapState({ type: 'UPDATE_BREDGETYPE', payload: bt })
     cleanInput()
   }
+
+  function insertMintHistory (coin, value, hash, from, to, node) {
+    dispatchSwapState({
+      type: 'UPDATE_HASH_STATUS',
+      payload: {
+        type: 0,
+        hashData: {
+          account: account,
+          coin: coin,
+          value: value,
+          hash: hash,
+          from: from,
+          to: to,
+          status: 0,
+          timestamp: Date.now(),
+          swapHash: '',
+          swapStatus: '',
+          swapTime: '',
+          node: node,
+          bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
+          chainID: config.chainID
+        }
+      }
+    })
+  }
+  
   function mintAmount (mintAddress, mintCoin) {
     let coin = formatCoin(mintCoin)
 
@@ -1465,28 +1491,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // console.log(res)
         if (res.msg === 'Success') {
           recordTxns(res.info, 'DEPOSIT', inputSymbol, account, mintAddress, bridgeNode)
-          dispatchSwapState({
-            type: 'UPDATE_HASH_STATUS',
-            payload: {
-              type: 0,
-              hashData: {
-                account: account,
-                coin: coin,
-                value: inputValueFormatted,
-                hash: res.info.hash,
-                from: account,
-                to: mintAddress,
-                status: 0,
-                timestamp: Date.now(),
-                swapHash: '',
-                swapStatus: '',
-                swapTime: '',
-                node: bridgeNode,
-                bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
-                chainID: config.chainID
-              }
-            }
-          })
+          insertMintHistory(coin, inputValueFormatted, res.info.hash, mintAddress, bridgeNode)
           cleanInput()
           setIsHardwareTip(false)
           setMintModelTitle('')
@@ -1503,28 +1508,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // console.log(res)
         if (res.msg === 'Success') {
           recordTxns(res.info, 'DEPOSIT', inputSymbol, account, mintAddress, bridgeNode)
-          dispatchSwapState({
-            type: 'UPDATE_HASH_STATUS',
-            payload: {
-              type: 0,
-              hashData: {
-                account: account,
-                coin: coin,
-                value: inputValueFormatted,
-                hash: res.info.hash,
-                from: account,
-                to: mintAddress,
-                status: 0,
-                timestamp: Date.now(),
-                swapHash: '',
-                swapStatus: '',
-                swapTime: '',
-                node: bridgeNode,
-                bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
-                chainID: config.chainID
-              }
-            }
-          })
+          insertMintHistory(coin, inputValueFormatted, res.info.hash, mintAddress, bridgeNode)
           cleanInput()
         } else {
           console.log(res.error)
@@ -1577,7 +1561,22 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     setRemoveHashStatus(Date.now())
   }
 
-
+  function updateHashStatusData (res) {
+    if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
+      hashArr[res.index].status = res.status
+      hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
+      hashArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
+      hashArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
+      dispatchSwapState({
+        type: 'UPDATE_HASH_STATUS',
+        payload: {
+          type: 1,
+          hashData: hashArr,
+          NewHashCount: 1
+        }
+      })
+    }
+  }
   function updateHashStatus () {
     if (hashArr.length > 0) {
       for (let i = 0, len = hashArr.length; i < len; i ++) {
@@ -1590,38 +1589,40 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || hashArr[i].swapStatus === 'minting'
         ) {
           if (isBTC(hashArr[i].coin)) {
-            GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, account, hashArr[i].bridgeVersion).then(res => {
-              if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
-                hashArr[res.index].status = res.status
-                hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
-                hashArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
-                hashArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
-                dispatchSwapState({
-                  type: 'UPDATE_HASH_STATUS',
-                  payload: {
-                    type: 1,
-                    hashData: hashArr,
-                    NewHashCount: 1
-                  }
-                })
-              }
+            GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].account, hashArr[i].bridgeVersion).then(res => {
+              // if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
+              //   hashArr[res.index].status = res.status
+              //   hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
+              //   hashArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
+              //   hashArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
+              //   dispatchSwapState({
+              //     type: 'UPDATE_HASH_STATUS',
+              //     payload: {
+              //       type: 1,
+              //       hashData: hashArr,
+              //       NewHashCount: 1
+              //     }
+              //   })
+              // }
+              updateHashStatusData(res)
             })
           } else {
-            getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].node, account, hashArr[i].bridgeVersion).then(res => {
-              if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
-                hashArr[res.index].status = res.status
-                hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
-                hashArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
-                hashArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
-                dispatchSwapState({
-                  type: 'UPDATE_HASH_STATUS',
-                  payload: {
-                    type: 1,
-                    hashData: hashArr,
-                    NewHashCount: 1
-                  }
-                })
-              }
+            getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].node, hashArr[i].account, hashArr[i].bridgeVersion).then(res => {
+              // if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
+              //   hashArr[res.index].status = res.status
+              //   hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
+              //   hashArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
+              //   hashArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
+              //   dispatchSwapState({
+              //     type: 'UPDATE_HASH_STATUS',
+              //     payload: {
+              //       type: 1,
+              //       hashData: hashArr,
+              //       NewHashCount: 1
+              //     }
+              //   })
+              // }
+              updateHashStatusData(res)
             })
           }
         }
@@ -1640,13 +1641,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || withdrawArr[i].swapStatus === 'confirming'
           || withdrawArr[i].swapStatus === 'minting'
         ) {
-          getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node, account, withdrawArr[i].bridgeVersion).then(res => {
+          getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node, withdrawArr[i].account, withdrawArr[i].bridgeVersion).then(res => {
             // console.log(res)
             if (withdrawArr[res.index] && res.hash === withdrawArr[res.index].hash) {
-              // if (withdrawArr[i].swapStatus === 'success') {
-              //   withdrawArr[res.index].status = 1
-              // } else if (withdrawArr[i].swapStatus === 'failure' || withdrawArr[i].swapStatus === 'timeout') {
-              // }
               withdrawArr[res.index].status = res.status ? res.status : 0
               withdrawArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
               withdrawArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : 'pending'
@@ -1694,13 +1691,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             return
           }
         }
-        dispatchSwapState({
-          type: 'UPDATE_HASH_STATUS',
-          payload: {
-            type: 0,
-            hashData: res
-          }
-        })
+        insertMintHistory(res.coin, res.value, res.hash, res.to, 0)
         cleanInput()
         setMintDtil(res)
         setMintDtilView(true)
