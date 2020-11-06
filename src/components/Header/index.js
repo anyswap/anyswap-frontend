@@ -201,7 +201,8 @@ const InfoCard = styled.button`
   //   box-shadow: 0 0 0 0.0625rem ${({ theme }) => theme.royalBlue};
   // }
   cursor:pointer;
-  border-bottom: 0.0625rem solid ${({ theme, active }) => (active ? 'transparent' : theme.placeholderGray)};
+  // border-bottom: 0.0625rem solid ${({ theme, active }) => (active ? 'transparent' : theme.placeholderGray)};
+  border-bottom: 0.0625rem solid ${({ theme }) => theme.placeholderGray};
 `
 
 const OptionCard = styled(InfoCard)`

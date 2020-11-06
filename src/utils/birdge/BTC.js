@@ -57,11 +57,11 @@ function GetBTCTxnsAPI (url) {
   })
 }
 
-function GetBTChashStatus (hash, index, coin, status) {
+function GetBTChashStatus (hash, index, coin, status, account, version) {
   let sochainUrl = config.btcConfig.queryHashStatus + hash // 主网
   return new Promise(resolve => {
     if (status) {
-      getChainHashStatus(hash, coin).then(result => {
+      getChainHashStatus(hash, coin, account, version).then(result => {
         if (result) {
           resolve({
             ...result,
@@ -81,7 +81,7 @@ function GetBTChashStatus (hash, index, coin, status) {
         console.log(res)
         if (res && res.data && res.data.txid) {
           if (Number(res.data.confirmations) > 0) {
-            getChainHashStatus(hash, coin).then(result => {
+            getChainHashStatus(hash, coin, account, version).then(result => {
               if (result) {
                 resolve({
                   ...result,
@@ -113,7 +113,7 @@ function GetBTChashStatus (hash, index, coin, status) {
   })
 }
 
-function getSochcainTxns (address, account, coin) {
+function getSochcainTxns (address, account, coin, version) {
   let sochainUrl = config.btcConfig.queryTxns + address // 主网
   let cbData = ''
   return new Promise(resolve => {
@@ -125,7 +125,7 @@ function getSochcainTxns (address, account, coin) {
           resolve(cbData)
           return
         }
-        getChainHashStatus(useTxns.txid, coin).then(result => {
+        getChainHashStatus(useTxns.txid, coin, account, version).then(result => {
           if (result) {
             resolve({
               ...result,
@@ -171,10 +171,10 @@ function timeout () {
   })
 }
 
-function GetBTCtxnsAll (address, account, coin) {
+function GetBTCtxnsAll (address, account, coin, version) {
   return new Promise(resolve => {
     Promise.race([
-      getSochcainTxns(address, account, coin),
+      getSochcainTxns(address, account, coin, version),
       timeout()
     ]).then(res => {
       // console.log(res)

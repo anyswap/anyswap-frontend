@@ -1590,7 +1590,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || hashArr[i].swapStatus === 'minting'
         ) {
           if (isBTC(hashArr[i].coin)) {
-            GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].bridgeVersion).then(res => {
+            GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, account, hashArr[i].bridgeVersion).then(res => {
               if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
                 hashArr[res.index].status = res.status
                 hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
@@ -1684,7 +1684,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [loadingState, setLoadingState] = useState(false)
   function getBTCtxns () {
     setLoadingState(true)
-    GetBTCtxnsAll(registerAddress, account, formatCoin(inputSymbol)).then(res => {
+    GetBTCtxnsAll(registerAddress, account, formatCoin(inputSymbol), (extendObj.VERSION ? extendObj.VERSION : 'V1')).then(res => {
       // console.log(res)
       if (res) {
         for (let obj of hashArr) {
