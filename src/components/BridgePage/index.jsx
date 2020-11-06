@@ -982,7 +982,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     symbol: inputSymbol,
     decimals: inputDecimals,
     name: inputName,
-    depositType,
     depositAddress: initDepositAddress,
     isDeposit: initIsDeposit,
     depositMaxNum: initDepositMaxNum,
@@ -1063,8 +1062,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 (initDepositAddress.toLowerCase() !== serverInfo.depositAddress.toLowerCase())
                 || (tokenOnlyOne.toLowerCase() !== serverInfo.token.toLowerCase())
                 || (
-                    // ((coin !== 'ETH' && config.symbol === 'FSN') || (coin !== 'ETH' && coin !== 'FSN' && config.symbol === 'BNB')) 
-                    // && erc20Token.toLowerCase() !== serverInfo.outnetToken.toLowerCase()
                     erc20Token && erc20Token.toLowerCase() !== serverInfo.outnetToken.toLowerCase()
                   )
               ) {
@@ -1717,17 +1714,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   function walletTip () {
     let node = extendObj.BRIDGE ? extendObj.BRIDGE[0] : ''
-    if (node && (node.type === 1 || node.type === 4) && node.isSwitch) {
+    if (node) {
+      let coin = config.bridgeAll[node.type].symbol
       return (
         <dd><i></i>💀 {t('bridgeMintTip', {
-          account
+          account,
+          coin: coin
         })}</dd>
-      )
-    } else if (node && (node.type === 32659 || node.type === 46688) && node.isSwitch) {
-      return (
-        <dd><i></i>💀 {t('bridgeMintTip', {
-          account
-        }).replace('ETH', 'FSN')}</dd>
       )
     }
   }
@@ -1809,18 +1802,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
     }
     // console.log(hashOutObj)
-    let outNodeName = '', curNodeName = ''
+    let outNodeName = '', curNodeName = config.bridgeAll[chainId].name
     if (!mintDtil.node) {
       outNodeName = 'Bitcoin'
-    } else if (mintDtil.node === 1 || mintDtil.node === 4) {
-      outNodeName = 'Ethereum'
-    } else if (mintDtil.node === 32659 || mintDtil.node === 46688) {
-      outNodeName = 'Fusion'
-    }
-    if (config.symbol === 'FSN') {
-      curNodeName = 'Fusion'
-    } else if (config.symbol === 'BNB') {
-      curNodeName = 'BSC'
+    } else {
+      outNodeName = config.bridgeAll[mintDtil.node].name
     }
     let curHash = (
       <MintListVal>
@@ -2025,6 +2011,38 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     return btn
   }
 
+  function noBalanceTip () {
+    let node = extendObj.BRIDGE && extendObj.BRIDGE[0] && extendObj.BRIDGE[0].type ? extendObj.BRIDGE[0].type : ''
+    if (
+      (bridgeType && bridgeType === 'redeem')
+      || !account
+      || !registerAddress
+      || isBTC(inputSymbol)
+      || (Number(outNetETHBalance) >= 0.02 && Number(outNetBalance) > Number(depositMinNum))
+      || !node
+    ) {
+      return ''
+    } else {
+      let coin = formatCoin(inputSymbol)
+      if (node === 1 || node === 4) {
+        if (coin !== 'ETH') {
+          coin = coin + '-ERC20'
+        }
+      }
+      return (
+        <MintWarningTip>
+          <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+          <span dangerouslySetInnerHTML = { 
+            {__html: t('mintTip0', { 
+              coin: coin,
+              coin2: config.bridgeAll[node].symbol
+            })}
+          }></span>
+          <span className='span' >{account}</span><Copy toCopy={account} />
+        </MintWarningTip>
+      )
+    }
+  }
 
   // console.log(hashArr)
   return (
@@ -2328,37 +2346,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         selfUseAllToken={selfUseAllToken}
         errorMessage={balanceError}
       />
-      {
-           (bridgeType && bridgeType === 'redeem')
-        || !account
-        || !registerAddress
-        || isBTC(inputSymbol)
-        || (Number(outNetETHBalance) >= 0.02 && Number(outNetBalance) > Number(depositMinNum))
-        || false
-        ? '' : (
-          <>
-            {
-                 (Number(outNetETHBalance) === 0 && outNetETHBalance !== '')
-              || (Number(outNetBalance) === 0 && outNetBalance !== '')
-              || (Number(outNetBalance) < Number(depositMinNum))
-              || (Number(outNetETHBalance) < 0.02)
-               ? (
-                <MintWarningTip>
-                  <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
-                  {/* {t('mintTip0', { coin: formatCoin(inputSymbol)})} */}
-                  <span dangerouslySetInnerHTML = { 
-                    {__html: t('mintTip0', { 
-                      coin: inputSymbol.indexOf('ETH') !== -1 ? formatCoin(inputSymbol) : (formatCoin(inputSymbol) + (config.symbol === 'BNB' ? '' : '-ERC20')),
-                      coin2: extendObj.BRIDGE && extendObj.BRIDGE[0] && extendObj.BRIDGE[0].type === 32659 ? 'FSN' : 'ETH'
-                    })}
-                  }></span>
-                  <span className='span' >{account}</span><Copy toCopy={account} />
-                </MintWarningTip>
-              ) : ''
-            }
-          </>
-        )
-      }
+      { noBalanceTip() }
       {
         bridgeType && bridgeType === 'redeem' && Number(FSNBalanceNum) < 0.001 && account ? (
           <MintWarningTip>
@@ -2366,7 +2354,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             <span dangerouslySetInnerHTML = { 
               {__html: t('FSNnoBalance')}
             }></span>
-            {/* <span className='span' >{account}</span><Copy toCopy={account} /> */}
           </MintWarningTip>
         ) : ('')
       }

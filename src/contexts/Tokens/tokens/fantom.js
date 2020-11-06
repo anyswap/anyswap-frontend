@@ -22,6 +22,30 @@ import {dirSwitch} from '../methods/common'
 
 export default {
   250: {
+    '0xd2f5b45d8f30f8964f186dbd2fb75bc5f41eac24': { // ETH
+      [NAME]: 'Ethereum',
+      [SYMBOL]: 'anyETH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xCCEC440F003a6aBEE5fc86e37CFe9Bd3fe34F256',
+      [REDEEM_MAX_NUM]: 1000,
+      [REDEEM_MIN_NUM]: 0.05,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.1,
+      [MINFEE]: 0.008,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x05423792B350Aca5815dC30546c6A47D378c044c',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 1000,
+      [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     '0xAd84341756Bf337f5a0164515b1f6F993D194E1f': { // FUSD
       [NAME]: 'Fantom USD',
       [SYMBOL]: 'FUSD',
@@ -58,30 +82,6 @@ export default {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
-      [EXTENDOBJ]:  {
-        BRIDGE: [
-          { type: 1, isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      }
-    },
-    '0xd2f5b45d8f30f8964f186dbd2fb75bc5f41eac24': { // ETH
-      [NAME]: 'Ethereum',
-      [SYMBOL]: 'anyETH',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xCCEC440F003a6aBEE5fc86e37CFe9Bd3fe34F256',
-      [REDEEM_MAX_NUM]: 1000,
-      [REDEEM_MIN_NUM]: 0.05,
-      [FEE]: 0.001,
-      [MAXFEE]: 0.1,
-      [MINFEE]: 0.008,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x05423792B350Aca5815dC30546c6A47D378c044c',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 1000,
-      [DEPOSIT_MIN_NUM]: 0.01,
       [EXTENDOBJ]:  {
         BRIDGE: [
           { type: 1, isSwitch: 1 }

@@ -64,30 +64,6 @@ export default {
         VERSION: 'V1'
       },
     },
-    '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496': { // USDT
-      [NAME]: 'ANY Tether',
-      [SYMBOL]: config.prefix + 'USDT',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '0x78917333bec47cee1022b31a136d31feff90d6fb',
-      [REDEEM_MAX_NUM]: 100000,
-      [REDEEM_MIN_NUM]: 5,
-      [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 5,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x94e840798e333cB1974E086B58c10C374E966bc7',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 100000,
-      [DEPOSIT_MIN_NUM]: 0.5,
-      [EXTENDOBJ]: {
-        BRIDGE: [
-          { type: 1, isSwitch: 1 }
-        ],
-        VERSION: 'V1'
-      }
-    },
     '0x5e12290c7e7eda58d092632a53bbbc717996c732': { // ETH
       [NAME]: 'ANY Ethereum',
       [SYMBOL]: config.prefix + 'ETH',
@@ -106,6 +82,30 @@ export default {
       [DEPOSIT_MAX_NUM]: 1000,
       [DEPOSIT_MIN_NUM]: 0.01,
       [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V1'
+      }
+    },
+    '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496': { // USDT
+      [NAME]: 'ANY Tether',
+      [SYMBOL]: config.prefix + 'USDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x78917333bec47cee1022b31a136d31feff90d6fb',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 5,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x94e840798e333cB1974E086B58c10C374E966bc7',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 100000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
         BRIDGE: [
           { type: 1, isSwitch: 1 }
         ],

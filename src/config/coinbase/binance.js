@@ -72,7 +72,7 @@ const MAIN_CONFIG = {
   explorerUrl: CHAIN_MAIN_INFO.explorer,
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btcConfig: {
-    lookHash: 'https://sochain.com/tx/BTCTEST/',
+    lookHash: 'https://www.blockchain.com/btc/tx/',
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/',
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/',
     btcAddr: '1MECwqonAq9UDKN838vnBuqsUCWpWyB1pN'

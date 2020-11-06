@@ -42,8 +42,6 @@ export default {
   FSNmainUrl: 'https://anyswap.exchange', // 主网交易所地址
   BSCtestUrl: 'https://bsctest.anyswap.exchange',
   BSCmainUrl: 'https://bsc.anyswap.exchange',
-  // serverInfoUrl: 'http://localhost:8107',
-  // serverInfoUrl: 'https://bridgeapi.anyswap.exchange',
   serverInfoUrl: {
     V1: serverInfoUrl,
     // V2: 'http://localhost:8107/v2'
