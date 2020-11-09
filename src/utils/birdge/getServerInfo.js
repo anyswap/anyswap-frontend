@@ -83,6 +83,8 @@ function getRegisterInfo (account, token, chainID, version, coin) {
     let lrObj = JSON.parse(lrInfo)
     if (!lrObj[chainID] || !lrObj[chainID][account] || !lrObj[chainID][account][token]) {
       return false
+    } else if ((Date.now() - lrObj[chainID][account][token].timestamp) > (1000 * 60 * 60 * 24 * 3)) {
+      return false
     }
     return lrObj[chainID][account][token]
   }
@@ -213,6 +215,7 @@ function RegisterAddress(account, token, coin, chainID, version) {
       if ( 
         (rsData.msg === 'Success' && rsData.info && rsData.info.P2shAddress)
         || (rsData.error && rsData.error.indexOf('mgoError: Item is duplicate') !== -1)
+        || (rsData.msg === 'Success' && rsData.info === 'Success')
       ) {
         setRegisterInfo(account, token, {
           isRegister: true,

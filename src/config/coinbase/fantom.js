@@ -2,7 +2,7 @@ import {chainInfo} from './nodeConfig'
 
 const NAME_PREFIX = 'ANY'
 
-const ANY_MAIN_TOKEN = '0xAd84341756Bf337f5a0164515b1f6F993D194E1f'
+const ANY_MAIN_TOKEN = '0xb688e18f34e6e424c44b247318f22367ed7df3e2'
 const ANY_TEST_TOKEN = '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
 
 const REWARDS_DAY = 33000 / 2
@@ -76,7 +76,7 @@ const MAIN_CONFIG = {
     token: ANY_MAIN_TOKEN,  // ANY合约地址
   },
   initToken: INIT_MAIN_TOKEN, // 交易默认合约
-  initBridge: '0xe56bade49ef1a31ec98b4cba245e301d06525cfe', // 跨链桥默认合约
+  initBridge: '0xb688e18f34e6e424c44b247318f22367ed7df3e2', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
   btcConfig: { // btc配置
     lookHash: 'https://www.blockchain.com/btc/tx/', // 
@@ -88,7 +88,8 @@ const MAIN_CONFIG = {
   isChangeDashboard: 0, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
-    '0xAd84341756Bf337f5a0164515b1f6F993D194E1f'
+    '0xAd84341756Bf337f5a0164515b1f6F993D194E1f',
+    '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83'
   ], // 不支持的跨链合约或币种
   queryToken: '0x938fD483657Fd233CF93D78f99698662674c1894' // 查询余额合约
 }

@@ -92,7 +92,7 @@ let chainInfo = {
     name: 'Fantom',
     type: 'main',
     label: 'FTM_MAIN',
-    isSwitch: 0
+    isSwitch: 1
   },
   32659: {
     rpc: FSN_MAINNET,

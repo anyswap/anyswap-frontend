@@ -23,6 +23,8 @@ const BAD_IMAGES = {}
 const Image = styled.img`
   width: ${({ size }) => size};
   height: ${({ size }) => size};
+  max-width:100%;
+  max-height:100%;
   background-color: white;
   border-radius: 1rem;
 `

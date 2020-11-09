@@ -47,7 +47,7 @@ export default {
       },
     },
     '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c': { // BTCB
-      [NAME]: 'Bitcoin' + config.suffix,
+      [NAME]: 'Binance-Peg Bitcoin',
       [SYMBOL]: 'BTCB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xB63d5B98fA56C1a2E3b4Ec7C41E38b2Cf7d6dc12',
@@ -87,8 +87,8 @@ export default {
       }
     },
     '0x2170ed0880ac9a755fd29b2688956bd959f933f8': { // ETH-BEP20
-      [NAME]: 'Ethereum' + config.suffix,
-      [SYMBOL]: 'ETH',
+      [NAME]: 'Binance-Peg Ethereum',
+      [SYMBOL]: 'ETHB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xad2C1D2A9a599EeF950f5baF6830D68e2Be34d38',
       [REDEEM_MAX_NUM]: 100000,
@@ -130,8 +130,8 @@ export default {
       }
     },
     '0x55d398326f99059ff775485246999027b3197955': { // USDT-BEP20
-      [NAME]: 'Tether' + config.suffix,
-      [SYMBOL]: 'USDT',
+      [NAME]: 'Binance-Peg Tether',
+      [SYMBOL]: 'USDTB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x83034714666b0eb2209aafc1b1cbb2ab9c6100db',
       [REDEEM_MAX_NUM]: 100000,
@@ -174,7 +174,7 @@ export default {
     },
     '0x4f6318e97011fe21fdfce3ffcf868d44e5f6994a': { // FSN
       [NAME]: 'Fusion' + config.suffix,
-      [SYMBOL]: 'FSN',
+      [SYMBOL]: 'anyFSN',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xA4c40c9743039D3836E5DaFE62E84D274349D802',
       [REDEEM_MAX_NUM]: 500000,
@@ -195,6 +195,25 @@ export default {
         ],
         VERSION: 'V2'
       }
+    },
+    '0xf8a0bf9cf54bb92f17374d9e9a321e6a111a51bd': { // LINKB 6
+      [NAME]: 'Binance-Peg Chainlink',
+      [SYMBOL]: 'LINKB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x51B04C7D7144b6e72EbaBD23ea368Af4f8fa7aaE',
+      [REDEEM_MAX_NUM]: 20000,
+      [REDEEM_MIN_NUM]: 2,
+      [FEE]: 0.001,
+      [MAXFEE]: 5,
+      [MINFEE]: 0.5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {}
     },
     '0x3af577f9d8c86ae8dbcbf51fe9836c9df825759d': { // LINK 6
       [NAME]: 'Chainlink' + config.suffix,
@@ -219,6 +238,44 @@ export default {
         ],
         VERSION: 'V2'
       }
+    },
+    '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d': { // USDCB 23
+      [NAME]: 'Binance-Peg USD Coin',
+      [SYMBOL]: 'USDCB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x04e952411aD37F50ea2f4F1cFC38619A9D7EE845',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {}
+    },
+    '0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3': { // DAIB 23
+      [NAME]: 'Binance-Peg Dai',
+      [SYMBOL]: 'DAIB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xB2078cB7cB7019F383b475ae1D7519C5132CfF3C',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {}
     },
     '0x1dc56f2705ff2983f31fb5964cc3e19749a7cba7': { // DAI 23
       [NAME]: 'Dai' + config.suffix,
@@ -245,8 +302,8 @@ export default {
       }
     },
     '0xe9e7cea3dedca5984780bafc599bd69add087d56': { // BUSD 28
-      [NAME]: 'BUSD' + config.suffix,
-      [SYMBOL]: 'BUSD',
+      [NAME]: 'Binance-Peg BUSD',
+      [SYMBOL]: 'BUSDB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x34358Ff75D78652F1797ebd73E8f7aFA92DaB501',
       [REDEEM_MAX_NUM]: 200000,
@@ -262,6 +319,25 @@ export default {
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]: {},
+    },
+    '0xbf5140a22578168fd562dccf235e5d43a02ce9b1': { // UNIB
+      [NAME]: 'Binance-Peg Uniswap',
+      [SYMBOL]: 'UNIB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x3D021164741c7d84e11d9B7210C5e0d4E7C1d1d2',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {}
     },
     '0x99c5a2fcc97b59fe6d0b56e21e72b002f644123f': { // UNI
       [NAME]: 'Uniswap' + config.suffix,
@@ -335,6 +411,25 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x88f1a5ae2a3bf98aeaf342d26b30a79438c9142e': { // YFIB 40
+      [NAME]: 'Binance-Peg yearn.finance',
+      [SYMBOL]: 'YFIB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xAd99Dcfe10630925EBD22376573a5Ee8721dCf2D',
+      [REDEEM_MAX_NUM]: 20,
+      [REDEEM_MIN_NUM]: 0.002,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.01,
+      [MINFEE]: 0.001,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20,
+      [DEPOSIT_MIN_NUM]: 0.0005,
+      [EXTENDOBJ]:  {}
+    },
     '0x9883ae441105f815b472517389b979f031b5c87e': { // YFI 40
       [NAME]: 'yearn.finance' + config.suffix,
       [SYMBOL]: 'anyYFI',
@@ -360,8 +455,8 @@ export default {
       }
     },
     '0x4b0f1812e5df2a09796481ff14017e6005508003': { // TWT
-      [NAME]: 'Trust Wallet' + config.suffix,
-      [SYMBOL]: 'TWT',
+      [NAME]: 'Binance-Peg Trust Wallet',
+      [SYMBOL]: 'TWTB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x7320091690010162E91A098863bD530fEEdC3522',
       [REDEEM_MAX_NUM]: 200000,
@@ -379,8 +474,8 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82': { // Cake
-      [NAME]: 'PancakeSwap' + config.suffix,
-      [SYMBOL]: 'Cake',
+      [NAME]: 'Binance-Peg PancakeSwap',
+      [SYMBOL]: 'CakeB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x4D00CC3B309170888AE2bc43859f4c4dc5143711',
       [REDEEM_MAX_NUM]: 200000,
@@ -398,8 +493,8 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0xd4cb328a82bdf5f03eb737f37fa6b370aef3e888': { // CREAM
-      [NAME]: 'Cream' + config.suffix,
-      [SYMBOL]: 'CREAM',
+      [NAME]: 'Binance-Peg Cream',
+      [SYMBOL]: 'CREAMB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xe29331A26881FFc6127c8B22dB19Ea6e960943f1',
       [REDEEM_MAX_NUM]: 200000,
@@ -417,8 +512,8 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0xae9269f27437f0fcbc232d39ec814844a51d6b8f': { // BURGER
-      [NAME]: 'Burger' + config.suffix,
-      [SYMBOL]: config.prefix + 'BURGER',
+      [NAME]: 'Binance-Peg Burger',
+      [SYMBOL]: 'BURGERB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x2296c4a9186b823db1612e831808536ed451cbbe',
       [REDEEM_MAX_NUM]: 100000,
@@ -436,8 +531,8 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0xE4Ae305ebE1AbE663f261Bc00534067C80ad677C': { // SPARTAN
-      [NAME]: 'SPARTAN' + config.suffix,
-      [SYMBOL]: config.prefix + 'SPARTAN',
+      [NAME]: 'Binance-Peg SPARTAN',
+      [SYMBOL]: 'SPARTANB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xd1D0C2f4291F7002E1591d2a87975f0701a3fa2C',
       [REDEEM_MAX_NUM]: 100000,
@@ -455,8 +550,8 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0x658A109C5900BC6d2357c87549B651670E5b0539': { // FOR
-      [NAME]: 'Force' + config.suffix,
-      [SYMBOL]: 'FOR',
+      [NAME]: 'Binance-Peg Force',
+      [SYMBOL]: 'FORB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x1d396c3fC33A44e106665fc45cA39B3042120241',
       [REDEEM_MAX_NUM]: 200000,
@@ -474,8 +569,8 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0xe02df9e3e622debdd69fb838bb799e3f168902c5': { // BAKE
-      [NAME]: 'Bakery' + config.suffix,
-      [SYMBOL]: 'BAKE',
+      [NAME]: 'Binance-Peg Bakery',
+      [SYMBOL]: 'BAKEB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x90C8EA8ec7710034274868971C4e27edE33d9c10',
       [REDEEM_MAX_NUM]: 200000,
@@ -493,8 +588,8 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0xacd6b5f76db153fb45eae6d5be5bdbd45d1b2a8c': { // PEACH
-      [NAME]: 'Peach' + config.suffix,
-      [SYMBOL]: config.prefix + 'PEACH',
+      [NAME]: 'Binance-Peg Peach',
+      [SYMBOL]: 'PEACHB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xdcb18e3230605a4c5ee6fb86031eefa8ecd63430',
       [REDEEM_MAX_NUM]: 100000,
@@ -512,8 +607,8 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0x8E9f5173e16Ff93F81579d73A7f9723324d6B6aF': { // MILK
-      [NAME]: 'Milk' + config.suffix,
-      [SYMBOL]: config.prefix + 'MILK',
+      [NAME]: 'Binance-Peg Milk',
+      [SYMBOL]: 'MILKB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xbd1f974bc2730e9620d91924993d30c2f96983b8',
       [REDEEM_MAX_NUM]: 100000,
@@ -531,8 +626,8 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0x40929fb2008c830731a3d972950bc13f70161c75': { // TUNA
-      [NAME]: 'Tuna' + config.suffix,
-      [SYMBOL]: 'TUNA',
+      [NAME]: 'Binance-Peg Tuna',
+      [SYMBOL]: 'TUNAB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x4F171A4aEcbfcEc6467464DA7401F88dED8C891C',
       [REDEEM_MAX_NUM]: 200000,
@@ -550,8 +645,8 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0xaf53d56ff99f1322515e54fdde93ff8b3b7dafd5': { // PROM
-      [NAME]: 'Prometeus' + config.suffix,
-      [SYMBOL]: 'PROM',
+      [NAME]: 'Binance-Peg Prometeus',
+      [SYMBOL]: 'PROMB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xfeBc57bBA705C6142Cc4586F1aC6A96ce88047Be',
       [REDEEM_MAX_NUM]: 200000,

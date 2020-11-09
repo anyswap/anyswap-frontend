@@ -11,7 +11,7 @@ const CHAIN_TEST_INFO = chainInfo['97']
 
 const COIN_BASE ={
   symbol: 'BNB',
-  name: 'Binance-BEP20',
+  name: 'Binance-Peg Binance',
   decimals: 18,
   networkName: 'BSC',
   reverseSwitch: 0,
@@ -96,6 +96,11 @@ const MAIN_CONFIG = {
     '0xd4cb328a82bdf5f03eb737f37fa6b370aef3e888',
     '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c',
     '0x2170ed0880ac9a755fd29b2688956bd959f933f8',
+    '0xf8a0bf9cf54bb92f17374d9e9a321e6a111a51bd',
+    '0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3',
+    '0xbf5140a22578168fd562dccf235e5d43a02ce9b1',
+    '0x88f1a5ae2a3bf98aeaf342d26b30a79438c9142e',
+    '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
   ],
   queryToken: '0x7e8b5b722f1a3c5ab2bd8510eaba24dae97565d1' // 查询余额合约
 }

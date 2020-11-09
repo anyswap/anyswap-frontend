@@ -1051,6 +1051,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let coin = formatCoin(inputSymbol)
     if (account && initIsDeposit && initIsRedeem) {
       getServerInfo(account, tokenOnlyOne, inputSymbol, chainId, version).then(res => {
+        console.log(res)
         if (res.msg === 'Success' && res.info) {
           let serverInfo = res.info
           setIsRegister(true)

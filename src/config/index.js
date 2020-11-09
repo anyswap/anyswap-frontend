@@ -6,11 +6,11 @@ import {getNetwork, getIdCode} from './getUrlParams'
 import {chainInfo} from './coinbase/nodeConfig'
 // console.log(location.href)
 const ENV_NODE_CONFIG = 'ENV_NODE_CONFIG'
-const INIT_NODE = 'FSN_MAIN'
+// const INIT_NODE = 'FSN_MAIN'
 // const INIT_NODE = 'BNB_MAIN'
 // const INIT_NODE = 'BNB_TEST'
 // const INIT_NODE = 'FSN_TEST'
-// const INIT_NODE = 'FTM_MAIN'
+const INIT_NODE = 'FTM_MAIN'
 
 getIdCode()
 
@@ -30,7 +30,7 @@ if (netArr[0] === 'FSN') {
 }
 
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
-// serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
+serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
 
 export default {
   ...netConfig,
@@ -47,6 +47,8 @@ export default {
     // V2: 'http://localhost:8107/v2'
     V2: serverInfoUrl + '/v2'
   },
+  // recordsTxnsUrl: 'https://agentapi.anyswap.exchange/recordTxns',
+  recordsTxnsUrl: 'http://localhost:8108/recordTxns',
   dirSwitchFn (type) {
     if (netConfig.reverseSwitch) {
       if (type) return 1

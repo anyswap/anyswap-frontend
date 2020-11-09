@@ -11,7 +11,7 @@ export function recordTxns (txnData, type, pairs, account, to, outChainId) {
     hash = ''
     outHash = txnData.hash
   }
-  axios.post('https://agentapi.anyswap.exchange/recordTxns', qs.stringify({
+  axios.post(config.recordsTxnsUrl, qs.stringify({
     hash: hash,
     from: account,
     to: to,
