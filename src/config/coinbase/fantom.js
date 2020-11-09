@@ -2,7 +2,7 @@ import {chainInfo} from './nodeConfig'
 
 const NAME_PREFIX = 'ANY'
 
-const ANY_MAIN_TOKEN = '0xb688e18f34e6e424c44b247318f22367ed7df3e2'
+const ANY_MAIN_TOKEN = '0xAd84341756Bf337f5a0164515b1f6F993D194E1f'
 const ANY_TEST_TOKEN = '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
 
 const REWARDS_DAY = 33000 / 2
@@ -76,7 +76,7 @@ const MAIN_CONFIG = {
     token: ANY_MAIN_TOKEN,  // ANY合约地址
   },
   initToken: INIT_MAIN_TOKEN, // 交易默认合约
-  initBridge: '0xb688e18f34e6e424c44b247318f22367ed7df3e2', // 跨链桥默认合约
+  initBridge: '0xddcb3ffd12750b45d32e084887fdf1aabab34239', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
   btcConfig: { // btc配置
     lookHash: 'https://www.blockchain.com/btc/tx/', // 

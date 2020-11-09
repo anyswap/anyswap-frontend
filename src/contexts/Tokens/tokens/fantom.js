@@ -22,30 +22,49 @@ import {dirSwitch} from '../methods/common'
 
 export default {
   250: {
-    // '0x623b10d372df23cbf1cb5ee0b59e926b78d6999c': { // ANY
-    //   [NAME]: 'Anyswap',
-    //   [SYMBOL]: 'ANY',
-    //   [DECIMALS]: 18,
-    //   [EXCHANGE_ADDRESS]: '0x0D7996b2212fF923ed73fDC6E4512bA2A66ecE9B',
-    //   [REDEEM_MAX_NUM]: 200000,
-    //   [REDEEM_MIN_NUM]: 10,
-    //   [FEE]: 0.001,
-    //   [MAXFEE]: 50,
-    //   [MINFEE]: 1,
-    //   [ISSWITCH]: dirSwitch(0),
-    //   [ISDEPOSIT]: 1,
-    //   [ISREDEEM]: 1,
-    //   [DEPOSIT_ADDRESS]: '0x2A1651C38927BdEdE04F4e07cFcC55Bd1c81fe72',
-    //   [DEPOSIT_TYPE]: 1,
-    //   [DEPOSIT_MAX_NUM]: 200000,
-    //   [DEPOSIT_MIN_NUM]: 0.5,
-    //   [EXTENDOBJ]:  {
-    //     BRIDGE: [
-    //       { type: 32659, isSwitch: 1 }
-    //     ],
-    //     VERSION: 'V2'
-    //   }
-    // },
+    '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83': { // wFTM
+      [NAME]: 'Wrapped Fantom',
+      [SYMBOL]: 'wFTM',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0xa52D4554d2fd90C32DD4669549acF658dc9741Dc',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {}
+    },
+    '0xddcb3ffd12750b45d32e084887fdf1aabab34239': { // ANY
+      [NAME]: 'Anyswap',
+      [SYMBOL]: 'ANY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x918F6De5b683b688961DEAB48546Ca422280c64F',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x2A1651C38927BdEdE04F4e07cFcC55Bd1c81fe72',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 32659, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     '0xb688e18f34e6e424c44b247318f22367ed7df3e2': { // ETH
       [NAME]: 'Ethereum',
       [SYMBOL]: 'anyETH',
@@ -160,25 +179,6 @@ export default {
         ],
         VERSION: 'V2'
       }
-    },
-    '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83': { // wFTM
-      [NAME]: 'Wrapped Fantom',
-      [SYMBOL]: 'wFTM',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '0xa52D4554d2fd90C32DD4669549acF658dc9741Dc',
-      [REDEEM_MAX_NUM]: 200000,
-      [REDEEM_MIN_NUM]: 20,
-      [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 5,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 0,
-      [ISREDEEM]: 0,
-      [DEPOSIT_ADDRESS]: '',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 200000,
-      [DEPOSIT_MIN_NUM]: 0.5,
-      [EXTENDOBJ]:  {}
     },
   }
 }

@@ -83,7 +83,7 @@ function getRegisterInfo (account, token, chainID, version, coin) {
     let lrObj = JSON.parse(lrInfo)
     if (!lrObj[chainID] || !lrObj[chainID][account] || !lrObj[chainID][account][token]) {
       return false
-    } else if ((Date.now() - lrObj[chainID][account][token].timestamp) > (1000 * 60 * 60 * 24 * 3)) {
+    } else if ((Date.now() - lrObj[chainID][account][token].timestamp) > (1000 * 60 * 60 * 24 * 1)) {
       return false
     }
     return lrObj[chainID][account][token]
