@@ -639,6 +639,13 @@ export default function DashboardDtil () {
           }
           // console.log(obj.symbol)
           if (obj.symbol.indexOf('USDT') !== -1 && obj.symbol.indexOf('any') === -1) {
+          // if (obj.symbol.indexOf('USDT') !== -1 && !baseMarket) {
+            setSaseMarket(Number(amountFormatter(
+              obj.market,
+              18,
+              Math.min(5, obj.decimals)
+            )))
+          } else if (obj.symbol.indexOf('USDT') !== -1 && config.symbol !== 'BNB') {
             setSaseMarket(Number(amountFormatter(
               obj.market,
               18,
@@ -675,14 +682,13 @@ export default function DashboardDtil () {
         </ComineSoon>
       )
     }
-    if (config.symbol === 'FSN') {
+    if (config.symbol === 'BNB') {
       if (rewardAPY[coin]) {
         return rewardAPY[coin].AnnualizedROI.toFixed(2) + '%'
       } else {
         return '-%'
       }
-    } else if (config.symbol === 'BNB') {
-      // return '-%'
+    } else {
       if (rewardAPY[coin]) {
         return rewardAPY[coin].AnnualizedROI.toFixed(2) + '%'
       } else {
@@ -855,7 +861,6 @@ export default function DashboardDtil () {
   }
 
   function getPrice (market, coin) {
-    // console.log(coin)
     if (coin.indexOf('USDT') !== -1) return '1'
     if (!market) return '-'
     let mt1 = Number(amountFormatter( market, 18 ))
