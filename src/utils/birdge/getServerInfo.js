@@ -85,6 +85,8 @@ function getRegisterInfo (account, token, chainID, version, coin) {
       return false
     } else if ((Date.now() - lrObj[chainID][account][token].timestamp) > (1000 * 60 * 60 * 24 * 1)) {
       return false
+    } else if (lrObj[chainID][account][token].timestamp < 1604973890368) { // 在某个时间之前的数据无效
+      return false
     }
     return lrObj[chainID][account][token]
   }

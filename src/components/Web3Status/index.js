@@ -26,7 +26,8 @@ import config from '../../config'
 import WalletIcon from '../../assets/images/icon/wallet.svg'
 
 const Web3StatusGeneric = styled.button`
-  ${({ theme }) => theme.flexRowNoWrap}
+  // ${({ theme }) => theme.flexRowNoWrap}
+  ${({ theme }) => theme.FlexC}
   font-family: 'Manrope';
   width: 100%;
   height: 36px;
@@ -87,7 +88,7 @@ const Web3StatusConnected = styled(Web3StatusGeneric)`
   font-size: 14px;
   font-weight: 400;
   border:none;
-  padding: 0 10px;
+  padding: 0 6px;
   :hover {
     background-color: ${({ pending, theme }) =>
       pending ? transparentize(0.9, theme.royalBlue) : darken(0.05, theme.inputBackground)};
@@ -104,7 +105,7 @@ const Text = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin: 0 10px;
+  margin: 0 10px 0 0;
   font-size: 0.83rem;
   font-family: 'Manrope';
 `
