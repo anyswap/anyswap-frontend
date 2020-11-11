@@ -597,6 +597,17 @@ function thousandBit (num, dec = 2) {
   return num
 }
 
+function isBaseUSD (coin) {
+  if (
+    (coin === 'aUSDT' && config.symbol === 'FSN') ||
+    (coin === 'FUSD' && config.symbol === 'FTM') ||
+    (coin === 'USDTB' && config.symbol === 'BNB')
+  ) {
+    return true
+  }
+  return false
+}
+
 export default function DashboardDtil () {
   const { account } = useWeb3React()
   // const account = '0x7aA84636251A56502bbb2C2b2671344b9Ff87CFa'
@@ -637,10 +648,7 @@ export default function DashboardDtil () {
           if (obj.exchangeETHBalance) {
             baseAllBalance = baseAllBalance.add(obj.exchangeETHBalance)
           }
-          // console.log(obj.symbol)
-          if (obj.symbol.indexOf('USDT') !== -1 && obj.symbol.indexOf('any') === -1) {
-            setSaseMarket(Number(amountFormatter( obj.market, 18, Math.min(5, obj.decimals) )))
-          } else if (obj.symbol.indexOf('FUSD') !== -1 && config.symbol === 'FTM') {
+          if (isBaseUSD(obj.symbol)) {
             setSaseMarket(Number(amountFormatter( obj.market, 18, Math.min(5, obj.decimals) )))
           }
           poolInfoObj[obj.symbol] = obj
@@ -852,8 +860,9 @@ export default function DashboardDtil () {
   }
 
   function getPrice (market, coin) {
-    if (coin.indexOf('USDT') !== -1) return '1'
-    if (coin.indexOf('FUSD') !== -1 && config.symbol === 'FTM') return '1'
+    if (isBaseUSD(coin)) {
+      return '1'
+    }
     if (!market) return '-'
     let mt1 = Number(amountFormatter( market, 18 ))
     if (!mt1) return '0'
