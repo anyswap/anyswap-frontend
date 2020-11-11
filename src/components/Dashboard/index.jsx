@@ -639,18 +639,9 @@ export default function DashboardDtil () {
           }
           // console.log(obj.symbol)
           if (obj.symbol.indexOf('USDT') !== -1 && obj.symbol.indexOf('any') === -1) {
-          // if (obj.symbol.indexOf('USDT') !== -1 && !baseMarket) {
-            setSaseMarket(Number(amountFormatter(
-              obj.market,
-              18,
-              Math.min(5, obj.decimals)
-            )))
-          } else if (obj.symbol.indexOf('USDT') !== -1 && config.symbol !== 'BNB') {
-            setSaseMarket(Number(amountFormatter(
-              obj.market,
-              18,
-              Math.min(5, obj.decimals)
-            )))
+            setSaseMarket(Number(amountFormatter( obj.market, 18, Math.min(5, obj.decimals) )))
+          } else if (obj.symbol.indexOf('FUSD') !== -1 && config.symbol === 'FTM') {
+            setSaseMarket(Number(amountFormatter( obj.market, 18, Math.min(5, obj.decimals) )))
           }
           poolInfoObj[obj.symbol] = obj
           arr.push(obj)
@@ -862,6 +853,7 @@ export default function DashboardDtil () {
 
   function getPrice (market, coin) {
     if (coin.indexOf('USDT') !== -1) return '1'
+    if (coin.indexOf('FUSD') !== -1 && config.symbol === 'FTM') return '1'
     if (!market) return '-'
     let mt1 = Number(amountFormatter( market, 18 ))
     if (!mt1) return '0'

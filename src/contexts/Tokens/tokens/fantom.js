@@ -25,7 +25,7 @@ export default {
     '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83': { // wFTM
       [NAME]: 'Wrapped Fantom',
       [SYMBOL]: 'wFTM',
-      [DECIMALS]: 6,
+      [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xa52D4554d2fd90C32DD4669549acF658dc9741Dc',
       [REDEEM_MAX_NUM]: 200000,
       [REDEEM_MIN_NUM]: 20,
@@ -159,7 +159,7 @@ export default {
     '0xc396b190f251d7f79c583fd06347a09781f085c9': { // anyYFI-ERC20
       [NAME]: 'yearn.finance',
       [SYMBOL]: 'anyYFI',
-      [DECIMALS]: 6,
+      [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xD8894449fa884391547fD19D2EB03b9C79b6c411',
       [REDEEM_MAX_NUM]: 20,
       [REDEEM_MIN_NUM]: 0.002,
