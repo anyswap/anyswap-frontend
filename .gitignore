@@ -18,6 +18,8 @@
 /BNB-TEST
 /FSN-MAIN
 /FSN-TEST
+/FTM-MAIN
+/FTM-TEST
 #/src/config/index.js
 #/src/contexts/Tokens.js
 

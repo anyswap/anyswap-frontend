@@ -22,7 +22,7 @@ const COIN_BASE ={
   keepDec: 6, // 保留小数位
   namePrefix: NAME_PREFIX, // 币名前缀
   marketsUrl: 'https://markets.anyswap.exchange/?trade=ANY_FSN', // K线图地址
-  rewardUrl: 'https://rewardapiv2.anyswap.exchange/accounts/getReward/', // 获取奖励地址
+  rewardUrl: 'https://rewardapiv2.anyswap.exchange/accounts/getFTMReward/', // 获取奖励地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
   rewardRate (arr) {
     let totalLq = 0
@@ -32,6 +32,9 @@ const COIN_BASE ={
       let mt = Number(obj.market) / Math.pow(10, 18)
       // let totalBaseAmount = Number(obj.baseAmount) + Number(obj.tokenAmount) / mt
       let totalBaseAmount = Number(obj.baseAmount) * 2 /  Math.pow(10, 18)
+      if (obj.coin === 'wFTM') {
+        totalBaseAmount = totalBaseAmount / 10
+      }
       if (obj.coin === 'ANY') {
         totalBaseAmount = totalBaseAmount * 2
       }
@@ -46,6 +49,9 @@ const COIN_BASE ={
     for (let obj in coinObj) {
       coinObj[obj].pecent = coinObj[obj].totalBaseAmount / totalLq
       coinObj[obj].totalReward = REWARDS_DAY * coinObj[obj].pecent
+      if (obj === 'wFTM') {
+        coinObj[obj].totalReward = REWARDS_DAY * coinObj[obj].pecent / 10
+      }
       if (obj === 'ANY') {
         coinObj[obj].poolShare = (DEPOSIT_AMOUNT / coinObj[obj].totalBaseAmount) * 2
         coinObj[obj].accountReward = coinObj[obj].poolShare * coinObj[obj].totalReward / coinObj[obj].market
@@ -55,10 +61,13 @@ const COIN_BASE ={
         coinObj[obj].poolShare = (DEPOSIT_AMOUNT / coinObj[obj].totalBaseAmount)
         coinObj[obj].accountReward = coinObj[obj].poolShare * coinObj[obj].totalReward / coinObj['ANY'].market
         coinObj[obj].ROIPerDay = coinObj[obj].accountReward / DEPOSIT_AMOUNT
+        // if (obj === 'wFTM') {
+        //   coinObj[obj].ROIPerDay = (coinObj[obj].accountReward / DEPOSIT_AMOUNT) / 10
+        // }
         coinObj[obj].AnnualizedROI = coinObj[obj].ROIPerDay * 100 * 365
       }
     }
-    // console.log(coinObj)
+    console.log(coinObj)
     // console.log(totalBaseAmount)
     return coinObj
   }
