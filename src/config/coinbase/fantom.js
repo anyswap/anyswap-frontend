@@ -93,7 +93,7 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
     btcAddr: '',  // 
   },
-  isOpenRewards: 0, // 是否打开奖励数据
+  isOpenRewards: 1, // 是否打开奖励数据
   isChangeDashboard: 0, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
