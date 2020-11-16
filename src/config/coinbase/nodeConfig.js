@@ -44,7 +44,7 @@ let chainInfo = {
     name: 'Ethereum',
     type: 'main',
     label: 'ETH_MAIN',
-    isSwitch: 0
+    isSwitch: 1
   },
   4: {
     rpc: ETH_TESTNET,

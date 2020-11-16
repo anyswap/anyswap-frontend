@@ -131,8 +131,8 @@ function CreateExchange({ location, params }) {
   })
   const [tokenAddressError, setTokenAddressError] = useState()
 
-  // const { name, symbol, decimals, exchangeAddress } = useTokenDetails(tokenAddress.address)
-  const { name, symbol, decimals, exchangeAddress } = useTokenDetails(tokenAddress.address.toLowerCase())
+  const { name, symbol, decimals, exchangeAddress } = useTokenDetails(tokenAddress.address)
+  // const { name, symbol, decimals, exchangeAddress } = useTokenDetails(tokenAddress.address ? tokenAddress.address : '')
   const addTransaction = useTransactionAdder()
 
   // clear url of query

@@ -833,6 +833,11 @@ export default {
       [TOKEN]: '0x6780bc1357dc0b6aa39224f53dc8aeceb093b6ff',
       [DECIMALS]: 18
     },
+    'BTC': {
+      [NAME]: 'ANY Bitcoin',
+      [TOKEN]: '0x445166c4854836292a5af7e3f165a3b8b4eedf97',
+      [DECIMALS]: 8
+    },
   },
   46688: {
     'ANY': {

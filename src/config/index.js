@@ -1,6 +1,7 @@
 import getFSNConfig from './coinbase/fusion'
 import getBNBConfig from './coinbase/binance'
 import getFTMConfig from './coinbase/fantom'
+import getETHConfig from './coinbase/ethereum'
 
 import {getNetwork, getIdCode} from './getUrlParams'
 import {chainInfo} from './coinbase/nodeConfig'
@@ -27,10 +28,12 @@ if (netArr[0] === 'FSN') {
   netConfig = getBNBConfig(netArr[1])
 } else if (netArr[0] === 'FTM') {
   netConfig = getFTMConfig(netArr[1])
+} else if (netArr[0] === 'ETH') {
+  netConfig = getETHConfig(netArr[1])
 }
 
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
-// serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
+serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
 
 export default {
   ...netConfig,

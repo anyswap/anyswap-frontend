@@ -33,6 +33,7 @@ import {
 import fusion from './tokens/fusion'
 import binance from './tokens/binance'
 import fantom from './tokens/fantom'
+import ethereum from './tokens/ethereum'
 
 
 const UPDATE = 'UPDATE'
@@ -63,6 +64,7 @@ export const INITIAL_TOKENS_CONTEXT = {
   ...binance,
   ...fantom,
   ...fusion,
+  ...ethereum
 }
 
 const TokensContext = createContext()

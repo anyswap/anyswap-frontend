@@ -24,7 +24,7 @@ export const copyTxt = (cont) => {
 }
 
 export function formatCoin (coin) {
-  return coin.replace(config.prefix, '').replace('any', '')
+  return coin.replace('any', '').replace(config.prefix, '')
 }
 
 export function formatDecimal(num, decimal) {
