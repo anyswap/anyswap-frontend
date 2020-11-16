@@ -15,19 +15,52 @@ import {getNodeRpc} from '../../config/getNodeRpc'
 const Web3 = require('web3')
 const Tx  = require("ethereumjs-tx")
 
-const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x421d35f8f8fd822f898e75db43f057f7ea448298') // FSN-test
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x0911fD5BCbC574c59bee6D7B772587B4A03D2778') // FTM-MAIN
-let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0Fe3CA366d6079dC3427af7865839b') // ETH-MAIN
-setTimeout(() => {
-  factory.methods.getExchange('0x51600b0cff6bbf79e7767158c41fd15e968ec404').call((err, res) => {
-    console.log('BTC')
-    console.log(err)
-    console.log(res)
-  })
-}, 2000)
+// const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
+// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
+// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x421d35f8f8fd822f898e75db43f057f7ea448298') // FSN-test
+// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
+// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x0911fD5BCbC574c59bee6D7B772587B4A03D2778') // FTM-MAIN
+// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0Fe3CA366d6079dC3427af7865839b') // ETH-MAIN
+// setTimeout(() => {
+//   // for (let i = 0 ; i< 9; i++) {
+
+//   //   factory.methods.getTokenWithId(i).call((err, res) => {
+//   //     console.log(res)
+//   //   })
+//   // }
+//   factory.methods.getExchange('0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599').call((err, res) => {
+//     console.log('WBTC')
+//     console.log(err)
+//     console.log(res)
+//   })
+//   factory.methods.getExchange('0x514910771AF9Ca656af840dff83E8264EcF986CA').call((err, res) => {
+//     console.log('LINK')
+//     console.log(err)
+//     console.log(res)
+//   })
+//   factory.methods.getExchange('0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48').call((err, res) => {
+//     console.log('USDC')
+//     console.log(err)
+//     console.log(res)
+//   })
+//   factory.methods.getExchange('0x6B175474E89094C44Da98b954EedeAC495271d0F').call((err, res) => {
+//     console.log('DAI')
+//     console.log(err)
+//     console.log(res)
+//   })
+//   factory.methods.getExchange('0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984').call((err, res) => {
+//     console.log('UNI')
+//     console.log(err)
+//     console.log(res)
+//   })
+//   factory.methods.getExchange('0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e').call((err, res) => {
+//     console.log('YFI')
+//     console.log(err)
+//     console.log(res)
+//   })
+// }, 2000)
+
+
 
 // console.log(BridgeToken)
 // const web3 = new Web3(new Web3.providers.HttpProvider(BRIDGE_RPC))
