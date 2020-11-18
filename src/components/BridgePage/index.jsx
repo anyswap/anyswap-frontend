@@ -56,7 +56,7 @@ import BridgeTokens from '../../contexts/BridgeTokens'
 import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/birdge/BTC'
 // import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
 
-import {getServerInfo, removeLocalConfig, removeRegisterInfo} from '../../utils/birdge/getServerInfo'
+import {getServerInfo, removeLocalConfig, getRegisterInfo} from '../../utils/birdge/getServerInfo'
 
 import {getAllOutBalance, getLocalOutBalance} from '../../utils/birdge/getOutBalance'
 
@@ -1051,7 +1051,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let coin = formatCoin(inputSymbol)
     if (account && initIsDeposit && initIsRedeem) {
       getServerInfo(account, tokenOnlyOne, inputSymbol, chainId, version).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.msg === 'Success' && res.info) {
           let serverInfo = res.info
           setIsRegister(true)
@@ -1081,12 +1081,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 setInit(0)
                 return
               }
-              if (serverInfo.p2pAddress) {
-                DepositAddress = serverInfo.p2pAddress
+              console.log(serverInfo)
+              let p2pAddress = serverInfo.p2pAddress ? serverInfo.p2pAddress : getRegisterInfo(account, tokenOnlyOne, chainId, version, coin).p2pAddress
+              if (p2pAddress) {
+                DepositAddress = p2pAddress
                 console.log('DepositAddress', DepositAddress)
                 let localBTCAddr = createBTCaddress(account)
                 console.log('localBTCAddr', localBTCAddr)
-                if (serverInfo.p2pAddress !== localBTCAddr) {
+                if (p2pAddress !== localBTCAddr) {
                   console.log(3)
                   // removeRegisterInfo(account, tokenOnlyOne)
                   removeLocalConfig(account, tokenOnlyOne, chainId)
@@ -1096,7 +1098,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               } else {
                 console.log(4)
                 // removeRegisterInfo(account, tokenOnlyOne)
-                removeLocalConfig(account, tokenOnlyOne, chainId)
+                // removeLocalConfig(account, tokenOnlyOne, chainId)
                 setInit(0)
                 return
               }

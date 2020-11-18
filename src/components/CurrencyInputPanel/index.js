@@ -652,6 +652,7 @@ export default function CurrencyInputPanel({
   isRange = false,
   tokenBalance = 0
 }) {
+  selectedTokenAddress = (isAddress(selectedTokenAddress) ? selectedTokenAddress : selectedTokenAddress.toUpperCase())
   const { t } = useTranslation()
   
   let walletType = sessionStorage.getItem('walletType')
@@ -899,7 +900,7 @@ export default function CurrencyInputPanel({
                   </>
                 ) :  (
                   <>
-                    {selectedTokenAddress ? <TokenLogoBox1><TokenLogo address={allTokens[selectedTokenAddress].symbol} size={'1.625rem'} /></TokenLogoBox1> : (
+                    {selectedTokenAddress ? <TokenLogoBox1><TokenLogo address={allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol ? allTokens[selectedTokenAddress].symbol : ''} size={'1.625rem'} /></TokenLogoBox1> : (
                         <TokenLogoBox1>
                           <img alt={''} src={NoCoinIcon} />
                         </TokenLogoBox1>

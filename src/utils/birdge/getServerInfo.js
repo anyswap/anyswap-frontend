@@ -72,7 +72,7 @@ export function removeLocalConfig (account, token, chainId) {
 }
 
 
-function getRegisterInfo (account, token, chainID, version, coin) {
+export function getRegisterInfo (account, token, chainID, version, coin) {
   let lrInfo = localStorage.getItem(SERVER_BRIDGE_REGISTER)
   if (version === 'V2' && coin.indexOf('BTC') === -1) {
     token = 'V2'
@@ -99,7 +99,6 @@ function setRegisterInfo (account, token, localInfo, chainID, version, coin) {
     token = 'V2'
   }
   if (!lstr) {
-    // console.log(1)
     lboj[chainID] = {}
     lboj[chainID][account] = {}
     lboj[chainID][account][token] = {
@@ -116,7 +115,6 @@ function setRegisterInfo (account, token, localInfo, chainID, version, coin) {
         timestamp: Date.now()
       }
     } else if (!lboj[chainID][account]) {
-      // console.log(3)
       lboj[chainID] = {}
       lboj[chainID][account] = {}
       lboj[chainID][account][token] = {
@@ -124,16 +122,13 @@ function setRegisterInfo (account, token, localInfo, chainID, version, coin) {
         timestamp: Date.now()
       }
     } else {
-      // console.log(4)
       lboj[chainID][account][token] = {
         ...localInfo,
         timestamp: Date.now()
       }
     }
   }
-  // console.log(lboj)
   localStorage.setItem(SERVER_BRIDGE_REGISTER, JSON.stringify(lboj))
-  // console.log(localStorage.getItem(SERVER_BRIDGE_REGISTER))
 }
 
 export function removeRegisterInfo (account, token, chainID) {
@@ -167,7 +162,6 @@ function setLocalinfo (account, res, chainID, version, coin) {
     token: rObj.ContractAddress,
     p2pAddress: getRegisterInfo(account, rObj.ContractAddress, chainID, version, coin).p2pAddress
   }
-  // console.log(rObj.ContractAddress)
   setLocalConfig(account, rObj.ContractAddress, bridgeData, chainID)
 }
 
@@ -182,7 +176,6 @@ function getServerData (account, chainID, version, coin) {
       info: ''
     }
     axios.get(url).then(res => {
-      // console.log(res)
       if(res.status === 200){
         data = {
           msg: 'Success',

@@ -33,7 +33,7 @@ if (netArr[0] === 'FSN') {
 }
 
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
-serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
+// serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
 
 export default {
   ...netConfig,

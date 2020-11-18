@@ -22,39 +22,20 @@ const Tx  = require("ethereumjs-tx")
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x0911fD5BCbC574c59bee6D7B772587B4A03D2778') // FTM-MAIN
 // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0Fe3CA366d6079dC3427af7865839b') // ETH-MAIN
 // setTimeout(() => {
-//   // for (let i = 0 ; i< 9; i++) {
-
+  
+//   // factory.methods.tokenCount().call((err, res) => {
+//   //   console.log(res)
+//   // })
+//   // factory.methods.getTokenWithId(10).call((err, res) => {
+//   //   console.log(res)
+//   // })
+//   // for (let i = 0 ; i< 10; i++) {
 //   //   factory.methods.getTokenWithId(i).call((err, res) => {
 //   //     console.log(res)
 //   //   })
 //   // }
-//   factory.methods.getExchange('0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599').call((err, res) => {
+//   factory.methods.getExchange('0xdAC17F958D2ee523a2206206994597C13D831ec7').call((err, res) => {
 //     console.log('WBTC')
-//     console.log(err)
-//     console.log(res)
-//   })
-//   factory.methods.getExchange('0x514910771AF9Ca656af840dff83E8264EcF986CA').call((err, res) => {
-//     console.log('LINK')
-//     console.log(err)
-//     console.log(res)
-//   })
-//   factory.methods.getExchange('0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48').call((err, res) => {
-//     console.log('USDC')
-//     console.log(err)
-//     console.log(res)
-//   })
-//   factory.methods.getExchange('0x6B175474E89094C44Da98b954EedeAC495271d0F').call((err, res) => {
-//     console.log('DAI')
-//     console.log(err)
-//     console.log(res)
-//   })
-//   factory.methods.getExchange('0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984').call((err, res) => {
-//     console.log('UNI')
-//     console.log(err)
-//     console.log(res)
-//   })
-//   factory.methods.getExchange('0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e').call((err, res) => {
-//     console.log('YFI')
 //     console.log(err)
 //     console.log(res)
 //   })
