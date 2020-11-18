@@ -258,7 +258,7 @@ export default {
     },
     '0xf705b20357f00c535f599a73a10da6bfaccf676e': { // RIO 696
       [NAME]: 'Realio Network',
-      [SYMBOL]: 'RIO',
+      [SYMBOL]: config.prefix + 'RIO',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x206F5138Bb23CB9fDC79D44065c0605E6f623167',
       [REDEEM_MAX_NUM]: 200000,
