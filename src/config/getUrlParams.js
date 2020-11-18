@@ -11,6 +11,8 @@ function getNode (type, INIT_NODE) {
       return chainInfo['97'].label
     case 'fantom':
       return chainInfo['250'].label
+    case 'eth':
+      return chainInfo['1'].label
     default:
       return INIT_NODE
   }

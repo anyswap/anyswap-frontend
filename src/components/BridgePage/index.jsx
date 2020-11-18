@@ -1353,7 +1353,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           swapTime: '',
           node: node,
           bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
-          chainID: config.chainID
+          chainID: config.chainID,
+          bindAddr: registerAddress
         }
       }
     })
@@ -1596,38 +1597,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         ) {
           if (isBTC(hashArr[i].coin)) {
             GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].account, hashArr[i].bridgeVersion).then(res => {
-              // if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
-              //   hashArr[res.index].status = res.status
-              //   hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
-              //   hashArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
-              //   hashArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
-              //   dispatchSwapState({
-              //     type: 'UPDATE_HASH_STATUS',
-              //     payload: {
-              //       type: 1,
-              //       hashData: hashArr,
-              //       NewHashCount: 1
-              //     }
-              //   })
-              // }
               updateHashStatusData(res)
             })
           } else {
             getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].node, hashArr[i].account, hashArr[i].bridgeVersion).then(res => {
-              // if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
-              //   hashArr[res.index].status = res.status
-              //   hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
-              //   hashArr[res.index].swapStatus = res.swapStatus ? res.swapStatus : ''
-              //   hashArr[res.index].swapTime = res.swapTime ? res.swapTime : ''
-              //   dispatchSwapState({
-              //     type: 'UPDATE_HASH_STATUS',
-              //     payload: {
-              //       type: 1,
-              //       hashData: hashArr,
-              //       NewHashCount: 1
-              //     }
-              //   })
-              // }
               updateHashStatusData(res)
             })
           }
@@ -1647,7 +1620,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || withdrawArr[i].swapStatus === 'confirming'
           || withdrawArr[i].swapStatus === 'minting'
         ) {
-          getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node, withdrawArr[i].account, withdrawArr[i].bridgeVersion).then(res => {
+          let binAddr = isBTC(withdrawArr[i].coin) ? withdrawArr[i].bindAddr : withdrawArr[i].account
+          getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node, binAddr, withdrawArr[i].bridgeVersion).then(res => {
             // console.log(res)
             if (withdrawArr[res.index] && res.hash === withdrawArr[res.index].hash) {
               withdrawArr[res.index].status = res.status ? res.status : 0

@@ -229,7 +229,7 @@ export default {
       [NAME]: 'Fantom',
       [SYMBOL]: 'FTM',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '',
+      [EXCHANGE_ADDRESS]: '0x90C8EA8ec7710034274868971C4e27edE33d9c10',
       [REDEEM_MAX_NUM]: 0,
       [REDEEM_MIN_NUM]: 0,
       [FEE]: 0.001,

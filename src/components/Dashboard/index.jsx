@@ -600,7 +600,7 @@ function thousandBit (num, dec = 2) {
 function isBaseUSD (coin) {
   if (
     (coin === 'aUSDT' && config.symbol === 'FSN') ||
-    (coin === 'FUSD' && config.symbol === 'FTM') ||
+    (coin === 'anyUSDT' && config.symbol === 'FTM') ||
     (coin === 'USDTB' && config.symbol === 'BNB')
   ) {
     return true
