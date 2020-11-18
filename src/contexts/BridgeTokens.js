@@ -796,6 +796,11 @@ export default {
       [NAME]: 'COMP',
       [TOKEN]: '0xc00e94cb662c3520282e6f5717214004a7f26888',
       [DECIMALS]: 18,
+    },
+    'RIO': { // 
+      [NAME]: 'RIO',
+      [TOKEN]: '0xf21661D0D1d76d3ECb8e1B9F1c923DBfffAe4097',
+      [DECIMALS]: 18,
     }
   },
   4: {

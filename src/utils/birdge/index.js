@@ -1,6 +1,7 @@
 import axios from 'axios'
 import config from '../../config'
 function GetTxnStatusAPI (hash, coin, api, account, version, node) {
+  coin = coin.replace('any', '')
   return new Promise(resolve => {
     let url = config.serverInfoUrl['V1'] + '/' + api + '/' + hash + '/' + config.chainID + '/' + coin
     if (version === 'V2') {

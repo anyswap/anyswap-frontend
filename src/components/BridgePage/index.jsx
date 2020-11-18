@@ -1354,7 +1354,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           node: node,
           bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
           chainID: config.chainID,
-          bindAddr: registerAddress
+          bindAddr: recipient.address
         }
       }
     })
@@ -1620,7 +1620,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || withdrawArr[i].swapStatus === 'confirming'
           || withdrawArr[i].swapStatus === 'minting'
         ) {
-          let binAddr = isBTC(withdrawArr[i].coin) ? withdrawArr[i].bindAddr : withdrawArr[i].account
+          let binAddr = withdrawArr[i].bindAddr
           getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node, binAddr, withdrawArr[i].bridgeVersion).then(res => {
             // console.log(res)
             if (withdrawArr[res.index] && res.hash === withdrawArr[res.index].hash) {

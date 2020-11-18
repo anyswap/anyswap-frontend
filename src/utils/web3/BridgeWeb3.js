@@ -16,11 +16,11 @@ const Web3 = require('web3')
 const Tx  = require("ethereumjs-tx")
 
 // const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
-// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
+// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x421d35f8f8fd822f898e75db43f057f7ea448298') // FSN-test
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x0911fD5BCbC574c59bee6D7B772587B4A03D2778') // FTM-MAIN
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0Fe3CA366d6079dC3427af7865839b') // ETH-MAIN
+// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0Fe3CA366d6079dC3427af7865839b') // ETH-MAIN
 // setTimeout(() => {
 //   // factory.methods.tokenCount().call((err, res) => {
 //   //   console.log(res)
@@ -33,7 +33,7 @@ const Tx  = require("ethereumjs-tx")
 //   //     console.log(res)
 //   //   })
 //   // }
-//   factory.methods.getExchange('0x4e15361fd6b4bb609fa63c81a2be19d873717870').call((err, res) => {
+//   factory.methods.getExchange('0xF705b20357F00C535f599A73A10dA6bfAcCf676e').call((err, res) => {
 //     console.log('FTM')
 //     console.log(res)
 //   })
