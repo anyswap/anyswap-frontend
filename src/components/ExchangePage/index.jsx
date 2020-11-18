@@ -488,9 +488,13 @@ export default function ExchangePage({ initialCurrency, params }) {
   if (params.outputCurrency) {
     urlAddedTokens[params.outputCurrency] = true
   }
+  if (params.tokenAddress) {
+    urlAddedTokens[params.tokenAddress] = true
+  }
   if (isAddress(initialCurrency)) {
     urlAddedTokens[initialCurrency] = true
   }
+  // console.log(urlAddedTokens)
 
   const addTransaction = useTransactionAdder()
 
@@ -535,7 +539,7 @@ export default function ExchangePage({ initialCurrency, params }) {
     {
       initialCurrency: initialCurrency,
       inputCurrencyURL: params.inputCurrency,
-      outputCurrencyURL: params.outputCurrency,
+      outputCurrencyURL: params.outputCurrency || params.tokenAddress,
       exactFieldURL: params.exactField,
       exactAmountURL: params.exactAmount
     },

@@ -123,10 +123,10 @@ let chainInfo = {
 
 let chainList = {
   main: [
+    chainInfo['1'],
     chainInfo['32659'],
     chainInfo['56'],
     chainInfo['250'],
-    chainInfo['1'],
   ],
   test: [
     chainInfo['46688'],
