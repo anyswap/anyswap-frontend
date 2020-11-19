@@ -20,6 +20,7 @@
 /FSN-TEST
 /FTM-MAIN
 /FTM-TEST
+/ETH-MAIN
 #/src/config/index.js
 #/src/contexts/Tokens.js
 

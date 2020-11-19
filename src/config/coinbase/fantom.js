@@ -21,7 +21,7 @@ const COIN_BASE ={
   prefix: '',
   keepDec: 6, // 保留小数位
   namePrefix: NAME_PREFIX, // 币名前缀
-  marketsUrl: 'https://markets.anyswap.exchange/?trade=ANY_FSN', // K线图地址
+  marketsUrl: 'https://markets.anyswap.exchange/?trade=ANY_FTM', // K线图地址
   rewardUrl: 'https://rewardapiv2.anyswap.exchange/accounts/getFTMReward/', // 获取奖励地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
   rewardRate (arr) {
