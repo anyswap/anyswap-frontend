@@ -852,6 +852,17 @@ function isBTC (coin) {
   }
 }
 
+function formatName (name) {
+  if (
+    config.symbol === 'BNB' ||
+    config.symbol === 'ETH'
+  ) {
+    return name.replace(config.suffix, '')
+  } else {
+    return name.replace(config.namePrefix, '')
+  }
+}
+
 const selfUseAllToken = config.noSupportBridge
 let hashInterval
 
@@ -1211,7 +1222,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   // console.log(dependentValueFormatted)
   // console.log(amountFormatter(dependentValue, inputDecimals, Math.min(8, inputDecimals), false))
   function formatBalance(value) {
-    return `Balance: ${value}`
+    return `Balance: ${formatDecimal(value, Math.min(config.keepDec, inputDecimals))}`
   }
   const toggleWalletModal = useWalletModalToggle()
 
@@ -2308,7 +2319,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && formatCoin(inputSymbol))}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && formatCoin(inputSymbol))}
-        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : inputName.replace(config.symbol === 'BNB' ? config.suffix : config.namePrefix, '')}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : formatName(inputName)}
         showUnlock={false}
         selectedTokens={[inputCurrency, outputCurrency]}
         selectedTokenAddress={inputCurrency}
@@ -2346,7 +2357,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? formatCoin(inputSymbol) : inputSymbol}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? formatCoin(inputSymbol) : ''}
-        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? inputName.replace(config.symbol === 'BNB' ? config.suffix : config.namePrefix, '') : ''}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? formatName(inputName) : ''}
         showUnlock={false}
         disableUnlock={true}
         selectedTokens={[inputCurrency, outputCurrency]}

@@ -35,7 +35,7 @@ import IconSwapRewards from '../../assets/images/icn-swap-rewards.svg'
 import IconSwapRewardsBlack from '../../assets/images/icn-swap-rewards-black.svg'
 import IconTotalRewards from '../../assets/images/icn-total-rewards.svg'
 import IconTotalRewardsBlack from '../../assets/images/icn-total-rewards-black.svg'
-
+import {formatNum, formatDecimal} from '../../utils/tools'
 import config from '../../config'
 
 const MyBalanceBox = styled.div`
@@ -572,36 +572,37 @@ function getMarketRate(reserveETH, reserveToken, decimals, invert = false) {
   return getExchangeRate(reserveETH, 18, reserveToken, decimals, invert)
 }
 
-function thousandBit (num, dec = 2) {
-  let _num = num = Number(num)
-  if (isNaN(num)) {
-    num = 0
-    num = num.toFixed(dec)
-  } else {
-    if (isNaN(dec)) {
-      if (num.toString().indexOf('.') === -1) {
-        num = Number(num).toLocaleString()
-      } else {
-        let numSplit = num.toString().split('.')
-        numSplit[1] = numSplit[1].length > 9 ? numSplit[1].substr(0, 8) : numSplit[1]
-        num = Number(numSplit[0]).toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').toLocaleString()
-        num = num.toString().split('.')[0] + '.' + numSplit[1]
-      }
-    } else {
-      num = num.toFixed(dec).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').toLocaleString()
-    }
-  }
-  if (_num < 0 && num.toString().indexOf('-') < 0) {
-    num = '-' + num
-  }
-  return num
-}
+// function thousandBit (num, dec = 2) {
+//   let _num = num = Number(num)
+//   if (isNaN(num)) {
+//     num = 0
+//     num = num.toFixed(dec)
+//   } else {
+//     if (isNaN(dec)) {
+//       if (num.toString().indexOf('.') === -1) {
+//         num = Number(num).toLocaleString()
+//       } else {
+//         let numSplit = num.toString().split('.')
+//         numSplit[1] = numSplit[1].length > 9 ? numSplit[1].substr(0, 8) : numSplit[1]
+//         num = Number(numSplit[0]).toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').toLocaleString()
+//         num = num.toString().split('.')[0] + '.' + numSplit[1]
+//       }
+//     } else {
+//       num = num.toFixed(dec).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').toLocaleString()
+//     }
+//   }
+//   if (_num < 0 && num.toString().indexOf('-') < 0) {
+//     num = '-' + num
+//   }
+//   return num
+// }
 
 function isBaseUSD (coin) {
   if (
     (coin === 'aUSDT' && config.symbol === 'FSN') ||
     (coin === 'anyUSDT' && config.symbol === 'FTM') ||
-    (coin === 'USDTB' && config.symbol === 'BNB')
+    (coin === 'USDTB' && config.symbol === 'BNB') ||
+    (coin === 'USDC' && config.symbol === 'ETH')
   ) {
     return true
   }
@@ -640,8 +641,8 @@ export default function DashboardDtil () {
         let baseAllBalance = ethers.utils.bigNumberify(0)
         let rwArr = []
         for (let obj of res) {
-          obj.pecent = amountFormatter(obj.pecent, 18, 5)
-          obj.balance = amountFormatter(obj.balance, obj.decimals, 5)
+          obj.pecent = amountFormatter(obj.pecent, 18, Math.min(config.keepDec, obj.decimals))
+          obj.balance = amountFormatter(obj.balance, obj.decimals, Math.min(config.keepDec, obj.decimals))
           if (obj.Basebalance) {
             baseAccountBalance = baseAccountBalance.add(obj.Basebalance)
           }
@@ -649,7 +650,7 @@ export default function DashboardDtil () {
             baseAllBalance = baseAllBalance.add(obj.exchangeETHBalance)
           }
           if (isBaseUSD(obj.symbol)) {
-            setSaseMarket(Number(amountFormatter( obj.market, 18, Math.min(5, obj.decimals) )))
+            setSaseMarket(Number(amountFormatter( obj.market, 18, Math.min(config.keepDec, obj.decimals) )))
           }
           poolInfoObj[obj.symbol] = obj
           arr.push(obj)
@@ -683,13 +684,13 @@ export default function DashboardDtil () {
     }
     if (config.symbol === 'BNB') {
       if (rewardAPY[coin]) {
-        return rewardAPY[coin].AnnualizedROI.toFixed(2) + '%'
+        return formatDecimal(rewardAPY[coin].AnnualizedROI, 2) + '%'
       } else {
         return '-%'
       }
     } else {
       if (rewardAPY[coin]) {
-        return rewardAPY[coin].AnnualizedROI.toFixed(2) + '%'
+        return formatDecimal(rewardAPY[coin].AnnualizedROI, 2) + '%'
       } else {
         return '-%'
       }
@@ -735,29 +736,29 @@ export default function DashboardDtil () {
                               <DBTd className='r'>
                                 <p className='textR'>
                                   {/* <span>{item.symbol}</span> */}
-                                  {item.exchangeTokenBalancem ? amountFormatter( item.exchangeTokenBalancem, item.decimals, 5 ) : '0'}
+                                  {item.exchangeTokenBalancem ? formatNum(amountFormatter( item.exchangeTokenBalancem, item.decimals, config.keepDec )) : '0'}
                                 </p>
                                 <p className='textR'>
                                   {/* <span>{config.symbol}</span> */}
-                                  {item.exchangeETHBalance ? amountFormatter( item.exchangeETHBalance, 18, 5 ) : '0'}
+                                  {item.exchangeETHBalance ? formatNum(amountFormatter( item.exchangeETHBalance, 18, config.keepDec )) : '0'}
                                 </p>
                               </DBTd>
                               <DBTd className='r'>
                                 {
-                                  Number(item.balance) && Number(amountFormatter(item.Basebalance, 18)) ? (
+                                  Number(item.balance) && Number(amountFormatter(item.Basebalance, 18, config.keepDec)) ? (
                                     <>
                                       <p>
-                                        {item.balance ? Number(Number(item.balance).toFixed(5)) : ''}
+                                        {item.balance ? formatNum(item.balance, config.keepDec) : ''}
                                       </p>
                                       <p>
-                                        {item.Basebalance ? Number(Number(amountFormatter(item.Basebalance, 18)).toFixed(5)) : ''}
+                                        {item.Basebalance ? formatNum(amountFormatter(item.Basebalance, 18, config.keepDec), config.keepDec) : ''}
                                       </p>
                                     </>
                                   ) : '0'
                                 }
                               </DBTd>
                               <DBTd className='r'>{Number(item.pecent) && config.dirSwitchFn(item.isSwitch) ?
-                              (Number(item.pecent) < 0.0001 ? '<0.01' : (Number(item.pecent) * 100).toFixed(2) )
+                              (Number(item.pecent) < 0.0001 ? '<0.01' : formatDecimal(Number(item.pecent) * 100, 2) )
                               : '-'} %</DBTd>
                               <DBTd className='r'>
                                 {rewardsPencent(item.symbol, item.isSwitch)}
@@ -864,9 +865,9 @@ export default function DashboardDtil () {
       return '1'
     }
     if (!market) return '-'
-    let mt1 = Number(amountFormatter( market, 18 ))
+    let mt1 = Number(amountFormatter( market, 18 , config.keepDec))
     if (!mt1) return '0'
-    return Number((baseMarket / mt1).toFixed(5))
+    return formatNum((baseMarket / mt1), config.keepDec)
   }
   function getMyAccount () {
     // if (!account) return
@@ -938,26 +939,28 @@ export default function DashboardDtil () {
                         config.dirSwitchFn(poolObj[item.symbol].isSwitch) ? (
                           <>
                             <DBTd className='l'>$ {poolObj[item.symbol] && baseMarket ? 
-                              (item.symbol === config.symbol ? Number(baseMarket.toFixed(5)) : getPrice(poolObj[item.symbol].market, item.symbol)) : '-'
+                              (item.symbol === config.symbol ? formatNum(baseMarket, config.keepDec) : getPrice(poolObj[item.symbol].market, item.symbol)) : '-'
                             }</DBTd>
                             <DBTd className='r'>{account ? item.balance : '-'}</DBTd>
                             {
                               item.symbol === config.symbol ? (
                                 <>
                                   <DBTd className='r'>
-                                    {poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch) ? amountFormatter(poolObj[item.symbol].Basebalance, 18) : '0'}
+                                    {poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch) ? 
+                                      formatNum(amountFormatter(poolObj[item.symbol].Basebalance, 18, config.keepDec)) : '0'
+                                    }
                                   </DBTd>
                                   <DBTd className='r'>
                                     {
                                       poolObj[item.symbol]
                                       && config.dirSwitchFn(poolObj[item.symbol].isSwitch)
                                       && item.balance !== '-'
-                                      ? Number((Number(amountFormatter(poolObj[item.symbol].Basebalance, 18)) + Number(item.balance)).toFixed(5)) : '0'}
+                                      ? formatDecimal(Number(amountFormatter(poolObj[item.symbol].Basebalance, 18, config.keepDec)) + Number(item.balance), config.keepDec) : '0'}
                                   </DBTd>
                                 </>
                               ) : (
                                 <>
-                                  <DBTd className='r'>{poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch) && poolObj[item.symbol].balance && !isNaN(poolObj[item.symbol].balance) ? poolObj[item.symbol].balance : '0'}</DBTd>
+                                  <DBTd className='r'>{poolObj[item.symbol] && config.dirSwitchFn(poolObj[item.symbol].isSwitch) && poolObj[item.symbol].balance && !isNaN(poolObj[item.symbol].balance) ? formatNum(poolObj[item.symbol].balance) : '0'}</DBTd>
                                   <DBTd className='r'>
                                     {
                                       poolObj[item.symbol]
@@ -965,7 +968,12 @@ export default function DashboardDtil () {
                                       && item.balance !== '-'
                                       && !isNaN(item.balance)
                                       && !isNaN(poolObj[item.symbol].balance)
-                                      ? (Number(poolObj[item.symbol].balance) + Number(item.balance) === 0 ? '0' : Number((Number(poolObj[item.symbol].balance) + Number(item.balance)).toFixed(5))) : '0'}</DBTd>
+                                      ? (
+                                        Number(poolObj[item.symbol].balance) + Number(item.balance) === 0 ?
+                                        '0'
+                                        :
+                                        formatDecimal(Number(poolObj[item.symbol].balance) + Number(item.balance), config.keepDec)
+                                      ) : '0'}</DBTd>
                                 </>
                               )
                             }
@@ -1069,7 +1077,7 @@ export default function DashboardDtil () {
                   </div>
                 </div>
                 <div className='value'>
-                  {item.value && item.value > 0 ? item.value.toFixed(2) : '0.00'} ANY
+                  {item.value && item.value > 0 ? formatDecimal(item.value, 2) : '0.00'} ANY
                 </div>
               </li>
             )

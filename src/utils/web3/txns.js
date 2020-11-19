@@ -35,7 +35,7 @@ export function getWeb3BaseInfo (ContractAddress, DcrmAddress, input, address, v
     batch.add(web3Fn.eth.estimateGas.request(data, (err, res) => {
       if (err) {
         // console.log(err)
-        data.gas = web3Fn.utils.toHex(100000)
+        data.gas = web3Fn.utils.toHex(200000)
         count ++
       } else {
         data.gas = web3Fn.utils.toHex(parseInt(Number(res) * 1.2))

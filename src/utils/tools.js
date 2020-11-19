@@ -28,6 +28,10 @@ export function formatCoin (coin) {
 }
 
 export function formatDecimal(num, decimal) {
+  if (isNaN(num)) {
+    return num
+  }
+  num = (num * 10000).toFixed(decimal) / 10000
   num = num.toString()
   let index = num.indexOf('.')
   if (index !== -1) {
@@ -35,5 +39,17 @@ export function formatDecimal(num, decimal) {
   } else {
       num = num.substring(0)
   }
-  return parseFloat(num).toFixed(decimal)
+  return Number(parseFloat(num).toFixed(decimal))
+}
+
+export function formatNum (num) {
+  if (isNaN(num)) {
+    return num
+  }
+  num = Number(num)
+  if (num >= 1) {
+    return formatDecimal(num, 2)
+  } else {
+    return formatDecimal(num, config.keepDec)
+  }
 }

@@ -89,7 +89,7 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0xAd84341756Bf337f5a0164515b1f6F993D194E1f': { // FUSD
+    '0xad84341756bf337f5a0164515b1f6f993d194e1f': { // FUSD
       [NAME]: 'Fantom USD',
       [SYMBOL]: 'FUSD',
       [DECIMALS]: 18,

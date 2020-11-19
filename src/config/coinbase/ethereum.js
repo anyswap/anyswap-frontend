@@ -17,7 +17,7 @@ const COIN_BASE ={
   decimals: 18, // 小数位
   networkName: 'ETH', // 网络名称
   reverseSwitch: 0,  // 是否反向禁用,
-  suffix: '', // 后缀
+  suffix: 'ERC20', // 后缀
   prefix: 'a',
   keepDec: 6, // 保留小数位
   namePrefix: NAME_PREFIX, // 币名前缀
@@ -93,7 +93,9 @@ const MAIN_CONFIG = {
     '0x6B175474E89094C44Da98b954EedeAC495271d0F',
     '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
     '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e',
-    '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+    '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+    '0x4E15361FD6b4BB609Fa63C81A2be19d873717870',
+    '0xf21661D0D1d76d3ECb8e1B9F1c923DBfffAe4097'
   ], // 不支持的跨链合约或币种
   queryToken: '0x575bA30c7b77fa0EEbd34cc5416538323C4e5612' // 查询余额合约
 }
