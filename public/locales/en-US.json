@@ -203,5 +203,6 @@
   "Action": "Action",
   "Coins": "Coins",
   "Linking": "Node connection...",
-  "querying": "Querying"
+  "querying": "Querying",
+  "staking": "Staking"
 }

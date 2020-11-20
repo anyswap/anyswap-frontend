@@ -202,5 +202,6 @@
   "Action": "操作",
   "Coins": "币种",
   "Linking": "节点连接中...",
-  "querying": "查询中"
+  "querying": "查询中",
+  "staking": "存币"
 }

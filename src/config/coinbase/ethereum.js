@@ -22,7 +22,7 @@ const COIN_BASE ={
   keepDec: 6, // 保留小数位
   namePrefix: NAME_PREFIX, // 币名前缀
   marketsUrl: 'https://markets.anyswap.exchange/?trade=ANY_FSN', // K线图地址
-  rewardUrl: 'https://rewardapiv2.anyswap.exchange/accounts/getReward/', // 获取奖励地址
+  rewardUrl: 'https://rewardapiv2.anyswap.exchange/accounts/getETHReward/', // 获取奖励地址
   rewardRate (arr) {
     let totalLq = 0
     let coinObj = {}
@@ -83,7 +83,7 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
     btcAddr: '1918DgsaJCsRF5E5rTp2AsE5XyFTF95tTQ',  // 
   },
-  isOpenRewards: 0, // 是否打开奖励数据
+  isOpenRewards: 1, // 是否打开奖励数据
   isChangeDashboard: 0, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,

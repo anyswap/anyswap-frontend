@@ -59,6 +59,13 @@ const tabOrder = [
     iconActive: require('../../assets/images/icon/bridge-purpl.svg'),
     regex: /\/bridge/,
   },
+  // {
+  //   path: '/staking',
+  //   textKey: 'staking',
+  //   icon: require('../../assets/images/icon/bridge.svg'),
+  //   iconActive: require('../../assets/images/icon/bridge-purpl.svg'),
+  //   regex: /\/staking/,
+  // },
 ]
 
 const tabOrder2 = [
