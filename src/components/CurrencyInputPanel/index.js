@@ -652,7 +652,6 @@ export default function CurrencyInputPanel({
   isRange = false,
   tokenBalance = 0
 }) {
-  selectedTokenAddress = (isAddress(selectedTokenAddress) ? selectedTokenAddress : selectedTokenAddress.toUpperCase())
   const { t } = useTranslation()
   
   let walletType = sessionStorage.getItem('walletType')

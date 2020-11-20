@@ -1258,7 +1258,7 @@ export default function ExchangePage({ initialCurrency, params }) {
         }}
         showUnlock={showUnlock}
         selectedTokens={[inputCurrency, outputCurrency]}
-        selectedTokenAddress={inputCurrency ? inputCurrency.toLowerCase() : ''}
+        selectedTokenAddress={inputCurrency}
         value={inputValueFormatted}
         errorMessage={inputError ? inputError : independentField === INPUT ? independentError : ''}
       />
@@ -1299,7 +1299,7 @@ export default function ExchangePage({ initialCurrency, params }) {
           })
         }}
         selectedTokens={[inputCurrency, outputCurrency]}
-        selectedTokenAddress={outputCurrency ? outputCurrency.toLowerCase() : ''}
+        selectedTokenAddress={outputCurrency}
         value={outputValueFormatted}
         errorMessage={independentField === OUTPUT ? independentError : ''}
         disableUnlock
