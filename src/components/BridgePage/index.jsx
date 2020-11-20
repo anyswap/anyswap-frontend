@@ -1709,6 +1709,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   function txnsList (arr, count) {
     // console.log(arr)
+    arr = arr.reverse()
     return (
       <MintHahshList key={count}>
         <ul>

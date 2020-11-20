@@ -74,7 +74,7 @@ const MAIN_CONFIG = {
     token: ANY_MAIN_TOKEN,  // ANY合约地址
   },
   initToken: INIT_MAIN_TOKEN, // 交易默认合约
-  initBridge: '0xf99d58e463a2e07e5692127302c20a191861b4d6', // 跨链桥默认合约
+  initBridge: '0x51600b0cff6bbf79e7767158c41fd15e968ec404', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
   btcConfig: { // btc配置
