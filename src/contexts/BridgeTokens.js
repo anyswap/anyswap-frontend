@@ -143,7 +143,7 @@ export default {
     },
     'DAI': {
       [NAME]: 'Dai Stablecoin',
-      [TOKEN]: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+      [TOKEN]: '0x6b175474e89094c44da98b954eedeac495271d0f',
       [SYMBOL]: 'DAI',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x2a1530C4C41db0B0b2bB646CB5Eb1A67b7158667'
@@ -297,7 +297,7 @@ export default {
     },
     'LINK': {
       [NAME]: 'ChainLink Token',
-      [TOKEN]: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
+      [TOKEN]: '0x514910771af9ca656af840dff83e8264ecf986ca',
       [SYMBOL]: 'LINK',
       [DECIMALS]: 18
     },
@@ -695,7 +695,7 @@ export default {
     },
     'USDC': {
       [NAME]: 'USD//C',
-      [TOKEN]: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+      [TOKEN]: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
       [SYMBOL]: 'USDC',
       [DECIMALS]: 6,
       [EXCHANGE_ADDRESS]: '0x97deC872013f6B5fB443861090ad931542878126'
@@ -723,7 +723,7 @@ export default {
     },
     'WBTC': {
       [NAME]: 'Wrapped BTC',
-      [TOKEN]: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
+      [TOKEN]: '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599',
       [SYMBOL]: 'WBTC',
       [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0x4d2f5cFbA55AE412221182D8475bC85799A5644b'
@@ -784,7 +784,7 @@ export default {
     },
     'YFI': { // 
       [NAME]: 'YFI',
-      [TOKEN]: '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e',
+      [TOKEN]: '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e',
       [DECIMALS]: 18,
     },
     'OMG': { // 
@@ -799,7 +799,7 @@ export default {
     },
     'RIO': { // 
       [NAME]: 'RIO',
-      [TOKEN]: '0xf21661D0D1d76d3ECb8e1B9F1c923DBfffAe4097',
+      [TOKEN]: '0xf21661d0d1d76d3ecb8e1b9f1c923dbfffae4097',
       [DECIMALS]: 18,
     }
   },

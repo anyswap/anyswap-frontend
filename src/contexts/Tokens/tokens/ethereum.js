@@ -46,7 +46,7 @@ export default {
         VERSION: 'V2'
       },
     },
-    // '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599': { // WBTC
+    // '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599': { // WBTC
     //   [NAME]: 'Wrapped BTC',
     //   [SYMBOL]: 'WBTC',
     //   [DECIMALS]: 8,
@@ -86,7 +86,7 @@ export default {
         VERSION: 'V2'
       },
     },
-    // '0xdAC17F958D2ee523a2206206994597C13D831ec7': { // USDT
+    // '0xdac17f958d2ee523a2206206994597c13d831ec7': { // USDT
     //   [NAME]: 'Tether',
     //   [SYMBOL]: 'USDT',
     //   [DECIMALS]: 6,
@@ -129,8 +129,7 @@ export default {
         VERSION: 'V2'
       },
     },
-    
-    '0x514910771AF9Ca656af840dff83E8264EcF986CA': { // LINK
+    '0x514910771af9ca656af840dff83e8264ecf986ca': { // LINK
       [NAME]: 'ChainLink Token',
       [SYMBOL]: 'LINK',
       [DECIMALS]: 18,
@@ -149,7 +148,7 @@ export default {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
-    '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48': { // USDC
+    '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48': { // USDC
       [NAME]: 'USD Coin',
       [SYMBOL]: 'USDC',
       [DECIMALS]: 6,
@@ -168,7 +167,7 @@ export default {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
-    '0x6B175474E89094C44Da98b954EedeAC495271d0F': { // DAI
+    '0x6b175474e89094c44da98b954eedeac495271d0f': { // DAI
       [NAME]: 'Dai Stablecoin',
       [SYMBOL]: 'DAI',
       [DECIMALS]: 18,
@@ -187,7 +186,7 @@ export default {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
-    '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984': { // UNI
+    '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984': { // UNI
       [NAME]: 'Uniswap',
       [SYMBOL]: 'UNI',
       [DECIMALS]: 18,
@@ -206,7 +205,7 @@ export default {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
-    '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e': { // YFI  35
+    '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e': { // YFI  35
       [NAME]: 'yearn.finance',
       [SYMBOL]: 'YFI',
       [DECIMALS]: 18,
@@ -225,7 +224,7 @@ export default {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
-    '0x4E15361FD6b4BB609Fa63C81A2be19d873717870': { // FTM 166
+    '0x4e15361fd6b4bb609fa63c81a2be19d873717870': { // FTM 166
       [NAME]: 'Fantom',
       [SYMBOL]: 'FTM',
       [DECIMALS]: 18,
@@ -244,7 +243,7 @@ export default {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
-    '0xf21661D0D1d76d3ECb8e1B9F1c923DBfffAe4097': { // RIO  696
+    '0xf21661d0d1d76d3ecb8e1b9f1c923dbfffae4097': { // RIO  696
       [NAME]: 'Realio Network',
       [SYMBOL]: 'RIO',
       [DECIMALS]: 18,

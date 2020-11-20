@@ -350,7 +350,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]: {},
     },
-    '0xE4Ae305ebE1AbE663f261Bc00534067C80ad677C': { // SPARTAN
+    '0xe4ae305ebe1abe663f261bc00534067c80ad677c': { // SPARTAN
       [NAME]: 'SPARTAN' + config.suffix,
       [SYMBOL]: config.prefix + 'SPARTAN',
       [DECIMALS]: 18,
@@ -369,7 +369,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]: {},
     },
-    '0x658A109C5900BC6d2357c87549B651670E5b0539': { // FOR
+    '0x658a109c5900bc6d2357c87549b651670e5b0539': { // FOR
       [NAME]: 'Force' + config.suffix,
       [SYMBOL]: 'FOR',
       [DECIMALS]: 18,
@@ -426,7 +426,7 @@ export const INITIAL_TOKENS_CONTEXT = {
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]: {},
     },
-    '0x8E9f5173e16Ff93F81579d73A7f9723324d6B6aF': { // MILK
+    '0x8e9f5173e16ff93f81579d73a7f9723324d6b6af': { // MILK
       [NAME]: 'Milk' + config.suffix,
       [SYMBOL]: config.prefix + 'MILK',
       [DECIMALS]: 18,

@@ -494,9 +494,9 @@ const buildReserveObject = (
     amount: tokenReserveAmount
   }
 })
-const daiTokenAddress = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
+const daiTokenAddress = '0x6b175474e89094c44da98b954eedeac495271d0f'
 const daiExchangeAddress = '0x2a1530C4C41db0B0b2bB646CB5Eb1A67b7158667'
-const usdcTokenAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+const usdcTokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
 const usdcExchangeAddress = '0x97deC872013f6B5fB443861090ad931542878126'
 const tusdTokenAddress = '0x0000000000085d4780B73119b644AE5ecd22b376'
 const tusdExchangeAddress = '0x5048b9d01097498Fd72F3F14bC9Bc74A5aAc8fA7'

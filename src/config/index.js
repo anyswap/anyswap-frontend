@@ -7,10 +7,10 @@ import {getNetwork, getIdCode} from './getUrlParams'
 import {chainInfo} from './coinbase/nodeConfig'
 // console.log(location.href)
 const ENV_NODE_CONFIG = 'ENV_NODE_CONFIG'
-// const INIT_NODE = 'FSN_MAIN'
+const INIT_NODE = 'FSN_MAIN'
 // const INIT_NODE = 'BNB_MAIN'
 // const INIT_NODE = 'FTM_MAIN'
-const INIT_NODE = 'ETH_MAIN'
+// const INIT_NODE = 'ETH_MAIN'
 // const INIT_NODE = 'BNB_TEST'
 // const INIT_NODE = 'FSN_TEST'
 
