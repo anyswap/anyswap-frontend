@@ -128,8 +128,10 @@ export function useTokenDetails(tokenAddress) {
 
   const [state, { update }] = useTokensContext()
   const allTokensInNetwork = { ...COIN, ...(safeAccess(state, [chainId]) || {}) }
-  // console.log(allTokensInNetwork)
-  tokenAddress = tokenAddress.toLowerCase()
+
+  if (isAddress(tokenAddress)) {
+    tokenAddress = tokenAddress.toLowerCase()
+  }
   const {
     [NAME]: name,
     [SYMBOL]: symbol,
