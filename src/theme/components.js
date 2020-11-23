@@ -36,22 +36,6 @@ ${({ theme }) => theme.FlexC};
     box-shadow: none;
   }
 `
-export const TitleBox = styled.h3`
-  height: 24px;
-  line-height: 24px;
-  font-family: 'Manrope';
-  font-size: 24px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  letter-spacing: normal;
-  margin: 0 0 1rem;
-  color: ${({ theme }) => theme.textColorBold};
-  white-space:nowrap;
-  @media screen and (max-width: 960px) {
-    display:none;
-  }
-`
 
 export const Link = styled.a.attrs({
   target: '_blank',

@@ -16,7 +16,7 @@ import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useAddressAllowance } from '../../contexts/Allowances'
 import { useWalletModalToggle } from '../../contexts/Application'
 
-import { Button, TitleBox } from '../../theme'
+import { Button } from '../../theme'
 import CurrencyInputPanel from '../CurrencyInputPanel'
 import AddressInputPanel from '../AddressInputPanel'
 import OversizedPanel from '../OversizedPanel'
@@ -34,15 +34,15 @@ import ResertSvg from '../../assets/images/icon/revert.svg'
 
 import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
-import SwapIcon from '../../assets/images/icon/swap.svg'
 import SwapWhiteIcon from '../../assets/images/icon/swap-white.svg'
-import SendIcon from '../../assets/images/icon/send.svg'
 import SendWhiteIcon from '../../assets/images/icon/send-white.svg'
 
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../WarningTip'
 
 import {recordTxns} from '../../utils/records'
+
+import Title from '../Title'
 
 
 const INPUT = 0
@@ -220,89 +220,6 @@ const TxnsDtilBtn = styled.div`
     marign: auto;
     margin-bottom:0.625rem;
   }
-`
-
-const NavTabBox = styled.div`
-  ${({ theme }) => theme.FlexBC};
-  align-items: center;
-  font-size: 1rem;
-  font-family: 'Manrope';
-  color: ${({ theme }) => theme.royalBlue};
-  font-weight: 500;
-  cursor: pointer;
-  margin-bottom: 1rem;
-
-  img {
-    height: 0.75rem;
-    width: 0.75rem;
-  }
-`
-const TabLinkBox = styled.ul`
-  ${({theme}) => theme.FlexSC}
-  list-style: none;
-  margin: 0;
-  padding:0;
-  li {
-    ${({ theme }) => theme.FlexC}
-    height: 38px;
-    font-family: 'Manrope';
-    font-size: 0.75rem;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: normal;
-    color: #96989e;
-    border-top: 0.0625rem solid rgba(0, 0, 0, 0.04);
-    border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.04);
-    border-left: 0.0625rem solid rgba(0, 0, 0, 0.04);
-    cursor:pointer;
-    text-decoration: none;
-    padding: 0 0.625rem;
-    background: ${({ theme }) => theme.tabBg};
-    white-space:nowrap;
-
-    .icon {
-      ${({ theme }) => theme.FlexC}
-      width: 28px;
-      height: 28px;
-      background:#f5f5f5;
-      border-radius:100%;
-      margin-right:0.625rem;
-    }
-    &:first-child {
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
-      &.active {
-        border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
-      }
-    }
-    &:last-child {
-      border-top-right-radius: 6px;
-      border-bottom-right-radius: 6px;
-      border-right: 0.0625rem solid rgba(0, 0, 0, 0.04);
-      &.active {
-        border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
-      }
-    }
-
-    &.active {
-      background: ${({ theme }) => theme.tabActiveBg};
-      border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
-      color: ${({ theme }) => theme.tabActiveColor};
-      font-weight: bold;
-      .icon {
-        background: #734be2;
-      }
-    }
-    @media screen and (max-width: 960px) {
-      .icon {
-        display:none;
-      }
-    }
-  }
-`
-const TitleBoxPool = styled(TitleBox)`
-margin-bottom: 0;
 `
 
 function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, allowedSlippage) {
@@ -1177,54 +1094,27 @@ export default function ExchangePage({ initialCurrency, params }) {
           currency={outputCurrency}
         />
       )}
-      {/* {sending ? (
-        <>
-          <TitleBox>{t('send')}</TitleBox>
-        </>
-      ) : (
-        <>
-          <TitleBox>{t('swap')}</TitleBox>
-        </>
-      )} */}
-      <NavTabBox>
-        <TitleBoxPool>{sending ? t('send') : t('swap')}</TitleBoxPool>
-        <TabLinkBox>
-          <li
-              className={sending ? '' : 'active'}
-              onClick={() => {
-                setSending(false)
-              }}
-            > 
-            <div className='icon'>
-              {
-                sending ? (
-                  <img alt={''} src={SwapIcon}/>
-                ) : (
-                  <img alt={''} src={SwapWhiteIcon}/>
-                )
-              }
-            </div>
-            {t('swap')}
-          </li>
-          <li
-              className={sending ? 'active' : ''}
-              onClick={() => {
-                setSending(true)
-              }}
-            > 
-            <div className='icon'>
-              {
-                sending ? (
-                  <img alt={''} src={SendWhiteIcon}/>
-                ) : (
-                  <img alt={''} src={SendIcon}/>
-                )
-              }
-            </div>
-            {t('send')}
-          </li>
-        </TabLinkBox>
-      </NavTabBox>
+      <Title
+        title={t('swap')}
+        tabList={[
+          {
+            name: t('swap'),
+            onTabClick: name => {
+              setSending(false)
+            },
+            iconUrl: require('../../assets/images/icon/swap.svg'),
+            iconActiveUrl: require('../../assets/images/icon/swap-white.svg')
+          },
+          {
+            name: t('send'),
+            onTabClick: name => {
+              setSending(true)
+            },
+            iconUrl: require('../../assets/images/icon/send.svg'),
+            iconActiveUrl: require('../../assets/images/icon/send-white.svg')
+          }
+        ]}
+      ></Title>
       <CurrencyInputPanel
         title={t('input')}
         urlAddedTokens={urlAddedTokens}

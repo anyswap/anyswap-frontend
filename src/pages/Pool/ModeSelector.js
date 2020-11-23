@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react'
 import { withRouter, NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import { createBrowserHistory } from 'history'
 
 import OversizedPanel from '../../components/OversizedPanel'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
@@ -12,6 +13,8 @@ import { useBodyKeyDown } from '../../hooks'
 import { lighten } from 'polished'
 
 import { TitleBox } from '../../theme'
+
+import Title from '../../components/Title'
 
 // import AddTwoIcon from '../../assets/images/icon/add-2.svg'
 // import AddTwoActiveIcon from '../../assets/images/icon/add-2-purpl.svg'
@@ -180,54 +183,82 @@ margin-bottom: 0;
 function ModeSelector({ location: { pathname }, history }) {
   const { t } = useTranslation()
 
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  // const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  const activeTabKey = poolTabOrder[poolTabOrder.findIndex(({ regex }) => pathname.match(regex))].textKey
+  // const activeTabKey = poolTabOrder[poolTabOrder.findIndex(({ regex }) => pathname.match(regex))].textKey
 
-  const navigate = useCallback(
-    direction => {
-      const tabIndex = poolTabOrder.findIndex(({ regex }) => pathname.match(regex))
-      history.push(poolTabOrder[(tabIndex + poolTabOrder.length + direction) % poolTabOrder.length].path)
-    },
-    [pathname, history]
-  )
-  const navigateRight = useCallback(() => {
-    navigate(1)
-  }, [navigate])
-  const navigateLeft = useCallback(() => {
-    navigate(-1)
-  }, [navigate])
+  // const navigate = useCallback(
+  //   direction => {
+  //     const tabIndex = poolTabOrder.findIndex(({ regex }) => pathname.match(regex))
+  //     history.push(poolTabOrder[(tabIndex + poolTabOrder.length + direction) % poolTabOrder.length].path)
+  //   },
+  //   [pathname, history]
+  // )
+  // const navigateRight = useCallback(() => {
+  //   navigate(1)
+  // }, [navigate])
+  // const navigateLeft = useCallback(() => {
+  //   navigate(-1)
+  // }, [navigate])
 
-  useBodyKeyDown('ArrowDown', navigateRight, modalIsOpen)
-  useBodyKeyDown('ArrowUp', navigateLeft, modalIsOpen)
+  // useBodyKeyDown('ArrowDown', navigateRight, modalIsOpen)
+  // useBodyKeyDown('ArrowUp', navigateLeft, modalIsOpen)
+
 
   return (
-    <LiquidityContainer
-      // onClick={() => {
-      //   setModalIsOpen(true)
-      // }}
-    >
-      {/* <LiquidityLabel>{t(activeTabKey)}</LiquidityLabel> */}
-      <TitleBoxPool>{t(activeTabKey)}</TitleBoxPool>
-      {/* <ColoredDropdown alt="arrow down" /> */}
-      <TabLinkBox>
-        {poolTabOrder.map(({ path, textKey, regex, icon, iconActive }) => (
-          <StyledNavLink
-            key={path}
-            to={path}
-            isActive={(_, { pathname }) => pathname.match(regex)}
-            // onClick={() => {
-            //   setModalIsOpen(false)
-            // }}
-          > 
-            <div className='icon'>
-              <img alt={''} src={pathname.match(regex) ? iconActive : icon}/>
-            </div>
-            {t(textKey)}
-          </StyledNavLink>
-        ))}
-      </TabLinkBox>
-    </LiquidityContainer>
+    <Title
+      title={t('addLiquidity')}
+      isNavLink={true}
+      tabList={[
+        {
+          name: t('addLiquidity'),
+          path: '/add-liquidity',
+          regex: /\/add-liquidity/,
+          iconUrl: require('../../assets/images/icon/add-2.svg'),
+          iconActiveUrl: require('../../assets/images/icon/add-2-purpl.svg')
+        },
+        {
+          name: t('removeLiquidity'),
+          path: '/remove-liquidity',
+          regex: /\/remove-liquidity/,
+          iconUrl: require('../../assets/images/icon/remove.svg'),
+          iconActiveUrl: require('../../assets/images/icon/remove-purpl.svg')
+        },
+        {
+          name: t('createExchange'),
+          path: '/create-exchange',
+          regex: /\/create-exchange.*/,
+          iconUrl: require('../../assets/images/icon/create-exchange.svg'),
+          iconActiveUrl: require('../../assets/images/icon/create-exchange-purpl.svg')
+        }
+      ]}
+    ></Title>
+    // <LiquidityContainer
+    //   // onClick={() => {
+    //   //   setModalIsOpen(true)
+    //   // }}
+    // >
+    //   {/* <LiquidityLabel>{t(activeTabKey)}</LiquidityLabel> */}
+    //   {/* <TitleBoxPool>{t(activeTabKey)}</TitleBoxPool> */}
+    //   {/* <ColoredDropdown alt="arrow down" /> */}
+    //   {/* <TabLinkBox>
+    //     {poolTabOrder.map(({ path, textKey, regex, icon, iconActive }) => (
+    //       <StyledNavLink
+    //         key={path}
+    //         to={path}
+    //         isActive={(_, { pathname }) => pathname.match(regex)}
+    //         // onClick={() => {
+    //         //   setModalIsOpen(false)
+    //         // }}
+    //       > 
+    //         <div className='icon'>
+    //           <img alt={''} src={pathname.match(regex) ? iconActive : icon}/>
+    //         </div>
+    //         {t(textKey)}
+    //       </StyledNavLink>
+    //     ))}
+    //   </TabLinkBox> */}
+    // </LiquidityContainer>
     // <OversizedPanel hideTop>
     //   <Modal
     //     isOpen={modalIsOpen}

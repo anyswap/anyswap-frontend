@@ -11,7 +11,7 @@ import { useAllTokenDetails} from '../../contexts/Tokens/index.js'
 // import { useExchangeContract } from '../../hooks'
 import TokenLogo from '../TokenLogo'
 import { useAllBalances, useExchangeReserves } from '../../contexts/Balances'
-import { TitleBox, BorderlessInput } from '../../theme'
+import { BorderlessInput } from '../../theme'
 
 import SearchIcon from '../../assets/images/icon/search.svg'
 import { NavLink } from 'react-router-dom'
@@ -37,6 +37,7 @@ import IconTotalRewards from '../../assets/images/icn-total-rewards.svg'
 import IconTotalRewardsBlack from '../../assets/images/icn-total-rewards-black.svg'
 import {formatNum, formatDecimal} from '../../utils/tools'
 import config from '../../config'
+import Title from '../Title'
 
 const MyBalanceBox = styled.div`
   width: 100%;
@@ -1030,8 +1031,7 @@ export default function DashboardDtil () {
       {/* <EarningsBox>
       </EarningsBox> */}
 
-      <TitleBox>{t('dashboard')}</TitleBox>
-      
+      <Title title={t('dashboard')}></Title>
       <MyBalanceBox>
         <TitleAndSearchBox>
           <h3>{t('myBalance')}</h3>

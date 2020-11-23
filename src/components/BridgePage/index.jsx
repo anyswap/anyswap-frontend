@@ -13,7 +13,7 @@ import { useTransactionAdder } from '../../contexts/Transactions'
 import { useAddressBalance } from '../../contexts/Balances'
 import { useWalletModalToggle } from '../../contexts/Application'
 
-import { Button, TitleBox, Spinner } from '../../theme'
+import { Button, Spinner } from '../../theme'
 import CurrencyInputPanel from '../CurrencyInputPanel'
 import AddressInputPanel from '../AddressInputPanel'
 import OversizedPanel from '../OversizedPanel'
@@ -38,10 +38,6 @@ import BirdgeIcon from '../../assets/images/icon/bridge-white.svg'
 import BirdgeBtnIcon from '../../assets/images/icon/bridge-white-btn.svg'
 import WarningIcon from '../../assets/images/icon/warning.svg'
 import BulbIcon from '../../assets/images/icon/bulb.svg'
-import DepositIcon from '../../assets/images/icon/deposit.svg'
-import DepositActiveIcon from '../../assets/images/icon/deposit-purple.svg'
-import WithdrawIcon from '../../assets/images/icon/withdraw.svg'
-import WithdrawActiveIcon from '../../assets/images/icon/withdraw-purple.svg'
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import Circle from '../../assets/images/circle.svg'
@@ -61,6 +57,8 @@ import {getServerInfo, removeLocalConfig, getRegisterInfo} from '../../utils/bir
 import {getAllOutBalance, getLocalOutBalance} from '../../utils/birdge/getOutBalance'
 
 import {recordTxns} from '../../utils/records'
+
+import Title from '../Title'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -413,90 +411,6 @@ const SubCurrencySelectBox = styled.div`
       }
     }
   }
-`
-
-const NavTabBox = styled.div`
-  ${({ theme }) => theme.FlexBC};
-  align-items: center;
-  font-size: 1rem;
-  font-family: 'Manrope';
-  color: ${({ theme }) => theme.royalBlue};
-  font-weight: 500;
-  cursor: pointer;
-  margin-bottom: 1rem;
-
-  img {
-    height: 0.75rem;
-    width: 0.75rem;
-  }
-`
-const TabLinkBox = styled.ul`
-  ${({theme}) => theme.FlexSC}
-  list-style: none;
-  margin: 0;
-  padding:0;
-  li {
-    ${({ theme }) => theme.FlexC}
-    height: 38px;
-    font-family: 'Manrope';
-    font-size: 0.75rem;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: normal;
-    color: #96989e;
-    border-top: 0.0625rem solid rgba(0, 0, 0, 0.04);
-    border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.04);
-    border-left: 0.0625rem solid rgba(0, 0, 0, 0.04);
-    cursor:pointer;
-    text-decoration: none;
-    padding: 0 0.625rem;
-    background: ${({ theme }) => theme.tabBg};
-    white-space:nowrap;
-
-    .icon {
-      ${({ theme }) => theme.FlexC}
-      width: 28px;
-      height: 28px;
-      background:#f5f5f5;
-      border-radius:100%;
-      margin-right:0.625rem;
-    }
-    &:first-child {
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
-      &.active {
-        border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
-      }
-    }
-    &:last-child {
-      border-top-right-radius: 6px;
-      border-bottom-right-radius: 6px;
-      border-right: 0.0625rem solid rgba(0, 0, 0, 0.04);
-      &.active {
-        border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
-      }
-    }
-
-    &.active {
-      background: ${({ theme }) => theme.tabActiveBg};
-      border: 0.0625rem solid ${({ theme }) => theme.tabBdColor};
-      color: ${({ theme }) => theme.tabActiveColor};
-      font-weight: bold;
-      .icon {
-        background: #734be2;
-      }
-    }
-    @media screen and (max-width: 960px) {
-      .icon {
-        display:none;
-      }
-    }
-  }
-`
-
-const TitleBoxPool = styled(TitleBox)`
-margin-bottom: 0;
 `
 const TokenLogoBox1 = styled.div`
   ${({ theme }) => theme.FlexC};
@@ -1449,14 +1363,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       payload: isViewMintInfo ? false : true
     })
   }
-  function changeMorR () {
-    let bt = ''
-    if (bridgeType && bridgeType === 'redeem') {
-      bt = 'mint'
-    } else {
-      bt = 'redeem'
-    }
-    dispatchSwapState({ type: 'UPDATE_BREDGETYPE', payload: bt })
+  function changeMorR (type) {
+    // let bt = ''
+    // if ()
+    // if (bridgeType && bridgeType === 'redeem') {
+    //   bt = 'mint'
+    // } else {
+    //   bt = 'redeem'
+    // }
+    dispatchSwapState({ type: 'UPDATE_BREDGETYPE', payload: type })
     cleanInput()
   }
 
@@ -2175,41 +2090,29 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
       {bridgeType && bridgeType === 'redeem' ? txnsList(withdrawArr, withdrawCount) : txnsList(hashArr, hashCount)}
 
-      <NavTabBox>
-        <TitleBoxPool>{t('bridge')}</TitleBoxPool>
-        <TabLinkBox>
-          <li
-              className={bridgeType && bridgeType === 'redeem' ? '' : 'active'}
-              onClick={changeMorR}
-            > 
-            <div className='icon'>
-              {
-                bridgeType && bridgeType === 'redeem' ? (
-                  <img alt={''} src={DepositIcon}/>
-                ) : (
-                  <img alt={''} src={DepositActiveIcon}/>
-                )
-              }
-            </div>
-            {t('deposit1')}
-          </li>
-          <li
-              className={bridgeType && bridgeType === 'redeem' ? 'active' : ''}
-              onClick={changeMorR}
-            > 
-            <div className='icon'>
-              {
-                bridgeType && bridgeType === 'redeem' ? (
-                  <img alt={''} src={WithdrawActiveIcon}/>
-                ) : (
-                  <img alt={''} src={WithdrawIcon}/>
-                )
-              }
-            </div>
-            {t('redeem')}
-          </li>
-        </TabLinkBox>
-      </NavTabBox>
+      <Title
+        title={t('deposit1')}
+        tabList={[
+          {
+            name: t('deposit1'),
+            onTabClick: name => {
+              console.log(name)
+              changeMorR('mint')
+            },
+            iconUrl: require('../../assets/images/icon/deposit.svg'),
+            iconActiveUrl: require('../../assets/images/icon/deposit-purple.svg')
+          },
+          {
+            name: t('redeem'),
+            onTabClick: name => {
+              console.log(name)
+              changeMorR('redeem')
+            },
+            iconUrl: require('../../assets/images/icon/withdraw.svg'),
+            iconActiveUrl: require('../../assets/images/icon/withdraw-purple.svg')
+          }
+        ]}
+      ></Title>
       <CurrencyInputPanel
         // title={t('input')}
         title={t(bridgeType && bridgeType === 'redeem' ? 'redeem' : 'deposit1')}
@@ -2341,7 +2244,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         ) : ('')
       }
       <OversizedPanel>
-        <DownArrowBackground  onClick={changeMorR}>
+        <DownArrowBackground>
           <img src={ResertSvg} alt={''} />
         </DownArrowBackground>
       </OversizedPanel>
