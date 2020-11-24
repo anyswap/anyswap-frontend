@@ -70,9 +70,6 @@ const MAIN_CONFIG = {
   nodeRpc: CHAIN_MAIN_INFO.rpc, // 节点地址
   nodeRpc1: CHAIN_MAIN_INFO.rpc1, // 节点地址
   chainID: CHAIN_MAIN_INFO.chainID, // 节点chainID
-  any: {
-    token: ANY_MAIN_TOKEN,  // ANY合约地址
-  },
   initToken: INIT_MAIN_TOKEN, // 交易默认合约
   initBridge: '0x445166c4854836292a5af7e3f165a3b8b4eedf97', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
@@ -98,9 +95,6 @@ const TEST_CONFIG = {
   nodeRpc: CHAIN_TEST_INFO.rpc,
   nodeRpc1: CHAIN_TEST_INFO.rpc, // 节点地址
   chainID: CHAIN_TEST_INFO.chainID,
-  any: {
-    token: ANY_TEST_TOKEN
-  },
   initToken: INIT_TEST_TOKEN,
   initBridge: '0x67198ea7208d00864a36bcf9c98a6352b2941de9',
   explorerUrl: CHAIN_TEST_INFO.explorer,

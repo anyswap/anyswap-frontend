@@ -10,7 +10,7 @@ import { formatTokenBalance, formatEthBalance, amountFormatter } from '../../uti
 import { useAllTokenDetails} from '../../contexts/Tokens/index.js'
 // import { useExchangeContract } from '../../hooks'
 import TokenLogo from '../TokenLogo'
-import { useAllBalances, useExchangeReserves } from '../../contexts/Balances'
+import { useAllBalances } from '../../contexts/Balances'
 import { BorderlessInput } from '../../theme'
 
 import SearchIcon from '../../assets/images/icon/search.svg'

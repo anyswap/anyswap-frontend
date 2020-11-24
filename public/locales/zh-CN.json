@@ -203,5 +203,6 @@
   "Coins": "币种",
   "Linking": "节点连接中...",
   "querying": "查询中",
-  "staking": "存币"
+  "staking": "存币",
+  "Harvest": "收割"
 }

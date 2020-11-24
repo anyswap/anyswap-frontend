@@ -1,0 +1,333 @@
+[{
+	"constant": true,
+	"inputs": [{
+		"name": "",
+		"type": "address"
+	}],
+	"name": "userInfo",
+	"outputs": [{
+		"name": "amount",
+		"type": "uint256"
+	}, {
+		"name": "rewardDebt",
+		"type": "uint256"
+	}, {
+		"name": "nodeID",
+		"type": "string"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "bonusEndBlock",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [{
+		"name": "_nodeID",
+		"type": "string"
+	}],
+	"name": "registerNode",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [{
+		"name": "_amount",
+		"type": "uint256"
+	}],
+	"name": "withdraw",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [],
+	"name": "farm",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "stakeToken",
+	"outputs": [{
+		"name": "",
+		"type": "address"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [],
+	"name": "renounceOwnership",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "BONUS_MULTIPLIER",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "rewardPerBlock",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "owner",
+	"outputs": [{
+		"name": "",
+		"type": "address"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [{
+		"name": "_from",
+		"type": "uint256"
+	}, {
+		"name": "_to",
+		"type": "uint256"
+	}],
+	"name": "getMultiplier",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "isOwner",
+	"outputs": [{
+		"name": "",
+		"type": "bool"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "accRewardPerShare",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "lastRewardBlock",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "rewardStartBlock",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [{
+		"name": "_amount",
+		"type": "uint256"
+	}],
+	"name": "deposit",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [{
+		"name": "_rewardPerBlock",
+		"type": "uint256"
+	}],
+	"name": "setRewardPerBlock",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [],
+	"name": "emergencyWithdraw",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [],
+	"name": "updatePool",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [{
+		"name": "newOwner",
+		"type": "address"
+	}],
+	"name": "transferOwnership",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [{
+		"name": "_user",
+		"type": "address"
+	}],
+	"name": "pendingReward",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"inputs": [{
+		"name": "_stakeToken",
+		"type": "address"
+	}, {
+		"name": "_rewardPerBlock",
+		"type": "uint256"
+	}, {
+		"name": "_rewardStartBlock",
+		"type": "uint256"
+	}, {
+		"name": "_bonusEndBlock",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "constructor"
+}, {
+	"anonymous": false,
+	"inputs": [{
+		"indexed": true,
+		"name": "user",
+		"type": "address"
+	}, {
+		"indexed": true,
+		"name": "amount",
+		"type": "uint256"
+	}],
+	"name": "Farm",
+	"type": "event"
+}, {
+	"anonymous": false,
+	"inputs": [{
+		"indexed": true,
+		"name": "user",
+		"type": "address"
+	}, {
+		"indexed": true,
+		"name": "amount",
+		"type": "uint256"
+	}],
+	"name": "Deposit",
+	"type": "event"
+}, {
+	"anonymous": false,
+	"inputs": [{
+		"indexed": true,
+		"name": "user",
+		"type": "address"
+	}, {
+		"indexed": true,
+		"name": "amount",
+		"type": "uint256"
+	}],
+	"name": "Withdraw",
+	"type": "event"
+}, {
+	"anonymous": false,
+	"inputs": [{
+		"indexed": true,
+		"name": "user",
+		"type": "address"
+	}, {
+		"indexed": true,
+		"name": "amount",
+		"type": "uint256"
+	}],
+	"name": "EmergencyWithdraw",
+	"type": "event"
+}, {
+	"anonymous": false,
+	"inputs": [{
+		"indexed": true,
+		"name": "user",
+		"type": "address"
+	}, {
+		"indexed": false,
+		"name": "nodeID",
+		"type": "string"
+	}],
+	"name": "RegisterNode",
+	"type": "event"
+}, {
+	"anonymous": false,
+	"inputs": [{
+		"indexed": true,
+		"name": "previousOwner",
+		"type": "address"
+	}, {
+		"indexed": true,
+		"name": "newOwner",
+		"type": "address"
+	}],
+	"name": "OwnershipTransferred",
+	"type": "event"
+}]

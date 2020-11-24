@@ -2,7 +2,6 @@ import {chainInfo} from './nodeConfig'
 
 const NAME_PREFIX = 'ANY'
 
-const ANY_MAIN_TOKEN = '0xf99d58e463a2e07e5692127302c20a191861b4d6'
 // const ANY_TEST_TOKEN = '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
 
 const REWARDS_DAY = 11220
@@ -62,7 +61,6 @@ const COIN_BASE ={
   }
 }
 
-const INIT_MAIN_TOKEN = ANY_MAIN_TOKEN
 // const INIT_TEST_TOKEN = ANY_TEST_TOKEN
 
 const MAIN_CONFIG = {
@@ -70,10 +68,7 @@ const MAIN_CONFIG = {
   nodeRpc: CHAIN_MAIN_INFO.rpc, // 节点地址
   nodeRpc1: CHAIN_MAIN_INFO.rpc1, // 节点地址
   chainID: CHAIN_MAIN_INFO.chainID, // 节点chainID
-  any: {
-    token: ANY_MAIN_TOKEN,  // ANY合约地址
-  },
-  initToken: INIT_MAIN_TOKEN, // 交易默认合约
+  initToken: '0xf99d58e463a2e07e5692127302c20a191861b4d6', // 交易默认合约
   initBridge: '0x51600b0cff6bbf79e7767158c41fd15e968ec404', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
@@ -105,9 +100,6 @@ const MAIN_CONFIG = {
 //   nodeRpc: CHAIN_TEST_INFO.rpc,
 //   nodeRpc1: CHAIN_TEST_INFO.rpc, // 节点地址
 //   chainID: CHAIN_TEST_INFO.chainID,
-//   any: {
-//     token: ANY_TEST_TOKEN
-//   },
 //   initToken: INIT_TEST_TOKEN,
 //   initBridge: '0x67198ea7208d00864a36bcf9c98a6352b2941de9',
 //   explorerUrl: CHAIN_TEST_INFO.explorer,

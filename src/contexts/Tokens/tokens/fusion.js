@@ -20,11 +20,10 @@ import {
 } from '../methods/mode'
 import {dirSwitch} from '../methods/common'
 
-const ANY_TOKEN = config.any && config.any.token ? config.any.token : 'ANY'
 
 export default {
   32659: {
-    [ANY_TOKEN]: { // ANY
+    '0x0c74199d22f732039e843366a236ff4f61986b32': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
@@ -339,7 +338,7 @@ export default {
     }
   },
   46688: {
-    [ANY_TOKEN]: { // ANY
+    '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
