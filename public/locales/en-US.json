@@ -205,5 +205,6 @@
   "Linking": "Node connection...",
   "querying": "Querying",
   "staking": "Staking",
+  "Unstake": "Unstake",
   "Harvest": "Harvest"
 }

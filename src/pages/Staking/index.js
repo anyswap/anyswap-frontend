@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { ethers } from 'ethers'
+import { transparentize } from 'polished'
 import { useWeb3React, useSwapTokenContract } from '../../hooks'
 // import { useAddressAllowance } from '../../contexts/Allowances'
 import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
@@ -81,7 +82,6 @@ const InputRow = styled.div`
   align-items: center;
   padding: 0 25px;
   width:100%;
-  margin-bottom:20px;
 `
 const Input = styled.input`
   outline: none;
@@ -157,6 +157,32 @@ const ConnectWalletBox = styled.div`
   width:100%;
   min-height: 300px;
 `
+const AddBox = styled(Button)`
+  ${({ theme }) => theme.FlexC};
+  width: 45px;
+  min-width: 45px;
+  height:45px;
+  border: solid 0.5px ${({ theme }) => theme.tipBorder};
+  box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
+  background: ${({theme}) => theme.tipBg};
+  border-radius: 9px;
+  margin-left:15px;
+  cursor:pointer;
+  padding:0;
+  &:hover, &:focus{
+    border: solid 0.5px ${({ theme }) => theme.tipBorder};
+    box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
+    background: ${({theme}) => theme.tipBg};
+  }
+`
+
+const AmountView = styled.div`
+  width:100%;
+  padding:10px 25px;
+  font-size:14px;
+  color:${({ theme }) => theme.textColor};
+  margin-bottom:20px;
+`
 
 function formatCellData(str, len) {
   let str1 = str.substr(0, len)
@@ -192,11 +218,44 @@ export default function Staking () {
   const [stakingType, setStakingType] = useState()
   const [stakingModal, setStakingModal] = useState(false)
   const [stakeDisabled, setStakeDisabled] = useState(true)
+
   const [stakeAmount, setStakeAmount] = useState()
   const [userInfo, setUserInfo] = useState()
   const [unlocking, setUnlocking] = useState(false)
   const [isHardwareTip, setIsHardwareTip] = useState(false)
   const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
+
+  const [HarvestDisabled, setHarvestDisabled] = useState(true)
+  const [DepositDisabled, setDepositDisabled] = useState(true)
+  const [WithdrawDisabled, setWithdrawDisabled] = useState(true)
+
+  useEffect(() => {
+    if (approveAmount && Number(approveAmount) && account) {
+      if (pendingReward && Number(pendingReward) > 0) {
+        setHarvestDisabled(false)
+      } else {
+        setHarvestDisabled(true)
+      }
+
+      if (balance && Number(balance) > 0) {
+        setDepositDisabled(false)
+      } else {
+        setDepositDisabled(true)
+      }
+      
+      if (userInfo && Number(userInfo) > 0) {
+        setWithdrawDisabled(false)
+      } else {
+        setWithdrawDisabled(true)
+      }
+
+    } else {
+      setHarvestDisabled(true)
+      setDepositDisabled(true)
+      setWithdrawDisabled(true)
+    }
+  }, [approveAmount, pendingReward, balance, userInfo, account])
+
 
   const getBaseInfo = useCallback(() => {
     if (account) {
@@ -419,7 +478,7 @@ export default function Staking () {
                 <h3>{amountFormatter(pendingReward)}</h3>
                 <p>ANY Earned</p>
               </div>
-              <div className='btn'><Button style={{height: '45px',width: '150px'}} onClick={() => {
+              <div className='btn'><Button style={{height: '45px'}} disabled={HarvestDisabled} onClick={() => {
                 farm()
               }}>{t('Harvest')}</Button></div>
             </li>
@@ -429,12 +488,30 @@ export default function Staking () {
                 <h3>{amountFormatter(userInfo)}</h3>
                 <p>ANY Earned</p>
               </div>
-              <div className='btn'><Button style={{height: '45px',width: '150px'}} onClick={() => {
-                setStakingType('redeem')
-                setStakingModal(true)
-              }}>{t('redeem')}</Button></div>
+              <div className='btn'>
+                {
+                  approveAmount && Number(approveAmount) ? (
+                    <>
+                      <Button style={{height: '45px'}} disabled={WithdrawDisabled} onClick={() => {
+                        setStakingType('Unstake')
+                        setStakingModal(true)
+                      }}>{t('Unstake')}</Button>
+                      <AddBox disabled={DepositDisabled} onClick={() => {
+                        setStakingType('deposit')
+                        setStakingModal(true)
+                      }}>
+                        <img src={require('../../assets/images/icon/add.svg')} alt='' />
+                      </AddBox>
+                    </>
+                  ) : (
+                    <Button style={{height: '45px'}} disabled={unlocking} onClick={() => {
+                      approve()
+                    }}>{unlocking ? t('pending') : t('unlock')}</Button>
+                  )
+                }
+              </div>
             </li>
-            <li className='item'>
+            {/* <li className='item'>
               <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
               <div className='info'>
                 <h3>{amountFormatter(balance)}</h3>
@@ -454,7 +531,7 @@ export default function Staking () {
                   )
                 }
               </div>
-            </li>
+            </li> */}
           </StakingList>
         </StakingBox>
       </>
@@ -473,6 +550,13 @@ export default function Staking () {
     )
   }
 
+  let amountView = ''
+
+  if (stakingType === 'deposit') {
+    amountView = balance ? amountFormatter(ethers.utils.bigNumberify(balance)) : '0.00'
+  } else {
+    amountView = userInfo ? amountFormatter(ethers.utils.bigNumberify(userInfo)) : '0.00'
+  }
   return (
     <>
       {/* <Button onClick={() => {farm()}}>test</Button> */}
@@ -506,6 +590,9 @@ export default function Staking () {
               }}/>
               <MaxBox onClick={() => {onMax()}}>Max</MaxBox>
             </InputRow>
+            <AmountView>
+              {amountView} ANY
+            </AmountView>
             <Button style={{height: '45px',width: '150px'}} disabled={stakeDisabled} onClick={() => {
               if (stakingType === 'deposit') {
                 deposit()
