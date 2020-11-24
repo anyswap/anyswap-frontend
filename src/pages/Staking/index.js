@@ -203,10 +203,9 @@ export default function Staking () {
   let walletType = sessionStorage.getItem('walletType')
   // const ANY_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
   const ANY_TOKEN = '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4'
-  // const ANY_EXCHANGE = CUR_TOKEN[ANY_TOKEN].exchangeAddress
-  const STAKE_TOKEN = '0xa205ecb41df3eee2f33a058d4460f9b07c2c5aad'
 
-  // const anyAllowance = useAddressAllowance(account, ANY_TOKEN, ANY_EXCHANGE)
+  const STAKE_TOKEN = '0xeb96e36e8269a0f0d53833bab9683f1b4e1107a8'
+
   const web3Contract = new web3Fn.eth.Contract(STAKE_ABI, STAKE_TOKEN)
   const web3ErcContract = new web3Fn.eth.Contract(ERC20_ABI, ANY_TOKEN)
   const MMContract = useSwapTokenContract(STAKE_TOKEN, STAKE_ABI)
@@ -264,8 +263,8 @@ export default function Staking () {
       const prData = web3Contract.methods.pendingReward(account).encodeABI()
       batch.add(web3Fn.eth.call.request({data: prData, to: STAKE_TOKEN}, 'latest', (err, reward) => {
         if (!err) {
-          // console.log('reward')
-          // console.log(formatCellData(reward, 66).toString())
+          console.log('reward')
+          console.log(formatCellData(reward, 66).toString())
           setPendingReward(formatCellData(reward, 66))
         }
       }))
@@ -346,8 +345,8 @@ export default function Staking () {
     })
   }
 
-  function withdraw () {
-    let amount = ethers.utils.parseUnits(stakeAmount.toString(), 18)
+  function withdraw (amount) {
+    amount = amount || amount === 0 ? amount : ethers.utils.parseUnits(stakeAmount.toString(), 18)
     console.log(amount.toString())
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareTip(true)
@@ -401,30 +400,30 @@ export default function Staking () {
     })
   }
 
-  function farm () {
-    if (config.supportWallet.includes(walletType)) {
-      setIsHardwareTip(true)
-      setHardwareTxnsInfo(t('Harvest') + amountFormatter(pendingReward) + ' ANY')
-      const data = web3Contract.methods.farm().encodeABI()
-      getWeb3BaseInfo(STAKE_TOKEN, data, account).then(res => {
-        if (res.msg === 'Success') {
-          console.log(res.info)
-          addTransaction(res.info)
-        } else {
-          alert(res.error)
-        }
-        backInit()
-      })
-    }
-    MMContract.farm().then(res => {
-      console.log(res)
-      addTransaction(res)
-      backInit()
-    }).catch(err => {
-      console.log(err)
-      backInit()
-    })
-  }
+  // function farm () {
+  //   if (config.supportWallet.includes(walletType)) {
+  //     setIsHardwareTip(true)
+  //     setHardwareTxnsInfo(t('Harvest') + amountFormatter(pendingReward) + ' ANY')
+  //     const data = web3Contract.methods.farm().encodeABI()
+  //     getWeb3BaseInfo(STAKE_TOKEN, data, account).then(res => {
+  //       if (res.msg === 'Success') {
+  //         console.log(res.info)
+  //         addTransaction(res.info)
+  //       } else {
+  //         alert(res.error)
+  //       }
+  //       backInit()
+  //     })
+  //   }
+  //   MMContract.farm().then(res => {
+  //     console.log(res)
+  //     addTransaction(res)
+  //     backInit()
+  //   }).catch(err => {
+  //     console.log(err)
+  //     backInit()
+  //   })
+  // }
   function onMax () {
     let amount = ''
     console.log(balance)
@@ -479,14 +478,14 @@ export default function Staking () {
                 <p>ANY Earned</p>
               </div>
               <div className='btn'><Button style={{height: '45px'}} disabled={HarvestDisabled} onClick={() => {
-                farm()
+                withdraw(0)
               }}>{t('Harvest')}</Button></div>
             </li>
             <li className='item'>
               <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
               <div className='info'>
                 <h3>{amountFormatter(userInfo)}</h3>
-                <p>ANY Earned</p>
+                <p>ANY Tokens Staked</p>
               </div>
               <div className='btn'>
                 {
@@ -511,27 +510,6 @@ export default function Staking () {
                 }
               </div>
             </li>
-            {/* <li className='item'>
-              <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
-              <div className='info'>
-                <h3>{amountFormatter(balance)}</h3>
-                <p>ANY Tokens Staked</p>
-              </div>
-              <div className='btn'>
-                {
-                  approveAmount && Number(approveAmount) ? (
-                    <Button style={{height: '45px',width: '150px'}} onClick={() => {
-                      setStakingType('deposit')
-                      setStakingModal(true)
-                    }}>{t('deposit')}</Button>
-                  ) : (
-                    <Button style={{height: '45px',width: '150px'}} disabled={unlocking} onClick={() => {
-                      approve()
-                    }}>{unlocking ? t('pending') : t('unlock')}</Button>
-                  )
-                }
-              </div>
-            </li> */}
           </StakingList>
         </StakingBox>
       </>
@@ -559,7 +537,6 @@ export default function Staking () {
   }
   return (
     <>
-      {/* <Button onClick={() => {farm()}}>test</Button> */}
       <HardwareTip
         HardwareTipOpen={isHardwareTip}
         closeHardwareTip={() => {

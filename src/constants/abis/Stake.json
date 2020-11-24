@@ -19,17 +19,6 @@
 	"stateMutability": "view",
 	"type": "function"
 }, {
-	"constant": true,
-	"inputs": [],
-	"name": "bonusEndBlock",
-	"outputs": [{
-		"name": "",
-		"type": "uint256"
-	}],
-	"payable": false,
-	"stateMutability": "view",
-	"type": "function"
-}, {
 	"constant": false,
 	"inputs": [{
 		"name": "_nodeID",
@@ -47,14 +36,6 @@
 		"type": "uint256"
 	}],
 	"name": "withdraw",
-	"outputs": [],
-	"payable": false,
-	"stateMutability": "nonpayable",
-	"type": "function"
-}, {
-	"constant": false,
-	"inputs": [],
-	"name": "farm",
 	"outputs": [],
 	"payable": false,
 	"stateMutability": "nonpayable",
@@ -81,17 +62,6 @@
 }, {
 	"constant": true,
 	"inputs": [],
-	"name": "BONUS_MULTIPLIER",
-	"outputs": [{
-		"name": "",
-		"type": "uint256"
-	}],
-	"payable": false,
-	"stateMutability": "view",
-	"type": "function"
-}, {
-	"constant": true,
-	"inputs": [],
 	"name": "rewardPerBlock",
 	"outputs": [{
 		"name": "",
@@ -107,23 +77,6 @@
 	"outputs": [{
 		"name": "",
 		"type": "address"
-	}],
-	"payable": false,
-	"stateMutability": "view",
-	"type": "function"
-}, {
-	"constant": true,
-	"inputs": [{
-		"name": "_from",
-		"type": "uint256"
-	}, {
-		"name": "_to",
-		"type": "uint256"
-	}],
-	"name": "getMultiplier",
-	"outputs": [{
-		"name": "",
-		"type": "uint256"
 	}],
 	"payable": false,
 	"stateMutability": "view",
@@ -195,6 +148,17 @@
 	"stateMutability": "nonpayable",
 	"type": "function"
 }, {
+	"constant": true,
+	"inputs": [],
+	"name": "calcAccRewardPerShare",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
 	"constant": false,
 	"inputs": [],
 	"name": "emergencyWithdraw",
@@ -245,26 +209,10 @@
 	}, {
 		"name": "_rewardStartBlock",
 		"type": "uint256"
-	}, {
-		"name": "_bonusEndBlock",
-		"type": "uint256"
 	}],
 	"payable": false,
 	"stateMutability": "nonpayable",
 	"type": "constructor"
-}, {
-	"anonymous": false,
-	"inputs": [{
-		"indexed": true,
-		"name": "user",
-		"type": "address"
-	}, {
-		"indexed": true,
-		"name": "amount",
-		"type": "uint256"
-	}],
-	"name": "Farm",
-	"type": "event"
 }, {
 	"anonymous": false,
 	"inputs": [{
