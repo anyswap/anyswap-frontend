@@ -6,8 +6,9 @@ import { useWeb3React, useSwapTokenContract } from '../../hooks'
 // import { useAddressAllowance } from '../../contexts/Allowances'
 import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
 import { useTransactionAdder } from '../../contexts/Transactions'
-import { Button } from '../../theme'
+import { useWalletModalToggle } from '../../contexts/Application'
 
+import { Button } from '../../theme'
 
 import STAKE_ABI from '../../constants/abis/Stake.json'
 import ERC20_ABI from '../../constants/abis/erc20'
@@ -151,6 +152,12 @@ const LogoBox = styled.div`
   }
 `
 
+const ConnectWalletBox = styled.div`
+  ${({ theme }) => theme.FlexC};
+  width:100%;
+  min-height: 300px;
+`
+
 function formatCellData(str, len) {
   let str1 = str.substr(0, len)
   return ethers.utils.bigNumberify(str1)
@@ -163,9 +170,10 @@ const web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
 
 
 export default function Staking () {
-  const { account, library } = useWeb3React()
+  const { account, library, chainId } = useWeb3React()
   const { t } = useTranslation()
   const addTransaction = useTransactionAdder()
+  const toggleWalletModal = useWalletModalToggle()
   let walletType = sessionStorage.getItem('walletType')
   // const ANY_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
   const ANY_TOKEN = '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4'
@@ -192,7 +200,6 @@ export default function Staking () {
 
   const getBaseInfo = useCallback(() => {
     if (account) {
-      console.log(account)
       const batch = new web3Fn.BatchRequest()
 
       const prData = web3Contract.methods.pendingReward(account).encodeABI()
@@ -234,6 +241,7 @@ export default function Staking () {
       batch.execute()
     }
   }, [account])
+  
 
   useEffect(() => {
     getBaseInfo()
@@ -259,7 +267,7 @@ export default function Staking () {
       setIsHardwareTip(true)
       setHardwareTxnsInfo('Deposit ' + stakeAmount + ' ANY')
       const data = web3Contract.methods.deposit(amount).encodeABI()
-      getWeb3BaseInfo(STAKE_TOKEN, STAKE_TOKEN, data, account).then(res => {
+      getWeb3BaseInfo(STAKE_TOKEN, data, account).then(res => {
         if (res.msg === 'Success') {
           console.log(res.info)
           addTransaction(res.info)
@@ -286,7 +294,7 @@ export default function Staking () {
       setIsHardwareTip(true)
       setHardwareTxnsInfo('Withdraw ' + stakeAmount + ' ANY')
       const data = web3Contract.methods.withdraw(amount).encodeABI()
-      getWeb3BaseInfo(STAKE_TOKEN, STAKE_TOKEN, data, account).then(res => {
+      getWeb3BaseInfo(STAKE_TOKEN, data, account).then(res => {
         if (res.msg === 'Success') {
           console.log(res.info)
           addTransaction(res.info)
@@ -312,7 +320,7 @@ export default function Staking () {
       setIsHardwareTip(true)
       setHardwareTxnsInfo('Approve ANY Token')
       const data = web3ErcContract.methods.approve(STAKE_TOKEN, _userTokenBalance).encodeABI()
-      getWeb3BaseInfo(ANY_TOKEN, ANY_TOKEN, data, account).then(res => {
+      getWeb3BaseInfo(ANY_TOKEN, data, account).then(res => {
         if (res.msg === 'Success') {
           console.log(res.info)
           addTransaction(res.info)
@@ -339,7 +347,7 @@ export default function Staking () {
       setIsHardwareTip(true)
       setHardwareTxnsInfo(t('Harvest') + amountFormatter(pendingReward) + ' ANY')
       const data = web3Contract.methods.farm().encodeABI()
-      getWeb3BaseInfo(STAKE_TOKEN, STAKE_TOKEN, data, account).then(res => {
+      getWeb3BaseInfo(STAKE_TOKEN, data, account).then(res => {
         if (res.msg === 'Success') {
           console.log(res.info)
           addTransaction(res.info)
@@ -392,6 +400,79 @@ export default function Staking () {
     setStakeDisabled(status)
   }, [stakingType, pendingReward, balance, stakeAmount])
 
+  function stakingView () {
+    return (
+      <>
+        <LogoBox>
+          <div className='logo'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
+          <div className='title'>
+            <h3>Anyswap Party!</h3>
+            <p>Deposit ANY SLP Tokens and earn ANY</p>
+          </div>
+        </LogoBox>
+
+        <StakingBox>
+          <StakingList>
+            <li className='item'>
+              <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
+              <div className='info'>
+                <h3>{amountFormatter(pendingReward)}</h3>
+                <p>ANY Earned</p>
+              </div>
+              <div className='btn'><Button style={{height: '45px',width: '150px'}} onClick={() => {
+                farm()
+              }}>{t('Harvest')}</Button></div>
+            </li>
+            <li className='item'>
+              <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
+              <div className='info'>
+                <h3>{amountFormatter(userInfo)}</h3>
+                <p>ANY Earned</p>
+              </div>
+              <div className='btn'><Button style={{height: '45px',width: '150px'}} onClick={() => {
+                setStakingType('redeem')
+                setStakingModal(true)
+              }}>{t('redeem')}</Button></div>
+            </li>
+            <li className='item'>
+              <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
+              <div className='info'>
+                <h3>{amountFormatter(balance)}</h3>
+                <p>ANY Tokens Staked</p>
+              </div>
+              <div className='btn'>
+                {
+                  approveAmount && Number(approveAmount) ? (
+                    <Button style={{height: '45px',width: '150px'}} onClick={() => {
+                      setStakingType('deposit')
+                      setStakingModal(true)
+                    }}>{t('deposit')}</Button>
+                  ) : (
+                    <Button style={{height: '45px',width: '150px'}} disabled={unlocking} onClick={() => {
+                      approve()
+                    }}>{unlocking ? t('pending') : t('unlock')}</Button>
+                  )
+                }
+              </div>
+            </li>
+          </StakingList>
+        </StakingBox>
+      </>
+    )
+  }
+
+  function connectWallet () {
+    return (
+      <>
+        <ConnectWalletBox>
+          <Button onClick={toggleWalletModal}  style={{height: '45px',width: '150px'}}>
+            {t('connectToWallet')}
+          </Button>
+        </ConnectWalletBox>
+      </>
+    )
+  }
+
   return (
     <>
       {/* <Button onClick={() => {farm()}}>test</Button> */}
@@ -438,60 +519,7 @@ export default function Staking () {
 
       <Title title={t('staking')}></Title>
 
-      <LogoBox>
-        <div className='logo'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
-        <div className='title'>
-          <h3>Anyswap Party!</h3>
-          <p>Deposit ANY SLP Tokens and earn ANY</p>
-        </div>
-      </LogoBox>
-
-      <StakingBox>
-        <StakingList>
-          <li className='item'>
-            <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
-            <div className='info'>
-              <h3>{amountFormatter(pendingReward)}</h3>
-              <p>ANY Earned</p>
-            </div>
-            <div className='btn'><Button style={{height: '45px',width: '150px'}} onClick={() => {
-              farm()
-            }}>{t('Harvest')}</Button></div>
-          </li>
-          <li className='item'>
-            <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
-            <div className='info'>
-              <h3>{amountFormatter(userInfo)}</h3>
-              <p>ANY Earned</p>
-            </div>
-            <div className='btn'><Button style={{height: '45px',width: '150px'}} onClick={() => {
-              setStakingType('redeem')
-              setStakingModal(true)
-            }}>{t('redeem')}</Button></div>
-          </li>
-          <li className='item'>
-            <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
-            <div className='info'>
-              <h3>{amountFormatter(balance)}</h3>
-              <p>ANY Tokens Staked</p>
-            </div>
-            <div className='btn'>
-              {
-                approveAmount && Number(approveAmount) ? (
-                  <Button style={{height: '45px',width: '150px'}} onClick={() => {
-                    setStakingType('deposit')
-                    setStakingModal(true)
-                  }}>{t('deposit')}</Button>
-                ) : (
-                  <Button style={{height: '45px',width: '150px'}} disabled={unlocking} onClick={() => {
-                    approve()
-                  }}>{unlocking ? t('pending') : t('unlock')}</Button>
-                )
-              }
-            </div>
-          </li>
-        </StakingList>
-      </StakingBox>
+      {Number(CHAINID) !== Number(chainId) || !account ? connectWallet() : stakingView()}
     </>
   )
 }

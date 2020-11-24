@@ -308,6 +308,7 @@ export default function Header() {
     if (item.symbol === config.symbol || !item.isSwitch) {
       return
     }
+    // console.log(item.label)
     localStorage.setItem(config.ENV_NODE_CONFIG, item.label)
     history.go(0)
   }
@@ -412,11 +413,7 @@ export default function Header() {
               {/* <span>{t('onTestnet')}</span> */}
               <TokenLogo address={config.symbol} size={'20px'} style={{marginRight: '10px'}}></TokenLogo>
               {config.networkName} {config.env === 'test' ?  t('testnet') : t('mainnet')}
-              {/* <div className='switchTo' onClick={openUrl}> */}
               <div className='switchTo'>
-                {/* {t('SwitchTo')} */}
-                {/* {config.symbol === 'FSN' ? 'BSC' : 'FSN'} 
-                {t('mainnet')} */}
                 <img alt='' src={ArrowRighrPurpleIcon} style={{marginLeft: '8px'}} />
               </div>
             </NetworkBox>
@@ -436,22 +433,6 @@ export default function Header() {
                 )
               }
             </StyleDarkToggle>
-            {/* <StyledToggle
-              checked={!isDark}
-              uncheckedIcon={
-                <EmojiToggle role="img" aria-label="moon">
-                  🌙️
-                </EmojiToggle>
-              }
-              checkedIcon={
-                <EmojiToggle role="img" aria-label="sun">
-                  {'☀️'}
-                </EmojiToggle>
-              }
-              onChange={() => {
-                toggleDarkMode()
-              }}
-            /> */}
           </HeaderElement>
         </HeaderSpan>
       </HeaderFrame>

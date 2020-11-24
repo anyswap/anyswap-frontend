@@ -499,7 +499,7 @@ export default function RemoveLiquidity({ params }) {
 
       // let data = web3Contract.removeLiquidity.getData(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline)
       let data = web3Contract.methods.removeLiquidity(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline).encodeABI()
-      getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account).then(res => {
+      getWeb3BaseInfo(exchangeAddress, data, account).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           recordTxns(res.info, 'REMOVELIQUIDITY', symbol, account)

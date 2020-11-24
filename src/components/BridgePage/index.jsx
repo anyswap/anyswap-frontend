@@ -1313,7 +1313,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // data = web3Contract.Swapout.getData(amountVal)
         data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
       }
-      getWeb3BaseInfo(inputCurrency, inputCurrency, data, account).then(res => {
+      getWeb3BaseInfo(inputCurrency, data, account).then(res => {
         if (res.msg === 'Success') {
           // console.log(res.info)
           sendTxnsEnd(res.info, amountVal, address, node)

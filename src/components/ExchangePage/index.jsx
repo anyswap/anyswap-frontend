@@ -854,7 +854,7 @@ export default function ExchangePage({ initialCurrency, params }) {
       value = swapType === ETH_TO_TOKEN ? value.toHexString() : 0
       // console.log(value)
       
-      getWeb3BaseInfo(contractAddress, contractAddress, data, account, value).then(res => {
+      getWeb3BaseInfo(contractAddress, data, account, value).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           addTransaction(res.info)

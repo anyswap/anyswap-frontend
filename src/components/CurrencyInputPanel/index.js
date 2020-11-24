@@ -703,7 +703,7 @@ export default function CurrencyInputPanel({
                 //   gasLimit: GAS_MARGIN.toString()
                 // })
                 let data = web3Contract.methods.approve(selectedTokenExchangeAddress, _userTokenBalance).encodeABI()
-                getWeb3BaseInfo(selectedTokenAddress, selectedTokenExchangeAddress, data, account).then(res => {
+                getWeb3BaseInfo(selectedTokenAddress, data, account).then(res => {
                   // console.log(res)
                   if (res.msg === 'Success') {
                     addTransaction(res.info, { approval: selectedTokenAddress })

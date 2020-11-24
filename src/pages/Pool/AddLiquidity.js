@@ -641,7 +641,7 @@ export default function AddLiquidity({ params }) {
         deadline
       ).encodeABI()
       // console.log(inputValueParsed.toHexString())
-      getWeb3BaseInfo(exchangeAddress, exchangeAddress, data, account, inputValueParsed.toHexString()).then(res => {
+      getWeb3BaseInfo(exchangeAddress, data, account, inputValueParsed.toHexString()).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           recordTxns(res.info, 'ADDLIQUIDITY', symbol, account)

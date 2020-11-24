@@ -116,7 +116,7 @@ let chainInfo = {
     symbol: 'FSN',
     name: 'Fusion',
     type: 'test',
-    label: 'BNB_TEST',
+    label: 'FSN_TEST',
     isSwitch: 1
   },
 }

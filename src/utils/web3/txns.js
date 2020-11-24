@@ -14,7 +14,7 @@ export function getWeb3ConTract (ABI, ContractAddress) {
 }
 
 
-export function getWeb3BaseInfo (ContractAddress, DcrmAddress, input, address, value) {
+export function getWeb3BaseInfo (ContractAddress, input, address, value) {
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
   let data = {
