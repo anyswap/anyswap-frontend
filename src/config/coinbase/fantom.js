@@ -79,7 +79,7 @@ const MAIN_CONFIG = {
   nodeRpc: CHAIN_MAIN_INFO.rpc, // 节点地址
   nodeRpc1: CHAIN_MAIN_INFO.rpc, // 节点地址
   chainID: CHAIN_MAIN_INFO.chainID, // 节点chainID
-  initToken: '0xad84341756bf337f5a0164515b1f6f993d194e1f', // 交易默认合约
+  initToken: '0xddcb3ffd12750b45d32e084887fdf1aabab34239', // 交易默认合约
   initBridge: '0xddcb3ffd12750b45d32e084887fdf1aabab34239', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
   btcConfig: { // btc配置

@@ -566,8 +566,7 @@ export default function Staking () {
               <div className='info'>
                 <h3>{pendingReward && Number(pendingReward.toString()) > 0 ? amountFormatter(pendingReward, 18, config.keepDec) : '0.00'}</h3>
                 <p>
-                  ANY {t('Earned')}
-                  <span className='green' style={{marginLeft:'10px'}}>(APY:{StakingAPY ? (Number(StakingAPY) * 100).toFixed(2) : '0.00'}%)</span>
+                  ANY {t('Earned')}<span className='green' style={{marginLeft:'2px'}}>(APY:{StakingAPY ? (Number(StakingAPY) * 100).toFixed(2) : '0.00'}%)</span>
                 </p>
               </div>
               <div className='btn'><Button style={{height: '45px', maxWidth: '200px'}} disabled={HarvestDisabled} onClick={() => {
