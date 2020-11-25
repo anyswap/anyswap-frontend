@@ -8,6 +8,7 @@ import { useWeb3React, useSwapTokenContract } from '../../hooks'
 import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
 import { useTransactionAdder } from '../../contexts/Transactions'
 import { useWalletModalToggle } from '../../contexts/Application'
+import { useDarkModeManager } from '../../contexts/LocalStorage'
 
 import { Button } from '../../theme'
 
@@ -23,6 +24,10 @@ import { amountFormatter } from '../../utils'
 import {getWeb3BaseInfo} from '../../utils/web3/txns'
 import config from '../../config'
 import {chainInfo} from '../../config/coinbase/nodeConfig'
+import {thousandBit} from '../../utils/tools'
+
+import {getSupply} from '../../utils/staking'
+import TokenLogo from '../../components/TokenLogo'
 
 const StakingBox = styled.div`
   width:100%;
@@ -31,15 +36,16 @@ const StakingBox = styled.div`
 const StakingList = styled.ul`
   ${({ theme }) => theme.FlexC};
   list-style:none;
+  padding:0!important;
 
   .item {
     ${({ theme }) => theme.FlexC};
     flex-wrap:wrap;
     width:100%;
-    max-width: 280px;
+    max-width: 320px;
     background: ${({ theme }) => theme.contentBg};
     box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
-    margin: 20px 15px;
+    margin: 15px 15px 20px;
     padding: 25px 15px 40px;
     border-radius: 10px;
 
@@ -77,6 +83,33 @@ const StakingList = styled.ul`
     }
   }
 `
+
+const StakingLi = styled.li`
+  width: 320px;
+  ${({ theme }) => theme.FlexSC};
+  flex-wrap:wrap;
+  background: ${({ theme }) => theme.contentBg};
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
+  margin: 20px 15px 0;
+  padding: 25px 15px 25px;
+  border-radius: 10px;
+  .title {
+    width:100%;
+    margin:0;
+    font-size:14px;
+    color: ${({ theme }) => theme.textColor};
+  }
+  .num {
+    width:100%;
+    margin:10px 0 0;
+    font-size:16px;
+    color: ${({ theme }) => theme.textColorBold};
+  }
+  .right {
+    margin-left:15px;
+  }
+`
+
 const InputRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
@@ -198,6 +231,7 @@ const web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
 export default function Staking () {
   const { account, library, chainId } = useWeb3React()
   const { t } = useTranslation()
+  const [isDark] = useDarkModeManager()
   const addTransaction = useTransactionAdder()
   const toggleWalletModal = useWalletModalToggle()
   let walletType = sessionStorage.getItem('walletType')
@@ -227,6 +261,9 @@ export default function Staking () {
   const [HarvestDisabled, setHarvestDisabled] = useState(true)
   const [DepositDisabled, setDepositDisabled] = useState(true)
   const [WithdrawDisabled, setWithdrawDisabled] = useState(true)
+
+  const [StakePool, setStakePool] = useState()
+  const [CirculatingSupply, setCirculatingSupply] = useState()
 
   useEffect(() => {
     if (approveAmount && Number(approveAmount) && account) {
@@ -298,6 +335,18 @@ export default function Staking () {
       }))
       batch.execute()
     }
+    web3ErcContract.methods.balanceOf(STAKE_TOKEN).call((err, res) => {
+      console.log(res)
+      if (!err && res) {
+        setStakePool(ethers.utils.bigNumberify(res))
+      }
+    })
+    getSupply().then(res => {
+      console.log(res)
+      if (res.CirculatingSupply) {
+        setCirculatingSupply(res.CirculatingSupply)
+      }
+    })
   }, [account])
   
 
@@ -447,7 +496,7 @@ export default function Staking () {
         status = false
       }
     } else {
-      let pr = amountFormatter(pendingReward)
+      let pr = amountFormatter(userInfo)
       if (Number(pr) < Number(stakeAmount) || Number(stakeAmount) === 0 || !pr || Number(pr) === 0) {
         status = true
       } else {
@@ -461,20 +510,20 @@ export default function Staking () {
   function stakingView () {
     return (
       <>
-        <LogoBox>
+        {/* <LogoBox>
           <div className='logo'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
           <div className='title'>
             <h3>Anyswap Party!</h3>
             <p>Deposit ANY SLP Tokens and earn ANY</p>
           </div>
-        </LogoBox>
+        </LogoBox> */}
 
         <StakingBox>
           <StakingList>
             <li className='item'>
               <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
               <div className='info'>
-                <h3>{amountFormatter(pendingReward)}</h3>
+                <h3>{pendingReward ? amountFormatter(pendingReward) : '0.00'}</h3>
                 <p>ANY Earned</p>
               </div>
               <div className='btn'><Button style={{height: '45px'}} disabled={HarvestDisabled} onClick={() => {
@@ -484,7 +533,7 @@ export default function Staking () {
             <li className='item'>
               <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
               <div className='info'>
-                <h3>{amountFormatter(userInfo)}</h3>
+                <h3>{userInfo ? amountFormatter(userInfo) : '0.00'}</h3>
                 <p>ANY Tokens Staked</p>
               </div>
               <div className='btn'>
@@ -499,7 +548,13 @@ export default function Staking () {
                         setStakingType('deposit')
                         setStakingModal(true)
                       }}>
-                        <img src={require('../../assets/images/icon/add.svg')} alt='' />
+                        {
+                          isDark ? (
+                            <img src={require('../../assets/images/icon/add-fff.svg')} alt='' />
+                          ) : (
+                            <img src={require('../../assets/images/icon/add.svg')} alt='' />
+                          )
+                        }
                       </AddBox>
                     </>
                   ) : (
@@ -519,6 +574,7 @@ export default function Staking () {
   function connectWallet () {
     return (
       <>
+        
         <ConnectWalletBox>
           <Button onClick={toggleWalletModal}  style={{height: '45px',width: '150px'}}>
             {t('connectToWallet')}
@@ -582,7 +638,24 @@ export default function Staking () {
       </Modal>
 
       <Title title={t('staking')}></Title>
-
+      <StakingBox>
+        <StakingList>
+          <StakingLi>
+            <TokenLogo address='ANY' size='48px'></TokenLogo>
+            <div className='right'>
+              <h2 className='title'>Total Staking</h2>
+              <h3 className='num'>{StakePool ? thousandBit(amountFormatter(StakePool), 2) : '0.00'}</h3>
+            </div>
+          </StakingLi>
+          <StakingLi>
+            {/* <h2 className='title'>Total ANY Supply</h2> */}
+            <h2 className='title'>Circulating Supply</h2>
+            <h3 className='num'>{CirculatingSupply ? thousandBit(CirculatingSupply, 2) : '0.00'}</h3>
+            <div>
+            </div>
+          </StakingLi>
+        </StakingList>
+      </StakingBox>
       {Number(CHAINID) !== Number(chainId) || !account ? connectWallet() : stakingView()}
     </>
   )

@@ -51,6 +51,7 @@ export default {
     // V2: 'http://localhost:8107/v2'
     V2: serverInfoUrl + '/v2'
   },
+  api: 'https://api.anyswap.exchange/',
   recordsTxnsUrl: 'https://agentapi.anyswap.exchange/recordTxns',
   // recordsTxnsUrl: 'http://localhost:8108/recordTxns',
   dirSwitchFn (type) {

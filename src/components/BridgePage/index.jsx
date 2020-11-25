@@ -2298,20 +2298,20 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       )}
       {
         // isDeposit ? (
-        isDeposit === 0 || isRedeem === 0 ? (
-          (isDeposit === 0 && isRedeem === 0 ? 
-            (
-              <MintWarningTip>
-                <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
-                <span dangerouslySetInnerHTML = { 
-                  {__html: t('brStopTip')}
-                }></span>
-              </MintWarningTip>
-            )
-            : 
-            ''
+        (isDeposit === 0 || isRedeem === 0 ? 
+          (
+            <MintWarningTip>
+              <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+              <span dangerouslySetInnerHTML = { 
+                {__html: t('brStopTip')}
+              }></span>
+            </MintWarningTip>
           )
-        ) : ''
+          : 
+          ''
+        )
+        // isDeposit === 0 || isRedeem === 0 ? (
+        // ) : ''
       }
       {
         registerAddress ? (

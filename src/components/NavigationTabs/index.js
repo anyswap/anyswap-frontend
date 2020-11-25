@@ -290,7 +290,7 @@ ${({ theme }) => theme.flexRowNoWrap}
 
 const OutLink = styled.div`
 padding-left: 44px;
-margin-top:78px;
+margin-top:28px;
 @media screen and (max-width: 960px) {
   display:none;
 }
