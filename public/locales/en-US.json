@@ -206,5 +206,10 @@
   "querying": "Querying",
   "staking": "Staking",
   "Unstake": "Unstake",
-  "Harvest": "Harvest"
+  "Harvest": "Harvest",
+  "Earned": "Earned",
+  "Staked": "Staked",
+  "anyTip": "Anyswap staking only supported Fusion mainnet!",
+  "TotalStaking": "Total Staking",
+  "CirculatingSupply": "Circulating Supply"
 }

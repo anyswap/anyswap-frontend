@@ -90,7 +90,7 @@ const StakingList = styled.ul`
 const StakingLi = styled.li`
   width: 320px;
   ${({ theme }) => theme.FlexSC};
-  flex-wrap:wrap;
+  // flex-wrap:wrap;
   background: ${({ theme }) => theme.contentBg};
   box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
   margin: 20px 15px 0;
@@ -100,7 +100,7 @@ const StakingLi = styled.li`
     width:100%;
     margin:0;
     font-size:14px;
-    color: ${({ theme }) => theme.textColor};
+    color: ${({ theme }) => theme.textColorBold};
   }
   .num {
     width:100%;
@@ -108,7 +108,8 @@ const StakingLi = styled.li`
     font-size:16px;
     color: ${({ theme }) => theme.textColorBold};
   }
-  .right {
+  .content {
+    width:100%;
     margin-left:15px;
   }
 `
@@ -159,18 +160,10 @@ const StakingModalBox = styled.div`
   flex-wrap:wrap;
 `
 
-const LogoBox = styled.div`
+const TipBox = styled.div`
   width:100%;
   text-align:center;
-  .logo {
-    width:120px;
-    height:100%;
-    display:inline-block;
-    img {
-      display:block;
-      width:100%;
-    }
-  }
+  margin-top:30px;
   .title {
     width:100%;
     text-align:center;
@@ -218,6 +211,16 @@ const AmountView = styled.div`
   font-size:14px;
   color:${({ theme }) => theme.textColor};
   margin-bottom:20px;
+`
+
+const Flex = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+
+  button {
+    // max-width: 20rem;
+  }
 `
 
 function formatCellData(str, len) {
@@ -269,7 +272,7 @@ export default function Staking () {
   const [CirculatingSupply, setCirculatingSupply] = useState()
 
   useEffect(() => {
-    if (approveAmount && Number(approveAmount) && account) {
+    if (approveAmount && Number(approveAmount) && account && Number(CHAINID) === Number(chainId)) {
       if (pendingReward && Number(pendingReward) > 0) {
         setHarvestDisabled(false)
       } else {
@@ -287,7 +290,6 @@ export default function Staking () {
       } else {
         setWithdrawDisabled(true)
       }
-
     } else {
       setHarvestDisabled(true)
       setDepositDisabled(true)
@@ -297,7 +299,7 @@ export default function Staking () {
 
 
   const getBaseInfo = useCallback(() => {
-    if (account) {
+    if (account && Number(CHAINID) === Number(chainId)) {
       const batch = new web3Fn.BatchRequest()
 
       const prData = web3Contract.methods.pendingReward(account).encodeABI()
@@ -370,6 +372,15 @@ export default function Staking () {
   }
 
   function deposit () {
+    if (isNaN(stakeAmount)) {
+      setStakeAmount('')
+      alert('Param is error!')
+      return
+    } else if (Number(stakeAmount) <= 0) {
+      setStakeAmount('')
+      alert('Amount must be greater than 0!')
+      return
+    }
     let amount = ethers.utils.parseUnits(stakeAmount.toString(), 18)
     amount = amount.toString()
     console.log(amount.toString())
@@ -398,6 +409,15 @@ export default function Staking () {
   }
 
   function withdraw (amount) {
+    if (isNaN(stakeAmount) && !amount) {
+      setStakeAmount('')
+      alert('Param is error!')
+      return
+    } else if (Number(stakeAmount) <= 0 && !amount) {
+      setStakeAmount('')
+      alert('Amount must be greater than 0!')
+      return
+    }
     amount = amount || amount === 0 ? amount : ethers.utils.parseUnits(stakeAmount.toString(), 18)
     console.log(amount.toString())
     if (config.supportWallet.includes(walletType)) {
@@ -452,39 +472,14 @@ export default function Staking () {
     })
   }
 
-  // function farm () {
-  //   if (config.supportWallet.includes(walletType)) {
-  //     setIsHardwareTip(true)
-  //     setHardwareTxnsInfo(t('Harvest') + amountFormatter(pendingReward) + ' ANY')
-  //     const data = web3Contract.methods.farm().encodeABI()
-  //     getWeb3BaseInfo(STAKE_TOKEN, data, account).then(res => {
-  //       if (res.msg === 'Success') {
-  //         console.log(res.info)
-  //         addTransaction(res.info)
-  //       } else {
-  //         alert(res.error)
-  //       }
-  //       backInit()
-  //     })
-  //   }
-  //   MMContract.farm().then(res => {
-  //     console.log(res)
-  //     addTransaction(res)
-  //     backInit()
-  //   }).catch(err => {
-  //     console.log(err)
-  //     backInit()
-  //   })
-  // }
   function onMax () {
     let amount = ''
-    console.log(balance)
     if (stakingType === 'deposit') {
       let bl = ethers.utils.bigNumberify(balance)
-      amount = amountFormatter(bl)
+      amount = amountFormatter(bl, 18, 18)
     } else {
       let bl = ethers.utils.bigNumberify(userInfo)
-      amount = amountFormatter(bl)
+      amount = amountFormatter(bl, 18, 18)
     }
     setStakeAmount(amount)
   }
@@ -492,14 +487,14 @@ export default function Staking () {
   useEffect(() => {
     let status = true
     if (stakingType === 'deposit') {
-      let bl = amountFormatter(balance)
+      let bl = amountFormatter(balance, 18, config.keepDec)
       if (Number(bl) < Number(stakeAmount) || Number(stakeAmount) === 0 || !bl || Number(bl) === 0) {
         status = true
       } else {
         status = false
       }
     } else {
-      let pr = amountFormatter(userInfo)
+      let pr = amountFormatter(userInfo, 18, config.keepDec)
       if (Number(pr) < Number(stakeAmount) || Number(stakeAmount) === 0 || !pr || Number(pr) === 0) {
         status = true
       } else {
@@ -511,23 +506,51 @@ export default function Staking () {
   }, [stakingType, pendingReward, balance, stakeAmount])
 
   function stakingView () {
+    let btnView = ''
+    if (Number(CHAINID) !== Number(chainId)) {
+      btnView = <Button onClick={() => {
+        localStorage.setItem(config.ENV_NODE_CONFIG, useChain.label)
+        history.go(0)
+      }}  style={{height: '45px', maxWidth: '200px'}}>
+        {t('SwitchTo')} Fusion {t('mainnet')}
+      </Button>
+    } else if (!account) {
+      btnView = <Button onClick={toggleWalletModal}  style={{height: '45px',maxWidth: '200px'}}>
+        {t('connectToWallet')}
+      </Button>
+    } else if (approveAmount && Number(approveAmount)) {
+      btnView = <>
+        <Button style={{height: '45px', maxWidth: '200px'}} disabled={WithdrawDisabled} onClick={() => {
+          setStakingType('Unstake')
+          setStakingModal(true)
+        }}>{t('Unstake')}</Button>
+        <AddBox disabled={DepositDisabled} onClick={() => {
+          setStakingType('deposit')
+          setStakingModal(true)
+        }}>
+          {
+            isDark ? (
+              <img src={require('../../assets/images/icon/add-fff.svg')} alt='' />
+            ) : (
+              <img src={require('../../assets/images/icon/add.svg')} alt='' />
+            )
+          }
+        </AddBox>
+      </>
+    } else {
+      btnView = <Button style={{height: '45px', maxWidth: '200px'}} disabled={unlocking} onClick={() => {
+        approve()
+      }}>{unlocking ? t('pending') : t('unlock')}</Button>
+    }
     return (
       <>
-        {/* <LogoBox>
-          <div className='logo'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
-          <div className='title'>
-            <h3>Anyswap Party!</h3>
-            <p>Deposit ANY SLP Tokens and earn ANY</p>
-          </div>
-        </LogoBox> */}
-
         <StakingBox>
           <StakingList>
             <li className='item'>
               <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
               <div className='info'>
-                <h3>{pendingReward ? amountFormatter(pendingReward) : '0.00'}</h3>
-                <p>ANY Earned</p>
+                <h3>{pendingReward ? amountFormatter(pendingReward, 18, config.keepDec) : '0.00'}</h3>
+                <p>ANY {t('Earned')}</p>
               </div>
               <div className='btn'><Button style={{height: '45px', maxWidth: '200px'}} disabled={HarvestDisabled} onClick={() => {
                 withdraw(0)
@@ -536,36 +559,11 @@ export default function Staking () {
             <li className='item'>
               <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
               <div className='info'>
-                <h3>{userInfo ? amountFormatter(userInfo) : '0.00'}</h3>
-                <p>ANY Tokens Staked</p>
+                <h3>{userInfo ? amountFormatter(userInfo, 18, config.keepDec) : '0.00'}</h3>
+                <p>ANY Tokens {t('Staked')}</p>
               </div>
               <div className='btn'>
-                {
-                  approveAmount && Number(approveAmount) ? (
-                    <>
-                      <Button style={{height: '45px', maxWidth: '200px'}} disabled={WithdrawDisabled} onClick={() => {
-                        setStakingType('Unstake')
-                        setStakingModal(true)
-                      }}>{t('Unstake')}</Button>
-                      <AddBox disabled={DepositDisabled} onClick={() => {
-                        setStakingType('deposit')
-                        setStakingModal(true)
-                      }}>
-                        {
-                          isDark ? (
-                            <img src={require('../../assets/images/icon/add-fff.svg')} alt='' />
-                          ) : (
-                            <img src={require('../../assets/images/icon/add.svg')} alt='' />
-                          )
-                        }
-                      </AddBox>
-                    </>
-                  ) : (
-                    <Button style={{height: '45px'}} disabled={unlocking} onClick={() => {
-                      approve()
-                    }}>{unlocking ? t('pending') : t('unlock')}</Button>
-                  )
-                }
+                {btnView}
               </div>
             </li>
           </StakingList>
@@ -575,9 +573,27 @@ export default function Staking () {
   }
 
   function connectWallet () {
+    if (Number(CHAINID) !== Number(chainId)) {
+      return (
+        <TipBox>
+          {/* <div className='logo'><img src={require('../../assets/images/coin/ANY.svg')} /></div> */}
+          <div className='title'>
+            <h3>Anyswap Tip!</h3>
+            <p>{t('anyTip')}</p>
+          </div>
+          <Flex>
+            <Button onClick={() => {
+              localStorage.setItem(config.ENV_NODE_CONFIG, useChain.label)
+              history.go(0)
+            }}  style={{height: '45px',width: '300px'}}>
+              {t('SwitchTo')} Fusion {t('mainnet')}
+            </Button>
+          </Flex>
+        </TipBox>
+      )
+    }
     return (
       <>
-        
         <ConnectWalletBox>
           <Button onClick={toggleWalletModal}  style={{height: '45px',width: '150px'}}>
             {t('connectToWallet')}
@@ -590,9 +606,9 @@ export default function Staking () {
   let amountView = ''
 
   if (stakingType === 'deposit') {
-    amountView = balance ? amountFormatter(ethers.utils.bigNumberify(balance)) : '0.00'
+    amountView = balance ? amountFormatter(ethers.utils.bigNumberify(balance), 18, config.keepDec) : '0.00'
   } else {
-    amountView = userInfo ? amountFormatter(ethers.utils.bigNumberify(userInfo)) : '0.00'
+    amountView = userInfo ? amountFormatter(ethers.utils.bigNumberify(userInfo), 18, config.keepDec) : '0.00'
   }
   return (
     <>
@@ -621,8 +637,8 @@ export default function Staking () {
         >
           <StakingModalBox>
             <InputRow>
-              <Input type="number"  placeholder="" value={stakeAmount} onChange={e => {
-                setStakeAmount(Number(e.target.value))
+              <Input type="text"  placeholder="" value={stakeAmount} onChange={e => {
+                setStakeAmount(e.target.value)
               }}/>
               <MaxBox onClick={() => {onMax()}}>Max</MaxBox>
             </InputRow>
@@ -645,21 +661,22 @@ export default function Staking () {
         <StakingList>
           <StakingLi>
             <TokenLogo address='ANY' size='48px'></TokenLogo>
-            <div className='right'>
-              <h2 className='title'>Total Staking</h2>
+            <div className='content'>
+              <h2 className='title'>{t('TotalStaking')}</h2>
               <h3 className='num'>{StakePool ? thousandBit(amountFormatter(StakePool), 2) : '0.00'}</h3>
             </div>
           </StakingLi>
           <StakingLi>
             {/* <h2 className='title'>Total ANY Supply</h2> */}
-            <h2 className='title'>Circulating Supply</h2>
-            <h3 className='num'>{CirculatingSupply ? thousandBit(CirculatingSupply, 2) : '0.00'}</h3>
-            <div>
+            <div className='content'>
+              <h2 className='title'>{t('CirculatingSupply')}</h2>
+              <h3 className='num'>{CirculatingSupply ? thousandBit(CirculatingSupply, 2) : '0.00'}</h3>
             </div>
           </StakingLi>
         </StakingList>
       </StakingBox>
-      {Number(CHAINID) !== Number(chainId) || !account ? connectWallet() : stakingView()}
+      {/* {Number(CHAINID) !== Number(chainId) || !account ? connectWallet() : ''} */}
+      {stakingView()}
     </>
   )
 }

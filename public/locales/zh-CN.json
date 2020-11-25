@@ -205,5 +205,10 @@
   "querying": "查询中",
   "staking": "存币",
   "Unstake": "提币",
-  "Harvest": "收割"
+  "Harvest": "收割",
+  "Earned": "收益",
+  "Staked": "抵押",
+  "anyTip": "Anyswap 抵押仅支持Fusion主网！",
+  "TotalStaking": "总抵押",
+  "CirculatingSupply": "当前流通量"
 }
