@@ -332,6 +332,7 @@ export default function Staking () {
     const rpbData = web3Contract.methods.rewardPerBlock().encodeABI()
     batch.add(web3Fn.eth.call.request({data: rpbData, to: STAKE_TOKEN}, 'latest', (err, res) => {
       if (!err && res) {
+        // console.log(ethers.utils.bigNumberify(res).toString())
         setBlockReward(ethers.utils.bigNumberify(res))
       }
     }))
@@ -566,7 +567,7 @@ export default function Staking () {
                 <h3>{pendingReward && Number(pendingReward.toString()) > 0 ? amountFormatter(pendingReward, 18, config.keepDec) : '0.00'}</h3>
                 <p>
                   ANY {t('Earned')}
-                  <span className='green' style={{marginLeft:'10px'}}>(APY: {StakingAPY ? Number(StakingAPY) * 100 : '0.00'} %)</span>
+                  <span className='green' style={{marginLeft:'10px'}}>(APY:{StakingAPY ? (Number(StakingAPY) * 100).toFixed(2) : '0.00'}%)</span>
                 </p>
               </div>
               <div className='btn'><Button style={{height: '45px', maxWidth: '200px'}} disabled={HarvestDisabled} onClick={() => {
