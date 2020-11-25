@@ -62,8 +62,8 @@ const tabOrder = [
   {
     path: '/staking',
     textKey: 'staking',
-    icon: require('../../assets/images/icon/bridge.svg'),
-    iconActive: require('../../assets/images/icon/bridge-purpl.svg'),
+    icon: require('../../assets/images/icon/send.svg'),
+    iconActive: require('../../assets/images/icon/send-purpl.svg'),
     regex: /\/staking/,
   },
 ]

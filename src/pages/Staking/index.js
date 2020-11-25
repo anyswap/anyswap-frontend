@@ -33,6 +33,10 @@ const StakingBox = styled.div`
   width:100%;
 `
 
+const TokenLogo1 = styled(TokenLogo)`
+background:none;
+`
+
 const StakingList = styled.ul`
   ${({ theme }) => theme.FlexC};
   list-style:none;
@@ -366,6 +370,7 @@ export default function Staking () {
         }
         backInit()
       })
+      return
     }
     MMContract.deposit(amount).then(res => {
       console.log(res)
@@ -406,6 +411,7 @@ export default function Staking () {
         }
         backInit()
       })
+      return
     }
     MMContract.withdraw(amount).then(res => {
       console.log(res)
@@ -433,6 +439,7 @@ export default function Staking () {
         }
         backInit()
       })
+      return
     }
     MMErcContract.approve(STAKE_TOKEN, _userTokenBalance).then(res => {
       console.log(res)
@@ -475,7 +482,9 @@ export default function Staking () {
         }
       }
     } else {
-      setStakeAmount('')
+      if (Number(stakeAmount) !== 0) {
+        setStakeAmount('')
+      }
     }
     
     setStakeDisabled(status)
@@ -605,7 +614,7 @@ export default function Staking () {
       <StakingBox>
         <StakingList>
           <StakingLi>
-            <TokenLogo address='ANY' size='48px'></TokenLogo>
+            <TokenLogo1 address='ANY' size='48px'></TokenLogo1>
             <div className='content'>
               <h2 className='title'>{t('TotalStaking')}</h2>
               <h3 className='num'>{StakePool ? thousandBit(amountFormatter(StakePool), 2) : '0.00'}</h3>
