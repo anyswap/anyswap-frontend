@@ -5,7 +5,7 @@ import { ethers } from 'ethers'
 import { transparentize } from 'polished'
 import { useWeb3React, useSwapTokenContract } from '../../hooks'
 // import { useAddressAllowance } from '../../contexts/Allowances'
-import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
+// import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
 import { useTransactionAdder } from '../../contexts/Transactions'
 import { useWalletModalToggle } from '../../contexts/Application'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
@@ -160,32 +160,6 @@ const StakingModalBox = styled.div`
   flex-wrap:wrap;
 `
 
-const TipBox = styled.div`
-  width:100%;
-  text-align:center;
-  margin-top:30px;
-  .title {
-    width:100%;
-    text-align:center;
-    margin:20px 0 0;
-    h3 {
-      color: ${({ theme }) => theme.textColorBold};
-      font-size:16px;
-      margin:0;
-    }
-    p {
-      color: ${({ theme }) => theme.textColor};
-      font-size:14px;
-      margin-bottom:0;
-    }
-  }
-`
-
-const ConnectWalletBox = styled.div`
-  ${({ theme }) => theme.FlexC};
-  width:100%;
-  min-height: 300px;
-`
 const AddBox = styled(Button)`
   ${({ theme }) => theme.FlexC};
   width: 45px;
@@ -213,16 +187,6 @@ const AmountView = styled.div`
   margin-bottom:20px;
 `
 
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-
-  button {
-    // max-width: 20rem;
-  }
-`
-
 function formatCellData(str, len) {
   let str1 = str.substr(0, len)
   return ethers.utils.bigNumberify(str1)
@@ -243,7 +207,6 @@ export default function Staking () {
   let walletType = sessionStorage.getItem('walletType')
   // const ANY_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
   const ANY_TOKEN = '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4'
-
   const STAKE_TOKEN = '0xeb96e36e8269a0f0d53833bab9683f1b4e1107a8'
 
   const web3Contract = new web3Fn.eth.Contract(STAKE_ABI, STAKE_TOKEN)
@@ -271,21 +234,23 @@ export default function Staking () {
   const [StakePool, setStakePool] = useState()
   const [CirculatingSupply, setCirculatingSupply] = useState()
 
+  const [BtnDelayDisabled, setBtnDelayDisabled] = useState(0)
+
   useEffect(() => {
     if (approveAmount && Number(approveAmount) && account && Number(CHAINID) === Number(chainId)) {
-      if (pendingReward && Number(pendingReward) > 0) {
+      if (pendingReward && Number(pendingReward) > 0 && BtnDelayDisabled !== 2) {
         setHarvestDisabled(false)
       } else {
         setHarvestDisabled(true)
       }
 
-      if (balance && Number(balance) > 0) {
+      if (balance && Number(balance) > 0 && BtnDelayDisabled !== 1) {
         setDepositDisabled(false)
       } else {
         setDepositDisabled(true)
       }
       
-      if (userInfo && Number(userInfo) > 0) {
+      if (userInfo && Number(userInfo) > 0 && BtnDelayDisabled !== 2) {
         setWithdrawDisabled(false)
       } else {
         setWithdrawDisabled(true)
@@ -295,7 +260,7 @@ export default function Staking () {
       setDepositDisabled(true)
       setWithdrawDisabled(true)
     }
-  }, [approveAmount, pendingReward, balance, userInfo, account])
+  }, [approveAmount, pendingReward, balance, userInfo, account, BtnDelayDisabled])
 
 
   const getBaseInfo = useCallback(() => {
@@ -341,13 +306,13 @@ export default function Staking () {
       batch.execute()
     }
     web3ErcContract.methods.balanceOf(STAKE_TOKEN).call((err, res) => {
-      console.log(res)
+      // console.log(res)
       if (!err && res) {
         setStakePool(ethers.utils.bigNumberify(res))
       }
     })
     getSupply().then(res => {
-      console.log(res)
+      // console.log(res)
       if (res.CirculatingSupply) {
         setCirculatingSupply(res.CirculatingSupply)
       }
@@ -381,6 +346,10 @@ export default function Staking () {
       alert('Amount must be greater than 0!')
       return
     }
+    setBtnDelayDisabled(1)
+    setTimeout(() => {
+      setBtnDelayDisabled(0)
+    }, 3000)
     let amount = ethers.utils.parseUnits(stakeAmount.toString(), 18)
     amount = amount.toString()
     console.log(amount.toString())
@@ -413,11 +382,15 @@ export default function Staking () {
       setStakeAmount('')
       alert('Param is error!')
       return
-    } else if (Number(stakeAmount) <= 0 && !amount) {
+    } else if (Number(stakeAmount) <= 0 && amount) {
       setStakeAmount('')
       alert('Amount must be greater than 0!')
       return
     }
+    setBtnDelayDisabled(2)
+    setTimeout(() => {
+      setBtnDelayDisabled(0)
+    }, 3000)
     amount = amount || amount === 0 ? amount : ethers.utils.parseUnits(stakeAmount.toString(), 18)
     console.log(amount.toString())
     if (config.supportWallet.includes(walletType)) {
@@ -486,24 +459,27 @@ export default function Staking () {
 
   useEffect(() => {
     let status = true
-    if (stakingType === 'deposit') {
-      let bl = amountFormatter(balance, 18, config.keepDec)
-      if (Number(bl) < Number(stakeAmount) || Number(stakeAmount) === 0 || !bl || Number(bl) === 0) {
-        status = true
+    if (stakeAmount && !isNaN(stakeAmount) && Number(stakeAmount) > 0 && !BtnDelayDisabled) {
+      let amount = ethers.utils.parseUnits(stakeAmount.toString(), 18)
+      if (stakingType === 'deposit') {
+        if (!balance || balance.lt(amount) || balance.lte(ethers.constants.Zero)) {
+          status = true
+        } else {
+          status = false
+        }
       } else {
-        status = false
+        if (!userInfo || userInfo.lt(amount) || userInfo.lte(ethers.constants.Zero)) {
+          status = true
+        } else {
+          status = false
+        }
       }
     } else {
-      let pr = amountFormatter(userInfo, 18, config.keepDec)
-      if (Number(pr) < Number(stakeAmount) || Number(stakeAmount) === 0 || !pr || Number(pr) === 0) {
-        status = true
-      } else {
-        status = false
-      }
+      setStakeAmount('')
     }
     
     setStakeDisabled(status)
-  }, [stakingType, pendingReward, balance, stakeAmount])
+  }, [stakingType, pendingReward, balance, stakeAmount, BtnDelayDisabled])
 
   function stakingView () {
     let btnView = ''
@@ -568,37 +544,6 @@ export default function Staking () {
             </li>
           </StakingList>
         </StakingBox>
-      </>
-    )
-  }
-
-  function connectWallet () {
-    if (Number(CHAINID) !== Number(chainId)) {
-      return (
-        <TipBox>
-          {/* <div className='logo'><img src={require('../../assets/images/coin/ANY.svg')} /></div> */}
-          <div className='title'>
-            <h3>Anyswap Tip!</h3>
-            <p>{t('anyTip')}</p>
-          </div>
-          <Flex>
-            <Button onClick={() => {
-              localStorage.setItem(config.ENV_NODE_CONFIG, useChain.label)
-              history.go(0)
-            }}  style={{height: '45px',width: '300px'}}>
-              {t('SwitchTo')} Fusion {t('mainnet')}
-            </Button>
-          </Flex>
-        </TipBox>
-      )
-    }
-    return (
-      <>
-        <ConnectWalletBox>
-          <Button onClick={toggleWalletModal}  style={{height: '45px',width: '150px'}}>
-            {t('connectToWallet')}
-          </Button>
-        </ConnectWalletBox>
       </>
     )
   }
