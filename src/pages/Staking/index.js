@@ -24,7 +24,7 @@ import { amountFormatter } from '../../utils'
 import {getWeb3BaseInfo} from '../../utils/web3/txns'
 import config from '../../config'
 import {chainInfo} from '../../config/coinbase/nodeConfig'
-import {thousandBit} from '../../utils/tools'
+import {thousandBit, formatNum} from '../../utils/tools'
 
 import {getSupply} from '../../utils/staking'
 import TokenLogo from '../../components/TokenLogo'
@@ -577,7 +577,7 @@ export default function Staking () {
             <li className='item'>
               <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
               <div className='info'>
-                <h3>{userInfo && Number(userInfo.toString()) > 0 ? amountFormatter(userInfo, 18, config.keepDec) : '0.00'}</h3>
+                <h3>{userInfo && Number(userInfo.toString()) > 0 ? formatNum(amountFormatter(userInfo, 18, config.keepDec)) : '0.00'}</h3>
                 <p>ANY Tokens {t('Staked')}</p>
               </div>
               <div className='btn'>
