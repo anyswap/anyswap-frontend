@@ -7,15 +7,15 @@ const TitleBox = styled.div`
   margin-bottom:1rem;
 `
 const TitleTxt = styled.div`
-  height: 24px;
-  line-height: 24px;
+  height: 38px;
+  line-height: 38px;
   font-size: 24px;
   font-weight: 800;
   color: ${({ theme }) => theme.textColorBold};
   white-space: nowrap;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    display:none;
-  `}
+  // ${({ theme }) => theme.mediaWidth.upToMedium`
+  //   display:none;
+  // `}
 `
 const TabLinkBox = styled.ul`
   ${({ theme }) => theme.FlexSC}

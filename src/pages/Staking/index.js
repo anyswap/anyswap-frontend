@@ -82,6 +82,9 @@ const StakingList = styled.ul`
       width:100%;
     }
   }
+  @media screen and (max-width: 960px) {
+    flex-wrap:wrap;
+  }
 `
 
 const StakingLi = styled.li`
@@ -526,7 +529,7 @@ export default function Staking () {
                 <h3>{pendingReward ? amountFormatter(pendingReward) : '0.00'}</h3>
                 <p>ANY Earned</p>
               </div>
-              <div className='btn'><Button style={{height: '45px'}} disabled={HarvestDisabled} onClick={() => {
+              <div className='btn'><Button style={{height: '45px', maxWidth: '200px'}} disabled={HarvestDisabled} onClick={() => {
                 withdraw(0)
               }}>{t('Harvest')}</Button></div>
             </li>
@@ -540,7 +543,7 @@ export default function Staking () {
                 {
                   approveAmount && Number(approveAmount) ? (
                     <>
-                      <Button style={{height: '45px'}} disabled={WithdrawDisabled} onClick={() => {
+                      <Button style={{height: '45px', maxWidth: '200px'}} disabled={WithdrawDisabled} onClick={() => {
                         setStakingType('Unstake')
                         setStakingModal(true)
                       }}>{t('Unstake')}</Button>
