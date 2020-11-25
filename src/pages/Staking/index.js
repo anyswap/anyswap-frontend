@@ -86,6 +86,9 @@ const StakingList = styled.ul`
       width:100%;
     }
   }
+  .green {
+    color: #2ead65;
+  }
   @media screen and (max-width: 960px) {
     flex-wrap:wrap;
   }
@@ -191,15 +194,17 @@ const AmountView = styled.div`
   margin-bottom:20px;
 `
 
-function formatCellData(str, len) {
-  let str1 = str.substr(0, len)
+function formatCellData(str, len, start) {
+  start = start ? start : 0
+  let str1 = str.substr(start, len)
+  str1 = str1.indexOf('0x') === 0 ? str1 : '0x' + str1
   return ethers.utils.bigNumberify(str1)
 }
 
 const Web3Fn = require('web3')
-const CHAINID = '46688'
-const useChain = chainInfo[CHAINID]
-const web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
+// const CHAINID = '46688'
+// const useChain = chainInfo[CHAINID]
+// const web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
 
 
 export default function Staking () {
@@ -208,10 +213,21 @@ export default function Staking () {
   const [isDark] = useDarkModeManager()
   const addTransaction = useTransactionAdder()
   const toggleWalletModal = useWalletModalToggle()
-  let walletType = sessionStorage.getItem('walletType')
-  // const ANY_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
-  const ANY_TOKEN = '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4'
-  const STAKE_TOKEN = '0xeb96e36e8269a0f0d53833bab9683f1b4e1107a8'
+  const walletType = sessionStorage.getItem('walletType')
+
+  let CHAINID = '46688'
+  let useChain = chainInfo[CHAINID]
+  let web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
+  let ANY_TOKEN = '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4'
+  let STAKE_TOKEN = '0xeb96e36e8269a0f0d53833bab9683f1b4e1107a8'
+  if (config.env === 'main') {
+    CHAINID = '32659'
+    useChain = chainInfo[CHAINID]
+    web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
+    ANY_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
+    STAKE_TOKEN = '0xa5a3c93776ba2e1a78c79e88a2cb5abab2a0097f'
+  }
+  
 
   const web3Contract = new web3Fn.eth.Contract(STAKE_ABI, STAKE_TOKEN)
   const web3ErcContract = new web3Fn.eth.Contract(ERC20_ABI, ANY_TOKEN)
@@ -236,6 +252,8 @@ export default function Staking () {
   const [WithdrawDisabled, setWithdrawDisabled] = useState(true)
 
   const [StakePool, setStakePool] = useState()
+  const [BlockReward, setBlockReward] = useState()
+  const [StakingAPY, setStakingAPY] = useState()
   const [CirculatingSupply, setCirculatingSupply] = useState()
 
   const [BtnDelayDisabled, setBtnDelayDisabled] = useState(0)
@@ -268,9 +286,8 @@ export default function Staking () {
 
 
   const getBaseInfo = useCallback(() => {
+    const batch = new web3Fn.BatchRequest()
     if (account && Number(CHAINID) === Number(chainId)) {
-      const batch = new web3Fn.BatchRequest()
-
       const prData = web3Contract.methods.pendingReward(account).encodeABI()
       batch.add(web3Fn.eth.call.request({data: prData, to: STAKE_TOKEN}, 'latest', (err, reward) => {
         if (!err) {
@@ -290,8 +307,6 @@ export default function Staking () {
       const alData = web3ErcContract.methods.allowance(account, STAKE_TOKEN).encodeABI()
       batch.add(web3Fn.eth.call.request({data: alData, to: ANY_TOKEN}, 'latest', (err, allowance) => {
         if (!err) {
-          // console.log('allowance')
-          // console.log(formatCellData(allowance, 66).toString())
           setApproveAmount(formatCellData(allowance, 66))
           if (Number(formatCellData(allowance, 66).toString()) > 0) {
             setUnlocking(false)
@@ -302,19 +317,26 @@ export default function Staking () {
       const uiData = web3Contract.methods.userInfo(account).encodeABI()
       batch.add(web3Fn.eth.call.request({data: uiData, to: STAKE_TOKEN}, 'latest', (err, userInfo) => {
         if (!err) {
-          // console.log('userInfo')
-          // console.log(formatCellData(userInfo, 66).toString())
           setUserInfo(formatCellData(userInfo, 66))
         }
       }))
-      batch.execute()
     }
-    web3ErcContract.methods.balanceOf(STAKE_TOKEN).call((err, res) => {
-      // console.log(res)
+
+    const tsData = web3ErcContract.methods.balanceOf(STAKE_TOKEN).encodeABI()
+    batch.add(web3Fn.eth.call.request({data: tsData, to: ANY_TOKEN}, 'latest', (err, res) => {
       if (!err && res) {
         setStakePool(ethers.utils.bigNumberify(res))
       }
-    })
+    }))
+
+    const rpbData = web3Contract.methods.rewardPerBlock().encodeABI()
+    batch.add(web3Fn.eth.call.request({data: rpbData, to: STAKE_TOKEN}, 'latest', (err, res) => {
+      if (!err && res) {
+        setBlockReward(ethers.utils.bigNumberify(res))
+      }
+    }))
+    batch.execute()
+    
     getSupply().then(res => {
       // console.log(res)
       if (res.CirculatingSupply) {
@@ -322,6 +344,13 @@ export default function Staking () {
       }
     })
   }, [account])
+
+  useEffect(() => {
+    if (StakePool && StakePool.gt(ethers.constants.Zero) && BlockReward && BlockReward.gt(ethers.constants.Zero)) {
+      let apy = BlockReward.mul(6600 * 365).div(StakePool)
+      setStakingAPY(apy)
+    }
+  }, [BlockReward, StakePool])
   
 
   useEffect(() => {
@@ -332,6 +361,32 @@ export default function Staking () {
       library.removeListener('block', getBaseInfo)
     }
   }, [getBaseInfo, library])
+
+  useEffect(() => {
+    let status = true
+    if (stakeAmount && !isNaN(stakeAmount) && Number(stakeAmount) > 0 && !BtnDelayDisabled) {
+      let amount = ethers.utils.parseUnits(stakeAmount.toString(), 18)
+      if (stakingType === 'deposit') {
+        if (!balance || balance.lt(amount) || balance.lte(ethers.constants.Zero)) {
+          status = true
+        } else {
+          status = false
+        }
+      } else {
+        if (!userInfo || userInfo.lt(amount) || userInfo.lte(ethers.constants.Zero)) {
+          status = true
+        } else {
+          status = false
+        }
+      }
+    } else {
+      if (Number(stakeAmount) !== 0) {
+        setStakeAmount('')
+      }
+    }
+    
+    setStakeDisabled(status)
+  }, [stakingType, pendingReward, balance, stakeAmount, BtnDelayDisabled])
 
   function backInit () {
     setStakingModal(false)
@@ -464,32 +519,6 @@ export default function Staking () {
     setStakeAmount(amount)
   }
 
-  useEffect(() => {
-    let status = true
-    if (stakeAmount && !isNaN(stakeAmount) && Number(stakeAmount) > 0 && !BtnDelayDisabled) {
-      let amount = ethers.utils.parseUnits(stakeAmount.toString(), 18)
-      if (stakingType === 'deposit') {
-        if (!balance || balance.lt(amount) || balance.lte(ethers.constants.Zero)) {
-          status = true
-        } else {
-          status = false
-        }
-      } else {
-        if (!userInfo || userInfo.lt(amount) || userInfo.lte(ethers.constants.Zero)) {
-          status = true
-        } else {
-          status = false
-        }
-      }
-    } else {
-      if (Number(stakeAmount) !== 0) {
-        setStakeAmount('')
-      }
-    }
-    
-    setStakeDisabled(status)
-  }, [stakingType, pendingReward, balance, stakeAmount, BtnDelayDisabled])
-
   function stakingView () {
     let btnView = ''
     if (Number(CHAINID) !== Number(chainId)) {
@@ -534,8 +563,11 @@ export default function Staking () {
             <li className='item'>
               <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
               <div className='info'>
-                <h3>{pendingReward ? amountFormatter(pendingReward, 18, config.keepDec) : '0.00'}</h3>
-                <p>ANY {t('Earned')}</p>
+                <h3>{pendingReward && Number(pendingReward.toString()) > 0 ? amountFormatter(pendingReward, 18, config.keepDec) : '0.00'}</h3>
+                <p>
+                  ANY {t('Earned')}
+                  <span className='green' style={{marginLeft:'10px'}}>(APY: {StakingAPY ? Number(StakingAPY) * 100 : '0.00'} %)</span>
+                </p>
               </div>
               <div className='btn'><Button style={{height: '45px', maxWidth: '200px'}} disabled={HarvestDisabled} onClick={() => {
                 withdraw(0)
@@ -544,7 +576,7 @@ export default function Staking () {
             <li className='item'>
               <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
               <div className='info'>
-                <h3>{userInfo ? amountFormatter(userInfo, 18, config.keepDec) : '0.00'}</h3>
+                <h3>{userInfo && Number(userInfo.toString()) > 0 ? amountFormatter(userInfo, 18, config.keepDec) : '0.00'}</h3>
                 <p>ANY Tokens {t('Staked')}</p>
               </div>
               <div className='btn'>
@@ -558,14 +590,35 @@ export default function Staking () {
   }
 
   let amountView = ''
-
   if (stakingType === 'deposit') {
     amountView = balance ? amountFormatter(ethers.utils.bigNumberify(balance), 18, config.keepDec) : '0.00'
   } else {
     amountView = userInfo ? amountFormatter(ethers.utils.bigNumberify(userInfo), 18, config.keepDec) : '0.00'
   }
+
+  // function test () {
+  //   if (config.supportWallet.includes(walletType)) {
+  //     const data = web3Contract.methods.registerNode(STAKE_TOKEN, _userTokenBalance).encodeABI()
+  //     getWeb3BaseInfo(ANY_TOKEN, data, account).then(res => {
+  //       if (res.msg === 'Success') {
+  //         console.log(res.info)
+  //         addTransaction(res.info)
+  //       } else {
+  //         alert(res.error)
+  //       }
+  //     })
+  //     return
+  //   }
+  //   MMContract.registerNode("DCRM:d5ff73c6206f19f48164be66bcc4f491d4dc62724da5bd08531a0f38d52b7147afae10d3493fd3c8293e95e0e69c0ba8bff2bd2b818a2a807d6de58aebe29884").then(res => {
+  //     console.log(res)
+  //     addTransaction(res)
+  //   }).catch(err => {
+  //     console.log(err)
+  //   })
+  // }
   return (
     <>
+      {/* <Button onClick={() => {test()}}>Test</Button> */}
       <HardwareTip
         HardwareTipOpen={isHardwareTip}
         closeHardwareTip={() => {
@@ -574,7 +627,6 @@ export default function Staking () {
         txnsInfo={hardwareTxnsInfo}
         title={t(stakingType ? stakingType : 'deposit')}
       >
-
       </HardwareTip>
       <Modal
         style={{ userSelect: 'none' }}
