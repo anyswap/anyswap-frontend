@@ -2113,6 +2113,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             iconActiveUrl: require('../../assets/images/icon/withdraw-purple.svg')
           }
         ]}
+        currentTab={bridgeType && bridgeType === 'redeem' ? 1 : 0}
+        // currentTab={bridgeType}
       ></Title>
       <CurrencyInputPanel
         // title={t('input')}
@@ -2245,7 +2247,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         ) : ('')
       }
       <OversizedPanel>
-        <DownArrowBackground>
+        <DownArrowBackground onClick={() => {
+          if (bridgeType && bridgeType === 'redeem') {
+            changeMorR('mint')
+          } else {
+            changeMorR('redeem')
+          }
+        }}>
           <img src={ResertSvg} alt={''} />
         </DownArrowBackground>
       </OversizedPanel>

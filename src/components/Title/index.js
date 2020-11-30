@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
@@ -151,11 +151,12 @@ const StyledNavLink = styled(NavLink).attrs({
 `
 
 
-export default function Title({ title, tabList = [] , isNavLink = false}) {
+export default function Title({ title, tabList = [] , isNavLink = false, currentTab}) {
   const [tabIndex, setTabIndex] = useState(0)
   const [tabName, setTabName] = useState('')
   const pathname = window.location.pathname
   const activeTabKey = tabList.length > 0 ? tabList[tabList.findIndex(({ regex }) => pathname.match(regex))].name : ''
+  
   function tabListView() {
     if (isNavLink) {
       return (
@@ -185,7 +186,10 @@ export default function Title({ title, tabList = [] , isNavLink = false}) {
             return (
               <li
                 key={index}
-                className={tabIndex === index ? 'active' : ''}
+                className={
+                  !isNaN(currentTab) && Number(currentTab) === index ? 'active' :
+                  (tabIndex === index && isNaN(currentTab) ? 'active' : '')
+                }
                 onClick={() => {
                   setTabIndex(index)
                   setTabName(item.name)
@@ -193,7 +197,11 @@ export default function Title({ title, tabList = [] , isNavLink = false}) {
                 }}
               >
                 <div className="icon">
-                  {tabIndex === index ? <img alt={''} src={item.iconActiveUrl} /> : <img alt={''} src={item.iconUrl} />}
+                  {
+                    !isNaN(currentTab) && Number(currentTab) === index ? <img alt={''} src={item.iconActiveUrl} /> :
+                    (tabIndex === index && isNaN(currentTab) ? <img alt={''} src={item.iconActiveUrl} /> : <img alt={''} src={item.iconUrl} />)
+                  }
+                  {/* {tabIndex === index || (!isNaN(currentTab) && Number(currentTab) === index) ? <img alt={''} src={item.iconActiveUrl} /> : <img alt={''} src={item.iconUrl} />} */}
                 </div>
                 {item.name}
               </li>
@@ -206,7 +214,10 @@ export default function Title({ title, tabList = [] , isNavLink = false}) {
   return (
     <>
       <TitleBox>
-        <TitleTxt>{tabName ? tabName : (isNavLink ? activeTabKey : title)}</TitleTxt>
+        <TitleTxt>{
+        !isNaN(currentTab) ? tabList[currentTab].name : (tabName ? tabName : (isNavLink ? activeTabKey : title))
+        }
+        </TitleTxt>
         {tabList.length > 0 ? tabListView() : ''}
       </TitleBox>
     </>

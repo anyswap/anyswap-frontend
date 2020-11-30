@@ -256,7 +256,7 @@ export default {
       }
     },
     '0x688b72f103a7e8e4206c495f2e620c001a06b7b4': { // Hegic 257
-      [NAME]: 'Hegic',
+      [NAME]: 'ANY Hegic',
       [SYMBOL]: config.prefix + 'HEGIC',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xE77db24949717C80ed7bE1598C4f34Ce085936A8',
@@ -280,7 +280,7 @@ export default {
       }
     },
     '0xf705b20357f00c535f599a73a10da6bfaccf676e': { // RIO 696
-      [NAME]: 'Realio Network',
+      [NAME]: 'ANY Realio Network',
       [SYMBOL]: config.prefix + 'RIO',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x206F5138Bb23CB9fDC79D44065c0605E6f623167',
@@ -304,7 +304,7 @@ export default {
       }
     },
     '0x928b76c83e903f2e5e8119dd1037e2da1646dcee': { // ENQ 1172
-      [NAME]: 'Enecuum',
+      [NAME]: 'ANY Enecuum',
       [SYMBOL]: config.prefix + 'ENQ',
       [DECIMALS]: 10,
       [EXCHANGE_ADDRESS]: '0xe036648C2dd5C48bBc6Dc00a4137f44f776F76EF',
@@ -329,7 +329,7 @@ export default {
     },
 
     '0xe8c537e655cab73e6a7d902c0bbe7edf9e755274': { // ZLOT 2645
-      [NAME]: 'zLOT Finance',
+      [NAME]: 'ANY zLOT Finance',
       [SYMBOL]: config.prefix + 'ZLOT',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x49B314A0D13E6B63d2eBB561792762e04BC887eC',
