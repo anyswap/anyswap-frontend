@@ -1131,7 +1131,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   //   console.log(ethers.utils.parseUnits(inputValueFormatted.toString(), inputDecimals).toString())
   // }
   
-  inputValueFormatted = inputValueFormatted ? Number(formatDecimal(inputValueFormatted, inputDecimals)) : ''
+  // console.log(inputValueFormatted)
+  inputValueFormatted = inputValueFormatted || inputValueFormatted === 0 ? Number(formatDecimal(inputValueFormatted, inputDecimals)) : ''
   // console.log(independentValue)
   // console.log(inputValueFormatted)
   // console.log(dependentValueFormatted)
@@ -1625,7 +1626,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   function txnsList (arr, count) {
     // console.log(arr)
-    arr = arr.reverse()
+    // arr = arr.reverse()
     return (
       <MintHahshList key={count}>
         <ul>
@@ -2205,7 +2206,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               inputVal = inputVal.sub(_fee)
             }
           }
-          if (inputVal) {
+          // console.log(inputVal)
+          if (inputVal || inputVal === 0) {
             // console.log(inputVal)
             inputVal = amountFormatter(inputVal, inputDecimals, Math.min(10, inputDecimals))
             // console.log(inputVal)
