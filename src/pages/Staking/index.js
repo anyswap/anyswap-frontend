@@ -193,6 +193,15 @@ const AmountView = styled.div`
   color:${({ theme }) => theme.textColor};
   margin-bottom:20px;
 `
+const Flex = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+
+  button {
+    max-width: 20rem;
+  }
+`
 
 function formatCellData(str, len, start) {
   start = start ? start : 0
@@ -225,7 +234,8 @@ export default function Staking () {
     useChain = chainInfo[CHAINID]
     web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
     ANY_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
-    STAKE_TOKEN = '0xa5a3c93776ba2e1a78c79e88a2cb5abab2a0097f'
+    // STAKE_TOKEN = '0xa5a3c93776ba2e1a78c79e88a2cb5abab2a0097f'
+    STAKE_TOKEN = '0x2e1f1c7620eecc7b7c571dff36e43ac7ed276779'
   }
   
 
@@ -348,7 +358,7 @@ export default function Staking () {
 
   useEffect(() => {
     if (StakePool && StakePool.gt(ethers.constants.Zero) && BlockReward && BlockReward.gt(ethers.constants.Zero)) {
-      let apy = BlockReward.mul(6600 * 365).div(StakePool)
+      let apy = BlockReward.mul(6600 * 365 * 10000).div(StakePool)
       setStakingAPY(apy)
     }
   }, [BlockReward, StakePool])
@@ -566,7 +576,7 @@ export default function Staking () {
               <div className='info'>
                 <h3>{pendingReward && Number(pendingReward.toString()) > 0 ? amountFormatter(pendingReward, 18, config.keepDec) : '0.00'}</h3>
                 <p>
-                  ANY {t('Earned')}<span className='green' style={{marginLeft:'2px'}}>(APY:{StakingAPY ? (Number(StakingAPY) * 100).toFixed(2) : '0.00'}%)</span>
+                  ANY {t('Earned')}<span className='green' style={{marginLeft:'2px'}}>(APY:{StakingAPY ? (Number(StakingAPY) / 100).toFixed(2) : '0.00'}%)</span>
                 </p>
               </div>
               <div className='btn'><Button style={{height: '45px', maxWidth: '200px'}} disabled={HarvestDisabled} onClick={() => {
@@ -596,29 +606,32 @@ export default function Staking () {
     amountView = userInfo ? amountFormatter(ethers.utils.bigNumberify(userInfo), 18, config.keepDec) : '0.00'
   }
 
-  // function test () {
+  // function test (amount) {
   //   if (config.supportWallet.includes(walletType)) {
-  //     const data = web3Contract.methods.registerNode(STAKE_TOKEN, _userTokenBalance).encodeABI()
-  //     getWeb3BaseInfo(ANY_TOKEN, data, account).then(res => {
+  //     setIsHardwareTip(true)
+  //     const data = web3Contract.methods.emergencyWithdraw().encodeABI()
+  //     getWeb3BaseInfo(STAKE_TOKEN, data, account).then(res => {
   //       if (res.msg === 'Success') {
   //         console.log(res.info)
   //         addTransaction(res.info)
   //       } else {
   //         alert(res.error)
   //       }
+  //       backInit()
   //     })
   //     return
   //   }
-  //   MMContract.registerNode("DCRM:d5ff73c6206f19f48164be66bcc4f491d4dc62724da5bd08531a0f38d52b7147afae10d3493fd3c8293e95e0e69c0ba8bff2bd2b818a2a807d6de58aebe29884").then(res => {
+  //   MMContract.emergencyWithdraw().then(res => {
   //     console.log(res)
   //     addTransaction(res)
+  //     backInit()
   //   }).catch(err => {
   //     console.log(err)
+  //     backInit()
   //   })
   // }
   return (
     <>
-      {/* <Button onClick={() => {test()}}>Test</Button> */}
       <HardwareTip
         HardwareTipOpen={isHardwareTip}
         closeHardwareTip={() => {
@@ -663,6 +676,9 @@ export default function Staking () {
       </Modal>
 
       <Title title={t('staking')}></Title>
+      {/* <Flex>
+        <Button onClick={() => {test()}} style={{height: '45px',width: '240px'}}>Withdraw All</Button>
+      </Flex> */}
       <StakingBox>
         <StakingList>
           <StakingLi>

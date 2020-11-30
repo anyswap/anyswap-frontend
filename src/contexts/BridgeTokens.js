@@ -801,6 +801,21 @@ export default {
       [NAME]: 'RIO',
       [TOKEN]: '0xf21661d0d1d76d3ecb8e1b9f1c923dbfffae4097',
       [DECIMALS]: 18,
+    },
+    'HEGIC': { // 
+      [NAME]: 'HEGIC',
+      [TOKEN]: '0x584bc13c7d411c00c01a62e8019472de68768430',
+      [DECIMALS]: 18,
+    },
+    'ZLOT': { // 
+      [NAME]: 'ZLOT',
+      [TOKEN]: '0xA8e7AD77C60eE6f30BaC54E2E7c0617Bd7B5A03E',
+      [DECIMALS]: 18,
+    },
+    'ENQ': { // 
+      [NAME]: 'ENQ',
+      [TOKEN]: '0x16ea01acb4b0bca2000ee5473348b6937ee6f72f',
+      [DECIMALS]: 10,
     }
   },
   4: {

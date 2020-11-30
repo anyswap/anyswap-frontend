@@ -86,7 +86,7 @@ const tabOrder2 = [
     className: 'otherInfo'
   },
   {
-    path: '',
+    path: window.location.origin + '/dashboard',
     textKey: 'Network',
     icon: require('../../assets/images/icon/network.svg'),
     iconActive: require('../../assets/images/icon/network-purpl.svg'),

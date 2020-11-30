@@ -42,7 +42,7 @@ export default {
       [EXTENDOBJ]:  {}
     },
     '0xddcb3ffd12750b45d32e084887fdf1aabab34239': { // ANY
-      [NAME]: 'Anyswap',
+      [NAME]: 'Anyswap' + config.suffix,
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x918F6De5b683b688961DEAB48546Ca422280c64F',

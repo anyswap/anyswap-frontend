@@ -769,7 +769,8 @@ function isBTC (coin) {
 function formatName (name) {
   if (
     config.symbol === 'BNB' ||
-    config.symbol === 'ETH'
+    config.symbol === 'ETH' ||
+    config.symbol === 'FTM'
   ) {
     return name.replace(config.suffix, '')
   } else {

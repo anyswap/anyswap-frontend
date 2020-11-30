@@ -255,6 +255,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x688b72f103a7e8e4206c495f2e620c001a06b7b4': { // Hegic 257
+      [NAME]: 'Hegic',
+      [SYMBOL]: config.prefix + 'HEGIC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xE77db24949717C80ed7bE1598C4f34Ce085936A8',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 100,
+      [FEE]: 0.001,
+      [MAXFEE]: 250,
+      [MINFEE]: 25,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 1000000,
+      [DEPOSIT_MIN_NUM]: 3,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     '0xf705b20357f00c535f599a73a10da6bfaccf676e': { // RIO 696
       [NAME]: 'Realio Network',
       [SYMBOL]: config.prefix + 'RIO',
@@ -279,6 +303,56 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x928b76c83e903f2e5e8119dd1037e2da1646dcee': { // ENQ 1172
+      [NAME]: 'Enecuum',
+      [SYMBOL]: config.prefix + 'ENQ',
+      [DECIMALS]: 10,
+      [EXCHANGE_ADDRESS]: '0xe036648C2dd5C48bBc6Dc00a4137f44f776F76EF',
+      [REDEEM_MAX_NUM]: 25000000,
+      [REDEEM_MIN_NUM]: 2500,
+      [FEE]: 0.001,
+      [MAXFEE]: 6000,
+      [MINFEE]: 600,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000000,
+      [DEPOSIT_MIN_NUM]: 60,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+
+    '0xe8c537e655cab73e6a7d902c0bbe7edf9e755274': { // ZLOT 2645
+      [NAME]: 'zLOT Finance',
+      [SYMBOL]: config.prefix + 'ZLOT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x49B314A0D13E6B63d2eBB561792762e04BC887eC',
+      [REDEEM_MAX_NUM]: 200,
+      [REDEEM_MIN_NUM]: 0.02,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 0.005,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200,
+      [DEPOSIT_MIN_NUM]: 0.0005,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+
     '0x20dd2f2bfa4ce3eaec5f57629583dad8a325872a': { // FUSE
       [NAME]: 'Fusionite',
       [SYMBOL]: 'FUSE',
