@@ -352,7 +352,25 @@ export default {
         VERSION: 'V2'
       }
     },
-
+    '0x35e0f7499bcb1e41b4027e26ab074108e90631a0': { // LC
+      [NAME]: 'Lichang Token',
+      [SYMBOL]: 'LC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8F0B2B672a41c8Ecd5d5b0226620005EDd223757',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {}
+    },
     '0x20dd2f2bfa4ce3eaec5f57629583dad8a325872a': { // FUSE
       [NAME]: 'Fusionite',
       [SYMBOL]: 'FUSE',

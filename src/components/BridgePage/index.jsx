@@ -2187,9 +2187,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           })
         }}
         onValueChange={inputValue => {
-          console.log(inputValue)
-          inputValue = formatDecimal(inputValue, inputDecimals)
-          let inputVal = inputValue && Number(inputValue) ? ethers.utils.parseUnits(inputValue.toString(), inputDecimals) : ethers.utils.bigNumberify(0)
+          // console.log(inputValue)
+          let iValue = formatDecimal(inputValue, inputDecimals)
+          let inputVal = iValue && Number(iValue) ? ethers.utils.parseUnits(iValue.toString(), inputDecimals) : ethers.utils.bigNumberify(0)
           if (bridgeType && bridgeType === 'redeem') {
             let _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
             let _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
@@ -2206,8 +2206,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               inputVal = inputVal.sub(_fee)
             }
           }
-          // console.log(inputVal)
-          if (inputVal || inputVal === 0) {
+          if ((inputVal || inputVal === 0) && inputValue !== '') {
             // console.log(inputVal)
             inputVal = amountFormatter(inputVal, inputDecimals, Math.min(10, inputDecimals))
             // console.log(inputVal)
