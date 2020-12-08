@@ -197,7 +197,7 @@ export default {
       }
     },
     '0x2cd598b0513abdb52bdd92a1ab4670fc4578570f': { // LTC 5
-      [NAME]: 'Litecoin ' + config.suffix,
+      [NAME]: 'Litecoin' + config.suffix,
       [SYMBOL]: 'anyLTC',
       [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0x752c3B1F58BD17761295061BB135b7E588483b58',

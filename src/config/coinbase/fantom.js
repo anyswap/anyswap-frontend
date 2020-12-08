@@ -88,6 +88,12 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
     initAddr: '',  // 
   },
+  ltc: { // ltc配置
+    lookHash: 'https://blockchair.com/litecoin/transaction/', // 
+    queryTxns: 'https://sochain.com/api/v2/get_tx_received/LTC/', // 
+    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
+    initAddr: 'LPpmqgdvbBh6jMn2TS4nCKv54SS2GCEevH',  // 
+  },
   isOpenRewards: 1, // 是否打开奖励数据
   isChangeDashboard: 0, // 是否改变资产顺序
   noSupportBridge: [

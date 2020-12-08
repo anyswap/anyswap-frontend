@@ -156,6 +156,27 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xbcacf1c62202a07e6107f250b788b10677045833': { // LTC 5
+      [NAME]: 'Litecoin' + config.suffix,
+      [SYMBOL]: 'anyLTC',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xE06f7F05a3C07444F62a28089ab5533e59820624',
+      [REDEEM_MAX_NUM]: 20000,
+      [REDEEM_MIN_NUM]: 0.2,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.5,
+      [MINFEE]: 0.07,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: 'LPpmqgdvbBh6jMn2TS4nCKv54SS2GCEevH',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20000,
+      [DEPOSIT_MIN_NUM]: 0.1,
+      [EXTENDOBJ]: {
+        VERSION: 'V2'
+      },
+    },
     '0xc396b190f251d7f79c583fd06347a09781f085c9': { // anyYFI-ERC20
       [NAME]: 'yearn.finance',
       [SYMBOL]: 'anyYFI',
