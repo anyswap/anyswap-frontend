@@ -572,7 +572,7 @@ export default function Staking () {
         <StakingBox>
           <StakingList>
             <li className='item'>
-              <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
+              <div className='pic'><img src={require('../../assets/images/coin/source/ANY.svg')} /></div>
               <div className='info'>
                 <h3>{pendingReward && Number(pendingReward.toString()) > 0 ? amountFormatter(pendingReward, 18, config.keepDec) : '0.00'}</h3>
                 <p>
@@ -584,7 +584,7 @@ export default function Staking () {
               }}>{t('Harvest')}</Button></div>
             </li>
             <li className='item'>
-              <div className='pic'><img src={require('../../assets/images/coin/ANY.svg')} /></div>
+              <div className='pic'><img src={require('../../assets/images/coin/source/ANY.svg')} /></div>
               <div className='info'>
                 <h3>{userInfo && Number(userInfo.toString()) > 0 ? formatNum(amountFormatter(userInfo, 18, config.keepDec)) : '0.00'}</h3>
                 <p>ANY Tokens {t('Staked')}</p>

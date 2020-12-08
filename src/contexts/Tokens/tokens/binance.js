@@ -196,6 +196,27 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x2cd598b0513abdb52bdd92a1ab4670fc4578570f': { // LTC 5
+      [NAME]: 'Litecoin ' + config.suffix,
+      [SYMBOL]: 'anyLTC',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 20000,
+      [REDEEM_MIN_NUM]: 0.2,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.5,
+      [MINFEE]: 0.07,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: 'Lf2GpJmz2FZM1xW5V8xo1ZvA3Rh7ZX51iQ',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20000,
+      [DEPOSIT_MIN_NUM]: 0.1,
+      [EXTENDOBJ]: {
+        VERSION: 'V2'
+      },
+    },
     '0xf8a0bf9cf54bb92f17374d9e9a321e6a111a51bd': { // LINKB 6
       [NAME]: 'Binance-Peg Chainlink',
       [SYMBOL]: 'LINKB',

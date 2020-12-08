@@ -31,7 +31,6 @@ import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.sv
 import AddTwoBlackIcon from '../../assets/images/icon/add-2-black.svg'
 import WeekIcon from '../../assets/images/icon/week.svg'
 import MintMlackIcon from '../../assets/images/icon/mint-black.svg'
-// import FSNLogo from '../../assets/images/coin/FSN.svg'
 import AddBtnIcon from '../../assets/images/icon/add-white.svg'
 
 import TokenLogo from '../../components/TokenLogo'

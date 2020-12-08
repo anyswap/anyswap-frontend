@@ -2,24 +2,6 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { isAddress } from '../../utils'
 
-// import { ReactComponent as EthereumLogo } from '../../assets/images/ethereum-logo.svg'
-// import { ReactComponent as FusionLogo } from '../../assets/images/fsn.svg'
-// import { ReactComponent as BTCLogo } from '../../assets/images/btc.svg'
-
-// const TOKEN_ICON_API = address =>
-//   `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
-//     address
-//   )}/logo.png`
-
-// const TOKEN_ICON_API = address => 
-//   // console.log(address)
-//   `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${isAddress(
-//     address
-//   )}/logo.png`
-
-
-const BAD_IMAGES = {}
-
 const Image = styled.img`
   width: ${({ size }) => size};
   height: ${({ size }) => size};
@@ -29,42 +11,70 @@ const Image = styled.img`
   border-radius: ${({ size }) => size};
 `
 
-// const Emoji = styled.span`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: ${({ size }) => size};
-//   height: ${({ size }) => size};
-// `
-
-// const StyledEthereumLogo = styled(FusionLogo)`
-//   width: ${({ size }) => size};
-//   height: ${({ size }) => size};
-// `
-
-// const StyledBTCLogo = styled(BTCLogo)`
-//   width: ${({ size }) => size};
-//   height: ${({ size }) => size};
-// `
-
-export default function TokenLogo({ address, size = '1rem', ...rest }) {
-  const [error, setError] = useState(false)
+export default function TokenLogo({ address, size = '1rem', isAny = true, ...rest }) {
   let path = ''
   // console.log(address)
-  address = address ? address.replace('any', '') : ''
+  // address = address ? address.replace('any', '') : ''
   if (address) {
-    try {
-      path = require('../../assets/images/coin/' + address + '.svg')
-    } catch (error) {
+    if (isAny) {
+      if (address.indexOf('a') === 0 && address.indexOf('any') === -1) {
+        address = address.replace('a', 'any')
+        try {
+          path = require('../../assets/images/coin/any/' + address + '.svg')
+        } catch (error) {
+          path = require('../../assets/images/coin/any/' + address + '.png')
+        }
+      } else if (address.indexOf('any') !== -1) {
+        try {
+          path = require('../../assets/images/coin/any/' + address + '.svg')
+        } catch (error) {
+          path = require('../../assets/images/coin/any/' + address + '.png')
+        }
+      } else {
+        if (address.lastIndexOf('B') === (address.length - 1) && address.indexOf('BNB') === -1) {
+          address = address.substr(0, address.lastIndexOf('B'))
+          try {
+            path = require('../../assets/images/coin/source/' + address + '.svg')
+          } catch (error) {
+            path = require('../../assets/images/coin/source/' + address + '.png')
+          }
+        } else {
+          try {
+            path = require('../../assets/images/coin/source/' + address + '.svg')
+          } catch (error) {
+            path = require('../../assets/images/coin/source/' + address + '.png')
+          }
+        }
+      }
+    } else {
+      address = address.replace('any', '').replace('a', '')
       try {
-        path = require('../../assets/images/coin/' + address + '.png')
+        path = require('../../assets/images/coin/' + address + '.svg')
       } catch (error) {
-        path = require('../../assets/images/question.svg')
+        try {
+          path = require('../../assets/images/coin/' + address + '.png')
+        } catch (error) {
+          path = require('../../assets/images/question.svg')
+        }
       }
     }
   } else {
     path = require('../../assets/images/question.svg')
   }
+  // if (address) {
+  //   try {
+  //     // path = require('../../assets/images/coin/' + address + '.svg')
+  //     path = require('../../assets/images/coin/' + address + '.svg')
+  //   } catch (error) {
+  //     try {
+  //       path = require('../../assets/images/coin/' + address + '.png')
+  //     } catch (error) {
+  //       path = require('../../assets/images/question.svg')
+  //     }
+  //   }
+  // } else {
+  //   path = require('../../assets/images/question.svg')
+  // }
 
   return (
     <Image
@@ -72,10 +82,6 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
       alt={address}
       src={path}
       size={size}
-      onError={() => {
-        BAD_IMAGES[address] = true
-        setError(true)
-      }}
     />
   )
 }

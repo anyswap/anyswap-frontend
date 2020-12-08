@@ -129,6 +129,27 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x0abcfbfa8e3fda8b7fba18721caf7d5cf55cf5f5': { // LTC 5
+      [NAME]: 'Litecoin ' + config.suffix,
+      [SYMBOL]: 'anyLTC',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 20000,
+      [REDEEM_MIN_NUM]: 0.2,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.5,
+      [MINFEE]: 0.07,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: 'Ld184nvim5wvH2cNw9tuJdH2VvL3Kx5wBh',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20000,
+      [DEPOSIT_MIN_NUM]: 0.1,
+      [EXTENDOBJ]: {
+        VERSION: 'V2'
+      },
+    },
     '0x514910771af9ca656af840dff83e8264ecf986ca': { // LINK
       [NAME]: 'ChainLink Token',
       [SYMBOL]: 'LINK',
