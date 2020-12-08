@@ -16,9 +16,9 @@ const Web3 = require('web3')
 const Tx  = require("ethereumjs-tx")
 
 // const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
+// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0xa12cba22e4c316820bf4883ebb98a3789cf194a3') // FSN-MAIN
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x421d35f8f8fd822f898e75db43f057f7ea448298') // FSN-test
-// // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
+// let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0fe3ca366d6079dc3427af7865839b') // BSC-MAIN
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x0911fD5BCbC574c59bee6D7B772587B4A03D2778') // FTM-MAIN
 // // let factory = new web3Test.eth.Contract(FACTORY_ABI, '0x73a001e72f0Fe3CA366d6079dC3427af7865839b') // ETH-MAIN
 // setTimeout(() => {
@@ -33,7 +33,7 @@ const Tx  = require("ethereumjs-tx")
 //   //     console.log(res)
 //   //   })
 //   // }
-//   factory.methods.getExchange('0x35e0f7499bcb1e41b4027e26ab074108e90631a0').call((err, res) => {
+//   factory.methods.getExchange('0x2cd598b0513abdb52bdd92a1ab4670fc4578570f').call((err, res) => {
 //     console.log('ZLOT')
 //     console.log(res)
 //   })

@@ -82,11 +82,11 @@ const MAIN_CONFIG = {
   initToken: '0xddcb3ffd12750b45d32e084887fdf1aabab34239', // 交易默认合约
   initBridge: '0xddcb3ffd12750b45d32e084887fdf1aabab34239', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
-  btcConfig: { // btc配置
+  btc: { // btc配置
     lookHash: 'https://www.blockchain.com/btc/tx/', // 
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/', // 
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
-    btcAddr: '',  // 
+    initAddr: '',  // 
   },
   isOpenRewards: 1, // 是否打开奖励数据
   isChangeDashboard: 0, // 是否改变资产顺序
@@ -106,11 +106,11 @@ const MAIN_CONFIG = {
 //   initToken: INIT_TEST_TOKEN,
 //   initBridge: '0x67198ea7208d00864a36bcf9c98a6352b2941de9',
 //   explorerUrl: CHAIN_TEST_INFO.explorer,
-//   btcConfig: {
+//   btc: {
 //     lookHash: 'https://sochain.com/tx/BTCTEST/',
 //     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTCTEST/',
 //     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
-//     btcAddr: 'mmBUP62PJNDndtSvH4ef65gUAucgQY5dqA'
+//     initAddr: 'mmBUP62PJNDndtSvH4ef65gUAucgQY5dqA'
 //   },
 //   isOpenRewards: 1,
 //   isChangeDashboard: 1,

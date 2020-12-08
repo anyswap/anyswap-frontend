@@ -49,7 +49,7 @@ import WarningTip from '../WarningTip'
 import {HDsendERC20Txns, MMsendERC20Txns, getHashStatus, getWithdrawHashStatus} from '../../utils/web3/BridgeWeb3'
 import BridgeTokens from '../../contexts/BridgeTokens'
 
-import {createBTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/birdge/BTC'
+import {createBTCaddress, createLTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/birdge/BTC'
 // import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
 
 import {getServerInfo, removeLocalConfig, getRegisterInfo} from '../../utils/birdge/getServerInfo'
@@ -758,11 +758,13 @@ function swapStateReducer(state, action) {
   }
 }
 
-function isBTC (coin) {
+function isSpecialCoin (coin) {
   if (formatCoin(coin) === 'BTC') {
-    return true
+    return 1
+  } else if (formatCoin(coin) === 'LTC') {
+    return 2
   } else {
-    return false
+    return 0
   }
 }
 
@@ -811,15 +813,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     return ''
   }
 
-  // const fetchPoolTokens = useCallback(() => {
-  //   if (exchangeContract) {
-  //     exchangeContract.totalSupply().then(totalSupply => {
-  //       setTotalPoolTokens(totalSupply)
-  //     }).catch(err => {
-  //       console.log(err)
-  //     })
-  //   }
-  // }, [exchangeContract])
   function getAllOutBalanceFn () {
     let tokenClass = {}
     for (let tk in allTokens) {
@@ -977,13 +970,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let coin = formatCoin(inputSymbol)
     if (account && initIsDeposit && initIsRedeem) {
       getServerInfo(account, tokenOnlyOne, inputSymbol, chainId, version).then(res => {
-        // console.log(res)
+        console.log(res)
         if (res.msg === 'Success' && res.info) {
           let serverInfo = res.info
           setIsRegister(true)
           try {
             let DepositAddress = ''
-            if (!isBTC(coin)) {
+            if (!isSpecialCoin(coin)) {
               let erc20Token = BridgeTokens[node] && BridgeTokens[node][coin] && BridgeTokens[node][coin].token ? BridgeTokens[node][coin].token : ''
               if (
                 (initDepositAddress.toLowerCase() !== serverInfo.depositAddress.toLowerCase())
@@ -1000,7 +993,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               }
               DepositAddress = serverInfo.depositAddress
             } else {
-              if (serverInfo.dcrmAddress.toLowerCase() !== config.btcConfig.btcAddr.toLowerCase()) {
+
+              if (
+                (serverInfo.dcrmAddress.toLowerCase() !== config.btc.initAddr.toLowerCase() && isSpecialCoin(coin) === 1) ||
+                (serverInfo.dcrmAddress.toLowerCase() !== config.ltc.initAddr.toLowerCase() && isSpecialCoin(coin) === 2)
+              ) {
                 console.log(2)
                 // removeRegisterInfo(account, tokenOnlyOne)
                 removeLocalConfig(account, tokenOnlyOne, chainId)
@@ -1011,8 +1008,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               let p2pAddress = serverInfo.p2pAddress ? serverInfo.p2pAddress : getRegisterInfo(account, tokenOnlyOne, chainId, version, coin).p2pAddress
               if (p2pAddress) {
                 DepositAddress = p2pAddress
+                let localBTCAddr = ''
+                if (isSpecialCoin(coin) === 1) {
+                  localBTCAddr = createBTCaddress(account)
+                } else if (isSpecialCoin(coin) === 2) {
+                  localBTCAddr = createLTCaddress(account)
+                }
                 console.log('DepositAddress', DepositAddress)
-                let localBTCAddr = createBTCaddress(account)
                 console.log('localBTCAddr', localBTCAddr)
                 if (p2pAddress !== localBTCAddr) {
                   console.log(3)
@@ -1175,10 +1177,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && Number(inputValueFormatted) <= Number(redeemMaxNum)
         && Number(inputValueFormatted) >= Number(redeemMinNum)
       ) {
-        if (isBTC(inputSymbol) && isBTCAddress(recipient.address)) {
+        if (isSpecialCoin(inputSymbol) && isBTCAddress(recipient.address, inputSymbol)) {
           setIsRedeem(false)
           setBalanceError('')
-        } else if (!isBTC(inputSymbol) && isAddress(recipient.address)) {
+        } else if (!isSpecialCoin(inputSymbol) && isAddress(recipient.address)) {
           setIsRedeem(false)
           setBalanceError('')
         } else {
@@ -1220,11 +1222,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && Number(inputValueFormatted) <= depositMaxNum
         && Number(inputValueFormatted) >= depositMinNum
       ) {
-        if ( isBTC(inputSymbol) ) {
+        if ( isSpecialCoin(inputSymbol) ) {
           setIsMintBtn(false)
           setBalanceError('')
         } else if (
-          !isBTC(inputSymbol)
+          !isSpecialCoin(inputSymbol)
           && Number(inputValueFormatted) <= Number(outNetBalance)
           && Number(outNetETHBalance) >= 0.01
         ) {
@@ -1288,7 +1290,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     cleanInput()
   }
   function sendTxns (node) {
-    if (isBTC(inputSymbol) && !isBTCAddress(recipient.address)) {
+    if (isSpecialCoin(inputSymbol) && !isBTCAddress(recipient.address, inputSymbol)) {
       alert('Illegal address!')
       return
     }
@@ -1307,14 +1309,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setIsHardwareError(false)
       setIsHardwareTip(true)
       setHardwareTxnsInfo(amountFormatter(amountVal, inputDecimals, inputDecimals) + " "  + inputSymbol)
-      let web3Contract = getWeb3ConTract(swapBTCABI, inputCurrency)
-
-      let data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
-      if (!isBTC(inputSymbol)) {
-        web3Contract = getWeb3ConTract(swapETHABI, inputCurrency)
-        // data = web3Contract.Swapout.getData(amountVal)
-        data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
+      
+      let web3Contract = getWeb3ConTract(swapETHABI, inputCurrency)
+      if (isSpecialCoin(inputSymbol) === 1) {
+        web3Contract = getWeb3ConTract(swapBTCABI, inputCurrency)
       }
+      let data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
       getWeb3BaseInfo(inputCurrency, data, account).then(res => {
         if (res.msg === 'Success') {
           // console.log(res.info)
@@ -1327,12 +1327,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       return
     }
 
-    if (!isBTC(inputSymbol)) {
-      // console.log(amountVal)
+    if (isSpecialCoin(inputSymbol) === 0) {
       tokenETHContract.Swapout(amountVal, address).then(res => {
-        // console.log(res)
-        // addTransaction(res)
-        // cleanInput()
         sendTxnsEnd(res, amountVal, address, node)
         setIsHardwareTip(false)
       }).catch(err => {
@@ -1523,7 +1519,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || hashArr[i].swapStatus === 'confirming'
           || hashArr[i].swapStatus === 'minting'
         ) {
-          if (isBTC(hashArr[i].coin)) {
+          if (isSpecialCoin(hashArr[i].coin)) {
             GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].account, hashArr[i].bridgeVersion).then(res => {
               updateHashStatusData(res)
             })
@@ -1673,10 +1669,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         hash: mintDtil.hash,
         url: config.bridgeAll[chainId].lookHash + mintDtil.hash
       }
-      if (isBTC(mintDtil.coin)) {
+      if (isSpecialCoin(mintDtil.coin) === 1) {
         hashOutObj = {
           hash: mintDtil.swapHash,
-          url: config.btcConfig.lookHash + mintDtil.swapHash
+          url: config.btc.lookHash + mintDtil.swapHash
+        }
+      } else if (isSpecialCoin(mintDtil.coin) === 2) {
+        hashOutObj = {
+          hash: mintDtil.swapHash,
+          url: config.ltc.lookHash + mintDtil.swapHash
         }
       } else {
         hashOutObj = {
@@ -1689,10 +1690,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         hash: mintDtil.swapHash,
         url: config.bridgeAll[chainId].lookHash + mintDtil.swapHash
       }
-      if (isBTC(mintDtil.coin)) {
+      if (isSpecialCoin(mintDtil.coin) === 1) {
         hashCurObj = {
           hash: mintDtil.hash,
-          url: config.btcConfig.lookHash + mintDtil.hash
+          url: config.btc.lookHash + mintDtil.hash
+        }
+      } else if (isSpecialCoin(mintDtil.coin) === 2) {
+        hashCurObj = {
+          hash: mintDtil.hash,
+          url: config.ltc.lookHash + mintDtil.hash
         }
       } else {
         hashCurObj = {
@@ -1836,7 +1842,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             setTimeout(() => {
               setIsDisableed(true)
             }, 3000)
-            if ( isBTC(inputSymbol) ) {
+            if ( isSpecialCoin(inputSymbol)) {
               // MintModelView()
               getBTCtxns()
             } else {
@@ -1917,7 +1923,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       (bridgeType && bridgeType === 'redeem')
       || !account
       || !registerAddress
-      || isBTC(inputSymbol)
+      || isSpecialCoin(inputSymbol)
       || (Number(outNetETHBalance) >= 0.02 && Number(outNetBalance) > Number(depositMinNum))
       || !node
     ) {
@@ -2098,7 +2104,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           {
             name: t('deposit1'),
             onTabClick: name => {
-              console.log(name)
               changeMorR('mint')
             },
             iconUrl: require('../../assets/images/icon/deposit.svg'),
@@ -2107,7 +2112,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           {
             name: t('redeem'),
             onTabClick: name => {
-              console.log(name)
               changeMorR('redeem')
             },
             iconUrl: require('../../assets/images/icon/withdraw.svg'),
@@ -2121,7 +2125,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // title={t('input')}
         title={t(bridgeType && bridgeType === 'redeem' ? 'redeem' : 'deposit1')}
         urlAddedTokens={urlAddedTokens}
-        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : (outNetBalance && !isBTC(inputSymbol) ? formatBalance(outNetBalance) : '')}
+        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? formatBalance(inputBalanceFormatted) : (outNetBalance && !isSpecialCoin(inputSymbol) ? formatBalance(outNetBalance) : '')}
         extraTextClickHander={() => {
           let inputVal
           let value = ''
@@ -2262,7 +2266,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // title={t('input')}
         title={t(bridgeType && bridgeType === 'redeem' ? 'receive' : 'receive')}
         urlAddedTokens={urlAddedTokens}
-        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? (outNetBalance && !isBTC(inputSymbol) ? formatBalance(outNetBalance) : '') : inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
+        extraText={bridgeType && bridgeType === 'redeem' && inputBalanceFormatted ? (outNetBalance && !isSpecialCoin(inputSymbol) ? formatBalance(outNetBalance) : '') : inputBalanceFormatted && formatBalance(inputBalanceFormatted)}
         onCurrencySelected={inputCurrency => {
           dispatchSwapState({
             type: 'SELECT_CURRENCY',
@@ -2285,7 +2289,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           <AddressInputPanel title={t('recipient') + ' ' + (inputSymbol ? formatCoin(inputSymbol) : inputSymbol)  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false} changeCount={recipientCount}/>
         </>
       ) : (
-        isBTC(inputSymbol) && account && registerAddress ? (
+        isSpecialCoin(inputSymbol) && account && registerAddress ? (
           <>
           <InputPanel>
             <ContainerRow>
@@ -2365,7 +2369,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       coin: formatCoin(inputSymbol),
                     }) + (inputSymbol ? '' : '')}</dd>
                     {
-                      account && !isBTC(inputSymbol) ? (
+                      account && !isSpecialCoin(inputSymbol) ? (
                         walletTip()
                       ) : ''
                     }

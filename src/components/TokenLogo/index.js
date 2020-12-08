@@ -49,10 +49,10 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
     } else {
       address = address.replace('any', '').replace('a', '')
       try {
-        path = require('../../assets/images/coin/' + address + '.svg')
+        path = require('../../assets/images/coin/source/' + address + '.svg')
       } catch (error) {
         try {
-          path = require('../../assets/images/coin/' + address + '.png')
+          path = require('../../assets/images/coin/source/' + address + '.png')
         } catch (error) {
           path = require('../../assets/images/question.svg')
         }

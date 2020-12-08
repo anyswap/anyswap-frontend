@@ -72,11 +72,17 @@ const MAIN_CONFIG = {
   initBridge: '0x51600b0cff6bbf79e7767158c41fd15e968ec404', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
-  btcConfig: { // btc配置
+  btc: { // btc配置
     lookHash: 'https://www.blockchain.com/btc/tx/', // 
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/', // 
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
-    btcAddr: '1918DgsaJCsRF5E5rTp2AsE5XyFTF95tTQ',  // 
+    initAddr: '1918DgsaJCsRF5E5rTp2AsE5XyFTF95tTQ',  // 
+  },
+  ltc: { // ltc配置
+    lookHash: 'https://blockchair.com/litecoin/transaction/', // 
+    queryTxns: 'https://sochain.com/api/v2/get_tx_received/LTC/', // 
+    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
+    initAddr: 'Ld184nvim5wvH2cNw9tuJdH2VvL3Kx5wBh',  // 
   },
   isOpenRewards: 1, // 是否打开奖励数据
   isChangeDashboard: 0, // 是否改变资产顺序
@@ -104,11 +110,11 @@ const MAIN_CONFIG = {
 //   initBridge: '0x67198ea7208d00864a36bcf9c98a6352b2941de9',
 //   explorerUrl: CHAIN_TEST_INFO.explorer,
 //   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
-//   btcConfig: {
+//   btc: {
 //     lookHash: 'https://sochain.com/tx/BTCTEST/',
 //     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTCTEST/',
 //     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
-//     btcAddr: 'mmBUP62PJNDndtSvH4ef65gUAucgQY5dqA'
+//     initAddr: 'mmBUP62PJNDndtSvH4ef65gUAucgQY5dqA'
 //   },
 //   isOpenRewards: 1,
 //   isChangeDashboard: 1,

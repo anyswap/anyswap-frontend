@@ -17,7 +17,8 @@ const FSN_TESTNET = 'https://testnet.fsn.dev/api'
 const FSN_TEST_CHAINID = 46688
 const FSN_TEST_EXPLORER = 'https://fsnex.com'
 
-const ETH_MAINNET = 'https://ethmainnet.anyswap.exchange'
+// const ETH_MAINNET = 'https://ethmainnet.anyswap.exchange'
+const ETH_MAINNET = 'https://mainnet.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0'
 const ETH_MAIN_CHAINID = 1
 const ETH_MAIN_EXPLORER = 'https://etherscan.io'
 
@@ -29,9 +30,6 @@ const FTM_MAINNET = 'https://rpc.fantom.network'
 const FTM_MAIN_CHAINID = 250
 const FTM_MAIN_EXPLORER = 'https://explorer.fantom.network'
 
-const FTM_TESTNET = ''
-const FTM_TEST_CHAINID = ''
-const FTM_TEST_EXPLORER = ''
 
 let chainInfo = {
   1: {

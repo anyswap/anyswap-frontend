@@ -86,7 +86,7 @@ const tabOrder2 = [
     className: 'otherInfo'
   },
   {
-    path: window.location.origin + '/dashboard',
+    path: 'https://anyswap.net/',
     textKey: 'Network',
     icon: require('../../assets/images/icon/network.svg'),
     iconActive: require('../../assets/images/icon/network-purpl.svg'),

@@ -71,11 +71,17 @@ const MAIN_CONFIG = {
   initBridge: '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa',
   explorerUrl: CHAIN_MAIN_INFO.explorer,
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
-  btcConfig: {
+  btc: {
     lookHash: 'https://www.blockchain.com/btc/tx/',
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/',
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/',
-    btcAddr: '1MECwqonAq9UDKN838vnBuqsUCWpWyB1pN'
+    initAddr: '1MECwqonAq9UDKN838vnBuqsUCWpWyB1pN'
+  },
+  ltc: { // ltc配置
+    lookHash: 'https://blockchair.com/litecoin/transaction/', // 
+    queryTxns: 'https://sochain.com/api/v2/get_tx_received/LTC/', // 
+    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
+    initAddr: 'Lf2GpJmz2FZM1xW5V8xo1ZvA3Rh7ZX51iQ',  // 
   },
   isOpenRewards: 1,
   isChangeDashboard: 0,
@@ -114,11 +120,11 @@ const TEST_CONFIG = {
   initBridge: '0x4ce47351aeafbd81f9888187288996fe0322ffa2',
   explorerUrl: CHAIN_TEST_INFO.explorer,
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
-  btcConfig: {
+  btc: {
     lookHash: 'https://sochain.com/tx/BTCTEST/',
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTCTEST/',
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
-    btcAddr: ''
+    initAddr: ''
   },
   isOpenRewards: 0,
   isChangeDashboard: 0,

@@ -133,7 +133,7 @@ export default {
       [NAME]: 'Litecoin ' + config.suffix,
       [SYMBOL]: 'anyLTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '',
+      [EXCHANGE_ADDRESS]: '0x7b41Fc5889e35818c295c5Dbed4C28Ce2b40dB38',
       [REDEEM_MAX_NUM]: 20000,
       [REDEEM_MIN_NUM]: 0.2,
       [FEE]: 0.001,
