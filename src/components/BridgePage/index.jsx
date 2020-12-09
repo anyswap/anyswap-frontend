@@ -790,7 +790,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const allTokens = useAllTokenDetails()
   let walletType = sessionStorage.getItem('walletType')
   // let HDPath = sessionStorage.getItem('HDPath')
-  // account = '0x8c270c4ef7f62C6663EbCd116D4b2dc038fCF8BB'
+  // account = ''
   // console.log(allTokens)
   
   const urlAddedTokens = {}
@@ -1590,7 +1590,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       if (res) {
         for (let obj of hashArr) {
           if (res.hash === obj.hash) {
-            setMintBTCErrorTip(t('BTCmintTip'))
+            setMintBTCErrorTip(t('BTCmintTip', {coin: formatCoin(inputSymbol)}))
             MintModelView()
             return
           }
@@ -1600,7 +1600,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         setMintDtil(res)
         setMintDtilView(true)
       } else {
-        setMintBTCErrorTip(t('BTCmintTip'))
+        setMintBTCErrorTip(t('BTCmintTip', {coin: formatCoin(inputSymbol)}))
         MintModelView()
       }
       setLoadingState(false)
@@ -1661,7 +1661,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   function txnsListDtil () {
     if (!mintDtil || !mintDtil.hash) return ''
-    console.log(mintDtil)
+    // console.log(mintDtil)
     let hashCurObj = {}
     let hashOutObj = {}
     if (bridgeType === 'redeem') {
@@ -1710,7 +1710,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     // console.log(hashOutObj)
     let outNodeName = '', curNodeName = config.bridgeAll[chainId].name
     if (!mintDtil.node) {
-      outNodeName = 'Bitcoin'
+      if (isSpecialCoin(mintDtil.coin) === 1) {
+        outNodeName = 'Bitcoin'
+      } else if (isSpecialCoin(mintDtil.coin) === 2) {
+        outNodeName = 'Litecoin'
+      }
     } else {
       outNodeName = config.bridgeAll[mintDtil.node].name
     }
@@ -1739,6 +1743,20 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         {mintDtil.status === 2 ? (<span className='red'>Failure</span>) : ''}
       </HashStatus>
     )
+    const fromView = <MintList>
+      <MintListLabel>{bridgeType === 'redeem' ? t('from') : t('to')}:</MintListLabel>
+      <MintListVal>
+        {mintDtil.from ? mintDtil.from : account}
+        <Copy toCopy={mintDtil.from ? mintDtil.from : account} />
+      </MintListVal>
+    </MintList>
+    const toView = <MintList>
+      <MintListLabel>{bridgeType === 'redeem' ? t('to') : t('from')}:</MintListLabel>
+      <MintListVal>
+        {mintDtil.to}
+        <Copy toCopy={mintDtil.to} />
+      </MintListVal>
+    </MintList>
     return (
       <MintDiv>
         <MintList>
@@ -1753,24 +1771,17 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             </MintList>
           ) : ''
         }
-        {
-          mintDtil.from ? (
-            <MintList>
-              <MintListLabel>{t('from')}:</MintListLabel>
-              <MintListVal>
-                {mintDtil.from}
-                <Copy toCopy={mintDtil.from} />
-              </MintListVal>
-            </MintList>
-          ) : ''
-        }
-        <MintList>
-          <MintListLabel>{t('to')}:</MintListLabel>
-          <MintListVal>
-            {mintDtil.to}
-            <Copy toCopy={mintDtil.to} />
-          </MintListVal>
-        </MintList>
+        {bridgeType === 'redeem' ? (
+          <>
+            {fromView}
+            {toView}
+          </>
+        ) : (
+          <>
+            {toView}
+            {fromView}
+          </>
+        )}
         <MintList>
           <MintListLabel>{t('value')}:</MintListLabel>
           <MintListVal>{Number(mintDtil.value)}</MintListVal>

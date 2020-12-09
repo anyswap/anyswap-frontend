@@ -1,3 +1,5 @@
+const navLang = navigator.language
+
 const BNB_MAINNET = 'https://bsc-dataseed1.binance.org/'
 const BNB_MAIN_CHAINID = 56
 const BNB_MAIN_EXPLORER = 'https://bscscan.com'
@@ -17,10 +19,11 @@ const FSN_TESTNET = 'https://testnet.fsn.dev/api'
 const FSN_TEST_CHAINID = 46688
 const FSN_TEST_EXPLORER = 'https://fsnex.com'
 
-// const ETH_MAINNET = 'https://ethmainnet.anyswap.exchange'
-const ETH_MAINNET = 'https://mainnet.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0'
+const ETH_MAINNET = 'https://ethmainnet.anyswap.exchange'
+// const ETH_MAINNET = 'https://mainnet.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0'
 const ETH_MAIN_CHAINID = 1
-const ETH_MAIN_EXPLORER = 'https://etherscan.io'
+const ETH_MAIN_EXPLORER = navLang === 'zh-CN' ? 'https://cn.etherscan.com' : 'https://etherscan.io'
+
 
 const ETH_TESTNET = 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0'
 const ETH_TEST_CHAINID = 4
