@@ -22,13 +22,21 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
         try {
           path = require('../../assets/images/coin/any/' + address + '.svg')
         } catch (error) {
-          path = require('../../assets/images/coin/any/' + address + '.png')
+          try {
+            path = require('../../assets/images/coin/any/' + address + '.png')
+          } catch (error) {
+            path = require('../../assets/images/question.svg')
+          }
         }
       } else if (address.indexOf('any') !== -1) {
         try {
           path = require('../../assets/images/coin/any/' + address + '.svg')
         } catch (error) {
-          path = require('../../assets/images/coin/any/' + address + '.png')
+          try {
+            path = require('../../assets/images/coin/any/' + address + '.png')
+          } catch (error) {
+            path = require('../../assets/images/question.svg')
+          }
         }
       } else {
         if (address.lastIndexOf('B') === (address.length - 1) && address.indexOf('BNB') === -1) {
@@ -36,13 +44,21 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
           try {
             path = require('../../assets/images/coin/source/' + address + '.svg')
           } catch (error) {
-            path = require('../../assets/images/coin/source/' + address + '.png')
+            try {
+              path = require('../../assets/images/coin/source/' + address + '.png')
+            } catch (error) {
+              path = require('../../assets/images/question.svg')
+            }
           }
         } else {
           try {
             path = require('../../assets/images/coin/source/' + address + '.svg')
           } catch (error) {
-            path = require('../../assets/images/coin/source/' + address + '.png')
+            try {
+              path = require('../../assets/images/coin/source/' + address + '.png')
+            } catch (error) {
+              path = require('../../assets/images/question.svg')
+            }
           }
         }
       }

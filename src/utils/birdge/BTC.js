@@ -15,11 +15,47 @@ const LITECOIN = {
   pubKeyHash: 0x30,
   scriptHash: 0x32,
   wif: 0xb0,
-};
+}
 
-function createAddress (address, network, coin) {
+const BLOCK = {
+  messagePrefix: '\x19Blocknet Signed Message:\n',
+  bech32: 'block',
+  bip32: {
+   public: 0x0488B21E,
+   private: 0x0488ADE4
+  },
+  
+  pubKeyHash: 0x1a,
+  scriptHash: 0x1c,
+  wif: 0x9a,
+}
+
+function getNetwork (coin) {
+  let network = NETWORK
+  if (coin.indexOf('BTC') !== -1) {
+    network = NETWORK
+  } else if (coin.indexOf('LTC') !== -1) {
+    network = LITECOIN
+  } else if (coin.indexOf('BLOCK') !== -1) {
+    network = BLOCK
+  } 
+  return network
+}
+
+function getType (coin) {
+  let type = 'btc'
+  if (coin.indexOf('LTC') !== -1) {
+    type = 'ltc'
+  } else if (coin.indexOf('BLOCK') !== -1) {
+    type = 'block'
+  } 
+  return type
+}
+
+function createAddress (address, coin, initAddr) {
+  let network = getNetwork(coin)
   address = address.replace('0x', '')
-  const {hash} = bitcoin.address.fromBase58Check(config[coin].initAddr)
+  const {hash} = bitcoin.address.fromBase58Check(initAddr)
 
   const reddemScript = bitcoin.script.compile([
     Buffer.from(address, 'hex'),
@@ -43,19 +79,8 @@ function createAddress (address, network, coin) {
   return p2shAddress.address;
 }
 
-function createBTCaddress (address) {
-  return createAddress(address, NETWORK, 'btc')
-}
-
-function createLTCaddress (address) {
-  return createAddress(address, LITECOIN, 'ltc')
-}
-
 function isBTCAddress (address, coin) {
-  let network = NETWORK
-  if (coin.indexOf('LTC') !== -1) {
-    network = LITECOIN
-  }
+  let network = getNetwork(coin)
   try {
     bitcoin.address.toOutputScript(address, network)
     return true
@@ -77,10 +102,7 @@ function GetBTCTxnsAPI (url) {
 }
 
 function GetBTChashStatus (hash, index, coin, status, account, version) {
-  let type = 'btc'
-  if (coin.indexOf('LTC') !== -1) {
-    type = 'ltc'
-  }
+  let type = getType(coin)
   let sochainUrl = config[type].queryHashStatus + hash // 主网
 
   return new Promise(resolve => {
@@ -138,10 +160,7 @@ function GetBTChashStatus (hash, index, coin, status, account, version) {
 }
 
 function getSochcainTxns (address, account, coin, version) {
-  let type = 'btc'
-  if (coin.indexOf('LTC') !== -1) {
-    type = 'ltc'
-  }
+  let type = getType(coin)
   let sochainUrl = config[type].queryTxns + address // 主网
   let cbData = ''
   return new Promise(resolve => {
@@ -213,8 +232,7 @@ function GetBTCtxnsAll (address, account, coin, version) {
 
 
 export {
-  createBTCaddress,
-  createLTCaddress,
+  createAddress,
   isBTCAddress,
   GetBTChashStatus,
   GetBTCtxnsAll

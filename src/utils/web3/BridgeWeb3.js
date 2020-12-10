@@ -18,6 +18,7 @@ import {getNodeRpc} from '../../config/getNodeRpc'
 const Web3 = require('web3')
 const Tx  = require("ethereumjs-tx")
 
+
 // const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
 // let factory = new web3Test.eth.Contract(FACTORY_ABI, FACTORY_ADDRESSES[config.chainID])
 // setTimeout(() => {
@@ -32,8 +33,8 @@ const Tx  = require("ethereumjs-tx")
 //   //     console.log(res)
 //   //   })
 //   // }
-//   factory.methods.getExchange('0xbcacf1c62202a07e6107f250b788b10677045833').call((err, res) => {
-//     console.log('ZLOT')
+//   factory.methods.getExchange('0xd9ccc852f710a7b97f2a5c0e59891696b70d8ea5').call((err, res) => {
+//     console.log('COIN')
 //     console.log(res)
 //   })
 // }, 2000)

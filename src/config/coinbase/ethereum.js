@@ -84,6 +84,12 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
     initAddr: 'Ld184nvim5wvH2cNw9tuJdH2VvL3Kx5wBh',  // 
   },
+  block: { // block配置
+    lookHash: 'https://blockchair.com/litecoin/transaction/', // 
+    queryTxns: 'https://sochain.com/api/v2/get_tx_received/LTC/', // 
+    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
+    initAddr: 'BoXzhY6SQ2Zorj8ha8RamvRiKK16q6PRW3',  // 
+  },
   isOpenRewards: 1, // 是否打开奖励数据
   isChangeDashboard: 0, // 是否改变资产顺序
   noSupportBridge: [
@@ -98,7 +104,7 @@ const MAIN_CONFIG = {
     '0x4e15361fd6b4bb609fa63c81a2be19d873717870',
     '0xf21661d0d1d76d3ecb8e1b9f1c923dbfffae4097'
   ], // 不支持的跨链合约或币种
-  queryToken: '0x575bA30c7b77fa0EEbd34cc5416538323C4e5612' // 查询余额合约
+  queryToken: '0x5e227AD1969Ea493B43F840cfF78d08a6fc17796' // 查询余额合约
 }
 
 // const TEST_CONFIG = {

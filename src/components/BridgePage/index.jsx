@@ -49,7 +49,7 @@ import WarningTip from '../WarningTip'
 import {HDsendERC20Txns, MMsendERC20Txns, getHashStatus, getWithdrawHashStatus} from '../../utils/web3/BridgeWeb3'
 import BridgeTokens from '../../contexts/BridgeTokens'
 
-import {createBTCaddress, createLTCaddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/birdge/BTC'
+import {createAddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/birdge/BTC'
 // import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
 
 import {getServerInfo, removeLocalConfig, getRegisterInfo} from '../../utils/birdge/getServerInfo'
@@ -763,6 +763,8 @@ function isSpecialCoin (coin) {
     return 1
   } else if (formatCoin(coin) === 'LTC') {
     return 2
+  } else if (formatCoin(coin) === 'BLOCK') {
+    return 3
   } else {
     return 0
   }
@@ -993,10 +995,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               }
               DepositAddress = serverInfo.depositAddress
             } else {
-
               if (
-                (serverInfo.dcrmAddress.toLowerCase() !== config.btc.initAddr.toLowerCase() && isSpecialCoin(coin) === 1) ||
-                (serverInfo.dcrmAddress.toLowerCase() !== config.ltc.initAddr.toLowerCase() && isSpecialCoin(coin) === 2)
+                serverInfo.dcrmAddress.toLowerCase() !== config[formatCoin(coin).toLowerCase()].initAddr.toLowerCase()
               ) {
                 console.log(2)
                 // removeRegisterInfo(account, tokenOnlyOne)
@@ -1004,16 +1004,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 setInit(0)
                 return
               }
-              console.log(serverInfo)
               let p2pAddress = serverInfo.p2pAddress ? serverInfo.p2pAddress : getRegisterInfo(account, tokenOnlyOne, chainId, version, coin).p2pAddress
               if (p2pAddress) {
                 DepositAddress = p2pAddress
-                let localBTCAddr = ''
-                if (isSpecialCoin(coin) === 1) {
-                  localBTCAddr = createBTCaddress(account)
-                } else if (isSpecialCoin(coin) === 2) {
-                  localBTCAddr = createLTCaddress(account)
-                }
+                let localBTCAddr = createAddress(account, coin, config[formatCoin(coin).toLowerCase()].initAddr)
                 console.log('DepositAddress', DepositAddress)
                 console.log('localBTCAddr', localBTCAddr)
                 if (p2pAddress !== localBTCAddr) {
@@ -1311,7 +1305,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setHardwareTxnsInfo(amountFormatter(amountVal, inputDecimals, inputDecimals) + " "  + inputSymbol)
       
       let web3Contract = getWeb3ConTract(swapETHABI, inputCurrency)
-      if (isSpecialCoin(inputSymbol) === 1) {
+      if (isSpecialCoin(inputSymbol)) {
         web3Contract = getWeb3ConTract(swapBTCABI, inputCurrency)
       }
       let data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
@@ -1669,15 +1663,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         hash: mintDtil.hash,
         url: config.bridgeAll[chainId].lookHash + mintDtil.hash
       }
-      if (isSpecialCoin(mintDtil.coin) === 1) {
+      if (isSpecialCoin(mintDtil.coin)) {
         hashOutObj = {
           hash: mintDtil.swapHash,
-          url: config.btc.lookHash + mintDtil.swapHash
-        }
-      } else if (isSpecialCoin(mintDtil.coin) === 2) {
-        hashOutObj = {
-          hash: mintDtil.swapHash,
-          url: config.ltc.lookHash + mintDtil.swapHash
+          url: config[formatCoin(mintDtil.coin).toLowerCase()].lookHash + mintDtil.swapHash
         }
       } else {
         hashOutObj = {
@@ -1693,12 +1682,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       if (isSpecialCoin(mintDtil.coin) === 1) {
         hashCurObj = {
           hash: mintDtil.hash,
-          url: config.btc.lookHash + mintDtil.hash
-        }
-      } else if (isSpecialCoin(mintDtil.coin) === 2) {
-        hashCurObj = {
-          hash: mintDtil.hash,
-          url: config.ltc.lookHash + mintDtil.hash
+          url: config[formatCoin(mintDtil.coin).toLowerCase()].lookHash + mintDtil.hash
         }
       } else {
         hashCurObj = {
@@ -1714,6 +1698,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         outNodeName = 'Bitcoin'
       } else if (isSpecialCoin(mintDtil.coin) === 2) {
         outNodeName = 'Litecoin'
+      } else if (isSpecialCoin(mintDtil.coin) === 3) {
+        outNodeName = 'Blocknet'
       }
     } else {
       outNodeName = config.bridgeAll[mintDtil.node].name

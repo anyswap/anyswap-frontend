@@ -27,7 +27,7 @@ import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 
 import {getRewards} from '../../utils/axios'
 import {getDashBoards} from '../../utils/dashboard/index.js'
-// import {getPoolInfo} from '../../utils/dashboard/getPoolInfo'
+import {getPoolInfo} from '../../utils/dashboard/getPoolInfo'
 
 import IconLiquidityRewards from '../../assets/images/icn-liquidity-rewards.svg'
 import IconLiquidityRewardsBlack from '../../assets/images/icn-liquidity-rewards-black.svg'
@@ -109,83 +109,6 @@ const SearchInput = styled(BorderlessInput)`
   }
 `
 
-const WrapperBox = styled.div`
-  ${({theme}) => theme.FlexBC};
-  margin-top:1rem;
-  @media screen and (max-width: 960px) {
-    justify-content:center;;
-    flex-wrap:wrap;
-    flex-direction: column-reverse ;
-  }
-`
-const EarningsBox = styled.div`
-  width: 100%;
-  // height: 386px;
-  border-radius: 0.5625rem;
-  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
-  background-color: ${({ theme }) => theme.contentBg};
-  padding:1rem;
-  font-family: 'Manrope';
-  .bgImg {
-    width: 149px;
-    height: 148px;
-    margin: 0 auto 0rem;
-    // padding-bottom:1.875rem;
-  }
-  h3 {
-    font-size: 1.625rem;
-    font-weight: bold;
-    line-height: 1.15;
-    letter-spacing: -1.18px;
-    text-align: center;
-    color: ${({theme}) => theme.textColorBold};
-    text-align:center;
-    white-space:nowrap;
-    margin: 1.875rem 0 6px;
-  }
-  p {
-    font-size: 0.875rem;
-    font-weight: 600;
-    line-height: 1.43;
-    text-align: center;
-    color: ${({theme}) => theme.textColorBold};
-    text-align:center;
-    margin: 0 0 1.5625rem;
-  }
-  .txt {
-    ${({theme}) => theme.FlexC};
-    // height: 42px;
-    border-radius: 6px;
-    border: solid 0.0625rem #a3daab;
-    background-color: #e2f9e5;
-    font-size: 0.875rem;
-    font-weight: normal;
-    line-height: 0.86;
-    color: #031a6e;
-    span {
-      font-weight:bold;
-      margin:0 5px;
-    }
-  }
-  @media screen and (max-width: 960px) {
-    width: 100%;
-  }
-`
-
-const ProvideLiqBox = styled.div`
-width: 64.92%;
-height: 386px;
-
-border-radius: 0.5625rem;
-box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
-background-color: ${({ theme }) => theme.contentBg};
-padding: 1rem 2.5rem;
-@media screen and (max-width: 960px) {
-  padding: 1rem 1rem;
-  width: 100%;
-  margin-bottom:1rem;
-}
-`
 const MyBalanceTokenBox  = styled.div`
 width:100%;
 height: 230px;
@@ -196,80 +119,7 @@ overflow-x:auto;
   overflow:auto;
 }
 `
-const MyBalanceTokenBox1 = styled(MyBalanceTokenBox)`
-overflow:auto;
-`
-const TokenTableBox = styled.ul`
-  width:100%;
-  list-style:none;
-  margin:0;
-  padding:0;
-`
 
-const TokenTableList = styled.li`
-${({theme}) => theme.FlexBC};
-  width: 100%;
-  height: 70px;
-  
-  border-radius: 0.5625rem;
-  box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.04);
-  border: solid 1px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  padding: 1rem 0;
-  margin-bottom: 0.625rem;
-  @media screen and (max-width: 960px) {
-    padding: 1rem 5px;
-  }
-`
-
-
-const TokenBalanceBox  = styled.div`
-font-family: 'Manrope';
-  // min-width: 120px
-  width:30%;
-  text-align:left;
-  h3 {
-    padding-left: 17.97%;
-    margin:0;
-    
-    font-size: 0.75rem;
-    font-weight: normal;
-    
-    
-    line-height: 1;
-    
-    color: ${({theme}) => theme.textColorBold};
-    white-space:nowrap;
-  }
-  p {
-    padding-left: 17.97%;
-    margin: 0.125rem 0 0;
-    
-    font-size: 0.875rem;
-    font-weight: 800;
-    
-    
-    line-height: 1.43;
-    
-    color: ${({theme}) => theme.textColorBold};
-  }
-  @media screen and (max-width: 960px) {
-    min-width: 80px;
-    h3 {
-      padding-left: 1rem;
-    }
-    p {
-      padding-left: 1rem;
-    }
-  }
-`
-
-const TokenActionBox  = styled.div`
-${({theme}) => theme.FlexC};
-  width: 30%;
-  min-width: 118px;
-  padding: 0rem;
-`
 const TokenActionBtn  = styled(NavLink)`
 ${({theme}) => theme.FlexC};
 font-family: 'Manrope';
@@ -542,62 +392,6 @@ font-family: 'Manrope';
 
 let count = 0
 
-function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
-  try {
-    if (
-      inputValue &&
-      (inputDecimals || inputDecimals === 0) &&
-      outputValue &&
-      (outputDecimals || outputDecimals === 0)
-    ) {
-      const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
-
-      if (invert) {
-        return inputValue
-          .mul(factor)
-          .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
-          .div(outputValue)
-      } else {
-        return outputValue
-          .mul(factor)
-          .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
-          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
-          .div(inputValue)
-      }
-    }
-  } catch {}
-}
-
-function getMarketRate(reserveETH, reserveToken, decimals, invert = false) {
-  return getExchangeRate(reserveETH, 18, reserveToken, decimals, invert)
-}
-
-// function thousandBit (num, dec = 2) {
-//   let _num = num = Number(num)
-//   if (isNaN(num)) {
-//     num = 0
-//     num = num.toFixed(dec)
-//   } else {
-//     if (isNaN(dec)) {
-//       if (num.toString().indexOf('.') === -1) {
-//         num = Number(num).toLocaleString()
-//       } else {
-//         let numSplit = num.toString().split('.')
-//         numSplit[1] = numSplit[1].length > 9 ? numSplit[1].substr(0, 8) : numSplit[1]
-//         num = Number(numSplit[0]).toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').toLocaleString()
-//         num = num.toString().split('.')[0] + '.' + numSplit[1]
-//       }
-//     } else {
-//       num = num.toFixed(dec).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').toLocaleString()
-//     }
-//   }
-//   if (_num < 0 && num.toString().indexOf('-') < 0) {
-//     num = '-' + num
-//   }
-//   return num
-// }
-
 function isBaseUSD (coin) {
   if (
     (coin === 'aUSDT' && config.symbol === 'FSN') ||
@@ -635,8 +429,8 @@ export default function DashboardDtil () {
         })
       }
       
-      // getPoolInfo(poolArr).then(res => {
-      getDashBoards(poolArr).then(res => {
+      getPoolInfo(poolArr).then(res => {
+      // getDashBoards(poolArr).then(res => {
         let arr = []
         let baseAccountBalance = ethers.utils.bigNumberify(0)
         let baseAllBalance = ethers.utils.bigNumberify(0)

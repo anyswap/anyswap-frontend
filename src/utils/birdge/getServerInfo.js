@@ -74,7 +74,11 @@ export function removeLocalConfig (account, token, chainId) {
 
 export function getRegisterInfo (account, token, chainID, version, coin) {
   let lrInfo = localStorage.getItem(SERVER_BRIDGE_REGISTER)
-  if (version === 'V2' && coin.indexOf('BTC') === -1 && coin.indexOf('LTC') === -1) {
+  if (version === 'V2'
+    && coin.indexOf('BTC') === -1
+    && coin.indexOf('LTC') === -1
+    && coin.indexOf('BLOCK') === -1
+  ) {
     token = 'V2'
   }
   if (!lrInfo) {
@@ -95,7 +99,11 @@ export function getRegisterInfo (account, token, chainID, version, coin) {
 function setRegisterInfo (account, token, localInfo, chainID, version, coin) {
   let lstr = localStorage.getItem(SERVER_BRIDGE_REGISTER)
   let lboj = {}
-  if (version === 'V2' && coin.indexOf('BTC') === -1 && coin.indexOf('LTC') === -1) {
+  if (version === 'V2'
+    && coin.indexOf('BTC') === -1
+    && coin.indexOf('LTC') === -1
+    && coin.indexOf('BLOCK') === -1
+  ) {
     token = 'V2'
   }
   if (!lstr) {
