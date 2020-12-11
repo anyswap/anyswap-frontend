@@ -86,8 +86,8 @@ const MAIN_CONFIG = {
   },
   block: { // block配置
     lookHash: 'https://blockchair.com/litecoin/transaction/', // 
-    queryTxns: 'https://sochain.com/api/v2/get_tx_received/LTC/', // 
-    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
+    queryTxns: 'https://block.ccore.online/ext/getaddress/', // 
+    queryHashStatus: 'https://block.ccore.online/api/getrawtransaction?txid=', // 
     initAddr: 'BoXzhY6SQ2Zorj8ha8RamvRiKK16q6PRW3',  // 
   },
   isOpenRewards: 1, // 是否打开奖励数据

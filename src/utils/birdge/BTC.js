@@ -101,6 +101,41 @@ function GetBTCTxnsAPI (url) {
   })
 }
 
+function GetBlockTxnsAPI (address) {
+  let url = 'https://plugin-dev.core.cloudchainsinc.com'
+  let params = {
+    "method": "gethistory",
+    "params": ["BLOCK", [address]]
+  }
+  return new Promise(resolve => {
+    axios.post(url, params).then(res => {
+      console.log(res.data)
+      resolve(res.data)
+    }).catch(err => {
+      console.log(err)
+      resolve(err)
+    })
+  })
+}
+// GetBlockTxnsAPI('BqeAD3u6T9yCvgbXizqPcYNBTSCq9RtWrR')
+
+function GetBlockhashStatus (hash) {
+  let url = 'https://plugin-dev.core.cloudchainsinc.com'
+  let params = {
+    "method": "gettransaction",
+    "params": ["BLOCK", hash]
+  }
+  return new Promise(resolve => {
+    axios.post(url, params).then(res => {
+      console.log(res.data)
+      resolve(res.data)
+    }).catch(err => {
+      console.log(err)
+      resolve(err)
+    })
+  })
+}
+
 function GetBTChashStatus (hash, index, coin, status, account, version) {
   let type = getType(coin)
   let sochainUrl = config[type].queryHashStatus + hash // 主网
@@ -119,6 +154,39 @@ function GetBTChashStatus (hash, index, coin, status, account, version) {
           resolve({
             index,
             status
+          })
+        }
+      })
+    } else if (type === 'block') {
+      GetBlockhashStatus(hash).then(res => {
+        console.log(res)
+        if (res && res.result && res.result.txid) {
+          if (Number(res.result.confirmations) > 0) {
+            getChainHashStatus(hash, coin, account, version).then(result => {
+              if (result) {
+                resolve({
+                  ...result,
+                  index,
+                  hash,
+                  status: 1
+                })
+              } else {
+                resolve({
+                  index,
+                  status: 1
+                })
+              }
+            })
+          } else {
+            resolve({
+              index,
+              status: 0
+            })
+          }
+        } else {
+          resolve({
+            index,
+            status: 2
           })
         }
       })
@@ -163,6 +231,53 @@ function getSochcainTxns (address, account, coin, version) {
   let type = getType(coin)
   let sochainUrl = config[type].queryTxns + address // 主网
   let cbData = ''
+  if (type === 'block') {
+    return new Promise(resolve => {
+      GetBlockTxnsAPI(address).then(res => {
+        // console.log(res)
+        if (res && res.length > 0) {
+          let useTxns = res[res.length - 1]
+          if (((Date.now() / 1000) - Number(useTxns.time)) > (60 * 60 * 24)) {
+            resolve(cbData)
+            return
+          }
+          getChainHashStatus(useTxns.txid, coin, account, version).then(result => {
+            if (result) {
+              resolve({
+                ...result,
+                account: account,
+                coin: coin,
+                value: useTxns.amount < 0 ? (0 - useTxns.amount) : useTxns.amount,
+                hash: useTxns.txid,
+                from: '',
+                to: res.data.address,
+                status: 1,
+                timestamp: useTxns.time,
+                node: 0
+              })
+            } else {
+              resolve({
+                account: account,
+                coin: coin,
+                value: useTxns.amount < 0 ? (0 - useTxns.amount) : useTxns.amount,
+                hash: useTxns.txid,
+                from: '',
+                to: res.data.address,
+                status: 0,
+                timestamp: useTxns.time,
+                swapHash: '',
+                swapStatus: '',
+                swapTime: '',
+                node: 0
+              })
+            }
+          })
+        } else {
+          resolve(cbData)
+        }
+      })
+    })
+  }
   return new Promise(resolve => {
     GetBTCTxnsAPI(sochainUrl).then(res => {
       // console.log(res)
