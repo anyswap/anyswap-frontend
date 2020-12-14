@@ -677,6 +677,9 @@ function swapStateReducer(state, action) {
         maxFee: action.maxFee ? action.maxFee : '',
         minFee: action.minFee ? action.minFee : '',
         fee: action.fee ? action.fee : '',
+        dMaxFee: action.dMaxFee ? action.dMaxFee : 0,
+        dMinFee: action.dMinFee ? action.dMinFee : 0,
+        dFee: action.dFee ? action.dFee : 0,
         redeemBigValMoreTime: action.redeemBigValMoreTime ? action.redeemBigValMoreTime : '',
         depositBigValMoreTime: action.depositBigValMoreTime ? action.depositBigValMoreTime : '',
       }
@@ -868,6 +871,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     maxFee,
     minFee,
     fee,
+    dMaxFee,
+    dMinFee,
+    dFee,
     isViewMintModel,
     mintHistory,
     isViewMintInfo,
@@ -957,6 +963,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       maxFee: '',
       minFee: '',
       fee: '',
+      dMaxFee: '',
+      dMinFee: '',
+      dFee: '',
       redeemBigValMoreTime: '',
       token: ''
     })
@@ -1039,6 +1048,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               maxFee: serverInfo.maxFee,
               minFee: serverInfo.minFee,
               fee: serverInfo.fee,
+              dMaxFee: serverInfo.dMaxFee,
+              dMinFee: serverInfo.dMinFee,
+              dFee: serverInfo.dFee,
               redeemBigValMoreTime: serverInfo.redeemBigValMoreTime,
               token: serverInfo.token,
             }
@@ -2126,43 +2138,41 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         extraTextClickHander={() => {
           let inputVal
           let value = ''
+          let _swapMinNum, _swapMaxNum, _fee ,_minFee, _maxFee
           if (bridgeType && bridgeType === 'redeem' && inputBalance && inputDecimals) {
             inputVal = inputBalance
-            if (inputVal.gt(ethers.constants.Zero)) {
-              let _redeemMinNum = ethers.utils.parseUnits(redeemMinNum.toString(), inputDecimals)
-              let _redeemMaxNum = ethers.utils.parseUnits(redeemMaxNum.toString(), inputDecimals)
-              if (inputVal.lt(_redeemMinNum)) {
-                inputVal = ''
-              } else if (inputVal.gt(_redeemMaxNum)) {
-                inputVal = _redeemMaxNum
-              }
-              if (inputVal) {
-                value = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
-                let _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-                let _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
-                let _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
-
-                if (_fee.isZero()) {
-                  inputVal = ''
-                } else {
-                  if (_fee.lt(_minFee)) {
-                    _fee = _minFee
-                  } else if (_fee.gt(_maxFee)) {
-                    _fee = _maxFee
-                  }
-                  inputVal = inputVal.sub(_fee)
-                }
-              }
-            }
+            _swapMinNum = ethers.utils.parseUnits(redeemMinNum.toString(), inputDecimals)
+            _swapMaxNum = ethers.utils.parseUnits(redeemMaxNum.toString(), inputDecimals)
+            _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+            _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
+            _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
           } else if (bridgeType && bridgeType !== 'redeem' && outNetBalance && inputDecimals) {
             inputVal = ethers.utils.parseUnits(outNetBalance.toString(), inputDecimals)
-            let _depositMinNum = ethers.utils.parseUnits(depositMinNum.toString(), inputDecimals)
-            let _depositMaxNum = ethers.utils.parseUnits(depositMaxNum.toString(), inputDecimals)
-            value = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
-            if (inputVal.lt(_depositMinNum)) {
+            _swapMinNum = ethers.utils.parseUnits(redeemMinNum.toString(), inputDecimals)
+            _swapMaxNum = ethers.utils.parseUnits(redeemMaxNum.toString(), inputDecimals)
+            _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+            _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
+            _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
+          }
+
+          if (inputVal && inputVal.gt(ethers.constants.Zero)) {
+            if (inputVal.lt(_swapMinNum)) {
               inputVal = ''
-            } else if (inputVal.gt(_depositMaxNum)) {
-              inputVal = _depositMaxNum
+            } else if (inputVal.gt(_swapMaxNum)) {
+              inputVal = _swapMaxNum
+            }
+            if (inputVal) {
+              value = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
+              if (_fee.isZero()) {
+                inputVal = inputVal
+              } else {
+                if (_fee.lt(_minFee)) {
+                  _fee = _minFee
+                } else if (_fee.gt(_maxFee)) {
+                  _fee = _maxFee
+                }
+                inputVal = inputVal.sub(_fee)
+              }
             }
           }
 
@@ -2191,28 +2201,26 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           // console.log(inputValue)
           let iValue = formatDecimal(inputValue, inputDecimals)
           let inputVal = iValue && Number(iValue) ? ethers.utils.parseUnits(iValue.toString(), inputDecimals) : ethers.utils.bigNumberify(0)
+          let _fee = inputVal.mul(ethers.utils.parseUnits(dFee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+          let _minFee = ethers.utils.parseUnits(dMinFee.toString(), inputDecimals)
+          let _maxFee = ethers.utils.parseUnits(dMaxFee.toString(), inputDecimals)
           if (bridgeType && bridgeType === 'redeem') {
-            let _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-            let _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
-            let _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
-
-            if (_fee.isZero()) {
-              inputVal = ''
-            } else {
-              if (_fee.lt(_minFee)) {
-                _fee = _minFee
-              } else if (_fee.gt(_maxFee)) {
-                _fee = _maxFee
-              }
-              inputVal = inputVal.sub(_fee)
+            _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+            _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
+            _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
+          }
+          if (_fee.isZero()) {
+            inputVal = inputVal
+          } else {
+            if (_fee.lt(_minFee)) {
+              _fee = _minFee
+            } else if (_fee.gt(_maxFee)) {
+              _fee = _maxFee
             }
+            inputVal = inputVal.sub(_fee)
           }
           if ((inputVal || inputVal === 0) && inputValue !== '') {
-            // console.log(inputVal)
             inputVal = amountFormatter(inputVal, inputDecimals, Math.min(10, inputDecimals))
-            // console.log(inputVal)
-            // inputVal = Number(inputVal.toString().toFixed(8))
-            // console.log(inputVal)
           } else {
             inputVal = ''
           }
@@ -2357,7 +2365,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       <img src={BulbIcon} alt='' />
                       {t('Reminder')}:
                     </dt>
-                    <dd><i></i>{t('mintTip1')},</dd>
+                    <dd><i></i>{t('mintTip1', {
+                      dMinFee,
+                      coin: formatCoin(inputSymbol),
+                      dMaxFee,
+                      dFee: dFee * 100
+                    })},</dd>
                     <dd><i></i>{t('mintTip2')} {depositMinNum} {formatCoin(inputSymbol)}</dd>
                     <dd><i></i>{t('mintTip3')} {depositMaxNum} {formatCoin(inputSymbol)}</dd>
                     <dd><i></i>{t('mintTip4')}</dd>

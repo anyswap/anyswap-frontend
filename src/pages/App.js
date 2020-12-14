@@ -16,9 +16,10 @@ import { isAddress, getAllQueryParams } from '../utils'
 const Swap = lazy(() => import('./Swap'))
 const Send = lazy(() => import('./Send'))
 const Pool = lazy(() => import('./Pool'))
+const Farms = lazy(() => import('./Farms'))
 const Bridge = lazy(() => import('./Bridge'))
 const Dashboard = lazy(() => import('./Dashboard'))
-const Staking = lazy(() => import('./Staking'))
+// const Staking = lazy(() => import('./Staking'))
 
 const AppWrapper = styled.div`
   display: flex;
@@ -176,7 +177,15 @@ export default function App() {
                         />
                         <Route exact strict path="/bridge" component={() => <Bridge params={params} />} />
                         <Route exact strict path="/dashboard" component={() => <Dashboard/>} />
-                        <Route exact strict path="/staking" component={() => <Staking/>} />
+                        {/* <Route exact strict path="/staking" component={() => <Staking/>} /> */}
+                        <Route
+                          path={[
+                            '/farms',
+                            '/farms/staking',
+                            '/farms/bscfarming',
+                          ]}
+                          component={() => <Farms params={params} />}
+                        />
                         <Redirect to="/dashboard" />
                       </Switch>
                     </ContentBox>

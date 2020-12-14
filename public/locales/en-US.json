@@ -171,7 +171,7 @@
   "CrossChainDeposit": "CrossChain Deposit",
   "Reminder": "Reminder",
   "mintTip0": "You need to send <strong>{{coin}} and 0.02 {{coin2}} fee</strong> to your own wallet first: ",
-  "mintTip1": "Deposit Fee is 0.0 %",
+  "mintTip1": "Deposit Fee is {{dFee}} %, Minimum Deposit Fee is {{dMinFee}} {{coin}}, Maximum Deposit Fee is {{dMaxFee}} {{coin}}",
   "mintTip2": "Minimum Deposit Amount is",
   "mintTip3": "Maximum Deposit Amount is",
   "mintTip4": "Estimated Time of Deposit Arrival is 10-30 min",
@@ -211,5 +211,6 @@
   "Staked": "Staked",
   "anyTip": "Anyswap staking only supported Fusion mainnet!",
   "TotalStaking": "Total Staking",
-  "CirculatingSupply": "Circulating Supply"
+  "CirculatingSupply": "Circulating Supply",
+  "farms": "Farms"
 }

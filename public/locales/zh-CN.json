@@ -170,7 +170,7 @@
   "CrossChainDeposit": "跨链充值",
   "Reminder": "提醒",
   "mintTip0": "您需要先将 <strong>{{coin}} 和 0.02 {{coin2}} 手续费</strong> 发送到您自己的钱包中: ",
-  "mintTip1": "充值手续费 0.0 %",
+  "mintTip1": "充值手续费 {{dFee}} %, 最小充值手续费 {{dMinFee}} {{coin}}, 最大充值手续费 {{dMaxFee}} {{coin}}",
   "mintTip2": "最小充值金额",
   "mintTip3": "最大充值金额",
   "mintTip4": "预计充值到账时间10-30分钟",
@@ -210,5 +210,6 @@
   "Staked": "抵押",
   "anyTip": "Anyswap 抵押仅支持Fusion主网！",
   "TotalStaking": "总抵押",
-  "CirculatingSupply": "当前流通量"
+  "CirculatingSupply": "当前流通量",
+  "farms": "农场"
 }
