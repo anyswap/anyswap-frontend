@@ -518,6 +518,25 @@ export default {
       [DEPOSIT_MIN_NUM]: 0.0005,
       [EXTENDOBJ]:  {}
     },
+    '0xa82a9c5eb2c94615097ec311e7e01d803b4c1bf5': { // CYC
+      [NAME]: 'FoodToken',
+      [SYMBOL]: 'CYC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xafededc6e1d18a91360ab6e729a77fdfb4944c10',
+      [REDEEM_MAX_NUM]: 20,
+      [REDEEM_MIN_NUM]: 0.002,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.01,
+      [MINFEE]: 0.001,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 20,
+      [DEPOSIT_MIN_NUM]: 0.0005,
+      [EXTENDOBJ]:  {}
+    },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
       [SYMBOL]: 'aXRP',
