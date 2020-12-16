@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState, useReducer} from 'react'
 import { useTranslation } from 'react-i18next'
-// import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history'
 import styled from 'styled-components'
 import { ethers } from 'ethers'
 import { NavLink, withRouter } from 'react-router-dom'
@@ -23,13 +23,15 @@ import Modal from '../../components/Modal'
 import ModalContent from '../../components/Modal/ModalContent'
 import HardwareTip from '../../components/HardwareTip'
 
-import { amountFormatter } from '../../utils'
+import { amountFormatter, getQueryParam } from '../../utils'
 import {getWeb3BaseInfo} from '../../utils/web3/txns'
 import config from '../../config'
 import {chainInfo} from '../../config/coinbase/nodeConfig'
 import {thousandBit, formatNum} from '../../utils/tools'
 
 import TokenLogo from '../../components/TokenLogo'
+
+import {getPrice} from '../../utils/axios'
 
 const TokenLogo1 = styled(TokenLogo)`
 background:none;
@@ -288,6 +290,9 @@ function farmStateReducer(state, action) {
         pendingReward = '',
         totalSupply = '',
         tokenObj,
+        exchangeETHBalance,
+        poolBalance,
+        exchangeTokenBalancem,
         lpBalance
       } = action
       const { lpArr } = state
@@ -302,6 +307,9 @@ function farmStateReducer(state, action) {
           pendingReward: pendingReward ? pendingReward : (lpArr[index].pendingReward ? lpArr[index].pendingReward : ''),
           totalSupply: totalSupply ? totalSupply : (lpArr[index].totalSupply ? lpArr[index].totalSupply : ''),
           tokenObj: tokenObj ? tokenObj : (lpArr[index].tokenObj ? lpArr[index].tokenObj : ''),
+          exchangeETHBalance: exchangeETHBalance ? exchangeETHBalance : (lpArr[index].exchangeETHBalance ? lpArr[index].exchangeETHBalance : ''),
+          poolBalance: poolBalance ? poolBalance : (lpArr[index].poolBalance ? lpArr[index].poolBalance : ''),
+          exchangeTokenBalancem: exchangeTokenBalancem ? exchangeTokenBalancem : (lpArr[index].exchangeTokenBalancem ? lpArr[index].exchangeTokenBalancem : ''),
           lpBalance: lpBalance ? lpBalance : (lpArr[index].lpBalance ? lpArr[index].lpBalance : ''),
         }
       } else {
@@ -314,6 +322,9 @@ function farmStateReducer(state, action) {
           pendingReward: pendingReward ? pendingReward : '',
           totalSupply: totalSupply ? totalSupply : '',
           tokenObj: tokenObj ? tokenObj : '',
+          exchangeETHBalance: exchangeETHBalance ? exchangeETHBalance : '',
+          poolBalance: poolBalance ? poolBalance : '',
+          exchangeTokenBalancem: exchangeTokenBalancem ? exchangeTokenBalancem : '',
           lpBalance: lpBalance ? lpBalance : '',
         }
       }
@@ -336,6 +347,7 @@ function farmStateReducer(state, action) {
 
 const BSCFARMURL = '/farms/bscfarming/'
 
+const BASEMARKET = 100
 let CHAINID = '46688'
 let useChain = chainInfo[CHAINID]
 let FARMTOKEN = '0x281bbbebfdab3a5bcb3407d2fce71d0cec02a9fe'
@@ -347,16 +359,16 @@ for (let token in useToken) {
     token
   }
 }
-// console.log(useChain)
+console.log(useChain)
 
 const LPTOKEN = 'LPTOKEN'
 
-function BSCFarming ({ params }) {
-  // console.log(params)
+function BSCFarming ({ location }) {
+  // console.log(location)
   // console.log(params)
   // let initLpToken = params && params.lpToken ? params.lpToken : localStorage.getItem(LPTOKEN)
-  // let initLpToken = params && params.lpToken ? params.lpToken : ''
-  let initLpToken = ''
+  // let initLpToken = params && params.lpToken ? params.lpToken.toLowerCase() : ''
+  let initLpToken = getQueryParam(location, 'lpToken')
   // console.log(initLpToken)
   let { account, library, chainId } = useWeb3React()
   // account = '0x9059e64e4a52e4f19edea188cfb658182db35106'
@@ -366,7 +378,7 @@ function BSCFarming ({ params }) {
   const toggleWalletModal = useWalletModalToggle()
   const walletType = sessionStorage.getItem('walletType')
 
-  // const history = createBrowserHistory()
+  const history = createBrowserHistory()
   // history.push(window.location.pathname + '')
 
   const [farmState, dispatchFarmState] = useReducer( farmStateReducer, {}, getInitialFarmState )
@@ -386,7 +398,6 @@ function BSCFarming ({ params }) {
   const [stakingModal, setStakingModal] = useState(false)
   const [stakeAmount, setStakeAmount] = useState()
   const [stakeDisabled, setStakeDisabled] = useState(true)
-  const [StakingAPY, setStakingAPY] = useState()
 
   const [exchangeAddress, setExchangeAddress] = useState(initLpToken)
   // console.log(exchangeAddress)
@@ -400,7 +411,13 @@ function BSCFarming ({ params }) {
   const [WithdrawDisabled, setWithdrawDisabled] = useState(true)
   const [DepositDisabled, setDepositDisabled] = useState(true)
 
+  const [TotalPoint, setTotalPoint] = useState()
+
   const [BtnDelayDisabled, setBtnDelayDisabled] = useState(0)
+
+  const [BasePeice, setBasePeice] = useState()
+
+  const [InterverTime, setInterverTime] = useState(0)
 
   const web3Contract = new web3Fn.eth.Contract(MasterChef, FARMTOKEN)
   const web3ErcContract = new web3Fn.eth.Contract(ERC20_ABI)
@@ -413,6 +430,13 @@ function BSCFarming ({ params }) {
   )
 
   const exchangeContract = new web3Fn.eth.Contract(EXCHANGE_ABI)
+
+  useEffect(() => {
+    getPrice().then(res => {
+      // console.log(res)
+      setBasePeice(res)
+    })
+  }, [])
 
   useEffect(() => {
     let pr = lpObj && lpObj[exchangeAddress] && lpObj[exchangeAddress].pendingReward ? lpObj[exchangeAddress].pendingReward : ''
@@ -473,6 +497,7 @@ function BSCFarming ({ params }) {
     const batch = new web3Fn.BatchRequest()
     for (let i = 0,len = lpArr.length; i < len; i++) {
       let obj = lpArr[i]
+      // console.log(obj)
       exchangeContract.options.address = obj.lpToken
       const tsData = exchangeContract.methods.totalSupply().encodeABI()
       batch.add(web3Fn.eth.call.request({data: tsData, to: obj.lpToken}, 'latest', (err, ts) => {
@@ -489,12 +514,55 @@ function BSCFarming ({ params }) {
             totalSupply: ''
           })
         }
+        if (i === (len - 1)) {
+          setInterverTime(Date.now())
+        }
       }))
+
+      batch.add(web3.eth.getBalance.request(obj.lpToken, 'latest', (err, res) => {
+        if (!err) {
+          let bl = res.isNaN() ?  formatCellData(res) : ethers.utils.parseUnits(res.div(Math.pow(10, 18)).toString(), 18)
+          dispatchFarmState({
+            type: 'UPDATE_LP',
+            index: i,
+            exchangeETHBalance: bl
+          })
+        } else {
+          dispatchFarmState({
+            type: 'UPDATE_LP',
+            index: i,
+            exchangeETHBalance: ''
+          })
+        }
+      }))
+
+      if (obj.tokenObj && obj.tokenObj.token) {
+        web3ErcContract.options.address = obj.tokenObj.token
+        let etbData = web3ErcContract.methods.balanceOf(obj.lpToken).encodeABI()
+        // console.log(etbData)
+        batch.add(web3.eth.call.request({data: etbData, to: obj.tokenObj.token, from: obj.lpToken}, 'latest', (err, res) => {
+          if (!err) {
+            dispatchFarmState({
+              type: 'UPDATE_LP',
+              index: i,
+              exchangeTokenBalancem: formatCellData(res, 66)
+            })
+          } else {
+            dispatchFarmState({
+              type: 'UPDATE_LP',
+              index: i,
+              exchangeTokenBalancem: ''
+            })
+          }
+        }))
+      }
       
       web3ErcContract.options.address = obj.lpToken
       const blData = web3ErcContract.methods.balanceOf(FARMTOKEN).encodeABI()
       batch.add(web3Fn.eth.call.request({data: blData, to: obj.lpToken}, 'latest', (err, res) => {
         if (!err) {
+          // console.log(obj.lpToken)
+          // console.log(formatCellData(res, 66).toString())
           dispatchFarmState({
             type: 'UPDATE_LP',
             index: i,
@@ -508,6 +576,27 @@ function BSCFarming ({ params }) {
           })
         }
       }))
+      if (account) {
+        web3ErcContract.options.address = obj.lpToken
+        const pblData = web3ErcContract.methods.balanceOf(account).encodeABI()
+        batch.add(web3Fn.eth.call.request({data: pblData, to: obj.lpToken}, 'latest', (err, bl) => {
+          if (!err) {
+            // console.log(formatCellData(bl, 66).toString())
+            dispatchFarmState({
+              type: 'UPDATE_LP',
+              index: i,
+              poolBalance: formatCellData(bl, 66)
+            })
+          } else {
+            // console.log(err)
+            dispatchFarmState({
+              type: 'UPDATE_LP',
+              index: i,
+              poolBalance: ''
+            })
+          }
+        }))
+      }
     }
     batch.execute()
   }
@@ -515,6 +604,7 @@ function BSCFarming ({ params }) {
   function getTokenList(num) {
     const batch = new web3Fn.BatchRequest()
     let arr = []
+    let totalPoint = 0
     for (let i = 0; i < num; i++) {
       arr.push({
         lpToken: '',
@@ -526,16 +616,17 @@ function BSCFarming ({ params }) {
       batch.add(web3Fn.eth.call.request({data: plData, to: FARMTOKEN}, 'latest', (err, pl) => {
         if (!err) {
           let exAddr = pl.substr(0, 66).replace('0x000000000000000000000000', '0x')
-          
+          let curPoint = ethers.utils.bigNumberify('0x' + pl.substr(66, 64)).toString()
           dispatchFarmState({
             type: 'UPDATE_LP',
             index: i,
             lpToken: exAddr,
-            allocPoint: ethers.utils.bigNumberify('0x' + pl.substr(66, 64)).toString(),
+            allocPoint: curPoint,
             lastRewardBlock: ethers.utils.bigNumberify('0x' + pl.substr(130, 64)).toString(),
             accRewardPerShare: ethers.utils.bigNumberify('0x' + pl.substr(194, 64)).toString(),
-            tokenObj: exchangeObj[exAddr]
+            tokenObj: exchangeObj[exAddr],
           })
+          totalPoint += Number(curPoint)
         } else {
           dispatchFarmState({
             type: 'UPDATE_LP',
@@ -548,6 +639,7 @@ function BSCFarming ({ params }) {
         }
         if (i === (num - 1)) {
           getAllTotalSupply(arr)
+          setTotalPoint(totalPoint)
         }
       }))
       if (account && Number(CHAINID) === Number(chainId)) {
@@ -572,9 +664,12 @@ function BSCFarming ({ params }) {
     }
     // console.log(arr)
     batch.execute()
+    // web3Contract.methods.poolInfo(0).call((err,res) => {
+    //   console.log(res)
+    // })
   }
 
-  const getBaseInfo = useCallback(() => {
+  function getBaseInfo () {
     const batch = new web3Fn.BatchRequest()
 
     const plData = web3Contract.methods.poolLength().encodeABI()
@@ -591,10 +686,10 @@ function BSCFarming ({ params }) {
     }))
 
     batch.execute()
-  }, [account])
+  }
 
   function getStakingInfo () {
-    // const curLpToken = lpObj && lpObj[exchangeAddress] && lpObj[exchangeAddress].tokenObj && lpObj[exchangeAddress].tokenObj.token ? lpObj[exchangeAddress].tokenObj.token : ''
+    // const curToken = lpObj && lpObj[exchangeAddress] && lpObj[exchangeAddress].tokenObj && lpObj[exchangeAddress].tokenObj.token ? lpObj[exchangeAddress].tokenObj.token : ''
     const curLpToken = exchangeAddress
     if (account && curLpToken && lpObj && lpObj[curLpToken]) {
       // console.log(123)
@@ -609,6 +704,16 @@ function BSCFarming ({ params }) {
           setBalance(formatCellData(balance, 66))
         }
       }))
+
+      // web3ErcContract.options.address = curToken
+      // const bltData = web3ErcContract.methods.balanceOf(account).encodeABI()
+      // batch.add(web3Fn.eth.call.request({data: bltData, to: curToken}, 'latest', (err, balance) => {
+      //   if (!err) {
+      //     console.log('balance')
+      //     console.log(formatCellData(balance, 66).toString())
+      //     // setBalance(formatCellData(balance, 66))
+      //   }
+      // }))
       
       web3ErcContract.options.address = FARMTOKEN
       const alData = web3ErcContract.methods.allowance(account, FARMTOKEN).encodeABI()
@@ -637,12 +742,11 @@ function BSCFarming ({ params }) {
 
   useEffect(() => {
     getStakingInfo()
-  }, [exchangeAddress, account, lpObj])
+  }, [exchangeAddress, account, InterverTime])
 
   const intervalFn = useCallback(() => {
     getBaseInfo()
-    getStakingInfo()
-  }, [exchangeAddress, account, lpObj])
+  }, [account])
 
   useEffect(() => {
     intervalFn()
@@ -802,12 +906,21 @@ function BSCFarming ({ params }) {
     return path
   }
 
-  function getAPY (lpBalance) {
-    if (BlockReward && lpBalance && BlockReward.gt(ethers.constants.Zero) && lpBalance.gt(ethers.constants.Zero)) {
+  function getAPY (allocPoint, lpBalance) {
+    if (BlockReward && lpBalance && BlockReward.gt(ethers.constants.Zero) && lpBalance.gt(ethers.constants.Zero) && TotalPoint) {
+      // console.log(BlockReward.toString())
       try {
-        let apy = BlockReward.mul(6600 * 365 * 10000).div(lpBalance)
-        apy = Number(apy.toString()) / 100
-        return apy
+        // console.log(allocPoint)
+        // console.log(TotalPoint)
+        let apy = BlockReward.mul(6600 * 365 * 1000000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(lpBalance)
+        // console.log(BlockReward.mul(6600 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).toString())
+        // console.log(apy.toString())
+        apy = Number(apy.toString()) / 10000
+        if (apy > 1) {
+          return apy.toFixed(2)
+        } else {
+          return apy.toFixed(4)
+        }
       } catch (error) {
         console.log(error)
       }
@@ -824,7 +937,7 @@ function BSCFarming ({ params }) {
               return (
                 <FarmList key={index}>
                   <FarmListCont>
-                    <MulLabel>123</MulLabel>
+                    <MulLabel>{item && item.allocPoint ? (Number(item.allocPoint) / BASEMARKET).toFixed(0) : '1'} X</MulLabel>
                     <DoubleLogo>
                       <div className="logo left"><img src={getLogoPath(item && item.tokenObj && item.tokenObj.symbol ? item.tokenObj.symbol : '')} alt=""/></div>
                       <div className="logo right"><img src={getLogoPath(useChain.symbol)} alt=""/></div>
@@ -832,15 +945,15 @@ function BSCFarming ({ params }) {
                     <FarmInfo>
                       <div className="item">
                         <span className="left">Deposit</span>
-                        <span className="right">{formatNum(amountFormatter(item.lpBalance, 18, config.keepDec))}</span>
+                        <span className="right">{item && item.tokenObj && item.tokenObj.symbol ? item.tokenObj.symbol : ''} - {useChain.symbol} LP</span>
                       </div>
                       <div className="item">
                         <span className="left">APY</span>
-                        <span className="right">{getAPY(item.lpBalance)} %</span>
+                        <span className="right">{getAPY(item.allocPoint, item.lpBalance)} %</span>
                       </div>
                       <div className="item">
                         <span className="left">Total Liquidity</span>
-                        <span className="right">{formatNum(amountFormatter(item.totalSupply, 18, config.keepDec))}</span>
+                        <span className="right">$ {BasePeice ? formatNum(Number(amountFormatter(item.exchangeETHBalance)) * 2 * BasePeice) : '0.00'}</span>
                       </div>
                     </FarmInfo>
                     <Flex>
@@ -849,8 +962,8 @@ function BSCFarming ({ params }) {
                           <Button style={{height: '45px', maxWidth: '200px'}} onClick={() => {
                             // console.log(item)
                             // localStorage.setItem(LPTOKEN, item.lpToken)
-                            // history.push(BSCFARMURL + '?lpToken=' + item.lpToken)
-                            setExchangeAddress(item.lpToken)
+                            history.push(BSCFARMURL + '?lpToken=' + item.lpToken)
+                            setExchangeAddress(item.lpToken.toLowerCase())
                           }}>{t('select')}</Button>
                         ) : (
                           <Button onClick={toggleWalletModal}  style={{height: '45px',maxWidth: '200px'}}>
@@ -910,7 +1023,7 @@ function BSCFarming ({ params }) {
     return (
       <>
         <BackBox onClick={() => {
-          // history.push(BSCFARMURL)
+          history.push(BSCFARMURL)
           // localStorage.setItem(LPTOKEN, '')
           setExchangeAddress('')
         }}>
@@ -919,12 +1032,12 @@ function BSCFarming ({ params }) {
         <StakingBox>
           <StakingList>
             <li className='item'>
-              <div className='pic'><img src={require('../../assets/images/coin/source/ANY.svg')} /></div>
+              <div className='pic'><img src={require('../../assets/images/coin/source/CYC.svg')} /></div>
               <div className='info'>
-                <h3>{curLpObj.pendingReward && Number(curLpObj.pendingReward.toString()) > 0 ? amountFormatter(curLpObj.pendingReward, 18, config.keepDec) : '0.00'}</h3>
+                <h3>{curLpObj.pendingReward && Number(curLpObj.pendingReward.toString()) > 0 ? formatNum(curLpObj.pendingReward) : '0.00'}</h3>
                 <p>
-                  {curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : ''} {t('Earned')}
-                  <span className='green' style={{marginLeft:'2px'}}>{getAPY(curLpObj.lpBalance)}%)</span>
+                  CYC {t('Earned')}
+                  <span className='green' style={{marginLeft:'2px'}}>({getAPY(curLpObj.allocPoint, curLpObj.lpBalance)}%)</span>
                 </p>
               </div>
               <div className='btn'><Button style={{height: '45px', maxWidth: '200px'}} disabled={HarvestDisabled} onClick={() => {
@@ -932,10 +1045,10 @@ function BSCFarming ({ params }) {
               }}>{t('Harvest')}</Button></div>
             </li>
             <li className='item'>
-              <div className='pic'><img src={require('../../assets/images/coin/source/ANY.svg')} /></div>
+              <div className='pic'><img src={getLogoPath(curLpObj && curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : '')} /></div>
               <div className='info'>
                 <h3>{userInfo && Number(userInfo.toString()) > 0 ? formatNum(amountFormatter(userInfo, 18, config.keepDec)) : '0.00'}</h3>
-                <p>{curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : ''} Tokens {t('Staked')}</p>
+                <p>{curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : ''} - {useChain.symbol} LP {t('Staked')}</p>
               </div>
               <div className='btn'>
                 {btnView}
@@ -998,6 +1111,7 @@ function BSCFarming ({ params }) {
           </StakingModalBox>
         </ModalContent>
       </Modal>
+      <Title title={t('farms')}></Title>
       {exchangeAddress ? stakingView() : farmsList()}
     </>
   )

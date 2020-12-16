@@ -85,20 +85,27 @@ function getApiData (url, token, intarval, address) {
     }
   })
 }
-// export const getPrice = () => {
-//   return new Promise(resolve => {
-//     let url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=fsn&order=market_cap_desc&per_page=100&page=1&sparkline=false'
-//     getApiData(url, FSN_PRICE, 1000 * 60 * 60).then(res => {
-//       // console.log(res)
-//       if (res && res.length > 0) {
-//         let price = res[0].current_price
-//         resolve(price)
-//       } else {
-//         resolve('')
-//       }
-//     })
-//   })
-// }
+export const getPrice = () => {
+  return new Promise(resolve => {
+
+    let url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=fsn'
+    // if (true) {
+    if (Number(config.chainID) === 56 || Number(config.chainID) === 97) {
+      url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=binancecoin'
+    }
+    // console.log(url)
+    getApiData(url, config.chainID + '_PRICE', 1000 * 60 * 60).then(res => {
+    // getApiData(url, 56 + '_PRICE', 1000 * 60 * 60).then(res => {
+      // console.log(res)
+      if (res && res.length > 0) {
+        let price = res[0].current_price
+        resolve(price)
+      } else {
+        resolve('')
+      }
+    })
+  })
+}
 
 export const getRewards = (address) => {
   return new Promise(resolve => {

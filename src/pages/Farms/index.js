@@ -7,7 +7,7 @@ const BSCfarming = lazy(() => import('./BSCfarming'))
 
 export default function Farm({ params }) {
   // console.log(params)
-  const BSCfarmingParams = () => <BSCfarming params={params} />
+  const BSCfarmingParams = () => <BSCfarming />
   return (
     <>
       <Suspense fallback={null}>
