@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { createBrowserHistory } from 'history'
 import styled from 'styled-components'
 import { ethers } from 'ethers'
-import { NavLink, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { transparentize } from 'polished'
 import { useWeb3React, useSwapTokenContract } from '../../hooks'
 // import { useAddressAllowance } from '../../contexts/Allowances'
@@ -17,6 +17,7 @@ import { Button } from '../../theme'
 import MasterChef from '../../constants/abis/MasterChef.json'
 import ERC20_ABI from '../../constants/abis/erc20'
 import EXCHANGE_ABI from '../../constants/abis/exchange'
+import FoodToken from '../../constants/abis/FoodToken'
 
 import Title from '../../components/Title'
 import Modal from '../../components/Modal'
@@ -419,8 +420,12 @@ function BSCFarming ({ location }) {
 
   const [InterverTime, setInterverTime] = useState(0)
 
+  const [rewardToken, setRewardToken] = useState()
+  const [perShareAmount, setPerShareAmount] = useState()
+
   const web3Contract = new web3Fn.eth.Contract(MasterChef, FARMTOKEN)
   const web3ErcContract = new web3Fn.eth.Contract(ERC20_ABI)
+  const web3FoodContract = new web3Fn.eth.Contract(FoodToken)
 
   const MMContract = useSwapTokenContract(FARMTOKEN, MasterChef)
 
@@ -436,6 +441,22 @@ function BSCFarming ({ location }) {
       // console.log(res)
       setBasePeice(res)
     })
+    web3Contract.methods.rewardToken().call((err, rt) => {
+      // console.log(err)
+      // console.log(res)
+      if (!err) {
+        setRewardToken(rt)
+        web3FoodContract.options.address = rt
+        // web3FoodContract.options.address = rewardToken
+        web3FoodContract.methods.perShareAmount().call((error, res) => {
+          // console.log(err)
+          // console.log(res)
+          if (!error) {
+            setPerShareAmount(res)
+          }
+        })  
+      }
+    })  
   }, [])
 
   useEffect(() => {
@@ -684,6 +705,15 @@ function BSCFarming ({ location }) {
         setBlockReward(ethers.utils.bigNumberify(res))
       }
     }))
+    if (rewardToken) {
+      web3FoodContract.options.address = rewardToken
+      const psabData = web3FoodContract.methods.perShareAmount().encodeABI()
+      batch.add(web3Fn.eth.call.request({data: psabData, to: rewardToken}, 'latest', (err, res) => {
+        if (!err && res) {
+          setBlockReward(ethers.utils.bigNumberify(res))
+        }
+      }))
+    }
 
     batch.execute()
   }
@@ -912,10 +942,8 @@ function BSCFarming ({ location }) {
       try {
         // console.log(allocPoint)
         // console.log(TotalPoint)
-        let apy = BlockReward.mul(6600 * 365 * 1000000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(lpBalance)
-        // console.log(BlockReward.mul(6600 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).toString())
-        // console.log(apy.toString())
-        apy = Number(apy.toString()) / 10000
+        let apy = BlockReward.mul(6600 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).mul(ethers.utils.bigNumberify(perShareAmount)).div(ethers.utils.bigNumberify(TotalPoint)).div(lpBalance)
+        apy = Number(apy.toString()) / 100
         if (apy > 1) {
           return apy.toFixed(2)
         } else {
@@ -1020,6 +1048,10 @@ function BSCFarming ({ location }) {
       }}>{unlocking ? t('pending') : t('unlock')}</Button>
     }
     let curLpObj = lpObj && lpObj[exchangeAddress] ? lpObj[exchangeAddress] : {}
+    let prd = perShareAmount && curLpObj.pendingReward && Number(curLpObj.pendingReward.toString()) > 0 ? Number(perShareAmount) * Number(curLpObj.pendingReward) : ''
+    // console.log(prd)
+    prd = prd ? ethers.utils.bigNumberify(prd.toString()) : ''
+    prd = prd ? formatNum(amountFormatter(prd, 18, config.keepDec)) : '0.00'
     return (
       <>
         <BackBox onClick={() => {
@@ -1034,7 +1066,7 @@ function BSCFarming ({ location }) {
             <li className='item'>
               <div className='pic'><img src={require('../../assets/images/coin/source/CYC.svg')} /></div>
               <div className='info'>
-                <h3>{curLpObj.pendingReward && Number(curLpObj.pendingReward.toString()) > 0 ? formatNum(curLpObj.pendingReward) : '0.00'}</h3>
+                <h3>{prd}</h3>
                 <p>
                   CYC {t('Earned')}
                   <span className='green' style={{marginLeft:'2px'}}>({getAPY(curLpObj.allocPoint, curLpObj.lpBalance)}%)</span>

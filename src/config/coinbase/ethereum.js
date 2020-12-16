@@ -85,7 +85,7 @@ const MAIN_CONFIG = {
     initAddr: 'Ld184nvim5wvH2cNw9tuJdH2VvL3Kx5wBh',  // 
   },
   block: { // block配置
-    lookHash: 'https://blockchair.com/litecoin/transaction/', // 
+    lookHash: 'https://block.ccore.online/transaction/', // 
     queryTxns: 'https://block.ccore.online/ext/getaddress/', // 
     queryHashStatus: 'https://block.ccore.online/api/getrawtransaction?txid=', // 
     initAddr: 'BoXzhY6SQ2Zorj8ha8RamvRiKK16q6PRW3',  // 

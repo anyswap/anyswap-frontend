@@ -299,6 +299,8 @@ font-family: 'Manrope';
 export default function Header() {
   const { t } = useTranslation()
   const [isDark, toggleDarkMode] = useDarkModeManager()
+  const history = createBrowserHistory()
+  // console.log(window.location)
   function openUrl (item) {
     // if (config.symbol === 'FSN') {
     //   localStorage.setItem(config.ENV_NODE_CONFIG, 'BNB_MAIN')
@@ -310,6 +312,7 @@ export default function Header() {
     }
     // console.log(item.label)
     localStorage.setItem(config.ENV_NODE_CONFIG, item.label)
+    history.push(window.location.pathname + '')
     history.go(0)
   }
   // useEffect(() => {
