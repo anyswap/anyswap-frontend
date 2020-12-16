@@ -10,6 +10,8 @@ import Header from '../components/Header'
 import NavigationTabs from '../components/NavigationTabs'
 import { isAddress, getAllQueryParams } from '../utils'
 
+import config from '../config'
+
 // import { createBrowserHistory } from 'history';
 // const browserHistory = createBrowserHistory()
 // import createHistory from 'history/createHashHistory'
@@ -186,9 +188,9 @@ export default function App() {
                         <Route
                           path={[
                             '/farms',
-                            '/farms/staking',
-                            '/farms/bscfarming',
-                            '/farms/bscfarming/:lpToken?',
+                            config.farmUrl + 'staking',
+                            config.farmUrl + 'bscfarming',
+                            config.farmUrl + 'bscfarming/:lpToken?',
                           ]}
                           component={() => <Farms params={params} />}
                         />

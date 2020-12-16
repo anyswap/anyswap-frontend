@@ -1,8 +1,9 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import Title from '../../components/Title'
+import config from '../../config'
 
 const FarmListBox = styled.div`
   ${({ theme }) => theme.FlexSC};
@@ -70,7 +71,7 @@ export default function FarmsList () {
       ></Title>
       <FarmListBox>
         <FarmList>
-          <StyledNavLink to={'/farms/staking'}>
+          <StyledNavLink to={config.farmUrl + 'staking'}>
             <div className='default'>
               <div className='img'><img src={require('../../assets/images/coin/source/ANY.svg')} alt=""/></div>
               <div className='info'>
@@ -80,7 +81,7 @@ export default function FarmsList () {
           </StyledNavLink>
         </FarmList>
         <FarmList>
-          <StyledNavLink to={'/farms/bscfarming'}>
+          <StyledNavLink to={config.farmUrl + 'bscfarming'}>
             <div className='default'>
               <div className='img'><img src={require('../../assets/images/coin/source/ANY.svg')} alt=""/></div>
               <div className='info'>

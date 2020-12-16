@@ -266,7 +266,7 @@ export default {
     },
     '0xe692c8d72bd4ac7764090d54842a305546dd1de5': { // BLOCK 5
       [NAME]: 'Blocknet ' + config.suffix,
-      [SYMBOL]: 'anyBLOCK',
+      [SYMBOL]: 'aBLOCK',
       [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0x2f9755c371C7f23AEcdF1C136D233b41cE3E0D55',
       [REDEEM_MAX_NUM]: 1000000,

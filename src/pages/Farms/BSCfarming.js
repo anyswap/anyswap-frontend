@@ -346,7 +346,7 @@ function farmStateReducer(state, action) {
   }
 }
 
-const BSCFARMURL = '/farms/bscfarming/'
+const BSCFARMURL = config.farmUrl + 'bscfarming/'
 
 const BASEMARKET = 100
 let CHAINID = '46688'
