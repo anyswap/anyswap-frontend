@@ -38,6 +38,10 @@ const TokenLogo1 = styled(TokenLogo)`
 background:none;
 `
 
+const Button1 = styled(Button)`
+white-space:nowrap;
+`
+
 const InputRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
@@ -351,7 +355,7 @@ const BSCFARMURL = config.farmUrl + 'bscfarming/'
 const BASEMARKET = 100
 let CHAINID = '46688'
 let useChain = chainInfo[CHAINID]
-let FARMTOKEN = '0x281bbbebfdab3a5bcb3407d2fce71d0cec02a9fe'
+let FARMTOKEN = '0x4ca12cdecdd5935abdaf6358609ad9a60d8e775c'
 let useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
 let exchangeObj = {}
 for (let token in useToken) {
@@ -443,7 +447,7 @@ function BSCFarming ({ location }) {
     })
     web3Contract.methods.rewardToken().call((err, rt) => {
       // console.log(err)
-      // console.log(res)
+      console.log(rt)
       if (!err) {
         setRewardToken(rt)
         web3FoodContract.options.address = rt
@@ -987,16 +991,16 @@ function BSCFarming ({ location }) {
                     <Flex>
                       {
                         account ? (
-                          <Button style={{height: '45px', maxWidth: '200px'}} onClick={() => {
+                          <Button1 style={{height: '45px', maxWidth: '200px'}} onClick={() => {
                             // console.log(item)
                             // localStorage.setItem(LPTOKEN, item.lpToken)
                             history.push(BSCFARMURL + '?lpToken=' + item.lpToken)
                             setExchangeAddress(item.lpToken.toLowerCase())
-                          }}>{t('select')}</Button>
+                          }}>{t('select')}</Button1>
                         ) : (
-                          <Button onClick={toggleWalletModal}  style={{height: '45px',maxWidth: '200px'}}>
+                          <Button1 onClick={toggleWalletModal}  style={{height: '45px',maxWidth: '200px'}}>
                             {t('connectToWallet')}
-                          </Button>
+                          </Button1>
                         )
                       }
                     </Flex>
@@ -1013,22 +1017,22 @@ function BSCFarming ({ location }) {
   function stakingView () {
     let btnView = ''
     if (Number(CHAINID) !== Number(chainId)) {
-      btnView = <Button onClick={() => {
+      btnView = <Button1 onClick={() => {
         // localStorage.setItem(config.ENV_NODE_CONFIG, useChain.label)
         // history.go(0)
       }}  style={{height: '45px', maxWidth: '200px'}}>
         {t('SwitchTo')} BSC {t('mainnet')}
-      </Button>
+      </Button1>
     } else if (!account) {
-      btnView = <Button onClick={toggleWalletModal}  style={{height: '45px',maxWidth: '200px'}}>
+      btnView = <Button1 onClick={toggleWalletModal}  style={{height: '45px',maxWidth: '200px'}}>
         {t('connectToWallet')}
-      </Button>
+      </Button1>
     } else if (approveAmount && Number(approveAmount)) {
       btnView = <>
-        <Button style={{height: '45px', maxWidth: '200px'}} disabled={WithdrawDisabled} onClick={() => {
+        <Button1 style={{height: '45px', maxWidth: '200px'}} disabled={WithdrawDisabled} onClick={() => {
           setStakingType('Unstake')
           setStakingModal(true)
-        }}>{t('Unstake')}</Button>
+        }}>{t('Unstake')}</Button1>
         <AddBox disabled={DepositDisabled} onClick={() => {
           setStakingType('deposit')
           setStakingModal(true)
@@ -1043,9 +1047,9 @@ function BSCFarming ({ location }) {
         </AddBox>
       </>
     } else {
-      btnView = <Button style={{height: '45px', maxWidth: '200px'}} disabled={unlocking} onClick={() => {
+      btnView = <Button1 style={{height: '45px', maxWidth: '200px'}} disabled={unlocking} onClick={() => {
         approve()
-      }}>{unlocking ? t('pending') : t('unlock')}</Button>
+      }}>{unlocking ? t('pending') : t('unlock')}</Button1>
     }
     let curLpObj = lpObj && lpObj[exchangeAddress] ? lpObj[exchangeAddress] : {}
     let prd = perShareAmount && curLpObj.pendingReward && Number(curLpObj.pendingReward.toString()) > 0 ? Number(perShareAmount) * Number(curLpObj.pendingReward) : ''
@@ -1072,9 +1076,9 @@ function BSCFarming ({ location }) {
                   <span className='green' style={{marginLeft:'2px'}}>({getAPY(curLpObj.allocPoint, curLpObj.lpBalance)}%)</span>
                 </p>
               </div>
-              <div className='btn'><Button style={{height: '45px', maxWidth: '200px'}} disabled={HarvestDisabled} onClick={() => {
+              <div className='btn'><Button1 style={{height: '45px', maxWidth: '200px'}} disabled={HarvestDisabled} onClick={() => {
                 withdraw(0)
-              }}>{t('Harvest')}</Button></div>
+              }}>{t('Harvest')}</Button1></div>
             </li>
             <li className='item'>
               <div className='pic'><img src={getLogoPath(curLpObj && curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : '')} /></div>
@@ -1133,13 +1137,13 @@ function BSCFarming ({ location }) {
             <AmountView>
               {amountView} {lpObj && lpObj[exchangeAddress] && lpObj[exchangeAddress].tokenObj && lpObj[exchangeAddress].tokenObj.symbol ? lpObj[exchangeAddress].tokenObj.symbol : ''}
             </AmountView>
-            <Button style={{height: '45px',width: '150px'}} disabled={stakeDisabled} onClick={() => {
+            <Button1 style={{height: '45px',width: '150px'}} disabled={stakeDisabled} onClick={() => {
               if (stakingType === 'deposit') {
                 deposit()
               } else {
                 withdraw()
               }
-            }}>{t(stakingType)}</Button>
+            }}>{t(stakingType)}</Button1>
           </StakingModalBox>
         </ModalContent>
       </Modal>

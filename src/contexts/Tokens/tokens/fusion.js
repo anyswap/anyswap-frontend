@@ -518,11 +518,11 @@ export default {
       [DEPOSIT_MIN_NUM]: 0.0005,
       [EXTENDOBJ]:  {}
     },
-    '0xa82a9c5eb2c94615097ec311e7e01d803b4c1bf5': { // CYC
+    '0x1c319fe4e4b1f5ec4a6a2ca076a94e248e55341a': { // CYC
       [NAME]: 'FoodToken',
       [SYMBOL]: 'CYC',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xafededc6e1d18a91360ab6e729a77fdfb4944c10',
+      [EXCHANGE_ADDRESS]: '0x45f97b8dfd7f3a681d90ab8536a0307f9213ffae',
       [REDEEM_MAX_NUM]: 20,
       [REDEEM_MIN_NUM]: 0.002,
       [FEE]: 0.001,
