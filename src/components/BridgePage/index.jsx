@@ -794,6 +794,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [showBetaMessage] = useBetaMessageManager()
   const allTokens = useAllTokenDetails()
   let walletType = sessionStorage.getItem('walletType')
+  params = params ? params : {}
   // let HDPath = sessionStorage.getItem('HDPath')
   // account = ''
   // console.log(allTokens)
@@ -2164,7 +2165,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             if (inputVal) {
               value = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
               if (_fee.isZero()) {
-                inputVal = inputVal
+                // inputVal = inputVal
               } else {
                 if (_fee.lt(_minFee)) {
                   _fee = _minFee
@@ -2210,7 +2211,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
           }
           if (_fee.isZero()) {
-            inputVal = inputVal
+            // inputVal = inputVal
           } else {
             if (_fee.lt(_minFee)) {
               _fee = _minFee

@@ -312,10 +312,10 @@ export default function Header() {
     localStorage.setItem(config.ENV_NODE_CONFIG, item.label)
     history.go(0)
   }
-  useEffect(() => {
-    const history = createBrowserHistory()
-    history.push(window.location.pathname + '')
-  }, [])
+  // useEffect(() => {
+  //   const history = createBrowserHistory()
+  //   history.push(window.location.pathname + '')
+  // }, [])
 
   const [networkView, setNetworkView] = useState(false)
 

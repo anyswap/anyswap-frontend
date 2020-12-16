@@ -397,15 +397,16 @@ export default function ExchangePage({ initialCurrency, params }) {
   const [showBetaMessage] = useBetaMessageManager()
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
+  params = params ? params : {}
   // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   const urlAddedTokens = {}
-  if (params.inputCurrency) {
+  if (params && params.inputCurrency) {
     urlAddedTokens[params.inputCurrency] = true
   }
-  if (params.outputCurrency) {
+  if (params && params.outputCurrency) {
     urlAddedTokens[params.outputCurrency] = true
   }
-  if (params.tokenAddress) {
+  if (params && params.tokenAddress) {
     urlAddedTokens[params.tokenAddress] = true
   }
   if (isAddress(initialCurrency)) {
@@ -712,10 +713,10 @@ export default function ExchangePage({ initialCurrency, params }) {
     t
   ])
 
-  useEffect(() => {
-    const history = createBrowserHistory()
-    history.push(window.location.pathname + '')
-  }, [])
+  // useEffect(() => {
+  //   const history = createBrowserHistory()
+  //   history.push(window.location.pathname + '')
+  // }, [])
 
   const [inverted, setInverted] = useState(false)
   const exchangeRate = getExchangeRate(inputValueParsed, inputDecimals, outputValueParsed, outputDecimals)

@@ -122,6 +122,10 @@ export function getAllQueryParams() {
     ? isAddress(getQueryParam(window.location, 'tokenAddress'))
     : ''
 
+  params.lpToken = isAddress(getQueryParam(window.location, 'lpToken'))
+    ? isAddress(getQueryParam(window.location, 'lpToken'))
+    : ''
+
   return params
 }
 

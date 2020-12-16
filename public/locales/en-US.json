@@ -212,5 +212,6 @@
   "anyTip": "Anyswap staking only supported Fusion mainnet!",
   "TotalStaking": "Total Staking",
   "CirculatingSupply": "Circulating Supply",
-  "farms": "Farms"
+  "farms": "Farms",
+  "select": "Select"
 }

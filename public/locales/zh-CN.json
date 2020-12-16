@@ -211,5 +211,6 @@
   "anyTip": "Anyswap 抵押仅支持Fusion主网！",
   "TotalStaking": "总抵押",
   "CirculatingSupply": "当前流通量",
-  "farms": "农场"
+  "farms": "农场",
+  "select": "选择"
 }

@@ -136,10 +136,10 @@ function CreateExchange({ location, params }) {
   const addTransaction = useTransactionAdder()
 
   // clear url of query
-  useEffect(() => {
-    const history = createBrowserHistory()
-    history.push(window.location.pathname + '')
-  }, [])
+  // useEffect(() => {
+  //   const history = createBrowserHistory()
+  //   history.push(window.location.pathname + '')
+  // }, [])
 
   // validate everything
   const [errorMessage, setErrorMessage] = useState(!account && t('noWallet'))
