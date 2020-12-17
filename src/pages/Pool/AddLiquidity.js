@@ -427,14 +427,14 @@ export default function AddLiquidity({ params }) {
 
   const [totalPoolTokens, setTotalPoolTokens] = useState()
   const fetchPoolTokens = useCallback(() => {
-    if (exchangeContract) {
+    if (exchangeContract && library.blockNumber) {
       exchangeContract.totalSupply().then(totalSupply => {
         setTotalPoolTokens(totalSupply)
       }).catch(err => {
         console.log(err)
       })
     }
-  }, [exchangeContract])
+  }, [exchangeContract, library])
   useEffect(() => {
     fetchPoolTokens()
     library.on('block', fetchPoolTokens)

@@ -461,14 +461,14 @@ export default function RemoveLiquidity({ params }) {
   const tokenWithdrawnMin = tokenWithdrawn ? calculateSlippageBounds(tokenWithdrawn).minimum : undefined
 
   const fetchPoolTokens = useCallback(() => {
-    if (exchange) {
+    if (exchange && library.blockNumber) {
       exchange.totalSupply().then(totalSupply => {
         setTotalPoolTokens(totalSupply)
       }).catch(err => {
         console.log(err)
       })
     }
-  }, [exchange])
+  }, [exchange, library])
   useEffect(() => {
     fetchPoolTokens()
     library.on('block', fetchPoolTokens)

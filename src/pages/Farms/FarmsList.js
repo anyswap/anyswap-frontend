@@ -25,6 +25,7 @@ const FarmListBox = styled.div`
 const FarmList = styled.div`
 width: 50%;
 height: 220px;
+margin-bottom: 20px;
 &:nth-child(2n) {
   padding-left: 10px;
 }
@@ -235,7 +236,7 @@ export default function FarmsList () {
           let poolLength = res[0] && res[0].result ? res[0].result : ''
           BlockReward = res[1] && res[1].result ? ethers.utils.bigNumberify(res[1].result) : ''
           lpBalance = res[2] && res[2].result ? formatCellData(res[2].result, 66) : ''
-          console.log(parseInt(poolLength))
+          // console.log(parseInt(poolLength))
           getTokenList(parseInt(poolLength))
         }
       })
@@ -254,9 +255,9 @@ export default function FarmsList () {
       <Title
         title={t('farms')}
       ></Title>
-      <BannerBox>
+      {/* <BannerBox>
         <img src={require('../../assets/images/banner/farm.png')} />
-      </BannerBox>
+      </BannerBox> */}
       <FarmListBox>
         <FarmList>
           <StyledNavLink to={config.farmUrl + 'staking'}>
