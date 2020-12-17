@@ -270,6 +270,7 @@ const AmountView = styled.div`
 
 const BackBox = styled.div`
   cursor:pointer;
+  display:inline-block;
 `
 
 const QuestionWrapper = styled.button`
@@ -782,6 +783,7 @@ function BSCFarming ({ initialTrade }) {
     const rpbData = web3Contract.methods.rewardPerBlock().encodeABI()
     batch.add(web3Fn.eth.call.request({data: rpbData, to: FARMTOKEN}, 'latest', (err, res) => {
       if (!err && res) {
+        // console.log(res)
         setBlockReward(ethers.utils.bigNumberify(res))
       }
     }))
@@ -1233,8 +1235,8 @@ function BSCFarming ({ initialTrade }) {
       >
         <ModalContent
           title={t('anyBscStakingTip0')}
-          // onClose={setPopup}
-          isShowClose={false}
+          onClose={setPopup}
+          isShowClose={!!localStorage.getItem(BSCAGREESTAKING)}
         >
           <ActivityInfoBox>
             <h3 className='title'>{t('anyBscStakingTip10')}</h3>

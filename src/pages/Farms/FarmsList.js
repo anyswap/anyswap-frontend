@@ -56,7 +56,7 @@ const StyledNavLink = styled(NavLink)`
     flex-wrap:wrap;
     width:100%;
     height:100%;
-    padding: 52px 10px 0;
+    padding: 22px 10px 0;
     border-radius: 10px;
     .img {
       ${({ theme }) => theme.FlexC};
@@ -71,7 +71,7 @@ const StyledNavLink = styled(NavLink)`
     .info {
       width:100%;
       text-align:center;
-      margin:10px 0 0;
+      margin:0px 0 0;
       h3 {
         color: #fff;
         font-size:18px;
