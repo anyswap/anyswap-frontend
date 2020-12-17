@@ -455,7 +455,7 @@ export default {
       [NAME]: 'ANY Tether',
       [SYMBOL]: 'aUSDT',
       [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '0xAf5A16AaAD4c52A3005b1aF129DBaE28b232a3b2',
+      [EXCHANGE_ADDRESS]: '0xaf5a16aaad4c52a3005b1af129dbae28b232a3b2',
       [REDEEM_MAX_NUM]: 100000,
       [REDEEM_MIN_NUM]: 20,
       [FEE]: 0.001,
@@ -479,7 +479,7 @@ export default {
       [NAME]: 'ANY Ethereum',
       [SYMBOL]: 'aETH',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x27Aa624a4450ecD2e12bf6bBc103BA9bD784cA70',
+      [EXCHANGE_ADDRESS]: '0x27aa624a4450ecd2e12bf6bbc103ba9bd784ca70',
       [REDEEM_MAX_NUM]: 1000000,
       [REDEEM_MIN_NUM]: 0.1,
       [FEE]: 0.001,
@@ -518,11 +518,11 @@ export default {
       [DEPOSIT_MIN_NUM]: 0.0005,
       [EXTENDOBJ]:  {}
     },
-    '0x1c319fe4e4b1f5ec4a6a2ca076a94e248e55341a': { // CYC
+    '0x127f3025bb866f69ecffda266c0d84ed0ee3d05a': { // CYC
       [NAME]: 'CYCoin',
       [SYMBOL]: 'CYC',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x45f97b8dfd7f3a681d90ab8536a0307f9213ffae',
+      [EXCHANGE_ADDRESS]: '0xf0f4de212b1c49e2f98fcf574e5746507a9cac44',
       [REDEEM_MAX_NUM]: 20,
       [REDEEM_MIN_NUM]: 0.002,
       [FEE]: 0.001,

@@ -17,7 +17,7 @@ import { Button } from '../../theme'
 import MasterChef from '../../constants/abis/MasterChef.json'
 import ERC20_ABI from '../../constants/abis/erc20'
 import EXCHANGE_ABI from '../../constants/abis/exchange'
-import FoodToken from '../../constants/abis/FoodToken'
+// import FoodToken from '../../constants/abis/FoodToken'
 
 import Title from '../../components/Title'
 import Modal from '../../components/Modal'
@@ -73,7 +73,7 @@ const Input = styled.input`
 `
 
 const FarmListBox = styled.div`
-  ${({ theme }) => theme.FlexBC};
+  ${({ theme }) => theme.FlexSC};
   width: 100%;
   flex-wrap:wrap;
 `
@@ -355,7 +355,7 @@ const BSCFARMURL = config.farmUrl + 'bscfarming'
 const BASEMARKET = 100
 let CHAINID = '46688'
 let useChain = chainInfo[CHAINID]
-let FARMTOKEN = '0x4ca12cdecdd5935abdaf6358609ad9a60d8e775c'
+let FARMTOKEN = '0x38999f5c5be5170940d72b398569344409cd4c6e'
 let useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
 let exchangeObj = {}
 for (let token in useToken) {
@@ -424,12 +424,12 @@ function BSCFarming ({ initialTrade }) {
 
   const [InterverTime, setInterverTime] = useState(0)
 
-  const [rewardToken, setRewardToken] = useState()
-  const [perShareAmount, setPerShareAmount] = useState()
+  // const [rewardToken, setRewardToken] = useState()
+  // const [perShareAmount, setPerShareAmount] = useState()
 
   const web3Contract = new web3Fn.eth.Contract(MasterChef, FARMTOKEN)
   const web3ErcContract = new web3Fn.eth.Contract(ERC20_ABI)
-  const web3FoodContract = new web3Fn.eth.Contract(FoodToken)
+  // const web3FoodContract = new web3Fn.eth.Contract(FoodToken)
 
   const MMContract = useSwapTokenContract(FARMTOKEN, MasterChef)
 
@@ -441,26 +441,26 @@ function BSCFarming ({ initialTrade }) {
   const exchangeContract = new web3Fn.eth.Contract(EXCHANGE_ABI)
 
   useEffect(() => {
-    getPrice().then(res => {
+    getPrice(useChain.symbol).then(res => {
       // console.log(res)
       setBasePeice(res)
     })
-    web3Contract.methods.rewardToken().call((err, rt) => {
-      // console.log(err)
-      // console.log(rt)
-      if (!err) {
-        setRewardToken(rt)
-        web3FoodContract.options.address = rt
-        // web3FoodContract.options.address = rewardToken
-        web3FoodContract.methods.perShareAmount().call((error, res) => {
-          // console.log(err)
-          // console.log(res)
-          if (!error) {
-            setPerShareAmount(res)
-          }
-        })  
-      }
-    })  
+    // web3Contract.methods.rewardToken().call((err, rt) => {
+    //   // console.log(err)
+    //   // console.log(rt)
+    //   if (!err) {
+    //     setRewardToken(rt)
+    //     web3FoodContract.options.address = rt
+    //     // web3FoodContract.options.address = rewardToken
+    //     web3FoodContract.methods.perShareAmount().call((error, res) => {
+    //       // console.log(err)
+    //       // console.log(res)
+    //       if (!error) {
+    //         setPerShareAmount(res)
+    //       }
+    //     })  
+    //   }
+    // })  
   }, [])
 
   useEffect(() => {
@@ -523,7 +523,7 @@ function BSCFarming ({ initialTrade }) {
     for (let i = 0,len = lpArr.length; i < len; i++) {
       let obj = lpArr[i]
       // console.log(obj)
-      exchangeContract.options.address = FARMTOKEN
+      exchangeContract.options.address = obj.lpToken
       const tsData = exchangeContract.methods.totalSupply().encodeABI()
       batch.add(web3Fn.eth.call.request({data: tsData, to: obj.lpToken}, 'latest', (err, ts) => {
         if (!err) {
@@ -713,15 +713,15 @@ function BSCFarming ({ initialTrade }) {
         setBlockReward(ethers.utils.bigNumberify(res))
       }
     }))
-    if (rewardToken) {
-      web3FoodContract.options.address = rewardToken
-      const psabData = web3FoodContract.methods.perShareAmount().encodeABI()
-      batch.add(web3Fn.eth.call.request({data: psabData, to: rewardToken}, 'latest', (err, res) => {
-        if (!err && res) {
-          setBlockReward(ethers.utils.bigNumberify(res))
-        }
-      }))
-    }
+    // if (rewardToken) {
+    //   web3FoodContract.options.address = rewardToken
+    //   const psabData = web3FoodContract.methods.perShareAmount().encodeABI()
+    //   batch.add(web3Fn.eth.call.request({data: psabData, to: rewardToken}, 'latest', (err, res) => {
+    //     if (!err && res) {
+    //       setBlockReward(ethers.utils.bigNumberify(res))
+    //     }
+    //   }))
+    // }
 
     batch.execute()
   }
@@ -770,6 +770,7 @@ function BSCFarming ({ initialTrade }) {
       batch.add(web3Fn.eth.call.request({data: uiData, to: FARMTOKEN}, 'latest', (err, userInfo) => {
         if (!err) {
           // console.log('userInfo')
+          // console.log(userInfo)
           // console.log(formatCellData(userInfo, 66).toString())
           setUserInfo(formatCellData(userInfo, 66))
         }
@@ -930,33 +931,15 @@ function BSCFarming ({ initialTrade }) {
     setStakeAmount(amount)
   }
 
-  function getLogoPath(symbol) {
-    let path = ''
-    try {
-      path = require('../../assets/images/coin/source/' + symbol + '.svg')
-    } catch (error) {
-      try {
-        path = require('../../assets/images/coin/source/' + symbol + '.png')
-      } catch (error) {
-        path = require('../../assets/images/question.svg')
-      }
-    }
-    return path
-  }
-
   function getAPY (allocPoint, lpBalance) {
     if (BlockReward && lpBalance && BlockReward.gt(ethers.constants.Zero) && lpBalance.gt(ethers.constants.Zero) && TotalPoint) {
       // console.log(BlockReward.toString())
       try {
         // console.log(allocPoint)
         // console.log(TotalPoint)
-        let apy = BlockReward.mul(6600 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).mul(ethers.utils.bigNumberify(perShareAmount)).div(ethers.utils.bigNumberify(TotalPoint)).div(lpBalance)
+        let apy = BlockReward.mul(6600 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(lpBalance)
         apy = Number(apy.toString()) / 100
-        if (apy > 1) {
-          return apy.toFixed(2)
-        } else {
-          return apy.toFixed(4)
-        }
+        return apy.toFixed(2)
       } catch (error) {
         console.log(error)
       }
@@ -975,8 +958,11 @@ function BSCFarming ({ initialTrade }) {
                   <FarmListCont>
                     <MulLabel>{item && item.allocPoint ? (Number(item.allocPoint) / BASEMARKET).toFixed(0) : '1'} X</MulLabel>
                     <DoubleLogo>
-                      <div className="logo left"><img src={getLogoPath(item && item.tokenObj && item.tokenObj.symbol ? item.tokenObj.symbol : '')} alt=""/></div>
-                      <div className="logo right"><img src={getLogoPath(useChain.symbol)} alt=""/></div>
+                      <div className="logo left">
+                        <TokenLogo1 address={item && item.tokenObj && item.tokenObj.symbol ? item.tokenObj.symbol : ''} size='100%'/>
+                        </div>
+                      <div className="logo right"><TokenLogo1 address={useChain.symbol} size='100%'/></div>
+                      
                     </DoubleLogo>
                     <FarmInfo>
                       <div className="item">
@@ -1057,7 +1043,8 @@ function BSCFarming ({ initialTrade }) {
       }}>{unlocking ? t('pending') : t('unlock')}</Button1>
     }
     let curLpObj = lpObj && lpObj[exchangeAddress] ? lpObj[exchangeAddress] : {}
-    let prd = perShareAmount && curLpObj.pendingReward && Number(curLpObj.pendingReward.toString()) > 0 ? Number(perShareAmount) * Number(curLpObj.pendingReward) : ''
+    // let prd = perShareAmount && curLpObj.pendingReward && Number(curLpObj.pendingReward.toString()) > 0 ? Number(perShareAmount) * Number(curLpObj.pendingReward) : ''
+    let prd = curLpObj.pendingReward && Number(curLpObj.pendingReward.toString()) > 0 ? curLpObj.pendingReward : ''
     // console.log(prd)
     prd = prd ? ethers.utils.bigNumberify(prd.toString()) : ''
     prd = prd ? formatNum(amountFormatter(prd, 18, config.keepDec)) : '0.00'
@@ -1086,7 +1073,7 @@ function BSCFarming ({ initialTrade }) {
               }}>{t('Harvest')}</Button1></div>
             </li>
             <li className='item'>
-              <div className='pic'><img src={getLogoPath(curLpObj && curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : '')} /></div>
+              <div className='pic'><TokenLogo1 address={curLpObj && curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : ''} size='100%'/></div>
               <div className='info'>
                 <h3>{userInfo && Number(userInfo.toString()) > 0 ? formatNum(amountFormatter(userInfo, 18, config.keepDec)) : '0.00'}</h3>
                 <p>{curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : ''} - {useChain.symbol} LP {t('Staked')}</p>

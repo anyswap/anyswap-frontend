@@ -7,6 +7,7 @@ import { NetworkContextName } from '../constants'
 import ERC20_ABI from '../constants/abis/erc20'
 import { getContract, getFactoryContract, getExchangeContract, isAddress } from '../utils'
 import { injected } from '../connectors'
+import config from '../config'
 
 export function useWeb3React() {
   const context = useWeb3ReactCore()
@@ -36,10 +37,19 @@ export function useEagerConnect() {
             setTried(true)
           })
         } else {
-          setTried(true)
+          // setTried(true)
+          injected.getChainId().then(chainId => {
+            // console.log(parseInt(chainId))
+            if (chainId && parseInt(chainId) === Number(config.chainID)) {
+              activate(injected, undefined, true).catch((err) => {
+                setTried(true)
+              })
+            }
+          })
         }
       }
     })
+
   }, [activate]) // intentionally only running on mount (make sure it's only mounted once :))
 
   // if the connection worked, wait until we get confirmation of that to flip the flag

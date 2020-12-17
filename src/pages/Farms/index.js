@@ -11,7 +11,7 @@ import Staking from './Staking'
 import BSCfarming from './BSCfarming'
 
 export default function Farm() {
-  console.log('params')
+  // console.log('params')
   const BSCfarmingParams = () => <BSCfarming />
   return (
     <>
@@ -23,23 +23,9 @@ export default function Farm() {
           <Route
             path={config.farmUrl + "bscfarming/:lpToken"}
             render={({ match }) => {
-              // console.log(match)
               return <BSCfarming initialTrade={match.params.lpToken} />
-              // return (
-              //   <Redirect to={{ pathname: config.farmUrl + "bscfarming", state: { lpToken: match.params.lpToken } }} />
-              // )
             }}
           />
-          {/* <Route strict path={config.farmUrl + "bscfarming"} component={BSCfarmingParams} />
-          <Route
-            exact
-            strict
-            path={config.farmUrl + "bscfarming/:lpToken"}
-            render={({ match }) => {
-              console.log(match)
-              return <BSCfarming initialExchange={match.params.lpToken} />
-            }}
-          /> */}
           <Redirect to="/farms" />
         </Switch>
       </Suspense>
