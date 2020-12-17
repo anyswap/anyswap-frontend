@@ -44,6 +44,8 @@ export function useEagerConnect() {
               activate(injected, undefined, true).catch((err) => {
                 setTried(true)
               })
+            } else {
+              setTried(true)
             }
           })
         }

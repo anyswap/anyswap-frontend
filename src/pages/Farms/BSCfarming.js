@@ -99,14 +99,16 @@ const FarmListCont = styled.div`
 `
 
 const MulLabel = styled.div`
-  padding: 3px 5px;
-  border-radius: 5px;
+  min-width:59px;
+  padding: 9px;
+  border-radius: 10px;
   position:absolute;
   top:20px;
   left: 20px;
   background: ${({ theme }) => theme.gradientPurpleTB};
   color:#fff;
-  font-size:12px;
+  font-size:20px;
+  text-align:center;
 `
 
 const DoubleLogo = styled.div`
@@ -115,10 +117,10 @@ const DoubleLogo = styled.div`
   position:relaitve;
   margin-top: 30px;
   .logo {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     border-radius: 100%;
-    background:#fff;
+    // background:#fff;
     img {
       height: 100%;
       display:block;
@@ -142,11 +144,12 @@ const FarmInfo = styled.div`
     ${({ theme }) => theme.FlexBC};
     width: 100%;
     margin: 10px 0;
+    font-size: 16px;
     .left {
-      ${({ theme }) => theme.textColor};
+      color:#969DAC;
     }
     .right {
-      ${({ theme }) => theme.textColorBold};
+      ${({ theme }) => theme.textColor};
     }
   }
 `
@@ -643,7 +646,7 @@ function BSCFarming ({ initialTrade }) {
           let exAddr = pl.substr(0, 66).replace('0x000000000000000000000000', '0x')
           let curPoint = ethers.utils.bigNumberify('0x' + pl.substr(66, 64)).toString()
           let trade = exchangeObj[exAddr] && exchangeObj[exAddr].symbol ? (exchangeObj[exAddr].symbol + '-' + useChain.symbol) : ''
-          if (initialTrade === trade) {
+          if (initialTrade && initialTrade === trade) {
             setExchangeAddress(exAddr)
           }
           dispatchFarmState({
@@ -702,6 +705,7 @@ function BSCFarming ({ initialTrade }) {
     const batch = new web3Fn.BatchRequest()
 
     const plData = web3Contract.methods.poolLength().encodeABI()
+
     batch.add(web3Fn.eth.call.request({data: plData, to: FARMTOKEN}, 'latest', (err, pl) => {
       if (!err) {
         getTokenList(pl)
@@ -933,7 +937,7 @@ function BSCFarming ({ initialTrade }) {
 
   function getAPY (allocPoint, lpBalance) {
     if (BlockReward && lpBalance && BlockReward.gt(ethers.constants.Zero) && lpBalance.gt(ethers.constants.Zero) && TotalPoint) {
-      // console.log(BlockReward.toString())
+      // console.log(lpBalance.toString())
       try {
         // console.log(allocPoint)
         // console.log(TotalPoint)
@@ -1140,7 +1144,8 @@ function BSCFarming ({ initialTrade }) {
           </StakingModalBox>
         </ModalContent>
       </Modal>
-      <Title title={t('farms')}></Title>
+      {/* <Title title={t('farms')}></Title> */}
+      <Title title='Stake LP tokens to earn CYC'></Title>
       {exchangeAddress ? stakingView() : farmsList()}
     </>
   )
