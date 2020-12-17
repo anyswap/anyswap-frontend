@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState, useReducer} from 'react'
 import { useTranslation } from 'react-i18next'
 import { createBrowserHistory } from 'history'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { ethers } from 'ethers'
 import { withRouter } from 'react-router-dom'
 import { transparentize } from 'polished'
@@ -33,6 +33,8 @@ import {thousandBit, formatNum} from '../../utils/tools'
 import TokenLogo from '../../components/TokenLogo'
 
 import {getPrice} from '../../utils/axios'
+
+import question from '../../assets/images/question.svg'
 
 const TokenLogo1 = styled(TokenLogo)`
 background:none;
@@ -99,15 +101,15 @@ const FarmListCont = styled.div`
 `
 
 const MulLabel = styled.div`
-  min-width:59px;
-  padding: 9px;
+  min-width:40px;
+  padding: 3px 5px;
   border-radius: 10px;
   position:absolute;
   top:20px;
   left: 20px;
   background: ${({ theme }) => theme.gradientPurpleTB};
   color:#fff;
-  font-size:20px;
+  font-size:16px;
   text-align:center;
 `
 
@@ -117,8 +119,8 @@ const DoubleLogo = styled.div`
   position:relaitve;
   margin-top: 30px;
   .logo {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 100%;
     // background:#fff;
     img {
@@ -149,7 +151,7 @@ const FarmInfo = styled.div`
       color:#969DAC;
     }
     .right {
-      ${({ theme }) => theme.textColor};
+      color:${({ theme }) => theme.textColor1};
     }
   }
 `
@@ -270,6 +272,63 @@ const BackBox = styled.div`
   cursor:pointer;
 `
 
+const QuestionWrapper = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  margin-left: 0.4rem;
+  padding: 0.2rem;
+  border: none;
+  background: none;
+  outline: none;
+  cursor: default;
+  border-radius: 36px;
+
+  :hover,
+  :focus {
+    opacity: 0.7;
+  }
+`
+const HelpCircleStyled = styled.img`
+  height: 18px;
+  width: 18px;
+`
+const fadeIn = keyframes`
+  from {
+    opacity : 0;
+  }
+
+  to {
+    opacity : 1;
+  }
+`
+
+const ActivityInfoBox = styled.div`
+  width: 100%;
+  // max-height: 500px;
+  overflow:auto;
+  padding: 20px;
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+    color:${({ theme }) => theme.textColorBold};
+  }
+  .box {
+    width:100%;
+    .item {
+      width: 100%;
+      margin:0;
+      padding-left: 10px;
+      font-size: 14px;
+      color:${({ theme }) => theme.textColorBold};
+      white-space:normal;
+      word-break: break-all;
+    }
+  }
+`
+
 function formatCellData(str, len, start) {
   start = start ? start : 0
   let str1 = str.substr(start, len)
@@ -362,6 +421,12 @@ let useChain = chainInfo[CHAINID]
 let FARMTOKEN = '0x38999f5c5be5170940d72b398569344409cd4c6e'
 let useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
 let exchangeObj = {}
+if (config.env === 'main') {
+  CHAINID = '56'
+  FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
+  useChain = chainInfo[CHAINID]
+  useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
+}
 for (let token in useToken) {
   exchangeObj[useToken[token].exchangeAddress] = {
     ...useToken[token],
@@ -370,6 +435,7 @@ for (let token in useToken) {
 }
 console.log(useChain)
 
+const BSCAGREESTAKING = 'BSCAGREESTAKING'
 
 function BSCFarming ({ initialTrade }) {
   // console.log(initialTrade)
@@ -426,6 +492,8 @@ function BSCFarming ({ initialTrade }) {
   const [BasePeice, setBasePeice] = useState()
 
   const [InterverTime, setInterverTime] = useState(0)
+
+  const [showPopup, setPopup] = useState(!localStorage.getItem(BSCAGREESTAKING))
 
   // const [rewardToken, setRewardToken] = useState()
   // const [perShareAmount, setPerShareAmount] = useState()
@@ -1153,8 +1221,78 @@ function BSCFarming ({ initialTrade }) {
           </StakingModalBox>
         </ModalContent>
       </Modal>
+
+      <Modal
+        style={{ userSelect: 'none' }}
+        isOpen={showPopup}
+        // onDismiss={() => {
+        //   setPopup(!showPopup)
+        // }}
+        minHeight={null}
+        maxHeight={90}
+      >
+        <ModalContent
+          title={t('anyBscStakingTip0')}
+          // onClose={setPopup}
+          isShowClose={false}
+        >
+          <ActivityInfoBox>
+            <h3 className='title'>{t('anyBscStakingTip10')}</h3>
+            <dl className='box'>
+              <dd className='item'>{t('anyBscStakingTip11')}</dd>
+            </dl>
+
+            <h3 className='title'>{t('anyBscStakingTip20')}</h3>
+            <dl className='box'>
+              <dd className='item'>{t('anyBscStakingTip21')}</dd>
+              <dd className='item'>{t('anyBscStakingTip22')}</dd>
+            </dl>
+
+            <h3 className='title'>{t('anyBscStakingTip30')}</h3>
+            <dl className='box'>
+              <dd className='item'>{t('anyBscStakingTip31')}</dd>
+              <dd className='item'>{t('anyBscStakingTip32')}</dd>
+              <dd className='item'>{t('anyBscStakingTip33')}</dd>
+              <dd className='item'>{t('anyBscStakingTip34')}</dd>
+              <dd className='item'>{t('anyBscStakingTip35')}</dd>
+            </dl>
+
+            <h3 className='title'>{t('anyBscStakingTip40')}</h3>
+            <dl className='box'>
+              <dd className='item'>{t('anyBscStakingTip41')}</dd>
+            </dl>
+            {
+              !localStorage.getItem(BSCAGREESTAKING) ? (
+                <Button1 onClick={() => {
+                  localStorage.setItem(BSCAGREESTAKING, 1)
+                  setPopup(false)
+                }}  style={{height: '45px',maxWidth: '200px'}}>
+                  {t('agree')}
+                </Button1>
+              ) : ''
+            }
+          </ActivityInfoBox>
+        </ModalContent>
+      </Modal>
       {/* <Title title={t('farms')}></Title> */}
-      <Title title='Stake LP tokens to earn CYC'></Title>
+      <Title title='Stake LP tokens to earn CYC'>
+        <QuestionWrapper
+          onClick={() => {
+            setPopup(!showPopup)
+          }}
+        >
+          <HelpCircleStyled src={question} alt="popup" />
+        </QuestionWrapper>
+        {/* {showPopup ? (
+          <Popup>
+            <Text>
+              {t('tokenByUserTip')}
+            </Text>
+          </Popup>
+        ) : (
+          ''
+        )} */}
+      </Title>
       {exchangeAddress ? stakingView() : farmsList()}
     </>
   )

@@ -61,6 +61,7 @@ const theme = darkMode => ({
   darkSelectBg,
 
   textColor: darkMode ? '#979dac' : '#031a6e',
+  textColor1: darkMode ? white : '#031a6e',
   textColorBold: darkMode ? white : '#062536',
   selectTextColor: darkMode ? white : '#031a6e',
   greyText: darkMode ? white : '#6C7284',

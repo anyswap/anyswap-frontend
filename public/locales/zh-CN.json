@@ -212,5 +212,26 @@
   "TotalStaking": "总抵押",
   "CirculatingSupply": "当前流通量",
   "farms": "农场",
-  "select": "选择"
+  "select": "选择",
+  "ANYStakingTip": "存ANY挖矿 年化收益率",
+  "BSCStakingTip": "圣诞节挖Rebase彩蛋 年化收益率",
+
+  "anyBscStakingTip0": "AnySwap圣诞节挖矿彩蛋活动",
+
+  "anyBscStakingTip10": "开始时间：",
+  "anyBscStakingTip11": "2020.12.18 20:00开始，2020.1.1 19:59结束。",
+
+  "anyBscStakingTip20": "奖励规则：",
+  "anyBscStakingTip21": "BSC跨链流动性挖矿奖励圣诞彩蛋CYC Token，无私募，无预挖，无团队份额。总量2286000个，流动性挖矿占80%，交易挖矿占20%，每个BSC区块奖励10个CYC，每48小时奖励减半。",
+  "anyBscStakingTip22": "Rebase规则：锚定CNY价格，每小时Rebase一次。交易挖矿规则：每半小时按anyUSDT/BNB交易量份额释放。",
+
+  "anyBscStakingTip30": "参与步骤：",
+  "anyBscStakingTip31": "1、通过bsc.anyswap.exchange/bridge跨链桥充值BTC, ETH, LTC, USDT等代币，",
+  "anyBscStakingTip32": "2、添加和BNB的流动性，",
+  "anyBscStakingTip33": "3、通过stake流动性代币参与挖矿，",
+  "anyBscStakingTip34": "4、提取挖矿收益彩蛋CYC，",
+  "anyBscStakingTip35": "5、彩蛋CYC兑换BNB。",
+
+  "anyBscStakingTip40": "声明：",
+  "anyBscStakingTip41": "本活动旨在验证跨链稳定币算法，合约代码未审计，请自行评估风险。"
 }

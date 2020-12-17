@@ -169,11 +169,11 @@ export default function FarmsList () {
     let cycExchange = '0xf0f4de212b1c49e2f98fcf574e5746507a9cac44'
 
     if (config.env === 'main') {
-      CHAINID = ''
+      CHAINID = '56'
       useChain = chainInfo[CHAINID]
-      FARMTOKEN = ''
+      FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
       useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
-      cycExchange = ''
+      cycExchange = '0xd4e6fb9bc32ecb44f26486865484876684b9744f'
     }
 
     let BlockReward = '', TotalPoint = 0, allocPoint = 0, lpBalance = ''
@@ -211,7 +211,14 @@ export default function FarmsList () {
               TotalPoint += Number(curPoint)
             }
           }
-          if (BlockReward && TotalPoint && allocPoint && lpBalance) {
+          if (
+              BlockReward &&
+              TotalPoint &&
+              allocPoint &&
+              lpBalance
+              && BlockReward.gt(ethers.constants.Zero)
+              && lpBalance.gt(ethers.constants.Zero)
+            ) {
             let apy = BlockReward.mul(6600 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(lpBalance)
             setBSCStakingAPY(apy)
           }
@@ -265,7 +272,7 @@ export default function FarmsList () {
               <div className='img'><img src={require('../../assets/images/icon/anyIcon.svg')} alt=""/></div>
               <div className='info'>
                 <h3>ANY Staking</h3>
-                <p>存ANY挖矿 年化收益率<span className='pecent'>+{StakingAPY ? (Number(StakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
+                <p>{t('ANYStakingTip')}<span className='pecent'>+{StakingAPY ? (Number(StakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
           </StyledNavLink>
@@ -275,8 +282,8 @@ export default function FarmsList () {
             <div className='default cycStaking'>
               <div className='img'><img src={require('../../assets/images/icon/cycIcon.svg')} alt=""/></div>
               <div className='info'>
-                <h3>Christmas Staking</h3>
-                <p>圣诞节挖Rebase彩蛋 年化收益率<span className='pecent'>+{BSCStakingAPY ? (Number(BSCStakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
+                <h3>Christmas Farming</h3>
+                <p>{t('BSCStakingTip')}<span className='pecent'>+{BSCStakingAPY ? (Number(BSCStakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
           </StyledNavLink>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
@@ -7,12 +7,14 @@ const TitleBox = styled.div`
   margin-bottom:1rem;
 `
 const TitleTxt = styled.div`
+${({ theme }) => theme.FlexSC}
   height: 38px;
   line-height: 38px;
   font-size: 24px;
   font-weight: 800;
   color: ${({ theme }) => theme.textColorBold};
   white-space: nowrap;
+  position:relative;
   // ${({ theme }) => theme.mediaWidth.upToMedium`
   //   display:none;
   // `}
@@ -151,7 +153,7 @@ const StyledNavLink = styled(NavLink).attrs({
 `
 
 
-export default function Title({ title, tabList = [] , isNavLink = false, currentTab}) {
+export default function Title({ title, tabList = [] , isNavLink = false, currentTab, children}) {
   const [tabIndex, setTabIndex] = useState(0)
   const [tabName, setTabName] = useState('')
   const pathname = window.location.pathname
@@ -217,6 +219,7 @@ export default function Title({ title, tabList = [] , isNavLink = false, current
         <TitleTxt>{
         !isNaN(currentTab) ? tabList[currentTab].name : (tabName ? tabName : (isNavLink ? activeTabKey : title))
         }
+        {children}
         </TitleTxt>
         {tabList.length > 0 ? tabListView() : ''}
       </TitleBox>

@@ -107,6 +107,7 @@ const MAIN_CONFIG = {
     '0xbf5140a22578168fd562dccf235e5d43a02ce9b1',
     '0x88f1a5ae2a3bf98aeaf342d26b30a79438c9142e',
     '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
+    '0x5e1f55645a1c85436f15948cbc29e0c2333ce9e2'
   ],
   queryToken: '0x7e8b5b722f1a3c5ab2bd8510eaba24dae97565d1' // 查询余额合约
 }

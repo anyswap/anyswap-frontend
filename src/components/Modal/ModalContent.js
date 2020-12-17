@@ -37,6 +37,7 @@ width: 100%;
 background-color: ${({ theme }) => theme.backgroundColor};
 padding: 0rem;
 ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1rem`};
+overflow: auto!important;
 `
 const CloseIcon = styled.div`
   position: absolute;
@@ -71,17 +72,22 @@ const HoverText = styled.div`
 export default function ModalContent ({
   title,
   onClose = () => {},
-  children
+  children,
+  isShowClose = true
 }) {
   return (
     <>
       <Wrapper>
         <UpperSection>
-          <CloseIcon onClick={() =>  {
-            onClose(false)
-          }}>
-            <CloseColor alt={'close icon'} />
-          </CloseIcon>
+          {
+            isShowClose ? (
+              <CloseIcon onClick={() =>  {
+                onClose(false)
+              }}>
+                <CloseColor alt={'close icon'} />
+              </CloseIcon>
+            ) : ''
+          }
           <HeaderRow>
             <HoverText>{title}</HoverText>
           </HeaderRow>
