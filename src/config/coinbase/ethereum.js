@@ -102,7 +102,8 @@ const MAIN_CONFIG = {
     '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e',
     '0xdac17f958d2ee523a2206206994597c13d831ec7',
     '0x4e15361fd6b4bb609fa63c81a2be19d873717870',
-    '0xf21661d0d1d76d3ecb8e1b9f1c923dbfffae4097'
+    '0xf21661d0d1d76d3ecb8e1b9f1c923dbfffae4097',
+    '0x95da1e3eecae3771acb05c145a131dca45c67fd4'
   ], // 不支持的跨链合约或币种
   queryToken: '0x5e227AD1969Ea493B43F840cfF78d08a6fc17796' // 查询余额合约
 }

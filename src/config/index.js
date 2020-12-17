@@ -53,8 +53,8 @@ export default {
   },
   api: 'https://api.anyswap.exchange/',
   recordsTxnsUrl: 'https://agentapi.anyswap.exchange/recordTxns',
-  // farmUrl: '/farms/',
-  farmUrl: '/',
+  farmUrl: '/farms/',
+  // farmUrl: '/',
   // recordsTxnsUrl: 'http://localhost:8108/recordTxns',
   dirSwitchFn (type) {
     if (netConfig.reverseSwitch) {

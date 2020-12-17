@@ -317,7 +317,9 @@ export default function Header() {
   }
   // useEffect(() => {
   //   const history = createBrowserHistory()
-  //   history.push(window.location.pathname + '')
+  //   console.log(window.location)
+  //   // history.push(window.location.pathname + '')
+  //   // history.push(window.location.href.replace('/#/', ''))
   // }, [])
 
   const [networkView, setNetworkView] = useState(false)

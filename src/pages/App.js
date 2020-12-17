@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import styled from 'styled-components'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 // import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
+// import { Router, Redirect, Route, Switch } from 'react-router-dom'
 
 import Web3ReactManager from '../components/Web3ReactManager'
 import Header from '../components/Header'
@@ -12,18 +13,29 @@ import { isAddress, getAllQueryParams } from '../utils'
 
 import config from '../config'
 
+import Swap from'./Swap'
+import Send from'./Send'
+import Pool from'./Pool'
+import Farms from'./Farms'
+import FarmsList from'./Farms/FarmsList'
+import Bridge from'./Bridge'
+import Dashboard from'./Dashboard'
+import Staking from'./Staking'
+
 // import { createBrowserHistory } from 'history';
 // const browserHistory = createBrowserHistory()
 // import createHistory from 'history/createHashHistory'
 // const history = createHistory();
 
-const Swap = lazy(() => import('./Swap'))
-const Send = lazy(() => import('./Send'))
-const Pool = lazy(() => import('./Pool'))
-const Farms = lazy(() => import('./Farms'))
-const Bridge = lazy(() => import('./Bridge'))
-const Dashboard = lazy(() => import('./Dashboard'))
-const Staking = lazy(() => import('./Staking'))
+
+// const Swap = lazy(() => import('./Swap'))
+// const Send = lazy(() => import('./Send'))
+// const Pool = lazy(() => import('./Pool'))
+// // const Farms = lazy(() => import('./Farms'))
+// const FarmsList = lazy(() => import('./Farms/FarmsList'))
+// const Bridge = lazy(() => import('./Bridge'))
+// const Dashboard = lazy(() => import('./Dashboard'))
+// const Staking = lazy(() => import('./Staking'))
 
 const AppWrapper = styled.div`
   display: flex;
@@ -132,6 +144,7 @@ export default function App() {
           <BodyWrapper>
             <Body>
               <Web3ReactManager>
+                {/* <Router history={ browserHistory }> */}
                 <BrowserRouter>
                   <NavTabBoxLeft>
                     <NavigationTabs />
@@ -184,7 +197,8 @@ export default function App() {
                         />
                         <Route exact strict path="/bridge" component={() => <Bridge params={params} />} />
                         <Route exact strict path="/dashboard" component={() => <Dashboard/>} />
-                        <Route exact strict path="/staking" component={() => <Staking/>} />
+                        {/* <Route exact strict path="/farms/staking" component={() => <Staking/>} /> */}
+                        {/* <Route exact strict path="/farms" component={() => <FarmsList/>} /> */}
                         <Route
                           path={[
                             '/farms',

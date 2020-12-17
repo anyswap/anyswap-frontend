@@ -2,7 +2,7 @@
   "name": "uniswap",
   "description": "Anyswap Exchange Protocol",
   "version": "0.1.0",
-  "homepage": "./",
+  "homepage": "/",
   "private": true,
   "dependencies": {
     "@0x/subproviders": "^6.1.1",

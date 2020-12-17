@@ -350,7 +350,7 @@ function farmStateReducer(state, action) {
   }
 }
 
-const BSCFARMURL = config.farmUrl + 'bscfarming/'
+const BSCFARMURL = config.farmUrl + 'bscfarming'
 
 const BASEMARKET = 100
 let CHAINID = '46688'
@@ -368,12 +368,12 @@ console.log(useChain)
 
 const LPTOKEN = 'LPTOKEN'
 
-function BSCFarming ({ location }) {
-  // console.log(location)
+function BSCFarming ({ initialTrade }) {
+  // console.log(initialTrade)
   // console.log(params)
   // let initLpToken = params && params.lpToken ? params.lpToken : localStorage.getItem(LPTOKEN)
   // let initLpToken = params && params.lpToken ? params.lpToken.toLowerCase() : ''
-  let initLpToken = getQueryParam(location, 'lpToken')
+  let initLpToken = getQueryParam(window.location, 'lpToken')
   // console.log(initLpToken)
   let { account, library, chainId } = useWeb3React()
   // account = '0x9059e64e4a52e4f19edea188cfb658182db35106'
@@ -447,7 +447,7 @@ function BSCFarming ({ location }) {
     })
     web3Contract.methods.rewardToken().call((err, rt) => {
       // console.log(err)
-      console.log(rt)
+      // console.log(rt)
       if (!err) {
         setRewardToken(rt)
         web3FoodContract.options.address = rt
@@ -523,7 +523,7 @@ function BSCFarming ({ location }) {
     for (let i = 0,len = lpArr.length; i < len; i++) {
       let obj = lpArr[i]
       // console.log(obj)
-      exchangeContract.options.address = obj.lpToken
+      exchangeContract.options.address = FARMTOKEN
       const tsData = exchangeContract.methods.totalSupply().encodeABI()
       batch.add(web3Fn.eth.call.request({data: tsData, to: obj.lpToken}, 'latest', (err, ts) => {
         if (!err) {
@@ -642,6 +642,10 @@ function BSCFarming ({ location }) {
         if (!err) {
           let exAddr = pl.substr(0, 66).replace('0x000000000000000000000000', '0x')
           let curPoint = ethers.utils.bigNumberify('0x' + pl.substr(66, 64)).toString()
+          let trade = exchangeObj[exAddr] && exchangeObj[exAddr].symbol ? (exchangeObj[exAddr].symbol + '-' + useChain.symbol) : ''
+          if (initialTrade === trade) {
+            setExchangeAddress(exAddr)
+          }
           dispatchFarmState({
             type: 'UPDATE_LP',
             index: i,
@@ -994,7 +998,8 @@ function BSCFarming ({ location }) {
                           <Button1 style={{height: '45px', maxWidth: '200px'}} onClick={() => {
                             // console.log(item)
                             // localStorage.setItem(LPTOKEN, item.lpToken)
-                            history.push(BSCFARMURL + '?lpToken=' + item.lpToken)
+                            let coin = item && item.tokenObj && item.tokenObj.symbol ? item.tokenObj.symbol : ''
+                            history.push(BSCFARMURL + '/' + coin + '-' + useChain.symbol)
                             setExchangeAddress(item.lpToken.toLowerCase())
                           }}>{t('select')}</Button1>
                         ) : (
@@ -1135,7 +1140,8 @@ function BSCFarming ({ location }) {
               <MaxBox onClick={() => {onMax()}}>Max</MaxBox>
             </InputRow>
             <AmountView>
-              {amountView} {lpObj && lpObj[exchangeAddress] && lpObj[exchangeAddress].tokenObj && lpObj[exchangeAddress].tokenObj.symbol ? lpObj[exchangeAddress].tokenObj.symbol : ''}
+              {amountView} {lpObj && lpObj[exchangeAddress] && lpObj[exchangeAddress].tokenObj && lpObj[exchangeAddress].tokenObj.symbol ? lpObj[exchangeAddress].tokenObj.symbol : ''} - {useChain.symbol} LP Token
+              
             </AmountView>
             <Button1 style={{height: '45px',width: '150px'}} disabled={stakeDisabled} onClick={() => {
               if (stakingType === 'deposit') {

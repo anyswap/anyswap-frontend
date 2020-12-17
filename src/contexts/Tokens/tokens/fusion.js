@@ -519,7 +519,7 @@ export default {
       [EXTENDOBJ]:  {}
     },
     '0x1c319fe4e4b1f5ec4a6a2ca076a94e248e55341a': { // CYC
-      [NAME]: 'FoodToken',
+      [NAME]: 'CYCoin',
       [SYMBOL]: 'CYC',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x45f97b8dfd7f3a681d90ab8536a0307f9213ffae',

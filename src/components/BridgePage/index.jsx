@@ -796,7 +796,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   let walletType = sessionStorage.getItem('walletType')
   params = params ? params : {}
   // let HDPath = sessionStorage.getItem('HDPath')
-  // account = ''
+  // account = '0x12139f3afa1C93303e1EfE3Df142039CC05C6c58'
   // console.log(allTokens)
   
   const urlAddedTokens = {}
@@ -1692,7 +1692,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         hash: mintDtil.swapHash,
         url: config.bridgeAll[chainId].lookHash + mintDtil.swapHash
       }
-      if (isSpecialCoin(mintDtil.coin) === 1) {
+      if (isSpecialCoin(mintDtil.coin)) {
         hashCurObj = {
           hash: mintDtil.hash,
           url: config[formatCoin(mintDtil.coin).toLowerCase()].lookHash + mintDtil.hash
