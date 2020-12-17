@@ -130,7 +130,7 @@ const DoubleLogo = styled.div`
     z-index: 2;
   }
   .right {
-    margin-left: -5px;
+    margin-left: -15px;
     z-index: 1;
   }
 `
@@ -186,10 +186,11 @@ const StakingList = styled.ul`
       ${({ theme }) => theme.FlexC};
       width:80px;
       height:80px;
-      padding:15px;
-      background:#fff;
+      // padding:15px;
+      // background:#fff;
       border-radius:100%;
       margin:auth;
+      margin-top:30px;
       img {
         display:block;
         width:100%;
@@ -205,7 +206,7 @@ const StakingList = styled.ul`
         margin:0;
       }
       p {
-        color: ${({ theme }) => theme.textColor};
+        color: #969DAC;
         font-size:14px;
         margin-bottom:0;
       }
@@ -369,7 +370,6 @@ for (let token in useToken) {
 }
 console.log(useChain)
 
-const LPTOKEN = 'LPTOKEN'
 
 function BSCFarming ({ initialTrade }) {
   // console.log(initialTrade)
@@ -1077,7 +1077,16 @@ function BSCFarming ({ initialTrade }) {
               }}>{t('Harvest')}</Button1></div>
             </li>
             <li className='item'>
-              <div className='pic'><TokenLogo1 address={curLpObj && curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : ''} size='100%'/></div>
+              {/* <div className='pic'>
+                <TokenLogo1 address={curLpObj && curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : ''} size='100%'/>
+              </div> */}
+              <DoubleLogo>
+                <div className="logo left">
+                  <TokenLogo1 address={curLpObj && curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : ''} size='100%'/>
+                  </div>
+                <div className="logo right"><TokenLogo1 address={useChain.symbol} size='100%'/></div>
+                
+              </DoubleLogo>
               <div className='info'>
                 <h3>{userInfo && Number(userInfo.toString()) > 0 ? formatNum(amountFormatter(userInfo, 18, config.keepDec)) : '0.00'}</h3>
                 <p>{curLpObj.tokenObj && curLpObj.tokenObj.symbol ? curLpObj.tokenObj.symbol : ''} - {useChain.symbol} LP {t('Staked')}</p>

@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
+import { ethers } from 'ethers'
+
+import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
+
+
+import MasterChef from '../../constants/abis/MasterChef.json'
+import ERC20_ABI from '../../constants/abis/erc20'
+import STAKE_ABI from '../../constants/abis/Stake.json'
+
+import {chainInfo} from '../../config/coinbase/nodeConfig'
 import Title from '../../components/Title'
 import config from '../../config'
 
@@ -99,9 +109,146 @@ const BannerBox = styled.div`
   }
 `
 
+function formatCellData(str, len, start) {
+  start = start ? start : 0
+  let str1 = str.substr(start, len)
+  str1 = str1.indexOf('0x') === 0 ? str1 : '0x' + str1
+  return ethers.utils.bigNumberify(str1)
+}
+
+const Web3Fn = require('web3')
+
 export default function FarmsList () {
   
   const { t } = useTranslation()
+
+  const [StakingAPY, setStakingAPY] = useState()
+  const [BSCStakingAPY, setBSCStakingAPY] = useState()
+
+  function getStakingAPY () {
+    let CHAINID = '46688'
+    let useChain = chainInfo[CHAINID]
+    let web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
+    let ANY_TOKEN = '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4'
+    let STAKE_TOKEN = '0xeb96e36e8269a0f0d53833bab9683f1b4e1107a8'
+    if (config.env === 'main') {
+      CHAINID = '32659'
+      useChain = chainInfo[CHAINID]
+      web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
+      ANY_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
+      STAKE_TOKEN = '0x2e1f1c7620eecc7b7c571dff36e43ac7ed276779'
+    }
+    const batch = new web3Fn.BatchRequest()
+    const web3Contract = new web3Fn.eth.Contract(STAKE_ABI, STAKE_TOKEN)
+    const web3ErcContract = new web3Fn.eth.Contract(ERC20_ABI, ANY_TOKEN)
+    const tsData = web3ErcContract.methods.balanceOf(STAKE_TOKEN).encodeABI()
+    batch.add(web3Fn.eth.call.request({data: tsData, to: ANY_TOKEN}, 'latest'))
+
+    const rpbData = web3Contract.methods.rewardPerBlock().encodeABI()
+    batch.add(web3Fn.eth.call.request({data: rpbData, to: STAKE_TOKEN}, 'latest'))
+    batch.requestManager.sendBatch(batch.requests, (err, res) => {
+      // console.log(res)
+      if (!err) {
+        let StakePool = res[0] && res[0].result ? ethers.utils.bigNumberify(res[0].result) : ''
+        let BlockReward = res[1] && res[1].result ? ethers.utils.bigNumberify(res[1].result) : ''
+        if (StakePool && BlockReward) {
+          setStakingAPY(BlockReward.mul(6600 * 365 * 10000).div(StakePool))
+        }
+      }
+    })
+  }
+
+  function getBSCStakingAPY () {
+    let CHAINID = '46688'
+    let useChain = chainInfo[CHAINID]
+    let FARMTOKEN = '0x38999f5c5be5170940d72b398569344409cd4c6e'
+    let useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
+    let exchangeObj = {}
+
+    let cycExchange = '0xf0f4de212b1c49e2f98fcf574e5746507a9cac44'
+
+    if (config.env === 'main') {
+      CHAINID = ''
+      useChain = chainInfo[CHAINID]
+      FARMTOKEN = ''
+      useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
+      cycExchange = ''
+    }
+
+    let BlockReward = '', TotalPoint = 0, allocPoint = 0, lpBalance = ''
+
+    let web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
+
+    const web3Contract = new web3Fn.eth.Contract(MasterChef, FARMTOKEN)
+    const web3ErcContract = new web3Fn.eth.Contract(ERC20_ABI)
+
+    // BlockReward.mul(6600 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(lpBalance)
+    for (let token in useToken) {
+      exchangeObj[useToken[token].exchangeAddress] = {
+        ...useToken[token],
+        token
+      }
+    }
+
+    function getTokenList(num) {
+      const batch = new web3Fn.BatchRequest()
+      for (let i = 0; i < num; i++) {
+        const plData = web3Contract.methods.poolInfo(i).encodeABI()
+        batch.add(web3Fn.eth.call.request({data: plData, to: FARMTOKEN}, 'latest'))
+      }
+      // console.log(arr)
+      batch.requestManager.sendBatch(batch.requests, (err, res) => {
+        if (!err) {
+          for (let obj of res) {
+            let pl = obj.result? obj.result : ''
+            if (pl) {
+              let curPoint = ethers.utils.bigNumberify('0x' + pl.substr(66, 64)).toString()
+              let exAddr = pl.substr(0, 66).replace('0x000000000000000000000000', '0x')
+              if (cycExchange === exAddr) {
+                allocPoint = curPoint
+              }
+              TotalPoint += Number(curPoint)
+            }
+          }
+          if (BlockReward && TotalPoint && allocPoint && lpBalance) {
+            let apy = BlockReward.mul(6600 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(lpBalance)
+            setBSCStakingAPY(apy)
+          }
+        }
+      })
+    }
+
+    function getBaseInfo () {
+      const batch = new web3Fn.BatchRequest()
+
+      const plData = web3Contract.methods.poolLength().encodeABI()
+      batch.add(web3Fn.eth.call.request({data: plData, to: FARMTOKEN}, 'latest'))
+      const rpbData = web3Contract.methods.rewardPerBlock().encodeABI()
+      batch.add(web3Fn.eth.call.request({data: rpbData, to: FARMTOKEN}, 'latest'))
+
+      web3ErcContract.options.address = cycExchange
+      const blData = web3ErcContract.methods.balanceOf(FARMTOKEN).encodeABI()
+      batch.add(web3Fn.eth.call.request({data: blData, to: cycExchange}, 'latest'))
+
+      batch.requestManager.sendBatch(batch.requests, (err, res) => {
+        if (!err) {
+          let poolLength = res[0] && res[0].result ? res[0].result : ''
+          BlockReward = res[1] && res[1].result ? ethers.utils.bigNumberify(res[1].result) : ''
+          lpBalance = res[2] && res[2].result ? formatCellData(res[2].result, 66) : ''
+          console.log(parseInt(poolLength))
+          getTokenList(parseInt(poolLength))
+        }
+      })
+    }
+    getBaseInfo()
+  }
+
+  useEffect(() => {
+    getStakingAPY()
+    getBSCStakingAPY()
+  }, [])
+
+
   return (
     <>
       <Title
@@ -117,7 +264,7 @@ export default function FarmsList () {
               <div className='img'><img src={require('../../assets/images/icon/anyIcon.svg')} alt=""/></div>
               <div className='info'>
                 <h3>ANY Staking</h3>
-                <p>存ANY挖矿 年化收益率<span className='pecent'>400%</span></p>
+                <p>存ANY挖矿 年化收益率<span className='pecent'>+{StakingAPY ? (Number(StakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
           </StyledNavLink>
@@ -128,7 +275,7 @@ export default function FarmsList () {
               <div className='img'><img src={require('../../assets/images/icon/cycIcon.svg')} alt=""/></div>
               <div className='info'>
                 <h3>Christmas Staking</h3>
-                <p>圣诞节挖Rebase彩蛋 年化收益率<span className='pecent'>400%</span></p>
+                <p>圣诞节挖Rebase彩蛋 年化收益率<span className='pecent'>+{BSCStakingAPY ? (Number(BSCStakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
           </StyledNavLink>
