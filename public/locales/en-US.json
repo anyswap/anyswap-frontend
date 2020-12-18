@@ -225,7 +225,7 @@
 
   "anyBscStakingTip20": "Reward rules",
   "anyBscStakingTip21": "BSC cross-chain liquidity farming rewards Christmas CYC Token, no private sale, no pre-mining, and no team share. Total  supply 2,286,000, liquid mining share 80%  and trading mining share 20%. Each BSC block rewards 10 CYC, and the reward halved every 48 hours, end in two weeks. ",
-  "anyBscStakingTip22": "Rebase rules: anchor the price of CNY and rebase once an hour. Trading mining rules: every half hour will release according to anyUSDT/BNB trading volume share.",
+  "anyBscStakingTip22": "Rebase rules: anchor the price of CNY and rebase once an hour. Trading mining rules: every 24 hours will release according to anyUSDT/BNB trading volume share.",
 
   "anyBscStakingTip30": "Steps",
   "anyBscStakingTip31": "1. Deposit BTC, ETH, USDT tokens via cross-chain bridge <a href='https://bsc.anyswap.exchange/bridge' target='__balnk'>https://bsc.anyswap.exchange/bridge</a>,",

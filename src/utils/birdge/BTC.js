@@ -289,7 +289,7 @@ function getSochcainTxns (address, account, coin, version) {
         }
         // console.log(useTxns)
         getChainHashStatus(useTxns.txid, coin, account, version).then(result => {
-          console.log(result)
+          // console.log(result)
           if (result) {
             resolve({
               ...result,
