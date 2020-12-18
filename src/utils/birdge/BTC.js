@@ -287,7 +287,9 @@ function getSochcainTxns (address, account, coin, version) {
           resolve(cbData)
           return
         }
+        // console.log(useTxns)
         getChainHashStatus(useTxns.txid, coin, account, version).then(result => {
+          console.log(result)
           if (result) {
             resolve({
               ...result,
@@ -296,7 +298,7 @@ function getSochcainTxns (address, account, coin, version) {
               value: useTxns.value,
               hash: useTxns.txid,
               from: '',
-              to: useTxns.address,
+              to: res.data.address,
               status: 1,
               timestamp: useTxns.time,
               node: 0
@@ -308,7 +310,7 @@ function getSochcainTxns (address, account, coin, version) {
               value: useTxns.value,
               hash: useTxns.txid,
               from: '',
-              to: useTxns.address,
+              to: res.data.address,
               status: 0,
               timestamp: useTxns.time,
               swapHash: '',

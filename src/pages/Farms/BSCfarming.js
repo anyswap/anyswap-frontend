@@ -204,8 +204,8 @@ const StakingList = styled.ul`
 
     .pic {
       ${({ theme }) => theme.FlexC};
-      width:80px;
-      height:80px;
+      width:70px;
+      height:70px;
       // padding:15px;
       // background:#fff;
       border-radius:100%;
@@ -456,6 +456,7 @@ for (let token in useToken) {
 console.log(useChain)
 
 const BSCAGREESTAKING = 'BSCAGREESTAKING'
+let onlyOne = 0
 
 function BSCFarming ({ initialTrade }) {
   // console.log(initialTrade)
@@ -734,7 +735,8 @@ function BSCFarming ({ initialTrade }) {
           let exAddr = pl.substr(0, 66).replace('0x000000000000000000000000', '0x')
           let curPoint = ethers.utils.bigNumberify('0x' + pl.substr(66, 64)).toString()
           let trade = exchangeObj[exAddr] && exchangeObj[exAddr].symbol ? (exchangeObj[exAddr].symbol + '-' + useChain.symbol) : ''
-          if (initialTrade && initialTrade === trade) {
+          if (initialTrade && initialTrade === trade && !onlyOne) {
+            onlyOne++
             setExchangeAddress(exAddr)
           }
           dispatchFarmState({
@@ -806,15 +808,6 @@ function BSCFarming ({ initialTrade }) {
         setBlockReward(ethers.utils.bigNumberify(res))
       }
     }))
-    // if (rewardToken) {
-    //   web3FoodContract.options.address = rewardToken
-    //   const psabData = web3FoodContract.methods.perShareAmount().encodeABI()
-    //   batch.add(web3Fn.eth.call.request({data: psabData, to: rewardToken}, 'latest', (err, res) => {
-    //     if (!err && res) {
-    //       setBlockReward(ethers.utils.bigNumberify(res))
-    //     }
-    //   }))
-    // }
 
     batch.execute()
   }
@@ -836,16 +829,6 @@ function BSCFarming ({ initialTrade }) {
         }
       }))
 
-      // web3ErcContract.options.address = curToken
-      // const bltData = web3ErcContract.methods.balanceOf(account).encodeABI()
-      // batch.add(web3Fn.eth.call.request({data: bltData, to: curToken}, 'latest', (err, balance) => {
-      //   if (!err) {
-      //     console.log('balance')
-      //     console.log(formatCellData(balance, 66).toString())
-      //     // setBalance(formatCellData(balance, 66))
-      //   }
-      // }))
-      
       web3ErcContract.options.address = FARMTOKEN
       const alData = web3ErcContract.methods.allowance(account, FARMTOKEN).encodeABI()
       batch.add(web3Fn.eth.call.request({data: alData, to: curLpToken}, 'latest', (err, allowance) => {
@@ -915,9 +898,10 @@ function BSCFarming ({ initialTrade }) {
     console.log(amount.toString())
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareTip(true)
-      setHardwareTxnsInfo('Deposit ' + stakeAmount + ' ANY')
+      let txnCoin = ((lpObj && lpObj[exchangeAddress] && lpObj[exchangeAddress].tokenObj && lpObj[exchangeAddress].tokenObj.symbol ? lpObj[exchangeAddress].tokenObj.symbol : '') + '-' + useChain.symbol) + ' LP Token'
+      setHardwareTxnsInfo('Deposit ' + stakeAmount + ' ' + txnCoin)
       const data = web3Contract.methods.deposit(lpObj[exchangeAddress].index, amount).encodeABI()
-      getWeb3BaseInfo(lpObj[exchangeAddress].tokenObj.token, data, account).then(res => {
+      getWeb3BaseInfo(FARMTOKEN, data, account).then(res => {
         if (res.msg === 'Success') {
           console.log(res.info)
           addTransaction(res.info)
@@ -956,9 +940,10 @@ function BSCFarming ({ initialTrade }) {
     console.log(amount.toString())
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareTip(true)
-      setHardwareTxnsInfo('Withdraw ' + stakeAmount + ' ANY')
+      let txnCoin = ((lpObj && lpObj[exchangeAddress] && lpObj[exchangeAddress].tokenObj && lpObj[exchangeAddress].tokenObj.symbol ? lpObj[exchangeAddress].tokenObj.symbol : '') + '-' + useChain.symbol) + ' LP Token'
+      setHardwareTxnsInfo('Withdraw ' + stakeAmount + ' ' + txnCoin)
       const data = web3Contract.methods.withdraw(lpObj[exchangeAddress].index, amount).encodeABI()
-      getWeb3BaseInfo(lpObj[exchangeAddress].tokenObj.token, data, account).then(res => {
+      getWeb3BaseInfo(FARMTOKEN, data, account).then(res => {
         if (res.msg === 'Success') {
           console.log(res.info)
           addTransaction(res.info)
@@ -985,10 +970,11 @@ function BSCFarming ({ initialTrade }) {
     const curLpToken = exchangeAddress
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareTip(true)
-      setHardwareTxnsInfo('Approve ANY Token')
+      let txnCoin = ((lpObj && lpObj[exchangeAddress] && lpObj[exchangeAddress].tokenObj && lpObj[exchangeAddress].tokenObj.symbol ? lpObj[exchangeAddress].tokenObj.symbol : '') + '-' + useChain.symbol) + ' LP Token'
+      setHardwareTxnsInfo('Approve ' + txnCoin)
       web3ErcContract.options.address = curLpToken
       const data = web3ErcContract.methods.approve(FARMTOKEN, _userTokenBalance).encodeABI()
-      getWeb3BaseInfo(FARMTOKEN, data, account).then(res => {
+      getWeb3BaseInfo(curLpToken, data, account).then(res => {
         if (res.msg === 'Success') {
           console.log(res.info)
           addTransaction(res.info)

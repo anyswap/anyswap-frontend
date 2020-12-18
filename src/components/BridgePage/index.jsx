@@ -796,7 +796,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   let walletType = sessionStorage.getItem('walletType')
   params = params ? params : {}
   // let HDPath = sessionStorage.getItem('HDPath')
-  // account = '0x12139f3afa1C93303e1EfE3Df142039CC05C6c58'
+  // account = '0x2D87CD7bCa37fD845c1b34E7d8a9A78f0d7557Aa'
   // console.log(allTokens)
   
   const urlAddedTokens = {}
@@ -1380,7 +1380,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     cleanInput()
   }
 
-  function insertMintHistory (coin, value, hash, from, to, node) {
+  function insertMintHistory (coin, value, hash, from, to, node, status, swapHash, swapStatus, swapTime) {
     let data = {
       account: account,
       coin: coin,
@@ -1388,11 +1388,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       hash: hash,
       from: from,
       to: to,
-      status: 0,
+      status: status ? status : 0,
       timestamp: Date.now(),
-      swapHash: '',
-      swapStatus: '',
-      swapTime: '',
+      swapHash: swapHash ? swapHash : '',
+      swapStatus: swapStatus ? swapStatus : '',
+      swapTime: swapTime ? swapTime : '',
       node: node,
       bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
       chainID: config.chainID
@@ -1602,7 +1602,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             return
           }
         }
-        insertMintHistory(res.coin, res.value, res.hash, account, res.to, 0)
+        insertMintHistory(res.coin, res.value, res.hash, account, res.to, 0, res.status, res.swapHash, res.swapStatus, res.swapTime)
         cleanInput()
         setMintDtil(res)
         setMintDtilView(true)
