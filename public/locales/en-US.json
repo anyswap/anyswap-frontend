@@ -153,6 +153,7 @@
   "WrongNetworkTestTip":"Please connect to the test Fusion network. https://testnet.anyswap.exchange",
   "WrongNetworkMainTip":"Please connect to the main Fusion network. https://mainnet.anyswap.exchange",
   "agree": "Agree",
+  "disagree": "Disagree",
   "SwitchTo": "Switch to ",
   "done": "Done",
   "hardwareMakeSure": "Make sure open the ethereum app on your {walletType} and Contract Data enabled.",

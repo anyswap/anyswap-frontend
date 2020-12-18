@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useState, useReducer} from 'react'
 import { useTranslation } from 'react-i18next'
+import { withRouter, NavLink } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import { ethers } from 'ethers'
-import { withRouter } from 'react-router-dom'
 import { transparentize } from 'polished'
 import { useWeb3React, useSwapTokenContract } from '../../hooks'
 // import { useAddressAllowance } from '../../contexts/Allowances'
@@ -42,6 +42,24 @@ background:none;
 
 const Button1 = styled(Button)`
 white-space:nowrap;
+`
+const Button2 = styled(Button)`
+white-space:nowrap;
+padding:0;
+background: ${({ theme }) => theme.moreBtn};
+margin: 0 10px;
+color:${({ theme }) => theme.textColor1};
+box-shadow: none;
+&:hover,&:focus {
+  background: ${({ theme }) => theme.moreBtn};
+}
+`
+const BackLink = styled(NavLink)`
+  ${({ theme }) => theme.FlexC};
+  width:100%;
+  color:${({ theme }) => theme.textColor1};
+  height: 100%;
+  text-decoration: none;
 `
 
 const InputRow = styled.div`
@@ -296,28 +314,27 @@ const HelpCircleStyled = styled.img`
   height: 18px;
   width: 18px;
 `
-const fadeIn = keyframes`
-  from {
-    opacity : 0;
-  }
-
-  to {
-    opacity : 1;
-  }
-`
 
 const ActivityInfoBox = styled.div`
   width: 100%;
   // max-height: 500px;
   overflow:auto;
-  padding: 20px;
+  padding: 0 20px 20px;
+  .header {
+    font-size: 18px;
+    font-weight: bold;
+    text-align:center;
+    color:${({ theme }) => theme.textColorBold};
+  }
   .title {
     font-size: 16px;
     font-weight: bold;
     color:${({ theme }) => theme.textColorBold};
+    margin-bottom:0;
   }
   .box {
     width:100%;
+    margin-top:0;
     .item {
       width: 100%;
       margin:0;
@@ -1234,11 +1251,13 @@ function BSCFarming ({ initialTrade }) {
         maxHeight={90}
       >
         <ModalContent
-          title={t('anyBscStakingTip0')}
+          // title={t('anyBscStakingTip0')}
           onClose={setPopup}
           isShowClose={!!localStorage.getItem(BSCAGREESTAKING)}
         >
           <ActivityInfoBox>
+            <h1 className='header'>{t('anyBscStakingTip0')}</h1>
+
             <h3 className='title'>{t('anyBscStakingTip10')}</h3>
             <dl className='box'>
               <dd className='item'>{t('anyBscStakingTip11')}</dd>
@@ -1265,12 +1284,19 @@ function BSCFarming ({ initialTrade }) {
             </dl>
             {
               !localStorage.getItem(BSCAGREESTAKING) ? (
-                <Button1 onClick={() => {
-                  localStorage.setItem(BSCAGREESTAKING, 1)
-                  setPopup(false)
-                }}  style={{height: '45px',maxWidth: '200px'}}>
-                  {t('agree')}
-                </Button1>
+                <Flex>
+                  <Button2 style={{height: '45px',maxWidth: '200px'}}>
+                    <BackLink to={config.farmUrl}>
+                      {t('disagree')}
+                    </BackLink>
+                  </Button2>
+                  <Button1 onClick={() => {
+                    localStorage.setItem(BSCAGREESTAKING, 1)
+                    setPopup(false)
+                  }}  style={{height: '45px',maxWidth: '200px'}}>
+                    {t('agree')}
+                  </Button1>
+                </Flex>
               ) : ''
             }
           </ActivityInfoBox>

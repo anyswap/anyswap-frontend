@@ -153,6 +153,7 @@
   "WrongNetworkTestTip":"请连接钱包至Fusion测试网 https://testnet.anyswap.exchange",
   "WrongNetworkMainTip":"请连接钱包至Fusion主网 https://mainnet.anyswap.exchange",
   "agree": "同意",
+  "disagree": "再想想",
   "SwitchTo": "切换至",
   "done": "确认",
   "tryAgain": "重试",
