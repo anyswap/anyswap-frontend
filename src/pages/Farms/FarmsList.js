@@ -10,6 +10,7 @@ import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
 import MasterChef from '../../constants/abis/MasterChef.json'
 import ERC20_ABI from '../../constants/abis/erc20'
 import STAKE_ABI from '../../constants/abis/Stake.json'
+import EXCHANGE_ABI from '../../constants/abis/exchange'
 
 import {chainInfo} from '../../config/coinbase/nodeConfig'
 import Title from '../../components/Title'
@@ -109,7 +110,36 @@ const BannerBox = styled.div`
     display:block;
   }
 `
+function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
+  try {
+    if (
+      inputValue &&
+      (inputDecimals || inputDecimals === 0) &&
+      outputValue &&
+      (outputDecimals || outputDecimals === 0)
+    ) {
+      const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
 
+      if (invert) {
+        return inputValue
+          .mul(factor)
+          .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
+          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
+          .div(outputValue)
+      } else {
+        return outputValue
+          .mul(factor)
+          .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
+          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
+          .div(inputValue)
+      }
+    }
+  } catch {}
+}
+
+function getMarketRate(reserveETH, reserveToken, decimals, invert = false) {
+  return getExchangeRate(reserveETH, 18, reserveToken, decimals, invert)
+}
 function formatCellData(str, len, start) {
   start = start ? start : 0
   let str1 = str.substr(start, len)
@@ -183,6 +213,7 @@ export default function FarmsList () {
 
     const web3Contract = new web3Fn.eth.Contract(MasterChef, FARMTOKEN)
     const web3ErcContract = new web3Fn.eth.Contract(ERC20_ABI)
+    const exchangeContract = new web3Fn.eth.Contract(EXCHANGE_ABI)
 
     // BlockReward.mul(6600 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(lpBalance)
     for (let token in useToken) {
@@ -201,6 +232,8 @@ export default function FarmsList () {
       // console.log(arr)
       batch.requestManager.sendBatch(batch.requests, (err, res) => {
         if (!err) {
+          const batch1 = new web3Fn.BatchRequest()
+          let exchangeETHBalance = '', CYCMarket = '', totalSupply
           for (let obj of res) {
             let pl = obj.result? obj.result : ''
             if (pl) {
@@ -208,21 +241,55 @@ export default function FarmsList () {
               let exAddr = pl.substr(0, 66).replace('0x000000000000000000000000', '0x')
               if (cycExchange === exAddr) {
                 allocPoint = curPoint
+
+                // exchangeContract.options.address = obj.lpToken
+                // const tsData = exchangeContract.methods.totalSupply().encodeABI()
+                // batch.add(web3Fn.eth.call.request({data: tsData, to: obj.lpToken}, 'latest', (err, ts) => {
+
+                exchangeContract.options.address = exAddr
+                const tsData = exchangeContract.methods.totalSupply().encodeABI()
+                batch1.add(web3Fn.eth.call.request({data: tsData, to: exAddr}, 'latest'))
+    
+                batch1.add(web3.eth.getBalance.request(exAddr, 'latest'))
+    
+                web3ErcContract.options.address = exchangeObj[exAddr].token
+                let etbData = web3ErcContract.methods.balanceOf(exAddr).encodeABI()
+                batch1.add(web3.eth.call.request({data: etbData, to: exchangeObj[exAddr].token, from: exAddr}, 'latest'))
               }
               TotalPoint += Number(curPoint)
+
             }
           }
-          if (
-              BlockReward &&
-              TotalPoint &&
-              allocPoint &&
-              lpBalance
-              && BlockReward.gt(ethers.constants.Zero)
-              && lpBalance.gt(ethers.constants.Zero)
-            ) {
-            let apy = BlockReward.mul(6600 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(lpBalance)
-            setBSCStakingAPY(apy)
-          }
+          batch1.requestManager.sendBatch(batch1.requests, (error, res1) => {
+            if (!error) {
+              console.log(res1)
+              totalSupply  = res1[0] && res1[0].result && res1[0].result ?  formatCellData(res1[0].result, 66) : ''
+              exchangeETHBalance = res1[1] && res1[1].result ?  formatCellData(res1[1].result) : ''
+              let exchangeTokenBalancem = res1[2] && res1[2].result && res1[2].result ?  formatCellData(res1[2].result) : ''
+              CYCMarket = getMarketRate(exchangeETHBalance, exchangeTokenBalancem, 18)
+              if (
+                  BlockReward &&
+                  TotalPoint &&
+                  allocPoint &&
+                  lpBalance
+                  && BlockReward.gt(ethers.constants.Zero)
+                  && lpBalance.gt(ethers.constants.Zero)
+                  && exchangeETHBalance
+                  && exchangeETHBalance.gt(ethers.constants.Zero)
+                  && CYCMarket
+                  && CYCMarket.gt(ethers.constants.Zero)
+                  && totalSupply
+                  && totalSupply.gt(ethers.constants.Zero)
+              ) {
+                let baseAmount = lpBalance.mul(exchangeETHBalance).mul(ethers.utils.bigNumberify(2)).div(totalSupply)
+                // console.log(baseAmount.toString())
+                let apy = BlockReward.mul(28800 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).mul(CYCMarket).div(ethers.utils.bigNumberify(TotalPoint)).div(baseAmount).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+                apy = Number(apy.toString()) / 100
+                // console.log(apy)
+                setBSCStakingAPY(apy)
+              }
+            }
+          })
         }
       })
     }
@@ -284,7 +351,7 @@ export default function FarmsList () {
               <div className='img'><img src={require('../../assets/images/icon/cycIcon.svg')} alt=""/></div>
               <div className='info'>
                 <h3>Christmas Farming</h3>
-                <p>{t('BSCStakingTip')}<span className='pecent'>+{BSCStakingAPY ? (Number(BSCStakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
+                <p>{t('BSCStakingTip')}<span className='pecent'>+{BSCStakingAPY ? (Number(BSCStakingAPY)).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
           </StyledNavLink>

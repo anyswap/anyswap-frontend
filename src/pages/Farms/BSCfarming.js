@@ -354,6 +354,37 @@ function formatCellData(str, len, start) {
   return ethers.utils.bigNumberify(str1)
 }
 
+function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
+  try {
+    if (
+      inputValue &&
+      (inputDecimals || inputDecimals === 0) &&
+      outputValue &&
+      (outputDecimals || outputDecimals === 0)
+    ) {
+      const factor = ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))
+
+      if (invert) {
+        return inputValue
+          .mul(factor)
+          .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
+          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
+          .div(outputValue)
+      } else {
+        return outputValue
+          .mul(factor)
+          .mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(inputDecimals)))
+          .div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(outputDecimals)))
+          .div(inputValue)
+      }
+    }
+  } catch {}
+}
+
+function getMarketRate(reserveETH, reserveToken, decimals, invert = false) {
+  return getExchangeRate(reserveETH, 18, reserveToken, decimals, invert)
+}
+
 const Web3Fn = require('web3')
 
 
@@ -513,6 +544,7 @@ function BSCFarming ({ initialTrade }) {
   const [BasePeice, setBasePeice] = useState()
 
   const [InterverTime, setInterverTime] = useState(0)
+  const [CYCMarket, setCYCMarket] = useState()
 
   const [showPopup, setPopup] = useState(!localStorage.getItem(BSCAGREESTAKING))
 
@@ -537,6 +569,10 @@ function BSCFarming ({ initialTrade }) {
       // console.log(res)
       setBasePeice(res)
     })
+    // web3ErcContract.options.address = '0x4028433877f9c14764eb93d0bb6570573da2726f'
+    // web3ErcContract.methods.allowance(account, '0x0df8810714dde679107c01503e200ce300d0dcf6').call((err, rt) => {
+    //   console.log(rt)
+    // })
     // web3Contract.methods.rewardToken().call((err, rt) => {
     //   // console.log(err)
     //   // console.log(rt)
@@ -619,6 +655,7 @@ function BSCFarming ({ initialTrade }) {
       const tsData = exchangeContract.methods.totalSupply().encodeABI()
       batch.add(web3Fn.eth.call.request({data: tsData, to: obj.lpToken}, 'latest', (err, ts) => {
         if (!err) {
+          
           dispatchFarmState({
             type: 'UPDATE_LP',
             index: i,
@@ -632,6 +669,21 @@ function BSCFarming ({ initialTrade }) {
           })
         }
         if (i === (len - 1)) {
+          for (let obj of lpArr) {
+            if (
+              obj
+              && obj.tokenObj
+              && obj.tokenObj.symbol === 'CYC'
+              && obj.exchangeETHBalance
+              && obj.exchangeETHBalance.gt(ethers.constants.Zero)
+              && obj.exchangeTokenBalancem
+              && obj.exchangeTokenBalancem.gt(ethers.constants.Zero)
+            ) {
+              let market = getMarketRate(obj.exchangeETHBalance, obj.exchangeTokenBalancem, obj.tokenObj.decimals)
+              setCYCMarket(market)
+              break
+            }
+          }
           setInterverTime(Date.now())
         }
       }))
@@ -1010,17 +1062,35 @@ function BSCFarming ({ initialTrade }) {
     setStakeAmount(amount)
   }
 
-  function getAPY (allocPoint, lpBalance) {
-    if (BlockReward && lpBalance && BlockReward.gt(ethers.constants.Zero) && lpBalance.gt(ethers.constants.Zero) && TotalPoint) {
+  function getAPY (allocPoint, lpBalance, exchangeETHBalance, totalSupply) {
+    // , item.exchangeETHBalance, item.exchangeTokenBalancem, item && item.tokenObj && item.tokenObj.decimals ? item.tokenObj.decimals : 18
+    if (
+      BlockReward
+      && lpBalance
+      && BlockReward.gt(ethers.constants.Zero)
+      && lpBalance.gt(ethers.constants.Zero)
+      && TotalPoint
+      && exchangeETHBalance
+      && exchangeETHBalance.gt(ethers.constants.Zero)
+      && CYCMarket
+      && CYCMarket.gt(ethers.constants.Zero)
+    ) {
       // console.log(lpBalance.toString())
+      // console.log(totalSupply.toString())
+      // console.log(exchangeETHBalance.toString())
+      // console.log(exchangeTokenBalancem.toString())
       try {
         // console.log(allocPoint)
         // console.log(TotalPoint)
-        let apy = BlockReward.mul(6600 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(lpBalance)
+        let baseAmount = lpBalance.mul(exchangeETHBalance).mul(ethers.utils.bigNumberify(2)).div(totalSupply)
+        // console.log(baseAmount.toString())
+        let apy = BlockReward.mul(28800 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).mul(CYCMarket).div(ethers.utils.bigNumberify(TotalPoint)).div(baseAmount).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
         apy = Number(apy.toString()) / 100
+        // console.log(apy)
         return apy.toFixed(2)
       } catch (error) {
         console.log(error)
+        return '0.00'
       }
     }
     return '0.00'
@@ -1050,7 +1120,7 @@ function BSCFarming ({ initialTrade }) {
                       </div>
                       <div className="item">
                         <span className="left">APY</span>
-                        <span className="right">{getAPY(item.allocPoint, item.lpBalance)} %</span>
+                        <span className="right">{getAPY(item.allocPoint, item.lpBalance, item.exchangeETHBalance, item.totalSupply)} %</span>
                       </div>
                       <div className="item">
                         <span className="left">Total Liquidity</span>
@@ -1144,7 +1214,7 @@ function BSCFarming ({ initialTrade }) {
                 <h3>{prd}</h3>
                 <p>
                   CYC {t('Earned')}
-                  <span className='green' style={{marginLeft:'2px'}}>({getAPY(curLpObj.allocPoint, curLpObj.lpBalance)}%)</span>
+                  <span className='green' style={{marginLeft:'2px'}}>({getAPY(curLpObj.allocPoint, curLpObj.lpBalance, curLpObj.exchangeETHBalance, curLpObj.totalSupply)}%)</span>
                 </p>
               </div>
               <div className='btn'><Button1 style={{height: '45px', maxWidth: '200px'}} disabled={HarvestDisabled} onClick={() => {
