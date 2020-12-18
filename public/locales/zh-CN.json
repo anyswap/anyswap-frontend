@@ -224,10 +224,10 @@
 
   "anyBscStakingTip20": "奖励规则",
   "anyBscStakingTip21": "BSC跨链流动性挖矿奖励圣诞彩蛋CYC Token，无私募，无预挖，无团队份额。总量2286000个，流动性挖矿占80%，交易挖矿占20%，每个BSC区块奖励10个CYC，每48小时奖励减半。",
-  "anyBscStakingTip22": "Rebase规则：锚定CNY价格，每小时Rebase一次。交易挖矿规则：每半小时按anyUSDT/BNB交易量份额释放。",
+  "anyBscStakingTip22": "Rebase规则：锚定CNY价格，每小时Rebase一次。交易挖矿规则：每24小时按anyUSDT/BNB交易量份额释放。",
 
   "anyBscStakingTip30": "参与步骤",
-  "anyBscStakingTip31": "1、通过bsc.anyswap.exchange/bridge跨链桥充值BTC, ETH, LTC, USDT等代币，",
+  "anyBscStakingTip31": "1、通过<a href='https://bsc.anyswap.exchange/bridge' target='__balnk'>bsc.anyswap.exchange/bridge</a>跨链桥充值BTC, ETH, USDT等代币，",
   "anyBscStakingTip32": "2、添加和BNB的流动性，",
   "anyBscStakingTip33": "3、通过stake流动性代币参与挖矿，",
   "anyBscStakingTip34": "4、提取挖矿收益彩蛋CYC，",

@@ -171,9 +171,10 @@ export default function FarmsList () {
     if (config.env === 'main') {
       CHAINID = '56'
       useChain = chainInfo[CHAINID]
-      FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
+      // FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
+      FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
       useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
-      cycExchange = '0xd4e6fb9bc32ecb44f26486865484876684b9744f'
+      cycExchange = '0x0df8810714dde679107c01503e200ce300d0dcf6'
     }
 
     let BlockReward = '', TotalPoint = 0, allocPoint = 0, lpBalance = ''

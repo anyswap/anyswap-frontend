@@ -439,9 +439,11 @@ let useChain = chainInfo[CHAINID]
 let FARMTOKEN = '0x38999f5c5be5170940d72b398569344409cd4c6e'
 let useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
 let exchangeObj = {}
+
 if (config.env === 'main') {
   CHAINID = '56'
-  FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
+  // FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
+  FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
   useChain = chainInfo[CHAINID]
   useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
 }
@@ -1271,7 +1273,9 @@ function BSCFarming ({ initialTrade }) {
 
             <h3 className='title'>{t('anyBscStakingTip30')}</h3>
             <dl className='box'>
-              <dd className='item'>{t('anyBscStakingTip31')}</dd>
+              <dd className='item' dangerouslySetInnerHTML = { 
+                {__html: t('anyBscStakingTip31')}
+              }></dd>
               <dd className='item'>{t('anyBscStakingTip32')}</dd>
               <dd className='item'>{t('anyBscStakingTip33')}</dd>
               <dd className='item'>{t('anyBscStakingTip34')}</dd>

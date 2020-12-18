@@ -46,11 +46,11 @@ export default {
         VERSION: 'V1'
       },
     },
-    '0x5e1f55645a1c85436f15948cbc29e0c2333ce9e2': { // CYC
+    '0x4028433877f9c14764eb93d0bb6570573da2726f': { // CYC
       [NAME]: 'CYCoin',
       [SYMBOL]: 'CYC',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xd4e6fb9bc32ecb44f26486865484876684b9744f',
+      [EXCHANGE_ADDRESS]: '0x0df8810714dde679107c01503e200ce300d0dcf6',
       [REDEEM_MAX_NUM]: 100000,
       [REDEEM_MIN_NUM]: 5,
       [FEE]: 0.001,
