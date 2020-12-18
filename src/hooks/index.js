@@ -25,6 +25,7 @@ export function useEagerConnect() {
   const [tried, setTried] = useState(false)
 
   useEffect(() => {
+    // console.log(injected)
     injected.isAuthorized().then(isAuthorized => {
       setTried(true)
       if (isAuthorized) {
