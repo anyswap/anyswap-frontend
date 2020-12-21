@@ -6,8 +6,8 @@ import Title from '../../components/Title'
 
 export default function HTfaring({ initialTrade }) {
   let initLpToken = getQueryParam(window.location, 'lpToken')
-  let CHAINID = '256'
-  let FARMTOKEN = '0xe4ea48020f648b1aa7fc25af7b196596190c6b29'
+  let CHAINID = '46688'
+  let FARMTOKEN = '0xc6818f8524a4293c09045c1b1203cd2ea37068bb'
 
   if (config.env === 'main') {
     CHAINID = '128'

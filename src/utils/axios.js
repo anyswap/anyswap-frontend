@@ -92,6 +92,8 @@ export const getPrice = (coin) => {
     // if (true) {
     if (coin === 'BNB') {
       url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=binancecoin'
+    } else if (coin === 'BNB') {
+      url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=huobi-token'
     }
     // console.log(url)
     getApiData(url, coin + '_PRICE', 1000 * 60 * 60).then(res => {

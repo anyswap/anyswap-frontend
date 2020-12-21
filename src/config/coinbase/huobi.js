@@ -3,7 +3,7 @@ import {chainInfo} from './nodeConfig'
 const NAME_PREFIX = 'ANY'
 
 const ANY_MAIN_TOKEN = ''
-const ANY_TEST_TOKEN = ''
+const ANY_TEST_TOKEN = '0x4373ca233c17b8bf1bf8159d56019d3394a0670d'
 
 const REWARDS_DAY = 33000 / 2
 const DEPOSIT_AMOUNT = 10000
@@ -100,7 +100,7 @@ const TEST_CONFIG = {
   nodeRpc1: CHAIN_TEST_INFO.rpc, // 节点地址
   chainID: CHAIN_TEST_INFO.chainID,
   initToken: INIT_TEST_TOKEN,
-  initBridge: '',
+  initBridge: '0x4373ca233c17b8bf1bf8159d56019d3394a0670d',
   explorerUrl: CHAIN_TEST_INFO.explorer,
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btc: {

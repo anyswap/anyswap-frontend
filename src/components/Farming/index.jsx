@@ -822,7 +822,8 @@ export default function Farming ({
 
     batch.add(web3Fn.eth.call.request({data: plData, to: FARMTOKEN}, 'latest', (err, pl) => {
       if (!err) {
-        getTokenList(pl)
+        console.log(pl)
+        // getTokenList(pl)
       }
     }))
     const rpbData = web3Contract.methods.rewardPerBlock().encodeABI()
