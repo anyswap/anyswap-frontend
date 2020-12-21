@@ -78,7 +78,7 @@ const MAIN_CONFIG = {
     lookHash: 'https://www.blockchain.com/btc/tx/', // 
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/', // 
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
-    initAddr: '',  // 
+    initAddr: '1EirLGdwhgGXH8DTd5PVLoi7x6izkbYijS',  // 
   },
   ltc: { // ltc配置
     lookHash: 'https://blockchair.com/litecoin/transaction/', // 

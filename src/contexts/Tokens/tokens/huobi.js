@@ -46,6 +46,27 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xc8f62c36e2b92fe60e68c14eb783293dc5bf2ae0': { // BTC
+      [NAME]: 'Bitcoin' + config.suffix,
+      [SYMBOL]: 'anyBTC',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xae7192340719674a3cfd0da9259dab902c71d6a7',
+      [REDEEM_MAX_NUM]: 100,
+      [REDEEM_MIN_NUM]:  0.01,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.01,
+      [MINFEE]: 0.002,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '1EirLGdwhgGXH8DTd5PVLoi7x6izkbYijS',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 100,
+      [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]:  {
+        VERSION: 'V2'
+      }
+    },
     '0x62c10412d69823a98db5c09cf6e82810e0df5ad7': { // ETH
       [NAME]: 'Ethereum',
       [SYMBOL]: 'anyETH',
