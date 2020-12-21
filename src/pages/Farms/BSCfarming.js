@@ -679,6 +679,8 @@ function BSCFarming ({ initialTrade }) {
               && obj.exchangeTokenBalancem
               && obj.exchangeTokenBalancem.gt(ethers.constants.Zero)
             ) {
+              // console.log(obj.exchangeETHBalance.toString())
+              // console.log(obj.exchangeTokenBalancem.toString())
               let market = getMarketRate(obj.exchangeETHBalance, obj.exchangeTokenBalancem, obj.tokenObj.decimals)
               setCYCMarket(market)
               break
@@ -1083,8 +1085,19 @@ function BSCFarming ({ initialTrade }) {
         // console.log(allocPoint)
         // console.log(TotalPoint)
         let baseAmount = lpBalance.mul(exchangeETHBalance).mul(ethers.utils.bigNumberify(2)).div(totalSupply)
+        // console.log('exchangeETHBalance', exchangeETHBalance.toString())
+        // console.log('lpBalance', lpBalance.toString())
+        // console.log('totalSupply', totalSupply.toString())
+        // console.log('allocPoint', allocPoint.toString())
+        // console.log('TotalPoint', TotalPoint.toString())
+        // console.log('CYCMarket', CYCMarket.toString())
+        // console.log('BlockReward', BlockReward.toString())
+        let baseYear =  BlockReward.mul(28800 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(CYCMarket).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+        // console.log(CYCMarket.toString())
         // console.log(baseAmount.toString())
-        let apy = BlockReward.mul(28800 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).mul(CYCMarket).div(ethers.utils.bigNumberify(TotalPoint)).div(baseAmount).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+        // let apy = BlockReward.mul(28800 * 365).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(CYCMarket).div(baseAmount).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(36)))
+        let apy = baseYear.div(baseAmount)
+        // console.log(apy.toString())
         apy = Number(apy.toString()) / 100
         // console.log(apy)
         return apy.toFixed(2)

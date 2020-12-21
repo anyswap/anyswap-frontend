@@ -77,7 +77,7 @@ export function useAddressAllowance(address, tokenAddress, spenderAddress) {
 
       getTokenAllowance(address, tokenAddress, spenderAddress, library)
         .then(value => {
-          console.log(value)
+          // console.log(value)
           if (!stale) {
             update(chainId, address, tokenAddress, spenderAddress, value, globalBlockNumber)
           }
