@@ -379,7 +379,7 @@ export default function FarmsList () {
               </DoubleLogo>
               <div className='info'>
                 <h3>ANY Farming</h3>
-                <p>上线时间： 2020-12-21 21:00:00</p>
+                <p>{t('LaunchTime')}</p>
               </div>
             </div>
           </StyledNavLink>
