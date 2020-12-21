@@ -91,6 +91,25 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x0298c2b32eae4da002a15f36fdf7615bea3da047': { // HUSD
+      [NAME]: 'Heco-Peg HUSD',
+      [SYMBOL]: 'HUSD',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xe1eacc72830ae81668457bb2b3bd214dab9e3d0f',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 0.1,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
+    },
     '0x721bc1af56fa923ab4c4a43bde49d7d1f8dd3076': { // USDT-ERC20
       [NAME]: 'Tether',
       [SYMBOL]: 'anyUSDT',
@@ -135,6 +154,30 @@ export default {
       [EXTENDOBJ]:  {
         BRIDGE: [
           { type: 32659, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x471e265ab5b8513032721acef0a53b79185ae6f9': { // BNB
+      [NAME]: 'Binance' + config.suffix,
+      [SYMBOL]: 'anyBNB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xa87d23f354d0f53eeb2dc622cd730fbfa4ea4bf1',
+      [REDEEM_MAX_NUM]: 10000,
+      [REDEEM_MIN_NUM]: 0.5,
+      [FEE]: 0.001,
+      [MAXFEE]: 2,
+      [MINFEE]: 0.2,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xe09c98f97dafb1f954cea0ce550383e2bd0c8829',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000,
+      [DEPOSIT_MIN_NUM]: 0.2,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
         ],
         VERSION: 'V2'
       }

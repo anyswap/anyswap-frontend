@@ -19,26 +19,26 @@ const Web3 = require('web3')
 const Tx  = require("ethereumjs-tx")
 
 
-// const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, FACTORY_ADDRESSES[config.chainID])
-// setTimeout(() => {
-//   // factory.methods.tokenCount().call((err, res) => {
-//   //   console.log(res)
-//   // })
-//   // factory.methods.getTokenWithId(10).call((err, res) => {
-//   //   console.log(res)
-//   // })
-//   // for (let i = 0 ; i< 10; i++) {
-//   //   factory.methods.getTokenWithId(i).call((err, res) => {
-//   //     console.log(res)
-//   //   })
-//   // }
-//   factory.methods.getExchange('0xc8f62c36e2b92fe60e68c14eb783293dc5bf2ae0').call((err, res) => {
-//     console.log('COIN')
-//     console.log(err)
-//     console.log(res)
-//   })
-// }, 2000)
+const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
+let factory = new web3Test.eth.Contract(FACTORY_ABI, FACTORY_ADDRESSES[config.chainID])
+setTimeout(() => {
+  // factory.methods.tokenCount().call((err, res) => {
+  //   console.log(res)
+  // })
+  // factory.methods.getTokenWithId(10).call((err, res) => {
+  //   console.log(res)
+  // })
+  // for (let i = 0 ; i< 10; i++) {
+  //   factory.methods.getTokenWithId(i).call((err, res) => {
+  //     console.log(res)
+  //   })
+  // }
+  factory.methods.getExchange('0x471e265ab5b8513032721acef0a53b79185ae6f9').call((err, res) => {
+    console.log('COIN')
+    console.log(err)
+    console.log(res)
+  })
+}, 2000)
 
 
 
@@ -291,6 +291,7 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage, node) {
   if (
     (coin === 'ETH' && (node === 1 || node === 4)) || 
     (coin === 'FSN' && (node === 32659 || node === 46688))
+    (coin === 'BNB' && (node === 97 || node === 56))
   ) {
     isBridgeBaseCoin = true
   }

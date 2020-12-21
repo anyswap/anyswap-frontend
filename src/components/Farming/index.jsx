@@ -653,6 +653,7 @@ export default function Farming ({
               // console.log(obj.exchangeETHBalance.toString())
               // console.log(obj.exchangeTokenBalancem.toString())
               let market = getMarketRate(obj.exchangeETHBalance, obj.exchangeTokenBalancem, obj.tokenObj.decimals)
+              // console.log(market.toString())
               setCYCMarket(market)
               break
             }
@@ -1038,6 +1039,7 @@ export default function Farming ({
 
   function getAPY (allocPoint, lpBalance, exchangeETHBalance, totalSupply) {
     // , item.exchangeETHBalance, item.exchangeTokenBalancem, item && item.tokenObj && item.tokenObj.decimals ? item.tokenObj.decimals : 18
+    // console.log(BlockReward)
     if (
       BlockReward
       && lpBalance
@@ -1054,6 +1056,7 @@ export default function Farming ({
         let baseYear =  BlockReward.mul(28800 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(CYCMarket).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
         let apy = baseYear.div(baseAmount)
         apy = Number(apy.toString()) / 100
+        console.log(apy)
         return apy.toFixed(2)
       } catch (error) {
         console.log(error)
@@ -1227,7 +1230,7 @@ export default function Farming ({
         localStorage.setItem(config.ENV_NODE_CONFIG, useChain.label)
         history.go(0)
       }}  style={{height: '45px', maxWidth: '200px'}}>
-        {t('SwitchTo')} BSC {t('mainnet')}
+        {t('SwitchTo')} {useChain.name} {t('mainnet')}
       </Button1>
     } else if (!account) {
       btnView = <Button1 onClick={toggleWalletModal}  style={{height: '45px',maxWidth: '200px'}}>

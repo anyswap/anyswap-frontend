@@ -90,6 +90,7 @@ const MAIN_CONFIG = {
   isChangeDashboard: 0, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
+    '0x0298c2b32eae4da002a15f36fdf7615bea3da047'
   ], // 不支持的跨链合约或币种
   queryToken: '0xbff74da37df72695b1d7e8185edd47fd0771ee3a' // 查询余额合约
 }

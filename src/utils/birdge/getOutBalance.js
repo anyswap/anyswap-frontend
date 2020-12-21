@@ -96,6 +96,7 @@ function getOutTokenBalance (chainId, account, tokenList) {
       if (
         (coin === 'ETH' && (chainId === 1 || chainId === 4))
         || (coin === 'FSN' && (chainId === 32659 || chainId === 46688))
+        || (coin === 'BNB' && (chainId === 56 || chainId === 97))
       ) {
         isHaveoutBaseCoin = false
         batch.add(web3.eth.getBalance.request(account, 'latest', (err, res) => {
