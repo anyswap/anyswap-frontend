@@ -189,6 +189,7 @@ export default function FarmsList () {
 
   const [StakingAPY, setStakingAPY] = useState()
   const [BSCStakingAPY, setBSCStakingAPY] = useState()
+  const [HTStakingAPY, setHTStakingAPY] = useState()
 
   function getStakingAPY () {
     let CHAINID = '46688'
@@ -223,7 +224,7 @@ export default function FarmsList () {
     })
   }
 
-  function getBSCStakingAPY () {
+  function getBSCStakingAPY (type) {
     let CHAINID = '46688'
     let useChain = chainInfo[CHAINID]
     let FARMTOKEN = '0x38999f5c5be5170940d72b398569344409cd4c6e'
@@ -231,19 +232,28 @@ export default function FarmsList () {
     let exchangeObj = {}
 
     let cycExchange = '0xf0f4de212b1c49e2f98fcf574e5746507a9cac44'
-
+    // console.log(type)
     if (config.env === 'main') {
-      CHAINID = '56'
-      useChain = chainInfo[CHAINID]
-      // FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
-      FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
-      useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
-      cycExchange = '0x0df8810714dde679107c01503e200ce300d0dcf6'
+      if (type === 'BSC') {
+        CHAINID = '56'
+        useChain = chainInfo[CHAINID]
+        // FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
+        FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
+        useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
+        cycExchange = '0x0df8810714dde679107c01503e200ce300d0dcf6'
+      } else if (type === 'HT') {
+        CHAINID = '128'
+        useChain = chainInfo[CHAINID]
+        // FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
+        FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
+        useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
+        cycExchange = '0x58ded31f93669eac7b18d4d19b0d122fa5e9263d'
+      }
     }
 
     let BlockReward = '', TotalPoint = 0, allocPoint = 0, lpBalance = ''
 
-    let web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
+    const web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
 
     const web3Contract = new web3Fn.eth.Contract(MasterChef, FARMTOKEN)
     const web3ErcContract = new web3Fn.eth.Contract(ERC20_ABI)
@@ -257,7 +267,7 @@ export default function FarmsList () {
       }
     }
 
-    function getTokenList(num) {
+    const getTokenList = (num) => {
       const batch = new web3Fn.BatchRequest()
       for (let i = 0; i < num; i++) {
         const plData = web3Contract.methods.poolInfo(i).encodeABI()
@@ -275,10 +285,6 @@ export default function FarmsList () {
               let exAddr = pl.substr(0, 66).replace('0x000000000000000000000000', '0x')
               if (cycExchange === exAddr) {
                 allocPoint = curPoint
-
-                // exchangeContract.options.address = obj.lpToken
-                // const tsData = exchangeContract.methods.totalSupply().encodeABI()
-                // batch.add(web3Fn.eth.call.request({data: tsData, to: obj.lpToken}, 'latest', (err, ts) => {
 
                 exchangeContract.options.address = exAddr
                 const tsData = exchangeContract.methods.totalSupply().encodeABI()
@@ -319,7 +325,12 @@ export default function FarmsList () {
                 let baseYear =  BlockReward.mul(28800 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(CYCMarket).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
                 let apy = baseYear.div(baseAmount)
                 apy = Number(apy.toString()) / 100
-                setBSCStakingAPY(apy)
+                // console.log(type, apy)
+                if (type === 'BSC') {
+                  setBSCStakingAPY(apy)
+                } else if (type === 'HT') {
+                  setHTStakingAPY(apy)
+                }
               }
             }
           })
@@ -327,7 +338,7 @@ export default function FarmsList () {
       })
     }
 
-    function getBaseInfo () {
+    const getBaseInfo = () => {
       const batch = new web3Fn.BatchRequest()
 
       const plData = web3Contract.methods.poolLength().encodeABI()
@@ -344,6 +355,7 @@ export default function FarmsList () {
           let poolLength = res[0] && res[0].result ? res[0].result : ''
           BlockReward = res[1] && res[1].result ? ethers.utils.bigNumberify(res[1].result) : ''
           lpBalance = res[2] && res[2].result ? formatCellData(res[2].result, 66) : ''
+          // console.log(poolLength)
           // console.log(parseInt(poolLength))
           getTokenList(parseInt(poolLength))
         }
@@ -354,7 +366,8 @@ export default function FarmsList () {
 
   useEffect(() => {
     getStakingAPY()
-    getBSCStakingAPY()
+    getBSCStakingAPY('BSC')
+    getBSCStakingAPY('HT')
   }, [])
 
 
@@ -381,7 +394,7 @@ export default function FarmsList () {
                 <h3>ANY Farming</h3>
                 {/* <p>{t('LaunchTime')}</p> */}
                 {/* <p>{t('ComineSoon')}</p> */}
-                <p>{t('ANYHTStakingTip')}</p>
+                <p>{t('ANYHTStakingTip')}<span className='pecent'>+{HTStakingAPY ? (Number(HTStakingAPY)).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
           </StyledNavLink>
