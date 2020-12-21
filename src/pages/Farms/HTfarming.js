@@ -22,7 +22,7 @@ export default function HTfaring({ initialTrade }) {
         CHAINID = {CHAINID}
         FARMTOKEN = {FARMTOKEN}
         FARMURL = {config.farmUrl + 'htfarming'}
-        initPairs = {['ANY', 'anyBTC', 'anyETH', 'anyUSDT', 'anyBNB', 'anyFSN']}
+        // initPairs = {['ANY', 'anyBTC', 'anyETH', 'anyUSDT', 'anyBNB', 'anyFSN']}
         poolCoin = 'ANY'
       />
     </>

@@ -380,7 +380,8 @@ export default function FarmsList () {
               <div className='info'>
                 <h3>ANY Farming</h3>
                 {/* <p>{t('LaunchTime')}</p> */}
-                <p>{t('ComineSoon')}</p>
+                {/* <p>{t('ComineSoon')}</p> */}
+                <p>{t('ANYHTStakingTip')}</p>
               </div>
             </div>
           </StyledNavLink>

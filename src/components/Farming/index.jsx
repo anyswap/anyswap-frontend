@@ -1066,7 +1066,7 @@ export default function Farming ({
   
 
   function farmsList () {
-    if (lpArr.length <= 0) {
+    if (lpArr.length <= 0 && initPairs.length > 0) {
     // if (lpArr.length <= 0 || config.symbol === 'HT') {
       // const arr =['ANY','BTC', 'ETH', 'USDT', 'BNB', 'FSN']
       // console.log(initPairs)

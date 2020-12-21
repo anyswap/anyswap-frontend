@@ -217,6 +217,7 @@
   "select": "Select",
   "ANYStakingTip": "Stake ANY earn ANY, APY:",
   "BSCStakingTip": "Stake LP tokens earn CYC Rebase token, APY:",
+  "ANYHTStakingTip": "Stake LP tokens earn ANY, Rewards start time: 2020-12-22 10:00:00 UTC.",
 
   "anyBscStakingTip0": "Christmas Farming CYC ",
 
