@@ -43,8 +43,56 @@ export default {
         BRIDGE: [
           { type: 32659, isSwitch: 1 }
         ],
-        VERSION: 'V1'
+        VERSION: 'V2'
       },
+    },
+    '0x62c10412d69823a98db5c09cf6e82810e0df5ad7': { // ETH
+      [NAME]: 'Ethereum',
+      [SYMBOL]: 'anyETH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8a6f33665144eb69f67e9460686b68f85a2decf9',
+      [REDEEM_MAX_NUM]: 1000,
+      [REDEEM_MIN_NUM]: 0.05,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.1,
+      [MINFEE]: 0.008,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xd779967f8b511c5edf39115341b310022900efed',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 1000,
+      [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x721bc1af56fa923ab4c4a43bde49d7d1f8dd3076': { // USDT-ERC20
+      [NAME]: 'Tether',
+      [SYMBOL]: 'anyUSDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x70611b9cf3f89a7e6e39a5242afefc19a50d8091',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xd779967f8b511c5edf39115341b310022900efed',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 1,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
     },
     '0x42aaa9151c2f7a6a5ae70869aa9236b6f3fbae49': { // FSN
       [NAME]: 'Fusion' + config.suffix,
