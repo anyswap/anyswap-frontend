@@ -397,7 +397,7 @@ export default function FarmsList () {
         </FarmList>
         <FarmList>
           <StyledNavLink to={config.farmUrl + 'staking'}>
-            <div className='default anyStaking'>
+            <div className='default cycStaking'>
               <div className='img'><img src={require('../../assets/images/icon/anyIcon.svg')} alt=""/></div>
               <div className='info'>
                 <h3>ANY Staking</h3>
