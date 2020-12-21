@@ -396,9 +396,12 @@ function isBaseUSD (coin) {
   if (
     (coin === 'aUSDT' && config.symbol === 'FSN') ||
     (coin === 'anyUSDT' && config.symbol === 'FTM') ||
+    (coin === 'anyUSDT' && config.symbol === 'HT') ||
     (coin === 'USDTB' && config.symbol === 'BNB') ||
     (coin === 'USDC' && config.symbol === 'ETH')
   ) {
+    return true
+  } else if (coin === 'anyUSDT') {
     return true
   }
   return false
