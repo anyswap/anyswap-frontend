@@ -34,6 +34,14 @@ const FTM_MAINNET = 'https://rpc.fantom.network'
 const FTM_MAIN_CHAINID = 250
 const FTM_MAIN_EXPLORER = 'https://explorer.fantom.network'
 
+const HT_MAINNET = 'https://http-mainnet.hecochain.com'
+const HT_MAIN_CHAINID = 128
+const HT_MAIN_EXPLORER = 'https://scan.hecochain.com'
+
+const HT_TESTNET = 'https://http-testnet.hecochain.com'
+const HT_TEST_CHAINID = 256
+const HT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
+
 
 let chainInfo = {
   1: {
@@ -84,6 +92,30 @@ let chainInfo = {
     label: 'BNB_TEST',
     isSwitch: 1
   },
+  128: {
+    rpc: HT_MAINNET,
+    chainID: HT_MAIN_CHAINID,
+    lookHash: HT_MAIN_EXPLORER + '/tx/',
+    lookAddr: HT_MAIN_EXPLORER + '/address/',
+    explorer: HT_MAIN_EXPLORER,
+    symbol: 'HT',
+    name: 'Huobi',
+    type: 'main',
+    label: 'HT_MAIN',
+    isSwitch: 1
+  },
+  256: {
+    rpc: HT_TESTNET,
+    chainID: HT_TEST_CHAINID,
+    lookHash: HT_TEST_EXPLORER + '/tx/',
+    lookAddr: HT_TEST_EXPLORER + '/address/',
+    explorer: HT_TEST_EXPLORER,
+    symbol: 'HT',
+    name: 'Huobi',
+    type: 'test',
+    label: 'HT_TEST',
+    isSwitch: 1
+  },
   250: {
     rpc: FTM_MAINNET,
     chainID: FTM_MAIN_CHAINID,
@@ -129,10 +161,12 @@ let chainList = {
     chainInfo['32659'],
     chainInfo['56'],
     chainInfo['250'],
+    chainInfo['128'],
   ],
   test: [
     chainInfo['46688'],
     chainInfo['97'],
+    chainInfo['256'],
   ]
 }
 

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 import { ethers } from 'ethers'
 
 import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
-
+import TokenLogo from '../../components/TokenLogo'
 
 import MasterChef from '../../constants/abis/MasterChef.json'
 import ERC20_ABI from '../../constants/abis/erc20'
@@ -110,6 +110,40 @@ const BannerBox = styled.div`
     display:block;
   }
 `
+
+const DoubleLogo = styled.div`
+  ${({ theme }) => theme.FlexC};
+  width: 100%;
+  position:relaitve;
+  margin-top: 30px;
+  .logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    // background:#fff;
+    img {
+      height: 100%;
+      display:block;
+    }
+  }
+  .left {
+    z-index: 2;
+  }
+  .right {
+    z-index: 1;
+  }
+  .add {
+    font-size: 50px;
+    color:#fff;
+    display:block;
+    margin:0 20px;
+  }
+`
+const TokenLogo1 = styled(TokenLogo)`
+background:none;
+`
+
+
 function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
   try {
     if (
@@ -282,21 +316,9 @@ export default function FarmsList () {
                   && totalSupply.gt(ethers.constants.Zero)
               ) {
                 let baseAmount = lpBalance.mul(exchangeETHBalance).mul(ethers.utils.bigNumberify(2)).div(totalSupply)
-                // console.log('exchangeETHBalance', exchangeETHBalance.toString())
-                // console.log('lpBalance', lpBalance.toString())
-                // console.log('totalSupply', totalSupply.toString())
-                // console.log('allocPoint', allocPoint.toString())
-                // console.log('TotalPoint', TotalPoint.toString())
-                // console.log('CYCMarket', CYCMarket.toString())
-                // console.log('BlockReward', BlockReward.toString())
                 let baseYear =  BlockReward.mul(28800 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(CYCMarket).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-                // console.log(baseYear.toString())
-                // console.log(baseAmount.toString())
-                // let apy = BlockReward.mul(28800 * 365).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(CYCMarket).div(baseAmount).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(36)))
                 let apy = baseYear.div(baseAmount)
-                // console.log(apy.toString())
                 apy = Number(apy.toString()) / 100
-                // console.log(apy)
                 setBSCStakingAPY(apy)
               }
             }
@@ -346,12 +368,18 @@ export default function FarmsList () {
       </BannerBox> */}
       <FarmListBox>
         <FarmList>
-          <StyledNavLink to={config.farmUrl + 'staking'}>
+          <StyledNavLink to={config.farmUrl + 'htfarming'}>
             <div className='default anyStaking'>
-              <div className='img'><img src={require('../../assets/images/icon/anyIcon.svg')} alt=""/></div>
+              {/* <div className='img'><img src={require('../../assets/images/coin/source/HT.svg')} alt=""/></div> */}
+              <DoubleLogo>
+                <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
+                <span className="add">+</span>
+                <div className="logo right"><TokenLogo1 address='HT' size='100%'/></div>
+                
+              </DoubleLogo>
               <div className='info'>
-                <h3>ANY Staking</h3>
-                <p>{t('ANYStakingTip')}<span className='pecent'>+{StakingAPY ? (Number(StakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
+                <h3>ANY Farming</h3>
+                <p>上线时间： 2020-12-21 21:00:00</p>
               </div>
             </div>
           </StyledNavLink>
@@ -363,6 +391,17 @@ export default function FarmsList () {
               <div className='info'>
                 <h3>Christmas Farming</h3>
                 <p>{t('BSCStakingTip')}<span className='pecent'>+{BSCStakingAPY ? (Number(BSCStakingAPY)).toFixed(2) : '0.00'}%</span></p>
+              </div>
+            </div>
+          </StyledNavLink>
+        </FarmList>
+        <FarmList>
+          <StyledNavLink to={config.farmUrl + 'staking'}>
+            <div className='default anyStaking'>
+              <div className='img'><img src={require('../../assets/images/icon/anyIcon.svg')} alt=""/></div>
+              <div className='info'>
+                <h3>ANY Staking</h3>
+                <p>{t('ANYStakingTip')}<span className='pecent'>+{StakingAPY ? (Number(StakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
           </StyledNavLink>

@@ -235,5 +235,7 @@
   "anyBscStakingTip35": "5. Swap CYC for BNB.",
 
   "anyBscStakingTip40": "Statement",
-  "anyBscStakingTip41": "This activity aims to verify the cross-chain stablecoin algorithm, the contract code has not been audited, please evaluate the risk yourself."
+  "anyBscStakingTip41": "This activity aims to verify the cross-chain stablecoin algorithm, the contract code has not been audited, please evaluate the risk yourself.",
+
+  "MyStaking": "My Staking"
 }

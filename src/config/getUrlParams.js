@@ -33,6 +33,10 @@ function getParamNode (type, INIT_NODE) {
       return chainInfo['250'].label
     case 'eth':
       return chainInfo['1'].label
+    case 'huobi':
+      return chainInfo['128'].label
+    case 'huobitestnet':
+      return chainInfo['256'].label
     default:
       return INIT_NODE
   }
@@ -46,6 +50,8 @@ function getNode (type, INIT_NODE) {
     return chainInfo['250'].label
   } else if (type.indexOf('eth') !== -1) {
     return chainInfo['1'].label
+  } else if (type.indexOf('huobi') !== -1) {
+    return chainInfo['128'].label
   } else {
     return INIT_NODE
   }

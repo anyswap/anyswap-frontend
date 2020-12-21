@@ -9,21 +9,29 @@ import config from '../../config'
 import Farms from './FarmsList'
 import Staking from './Staking'
 import BSCfarming from './BSCfarming'
+import HTfarming from './HTfarming'
 
 export default function Farm() {
-  // console.log('params')
-  const BSCfarmingParams = () => <BSCfarming />
   return (
     <>
       <Suspense fallback={null}>
         <Switch>
           <Route exact strict path="/farms" component={() => <Farms />} />
           <Route exact strict path={config.farmUrl + "staking"} component={() => <Staking />} />
-          <Route exact strict path={config.farmUrl + "bscfarming"} component={BSCfarmingParams} />
+
+          <Route exact strict path={config.farmUrl + "bscfarming"} component={() => <BSCfarming />} />
           <Route
             path={config.farmUrl + "bscfarming/:lpToken"}
             render={({ match }) => {
               return <BSCfarming initialTrade={match.params.lpToken} />
+            }}
+          />
+          
+          <Route exact strict path={config.farmUrl + "htfarming"} component={() => <HTfarming />} />
+          <Route
+            path={config.farmUrl + "htfarming/:lpToken"}
+            render={({ match }) => {
+              return <HTfarming initialTrade={match.params.lpToken} />
             }}
           />
           <Redirect to="/farms" />

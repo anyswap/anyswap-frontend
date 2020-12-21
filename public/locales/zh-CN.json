@@ -234,5 +234,7 @@
   "anyBscStakingTip35": "5、彩蛋CYC兑换BNB。",
 
   "anyBscStakingTip40": "声明",
-  "anyBscStakingTip41": "本活动旨在验证跨链稳定币算法，合约代码未审计，请自行评估风险。"
+  "anyBscStakingTip41": "本活动旨在验证跨链稳定币算法，合约代码未审计，请自行评估风险。",
+
+  "MyStaking": "我的抵押"
 }
