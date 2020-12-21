@@ -1084,7 +1084,7 @@ export default function Farming ({
                   <FarmInfo>
                     <div className="item">
                       <span className="left">Deposit</span>
-                      <span className="right">ANY - {useChain.symbol} LP</span>
+                      <span className="right">{item} - {useChain.symbol} LP</span>
                     </div>
                     <div className="item">
                       <span className="left">APY</span>

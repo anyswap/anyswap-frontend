@@ -11,7 +11,7 @@ export default function HTfaring({ initialTrade }) {
 
   if (config.env === 'main') {
     CHAINID = '128'
-    FARMTOKEN = '0xe4ea48020f648b1aa7fc25af7b196596190c6b29'
+    FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
   }
   return (
     <>

@@ -379,7 +379,8 @@ export default function FarmsList () {
               </DoubleLogo>
               <div className='info'>
                 <h3>ANY Farming</h3>
-                <p>{t('LaunchTime')}</p>
+                {/* <p>{t('LaunchTime')}</p> */}
+                <p>{t('ComineSoon')}</p>
               </div>
             </div>
           </StyledNavLink>
