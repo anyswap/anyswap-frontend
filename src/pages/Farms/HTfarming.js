@@ -23,6 +23,7 @@ export default function HTfaring({ initialTrade }) {
         FARMTOKEN = {FARMTOKEN}
         FARMURL = {config.farmUrl + 'htfarming'}
         initPairs = {['ANY', 'anyBTC', 'anyETH', 'anyUSDT', 'anyBNB', 'anyFSN']}
+        poolCoin = 'ANY'
       />
     </>
   )

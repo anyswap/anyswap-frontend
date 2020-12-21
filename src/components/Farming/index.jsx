@@ -449,7 +449,8 @@ export default function Farming ({
   CHAINID,
   FARMTOKEN,
   FARMURL,
-  initPairs = []
+  initPairs = [],
+  poolCoin
 }) {
   const initLpToken = getQueryParam(window.location, 'lpToken')
   // console.log(initLpToken)
@@ -643,7 +644,7 @@ export default function Farming ({
             if (
               obj
               && obj.tokenObj
-              && obj.tokenObj.symbol === 'CYC'
+              && obj.tokenObj.symbol === poolCoin
               && obj.exchangeETHBalance
               && obj.exchangeETHBalance.gt(ethers.constants.Zero)
               && obj.exchangeTokenBalancem
@@ -1065,7 +1066,8 @@ export default function Farming ({
   
 
   function farmsList () {
-    if (lpArr.length <= 0 || config.symbol === 'HT') {
+    if (lpArr.length <= 0) {
+    // if (lpArr.length <= 0 || config.symbol === 'HT') {
       // const arr =['ANY','BTC', 'ETH', 'USDT', 'BNB', 'FSN']
       // console.log(initPairs)
       return (
@@ -1305,11 +1307,11 @@ export default function Farming ({
         <StakingBox>
           <StakingList>
             <li className='item'>
-              <div className='pic'><img src={require('../../assets/images/coin/source/CYC.svg')} /></div>
+              <div className='pic'><img src={require('../../assets/images/coin/source/'+ poolCoin + '.svg')} /></div>
               <div className='info'>
                 <h3>{prd}</h3>
                 <p>
-                  CYC {t('Earned')}
+                  {poolCoin} {t('Earned')}
                   <span className='green' style={{marginLeft:'2px'}}>({getAPY(curLpObj.allocPoint, curLpObj.lpBalance, curLpObj.exchangeETHBalance, curLpObj.totalSupply)}%)</span>
                 </p>
               </div>

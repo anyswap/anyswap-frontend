@@ -71,7 +71,7 @@ const MAIN_CONFIG = {
   nodeRpc1: CHAIN_MAIN_INFO.rpc1, // 节点地址
   chainID: CHAIN_MAIN_INFO.chainID, // 节点chainID
   initToken: INIT_MAIN_TOKEN, // 交易默认合约
-  initBridge: '0x538cee985e930557d16c383783ca957fa90b63b3', // 跨链桥默认合约
+  initBridge: '0xc8f62c36e2b92fe60e68c14eb783293dc5bf2ae0', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
   btc: { // btc配置
