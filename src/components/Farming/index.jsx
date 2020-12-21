@@ -151,11 +151,11 @@ const DoubleLogo = styled.div`
       display:block;
     }
   }
-  .left {
-    z-index: 2;
-  }
   .right {
     margin-left: -15px;
+    z-index: 0;
+  }
+  .left {
     z-index: 1;
   }
 `
