@@ -86,12 +86,12 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
     initAddr: '',  // 
   },
-  isOpenRewards: 1, // 是否打开奖励数据
-  isChangeDashboard: 1, // 是否改变资产顺序
+  isOpenRewards: 0, // 是否打开奖励数据
+  isChangeDashboard: 0, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
   ], // 不支持的跨链合约或币种
-  queryToken: '' // 查询余额合约
+  queryToken: '0xbff74da37df72695b1d7e8185edd47fd0771ee3a' // 查询余额合约
 }
 
 const TEST_CONFIG = {
@@ -112,8 +112,8 @@ const TEST_CONFIG = {
   ltc: {
 
   },
-  isOpenRewards: 1,
-  isChangeDashboard: 1,
+  isOpenRewards: 0,
+  isChangeDashboard: 0,
   noSupportBridge: [COIN_BASE.symbol, ANY_TEST_TOKEN],
   queryToken: '0xe4ea48020f648b1aa7fc25af7b196596190c6b29' // 查询余额合约
 }

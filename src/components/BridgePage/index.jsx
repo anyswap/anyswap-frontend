@@ -774,14 +774,18 @@ function isSpecialCoin (coin) {
 }
 
 function formatName (name) {
-  if (
-    config.symbol === 'BNB' ||
-    config.symbol === 'ETH' ||
-    config.symbol === 'FTM'
-  ) {
-    return name.replace(config.suffix, '')
+  if (name) {
+    if (
+      config.symbol === 'BNB' ||
+      config.symbol === 'ETH' ||
+      config.symbol === 'FTM'
+    ) {
+      return name.replace(config.suffix, '')
+    } else {
+      return name.replace(config.namePrefix, '')
+    }
   } else {
-    return name.replace(config.namePrefix, '')
+    return name
   }
 }
 
@@ -973,8 +977,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
 
   useEffect(() => {
-    let node = extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
-    let version = extendObj.VERSION ? extendObj.VERSION : ''
+    let node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
+    let version = extendObj && extendObj.VERSION ? extendObj.VERSION : ''
     let tokenOnlyOne = inputCurrency
 
     setInit(1)
@@ -1086,7 +1090,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   //   getOutBalance()
   // }, [inputCurrency, account, isDeposit, isRedeem])
   function setOutBalance () {
-    let node = extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
+    let node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
     if (node && account) {
       let lob = getLocalOutBalance(node, account, inputCurrency)
       if (lob && lob.info) {
@@ -1928,7 +1932,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
 
   function noBalanceTip () {
-    let node = extendObj.BRIDGE && extendObj.BRIDGE[0] && extendObj.BRIDGE[0].type ? extendObj.BRIDGE[0].type : ''
+    let node = extendObj && extendObj.BRIDGE && extendObj.BRIDGE[0] && extendObj.BRIDGE[0].type ? extendObj.BRIDGE[0].type : ''
     if (
       (bridgeType && bridgeType === 'redeem')
       || !account
