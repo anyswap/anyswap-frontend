@@ -302,7 +302,7 @@ export default function FarmsList () {
           }
           batch1.requestManager.sendBatch(batch1.requests, (error, res1) => {
             if (!error) {
-              console.log(res1)
+              // console.log(res1)
               totalSupply  = res1[0] && res1[0].result && res1[0].result ?  formatCellData(res1[0].result, 66) : ''
               exchangeETHBalance = res1[1] && res1[1].result ?  formatCellData(res1[1].result) : ''
               let exchangeTokenBalancem = res1[2] && res1[2].result && res1[2].result ?  formatCellData(res1[2].result) : ''
