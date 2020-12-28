@@ -90,7 +90,15 @@ const MAIN_CONFIG = {
   isChangeDashboard: 0, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
-    '0x0298c2b32eae4da002a15f36fdf7615bea3da047'
+    '0x0298c2b32eae4da002a15f36fdf7615bea3da047',
+    '0x66a79d23e58475d2738179ca52cd0b41d73f0bea',
+    '0x64ff637fb478863b7468bc97d30a5bf3a428a1fd',
+    '0xecb56cf772b5c9a6907fb7d32387da2fcbfb63b4',
+    '0xae3a768f9ab104c69a7cd6041fe16ffa235d1810',
+    '0xef3cebd77e0c52cb6f60875d9306397b5caca375',
+    '0xa2c49cee16a5e5bdefde931107dc1fae9f7773e3',
+    '0xc2cb6b5357ccce1b99cd22232942d9a225ea4eb1',
+    '0x45e97dad828ad735af1df0473fc2735f0fd5330c',
   ], // 不支持的跨链合约或币种
   queryToken: '0xbff74da37df72695b1d7e8185edd47fd0771ee3a' // 查询余额合约
 }

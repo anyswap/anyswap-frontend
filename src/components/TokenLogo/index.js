@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { isAddress } from '../../utils'
+// import { isAddress } from '../../utils'
+import config from '../../config'
 
 const Image = styled.img`
   width: ${({ size }) => size};
@@ -39,8 +40,19 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
           }
         }
       } else {
-        if (address.lastIndexOf('B') === (address.length - 1) && address.indexOf('BNB') === -1) {
+        if (address.lastIndexOf('B') === (address.length - 1) && address.indexOf('BNB') === -1 && (config.chainID === 56 || config.chainID === 97)) {
           address = address.substr(0, address.lastIndexOf('B'))
+          try {
+            path = require('../../assets/images/coin/source/' + address + '.svg')
+          } catch (error) {
+            try {
+              path = require('../../assets/images/coin/source/' + address + '.png')
+            } catch (error) {
+              path = require('../../assets/images/question.svg')
+            }
+          }
+        } else if ((config.chainID === 128 || config.chainID === 256) && address.indexOf('HUSD') === -1 && address.indexOf('HT') === -1 && address.indexOf('H') === 0) {
+          address = address.substr(1)
           try {
             path = require('../../assets/images/coin/source/' + address + '.svg')
           } catch (error) {
