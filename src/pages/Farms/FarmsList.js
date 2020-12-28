@@ -44,6 +44,67 @@ margin-bottom: 20px;
 }
 `
 
+const LinkBox = styled.div`
+  width: 100%;
+  height: 100%;
+  background: ${({ theme }) => theme.contentBg};
+  box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
+  display:block;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor:pointer;
+  .default {
+    ${({ theme }) => theme.FlexC};
+    flex-wrap:wrap;
+    width:100%;
+    height:100%;
+    padding: 22px 10px 0;
+    border-radius: 10px;
+    .img {
+      ${({ theme }) => theme.FlexC};
+      height:82px;
+      border-radius:100%;
+      margin:auth;
+      img {
+        display:block;
+        height:100%;
+      }
+    }
+    .info {
+      width:100%;
+      text-align:center;
+      margin:0px 0 0;
+      h3 {
+        color: #fff;
+        font-size:18px;
+        margin:0;
+        font-weight: 800;
+      }
+      p {
+        color: #fff;
+        font-size:14px;
+        margin:0;
+        padding:0;
+        line-height: 35px;
+        .pecent {
+          padding: 2px 3px;
+          background: #14A15E;
+          border-radius:4px;
+          display:inline-block;
+          margin-left: 5px;
+          line-height: 21px;
+        }
+      }
+    }
+    &.anyStaking {
+      background: ${({ theme }) => theme.gradientPurpleLR};
+    }
+    &.cycStaking {
+      background: linear-gradient(180deg, #81BEFA 0%, #4A8AF4 100%);
+    }
+  }
+`
+
 const StyledNavLink = styled(NavLink)`
   width: 100%;
   height: 100%;
@@ -381,7 +442,9 @@ export default function FarmsList () {
       </BannerBox> */}
       <FarmListBox>
         <FarmList>
-          <StyledNavLink to={config.farmUrl + 'htfarming'}>
+          <LinkBox to={config.farmUrl + 'htfarming'} onClick={() => {
+            window.open('https://htswap.io/')
+          }}>
             <div className='default anyStaking'>
               {/* <div className='img'><img src={require('../../assets/images/coin/source/HT.svg')} alt=""/></div> */}
               <DoubleLogo>
@@ -397,7 +460,7 @@ export default function FarmsList () {
                 <p>{t('ANYHTStakingTip')}<span className='pecent'>+{HTStakingAPY ? (Number(HTStakingAPY)).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
-          </StyledNavLink>
+          </LinkBox>
         </FarmList>
         <FarmList>
           <StyledNavLink to={config.farmUrl + 'bscfarming'}>
