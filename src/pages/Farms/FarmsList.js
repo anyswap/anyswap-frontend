@@ -264,6 +264,8 @@ function formatCellData(str, len, start) {
 
 const Web3Fn = require('web3')
 
+const JUMPMODALTIP = 'JUMPMODALTIP'
+
 export default function FarmsList () {
   
   const { t } = useTranslation()
@@ -275,7 +277,8 @@ export default function FarmsList () {
   const [JumpTip, setJumpTip] = useState({
     title: '',
     content: '',
-    url: ''
+    url: '',
+    type: ''
   })
 
   function getStakingAPY () {
@@ -475,6 +478,8 @@ export default function FarmsList () {
           </JumpTipBox>
           <Flex>
             <Button style={{height: '45px', maxWidth: '200px'}} onClick={() => {
+              setTipModal(false)
+              localStorage.setItem(JUMPMODALTIP + JumpTip.type, 1)
               window.open(JumpTip.url)
             }}>{t('confirm')}</Button>
           </Flex>
@@ -491,12 +496,19 @@ export default function FarmsList () {
         <FarmList>
           <LinkBox onClick={() => {
             // window.open('https://htswap.io/')
-            setJumpTip({
-              title: t('htSwapTitle'),
-              content: t('htSwapContent'),
-              url: 'https://htswap.io/'
-            })
-            setTipModal(true)
+            let isJump = localStorage.getItem(JUMPMODALTIP + 'HTSWAP')
+            // console.log(isJump)
+            if (!isJump) {
+              setJumpTip({
+                title: t('htSwapTitle'),
+                content: t('htSwapContent'),
+                url: 'https://htswap.io/',
+                type: 'HTSWAP'
+              })
+              setTipModal(true)
+            } else {
+              window.open('https://htswap.io/')
+            }
           }}>
             <div className='default anyStaking'>
               {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}

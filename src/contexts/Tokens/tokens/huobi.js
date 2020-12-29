@@ -334,11 +334,11 @@ export default {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
-    '0xe4ea48020f648b1aa7fc25af7b196596190c6b29': { // HTC
+    '0x07afdf3a4a6c3746bf48efb73f781ab02e1d4065': { // HTC
       [NAME]: 'HTCToken',
       [SYMBOL]: 'HTC',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x7a88eb25eb296fc764ff6181e95c3408cb875b2d',
+      [EXCHANGE_ADDRESS]: '0xe69d06852ad1bfbc67347fae5c5163c494582d5a',
       [REDEEM_MAX_NUM]: 1000000,
       [REDEEM_MIN_NUM]: 0.1,
       [FEE]: 0.001,
