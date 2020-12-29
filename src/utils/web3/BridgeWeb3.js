@@ -19,25 +19,25 @@ const Web3 = require('web3')
 const Tx  = require("ethereumjs-tx")
 
 
-// const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
-// let factory = new web3Test.eth.Contract(FACTORY_ABI, FACTORY_ADDRESSES[config.chainID])
-// setTimeout(() => {
-//   // factory.methods.tokenCount().call((err, res) => {
-//   //   console.log(res)
-//   // })
-//   // factory.methods.getTokenWithId(10).call((err, res) => {
-//   //   console.log(res)
-//   // })
-//   // for (let i = 0 ; i< 10; i++) {
-//   //   factory.methods.getTokenWithId(i).call((err, res) => {
-//   //     console.log(res)
-//   //   })
-//   // }
-//   factory.methods.getExchange('0x07afdf3a4a6c3746bf48efb73f781ab02e1d4065').call((err, res) => {
-//     console.log('HBTC')
-//     console.log(res)
-//   })
-// }, 2000)
+const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
+let factory = new web3Test.eth.Contract(FACTORY_ABI, FACTORY_ADDRESSES[config.chainID])
+setTimeout(() => {
+  // factory.methods.tokenCount().call((err, res) => {
+  //   console.log(res)
+  // })
+  // factory.methods.getTokenWithId(10).call((err, res) => {
+  //   console.log(res)
+  // })
+  // for (let i = 0 ; i< 10; i++) {
+  //   factory.methods.getTokenWithId(i).call((err, res) => {
+  //     console.log(res)
+  //   })
+  // }
+  factory.methods.getExchange('0x734922E7b793B408cd434eEdAa407c9c0C575d1E').call((err, res) => {
+    console.log('HBTC')
+    console.log(res)
+  })
+}, 2000)
 
 
 
