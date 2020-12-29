@@ -239,5 +239,9 @@
   "anyBscStakingTip41": "This activity aims to verify the cross-chain stablecoin algorithm, the contract code has not been audited, please evaluate the risk yourself.",
 
   "MyStaking": "My Staking",
-  "LaunchTime": "Launch Time: 2020-12-21 13:00:00 UTC."
+  "LaunchTime": "Launch Time: 2020-12-21 13:00:00 UTC.",
+
+  "htSwapTip": "Participate in early bird farming of htswap",
+  "htSwapTitle": "You will be redirected to Third Party DApp",
+  "htSwapContent": "Note: You will be redirected to a third party DApp HTswap. Please go through the User Agreement and Privacy Policy of the third party DApp carefully. HTswap will resume full responsiblity for all actions and usage on the DApp."
 }

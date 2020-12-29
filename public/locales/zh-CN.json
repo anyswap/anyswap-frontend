@@ -238,5 +238,9 @@
   "anyBscStakingTip41": "本活动旨在验证跨链稳定币算法，合约代码未审计，请自行评估风险。",
 
   "MyStaking": "我的抵押",
-  "LaunchTime": "上线时间：2020-12-21 21:00:00"
+  "LaunchTime": "上线时间：2020-12-21 21:00:00",
+
+  "htSwapTip": "参与HTSwap早鸟挖矿",
+  "htSwapTitle": "将跳转至第三方DApp",
+  "htSwapContent": "提示：您所访问的页面将跳转至第三方DApp.您在第三方DApp的行为将适用该DAPP的用户协议和隐私政策，由第三方直接并单独向您承担责任。"
 }

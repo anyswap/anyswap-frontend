@@ -16,6 +16,11 @@ import {chainInfo} from '../../config/coinbase/nodeConfig'
 import Title from '../../components/Title'
 import config from '../../config'
 
+import { Button } from '../../theme'
+
+import Modal from '../../components/Modal'
+import ModalContent from '../../components/Modal/ModalContent'
+
 const FarmListBox = styled.div`
   ${({ theme }) => theme.FlexSC};
   flex-wrap:wrap;
@@ -204,6 +209,21 @@ const TokenLogo1 = styled(TokenLogo)`
 background:none;
 `
 
+const JumpTipBox = styled.div`
+width:100%;
+padding: 20px;
+`
+
+const Flex = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+
+  button {
+    max-width: 20rem;
+  }
+`
+
 
 function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
   try {
@@ -251,6 +271,12 @@ export default function FarmsList () {
   const [StakingAPY, setStakingAPY] = useState()
   const [BSCStakingAPY, setBSCStakingAPY] = useState()
   const [HTStakingAPY, setHTStakingAPY] = useState()
+  const [TipModal, setTipModal] = useState(false)
+  const [JumpTip, setJumpTip] = useState({
+    title: '',
+    content: '',
+    url: ''
+  })
 
   function getStakingAPY () {
     let CHAINID = '46688'
@@ -434,6 +460,26 @@ export default function FarmsList () {
 
   return (
     <>
+    <Modal
+        style={{ userSelect: 'none' }}
+        isOpen={TipModal}
+        minHeight={null}
+        maxHeight={90}
+      >
+        <ModalContent
+          title={JumpTip.title}
+          onClose={setTipModal}
+        >
+          <JumpTipBox>
+            {JumpTip.content}
+          </JumpTipBox>
+          <Flex>
+            <Button style={{height: '45px', maxWidth: '200px'}} onClick={() => {
+              window.open(JumpTip.url)
+            }}>{t('confirm')}</Button>
+          </Flex>
+        </ModalContent>
+      </Modal>
       <Title
         title={t('farms')}
       ></Title>
@@ -441,17 +487,39 @@ export default function FarmsList () {
         <img src={require('../../assets/images/banner/farm.png')} />
       </BannerBox> */}
       <FarmListBox>
+        
         <FarmList>
-          <LinkBox to={config.farmUrl + 'htfarming'} onClick={() => {
-            window.open('https://htswap.io/')
+          <LinkBox onClick={() => {
+            // window.open('https://htswap.io/')
+            setJumpTip({
+              title: t('htSwapTitle'),
+              content: t('htSwapContent'),
+              url: 'https://htswap.io/'
+            })
+            setTipModal(true)
           }}>
             <div className='default anyStaking'>
+              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
+              <DoubleLogo>
+                <div className="logo left"><TokenLogo1 address='HTC' size='100%'/></div>
+                <span className="add">+</span>
+                <div className="logo right"><TokenLogo1 address='HT' size='100%'/></div>
+              </DoubleLogo>
+              <div className='info'>
+                <h3>HT Swap</h3>
+                <p>{t('htSwapTip')}</p>
+              </div>
+            </div>
+          </LinkBox>
+        </FarmList>
+        <FarmList>
+          <StyledNavLink to={config.farmUrl + 'htfarming'}>
+            <div className='default cycStaking'>
               {/* <div className='img'><img src={require('../../assets/images/coin/source/HT.svg')} alt=""/></div> */}
               <DoubleLogo>
                 <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
                 <span className="add">+</span>
                 <div className="logo right"><TokenLogo1 address='HT' size='100%'/></div>
-                
               </DoubleLogo>
               <div className='info'>
                 <h3>ANY Farming</h3>
@@ -460,7 +528,7 @@ export default function FarmsList () {
                 <p>{t('ANYHTStakingTip')}<span className='pecent'>+{HTStakingAPY ? (Number(HTStakingAPY)).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
-          </LinkBox>
+          </StyledNavLink>
         </FarmList>
         <FarmList>
           <StyledNavLink to={config.farmUrl + 'bscfarming'}>
@@ -475,7 +543,7 @@ export default function FarmsList () {
         </FarmList>
         <FarmList>
           <StyledNavLink to={config.farmUrl + 'staking'}>
-            <div className='default cycStaking'>
+            <div className='default anyStaking'>
               <div className='img'><img src={require('../../assets/images/icon/anyIcon.svg')} alt=""/></div>
               <div className='info'>
                 <h3>ANY Staking</h3>

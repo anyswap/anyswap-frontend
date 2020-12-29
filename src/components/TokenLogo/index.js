@@ -22,7 +22,7 @@ function getSourcePath (symbol) {
     try {
       path = require('../../assets/images/coin/source/' + symbol + '.png')
     } catch (error) {
-      path = this.initPath
+      path = initPath
     }
   }
   return path
@@ -35,7 +35,7 @@ function getAnyPath (symbol) {
     try {
       path = require('../../assets/images/coin/any/' + symbol + '.png')
     } catch (error) {
-      path = this.initPath
+      path = initPath
     }
   }
   return path
