@@ -12,82 +12,58 @@ const Image = styled.img`
   border-radius: ${({ size }) => size};
 `
 
+const initPath = require('../../assets/images/question.svg')
+
+function getSourcePath (symbol) {
+  let path = ''
+  try {
+    path = require('../../assets/images/coin/source/' + symbol + '.svg')
+  } catch (error) {
+    try {
+      path = require('../../assets/images/coin/source/' + symbol + '.png')
+    } catch (error) {
+      path = this.initPath
+    }
+  }
+  return path
+}
+function getAnyPath (symbol) {
+  let path = ''
+  try {
+    path = require('../../assets/images/coin/any/' + symbol + '.svg')
+  } catch (error) {
+    try {
+      path = require('../../assets/images/coin/any/' + symbol + '.png')
+    } catch (error) {
+      path = this.initPath
+    }
+  }
+  return path
+}
+
 export default function TokenLogo({ address, size = '1rem', isAny = true, ...rest }) {
   let path = ''
-  // console.log(address)
-  // address = address ? address.replace('any', '') : ''
   if (address) {
     if (isAny) {
       if (address.indexOf('a') === 0 && address.indexOf('any') === -1) {
         address = address.replace('a', 'any')
-        try {
-          path = require('../../assets/images/coin/any/' + address + '.svg')
-        } catch (error) {
-          try {
-            path = require('../../assets/images/coin/any/' + address + '.png')
-          } catch (error) {
-            path = require('../../assets/images/question.svg')
-          }
-        }
+        path = getAnyPath(address)
       } else if (address.indexOf('any') !== -1) {
-        try {
-          path = require('../../assets/images/coin/any/' + address + '.svg')
-        } catch (error) {
-          try {
-            path = require('../../assets/images/coin/any/' + address + '.png')
-          } catch (error) {
-            path = require('../../assets/images/question.svg')
-          }
-        }
+        path = getAnyPath(address)
       } else {
         if (address.lastIndexOf('B') === (address.length - 1) && address.indexOf('BNB') === -1 && (config.chainID === 56 || config.chainID === 97)) {
           address = address.substr(0, address.lastIndexOf('B'))
-          try {
-            path = require('../../assets/images/coin/source/' + address + '.svg')
-          } catch (error) {
-            try {
-              path = require('../../assets/images/coin/source/' + address + '.png')
-            } catch (error) {
-              path = require('../../assets/images/question.svg')
-            }
-          }
         } else if ((config.chainID === 128 || config.chainID === 256) && address.indexOf('HUSD') === -1 && address.indexOf('HT') === -1 && address.indexOf('H') === 0) {
           address = address.substr(1)
-          try {
-            path = require('../../assets/images/coin/source/' + address + '.svg')
-          } catch (error) {
-            try {
-              path = require('../../assets/images/coin/source/' + address + '.png')
-            } catch (error) {
-              path = require('../../assets/images/question.svg')
-            }
-          }
-        } else {
-          try {
-            path = require('../../assets/images/coin/source/' + address + '.svg')
-          } catch (error) {
-            try {
-              path = require('../../assets/images/coin/source/' + address + '.png')
-            } catch (error) {
-              path = require('../../assets/images/question.svg')
-            }
-          }
         }
+        path = getSourcePath(address)
       }
     } else {
       address = address.replace('any', '').replace('a', '')
-      try {
-        path = require('../../assets/images/coin/source/' + address + '.svg')
-      } catch (error) {
-        try {
-          path = require('../../assets/images/coin/source/' + address + '.png')
-        } catch (error) {
-          path = require('../../assets/images/question.svg')
-        }
-      }
+      path = getSourcePath(address)
     }
   } else {
-    path = require('../../assets/images/question.svg')
+    path = initPath
   }
 
   return (

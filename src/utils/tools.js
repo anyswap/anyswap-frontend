@@ -93,3 +93,14 @@ export function thousandBit (num, dec = 8) {
     }
     return num
 }
+
+export function formatWeb3Str (str, len = 64) {
+  str = str.indexOf('0x') === 0 ? str.substr(2) : str
+  let strLen = str.length / len
+  let arr = []
+  for (let i = 0; i < strLen; i++) {
+    let str1 = str.substr(i * len, len)
+    arr.push('0x' + str1)
+  }
+  return arr
+}
