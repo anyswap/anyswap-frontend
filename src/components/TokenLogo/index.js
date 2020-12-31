@@ -51,9 +51,17 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
       } else if (address.indexOf('any') !== -1) {
         path = getAnyPath(address)
       } else {
-        if (address.lastIndexOf('B') === (address.length - 1) && address.indexOf('BNB') === -1 && (config.chainID === 56 || config.chainID === 97)) {
+        if (
+          address.lastIndexOf('B') === (address.length - 1)
+          && address.indexOf('BNB') === -1
+        ) {
           address = address.substr(0, address.lastIndexOf('B'))
-        } else if ((config.chainID === 128 || config.chainID === 256) && address.indexOf('HUSD') === -1 && address.indexOf('HT') === -1 && address.indexOf('H') === 0) {
+        } else if (
+          address.indexOf('HUSD') === -1
+          && address.indexOf('HT') === -1
+          && address.indexOf('HTC') === -1
+          && address.indexOf('H') === 0
+        ) {
           address = address.substr(1)
         }
         path = getSourcePath(address)

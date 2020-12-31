@@ -21,6 +21,7 @@
 /FTM-MAIN
 /FTM-TEST
 /ETH-MAIN
+/anyswapExchange
 #/src/config/index.js
 #/src/contexts/Tokens.js
 
