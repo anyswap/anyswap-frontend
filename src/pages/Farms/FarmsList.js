@@ -32,11 +32,24 @@ const FarmList = styled.div`
 width: 50%;
 height: 220px;
 margin-bottom: 20px;
+.default {
+  background: linear-gradient(180deg, #81BEFA 0%, #4A8AF4 100%);
+}
 &:nth-child(2n) {
   padding-left: 10px;
 }
 &:nth-child(2n-1) {
   padding-right: 10px;
+}
+&:nth-child(4n + 1) {
+  .default {
+    background: ${({ theme }) => theme.gradientPurpleLR};
+  }
+}
+&:nth-child(4n + 4) {
+  .default {
+    background: ${({ theme }) => theme.gradientPurpleLR};
+  }
 }
 @media screen and (max-width: 960px) {
   width: 100%;
@@ -101,12 +114,6 @@ const LinkBox = styled.div`
         }
       }
     }
-    &.anyStaking {
-      background: ${({ theme }) => theme.gradientPurpleLR};
-    }
-    &.cycStaking {
-      background: linear-gradient(180deg, #81BEFA 0%, #4A8AF4 100%);
-    }
   }
 `
 
@@ -160,12 +167,6 @@ const StyledNavLink = styled(NavLink)`
           line-height: 21px;
         }
       }
-    }
-    &.anyStaking {
-      background: ${({ theme }) => theme.gradientPurpleLR};
-    }
-    &.cycStaking {
-      background: linear-gradient(180deg, #81BEFA 0%, #4A8AF4 100%);
     }
   }
 `
@@ -500,7 +501,21 @@ export default function FarmsList () {
         <img src={require('../../assets/images/banner/farm.png')} />
       </BannerBox> */}
       <FarmListBox>
-        
+        <FarmList>
+          <StyledNavLink to={config.farmUrl + 'bscfarming2'}>
+            <div className='default'>
+              <DoubleLogo>
+                <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
+                <span className="add">+</span>
+                <div className="logo right"><TokenLogo1 address='BNB' size='100%'/></div>
+              </DoubleLogo>
+              <div className='info'>
+                <h3>ANY Farming</h3>
+                <p>{t('ANYHTStakingTip')}<span className='pecent'>+{BSCFarmingAPY ? (Number(BSCFarmingAPY)).toFixed(2) : '0.00'}%</span></p>
+              </div>
+            </div>
+          </StyledNavLink>
+        </FarmList>
         <FarmList>
           <LinkBox onClick={() => {
             // window.open('https://htswap.io/')
@@ -518,7 +533,7 @@ export default function FarmsList () {
               window.open('https://htswap.io/')
             }
           }}>
-            <div className='default anyStaking'>
+            <div className='default'>
               {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
               <DoubleLogo>
                 <div className="logo left"><TokenLogo1 address='HTC' size='100%'/></div>
@@ -534,7 +549,7 @@ export default function FarmsList () {
         </FarmList>
         <FarmList>
           <StyledNavLink to={config.farmUrl + 'htfarming'}>
-            <div className='default cycStaking'>
+            <div className='default'>
               {/* <div className='img'><img src={require('../../assets/images/coin/source/HT.svg')} alt=""/></div> */}
               <DoubleLogo>
                 <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
@@ -552,7 +567,7 @@ export default function FarmsList () {
         </FarmList>
         <FarmList>
           <StyledNavLink to={config.farmUrl + 'bscfarming'}>
-            <div className='default cycStaking'>
+            <div className='default'>
               <div className='img'><img src={require('../../assets/images/icon/cycIcon.svg')} alt=""/></div>
               <div className='info'>
                 <h3>Christmas Farming</h3>
@@ -563,26 +578,11 @@ export default function FarmsList () {
         </FarmList>
         <FarmList>
           <StyledNavLink to={config.farmUrl + 'staking'}>
-            <div className='default anyStaking'>
+            <div className='default'>
               <div className='img'><img src={require('../../assets/images/icon/anyIcon.svg')} alt=""/></div>
               <div className='info'>
                 <h3>ANY Staking</h3>
                 <p>{t('ANYStakingTip')}<span className='pecent'>+{StakingAPY ? (Number(StakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
-              </div>
-            </div>
-          </StyledNavLink>
-        </FarmList>
-        <FarmList>
-          <StyledNavLink to={config.farmUrl + 'bscfarming2'}>
-            <div className='default anyStaking'>
-              <DoubleLogo>
-                <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
-                <span className="add">+</span>
-                <div className="logo right"><TokenLogo1 address='BNB' size='100%'/></div>
-              </DoubleLogo>
-              <div className='info'>
-                <h3>ANY Farming</h3>
-                <p>{t('ANYHTStakingTip')}<span className='pecent'>+{BSCFarmingAPY ? (Number(BSCFarmingAPY)).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
           </StyledNavLink>

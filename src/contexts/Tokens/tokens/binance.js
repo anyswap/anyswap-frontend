@@ -345,7 +345,7 @@ export default {
       [NAME]: 'Binance-Peg BUSD',
       [SYMBOL]: 'BUSDB',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x34358Ff75D78652F1797ebd73E8f7aFA92DaB501',
+      [EXCHANGE_ADDRESS]: '0x34358ff75d78652f1797ebd73e8f7afa92dab501',
       [REDEEM_MAX_NUM]: 200000,
       [REDEEM_MIN_NUM]: 10,
       [FEE]: 0.001,
