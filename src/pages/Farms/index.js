@@ -10,6 +10,7 @@ import Farms from './FarmsList'
 import Staking from './Staking'
 import BSCfarming from './BSCfarming'
 import HTfarming from './HTfarming'
+import BSCfarming2 from './BSCfarming2'
 
 export default function Farm() {
   return (
@@ -32,6 +33,14 @@ export default function Farm() {
             path={config.farmUrl + "htfarming/:lpToken"}
             render={({ match }) => {
               return <HTfarming initialTrade={match.params.lpToken} />
+            }}
+          />
+
+          <Route exact strict path={config.farmUrl + "bscfarming2"} component={() => <BSCfarming2 />} />
+          <Route
+            path={config.farmUrl + "bscfarming2/:lpToken"}
+            render={({ match }) => {
+              return <BSCfarming2 initialTrade={match.params.lpToken} />
             }}
           />
           <Redirect to="/farms" />

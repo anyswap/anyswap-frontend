@@ -273,6 +273,7 @@ export default function FarmsList () {
   const [StakingAPY, setStakingAPY] = useState()
   const [BSCStakingAPY, setBSCStakingAPY] = useState()
   const [HTStakingAPY, setHTStakingAPY] = useState()
+  const [BSCFarmingAPY, setBSCFarmingAPY] = useState()
   const [TipModal, setTipModal] = useState(false)
   const [JumpTip, setJumpTip] = useState({
     title: '',
@@ -321,23 +322,27 @@ export default function FarmsList () {
     let useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
     let exchangeObj = {}
 
-    let cycExchange = '0xf0f4de212b1c49e2f98fcf574e5746507a9cac44'
+    let rewardExchange = '0xf0f4de212b1c49e2f98fcf574e5746507a9cac44'
     // console.log(type)
     if (config.env === 'main') {
-      if (type === 'BSC') {
+      if (type.indexOf('BSC') !== -1) {
         CHAINID = '56'
         useChain = chainInfo[CHAINID]
-        // FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
-        FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
         useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
-        cycExchange = '0x0df8810714dde679107c01503e200ce300d0dcf6'
+        if (type === 'BSC') {
+          FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
+          rewardExchange = '0x0df8810714dde679107c01503e200ce300d0dcf6'
+        } else if (type === 'BSC2') {
+          FARMTOKEN = '0x9c1b92e97c19286c98a2a35684366823f315f74b'
+          rewardExchange = '0x095418a82bc2439703b69fbe1210824f2247d77c'
+        }
       } else if (type === 'HT') {
         CHAINID = '128'
         useChain = chainInfo[CHAINID]
         // FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
         FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
         useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
-        cycExchange = '0x58ded31f93669eac7b18d4d19b0d122fa5e9263d'
+        rewardExchange = '0x58ded31f93669eac7b18d4d19b0d122fa5e9263d'
       }
     }
 
@@ -373,7 +378,7 @@ export default function FarmsList () {
             if (pl) {
               let curPoint = ethers.utils.bigNumberify('0x' + pl.substr(66, 64)).toString()
               let exAddr = pl.substr(0, 66).replace('0x000000000000000000000000', '0x')
-              if (cycExchange === exAddr) {
+              if (rewardExchange === exAddr) {
                 allocPoint = curPoint
 
                 exchangeContract.options.address = exAddr
@@ -420,7 +425,9 @@ export default function FarmsList () {
                   setBSCStakingAPY(apy)
                 } else if (type === 'HT') {
                   setHTStakingAPY(apy)
-                }
+                } else if (type === 'BSC2') {
+                  setBSCFarmingAPY(apy)
+                } 
               }
             }
           })
@@ -436,9 +443,9 @@ export default function FarmsList () {
       const rpbData = web3Contract.methods.rewardPerBlock().encodeABI()
       batch.add(web3Fn.eth.call.request({data: rpbData, to: FARMTOKEN}, 'latest'))
 
-      web3ErcContract.options.address = cycExchange
+      web3ErcContract.options.address = rewardExchange
       const blData = web3ErcContract.methods.balanceOf(FARMTOKEN).encodeABI()
-      batch.add(web3Fn.eth.call.request({data: blData, to: cycExchange}, 'latest'))
+      batch.add(web3Fn.eth.call.request({data: blData, to: rewardExchange}, 'latest'))
 
       batch.requestManager.sendBatch(batch.requests, (err, res) => {
         if (!err) {
@@ -457,6 +464,7 @@ export default function FarmsList () {
   useEffect(() => {
     getStakingAPY()
     getBSCStakingAPY('BSC')
+    getBSCStakingAPY('BSC2')
     getBSCStakingAPY('HT')
   }, [])
 
@@ -560,6 +568,21 @@ export default function FarmsList () {
               <div className='info'>
                 <h3>ANY Staking</h3>
                 <p>{t('ANYStakingTip')}<span className='pecent'>+{StakingAPY ? (Number(StakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
+              </div>
+            </div>
+          </StyledNavLink>
+        </FarmList>
+        <FarmList>
+          <StyledNavLink to={config.farmUrl + 'bscfarming2'}>
+            <div className='default anyStaking'>
+              <DoubleLogo>
+                <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
+                <span className="add">+</span>
+                <div className="logo right"><TokenLogo1 address='BNB' size='100%'/></div>
+              </DoubleLogo>
+              <div className='info'>
+                <h3>ANY Farming</h3>
+                <p>{t('ANYHTStakingTip')}<span className='pecent'>+{BSCFarmingAPY ? (Number(BSCFarmingAPY)).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
           </StyledNavLink>
