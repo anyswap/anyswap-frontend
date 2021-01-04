@@ -63,12 +63,12 @@ export function getQueryParam(windowLocation, name) {
 export function getAllQueryParams() {
   let params = {}
   params.theme = checkSupportedTheme(getQueryParam(window.location, 'theme'))
-
+  
   params.inputCurrency = isAddress(getQueryParam(window.location, 'inputCurrency'))
-    ? isAddress(getQueryParam(window.location, 'inputCurrency'))
+    ? isAddress(getQueryParam(window.location, 'inputCurrency')).toLowerCase()
     : ''
   params.outputCurrency = isAddress(getQueryParam(window.location, 'outputCurrency'))
-    ? isAddress(getQueryParam(window.location, 'outputCurrency'))
+    ? isAddress(getQueryParam(window.location, 'outputCurrency')).toLowerCase()
     : getQueryParam(window.location, 'outputCurrency') === config.symbol
     ? config.symbol
     : ''
