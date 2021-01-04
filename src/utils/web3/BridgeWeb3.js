@@ -33,7 +33,7 @@ const Tx  = require("ethereumjs-tx")
 //   //     console.log(res)
 //   //   })
 //   // }
-//   factory.methods.getExchange('0x734922E7b793B408cd434eEdAa407c9c0C575d1E').call((err, res) => {
+//   factory.methods.getExchange('0x68a0a1fef18dfcc422db8be6f0f486dea1999edc').call((err, res) => {
 //     console.log('HBTC')
 //     console.log(res)
 //   })
