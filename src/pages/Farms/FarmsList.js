@@ -469,6 +469,22 @@ export default function FarmsList () {
     getBSCStakingAPY('HT')
   }, [])
 
+  function openThirdWeb (url, type) {
+    let isJump = localStorage.getItem(JUMPMODALTIP + type)
+    // console.log(isJump)
+    if (!isJump) {
+      setJumpTip({
+        title: t('htSwapTitle'),
+        content: t('htSwapContent'),
+        url: url,
+        type: type
+      })
+      setTipModal(true)
+    } else {
+      window.open(url)
+    }
+  }
+
 
   return (
     <>
@@ -504,20 +520,9 @@ export default function FarmsList () {
         <FarmList>
           <LinkBox onClick={() => {
             // window.open('https://htswap.io/')
-            let isJump = localStorage.getItem(JUMPMODALTIP + 'SDC')
+            const type = 'SDC'
             let url = 'https://htswap.io/rebase'
-            // console.log(isJump)
-            if (!isJump) {
-              setJumpTip({
-                title: t('htSwapTitle'),
-                content: t('htSwapContent'),
-                url: url,
-                type: 'SDC'
-              })
-              setTipModal(true)
-            } else {
-              window.open(url)
-            }
+            openThirdWeb(url, type)
           }}>
             <div className='default'>
               {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
@@ -536,20 +541,9 @@ export default function FarmsList () {
         <FarmList>
           <LinkBox onClick={() => {
             // window.open('https://htswap.io/')
-            let isJump = localStorage.getItem(JUMPMODALTIP + 'EDC')
+            const type = 'EDC'
             let url = 'http://heco.earndefi.finance/'
-            // console.log(isJump)
-            if (!isJump) {
-              setJumpTip({
-                title: t('htSwapTitle'),
-                content: t('htSwapContent'),
-                url: url,
-                type: 'EDC'
-              })
-              setTipModal(true)
-            } else {
-              window.open(url)
-            }
+            openThirdWeb(url, type)
           }}>
             <div className='default'>
               {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
@@ -583,20 +577,9 @@ export default function FarmsList () {
         <FarmList>
           <LinkBox onClick={() => {
             // window.open('https://htswap.io/')
-            let isJump = localStorage.getItem(JUMPMODALTIP + 'HTSWAP')
+            const type = 'HTSWAP'
             let url = 'https://htswap.io'
-            // console.log(isJump)
-            if (!isJump) {
-              setJumpTip({
-                title: t('htSwapTitle'),
-                content: t('htSwapContent'),
-                url: url,
-                type: 'HTSWAP'
-              })
-              setTipModal(true)
-            } else {
-              window.open(url)
-            }
+            openThirdWeb(url, type)
           }}>
             <div className='default'>
               {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
