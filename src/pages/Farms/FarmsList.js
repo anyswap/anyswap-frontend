@@ -502,6 +502,70 @@ export default function FarmsList () {
       </BannerBox> */}
       <FarmListBox>
         <FarmList>
+          <LinkBox onClick={() => {
+            // window.open('https://htswap.io/')
+            let isJump = localStorage.getItem(JUMPMODALTIP + 'SDC')
+            let url = 'https://htswap.io/rebase'
+            // console.log(isJump)
+            if (!isJump) {
+              setJumpTip({
+                title: t('htSwapTitle'),
+                content: t('htSwapContent'),
+                url: url,
+                type: 'SDC'
+              })
+              setTipModal(true)
+            } else {
+              window.open(url)
+            }
+          }}>
+            <div className='default'>
+              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
+              <DoubleLogo>
+                <div className="logo left"><TokenLogo1 address='SDC' size='100%'/></div>
+                <span className="add">+</span>
+                <div className="logo right"><TokenLogo1 address='HT' size='100%'/></div>
+              </DoubleLogo>
+              <div className='info'>
+                <h3>SDC Farming</h3>
+                <p>USD Rebase token Farming</p>
+              </div>
+            </div>
+          </LinkBox>
+        </FarmList>
+        <FarmList>
+          <LinkBox onClick={() => {
+            // window.open('https://htswap.io/')
+            let isJump = localStorage.getItem(JUMPMODALTIP + 'EDC')
+            let url = 'http://heco.earndefi.finance/'
+            // console.log(isJump)
+            if (!isJump) {
+              setJumpTip({
+                title: t('htSwapTitle'),
+                content: t('htSwapContent'),
+                url: url,
+                type: 'EDC'
+              })
+              setTipModal(true)
+            } else {
+              window.open(url)
+            }
+          }}>
+            <div className='default'>
+              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
+              <DoubleLogo>
+                <div className="logo left"><TokenLogo1 address='EDC' size='100%'/></div>
+                <span className="add">+</span>
+                <div className="logo right"><TokenLogo1 address='HT' size='100%'/></div>
+              </DoubleLogo>
+              <div className='info'>
+                <h3>EDC Farming</h3>
+                <p>EarnDefiCoin Farming</p>
+              </div>
+            </div>
+          </LinkBox>
+        </FarmList>
+        <FarmList>
           <StyledNavLink to={config.farmUrl + 'bscfarming2'}>
             <div className='default'>
               <DoubleLogo>
@@ -520,17 +584,18 @@ export default function FarmsList () {
           <LinkBox onClick={() => {
             // window.open('https://htswap.io/')
             let isJump = localStorage.getItem(JUMPMODALTIP + 'HTSWAP')
+            let url = 'https://htswap.io'
             // console.log(isJump)
             if (!isJump) {
               setJumpTip({
                 title: t('htSwapTitle'),
                 content: t('htSwapContent'),
-                url: 'https://htswap.io/',
+                url: url,
                 type: 'HTSWAP'
               })
               setTipModal(true)
             } else {
-              window.open('https://htswap.io/')
+              window.open(url)
             }
           }}>
             <div className='default'>
