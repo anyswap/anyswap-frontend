@@ -556,17 +556,17 @@ export default {
       [DEPOSIT_MIN_NUM]: 0.0005,
       [EXTENDOBJ]:  {}
     },
-    'XRP': { // XRP
-      [NAME]: 'ANY XRP',
-      [SYMBOL]: 'aXRP',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: config.prefix + 'XRP',
+    '0x1c7d31a34fb0bac76352c9640ea44a2ab9d85239': { // USC
+      [NAME]: 'USC Token',
+      [SYMBOL]: 'USC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xe6c864a57503d99238998b9aca1543dec208b24e',
       [REDEEM_MAX_NUM]: 100,
       [REDEEM_MIN_NUM]: 0.00001,
       [FEE]: 0.001,
       [MAXFEE]: 50,
       [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(1),
+      [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 0,
       [ISREDEEM]: 0,
       [DEPOSIT_ADDRESS]: '',
