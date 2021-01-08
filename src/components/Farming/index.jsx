@@ -626,7 +626,7 @@ export default function Farming ({
       const tsData = exchangeContract.methods.totalSupply().encodeABI()
       batch.add(web3Fn.eth.call.request({data: tsData, to: obj.lpToken}, 'latest', (err, ts) => {
         if (!err) {
-          
+          // console.log(ts)
           dispatchFarmState({
             type: 'UPDATE_LP',
             index: i,
@@ -662,9 +662,15 @@ export default function Farming ({
         }
       }))
 
-      batch.add(web3.eth.getBalance.request(obj.lpToken, 'latest', (err, res) => {
+      batch.add(web3Fn.eth.getBalance.request(obj.lpToken, 'latest', (err, res) => {
         if (!err) {
-          let bl = res.isNaN() ?  formatCellData(res) : ethers.utils.parseUnits(res.div(Math.pow(10, 18)).toString(), 18)
+          // let bl = res.isNaN() ?  formatCellData(res) : ethers.utils.parseUnits(res.div(Math.pow(10, 18)).toString(), 18)
+          let bl = ''
+          if (!isNaN(res) && res.indexOf('0x') !== 0) {
+            bl = ethers.utils.bigNumberify(res)
+          } else if (res.indexOf('0x') === 0 || res.isNaN()) {
+            bl = formatCellData(res)
+          }
           dispatchFarmState({
             type: 'UPDATE_LP',
             index: i,
@@ -683,7 +689,7 @@ export default function Farming ({
         web3ErcContract.options.address = obj.tokenObj.token
         let etbData = web3ErcContract.methods.balanceOf(obj.lpToken).encodeABI()
         // console.log(etbData)
-        batch.add(web3.eth.call.request({data: etbData, to: obj.tokenObj.token, from: obj.lpToken}, 'latest', (err, res) => {
+        batch.add(web3Fn.eth.call.request({data: etbData, to: obj.tokenObj.token, from: obj.lpToken}, 'latest', (err, res) => {
           if (!err) {
             dispatchFarmState({
               type: 'UPDATE_LP',

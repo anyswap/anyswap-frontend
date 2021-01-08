@@ -287,16 +287,15 @@ export default function FarmsList () {
   function getStakingAPY () {
     let CHAINID = '46688'
     let useChain = chainInfo[CHAINID]
-    let web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
     let ANY_TOKEN = '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4'
     let STAKE_TOKEN = '0xeb96e36e8269a0f0d53833bab9683f1b4e1107a8'
     if (config.env === 'main') {
       CHAINID = '32659'
       useChain = chainInfo[CHAINID]
-      web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
       ANY_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
       STAKE_TOKEN = '0x2e1f1c7620eecc7b7c571dff36e43ac7ed276779'
     }
+    let web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
     const batch = new web3Fn.BatchRequest()
     const web3Contract = new web3Fn.eth.Contract(STAKE_ABI, STAKE_TOKEN)
     const web3ErcContract = new web3Fn.eth.Contract(ERC20_ABI, ANY_TOKEN)
@@ -351,7 +350,6 @@ export default function FarmsList () {
       useChain = chainInfo[CHAINID]
       useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
     }
-
     let BlockReward = '', TotalPoint = 0, allocPoint = 0, lpBalance = ''
 
     const web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
@@ -391,11 +389,11 @@ export default function FarmsList () {
                 const tsData = exchangeContract.methods.totalSupply().encodeABI()
                 batch1.add(web3Fn.eth.call.request({data: tsData, to: exAddr}, 'latest'))
     
-                batch1.add(web3.eth.getBalance.request(exAddr, 'latest'))
+                batch1.add(web3Fn.eth.getBalance.request(exAddr, 'latest'))
     
                 web3ErcContract.options.address = exchangeObj[exAddr].token
                 let etbData = web3ErcContract.methods.balanceOf(exAddr).encodeABI()
-                batch1.add(web3.eth.call.request({data: etbData, to: exchangeObj[exAddr].token, from: exAddr}, 'latest'))
+                batch1.add(web3Fn.eth.call.request({data: etbData, to: exchangeObj[exAddr].token, from: exAddr}, 'latest'))
               }
               TotalPoint += Number(curPoint)
 
