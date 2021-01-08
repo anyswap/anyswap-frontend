@@ -266,7 +266,7 @@ function formatCellData(str, len, start) {
 const Web3Fn = require('web3')
 
 const JUMPMODALTIP = 'JUMPMODALTIP'
-
+// console.log(config)
 export default function FarmsList () {
   
   const { t } = useTranslation()
@@ -274,6 +274,7 @@ export default function FarmsList () {
   const [StakingAPY, setStakingAPY] = useState()
   const [BSCStakingAPY, setBSCStakingAPY] = useState()
   const [HTStakingAPY, setHTStakingAPY] = useState()
+  const [FSNStakingAPY, setFSNStakingAPY] = useState()
   const [BSCFarmingAPY, setBSCFarmingAPY] = useState()
   const [TipModal, setTipModal] = useState(false)
   const [JumpTip, setJumpTip] = useState({
@@ -326,25 +327,29 @@ export default function FarmsList () {
     let rewardExchange = '0xf0f4de212b1c49e2f98fcf574e5746507a9cac44'
     // console.log(type)
     if (config.env === 'main') {
-      if (type.indexOf('BSC') !== -1) {
-        CHAINID = '56'
-        useChain = chainInfo[CHAINID]
-        useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
-        if (type === 'BSC') {
-          FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
-          rewardExchange = '0x0df8810714dde679107c01503e200ce300d0dcf6'
-        } else if (type === 'BSC2') {
-          FARMTOKEN = '0x9c1b92e97c19286c98a2a35684366823f315f74b'
-          rewardExchange = '0x095418a82bc2439703b69fbe1210824f2247d77c'
-        }
-      } else if (type === 'HT') {
-        CHAINID = '128'
-        useChain = chainInfo[CHAINID]
-        // FARMTOKEN = '0xfbec3ec06c01fd2e742a5989c771257159d9a5f7'
-        FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
-        useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
-        rewardExchange = '0x58ded31f93669eac7b18d4d19b0d122fa5e9263d'
-      }
+      CHAINID = config.farmConfig[type].CHAINID
+      FARMTOKEN = config.farmConfig[type].FARMTOKEN
+      rewardExchange = config.farmConfig[type].rewardExchange
+      // if (type.indexOf('BSC') !== -1) {
+      //   CHAINID = '56'
+      //   if (type === 'BSC') {
+      //     FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
+      //     rewardExchange = '0x0df8810714dde679107c01503e200ce300d0dcf6'
+      //   } else if (type === 'BSC2') {
+      //     FARMTOKEN = '0x9c1b92e97c19286c98a2a35684366823f315f74b'
+      //     rewardExchange = '0x095418a82bc2439703b69fbe1210824f2247d77c'
+      //   }
+      // } else if (type === 'HT') {
+      //   CHAINID = '128'
+      //   FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
+      //   rewardExchange = '0x58ded31f93669eac7b18d4d19b0d122fa5e9263d'
+      // } else if (type === 'FSN') {
+      //   CHAINID = '32659'
+      //   FARMTOKEN = '0xc8b7382aa82318e2ebcff72d6f464034eceae400'
+      //   rewardExchange = '0x049ddc3cd20ac7a2f6c867680f7e21de70aca9c3'
+      // }
+      useChain = chainInfo[CHAINID]
+      useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
     }
 
     let BlockReward = '', TotalPoint = 0, allocPoint = 0, lpBalance = ''
@@ -428,7 +433,9 @@ export default function FarmsList () {
                   setHTStakingAPY(apy)
                 } else if (type === 'BSC2') {
                   setBSCFarmingAPY(apy)
-                } 
+                } else if (type === 'FSN') {
+                  setFSNStakingAPY(apy)
+                }
               }
             }
           })
@@ -467,6 +474,7 @@ export default function FarmsList () {
     getBSCStakingAPY('BSC')
     getBSCStakingAPY('BSC2')
     getBSCStakingAPY('HT')
+    getBSCStakingAPY('FSN')
   }, [])
 
   function openThirdWeb (url, type) {
@@ -517,6 +525,24 @@ export default function FarmsList () {
         <img src={require('../../assets/images/banner/farm.png')} />
       </BannerBox> */}
       <FarmListBox>
+        <FarmList>
+          <StyledNavLink to={config.farmUrl + 'fsnfarming'}>
+            <div className='default'>
+              {/* <div className='img'><img src={require('../../assets/images/coin/source/HT.svg')} alt=""/></div> */}
+              <DoubleLogo>
+                <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
+                <span className="add">+</span>
+                <div className="logo right"><TokenLogo1 address='FSN' size='100%'/></div>
+              </DoubleLogo>
+              <div className='info'>
+                <h3>ANY Farming</h3>
+                {/* <p>{t('LaunchTime')}</p> */}
+                {/* <p>{t('ComineSoon')}</p> */}
+                <p>{t('ANYHTStakingTip')}<span className='pecent'>+{FSNStakingAPY ? (Number(FSNStakingAPY)).toFixed(2) : '0.00'}%</span></p>
+              </div>
+            </div>
+          </StyledNavLink>
+        </FarmList>
         <FarmList>
           <LinkBox onClick={() => {
             // window.open('https://htswap.io/')

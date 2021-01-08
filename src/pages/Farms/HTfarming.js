@@ -10,8 +10,8 @@ export default function HTfaring({ initialTrade }) {
   let FARMTOKEN = '0xc6818f8524a4293c09045c1b1203cd2ea37068bb'
 
   if (config.env === 'main') {
-    CHAINID = '128'
-    FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
+    CHAINID = config.farmConfig['HT'].CHAINID
+    FARMTOKEN = config.farmConfig['HT'].FARMTOKEN
   }
   return (
     <>

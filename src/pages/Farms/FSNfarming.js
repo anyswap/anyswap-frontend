@@ -10,8 +10,8 @@ export default function HTfaring({ initialTrade }) {
   let FARMTOKEN = '0xc6818f8524a4293c09045c1b1203cd2ea37068bb'
 
   if (config.env === 'main') {
-    CHAINID = config.farmConfig['BSC2'].CHAINID
-    FARMTOKEN = config.farmConfig['BSC2'].FARMTOKEN
+    CHAINID = config.farmConfig['FSN'].CHAINID
+    FARMTOKEN = config.farmConfig['FSN'].FARMTOKEN
   }
   return (
     <>
@@ -21,7 +21,7 @@ export default function HTfaring({ initialTrade }) {
         initialTrade = {initialTrade}
         CHAINID = {CHAINID}
         FARMTOKEN = {FARMTOKEN}
-        FARMURL = {config.farmUrl + 'bscfarming2'}
+        FARMURL = {config.farmUrl + 'fsnfarming'}
         // initPairs = {['ANY', 'anyBTC', 'anyETH', 'anyUSDT', 'anyBNB', 'anyFSN']}
         poolCoin = 'ANY'
       />

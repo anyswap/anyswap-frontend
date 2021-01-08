@@ -6,6 +6,9 @@ import getHTConfig from './coinbase/huobi'
 
 import {getNetwork, getIdCode} from './getUrlParams'
 import {chainInfo} from './coinbase/nodeConfig'
+
+import farmConfig from './farming'
+
 // console.log(location.href)
 const ENV_NODE_CONFIG = 'ENV_NODE_CONFIG'
 // const INIT_NODE = 'FSN_MAIN'
@@ -41,6 +44,7 @@ let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
 
 export default {
   ...netConfig,
+  farmConfig: farmConfig,
   ENV_NODE_CONFIG,
   bridgeAll: chainInfo,
   env: netArr[1].toLowerCase(),

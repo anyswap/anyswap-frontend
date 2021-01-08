@@ -209,6 +209,8 @@ export default function App() {
                             config.farmUrl + 'htfarming/:lpToken?',
                             config.farmUrl + 'bscfarming2',
                             config.farmUrl + 'bscfarming2/:lpToken?',
+                            config.farmUrl + 'fsnfarming',
+                            config.farmUrl + 'fsnfarming/:lpToken?',
                           ]}
                           component={() => <Farms params={params} />}
                         />

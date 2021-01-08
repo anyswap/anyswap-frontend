@@ -46,7 +46,7 @@ export default {
       [NAME]: 'ANY Bitcoin',
       [SYMBOL]: config.prefix + 'BTC',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0x361450E73d63031feBE35Ca9fD772F3FD53E1013',
+      [EXCHANGE_ADDRESS]: '0x361450e73d63031febe35ca9fd772f3fd53e1013',
       [REDEEM_MAX_NUM]: 20,
       [REDEEM_MIN_NUM]: 0.002,
       [FEE]: 0.001,
