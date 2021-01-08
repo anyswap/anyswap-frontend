@@ -218,7 +218,8 @@ const Web3Fn = require('web3')
 
 export default function Staking () {
   let { account, library, chainId } = useWeb3React()
-  // account = '0x9059e64e4a52e4f19edea188cfb658182db35106'
+  // let { library, chainId } = useWeb3React()
+  // let account = '0x9059e64e4a52e4f19edea188cfb658182db35106'
   const { t } = useTranslation()
   const [isDark] = useDarkModeManager()
   const addTransaction = useTransactionAdder()

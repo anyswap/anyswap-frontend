@@ -43,6 +43,7 @@ function getAnyPath (symbol) {
 
 export default function TokenLogo({ address, size = '1rem', isAny = true, ...rest }) {
   let path = ''
+  // console.log(address)
   if (address) {
     if (isAny) {
       if (address.indexOf('a') === 0 && address.indexOf('any') === -1) {
@@ -60,6 +61,7 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
           address.indexOf('HUSD') === -1
           && address.indexOf('HT') === -1
           && address.indexOf('HTC') === -1
+          && address.indexOf('Hi') === -1
           && address.indexOf('H') === 0
         ) {
           address = address.substr(1)
@@ -73,7 +75,7 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
   } else {
     path = initPath
   }
-
+  
   return (
     <Image
       {...rest}
