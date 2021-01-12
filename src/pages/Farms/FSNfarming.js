@@ -24,6 +24,7 @@ export default function HTfaring({ initialTrade }) {
         FARMURL = {config.farmUrl + 'fsnfarming'}
         // initPairs = {['ANY', 'anyBTC', 'anyETH', 'anyUSDT', 'anyBNB', 'anyFSN']}
         poolCoin = 'ANY'
+        blockNumber = {6600}
       />
     </>
   )

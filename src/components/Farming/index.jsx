@@ -450,7 +450,8 @@ export default function Farming ({
   FARMTOKEN,
   FARMURL,
   initPairs = [],
-  poolCoin
+  poolCoin,
+  blockNumber = 28800
 }) {
   const initLpToken = getQueryParam(window.location, 'lpToken')
   // console.log(initLpToken)
@@ -1059,7 +1060,7 @@ export default function Farming ({
     ) {
       try {
         let baseAmount = lpBalance.mul(exchangeETHBalance).mul(ethers.utils.bigNumberify(2)).div(totalSupply)
-        let baseYear =  BlockReward.mul(28800 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(CYCMarket).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+        let baseYear =  BlockReward.mul(blockNumber * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(CYCMarket).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
         let apy = baseYear.div(baseAmount)
         apy = Number(apy.toString()) / 100
         // console.log(apy)

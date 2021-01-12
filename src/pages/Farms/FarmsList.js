@@ -316,7 +316,7 @@ export default function FarmsList () {
     })
   }
 
-  function getBSCStakingAPY (type) {
+  function getBSCStakingAPY (type, blockNum = 28800) {
     let CHAINID = '46688'
     let useChain = chainInfo[CHAINID]
     let FARMTOKEN = '0x38999f5c5be5170940d72b398569344409cd4c6e'
@@ -421,7 +421,7 @@ export default function FarmsList () {
                   && totalSupply.gt(ethers.constants.Zero)
               ) {
                 let baseAmount = lpBalance.mul(exchangeETHBalance).mul(ethers.utils.bigNumberify(2)).div(totalSupply)
-                let baseYear =  BlockReward.mul(28800 * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(CYCMarket).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+                let baseYear =  BlockReward.mul(blockNum * 365 * 10000).mul(ethers.utils.bigNumberify(allocPoint)).div(ethers.utils.bigNumberify(TotalPoint)).div(CYCMarket).mul(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
                 let apy = baseYear.div(baseAmount)
                 apy = Number(apy.toString()) / 100
                 // console.log(type, apy)
@@ -472,7 +472,7 @@ export default function FarmsList () {
     getBSCStakingAPY('BSC')
     getBSCStakingAPY('BSC2')
     getBSCStakingAPY('HT')
-    getBSCStakingAPY('FSN')
+    getBSCStakingAPY('FSN', 6600)
   }, [])
 
   function openThirdWeb (url, type) {
