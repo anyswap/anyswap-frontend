@@ -642,7 +642,7 @@ export default function FarmsList () {
             <div className='default'>
               <div className='img'><img src={require('../../assets/images/icon/cycIcon.svg')} alt=""/></div>
               <div className='info'>
-                <h3>Christmas Farming</h3>
+                <h3>CYC Farming</h3>
                 <p>{t('BSCStakingTip')}<span className='pecent'>+{BSCStakingAPY ? (Number(BSCStakingAPY)).toFixed(2) : '0.00'}%</span></p>
               </div>
             </div>
