@@ -816,6 +816,11 @@ export default {
       [NAME]: 'ENQ',
       [TOKEN]: '0x16ea01acb4b0bca2000ee5473348b6937ee6f72f',
       [DECIMALS]: 10,
+    },
+    'MTLX': { // 
+      [NAME]: 'MTLX',
+      [TOKEN]: '0x2e1e15c44ffe4df6a0cb7371cd00d5028e571d14',
+      [DECIMALS]: 18,
     }
   },
   4: {

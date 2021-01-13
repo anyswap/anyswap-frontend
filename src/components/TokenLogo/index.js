@@ -9,7 +9,7 @@ const Image = styled.img`
   max-width:100%;
   max-height:100%;
   background-color: white;
-  border-radius: ${({ size }) => size};
+  // border-radius: ${({ size }) => size};
 `
 
 const initPath = require('../../assets/images/question.svg')

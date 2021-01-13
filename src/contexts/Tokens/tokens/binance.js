@@ -703,6 +703,30 @@ export default {
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]: {},
     },
+    '0x5921dee8556c4593eefcfad3ca5e2f618606483b': { // MTLX
+      [NAME]: 'Mettalex' + config.suffix,
+      [SYMBOL]: 'anyMTLX',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xca8bdc88ba75a62273cbcba42e34e41f97cb7dac',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 3,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 100000,
+      [DEPOSIT_MIN_NUM]: 1,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
       [SYMBOL]: config.prefix + 'XRP',
