@@ -37,6 +37,8 @@ function getParamNode (type, INIT_NODE) {
       return chainInfo['128'].label
     case 'huobitestnet':
       return chainInfo['256'].label
+    case 'okbtest':
+      return chainInfo['2'].label
     default:
       return INIT_NODE
   }
@@ -52,6 +54,8 @@ function getNode (type, INIT_NODE) {
     return chainInfo['1'].label
   } else if (type.indexOf('huobi') !== -1) {
     return chainInfo['128'].label
+  } else if (type.indexOf('okb') !== -1) {
+    return chainInfo['2'].label
   } else {
     return INIT_NODE
   }

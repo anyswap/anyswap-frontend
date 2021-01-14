@@ -35,10 +35,11 @@ import binance from './tokens/binance'
 import fantom from './tokens/fantom'
 import ethereum from './tokens/ethereum'
 import huobi from './tokens/huobi'
+import okex from './tokens/okex'
 
 
 const UPDATE = 'UPDATE'
-
+console.log(config)
 const COIN = {
   [config.symbol]: {
     [NAME]: config.name,
@@ -66,7 +67,8 @@ export const INITIAL_TOKENS_CONTEXT = {
   ...fantom,
   ...fusion,
   ...ethereum,
-  ...huobi
+  ...huobi,
+  ...okex
 }
 
 const TokensContext = createContext()

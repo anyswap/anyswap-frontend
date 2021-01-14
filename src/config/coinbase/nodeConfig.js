@@ -42,6 +42,10 @@ const HT_TESTNET = 'https://http-testnet.hecochain.com'
 const HT_TEST_CHAINID = 256
 const HT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
 
+const OKEX_TESTNET = 'http://13.230.73.12:8545'
+const OKEX_TEST_CHAINID = 2
+const OKEX_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
+
 
 let chainInfo = {
   1: {
@@ -54,6 +58,18 @@ let chainInfo = {
     name: 'Ethereum',
     type: 'main',
     label: 'ETH_MAIN',
+    isSwitch: 1
+  },
+  2: {
+    rpc: OKEX_TESTNET,
+    chainID: OKEX_TEST_CHAINID,
+    lookHash: OKEX_TEST_EXPLORER + '/tx/',
+    lookAddr: OKEX_TEST_EXPLORER + '/address/',
+    explorer: OKEX_TEST_EXPLORER,
+    symbol: 'OKB',
+    name: 'OKB',
+    type: 'test',
+    label: 'OKB_TEST',
     isSwitch: 1
   },
   4: {
@@ -167,6 +183,7 @@ let chainList = {
     chainInfo['46688'],
     chainInfo['97'],
     chainInfo['256'],
+    chainInfo['2'],
   ]
 }
 

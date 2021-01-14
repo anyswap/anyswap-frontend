@@ -16,6 +16,7 @@ const initPath = require('../../assets/images/question.svg')
 
 function getSourcePath (symbol) {
   let path = ''
+  console.log(symbol)
   try {
     path = require('../../assets/images/coin/source/' + symbol + '.svg')
   } catch (error) {
@@ -55,6 +56,7 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
         if (
           address.lastIndexOf('B') === (address.length - 1)
           && address.indexOf('BNB') === -1
+          && address.indexOf('OKB') === -1
         ) {
           address = address.substr(0, address.lastIndexOf('B'))
         } else if (
