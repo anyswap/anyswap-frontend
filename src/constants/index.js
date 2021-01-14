@@ -2,6 +2,7 @@ import { injected, walletconnect, walletlink, fortmatic, portis, torus } from '.
 import config from '../config'
 export const FACTORY_ADDRESSES = {
   1: '0x73a001e72f0Fe3CA366d6079dC3427af7865839b',
+  2: '0x4a0b2579ef8a2a7d321f3deaaa2681c23e4eaa92', // OKB-Test
   42: '0xD3E51Ef092B2845f10401a0159B2B96e8B6c3D30',
   56: '0x73a001e72f0fe3ca366d6079dc3427af7865839b', // BNB-Main
   97: '0x7e8B5B722f1a3C5ab2bd8510EAba24dAe97565d1', // BNB-Test

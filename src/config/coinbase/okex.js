@@ -3,7 +3,7 @@ import {chainInfo} from './nodeConfig'
 const NAME_PREFIX = 'ANY'
 
 const ANY_MAIN_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
-const ANY_TEST_TOKEN = '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4'
+const ANY_TEST_TOKEN = '0x40af41149a6e82e378fe8ad7e1ae11e42c78a985'
 
 const REWARDS_DAY = 33000 / 2
 // const REWARDS_DAY = 7600
@@ -13,10 +13,10 @@ const CHAIN_MAIN_INFO = chainInfo['32659']
 const CHAIN_TEST_INFO = chainInfo['2']
 
 const COIN_BASE ={
-  symbol: 'OKB', // 符号
-  name: 'OKB', // 代币名
+  symbol: 'OKT', // 符号
+  name: 'OKT', // 代币名
   decimals: 18, // 小数位
-  networkName: 'OKB', // 网络名称
+  networkName: 'OKT', // 网络名称
   reverseSwitch: 0,  // 是否反向禁用,
   suffix: '', // 后缀
   prefix: 'any',
@@ -119,14 +119,14 @@ const TEST_CONFIG = {
   isOpenRewards: 1,
   isChangeDashboard: 1,
   noSupportBridge: [COIN_BASE.symbol],
-  queryToken: '0x2fd94457b707b2776d4f4e4292a4280164fe8a15' // 查询余额合约
+  queryToken: '0x980709557df48df842e1ba6a99ed6854e1dbcf24' // 查询余额合约
 }
 
-function getOKBConfig (type) {
+function getOKTConfig (type) {
   if (type.toLowerCase() === 'main') {
     return MAIN_CONFIG
   }
   return TEST_CONFIG
 }
 
-export default getOKBConfig
+export default getOKTConfig

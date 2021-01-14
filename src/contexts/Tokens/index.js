@@ -39,7 +39,7 @@ import okex from './tokens/okex'
 
 
 const UPDATE = 'UPDATE'
-console.log(config)
+// console.log(config)
 const COIN = {
   [config.symbol]: {
     [NAME]: config.name,

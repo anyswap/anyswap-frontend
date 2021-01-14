@@ -3,7 +3,7 @@ import getBNBConfig from './coinbase/binance'
 import getFTMConfig from './coinbase/fantom'
 import getETHConfig from './coinbase/ethereum'
 import getHTConfig from './coinbase/huobi'
-import getOKBConfig from './coinbase/okex'
+import getOKTConfig from './coinbase/okex'
 
 import {getNetwork, getIdCode} from './getUrlParams'
 import {chainInfo} from './coinbase/nodeConfig'
@@ -38,8 +38,8 @@ if (netArr[0] === 'FSN') {
   netConfig = getETHConfig(netArr[1])
 } else if (netArr[0] === 'HT') {
   netConfig = getHTConfig(netArr[1])
-} else if (netArr[0] === 'OKB') {
-  netConfig = getOKBConfig(netArr[1])
+} else if (netArr[0] === 'OKT') {
+  netConfig = getOKTConfig(netArr[1])
 }
 
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'

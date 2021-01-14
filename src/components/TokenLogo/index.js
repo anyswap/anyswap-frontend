@@ -16,7 +16,7 @@ const initPath = require('../../assets/images/question.svg')
 
 function getSourcePath (symbol) {
   let path = ''
-  console.log(symbol)
+  // console.log(symbol)
   try {
     path = require('../../assets/images/coin/source/' + symbol + '.svg')
   } catch (error) {

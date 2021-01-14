@@ -42,9 +42,9 @@ const HT_TESTNET = 'https://http-testnet.hecochain.com'
 const HT_TEST_CHAINID = 256
 const HT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
 
-const OKEX_TESTNET = 'http://13.230.73.12:8545'
-const OKEX_TEST_CHAINID = 2
-const OKEX_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
+const OKT_TESTNET = 'http://13.230.73.12:8545'
+const OKT_TEST_CHAINID = 2
+const OKT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
 
 
 let chainInfo = {
@@ -61,15 +61,15 @@ let chainInfo = {
     isSwitch: 1
   },
   2: {
-    rpc: OKEX_TESTNET,
-    chainID: OKEX_TEST_CHAINID,
-    lookHash: OKEX_TEST_EXPLORER + '/tx/',
-    lookAddr: OKEX_TEST_EXPLORER + '/address/',
-    explorer: OKEX_TEST_EXPLORER,
-    symbol: 'OKB',
-    name: 'OKB',
+    rpc: OKT_TESTNET,
+    chainID: OKT_TEST_CHAINID,
+    lookHash: OKT_TEST_EXPLORER + '/tx/',
+    lookAddr: OKT_TEST_EXPLORER + '/address/',
+    explorer: OKT_TEST_EXPLORER,
+    symbol: 'OKT',
+    name: 'OKT',
     type: 'test',
-    label: 'OKB_TEST',
+    label: 'OKT_TEST',
     isSwitch: 1
   },
   4: {
