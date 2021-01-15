@@ -42,7 +42,8 @@ const HT_TESTNET = 'https://http-testnet.hecochain.com'
 const HT_TEST_CHAINID = 256
 const HT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
 
-const OKT_TESTNET = 'http://13.230.73.12:8545'
+// const OKT_TESTNET = 'http://13.230.73.12:8545'
+const OKT_TESTNET = 'https://oktestrpc.anayswap.exchange'
 const OKT_TEST_CHAINID = 2
 const OKT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
 
