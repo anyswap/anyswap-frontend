@@ -30,7 +30,7 @@ const ETH_TESTNET = 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52
 const ETH_TEST_CHAINID = 4
 const ETH_TEST_EXPLORER = 'https://rinkeby.etherscan.io'
 
-const FTM_MAINNET = 'https://rpc.fantom.network'
+const FTM_MAINNET = 'https://rpcapi.fantom.network'
 const FTM_MAIN_CHAINID = 250
 const FTM_MAIN_EXPLORER = 'https://ftmscan.com'
 

@@ -94,6 +94,8 @@ export const getPrice = (coin) => {
       url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=binancecoin'
     } else if (coin === 'HT') {
       url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=huobi-token'
+    } else if (coin === 'FTM') {
+      url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=fantom'
     }
     // console.log(url)
     getApiData(url, coin + '_PRICE', 1000 * 60 * 60).then(res => {
