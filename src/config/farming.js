@@ -18,5 +18,10 @@ export default {
     FARMTOKEN: "0x9c1b92e97c19286c98a2a35684366823f315f74b",
     rewardExchange: "0x095418a82bc2439703b69fbe1210824f2247d77c",
     CHAINID: "56"
+  },
+  FTM: {
+    FARMTOKEN: "0xa9aa9c65745cd955750cc21c49a9d6d92b1d62c7",
+    rewardExchange: "0x918f6de5b683b688961deab48546ca422280c64f",
+    CHAINID: "250"
   }
 }

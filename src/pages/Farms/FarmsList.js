@@ -276,6 +276,7 @@ export default function FarmsList () {
   const [HTStakingAPY, setHTStakingAPY] = useState()
   const [FSNStakingAPY, setFSNStakingAPY] = useState()
   const [BSCFarmingAPY, setBSCFarmingAPY] = useState()
+  const [FTMFarmingAPY, setFTMFarmingAPY] = useState()
   const [TipModal, setTipModal] = useState(false)
   const [JumpTip, setJumpTip] = useState({
     title: '',
@@ -329,24 +330,6 @@ export default function FarmsList () {
       CHAINID = config.farmConfig[type].CHAINID
       FARMTOKEN = config.farmConfig[type].FARMTOKEN
       rewardExchange = config.farmConfig[type].rewardExchange
-      // if (type.indexOf('BSC') !== -1) {
-      //   CHAINID = '56'
-      //   if (type === 'BSC') {
-      //     FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
-      //     rewardExchange = '0x0df8810714dde679107c01503e200ce300d0dcf6'
-      //   } else if (type === 'BSC2') {
-      //     FARMTOKEN = '0x9c1b92e97c19286c98a2a35684366823f315f74b'
-      //     rewardExchange = '0x095418a82bc2439703b69fbe1210824f2247d77c'
-      //   }
-      // } else if (type === 'HT') {
-      //   CHAINID = '128'
-      //   FARMTOKEN = '0x6a411104ca412c8265bd8e95d91fed72006934fd'
-      //   rewardExchange = '0x58ded31f93669eac7b18d4d19b0d122fa5e9263d'
-      // } else if (type === 'FSN') {
-      //   CHAINID = '32659'
-      //   FARMTOKEN = '0xc8b7382aa82318e2ebcff72d6f464034eceae400'
-      //   rewardExchange = '0x049ddc3cd20ac7a2f6c867680f7e21de70aca9c3'
-      // }
       useChain = chainInfo[CHAINID]
       useToken = INITIAL_TOKENS_CONTEXT[CHAINID]
     }
@@ -433,6 +416,8 @@ export default function FarmsList () {
                   setBSCFarmingAPY(apy)
                 } else if (type === 'FSN') {
                   setFSNStakingAPY(apy)
+                } else if (type === 'FTM') {
+                  setFTMFarmingAPY(apy)
                 }
               }
             }
@@ -473,6 +458,7 @@ export default function FarmsList () {
     getBSCStakingAPY('BSC2')
     getBSCStakingAPY('HT')
     getBSCStakingAPY('FSN', 6600)
+    getBSCStakingAPY('FTM', 8500)
   }, [])
 
   function openThirdWeb (url, type) {
@@ -523,6 +509,24 @@ export default function FarmsList () {
         <img src={require('../../assets/images/banner/farm.png')} />
       </BannerBox> */}
       <FarmListBox>
+        <FarmList>
+          <StyledNavLink to={config.farmUrl + 'ftmfarming'}>
+            <div className='default'>
+              {/* <div className='img'><img src={require('../../assets/images/coin/source/HT.svg')} alt=""/></div> */}
+              <DoubleLogo>
+                <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
+                <span className="add">+</span>
+                <div className="logo right"><TokenLogo1 address='FTM' size='100%'/></div>
+              </DoubleLogo>
+              <div className='info'>
+                <h3>ANY Farming</h3>
+                {/* <p>{t('LaunchTime')}</p> */}
+                {/* <p>{t('ComineSoon')}</p> */}
+                <p>{t('ANYHTStakingTip')}<span className='pecent'>+{FTMFarmingAPY ? (Number(FTMFarmingAPY)).toFixed(2) : '0.00'}%</span></p>
+              </div>
+            </div>
+          </StyledNavLink>
+        </FarmList>
         <FarmList>
           <StyledNavLink to={config.farmUrl + 'fsnfarming'}>
             <div className='default'>

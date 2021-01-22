@@ -32,7 +32,7 @@ const ETH_TEST_EXPLORER = 'https://rinkeby.etherscan.io'
 
 const FTM_MAINNET = 'https://rpc.fantom.network'
 const FTM_MAIN_CHAINID = 250
-const FTM_MAIN_EXPLORER = 'https://explorer.fantom.network'
+const FTM_MAIN_EXPLORER = 'https://ftmscan.com'
 
 const HT_MAINNET = 'https://http-mainnet.hecochain.com'
 const HT_MAIN_CHAINID = 128
@@ -136,7 +136,7 @@ let chainInfo = {
   250: {
     rpc: FTM_MAINNET,
     chainID: FTM_MAIN_CHAINID,
-    lookHash: FTM_MAIN_EXPLORER + '/transactions/',
+    lookHash: FTM_MAIN_EXPLORER + '/tx/',
     lookAddr: FTM_MAIN_EXPLORER + '/address/',
     explorer: FTM_MAIN_EXPLORER,
     symbol: 'FTM',

@@ -441,7 +441,7 @@ function farmStateReducer(state, action) {
   }
 }
 
-const BASEMARKET = 100
+// const BASEMARKET = 100
 let onlyOne = 0
 
 export default function Farming ({
@@ -451,7 +451,8 @@ export default function Farming ({
   FARMURL,
   initPairs = [],
   poolCoin,
-  blockNumber = 28800
+  blockNumber = 28800,
+  BASEMARKET = 100
 }) {
   const initLpToken = getQueryParam(window.location, 'lpToken')
   // console.log(initLpToken)

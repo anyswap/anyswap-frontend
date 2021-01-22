@@ -12,6 +12,7 @@ import BSCfarming from './BSCfarming'
 import HTfarming from './HTfarming'
 import BSCfarming2 from './BSCfarming2'
 import FSNfarming from './FSNfarming'
+import FTMfarming from './FTMfarming'
 
 export default function Farm() {
   return (
@@ -50,6 +51,14 @@ export default function Farm() {
             path={config.farmUrl + "fsnfarming/:lpToken"}
             render={({ match }) => {
               return <FSNfarming initialTrade={match.params.lpToken} />
+            }}
+          />
+
+          <Route exact strict path={config.farmUrl + "ftmfarming"} component={() => <FTMfarming />} />
+          <Route
+            path={config.farmUrl + "ftmfarming/:lpToken"}
+            render={({ match }) => {
+              return <FTMfarming initialTrade={match.params.lpToken} />
             }}
           />
           <Redirect to="/farms" />
