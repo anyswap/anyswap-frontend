@@ -24,6 +24,7 @@ export default function FTMfaring({ initialTrade }) {
         FARMURL = {config.farmUrl + 'ftmfarming'}
         // initPairs = {['ANY', 'anyBTC', 'anyETH', 'anyUSDT', 'anyBNB', 'anyFSN']}
         poolCoin = 'ANY'
+        blockNumber = {8500}
         BASEMARKET={10}
       />
     </>
