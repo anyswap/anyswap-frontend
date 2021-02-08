@@ -57,6 +57,8 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
           address.lastIndexOf('B') === (address.length - 1)
           && address.indexOf('BNB') === -1
           && address.indexOf('OKB') === -1
+          && address.indexOf('HWBTB') === -1
+          && address.indexOf('HWBTE') === -1
         ) {
           address = address.substr(0, address.lastIndexOf('B'))
         } else if (
@@ -64,6 +66,8 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
           && address.indexOf('HT') === -1
           && address.indexOf('HTC') === -1
           && address.indexOf('Hi') === -1
+          && address.indexOf('HWBTB') === -1
+          && address.indexOf('HWBTE') === -1
           && address.indexOf('H') === 0
         ) {
           address = address.substr(1)

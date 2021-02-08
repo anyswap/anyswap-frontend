@@ -505,7 +505,7 @@ export default function DashboardDtil () {
               <DBTh className='r' width='20%'>{t('PoolLiquidity')}</DBTh>
               <DBTh className='r' width='20%'>{t('MyLiquidity')}</DBTh>
               <DBTh className='r' width='20%'>{t('MyPecent')}</DBTh>
-              <DBTh className='r'>{t('APY')}</DBTh>
+              {/* <DBTh className='r'>{t('APY')}</DBTh> */}
             </tr>
           </DBThead>
           <DBTbody>
@@ -558,13 +558,13 @@ export default function DashboardDtil () {
                               <DBTd className='r'>{Number(item.pecent) && config.dirSwitchFn(item.isSwitch) ?
                               (Number(item.pecent) < 0.0001 ? '<0.01' : formatDecimal(Number(item.pecent) * 100, 2) )
                               : '-'} %</DBTd>
-                              <DBTd className='r'>
+                              {/* <DBTd className='r'>
                                 {rewardsPencent(item.symbol, item.isSwitch)}
-                                {/* {item.exchangeTokenBalancem ? config.rewardRate(item.exchangeTokenBalancem.toString(), item.decimals).AnnualizedROI : '-'}% */}
-                              </DBTd>
+                                
+                              </DBTd> */}
                             </>
                           ) : (
-                            <DBTd colSpan={4} className='c'>
+                            <DBTd colSpan={3} className='c'>
                               <ComineSoon>
                                 <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
                                 {t('ComineSoon')}
@@ -583,7 +583,7 @@ export default function DashboardDtil () {
                 <DBTd className='r'>-</DBTd>
                 <DBTd className='r'>-</DBTd>
                 <DBTd className='r'>-</DBTd>
-                <DBTd className='r'>-%</DBTd>
+                {/* <DBTd className='r'>-%</DBTd> */}
                 </tr>)
             }
           </DBTbody>
