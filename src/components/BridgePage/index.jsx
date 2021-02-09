@@ -684,6 +684,7 @@ function swapStateReducer(state, action) {
         dFee: action.dFee ? action.dFee : 0,
         redeemBigValMoreTime: action.redeemBigValMoreTime ? action.redeemBigValMoreTime : '',
         depositBigValMoreTime: action.depositBigValMoreTime ? action.depositBigValMoreTime : '',
+        pairid: action.pairid ? action.pairid : '',
       }
     }
     case 'UPDATE_MINTTYPE': {
@@ -802,7 +803,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   let walletType = sessionStorage.getItem('walletType')
   params = params ? params : {}
   // let HDPath = sessionStorage.getItem('HDPath')
-  // account = '0x2D87CD7bCa37fD845c1b34E7d8a9A78f0d7557Aa'
+  account = '0x12139f3afa1C93303e1EfE3Df142039CC05C6c58'
   // console.log(allTokens)
   
   const urlAddedTokens = {}
@@ -890,7 +891,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     withdrawArr,
     withdrawCount,
     redeemBigValMoreTime,
-    depositBigValMoreTime
+    depositBigValMoreTime,
+    pairid
   } = swapState
 
 
@@ -975,7 +977,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       dMinFee: '',
       dFee: '',
       redeemBigValMoreTime: '',
-      token: ''
+      token: '',
+      pairid: ''
     })
   }
 
@@ -1088,6 +1091,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               dFee: serverInfo.dFee,
               redeemBigValMoreTime: serverInfo.redeemBigValMoreTime,
               token: serverInfo.token,
+              pairid: serverInfo.pairid,
             }
             dispatchSwapState(serverObj)
           } catch (error) {
@@ -1328,7 +1332,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           node: node,
           bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
           chainID: config.chainID,
-          bindAddr: recipient.address
+          bindAddr: recipient.address,
+          pairid: pairid
         }
       }
     })
@@ -1419,7 +1424,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     cleanInput()
   }
 
-  function insertMintHistory (coin, value, hash, from, to, node, status, swapHash, swapStatus, swapTime) {
+  function insertMintHistory (pairid, coin, value, hash, from, to, node, status, swapHash, swapStatus, swapTime) {
     let data = {
       account: account,
       coin: coin,
@@ -1434,7 +1439,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       swapTime: swapTime ? swapTime : '',
       node: node,
       bridgeVersion: extendObj.VERSION ? extendObj.VERSION : 'V1',
-      chainID: config.chainID
+      chainID: config.chainID,
+      pairid: pairid
     }
     console.log(data)
     dispatchSwapState({
@@ -1470,7 +1476,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         // console.log(res)
         if (res.msg === 'Success') {
           recordTxns(res.info, 'DEPOSIT', inputSymbol, account, mintAddress, bridgeNode)
-          insertMintHistory(coin, inputValueFormatted, res.info.hash, account, mintAddress, bridgeNode)
+          insertMintHistory(pairid, coin, inputValueFormatted, res.info.hash, account, mintAddress, bridgeNode)
           cleanInput()
           setIsHardwareTip(false)
           setMintModelTitle('')
@@ -1488,7 +1494,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         if (res.msg === 'Success') {
           console.log(bridgeNode)
           recordTxns(res.info, 'DEPOSIT', inputSymbol, account, mintAddress, bridgeNode)
-          insertMintHistory(coin, inputValueFormatted, res.info.hash, account, mintAddress, bridgeNode)
+          insertMintHistory(pairid, coin, inputValueFormatted, res.info.hash, account, mintAddress, bridgeNode)
           cleanInput()
         } else {
           console.log(res.error)
@@ -1569,11 +1575,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || hashArr[i].swapStatus === 'minting'
         ) {
           if (isSpecialCoin(hashArr[i].coin)) {
-            GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].account, hashArr[i].bridgeVersion).then(res => {
+            GetBTChashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].account, hashArr[i].bridgeVersion, hashArr[i].pairid).then(res => {
               updateHashStatusData(res)
             })
           } else {
-            getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].node, hashArr[i].account, hashArr[i].bridgeVersion).then(res => {
+            getHashStatus(hashArr[i].hash, i, hashArr[i].coin, hashArr[i].status, hashArr[i].node, hashArr[i].account, hashArr[i].bridgeVersion, hashArr[i].pairid).then(res => {
               updateHashStatusData(res)
             })
           }
@@ -1594,7 +1600,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           || withdrawArr[i].swapStatus === 'minting'
         ) {
           let binAddr = withdrawArr[i].bindAddr
-          getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node, binAddr, withdrawArr[i].bridgeVersion).then(res => {
+          getWithdrawHashStatus(withdrawArr[i].hash, i, withdrawArr[i].coin, withdrawArr[i].status, withdrawArr[i].node, binAddr, withdrawArr[i].bridgeVersion, withdrawArr[i].pairid).then(res => {
             // console.log(res)
             if (withdrawArr[res.index] && res.hash === withdrawArr[res.index].hash) {
               withdrawArr[res.index].status = res.status ? res.status : 0
@@ -1644,7 +1650,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             return
           }
         }
-        insertMintHistory(res.coin, res.value, res.hash, account, res.to, 0, res.status, res.swapHash, res.swapStatus, res.swapTime)
+        insertMintHistory(pairid, res.coin, res.value, res.hash, account, res.to, 0, res.status, res.swapHash, res.swapStatus, res.swapTime)
         cleanInput()
         setMintDtil(res)
         setMintDtilView(true)

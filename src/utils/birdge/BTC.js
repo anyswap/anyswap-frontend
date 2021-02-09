@@ -136,13 +136,13 @@ function GetBlockhashStatus (hash) {
   })
 }
 
-function GetBTChashStatus (hash, index, coin, status, account, version) {
+function GetBTChashStatus (hash, index, coin, status, account, version, pairid) {
   let type = getType(coin)
   let sochainUrl = config[type].queryHashStatus + hash // 主网
 
   return new Promise(resolve => {
     if (status) {
-      getChainHashStatus(hash, coin, account, version).then(result => {
+      getChainHashStatus(hash, coin, account, version, pairid).then(result => {
         if (result) {
           resolve({
             ...result,

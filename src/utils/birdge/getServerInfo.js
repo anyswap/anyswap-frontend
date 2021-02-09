@@ -93,7 +93,7 @@ export function removeRegisterInfo (account, token, chainID) {
   }
 }
 
-function setLocalinfo (account, res, chainID, version, coin) {
+function setLocalinfo (account, res, chainID, version, coin, pairid) {
   let dObj = res.SrcToken, // 充值信息
       rObj = res.DestToken // 提现信息
   let token = rObj.DelegateToken ? rObj.DelegateToken.toLowerCase() : (rObj.ContractAddress ? rObj.ContractAddress.toLowerCase() : '')
@@ -118,6 +118,7 @@ function setLocalinfo (account, res, chainID, version, coin) {
     fee: rObj.SwapFeeRate,
     redeemBigValMoreTime: rObj.BigValueThreshold,
     token: token,
+    pairid: pairid,
     p2pAddress: getRegisterInfo(account, token, chainID, version, coin).p2pAddress
   }
   setLocalConfig(account, token, bridgeData, chainID, SERVER_BRIDGE_CONFIG)
@@ -141,7 +142,7 @@ function getServerData (account, chainID, version, coin) {
         }
         let serverData = res.data
         for (let obj in serverData) {
-          setLocalinfo(account, serverData[obj], chainID, version, coin)
+          setLocalinfo(account, serverData[obj], chainID, version, coin, obj)
         }
       }
       resolve(data)

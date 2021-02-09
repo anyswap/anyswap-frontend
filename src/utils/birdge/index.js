@@ -1,11 +1,11 @@
 import axios from 'axios'
 import config from '../../config'
-function GetTxnStatusAPI (hash, coin, api, account, version, node) {
+function GetTxnStatusAPI (hash, coin, api, account, version, node, pairid) {
   coin = coin.replace('any', '')
   return new Promise(resolve => {
-    let url = config.serverInfoUrl['V1'] + '/' + api + '/' + hash + '/' + config.chainID + '/' + coin
+    let url = config.serverInfoUrl['V1'] + '/' + api + '/' + hash + '/' + config.chainID + '/' + coin + '/' + pairid
     if (version === 'V2') {
-      url = config.serverInfoUrl['V2'] + '/' + api + '/' + account + '/' + hash + '/' + config.chainID + '/' + coin + '/' + (node ? node : 0)
+      url = config.serverInfoUrl['V2'] + '/' + api + '/' + account + '/' + hash + '/' + config.chainID + '/' + coin + '/' + (node ? node : 0) + pairid
     }
     // console.log(url)
     axios.get(url).then(res => {
@@ -33,11 +33,11 @@ function getStatus (status) {
   return statusType
 }
 
-export function getChainHashStatus (hash, coin, account, version, node) {
+export function getChainHashStatus (hash, coin, account, version, node, pairid) {
   // console.log(coin)
   return new Promise(resolve => {
     // let symbol = coin
-    GetTxnStatusAPI(hash, coin, 'getHashStatus', account, version, node).then(res => {
+    GetTxnStatusAPI(hash, coin, 'getHashStatus', account, version, node, pairid).then(res => {
       // console.log(res)
       if (res) {
         resolve({
@@ -52,11 +52,11 @@ export function getChainHashStatus (hash, coin, account, version, node) {
   })
 }
 
-export function getSwapoutHashStatus (hash, coin, account, version, node) {
+export function getSwapoutHashStatus (hash, coin, account, version, node, pairid) {
   // console.log(coin)
   return new Promise(resolve => {
     // let symbol = coin
-    GetTxnStatusAPI(hash, coin, 'getWithdrawHashStatus', account, version, node).then(res => {
+    GetTxnStatusAPI(hash, coin, 'getWithdrawHashStatus', account, version, node, pairid).then(res => {
       // console.log(res)
       if (res) {
         let statusType = 'pending', status = res.status, outStatus = 0
