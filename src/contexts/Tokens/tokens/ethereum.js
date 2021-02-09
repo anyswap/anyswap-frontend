@@ -352,7 +352,7 @@ export default {
   },
   '4': {
     '0xd5190a1C83B7cf3566098605E00fA0C0fD5F3778': { // FTM
-      [NAME]: 'Fusion ' + config.suffix,
+      [NAME]: 'Fantom',
       [SYMBOL]: 'FTM',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '',
@@ -364,7 +364,7 @@ export default {
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_ADDRESS]: '0xc3Dad751b136d009aBC8031B6EFe70bBB4419E0a',
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 5000000,
       [DEPOSIT_MIN_NUM]: 1,

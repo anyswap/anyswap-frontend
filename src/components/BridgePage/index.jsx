@@ -1458,7 +1458,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       return
     }
 
-    let token = extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency
+    // let token = extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency
+    let token = inputCurrency
     
     if (walletType === 'Ledger') {
       setHardwareTxnsInfo(inputValueFormatted + ' ' + coin)
@@ -2057,7 +2058,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     <>
     {/* <Button
       onClick={() => {
-        approve()
+        // approve()
+        tokenERC20Contract.approve('0x5cbe98480a790554403694b98bff71a525907f5d', ethers.constants.MaxUint256.toString()).then(res => {
+          
+        })
       }}
       loggedOut={!account}
     >

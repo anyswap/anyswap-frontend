@@ -97,7 +97,7 @@ function setLocalinfo (account, res, chainID, version, coin) {
   let dObj = res.SrcToken, // 充值信息
       rObj = res.DestToken // 提现信息
   let token = rObj.DelegateToken ? rObj.DelegateToken.toLowerCase() : (rObj.ContractAddress ? rObj.ContractAddress.toLowerCase() : '')
-  console.log(token)
+  // console.log(token)
   let bridgeData = {
     depositAddress: dObj.DepositAddress,
     PlusGasPricePercentage: dObj.PlusGasPricePercentage,
