@@ -201,5 +201,29 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x6f43ff82cca38001b6699a8ac47a2d0e66939407': { // LINK
+      [NAME]: 'Chainlink',
+      [SYMBOL]: 'LINK',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 2,
+      [FEE]: 0.001,
+      [MAXFEE]: 5,
+      [MINFEE]: 0.5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x65e64963b755043CA4FFC88029FfB8305615EeDD',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 100000,
+      [DEPOSIT_MIN_NUM]: 1,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }

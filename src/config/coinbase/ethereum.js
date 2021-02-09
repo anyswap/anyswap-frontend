@@ -2,13 +2,13 @@ import {chainInfo} from './nodeConfig'
 
 const NAME_PREFIX = 'ANY'
 
-// const ANY_TEST_TOKEN = '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
+const ANY_TEST_TOKEN = '0xd5190a1C83B7cf3566098605E00fA0C0fD5F3778'
 
 const REWARDS_DAY = 5610 
 const DEPOSIT_AMOUNT = 10000
 
 const CHAIN_MAIN_INFO = chainInfo['1']
-// const CHAIN_TEST_INFO = chainInfo['46688']
+const CHAIN_TEST_INFO = chainInfo['4']
 
 const COIN_BASE ={
   symbol: 'ETH', // 符号
@@ -61,7 +61,7 @@ const COIN_BASE ={
   }
 }
 
-// const INIT_TEST_TOKEN = ANY_TEST_TOKEN
+const INIT_TEST_TOKEN = ANY_TEST_TOKEN
 
 const MAIN_CONFIG = {
   ...COIN_BASE,
@@ -101,7 +101,6 @@ const MAIN_CONFIG = {
     '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
     '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e',
     '0xdac17f958d2ee523a2206206994597c13d831ec7',
-    '0x4e15361fd6b4bb609fa63c81a2be19d873717870',
     '0xf21661d0d1d76d3ecb8e1b9f1c923dbfffae4097',
     '0x95da1e3eecae3771acb05c145a131dca45c67fd4',
     '0xc4a86561cb0b7ea1214904f26e6d50fd357c7986'
@@ -109,32 +108,32 @@ const MAIN_CONFIG = {
   queryToken: '0x5e227AD1969Ea493B43F840cfF78d08a6fc17796' // 查询余额合约
 }
 
-// const TEST_CONFIG = {
-//   ...COIN_BASE,
-//   nodeRpc: CHAIN_TEST_INFO.rpc,
-//   nodeRpc1: CHAIN_TEST_INFO.rpc, // 节点地址
-//   chainID: CHAIN_TEST_INFO.chainID,
-//   initToken: INIT_TEST_TOKEN,
-//   initBridge: '0x67198ea7208d00864a36bcf9c98a6352b2941de9',
-//   explorerUrl: CHAIN_TEST_INFO.explorer,
-//   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
-//   btc: {
-//     lookHash: 'https://sochain.com/tx/BTCTEST/',
-//     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTCTEST/',
-//     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
-//     initAddr: 'mmBUP62PJNDndtSvH4ef65gUAucgQY5dqA'
-//   },
-//   isOpenRewards: 1,
-//   isChangeDashboard: 1,
-//   noSupportBridge: [COIN_BASE.symbol, ANY_TEST_TOKEN],
-//   queryToken: '0x2fd94457b707b2776d4f4e4292a4280164fe8a15' // 查询余额合约
-// }
+const TEST_CONFIG = {
+  ...COIN_BASE,
+  nodeRpc: CHAIN_TEST_INFO.rpc,
+  nodeRpc1: CHAIN_TEST_INFO.rpc, // 节点地址
+  chainID: CHAIN_TEST_INFO.chainID,
+  initToken: INIT_TEST_TOKEN,
+  initBridge: '0xd5190a1C83B7cf3566098605E00fA0C0fD5F3778',
+  explorerUrl: CHAIN_TEST_INFO.explorer,
+  document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
+  btc: {
+    lookHash: 'https://sochain.com/tx/BTCTEST/',
+    queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTCTEST/',
+    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
+    initAddr: 'mmBUP62PJNDndtSvH4ef65gUAucgQY5dqA'
+  },
+  isOpenRewards: 1,
+  isChangeDashboard: 1,
+  noSupportBridge: [COIN_BASE.symbol],
+  queryToken: '0x2fd94457b707b2776d4f4e4292a4280164fe8a15' // 查询余额合约
+}
 
 function getETHConfig (type) {
   if (type.toLowerCase() === 'main') {
     return MAIN_CONFIG
   }
-  // return TEST_CONFIG
+  return TEST_CONFIG
 }
 
 export default getETHConfig

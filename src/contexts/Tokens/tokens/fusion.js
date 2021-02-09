@@ -518,6 +518,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x602aa2dd3581e2896bb82b83eb25345d6617b317': { // LINK
+      [NAME]: 'ANY LINK',
+      [SYMBOL]: 'LINK',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 0.1,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.1,
+      [MINFEE]: 0.005,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 4, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     '0x6159f8524562c7b6954c1134beca6dec62677f51': { // BTC
       [NAME]: 'ANY Bitcoin',
       [SYMBOL]: 'aBTC',

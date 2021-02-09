@@ -104,3 +104,63 @@ export function formatWeb3Str (str, len = 64) {
   }
   return arr
 }
+
+export function getLocalConfig (account, token, chainID, type) {
+  let lstr = sessionStorage.getItem(type)
+  if (!lstr) {
+    return false
+  } else {
+    let lboj = JSON.parse(lstr)
+    if (!lboj[chainID]) {
+      return false
+    } else if (!lboj[chainID][account]) {
+      return false
+    } else if (!lboj[chainID][account][token]) {
+      return false
+    } else if ((Date.now() - lboj[chainID][account][token].timestamp) > (1000 * 60 * 10)) {
+      return false
+    } else if (lboj[chainID][account][token].timestamp < config.localDataDeadline) { // 在某个时间之前的数据无效
+      return false
+    } else {
+      return {
+        msg: 'Success',
+        info:lboj[chainID][account][token]
+      }
+    }
+  }
+}
+
+export function setLocalConfig (account, token, data, chainID, type) {
+  let lstr = sessionStorage.getItem(type)
+  let lboj = {}
+  if (!lstr) {
+    lboj[chainID] = {}
+    lboj[chainID][account] = {}
+    lboj[chainID][account][token] = {
+      ...data,
+      timestamp: Date.now()
+    }
+  } else {
+    lboj = JSON.parse(lstr)
+    if (!lboj[chainID]) {
+      lboj[chainID] = {}
+      lboj[chainID][account] = {}
+      lboj[chainID][account][token] = {
+        ...data,
+        timestamp: Date.now()
+      }
+    } else if (!lboj[chainID][account]) {
+      lboj[chainID][account] = {}
+      lboj[chainID][account][token] = {
+        ...data,
+        timestamp: Date.now()
+      }
+    } else {
+      lboj[chainID][account][token] = {
+        ...data,
+        timestamp: Date.now()
+      }
+    }
+  }
+  sessionStorage.setItem(type, JSON.stringify(lboj))
+}

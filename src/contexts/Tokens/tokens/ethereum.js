@@ -245,24 +245,31 @@ export default {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
-    '0x4e15361fd6b4bb609fa63c81a2be19d873717870': { // FTM 166
+    '0x4e15361fd6b4bb609fa63c81a2be19d873717870': { // FTM
       [NAME]: 'Fantom',
       [SYMBOL]: 'FTM',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x90C8EA8ec7710034274868971C4e27edE33d9c10',
-      [REDEEM_MAX_NUM]: 0,
-      [REDEEM_MIN_NUM]: 0,
+      [EXCHANGE_ADDRESS]: '0x90c8ea8ec7710034274868971c4e27ede33d9c10',
+      [REDEEM_MAX_NUM]: 10000000,
+      [REDEEM_MIN_NUM]: 200,
       [FEE]: 0.001,
-      [MAXFEE]: 0,
-      [MINFEE]: 0,
+      [MAXFEE]: 800,
+      [MINFEE]: 80,
       [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 0,
-      [ISREDEEM]: 0,
-      [DEPOSIT_ADDRESS]: '',
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xE3e0C14bbCBF86b3Ff60E8666C070d34b84F3f73',
       [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 0,
-      [DEPOSIT_MIN_NUM]: 0,
-      [EXTENDOBJ]: {},
+      [DEPOSIT_MAX_NUM]: 10000000,
+      [DEPOSIT_MIN_NUM]: 200,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 250, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+        APPROVE: '0x5cbe98480a790554403694b98bff71a525907f5d',
+        
+      },
     },
     '0xe692c8d72bd4ac7764090d54842a305546dd1de5': { // BLOCK 5
       [NAME]: 'Blocknet ' + config.suffix,
@@ -341,6 +348,33 @@ export default {
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
+    },
+  },
+  '4': {
+    '0xd5190a1C83B7cf3566098605E00fA0C0fD5F3778': { // FTM
+      [NAME]: 'Fusion ' + config.suffix,
+      [SYMBOL]: 'FTM',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 5000000,
+      [REDEEM_MIN_NUM]: 40,
+      [FEE]: 0.001,
+      [MAXFEE]: 200,
+      [MINFEE]: 20,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 5000000,
+      [DEPOSIT_MIN_NUM]: 1,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 250, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+        APPROVE: '0xe23edd629f264c14333b1d7cb3374259e9df5d55'
+      },
     },
   }
 }

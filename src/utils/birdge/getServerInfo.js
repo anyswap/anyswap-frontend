@@ -1,66 +1,11 @@
 import axios from 'axios'
 import config from '../../config'
 
+import {getLocalConfig, setLocalConfig} from '../tools'
+
 const SERVER_BRIDGE_CONFIG = 'SERVER_BRIDGE_CONFIG'
 const SERVER_BRIDGE_REGISTER = 'SERVER_BRIDGE_REGISTER'
 
-function getLocalConfig (account, token, chainID) {
-  let lstr = sessionStorage.getItem(SERVER_BRIDGE_CONFIG)
-  if (!lstr) {
-    return false
-  } else {
-    let lboj = JSON.parse(lstr)
-    if (!lboj[chainID]) {
-      return false
-    } else if (!lboj[chainID][account]) {
-      return false
-    } else if (!lboj[chainID][account][token]) {
-      return false
-    } else if ((Date.now() - lboj[chainID][account][token].timestamp) > (1000 * 60 * 10)) {
-      return false
-    } else {
-      return {
-        msg: 'Success',
-        info:lboj[chainID][account][token]
-      }
-    }
-  }
-}
-
-function setLocalConfig (account, token, serverInfo, chainID) {
-  let lstr = sessionStorage.getItem(SERVER_BRIDGE_CONFIG)
-  let lboj = {}
-  if (!lstr) {
-    lboj[chainID] = {}
-    lboj[chainID][account] = {}
-    lboj[chainID][account][token] = {
-      ...serverInfo,
-      timestamp: Date.now()
-    }
-  } else {
-    lboj = JSON.parse(lstr)
-    if (!lboj[chainID]) {
-      lboj[chainID] = {}
-      lboj[chainID][account] = {}
-      lboj[chainID][account][token] = {
-        ...serverInfo,
-        timestamp: Date.now()
-      }
-    } else if (!lboj[chainID][account]) {
-      lboj[chainID][account] = {}
-      lboj[chainID][account][token] = {
-        ...serverInfo,
-        timestamp: Date.now()
-      }
-    } else {
-      lboj[chainID][account][token] = {
-        ...serverInfo,
-        timestamp: Date.now()
-      }
-    }
-  }
-  sessionStorage.setItem(SERVER_BRIDGE_CONFIG, JSON.stringify(lboj))
-}
 
 export function removeLocalConfig (account, token, chainId) {
   let lstr = sessionStorage.getItem(SERVER_BRIDGE_CONFIG)
@@ -89,7 +34,7 @@ export function getRegisterInfo (account, token, chainID, version, coin) {
       return false
     } else if ((Date.now() - lrObj[chainID][account][token].timestamp) > (1000 * 60 * 60 * 24 * 1)) {
       return false
-    } else if (lrObj[chainID][account][token].timestamp < 1610533060644) { // 在某个时间之前的数据无效
+    } else if (lrObj[chainID][account][token].timestamp < config.localDataDeadline) { // 在某个时间之前的数据无效
       return false
     }
     return lrObj[chainID][account][token]
@@ -151,6 +96,8 @@ export function removeRegisterInfo (account, token, chainID) {
 function setLocalinfo (account, res, chainID, version, coin) {
   let dObj = res.SrcToken, // 充值信息
       rObj = res.DestToken // 提现信息
+  let token = rObj.DelegateToken ? rObj.DelegateToken.toLowerCase() : (rObj.ContractAddress ? rObj.ContractAddress.toLowerCase() : '')
+  console.log(token)
   let bridgeData = {
     depositAddress: dObj.DepositAddress,
     PlusGasPricePercentage: dObj.PlusGasPricePercentage,
@@ -170,10 +117,10 @@ function setLocalinfo (account, res, chainID, version, coin) {
     minFee: rObj.MinimumSwapFee,
     fee: rObj.SwapFeeRate,
     redeemBigValMoreTime: rObj.BigValueThreshold,
-    token: rObj.ContractAddress,
-    p2pAddress: getRegisterInfo(account, rObj.ContractAddress, chainID, version, coin).p2pAddress
+    token: token,
+    p2pAddress: getRegisterInfo(account, token, chainID, version, coin).p2pAddress
   }
-  setLocalConfig(account, rObj.ContractAddress, bridgeData, chainID)
+  setLocalConfig(account, token, bridgeData, chainID, SERVER_BRIDGE_CONFIG)
 }
 
 function getServerData (account, chainID, version, coin) {
@@ -258,12 +205,12 @@ export function getServerInfo (account, token, coin, chainID, version) {
       if (!lrInfo) {
         RegisterAddress(account, token, coin, chainID, version).then(res => {
           if (res.msg === 'Success') {
-            let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID)
+            let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
             if (lData) {
               resolve(lData)
             } else {
               getServerData(account, chainID, version, coin).then(result => {
-                let lData1 = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID)
+                let lData1 = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
                 if (lData1) {
                   resolve(lData1)
                 } else {
@@ -278,9 +225,9 @@ export function getServerInfo (account, token, coin, chainID, version) {
           }
         })
       } else {
-        if (!getLocalConfig(account, token, chainID)) {
+        if (!getLocalConfig(account, token, chainID, SERVER_BRIDGE_CONFIG)) {
           getServerData(account, chainID, version, coin).then(result => {
-            let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID)
+            let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
             if (lData) {
               resolve(lData)
             } else {
@@ -290,7 +237,7 @@ export function getServerInfo (account, token, coin, chainID, version) {
             }
           })
         } else {
-          resolve(getLocalConfig(account, token, chainID))
+          resolve(getLocalConfig(account, token, chainID, SERVER_BRIDGE_CONFIG))
         }
       }
     }

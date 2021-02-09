@@ -31,6 +31,7 @@ import {formatCoin, formatDecimal} from '../../utils/tools'
 import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 import swapBTCABI from '../../constants/abis/swapBTCABI'
 import swapETHABI from '../../constants/abis/swapETHABI'
+import erc20 from '../../constants/abis/erc20.json'
 
 import HardwareTip from '../HardwareTip'
 import ResertSvg from '../../assets/images/icon/revert.svg'
@@ -53,6 +54,7 @@ import {createAddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../.
 // import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
 
 import {getServerInfo, removeLocalConfig, getRegisterInfo} from '../../utils/birdge/getServerInfo'
+import {getAllowanceInfo}  from '../../utils/birdge/approve'
 
 import {getAllOutBalance, getLocalOutBalance} from '../../utils/birdge/getOutBalance'
 
@@ -794,7 +796,7 @@ let hashInterval
 
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
-  let { account, chainId, error } = useWeb3React()
+  let { account, chainId, error, library } = useWeb3React()
   const [showBetaMessage] = useBetaMessageManager()
   const allTokens = useAllTokenDetails()
   let walletType = sessionStorage.getItem('walletType')
@@ -950,6 +952,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [mintModelTip, setMintModelTip] = useState()
   const [balanceError, setBalanceError] = useState()
   const [bridgeNode, setBridgeNode] = useState()
+  const [approveNum, setApproveNum] = useState()
 
   function setInit (disabled) {
     setIsRedeem(true)
@@ -975,6 +978,33 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       token: ''
     })
   }
+
+  const fetchPoolTokens = useCallback(() => {
+    // console.log(123)
+    if (extendObj && extendObj.APPROVE && account) {
+    // if (true) {
+      // getAllowanceInfo(account, '', chainId, inputCurrency).then(res => {
+      getAllowanceInfo(account, extendObj.APPROVE, chainId, inputCurrency).then(res => {
+        console.log(res)
+        if (res.msg === 'Success') {
+          setApproveNum(res.info.approve)
+        } else {
+          setApproveNum('')
+        }
+      })
+    } else {
+      setApproveNum('')
+    }
+  }, [inputCurrency, account, library])
+
+  useEffect(() => {
+    fetchPoolTokens()
+    library.on('block', fetchPoolTokens)
+
+    return () => {
+      library.removeListener('block', fetchPoolTokens)
+    }
+  }, [inputCurrency, library, account, fetchPoolTokens])
 
   useEffect(() => {
     let node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
@@ -1173,6 +1203,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   const tokenContract = useSwapTokenContract(inputCurrency, swapBTCABI)
   const tokenETHContract = useSwapTokenContract(inputCurrency, swapETHABI)
+  const tokenERC20Contract = useSwapTokenContract(inputCurrency, erc20)
 
   
   useEffect(() => {
@@ -1272,6 +1303,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
     })
   }
+
+  
+
   function sendTxnsEnd (data, value, address, node) {
     addTransaction(data)
     recordTxns(data, 'WITHDRAW', inputSymbol, account, address, node)
@@ -1316,17 +1350,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       amountVal = inputBalance
     }
     let address = recipient.address
+    let token = extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
       setHardwareTxnsInfo(amountFormatter(amountVal, inputDecimals, inputDecimals) + " "  + inputSymbol)
       
-      let web3Contract = getWeb3ConTract(swapETHABI, inputCurrency)
+      let web3Contract = getWeb3ConTract(swapETHABI, token)
       if (isSpecialCoin(inputSymbol)) {
-        web3Contract = getWeb3ConTract(swapBTCABI, inputCurrency)
+        web3Contract = getWeb3ConTract(swapBTCABI, token)
       }
       let data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
-      getWeb3BaseInfo(inputCurrency, data, account).then(res => {
+      getWeb3BaseInfo(token, data, account).then(res => {
         if (res.msg === 'Success') {
           // console.log(res.info)
           sendTxnsEnd(res.info, amountVal, address, node)
@@ -1422,13 +1457,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setMintModelTip('')
       return
     }
+
+    let token = extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency
     
     if (walletType === 'Ledger') {
       setHardwareTxnsInfo(inputValueFormatted + ' ' + coin)
       setIsHardwareTip(true)
       setMintSureBtn(false)
       // MintModelView()
-      HDsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, bridgeNode, inputCurrency).then(res => {
+      HDsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, bridgeNode, token).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           recordTxns(res.info, 'DEPOSIT', inputSymbol, account, mintAddress, bridgeNode)
@@ -1445,7 +1482,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       })
     } else {
       setMintSureBtn(false)
-      MMsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, bridgeNode, inputCurrency).then(res => {
+      MMsendERC20Txns(coin, account, mintAddress, inputValueFormatted, PlusGasPricePercentage, bridgeNode, token).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           console.log(bridgeNode)
@@ -1823,7 +1860,58 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     )
   }
 
+  function approve () {
+    let _userTokenBalance = ethers.constants.MaxUint256.toString()
+    
+    let token = extendObj.APPROVE
+    let sourceToken = inputCurrency
+    // let token = '0xe23edd629f264c14333b1d7cb3374259e9df5d55'
+    // let sourceToken = '0xd5190a1C83B7cf3566098605E00fA0C0fD5F3778'
+    if (config.supportWallet.includes(walletType)) {
+      // setIsHardwareTip(true)
+      // setHardwareTxnsInfo('Approve ' + inputSymbol)
+      setIsHardwareError(false)
+      setIsHardwareTip(true)
+      setHardwareTxnsInfo(t('unlock') + " "  + inputSymbol)
+      let web3Contract = getWeb3ConTract(erc20, token)
+      web3Contract.options.address = sourceToken
+      const data = web3Contract.methods.approve(token, _userTokenBalance).encodeABI()
+      getWeb3BaseInfo(sourceToken, data, account).then(res => {
+        if (res.msg === 'Success') {
+          console.log(res.info)
+          addTransaction(res.info)
+        } else {
+          alert(res.error)
+        }
+      })
+      return
+    }
+    
+    tokenERC20Contract.approve(token, _userTokenBalance).then(res => {
+      console.log(res)
+      addTransaction(res)
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   function redeemBtn (type, index) {
+    if (extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum))) {
+      return (
+        <Button
+          key={index}
+          onClick={() => {
+            approve()
+          }}
+          loggedOut={!account}
+        >
+          <StyledBirdgeIcon>
+            <img src={BirdgeIcon} alt={''} />
+            {t('unlock')}
+          </StyledBirdgeIcon>
+        </Button>
+      )
+    }
     return (
       <>
         <Button
@@ -1967,6 +2055,17 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   // console.log(hashArr)
   return (
     <>
+    {/* <Button
+      onClick={() => {
+        approve()
+      }}
+      loggedOut={!account}
+    >
+      <StyledBirdgeIcon>
+        <img src={BirdgeIcon} alt={''} />
+        {t('unlock')}
+      </StyledBirdgeIcon>
+    </Button> */}
       <HardwareTip
         HardwareTipOpen={isHardwareTip}
         closeHardwareTip={() => {
@@ -1983,7 +2082,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         tipInfo={mintModelTip}
         coin={inputSymbol}
       >
-
       </HardwareTip>
       {showInputWarning && (
         <WarningCard

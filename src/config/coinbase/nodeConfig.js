@@ -83,7 +83,7 @@ let chainInfo = {
     name: 'Ethereum',
     type: 'test',
     label: 'ETH_TEST',
-    isSwitch: 0
+    isSwitch: 1
   },
   56: {
     rpc: BNB_MAINNET,
@@ -185,6 +185,7 @@ let chainList = {
     chainInfo['97'],
     chainInfo['256'],
     chainInfo['2'],
+    chainInfo['4'],
   ]
 }
 

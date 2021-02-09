@@ -85,7 +85,7 @@ function setLocalOutBalance (chainID, account, token, data) {
 
 function getOutTokenBalance (chainId, account, tokenList) {
   return new Promise(resolve => {
-
+    // console.log(chainId)
     const batch = new web3.BatchRequest()
     let BridgeToken = TOKEN[chainId]
     chainId = Number(chainId)
@@ -97,6 +97,7 @@ function getOutTokenBalance (chainId, account, tokenList) {
         (coin === 'ETH' && (chainId === 1 || chainId === 4))
         || (coin === 'FSN' && (chainId === 32659 || chainId === 46688))
         || (coin === 'BNB' && (chainId === 56 || chainId === 97))
+        || (coin === 'FTM' && (chainId === 250))
       ) {
         isHaveoutBaseCoin = false
         batch.add(web3.eth.getBalance.request(account, 'latest', (err, res) => {

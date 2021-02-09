@@ -43,10 +43,11 @@ if (netArr[0] === 'FSN') {
 }
 
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
-// serverInfoUrl = 'https://testbridgeapi.anyswap.exchange'
+// serverInfoUrl = 'http://localhost:8107'
 
 export default {
   ...netConfig,
+  localDataDeadline: 1612855851084,
   farmConfig: farmConfig,
   ENV_NODE_CONFIG,
   bridgeAll: chainInfo,
