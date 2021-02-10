@@ -29,7 +29,7 @@ import TokenLogo from '../TokenLogo'
 
 
 import config from '../../config'
-import {formatCoin, formatDecimal} from '../../utils/tools'
+import {formatCoin, formatDecimal, thousandBit} from '../../utils/tools'
 import {getWeb3ConTract, getWeb3BaseInfo} from '../../utils/web3/txns'
 import swapBTCABI from '../../constants/abis/swapBTCABI'
 import swapETHABI from '../../constants/abis/swapETHABI'
@@ -58,7 +58,7 @@ import {createAddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../.
 import {getServerInfo, removeLocalConfig, getRegisterInfo} from '../../utils/birdge/getServerInfo'
 import {getAllowanceInfo}  from '../../utils/birdge/approve'
 
-import {getAllOutBalance, getLocalOutBalance} from '../../utils/birdge/getOutBalance'
+import {getAllOutBalance, getLocalOutBalance, getTokenBalance} from '../../utils/birdge/getOutBalance'
 
 import {recordTxns} from '../../utils/records'
 
@@ -1000,7 +1000,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [balanceError, setBalanceError] = useState()
   const [bridgeNode, setBridgeNode] = useState()
   const [approveNum, setApproveNum] = useState()
-  const [approveBtnView, setApproveNumBtnView] = useState()
+  const [approveBtnView, setApproveNumBtnView] = useState(1)
 
   function setInit (disabled) {
     setIsRedeem(true)
@@ -1037,15 +1037,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         console.log(res)
         if (res.msg === 'Success') {
           setApproveNum(res.info.approve)
-          setApproveNumBtnView('')
         } else {
           setApproveNum('')
-          setApproveNumBtnView(1)
         }
+        setApproveNumBtnView(1)
       })
     } else {
       setApproveNum('')
-      setApproveNumBtnView('')
+      setApproveNumBtnView(1)
     }
   }, [inputCurrency, account, library])
 
@@ -1195,16 +1194,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     setOutNetBalance('')
     setOutNetETHBalance('')
     setOutBalance()
-    // library.on('block', block => {
-    //   // console.log(block)
-    //   setOutBalance()
-    // })
-
-    // return () => {
-    //   library.removeListener('block', setOutBalance)
-    // }
   }, [inputCurrency, account, extendObj, inputBalance, hashCount, hashArr, FSNBalance])
-// }, [hashCount, hashArr, FSNBalance, inputBalance, withdrawArr, withdrawCount])
+  
 
   // console.log(FSNBalanceNum)
   // const outputBalance = useAddressBalance(account, outputCurrency)
@@ -1219,19 +1210,47 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     : ''
   // const inputValueParsed = independentField === INPUT ? independentValueParsed : dependentValue
   let inputValueFormatted = independentField === INPUT ? independentValue : dependentValueFormatted
-  // if (inputValueFormatted) {
-  //   console.log(independentField === INPUT)
-  //   console.log(independentValue)
-  //   console.log(inputValueFormatted)
-  //   console.log(ethers.utils.parseUnits(inputValueFormatted.toString(), inputDecimals).toString())
-  // }
-  
   // console.log(inputValueFormatted)
   inputValueFormatted = inputValueFormatted || inputValueFormatted === 0 ? Number(formatDecimal(inputValueFormatted, inputDecimals)) : ''
-  // console.log(independentValue)
-  // console.log(inputValueFormatted)
-  // console.log(dependentValueFormatted)
-  // console.log(amountFormatter(dependentValue, inputDecimals, Math.min(8, inputDecimals), false))
+
+  const [isLimitAction, setIsLimitAction] = useState(true)
+  const [limitAmount, setLimitAmount] = useState(0)
+  
+  useEffect(() => {
+    if (extendObj && extendObj.APPROVE) {
+      let node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
+      if (bridgeType && bridgeType === 'redeem') {
+        getTokenBalance(node, inputCurrency, initDepositAddress, 0).then(res => {
+          let amount = amountFormatter(ethers.utils.bigNumberify(res), inputDecimals)
+          amount = Number(amount)
+          let num = Number(inputValueFormatted)
+          setLimitAmount(amount)
+          if ((amount - extendObj.APPROVELIMIT) > num) {
+            setIsLimitAction(true)
+          } else {
+            setIsLimitAction(false)
+          }
+        })
+      } else {
+        getTokenBalance(config.nodeRpc, inputCurrency, extendObj.APPROVE, 1).then(res => {
+          let amount = amountFormatter(ethers.utils.bigNumberify(res), inputDecimals)
+          amount = Number(amount)
+          let num = Number(inputValueFormatted)
+          console.log(amount)
+          setLimitAmount(amount)
+          if ((amount - extendObj.APPROVELIMIT) > num) {
+            setIsLimitAction(true)
+          } else {
+            setIsLimitAction(false)
+          }
+        })
+      }
+    } else {
+      setIsLimitAction(true)
+      setLimitAmount('')
+    }
+  }, [account, inputCurrency, inputValueFormatted, bridgeType, extendObj])
+
   function formatBalance(value) {
     return `Balance: ${formatDecimal(value, Math.min(config.keepDec, inputDecimals))}`
   }
@@ -1270,6 +1289,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && Number(inputBalanceFormatted) >= Number(inputValueFormatted)
         && Number(inputValueFormatted) <= Number(redeemMaxNum)
         && Number(inputValueFormatted) >= Number(redeemMinNum)
+        && isLimitAction
       ) {
         if (isSpecialCoin(inputSymbol) && isBTCAddress(recipient.address, inputSymbol)) {
           if (extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum))) {
@@ -1323,8 +1343,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && isRegister
         && Number(inputValueFormatted) <= depositMaxNum
         && Number(inputValueFormatted) >= depositMinNum
+        && isLimitAction
       ) {
-        if ( isSpecialCoin(inputSymbol) ) {
+        if ( isSpecialCoin(inputSymbol)) {
           setIsMintBtn(false)
           setBalanceError('')
         } else if (
@@ -1351,7 +1372,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       }
     }
-  }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol, isDeposit, registerAddress, outNetBalance, bridgeType, depositMaxNum, depositMinNum])
+  }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol, isDeposit, registerAddress, outNetBalance, bridgeType, depositMaxNum, depositMinNum, isLimitAction])
+
+  
   
   function cleanInput () {
     dispatchSwapState({
@@ -1929,6 +1952,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     
     let token = extendObj.APPROVE
     let sourceToken = inputCurrency
+    setApproveNumBtnView('')
     // let token = '0xe23edd629f264c14333b1d7cb3374259e9df5d55'
     // let sourceToken = '0xd5190a1C83B7cf3566098605E00fA0C0fD5F3778'
     if (config.supportWallet.includes(walletType)) {
@@ -1942,13 +1966,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       getWeb3BaseInfo(sourceToken, data, account).then(res => {
         if (res.msg === 'Success') {
           console.log(res.info)
-          setApproveNumBtnView(1)
           addTransaction(res.info)
         } else {
-          
-          setApproveNumBtnView('')
           alert(res.error)
+          setApproveNumBtnView(1)
         }
+        setIsHardwareTip(false)
       })
       return
     }
@@ -1956,7 +1979,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     tokenERC20Contract.approve(token, _userTokenBalance).then(res => {
       console.log(res)
       addTransaction(res)
+      setIsHardwareTip(false)
     }).catch(err => {
+      setIsHardwareTip(false)
+      setApproveNumBtnView(1)
       console.log(err)
     })
   }
@@ -2412,6 +2438,27 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           </MintWarningTip>
         ) : ('')
       }
+      {
+        isLimitAction ? '' : (
+          <MintWarningTip>
+            <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+            <span>{t('approveNoBalance')}{thousandBit(limitAmount,2)} {inputSymbol}</span>
+          </MintWarningTip>
+        )
+      }
+      
+      {
+        bridgeType && bridgeType === 'redeem' && extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum))  ? (
+          <SubCurrencySelectBox1>
+            <div>
+              <img src={Warning} alt={''}/>
+              <p>{t('unlockTip1')} {inputSymbol} {t('unlockTip2')}</p>
+            </div>
+            <SubCurrencySelect onClick={() => {approve()}}>{approveBtnView ? t('unlock') : t('pending')}</SubCurrencySelect>
+            {/* <SubCurrencySelect onClick={() => {approve()}}>{t('unlock')}</SubCurrencySelect> */}
+          </SubCurrencySelectBox1>
+        ) : ''
+      }
       <OversizedPanel>
         <DownArrowBackground onClick={() => {
           if (bridgeType && bridgeType === 'redeem') {
@@ -2472,17 +2519,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         ) : ''
       )}
       {
-        bridgeType && bridgeType === 'redeem' && extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum)) ? (
-          <SubCurrencySelectBox1>
-            <div>
-              <img src={Warning} alt={''}/>
-              <p>{t('unlockTip1')} {inputSymbol} {t('unlockTip2')}</p>
-            </div>
-            <SubCurrencySelect onClick={() => {approve()}}>{approveBtnView ? t('pending') : t('unlock')}</SubCurrencySelect>
-          </SubCurrencySelectBox1>
-        ) : ''
-      }
-      {
         // isDeposit ? (
         (isDeposit === 0 || isRedeem === 0 ? 
           (
@@ -2516,11 +2552,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       maxFee,
                       fee: fee * 100
                     })}</dd>
-                    <dd><i></i>{t('redeemTip2')} {redeemMinNum} {formatCoin(inputSymbol)}</dd>
-                    <dd><i></i>{t('redeemTip3')} {redeemMaxNum} {formatCoin(inputSymbol)}</dd>
-                    <dd><i></i>{t('redeemTip4')},</dd>
+                    <dd><i></i>{t('redeemTip2')} {thousandBit(redeemMinNum, 'no')} {formatCoin(inputSymbol)}</dd>
+                    <dd><i></i>{t('redeemTip3')} {thousandBit(redeemMaxNum, 'no')} {formatCoin(inputSymbol)}</dd>
+                    <dd><i></i>{t('redeemTip4')}</dd>
                     <dd><i></i>{t('redeemTip5', {
-                      redeemBigValMoreTime,
+                      redeemBigValMoreTime: thousandBit(redeemBigValMoreTime, 'no'),
                       coin: formatCoin(inputSymbol),
                     })}</dd>
                   </dl>
@@ -2537,12 +2573,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       coin: formatCoin(inputSymbol),
                       dMaxFee,
                       dFee: dFee * 100
-                    })},</dd>
-                    <dd><i></i>{t('mintTip2')} {depositMinNum} {formatCoin(inputSymbol)}</dd>
-                    <dd><i></i>{t('mintTip3')} {depositMaxNum} {formatCoin(inputSymbol)}</dd>
+                    })}</dd>
+                    <dd><i></i>{t('mintTip2')} {thousandBit(depositMinNum, 'no')} {formatCoin(inputSymbol)}</dd>
+                    <dd><i></i>{t('mintTip3')} {thousandBit(depositMaxNum, 'no')} {formatCoin(inputSymbol)}</dd>
                     <dd><i></i>{t('mintTip4')}</dd>
                     <dd><i></i>{t('mintTip5', {
-                      depositBigValMoreTime,
+                      depositBigValMoreTime: thousandBit(depositBigValMoreTime, 'no'),
                       coin: formatCoin(inputSymbol),
                     }) + (inputSymbol ? '' : '')}</dd>
                     {

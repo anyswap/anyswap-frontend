@@ -105,8 +105,9 @@ export function formatWeb3Str (str, len = 64) {
   return arr
 }
 
-export function getLocalConfig (account, token, chainID, type) {
+export function getLocalConfig (account, token, chainID, type, timeout) {
   let lstr = sessionStorage.getItem(type)
+  timeout = timeout ? timeout : config.localDataDeadline
   if (!lstr) {
     return false
   } else {
@@ -119,7 +120,7 @@ export function getLocalConfig (account, token, chainID, type) {
       return false
     } else if ((Date.now() - lboj[chainID][account][token].timestamp) > (1000 * 60 * 10)) {
       return false
-    } else if (lboj[chainID][account][token].timestamp < config.localDataDeadline) { // 在某个时间之前的数据无效
+    } else if (lboj[chainID][account][token].timestamp < timeout) { // 在某个时间之前的数据无效
       return false
     } else {
       return {

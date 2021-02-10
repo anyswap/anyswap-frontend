@@ -268,7 +268,7 @@ export default {
         ],
         VERSION: 'V2',
         APPROVE: '0x5cbe98480a790554403694b98bff71a525907f5d',
-        
+        APPROVELIMIT: 0
       },
     },
     '0xe692c8d72bd4ac7764090d54842a305546dd1de5': { // BLOCK 5

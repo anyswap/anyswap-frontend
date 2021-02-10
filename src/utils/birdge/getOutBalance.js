@@ -3,7 +3,7 @@ import config from '../../config'
 import ERC20_ABI from '../../constants/abis/erc20'
 import TOKEN from '../../contexts/BridgeTokens'
 import {getNodeRpc} from '../../config/getNodeRpc'
-import {formatCoin} from '../tools'
+import {formatCoin, getLocalConfig, setLocalConfig} from '../tools'
 
 const Web3 = require('web3')
 const web3 = new Web3()
@@ -13,6 +13,8 @@ const ZERO = ethers.utils.bigNumberify('0')
 const OUT_TOKEN_BALANCE = 'OUT_TOKEN_BALANCE'
 
 const CHAINID = config.chainID
+
+
 
 export function getLocalOutBalance (chainID, account, token) {
   let lstr = sessionStorage.getItem(OUT_TOKEN_BALANCE)
@@ -81,6 +83,39 @@ function setLocalOutBalance (chainID, account, token, data) {
     }
   }
   sessionStorage.setItem(OUT_TOKEN_BALANCE, JSON.stringify(lboj))
+}
+
+let blObj = {}
+export function getTokenBalance (chainId, token, address, type) {
+  return new Promise(resolve => {
+    let lobj = getLocalConfig (address, token, config.chainID, 'APPROVE_BALANCE', Date.now() - (1000 * 60 * 10))
+    console.log(lobj)
+    if (lobj) {
+      resolve(lobj.info.data)
+    } else {
+      if (type) {
+        web3.setProvider(config.nodeRpc)
+        contract.options.address = token
+        contract.methods.balanceOf(address).call((err, res) => {
+          if (err) {
+            resolve(0)
+          } else {
+            setLocalConfig (address, token, {data: res}, config.chainID, 'APPROVE_BALANCE')
+            resolve(res)
+          }
+        })
+      } else {
+        // console.log(getNodeRpc(chainId))
+        web3.setProvider(getNodeRpc(chainId))
+        web3.eth.getBalance(address, 'latest').then(res => {
+          setLocalConfig (address, token, {data: res}, config.chainID, 'APPROVE_BALANCE')
+          resolve(res)
+        }).catch(err => {
+          resolve(0)
+        })
+      }
+    }
+  })
 }
 
 function getOutTokenBalance (chainId, account, tokenList) {
