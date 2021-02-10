@@ -23,6 +23,8 @@ import { transparentize } from 'polished'
 import WalletConnectData from '../WalletModal/WalletConnectData'
 import Modal from '../Modal'
 import { ReactComponent as QRcode } from '../../assets/images/QRcode.svg'
+import Warning from '../../assets/images/icon/warning.svg'
+
 import TokenLogo from '../TokenLogo'
 
 
@@ -563,6 +565,49 @@ height: auto;
 ${({ theme }) => theme.FlexC};
 `
 
+const SubCurrencySelectBox1 = styled.div`
+  ${({ theme }) => theme.FlexBC}
+  width: 100%;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 0.5625rem;
+  border: solid 0.5px ${({ theme }) => theme.tipBorder};
+  background-color: ${({ theme }) => theme.tipBg};
+  padding: 0 2.5rem;
+  margin-top: 0.625rem;
+  div {
+    ${({ theme }) => theme.FlexSC}
+    p {
+      font-family: 'Manrope';
+      font-size: 0.75rem;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+      color: #734be2;
+      margin-left:8px;
+    }
+  }
+`
+const SubCurrencySelect = styled.button`
+  ${({ theme }) => theme.FlexC}
+  width: 110px;
+  height: 1.875rem;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  background: #734be2;
+  border: #734be2;
+  color: ${({ theme }) => theme.inputBackground};
+
+  &.otherView {
+    background:${({ theme }) => theme.bgColor};
+    color: ${({ theme }) => theme.textColorBold}
+  }
+`
+
 const DEPOSIT_HISTORY = 'DEPOSIT_HISTORY'
 const WITHDRAW_HISTORY = 'WITHDRAW_HISTORY'
 function isArray(o){
@@ -803,7 +848,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   let walletType = sessionStorage.getItem('walletType')
   params = params ? params : {}
   // let HDPath = sessionStorage.getItem('HDPath')
-  account = '0x12139f3afa1C93303e1EfE3Df142039CC05C6c58'
+  // account = '0x8c270c4ef7f62C6663EbCd116D4b2dc038fCF8BB'
   // console.log(allTokens)
   
   const urlAddedTokens = {}
@@ -955,6 +1000,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [balanceError, setBalanceError] = useState()
   const [bridgeNode, setBridgeNode] = useState()
   const [approveNum, setApproveNum] = useState()
+  const [approveBtnView, setApproveNumBtnView] = useState()
 
   function setInit (disabled) {
     setIsRedeem(true)
@@ -991,12 +1037,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         console.log(res)
         if (res.msg === 'Success') {
           setApproveNum(res.info.approve)
+          setApproveNumBtnView('')
         } else {
           setApproveNum('')
+          setApproveNumBtnView(1)
         }
       })
     } else {
       setApproveNum('')
+      setApproveNumBtnView('')
     }
   }, [inputCurrency, account, library])
 
@@ -1015,7 +1064,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let tokenOnlyOne = inputCurrency
 
     setInit(1)
-    // console.log(inputCurrency)
     let coin = formatCoin(inputSymbol)
     if (account && initIsDeposit && initIsRedeem) {
       getServerInfo(account, tokenOnlyOne, inputSymbol, chainId, version).then(res => {
@@ -1205,8 +1253,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   const addTransaction = useTransactionAdder()
 
-  const tokenContract = useSwapTokenContract(inputCurrency, swapBTCABI)
-  const tokenETHContract = useSwapTokenContract(inputCurrency, swapETHABI)
+  const tokenContract = useSwapTokenContract(extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency, swapBTCABI)
+  const tokenETHContract = useSwapTokenContract(extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency, swapETHABI)
   const tokenERC20Contract = useSwapTokenContract(inputCurrency, erc20)
 
   
@@ -1224,10 +1272,18 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && Number(inputValueFormatted) >= Number(redeemMinNum)
       ) {
         if (isSpecialCoin(inputSymbol) && isBTCAddress(recipient.address, inputSymbol)) {
-          setIsRedeem(false)
+          if (extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum))) {
+            setIsRedeem(true)
+          } else {
+            setIsRedeem(false)
+          }
           setBalanceError('')
         } else if (!isSpecialCoin(inputSymbol) && isAddress(recipient.address)) {
-          setIsRedeem(false)
+          if (extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum))) {
+            setIsRedeem(true)
+          } else {
+            setIsRedeem(false)
+          }
           setBalanceError('')
         } else {
           setIsRedeem(true)
@@ -1356,6 +1412,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
     let address = recipient.address
     let token = extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency
+    console.log(token)
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
@@ -1880,14 +1937,16 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setIsHardwareError(false)
       setIsHardwareTip(true)
       setHardwareTxnsInfo(t('unlock') + " "  + inputSymbol)
-      let web3Contract = getWeb3ConTract(erc20, token)
-      web3Contract.options.address = sourceToken
+      let web3Contract = getWeb3ConTract(erc20, sourceToken)
       const data = web3Contract.methods.approve(token, _userTokenBalance).encodeABI()
       getWeb3BaseInfo(sourceToken, data, account).then(res => {
         if (res.msg === 'Success') {
           console.log(res.info)
+          setApproveNumBtnView(1)
           addTransaction(res.info)
         } else {
+          
+          setApproveNumBtnView('')
           alert(res.error)
         }
       })
@@ -1903,22 +1962,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
 
   function redeemBtn (type, index) {
-    if (extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum))) {
-      return (
-        <Button
-          key={index}
-          onClick={() => {
-            approve()
-          }}
-          loggedOut={!account}
-        >
-          <StyledBirdgeIcon>
-            <img src={BirdgeIcon} alt={''} />
-            {t('unlock')}
-          </StyledBirdgeIcon>
-        </Button>
-      )
-    }
     return (
       <>
         <Button
@@ -2428,6 +2471,17 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         </>
         ) : ''
       )}
+      {
+        bridgeType && bridgeType === 'redeem' && extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum)) ? (
+          <SubCurrencySelectBox1>
+            <div>
+              <img src={Warning} alt={''}/>
+              <p>{t('unlockTip1')} {inputSymbol} {t('unlockTip2')}</p>
+            </div>
+            <SubCurrencySelect onClick={() => {approve()}}>{approveBtnView ? t('pending') : t('unlock')}</SubCurrencySelect>
+          </SubCurrencySelectBox1>
+        ) : ''
+      }
       {
         // isDeposit ? (
         (isDeposit === 0 || isRedeem === 0 ? 

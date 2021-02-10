@@ -1,11 +1,12 @@
 import axios from 'axios'
 import config from '../../config'
 function GetTxnStatusAPI (hash, coin, api, account, version, node, pairid) {
+  // console.log(pairid)
   coin = coin.replace('any', '')
   return new Promise(resolve => {
-    let url = config.serverInfoUrl['V1'] + '/' + api + '/' + hash + '/' + config.chainID + '/' + coin + '/' + pairid
+    let url = config.serverInfoUrl['V1'] + '/' + api + '/' + hash + '/' + config.chainID + '/' + coin + (pairid ? ('?pairid=' + pairid) : '')
     if (version === 'V2') {
-      url = config.serverInfoUrl['V2'] + '/' + api + '/' + account + '/' + hash + '/' + config.chainID + '/' + coin + '/' + (node ? node : 0) + pairid
+      url = config.serverInfoUrl['V2'] + '/' + api + '/' + account + '/' + hash + '/' + config.chainID + '/' + coin + '/' + (node ? node : 0) + (pairid ? ('?pairid=' + pairid) : '')
     }
     // console.log(url)
     axios.get(url).then(res => {

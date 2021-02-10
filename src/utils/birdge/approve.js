@@ -6,13 +6,15 @@ import {getWeb3ConTract} from '../web3/txns'
 
 const BRIDGE_APPROVE = 'BRIDGE_APPROVE'
 
-let contract = getWeb3ConTract(ERC20_ABI)
+
 // console.log(contract)
 let getApproveInfoObj = {}
 
 function getAllowance (account, token, chainID, inputCurrency) {
   return new Promise(resolve => {
-    contract.options.address = inputCurrency
+    // console.log(token)
+    let contract = getWeb3ConTract(ERC20_ABI, inputCurrency)
+    // console.log(contract)
     contract.methods.allowance(account, token).call((err, res) => {
       // console.log(err)
       // console.log(res)
@@ -37,6 +39,7 @@ export function getAllowanceInfo (account, token, chainID, inputCurrency) {
     } else {
       let lData = getLocalConfig(getApproveInfoObj.account, getApproveInfoObj.token, chainID, BRIDGE_APPROVE)
       if (!lData) {
+      // if (true) {
         getAllowance(account, token, chainID, inputCurrency).then(result => {
           let lData = getLocalConfig(getApproveInfoObj.account, getApproveInfoObj.token, chainID, BRIDGE_APPROVE)
           if (lData) {

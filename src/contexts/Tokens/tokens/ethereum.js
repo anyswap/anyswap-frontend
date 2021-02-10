@@ -246,7 +246,7 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0x4e15361fd6b4bb609fa63c81a2be19d873717870': { // FTM
-      [NAME]: 'Fantom',
+      [NAME]: 'Fantom ERC20',
       [SYMBOL]: 'FTM',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x90c8ea8ec7710034274868971c4e27ede33d9c10',
@@ -351,7 +351,7 @@ export default {
     },
   },
   '4': {
-    '0xd5190a1C83B7cf3566098605E00fA0C0fD5F3778': { // FTM
+    '0xd5190a1c83b7cf3566098605e00fa0c0fd5f3778': { // FTM
       [NAME]: 'Fantom',
       [SYMBOL]: 'FTM',
       [DECIMALS]: 18,

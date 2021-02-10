@@ -202,7 +202,7 @@ export function getServerInfo (account, token, coin, chainID, version) {
       resolve('')
     } else {
       let lrInfo = getRegisterInfo(account, token, chainID, version, coin)
-      console.log(lrInfo)
+      // console.log(lrInfo)
       if (!lrInfo) {
         RegisterAddress(account, token, coin, chainID, version).then(res => {
           if (res.msg === 'Success') {
