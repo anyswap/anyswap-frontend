@@ -1251,6 +1251,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
   }, [account, inputCurrency, inputValueFormatted, bridgeType, extendObj])
 
+  // console.log(limitAmount)
+
   function formatBalance(value) {
     return `Balance: ${formatDecimal(value, Math.min(config.keepDec, inputDecimals))}`
   }

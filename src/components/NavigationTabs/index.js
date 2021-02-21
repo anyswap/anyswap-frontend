@@ -16,6 +16,8 @@ import GithubIconWhite from '../../assets/images/icon/github-white.png'
 
 import CoinmarketcapIcon from '../../assets/images/icon/coinmarketcap.png'
 import CoinmarketcapIconWhite from '../../assets/images/icon/coinmarketcap-white.png'
+import CoingeckoIcon from '../../assets/images/icon/coingecko.png'
+import CoingeckoIconWhite from '../../assets/images/icon/coingecko-white.png'
 import config from '../../config'
 
 const tabOrder = [
@@ -306,12 +308,12 @@ const OutLinkImgBox = styled.div`
 `
 const OutLinkImg = styled.div`
   ${({theme}) => theme.FlexC};
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   background-color: ${({theme}) => theme.selectedBg};
   border-radius: 100%;
   margin-right: 0.625rem;
-  padding: 10px;
+  padding: 8px;
   &:hover {
     background-color: #5f6cfc;
   }
@@ -448,6 +450,13 @@ function NavigationTabs({ location: { pathname }, history }) {
               {/* <img src={CodeIcon} /> */}
               <img alt={''} src={CoinmarketcapIconWhite} className={navHover === 'coinmarketcap' ? '' : 'show'}/>
               <img alt={''} src={CoinmarketcapIcon} className={navHover === 'coinmarketcap' ? 'show' : ''}/>
+            </OutLinkImg>
+          </Link>
+          <Link id="link" href="https://www.coingecko.com/en/coins/anyswap">
+            <OutLinkImg onMouseEnter={() => {toggleHover('coingecko')}} onMouseLeave={() => {toggleHover('')}}>
+              {/* <img src={CodeIcon} /> */}
+              <img alt={''} src={CoingeckoIconWhite} className={navHover === 'coingecko' ? '' : 'show'}/>
+              <img alt={''} src={CoingeckoIcon} className={navHover === 'coingecko' ? 'show' : ''}/>
             </OutLinkImg>
           </Link>
         </OutLinkImgBox>

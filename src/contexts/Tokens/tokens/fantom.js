@@ -132,6 +132,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xf5c8054efc6acd25f31a17963462b90e82fdecad': { // DAI
+      [NAME]: 'DAI' + config.suffix,
+      [SYMBOL]: 'DAI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x53f8388680fae8047a7014ed15b76a690c1f5f74',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 150,
+      [MINFEE]: 15,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x65e64963b755043CA4FFC88029FfB8305615EeDD',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     '0x50eb82cc284e3d35936827023b048106aaecfc5f': { // FSN
       [NAME]: 'Fusion',
       [SYMBOL]: 'FSN',
@@ -202,10 +226,10 @@ export default {
       }
     },
     '0x6f43ff82cca38001b6699a8ac47a2d0e66939407': { // LINK
-      [NAME]: 'Chainlink',
+      [NAME]: 'Chainlink' + config.suffix,
       [SYMBOL]: 'LINK',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '',
+      [EXCHANGE_ADDRESS]: '0x5efafe44a096e117d88d48b20e13c44aee209834',
       [REDEEM_MAX_NUM]: 100000,
       [REDEEM_MIN_NUM]: 2,
       [FEE]: 0.001,
@@ -215,6 +239,56 @@ export default {
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
       [DEPOSIT_ADDRESS]: '0x65e64963b755043CA4FFC88029FfB8305615EeDD',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 100000,
+      [DEPOSIT_MIN_NUM]: 1,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+
+    // test
+    '0x04068da6c83afcfa0e13ba15a6696662335d5b75': { // USDC
+      [NAME]: 'USDC' + config.suffix,
+      [SYMBOL]: 'USDC',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 2,
+      [FEE]: 0.001,
+      [MAXFEE]: 5,
+      [MINFEE]: 0.5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 100000,
+      [DEPOSIT_MIN_NUM]: 1,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x1b27a9de6a775f98aaa5b90b62a4e2a0b84dbdd9': { // USDT
+      [NAME]: 'USDT' + config.suffix,
+      [SYMBOL]: 'USDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 2,
+      [FEE]: 0.001,
+      [MAXFEE]: 5,
+      [MINFEE]: 0.5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 1,
