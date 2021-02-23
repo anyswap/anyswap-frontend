@@ -251,53 +251,53 @@ export default {
     },
 
     // test
-    '0x04068da6c83afcfa0e13ba15a6696662335d5b75': { // USDC
-      [NAME]: 'USDC' + config.suffix,
-      [SYMBOL]: 'USDC',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '',
-      [REDEEM_MAX_NUM]: 100000,
-      [REDEEM_MIN_NUM]: 2,
-      [FEE]: 0.001,
-      [MAXFEE]: 5,
-      [MINFEE]: 0.5,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 100000,
-      [DEPOSIT_MIN_NUM]: 1,
-      [EXTENDOBJ]:  {
-        BRIDGE: [
-          { type: 1, isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      }
-    },
-    '0x1b27a9de6a775f98aaa5b90b62a4e2a0b84dbdd9': { // USDT
-      [NAME]: 'USDT' + config.suffix,
-      [SYMBOL]: 'USDT',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '',
-      [REDEEM_MAX_NUM]: 100000,
-      [REDEEM_MIN_NUM]: 2,
-      [FEE]: 0.001,
-      [MAXFEE]: 5,
-      [MINFEE]: 0.5,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 100000,
-      [DEPOSIT_MIN_NUM]: 1,
-      [EXTENDOBJ]:  {
-        BRIDGE: [
-          { type: 1, isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      }
-    },
+    // '0x04068da6c83afcfa0e13ba15a6696662335d5b75': { // USDC
+    //   [NAME]: 'USDC' + config.suffix,
+    //   [SYMBOL]: 'USDC',
+    //   [DECIMALS]: 6,
+    //   [EXCHANGE_ADDRESS]: '',
+    //   [REDEEM_MAX_NUM]: 100000,
+    //   [REDEEM_MIN_NUM]: 2,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 5,
+    //   [MINFEE]: 0.5,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 100000,
+    //   [DEPOSIT_MIN_NUM]: 1,
+    //   [EXTENDOBJ]:  {
+    //     BRIDGE: [
+    //       { type: 1, isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2'
+    //   }
+    // },
+    // '0x1b27a9de6a775f98aaa5b90b62a4e2a0b84dbdd9': { // USDT
+    //   [NAME]: 'USDT' + config.suffix,
+    //   [SYMBOL]: 'USDT',
+    //   [DECIMALS]: 6,
+    //   [EXCHANGE_ADDRESS]: '',
+    //   [REDEEM_MAX_NUM]: 100000,
+    //   [REDEEM_MIN_NUM]: 2,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 5,
+    //   [MINFEE]: 0.5,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 100000,
+    //   [DEPOSIT_MIN_NUM]: 1,
+    //   [EXTENDOBJ]:  {
+    //     BRIDGE: [
+    //       { type: 1, isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2'
+    //   }
+    // },
   }
 }

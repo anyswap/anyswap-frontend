@@ -349,6 +349,58 @@ export default {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
+
+
+
+    
+    // '0x3d7f0933ac403773d219cf0519de8082946dc10f': { // FTM
+    //   [NAME]: 'fUSD ERC20',
+    //   [SYMBOL]: 'fUSD',
+    //   [DECIMALS]: 18,
+    //   [EXCHANGE_ADDRESS]: '',
+    //   [REDEEM_MAX_NUM]: 10000000,
+    //   [REDEEM_MIN_NUM]: 200,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 800,
+    //   [MINFEE]: 80,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: '0xf778F4D7a14A8CB73d5261f9C61970ef4E7D7842',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 10000000,
+    //   [DEPOSIT_MIN_NUM]: 200,
+    //   [EXTENDOBJ]: {
+    //     BRIDGE: [
+    //       { type: 250, isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2',
+    //   },
+    // },
+    // '0x5c08b51ddbe8ba76e07be79975906c39aef2893a': { // FTM
+    //   [NAME]: 'fKRW ERC20',
+    //   [SYMBOL]: 'fKRW',
+    //   [DECIMALS]: 18,
+    //   [EXCHANGE_ADDRESS]: '',
+    //   [REDEEM_MAX_NUM]: 10000000,
+    //   [REDEEM_MIN_NUM]: 200,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 800,
+    //   [MINFEE]: 80,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: '0xf778F4D7a14A8CB73d5261f9C61970ef4E7D7842',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 10000000,
+    //   [DEPOSIT_MIN_NUM]: 200,
+    //   [EXTENDOBJ]: {
+    //     BRIDGE: [
+    //       { type: 250, isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2',
+    //   },
+    // },
   },
   '4': {
     '0xd5190a1c83b7cf3566098605e00fa0c0fd5f3778': { // FTM

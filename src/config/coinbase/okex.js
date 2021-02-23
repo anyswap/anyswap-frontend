@@ -87,7 +87,7 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
     initAddr: 'LU8AFfxreA4srSH6rYWAoivzH3U35iBiPK',  // 
   },
-  isOpenRewards: 1, // 是否打开奖励数据
+  isOpenRewards: 0, // 是否打开奖励数据
   isChangeDashboard: 1, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
@@ -116,7 +116,7 @@ const TEST_CONFIG = {
   ltc: {
 
   },
-  isOpenRewards: 1,
+  isOpenRewards: 0,
   isChangeDashboard: 1,
   noSupportBridge: [COIN_BASE.symbol],
   queryToken: '0x980709557df48df842e1ba6a99ed6854e1dbcf24' // 查询余额合约

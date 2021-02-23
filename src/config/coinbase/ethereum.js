@@ -90,7 +90,7 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://block.ccore.online/api/getrawtransaction?txid=', // 
     initAddr: 'BoXzhY6SQ2Zorj8ha8RamvRiKK16q6PRW3',  // 
   },
-  isOpenRewards: 1, // 是否打开奖励数据
+  isOpenRewards: 0, // 是否打开奖励数据
   isChangeDashboard: 0, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
@@ -123,7 +123,7 @@ const TEST_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
     initAddr: 'mmBUP62PJNDndtSvH4ef65gUAucgQY5dqA'
   },
-  isOpenRewards: 1,
+  isOpenRewards: 0,
   isChangeDashboard: 1,
   noSupportBridge: [COIN_BASE.symbol],
   queryToken: '0x2fd94457b707b2776d4f4e4292a4280164fe8a15' // 查询余额合约

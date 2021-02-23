@@ -94,7 +94,7 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
     initAddr: 'LPpmqgdvbBh6jMn2TS4nCKv54SS2GCEevH',  // 
   },
-  isOpenRewards: 1, // 是否打开奖励数据
+  isOpenRewards: 0, // 是否打开奖励数据
   isChangeDashboard: 0, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,

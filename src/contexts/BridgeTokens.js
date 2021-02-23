@@ -837,6 +837,18 @@ export default {
       [DECIMALS]: 18,
     }
   },
+  250: {
+    'fUSD': { // 
+      [NAME]: 'fUSD',
+      [TOKEN]: '0xad84341756bf337f5a0164515b1f6f993d194e1f',
+      [DECIMALS]: 18,
+    },
+    'fKRW': { // 
+      [NAME]: 'fKRW',
+      [TOKEN]: '0x2b9c073ec670b70f417bbaf3bbb052aa563a0a23',
+      [DECIMALS]: 18,
+    },
+  },
   32659: {
     'ANY': {
       [NAME]: 'Anyswap',

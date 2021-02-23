@@ -83,7 +83,7 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
     initAddr: 'Lf2GpJmz2FZM1xW5V8xo1ZvA3Rh7ZX51iQ',  // 
   },
-  isOpenRewards: 1,
+  isOpenRewards: 0,
   isChangeDashboard: 0,
   noSupportBridge: [
     COIN_BASE.symbol,
