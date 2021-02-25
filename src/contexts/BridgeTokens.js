@@ -821,7 +821,12 @@ export default {
       [NAME]: 'MTLX',
       [TOKEN]: '0x2e1e15c44ffe4df6a0cb7371cd00d5028e571d14',
       [DECIMALS]: 18,
-    }
+    },
+    'SUPER': { // 
+      [NAME]: 'SUPER',
+      [TOKEN]: '0xe53ec727dbdeb9e2d5456c3be40cff031ab40a55',
+      [DECIMALS]: 18,
+    },
   },
   4: {
     'USDT': {

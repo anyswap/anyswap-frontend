@@ -822,15 +822,24 @@ function isSpecialCoin (coin) {
 }
 
 function formatName (name) {
+  console.log(name)
   if (name) {
     if (
       config.symbol === 'BNB' ||
       config.symbol === 'ETH' ||
       config.symbol === 'FTM'
     ) {
-      return name.replace(config.suffix, '')
+      name = name.replace(config.suffix, '')
+      if (name === 'Anyswap') {
+        name = name + '(Fusion)'
+      }
+      return name
     } else {
-      return name.replace(config.namePrefix, '')
+      if (name === 'Anyswap') {
+        name = name + '(Fusion)'
+      }
+      name = name.replace(config.namePrefix, '')
+      return name
     }
   } else {
     return name

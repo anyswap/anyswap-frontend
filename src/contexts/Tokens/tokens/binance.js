@@ -727,6 +727,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x7a9d49d78f7c6690eebb106a7d3fd1492aab4d1b': { // SUPER 6
+      [NAME]: 'SuperFarm' + config.suffix,
+      [SYMBOL]: 'anySUPER',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xbe60874909b227850fd37d6540ba3e6a75242d82',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 100,
+      [MINFEE]: 10,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 10,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
       [SYMBOL]: config.prefix + 'XRP',
