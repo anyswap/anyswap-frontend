@@ -822,7 +822,7 @@ function isSpecialCoin (coin) {
 }
 
 function formatName (name) {
-  console.log(name)
+  // console.log(name)
   if (name) {
     if (
       config.symbol === 'BNB' ||
