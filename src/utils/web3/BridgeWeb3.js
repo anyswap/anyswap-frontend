@@ -33,7 +33,7 @@ const Tx  = require("ethereumjs-tx")
 //   //     console.log(res)
 //   //   })
 //   // }
-//   factory.methods.getExchange('0x7a9d49d78f7c6690eebb106a7d3fd1492aab4d1b').call((err, res) => {
+//   factory.methods.getExchange('0x51ba0b044d96c3abfca52b64d733603ccc4f0d4d').call((err, res) => {
 //     console.log('HBTC')
 //     console.log(res)
 //   })
@@ -291,6 +291,7 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage, node) {
     (coin === 'ETH' && (node === 1 || node === 4)) || 
     (coin === 'FSN' && (node === 32659 || node === 46688)) ||
     (coin === 'BNB' && (node === 97 || node === 56)) ||
+    (coin === 'HT' && (node === 128 || node === 256)) ||
     (coin === 'FTM' && (node === 250))
   ) {
     isBridgeBaseCoin = true

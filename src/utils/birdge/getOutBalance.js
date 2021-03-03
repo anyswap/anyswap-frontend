@@ -132,6 +132,7 @@ function getOutTokenBalance (chainId, account, tokenList) {
         (coin === 'ETH' && (chainId === 1 || chainId === 4))
         || (coin === 'FSN' && (chainId === 32659 || chainId === 46688))
         || (coin === 'BNB' && (chainId === 56 || chainId === 97))
+        || (coin === 'HT' && (chainId === 128 || chainId === 256))
         || (coin === 'FTM' && (chainId === 250))
       ) {
         isHaveoutBaseCoin = false

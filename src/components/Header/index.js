@@ -416,7 +416,7 @@ export default function Header() {
           <HeaderElement>
             <NetworkBox onClick={() => {setNetworkView(true)}}>
               {/* <span>{t('onTestnet')}</span> */}
-              <TokenLogo address={config.symbol} size={'20px'} style={{marginRight: '10px'}}></TokenLogo>
+              <TokenLogo address={config.symbol} size={'24px'} style={{marginRight: '10px'}}></TokenLogo>
               {config.networkName} {config.env === 'test' ?  t('testnet') : t('mainnet')}
               <div className='switchTo'>
                 <img alt='' src={ArrowRighrPurpleIcon} style={{marginLeft: '8px'}} />

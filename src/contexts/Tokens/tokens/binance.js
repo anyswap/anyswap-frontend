@@ -727,11 +727,11 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0x7a9d49d78f7c6690eebb106a7d3fd1492aab4d1b': { // SUPER 6
+    '0x51ba0b044d96c3abfca52b64d733603ccc4f0d4d': { // SUPER 6
       [NAME]: 'SuperFarm' + config.suffix,
-      [SYMBOL]: 'anySUPER',
+      [SYMBOL]: 'SUPER',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xbe60874909b227850fd37d6540ba3e6a75242d82',
+      [EXCHANGE_ADDRESS]: '0x0e0ffdb7f4ec8d73d69c216aad4d21304f43a80d',
       [REDEEM_MAX_NUM]: 200000,
       [REDEEM_MIN_NUM]: 20,
       [FEE]: 0.001,
@@ -769,6 +769,32 @@ export default {
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
+    },
+
+    
+    '0x232d9a35f3e0bfa1b34901cba525fe916d2af6d5': { // HT 6
+      [NAME]: 'Huobi' + config.suffix,
+      [SYMBOL]: 'HT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 100,
+      [MINFEE]: 10,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x0FD4E376C6C125C276D4020EFc1842a495cb1cF3',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 10,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 128, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
     },
   },
   97: {
