@@ -104,6 +104,14 @@ const tabOrder2 = [
     icon: require('../../assets/images/icon/documents.svg'),
     iconActive: require('../../assets/images/icon/documents-purpl.svg'),
     regex: /\/documents/,
+    className: 'otherInfo'
+  },
+  {
+    path: 'https://dard6erxu8t.typeform.com/to/C7RwF08A',
+    textKey: 'Listing',
+    icon: require('../../assets/images/icon/bridge-gray.svg'),
+    iconActive: require('../../assets/images/icon/bridge.svg'),
+    regex: /\/listing/,
     className: 'otherInfo noBB'
   },
 ]

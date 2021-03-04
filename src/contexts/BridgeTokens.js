@@ -827,6 +827,11 @@ export default {
       [TOKEN]: '0xe53ec727dbdeb9e2d5456c3be40cff031ab40a55',
       [DECIMALS]: 18,
     },
+    'KOBE': {
+      [NAME]: 'KOBE',
+      [TOKEN]: '0xCb4e8CafEDa995da5cEdfda5205BD5664a12b848',
+      [DECIMALS]: 18,
+    }
   },
   4: {
     'USDT': {

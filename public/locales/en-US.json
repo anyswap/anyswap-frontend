@@ -36,6 +36,7 @@
   "ANYToken": "Governance",
   "Network": "Network",
   "Documents": "Documents",
+  "Listing": "Listing",
   "enterAddress": "Enter address here",
   "searchToken": "Search by token name, symbol or address",
   "showMore": "Show More",

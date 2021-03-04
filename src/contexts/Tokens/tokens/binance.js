@@ -751,6 +751,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x232d9a35f3e0bfa1b34901cba525fe916d2af6d5': { // HT 6
+      [NAME]: 'Huobi' + config.suffix,
+      [SYMBOL]: 'HT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x993ba9ec0ed8b2011e281dac9be0b1b43cda9be2',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 100,
+      [MINFEE]: 10,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x0FD4E376C6C125C276D4020EFc1842a495cb1cF3',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 10,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 128, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
       [SYMBOL]: config.prefix + 'XRP',
@@ -772,30 +796,6 @@ export default {
     },
 
     
-    '0x232d9a35f3e0bfa1b34901cba525fe916d2af6d5': { // HT 6
-      [NAME]: 'Huobi' + config.suffix,
-      [SYMBOL]: 'HT',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '',
-      [REDEEM_MAX_NUM]: 200000,
-      [REDEEM_MIN_NUM]: 20,
-      [FEE]: 0.001,
-      [MAXFEE]: 100,
-      [MINFEE]: 10,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x0FD4E376C6C125C276D4020EFc1842a495cb1cF3',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 200000,
-      [DEPOSIT_MIN_NUM]: 10,
-      [EXTENDOBJ]:  {
-        BRIDGE: [
-          { type: 128, isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      }
-    },
   },
   97: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT
