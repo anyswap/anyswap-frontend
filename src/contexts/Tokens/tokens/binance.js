@@ -917,7 +917,7 @@ export default {
       }
     },
     '0x18ac7323615f1fabf332ff4afca735eaf6dd9668': { // SOAR
-      [NAME]: 'Soar' + config.suffix,
+      [NAME]: 'SOAR.FI' + config.suffix,
       [SYMBOL]: 'SOAR',
       [DECIMALS]: 9,
       [EXCHANGE_ADDRESS]: '0xd33e666e653aee88648ae41872317f7e1e7d0611',
