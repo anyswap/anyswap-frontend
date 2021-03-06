@@ -796,6 +796,199 @@ export default {
     },
 
     
+    '0xc0a51ac9d548bdcde53fa59448029e41a39feb20': { // XRT
+      [NAME]: 'Robonomics' + config.suffix,
+      [SYMBOL]: 'XRT',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0x5dc8196dc5fca66b04d68f2c22ca60651bd411e8',
+      [REDEEM_MAX_NUM]: 36000,
+      [REDEEM_MIN_NUM]: 1.08,
+      [FEE]: 0.001,
+      [MAXFEE]: 5.4,
+      [MINFEE]: 0.54,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873B947bddC4721b1bDFF9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 36000,
+      [DEPOSIT_MIN_NUM]: 1.08,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x976e33b07565b0c05b08b2e13affd3113e3d178d': { // AGA
+      [NAME]: 'AGA' + config.suffix,
+      [SYMBOL]: 'AGA',
+      [DECIMALS]: 4,
+      [EXCHANGE_ADDRESS]: '0x3ea75938ed7d68c0e3f4aa6eca391c400df80316',
+      [REDEEM_MAX_NUM]: 560000,
+      [REDEEM_MIN_NUM]: 16.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 84,
+      [MINFEE]: 8.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873B947bddC4721b1bDFF9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 560000,
+      [DEPOSIT_MIN_NUM]: 16.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e': { // KEX
+      [NAME]: 'KIRA' + config.suffix,
+      [SYMBOL]: 'KEX',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0xa5bb87616045854d40c3462925c601acb61ef6ae',
+      [REDEEM_MAX_NUM]: 750000,
+      [REDEEM_MIN_NUM]: 24,
+      [FEE]: 0.001,
+      [MAXFEE]: 120,
+      [MINFEE]: 12,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873B947bddC4721b1bDFF9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 750000,
+      [DEPOSIT_MIN_NUM]: 24,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xf5c8054efc6acd25f31a17963462b90e82fdecad': { // MDA
+      [NAME]: 'Moeda Loyalty Points' + config.suffix,
+      [SYMBOL]: 'MDA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x6a35d901def514fdfc69c065799567a5a6a91e61',
+      [REDEEM_MAX_NUM]: 1080000,
+      [REDEEM_MIN_NUM]: 32,
+      [FEE]: 0.001,
+      [MAXFEE]: 160,
+      [MINFEE]: 16,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873B947bddC4721b1bDFF9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 1080000,
+      [DEPOSIT_MIN_NUM]: 32,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x8ad96050318043166114884b59e2fc82210273b3': { // NEX
+      [NAME]: 'Nash Exchange' + config.suffix,
+      [SYMBOL]: 'NEX',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0x165ffa2df471f44bd1b9c9edf60f1e239bcd663a',
+      [REDEEM_MAX_NUM]: 786000,
+      [REDEEM_MIN_NUM]: 24,
+      [FEE]: 0.001,
+      [MAXFEE]: 120,
+      [MINFEE]: 12,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873B947bddC4721b1bDFF9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 786000,
+      [DEPOSIT_MIN_NUM]: 24,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x18ac7323615f1fabf332ff4afca735eaf6dd9668': { // SOAR
+      [NAME]: 'Soar' + config.suffix,
+      [SYMBOL]: 'SOAR',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0xd33e666e653aee88648ae41872317f7e1e7d0611',
+      [REDEEM_MAX_NUM]: 1520000,
+      [REDEEM_MIN_NUM]: 46,
+      [FEE]: 0.001,
+      [MAXFEE]: 230,
+      [MINFEE]: 23,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873B947bddC4721b1bDFF9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 1520000,
+      [DEPOSIT_MIN_NUM]: 46,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x04068da6c83afcfa0e13ba15a6696662335d5b75': { // STAKE
+      [NAME]: 'STAKE' + config.suffix,
+      [SYMBOL]: 'STAKE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xc998b9f67bdda3ea0aa644242dfa33432f0c0d2e',
+      [REDEEM_MAX_NUM]: 46000,
+      [REDEEM_MIN_NUM]: 1.4,
+      [FEE]: 0.001,
+      [MAXFEE]: 7,
+      [MINFEE]: 0.7,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873B947bddC4721b1bDFF9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 46000,
+      [DEPOSIT_MIN_NUM]: 1.4,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xb614ad939e9477d5103baa32164db901214e2625': { // TFT
+      [NAME]: 'The Famous' + config.suffix,
+      [SYMBOL]: 'TFT',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xd6ff112faa54962e574ed4e59854835ffad7f714',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873B947bddC4721b1bDFF9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+
   },
   97: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT

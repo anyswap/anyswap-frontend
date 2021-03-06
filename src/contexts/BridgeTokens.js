@@ -399,13 +399,6 @@ export default {
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xA931F4eB165AC307fD7431b5EC6eADde53E14b0C'
     },
-    'MOD': {
-      [NAME]: 'Modum Token',
-      [TOKEN]: '0x957c30aB0426e0C93CD8241E2c60392d08c6aC8e',
-      [SYMBOL]: 'MOD',
-      [DECIMALS]: 0,
-      [EXCHANGE_ADDRESS]: '0xCCB98654CD486216fFF273dd025246588E77cFC1'
-    },
     'NEXO': {
       [NAME]: 'Nexo',
       [TOKEN]: '0xB62132e35a6c13ee1EE0f84dC5d40bad8d815206',
@@ -831,6 +824,71 @@ export default {
       [NAME]: 'KOBE',
       [TOKEN]: '0xCb4e8CafEDa995da5cEdfda5205BD5664a12b848',
       [DECIMALS]: 18,
+    },
+    'MOD': {
+      [NAME]: 'MOD',
+      [TOKEN]: '0xea1ea0972fa092dd463f2968f9bb51cc4c981d71',
+      [DECIMALS]: 18,
+    },
+    'RGT': {
+      [NAME]: 'RGT',
+      [TOKEN]: '0xD291E7a03283640FDc51b121aC401383A46cC623',
+      [DECIMALS]: 18,
+    },
+    'DUCK': {
+      [NAME]: 'DUCK',
+      [TOKEN]: '0x92e187a03b6cd19cb6af293ba17f2745fd2357d5',
+      [DECIMALS]: 18,
+    },
+    'PPDEX': {
+      [NAME]: 'PPDEX',
+      [TOKEN]: '0xf1f508c7c9f0d1b15a76fba564eef2d956220cf7',
+      [DECIMALS]: 18,
+    },
+    'PPBLZ': {
+      [NAME]: 'PPBLZ',
+      [TOKEN]: '0x4D2eE5DAe46C86DA2FF521F7657dad98834f97b8',
+      [DECIMALS]: 18,
+    },
+    'XRT': {
+      [NAME]: 'XRT',
+      [TOKEN]: '0x7de91b204c1c737bcee6f000aaa6569cf7061cb7',
+      [DECIMALS]: 9,
+    },
+    'AGA': {
+      [NAME]: 'AGA',
+      [TOKEN]: '0x2d80f5f5328fdcb6eceb7cacf5dd8aedaec94e20',
+      [DECIMALS]: 4
+    },
+    'KEX': {
+      [NAME]: 'KEX',
+      [TOKEN]: '0x16980b3B4a3f9D89E33311B5aa8f80303E5ca4F8',
+      [DECIMALS]: 6
+    },
+    'MDA': {
+      [NAME]: 'MDA',
+      [TOKEN]: '0x51db5ad35c671a87207d88fc11d593ac0c8415bd',
+      [DECIMALS]: 18
+    },
+    'NEX': {
+      [NAME]: 'NEX',
+      [TOKEN]: '0xe2dc070524a6e305ddb64d8513dc444b6a1ec845',
+      [DECIMALS]: 8
+    },
+    'SOAR': {
+      [NAME]: 'SOAR',
+      [TOKEN]: '0xbae5f2d8a1299e5c4963eaff3312399253f27ccb',
+      [DECIMALS]: 9
+    },
+    'STAKE': {
+      [NAME]: 'STAKE',
+      [TOKEN]: '0x0Ae055097C6d159879521C384F1D2123D1f195e6',
+      [DECIMALS]: 18
+    },
+    'TFT': {
+      [NAME]: 'TFT',
+      [TOKEN]: '0xaef4f02e31cdbf007f8d98da4ae365188a0e9ecc',
+      [DECIMALS]: 8
     }
   },
   4: {

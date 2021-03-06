@@ -299,5 +299,128 @@ export default {
     //     VERSION: 'V2'
     //   }
     // },
+    
+
+
+    '0xe64b9fd040d1f9d4715c645e0d567ef69958d3d9': { // MOD
+      [NAME]: 'Modefi' + config.suffix,
+      [SYMBOL]: 'MOD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xaa723a4381a8cd38edbc7c6199488be29da6b9a8',
+      [REDEEM_MAX_NUM]: 381680,
+      [REDEEM_MIN_NUM]: 12,
+      [FEE]: 0.001,
+      [MAXFEE]: 60,
+      [MINFEE]: 6,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 381680,
+      [DEPOSIT_MIN_NUM]: 12,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xcf726a06f3dcec8ef2b033336d138caa0eae5af2': { // RGT
+      [NAME]: 'Rari Governance' + config.suffix,
+      [SYMBOL]: 'RGT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x6f5f5ccd4c126667d5d0e89802a8db2eba9c5403',
+      [REDEEM_MAX_NUM]: 64000,
+      [REDEEM_MIN_NUM]: 2,
+      [FEE]: 0.001,
+      [MAXFEE]: 10,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 64000,
+      [DEPOSIT_MIN_NUM]: 2,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x602a3ad311e66b6f5e567a13016b712aba0625c6': { // DUCK
+      [NAME]: 'Unit Protocol Duck' + config.suffix,
+      [SYMBOL]: 'DUCK',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xa4a6a21f5badfade3a425fc65020ede192db0d6a',
+      [REDEEM_MAX_NUM]: 3400000,
+      [REDEEM_MIN_NUM]: 100,
+      [FEE]: 0.001,
+      [MAXFEE]: 500,
+      [MINFEE]: 50,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 3400000,
+      [DEPOSIT_MIN_NUM]: 100,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x4272dd51961a5181ace0dc7eb6f9807311345559': { // PPDEX
+      [NAME]: 'Pepedex' + config.suffix,
+      [SYMBOL]: 'PPDEX',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x870af0fe7c7fa89b47628017a6f35e5857103079',
+      [REDEEM_MAX_NUM]: 143000,
+      [REDEEM_MIN_NUM]: 4.4,
+      [FEE]: 0.001,
+      [MAXFEE]: 22,
+      [MINFEE]: 2.2,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 4.4,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x8063115941e612021692f28748ab1ff56c23e4c6': { // PPBLZ
+      [NAME]: 'Pepemon Pepeballs' + config.suffix,
+      [SYMBOL]: 'PPBLZ',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x20516049e485fe0dcec5b4a11f59736caad35432',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }
