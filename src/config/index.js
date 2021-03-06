@@ -47,7 +47,7 @@ let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
 
 export default {
   ...netConfig,
-  localDataDeadline: 1612855851084,
+  localDataDeadline: 1615030591484,
   farmConfig: farmConfig,
   ENV_NODE_CONFIG,
   bridgeAll: chainInfo,
