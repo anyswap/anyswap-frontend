@@ -413,13 +413,6 @@ export default {
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x2Bf5A5bA29E60682fC56B2Fcf9cE07Bef4F6196f'
     },
-    'OCEAN': {
-      [NAME]: 'OceanToken',
-      [TOKEN]: '0x985dd3D42De1e256d09e1c10F112bCCB8015AD41',
-      [SYMBOL]: 'OCEAN',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xa59cC1618D144ccAC2bfb46F61272CEbf00D90d5'
-    },
     'OXT': {
       [NAME]: 'Orchid',
       [TOKEN]: '0x4575f41308EC1483f3d399aa9a2826d74Da13Deb',
@@ -658,13 +651,6 @@ export default {
       [DECIMALS]: 6,
       [EXCHANGE_ADDRESS]: '0x95E4649F5209dD292cAF1F087b8F1Db3bE24927f'
     },
-    'TRYB': {
-      [NAME]: 'BiLira',
-      [TOKEN]: '0x2C537E5624e4af88A7ae4060C022609376C8D0EB',
-      [SYMBOL]: 'TRYB',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '0x122327Fd43B2C66DD9e4B6c91c8f071E217558eF'
-    },
     'TUSD': {
       [NAME]: 'TrueUSD',
       [TOKEN]: '0x0000000000085d4780B73119b644AE5ecd22b376',
@@ -889,6 +875,191 @@ export default {
       [NAME]: 'TFT',
       [TOKEN]: '0xaef4f02e31cdbf007f8d98da4ae365188a0e9ecc',
       [DECIMALS]: 8
+    },
+    'PFI': {
+      [NAME]: 'Protocol Finance',
+      [TOKEN]: '0x7b69d465c0f9fb22affae56aa86149973e9b0966',
+      [DECIMALS]: 18
+    },
+    'Premia': {
+      [NAME]: 'Premia',
+      [TOKEN]: '0x6399c842dd2be3de30bf99bc7d1bbf6fa3650e70',
+      [DECIMALS]: 18
+    },
+    'MFI': {
+      [NAME]: 'MarginSwap',
+      [TOKEN]: '0xaa4e3edb11afa93c41db59842b29de64b72e355b',
+      [DECIMALS]: 18
+    },
+    'DRGN': {
+      [NAME]: 'Dragon',
+      [TOKEN]: '0x419c4db4b9e25d6db2ad9691ccb832c8d9fda05e',
+      [DECIMALS]: 18
+    },
+    'DFD': {
+      [NAME]: 'DefiDollar DAO',
+      [TOKEN]: '0x20c36f062a31865bED8a5B1e512D9a1A20AA333A',
+      [DECIMALS]: 18
+    },
+    'WUTN': {
+      [NAME]: 'Wrapped UTN',
+      [TOKEN]: '0xd4e7A6E7f9aA5909036338a3C4cD57319d613190',
+      [DECIMALS]: 18
+    },
+    'KEK': {
+      [NAME]: 'Cryptokek.com',
+      [TOKEN]: '0x3fa400483487A489EC9b1dB29C4129063EEC4654',
+      [DECIMALS]: 18
+    },
+    'AST': {
+      [NAME]: 'AirSwap',
+      [TOKEN]: '0x27054b13b1b798b345b591a4d22e6562d47ea75a',
+      [DECIMALS]: 4
+    },
+    'CFi': {
+      [NAME]: 'CyberFi',
+      [TOKEN]: '0x63b4f3e3fa4e438698ce330e365e831f7ccd1ef4',
+      [DECIMALS]: 18
+    },
+    'TRYb': {
+      [NAME]: 'BiLira',
+      [TOKEN]: '0x2c537e5624e4af88a7ae4060c022609376c8d0eb',
+      [DECIMALS]: 6
+    },
+    'BCP': {
+      [NAME]: 'PieDAO Balanced Crypto Pie',
+      [TOKEN]: '0xe4f726adc8e89c6a6017f01eada77865db22da14',
+      [DECIMALS]: 18
+    },
+    'DPI': {
+      [NAME]: 'DefiPulse Index',
+      [TOKEN]: '0x1494CA1F11D487c2bBe4543E90080AeBa4BA3C2b',
+      [DECIMALS]: 18
+    },
+    'KIF': {
+      [NAME]: 'KittenFinance',
+      [TOKEN]: '0x177ba0cac51bfc7ea24bad39d81dcefd59d74faa',
+      [DECIMALS]: 18
+    },
+    'WSTA': {
+      [NAME]: 'Wrapped STA',
+      [TOKEN]: '0xedeec5691f23e4914cf0183a4196bbeb30d027a0',
+      [DECIMALS]: 18
+    },
+    'JPYC': {
+      [NAME]: 'JPY Coin',
+      [TOKEN]: '0x2370f9d504c7a6e775bf6e14b3f12846b594cd53',
+      [DECIMALS]: 18
+    },
+    'WSCRT': {
+      [NAME]: 'Wrapped SCRT',
+      [TOKEN]: '0x2b89bf8ba858cd2fcee1fada378d5cd6936968be',
+      [DECIMALS]: 6
+    },
+    'eRSDL': {
+      [NAME]: 'UnFederalReserveToken',
+      [TOKEN]: '0x5218E472cFCFE0b64A064F055B43b4cdC9EfD3A6',
+      [DECIMALS]: 18
+    },
+    'FARM': {
+      [NAME]: 'FARM Reward',
+      [TOKEN]: '0xa0246c9032bc3a600820415ae600c6388619a14d',
+      [DECIMALS]: 18
+    },
+    'MYM': {
+      [NAME]: 'Moyom',
+      [TOKEN]: '0xb9892f9a892f3e251fc58b9076c56add528eb8a6',
+      [DECIMALS]: 18
+    },
+    'NORD': {
+      [NAME]: 'Nord',
+      [TOKEN]: '0x6e9730ecffbed43fd876a264c982e254ef05a0de',
+      [DECIMALS]: 18
+    },
+    'OCEAN': {
+      [NAME]: 'Ocean',
+      [TOKEN]: '0x967da4048cD07aB37855c090aAF366e4ce1b9F48',
+      [DECIMALS]: 18
+    },
+    'eQUAD': {
+      [NAME]: 'QuadrantProtocol',
+      [TOKEN]: '0xc28e931814725bbeb9e670676fabbcb694fe7df2',
+      [DECIMALS]: 18
+    },
+    'CHART': {
+      [NAME]: 'ChartEx',
+      [TOKEN]: '0x1d37986f252d0e349522ea6c3b98cb935495e63e',
+      [DECIMALS]: 18
+    },
+    'acBTC': {
+      [NAME]: 'ACoconut BTC',
+      [TOKEN]: '0xeF6e45af9a422c5469928F927ca04ed332322e2e',
+      [DECIMALS]: 18
+    },
+    'FRONT': {
+      [NAME]: 'Frontier',
+      [TOKEN]: '0xf8C3527CC04340b208C854E985240c02F7B7793f',
+      [DECIMALS]: 18
+    },
+    'FAST': {
+      [NAME]: 'FastSwapToken',
+      [TOKEN]: '0xc888a0ab4831a29e6ca432babf52e353d23db3c2',
+      [DECIMALS]: 18
+    },
+    'bDIGG': {
+      [NAME]: 'Badger Sett Digg',
+      [TOKEN]: '0x7e7e112a68d8d2e221e11047a72ffc1065c38e1a',
+      [DECIMALS]: 18
+    },
+    'bBADGER': {
+      [NAME]: 'Badger Sett Badger',
+      [TOKEN]: '0x19d97d8fa813ee2f51ad4b4e04ea08baf4dffc28',
+      [DECIMALS]: 18
+    },
+    'BADGER': {
+      [NAME]: 'Badger',
+      [TOKEN]: '0x3472A5A71965499acd81997a54BBA8D852C6E53d',
+      [DECIMALS]: 18
+    },
+    'DIGG': {
+      [NAME]: 'Digg',
+      [TOKEN]: '0x798d1be841a82a273720ce31c822c61a67a601c3',
+      [DECIMALS]: 9
+    },
+    'AGAr': {
+      [NAME]: 'AGA Rewards',
+      [TOKEN]: '0xb453f1f2ee776daf2586501361c457db70e1ca0f',
+      [DECIMALS]: 8
+    },
+    'CTSI': {
+      [NAME]: 'Cartesi Token',
+      [TOKEN]: '0x491604c0FDF08347Dd1fa4Ee062a822A5DD06B5D',
+      [DECIMALS]: 18
+    },
+    'HH': {
+      [NAME]: 'Holyheld',
+      [TOKEN]: '0x3FA729B4548beCBAd4EaB6EF18413470e6D5324C',
+      [DECIMALS]: 18
+    },
+    'zLOT': {
+      [NAME]: 'zLOT',
+      [TOKEN]: '0xA8e7AD77C60eE6f30BaC54E2E7c0617Bd7B5A03E',
+      [DECIMALS]: 18
+    },
+    'MM': {
+      [NAME]: 'MMToken',
+      [TOKEN]: '0xa283aA7CfBB27EF0cfBcb2493dD9F4330E0fd304',
+      [DECIMALS]: 18
+    },
+    'FXS': {
+      [NAME]: 'Frax Share',
+      [TOKEN]: '0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0',
+      [DECIMALS]: 18
+    },
+    'HFI': {
+      [NAME]: 'Holder Finance',
+      [TOKEN]: '0xb6d7b693ccfd1359d84ce389d7c40f590eba1ff0',
+      [DECIMALS]: 6
     }
   },
   4: {
@@ -903,6 +1074,11 @@ export default {
       [NAME]: 'Uniswap',
       [TOKEN]: '0x99c5a2fcc97b59fe6d0b56e21e72b002f644123f',
       [DECIMALS]: 18,
+    },
+    'EARTH': {
+      [NAME]: 'EARTH Token',
+      [TOKEN]: '0x65b050dea610ec5b70c170d078c03937b01b9c76',
+      [DECIMALS]: 18
     }
   },
   250: {

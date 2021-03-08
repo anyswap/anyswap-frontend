@@ -967,6 +967,609 @@ export default {
         VERSION: 'V2'
       }
     },
+
+
+
+    '0xf4a71809fd0d5715a9685caadb6f0d8beafdf8af': { // PFI
+      [NAME]: 'Protocol Finance' + config.suffix,
+      [SYMBOL]: 'PFI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x43eb60f8060983b18cd2358dcd54393373c2f010',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xc417b45e6090bd4201d9400b48f84c9f34f4d0a5': { // Premia
+      [NAME]: 'Premia' + config.suffix,
+      [SYMBOL]: 'Premia',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xb673955c27f676870797323ca8cdd7750df2d924',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x37bdfd6ed491ee0e0fe2ce49de2cb573880e3734': { // MFI
+      [NAME]: 'MarginSwap' + config.suffix,
+      [SYMBOL]: 'MFI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x7fadbcbedfcc6ca8ec97424d01ad5f9070d3bdb2',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xfa850eca95c34aa7dcd4213868ead3ec8927416f': { // DRGN
+      [NAME]: 'Dragon' + config.suffix,
+      [SYMBOL]: 'DRGN',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x05d3a959e4c83f6e24279972deed40c556f93463',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x9899a98b222fcb2f3dbee7df45d943093a4ff9ff': { // DFD
+      [NAME]: 'DefiDollar DAO' + config.suffix,
+      [SYMBOL]: 'DFD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x653d11e336205cff78f906d42bca840c2f9c8f01',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x627524d78b4fc840c887ffec90563c7a42b671fd': { // KEK
+      [NAME]: 'Cryptokek.com' + config.suffix,
+      [SYMBOL]: 'KEK',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x84017a5ba6b535a359a69d3de7ec71373bb3a15f',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x1ac0d76f11875317f8a7d791db94cdd82bd02bd1': { // AST
+      [NAME]: 'AirSwap' + config.suffix,
+      [SYMBOL]: 'AST',
+      [DECIMALS]: 4,
+      [EXCHANGE_ADDRESS]: '0xe93b5ec83b88a83c1710dfa99199dd8afe687211',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x6a545f9c64d8f7b957d8d2e6410b52095a9e6c29': { // Cfi
+      [NAME]: 'CyberFi' + config.suffix,
+      [SYMBOL]: 'CFi',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x45e9f73460969babc26913e7898e3ae41ce59c7f',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x148e03bee63200414aa68d52b1fed6c9b4defa2a': { // TRYb
+      [NAME]: 'BiLira' + config.suffix,
+      [SYMBOL]: 'TRYb',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0xec90e61b65738b39aa7c325e1e7c71f0ef24bbb4',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x9611579c926294b0e29e5371a81a3e463650be17': { // BCP
+      [NAME]: 'PieDAO Balanced Crypto Pie' + config.suffix,
+      [SYMBOL]: 'BCP',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xa04c616d6e5870b439765fa09f6b554a938eb360',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xab671ea900a8e3c959f5bd29ceb5e370ba75bb9e': { // DPI
+      [NAME]: 'DefiPulse Index' + config.suffix,
+      [SYMBOL]: 'DPI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x44c206285a64b81c00e65065f4e5048638d7ef98',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x9e0846677ea91ea5308d3f525c09e782ef17da21': { // KIF
+      [NAME]: 'KittenFinance' + config.suffix,
+      [SYMBOL]: 'KIF',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x0a657f188065ed9834314989b236aa6798b278d4',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xa86bfc69c99d04552808b425a68a06430fb9bddf': { // WSCRT
+      [NAME]: 'Wrapped SCRT' + config.suffix,
+      [SYMBOL]: 'WSCRT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x816218fdedf3b4edf8ca6c445df1d15a6095eb5a',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x43fbbe7a5397117b3da58722635832ba60905285': { // eRSDL
+      [NAME]: 'UnFederalReserveToken' + config.suffix,
+      [SYMBOL]: 'eRSDL',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x528fd2188aaf6561b892c26aed5e3c70a3da6610',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x4b5c23cac08a567ecf0c1ffca8372a45a5d33743': { // FARM
+      [NAME]: 'FARM Reward' + config.suffix,
+      [SYMBOL]: 'FARM',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xdb55bba9f7fa8b5daa363941abf0a8d5f9d334ad',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xeaf26191ac1d35ae30baa19a5ad5558dd8156aef': { // NORD
+      [NAME]: 'Nord' + config.suffix,
+      [SYMBOL]: 'NORD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x154c9f4bffd1f67f22fe98f7677268399440295f',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x3516141b1ac8751c2042a8a1bc411ab8655464ac': { // OCEAN
+      [NAME]: 'Ocean' + config.suffix,
+      [SYMBOL]: 'OCEAN',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x5e1d2226668e15638051304af717a07c71195e99',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x564bef31ec942ffe1bff250786f76a5c5141b9f3': { // eQUAD
+      [NAME]: 'QuadrantProtocol' + config.suffix,
+      [SYMBOL]: 'eQUAD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x878dcf847cce610c629bdebc230eeb8e7dd68faa',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x021750e46a47b2a02f4f860c93dcc774b1aba1d5': { // CHART
+      [NAME]: 'ChartEx' + config.suffix,
+      [SYMBOL]: 'CHART',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xef4383b97e2f532988d365f994d213e674fdc14c',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xf0199b61a487e318122a8acc1530370b73fa6c17': { // FRONT
+      [NAME]: 'Frontier' + config.suffix,
+      [SYMBOL]: 'FRONT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8bb8cb5a2c0a0d589fc48d4dc239493901dcbb46',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x4d338614fc25afe6edf3994f331b4bad32fb3c6a': { // FAST
+      [NAME]: 'FastSwapToken' + config.suffix,
+      [SYMBOL]: 'FAST',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8b9c0d66d346a371001304a5613dc11d1cb213b0',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x753fbc5800a8c8e3fb6dc6415810d627a387dfc9': { // BADGER
+      [NAME]: 'Badger' + config.suffix,
+      [SYMBOL]: 'BADGER',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1479737f27f388193ca0e1652096429d2559646a',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x08f6fe8f4dc577cf81e40e03e561d29b8b33e19b': { // DIGG
+      [NAME]: 'Digg' + config.suffix,
+      [SYMBOL]: 'DIGG',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0x1984eb54c7dd99983013c6a3e60661bd706711ce',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x4ec16da4c9007462de151c0da9f5426c69978a7b': { // AGAr
+      [NAME]: 'AGA Rewards' + config.suffix,
+      [SYMBOL]: 'AGAr',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0x270c1930a3267c6868418c4ae7751ee19ec959e6',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x2e8fd877cc691eda244fdfe000c91b22a498ab3f': { // CTSI
+      [NAME]: 'Cartesi Token' + config.suffix,
+      [SYMBOL]: 'CTSI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x6383b683f71ab62cdddda15e9916b4b41ab3e0df',
+      [REDEEM_MAX_NUM]: 25000,
+      [REDEEM_MIN_NUM]: 0.8,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 25000,
+      [DEPOSIT_MIN_NUM]: 0.8,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
       [SYMBOL]: config.prefix + 'XRP',
