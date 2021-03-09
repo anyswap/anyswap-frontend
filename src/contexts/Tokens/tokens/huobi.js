@@ -505,6 +505,32 @@ export default {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
+    '0x9ef1918a9bee17054b35108bd3e2665e2af1bb1b': { // TPT
+      [NAME]: 'TokenPocket',
+      [SYMBOL]: 'TPT',
+      [DECIMALS]: 4,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 10000000,
+      [REDEEM_MIN_NUM]: 200,
+      [FEE]: 0.001,
+      [MAXFEE]: 800,
+      [MINFEE]: 80,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xE09C98F97DaFb1f954cEA0Ce550383E2Bd0C8829',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000000,
+      [DEPOSIT_MIN_NUM]: 200,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+        APPROVE: '0x7b058df35a14b3dd48f148ecbb5753e9281d1fae',
+        APPROVELIMIT: 0
+      },
+    },
 
   },
   256: {

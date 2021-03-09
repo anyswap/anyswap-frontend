@@ -1079,6 +1079,11 @@ export default {
       [NAME]: 'EARTH Token',
       [TOKEN]: '0x65b050dea610ec5b70c170d078c03937b01b9c76',
       [DECIMALS]: 18
+    },
+    'TPT': {
+      [NAME]: 'TokenPocket',
+      [TOKEN]: '0xeca41281c24451168a37211f0bc2b8645af45092',
+      [DECIMALS]: 4
     }
   },
   250: {
