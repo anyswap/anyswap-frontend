@@ -1570,6 +1570,32 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xeca41281c24451168a37211f0bc2b8645af45092': { // TPT
+      [NAME]: 'TokenPocket',
+      [SYMBOL]: 'TPT',
+      [DECIMALS]: 4,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 10000000,
+      [REDEEM_MIN_NUM]: 200,
+      [FEE]: 0.001,
+      [MAXFEE]: 800,
+      [MINFEE]: 80,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000000,
+      [DEPOSIT_MIN_NUM]: 200,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+        APPROVE: '0xc4f7ed85546486f7579fd59e2ea3f6684820c7c0',
+        APPROVELIMIT: 0
+      },
+    },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
       [SYMBOL]: config.prefix + 'XRP',

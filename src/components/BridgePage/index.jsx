@@ -1242,6 +1242,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         })
       } else {
         getTokenBalance(config.nodeRpc, inputCurrency, extendObj.APPROVE, 1).then(res => {
+          // console.log(res)
           let amount = amountFormatter(ethers.utils.bigNumberify(res), inputDecimals)
           amount = Number(amount)
           let num = Number(inputValueFormatted)

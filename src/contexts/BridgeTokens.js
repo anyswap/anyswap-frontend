@@ -1060,6 +1060,11 @@ export default {
       [NAME]: 'Holder Finance',
       [TOKEN]: '0xb6d7b693ccfd1359d84ce389d7c40f590eba1ff0',
       [DECIMALS]: 6
+    },
+    'TPT': {
+      [NAME]: 'TokenPocket',
+      [TOKEN]: '0x4161725d019690a3e0de50f6be67b07a86a9fae1',
+      [DECIMALS]: 4
     }
   },
   4: {
