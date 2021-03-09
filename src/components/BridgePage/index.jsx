@@ -1726,7 +1726,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       } else {
         clearInterval(hashInterval)
       }
-    }, 1000 * 50)
+    }, 1000 * 30)
   }, [removeHashStatus, account])
   const [mintBTCErrorTip, setMintBTCErrorTip] = useState()
   const [loadingState, setLoadingState] = useState(false)
