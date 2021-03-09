@@ -509,7 +509,7 @@ export default {
       [NAME]: 'TokenPocket',
       [SYMBOL]: 'TPT',
       [DECIMALS]: 4,
-      [EXCHANGE_ADDRESS]: '',
+      [EXCHANGE_ADDRESS]: '0xb360e1be24c0ab06516ec16ed87ebad640c00bda',
       [REDEEM_MAX_NUM]: 10000000,
       [REDEEM_MIN_NUM]: 200,
       [FEE]: 0.001,
