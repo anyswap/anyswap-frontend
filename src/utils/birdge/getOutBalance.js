@@ -90,7 +90,7 @@ export function getTokenBalance (chainId, token, address, type) {
   return new Promise(resolve => {
     let lobj = getLocalConfig (address, token, config.chainID, 'APPROVE_BALANCE', Date.now() - (1000 * 60 * 10))
     console.log(lobj)
-    if (lobj) {
+    if (lobj && lobj.info && lobj.info.data && Number(lobj.info.data)) {
       resolve(lobj.info.data)
     } else {
       if (type) {

@@ -38,8 +38,9 @@ export function getAllowanceInfo (account, token, chainID, inputCurrency) {
       resolve('')
     } else {
       let lData = getLocalConfig(getApproveInfoObj.account, getApproveInfoObj.token, chainID, BRIDGE_APPROVE)
-      if (!lData) {
-      // if (true) {
+      if (lData && lData.info && lData.info.data && Number(lData.info.data)) {
+        resolve(lData)
+      } else {
         getAllowance(account, token, chainID, inputCurrency).then(result => {
           let lData = getLocalConfig(getApproveInfoObj.account, getApproveInfoObj.token, chainID, BRIDGE_APPROVE)
           if (lData) {
@@ -50,8 +51,6 @@ export function getAllowanceInfo (account, token, chainID, inputCurrency) {
             })
           }
         })
-      } else {
-        resolve(lData)
       }
     }
   })
