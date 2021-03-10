@@ -22,7 +22,7 @@ import {dirSwitch} from '../methods/common'
 
 export default {
   79377087078960: {
-    '0xcFD6A2aF722Dc41e6A16bcFb73C43252144782Df': { // ANY
+    '0xcfd6a2af722dc41e6a16bcfb73c43252144782df': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,

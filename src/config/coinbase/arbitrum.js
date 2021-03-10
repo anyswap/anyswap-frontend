@@ -3,7 +3,7 @@ import {chainInfo} from './nodeConfig'
 const NAME_PREFIX = 'ANY'
 
 const ANY_MAIN_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
-const ANY_TEST_TOKEN = '0xcFD6A2aF722Dc41e6A16bcFb73C43252144782Df'
+const ANY_TEST_TOKEN = '0xcfd6a2af722dc41e6a16bcfb73c43252144782df'
 
 const REWARDS_DAY = 33000 / 2
 // const REWARDS_DAY = 7600
@@ -14,7 +14,7 @@ const CHAIN_TEST_INFO = chainInfo['79377087078960']
 
 const COIN_BASE ={
   symbol: 'ETH', // 符号
-  name: 'Arbitrum', // 代币名
+  name: 'Ethereum', // 代币名
   decimals: 18, // 小数位
   networkName: 'Arbitrum', // 网络名称
   reverseSwitch: 0,  // 是否反向禁用,
@@ -72,7 +72,7 @@ const MAIN_CONFIG = {
   nodeRpc1: CHAIN_MAIN_INFO.rpc1, // 节点地址
   chainID: CHAIN_MAIN_INFO.chainID, // 节点chainID
   initToken: INIT_MAIN_TOKEN, // 交易默认合约
-  initBridge: '0xcFD6A2aF722Dc41e6A16bcFb73C43252144782Df', // 跨链桥默认合约
+  initBridge: '0xcfd6a2af722dc41e6a16bcfb73c43252144782df', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
   btc: { // btc配置
@@ -102,7 +102,7 @@ const TEST_CONFIG = {
   nodeRpc1: CHAIN_TEST_INFO.rpc, // 节点地址
   chainID: CHAIN_TEST_INFO.chainID,
   initToken: INIT_TEST_TOKEN,
-  initBridge: '0x1755825cD5EF90971902E31aA069BD9340150371',
+  initBridge: '0xcfd6a2af722dc41e6a16bcfb73c43252144782df',
   explorerUrl: CHAIN_TEST_INFO.explorer,
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btc: {
@@ -117,7 +117,7 @@ const TEST_CONFIG = {
   isOpenRewards: 0,
   isChangeDashboard: 1,
   noSupportBridge: [COIN_BASE.symbol, ANY_TEST_TOKEN],
-  queryToken: '0x2fd94457b707b2776d4f4e4292a4280164fe8a15' // 查询余额合约
+  queryToken: '0xf6df868069bd24cd91528b4748ee6e764599eda9' // 查询余额合约
 }
 
 function getFSNConfig (type) {

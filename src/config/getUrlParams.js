@@ -39,6 +39,8 @@ function getParamNode (type, INIT_NODE) {
       return chainInfo['256'].label
     case 'okbtest':
       return chainInfo['2'].label
+    case 'arbitrumtestnet':
+      return chainInfo['79377087078960'].label
     default:
       return INIT_NODE
   }

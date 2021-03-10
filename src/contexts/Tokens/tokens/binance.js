@@ -967,9 +967,6 @@ export default {
         VERSION: 'V2'
       }
     },
-
-
-
     '0xf4a71809fd0d5715a9685caadb6f0d8beafdf8af': { // PFI
       [NAME]: 'Protocol Finance' + config.suffix,
       [SYMBOL]: 'PFI',
@@ -1595,6 +1592,25 @@ export default {
         APPROVE: '0xc4f7ed85546486f7579fd59e2ea3f6684820c7c0',
         APPROVELIMIT: 0
       },
+    },
+    '0x93d5a19a993d195cfc75acdd736a994428290a59': { // ORE
+      [NAME]: 'OREO',
+      [SYMBOL]: 'ORE',
+      [DECIMALS]: 10,
+      [EXCHANGE_ADDRESS]: '0x6b91ee7eee3f43760e7e3f4bfc4e3bb21cbf5d29',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {},
     },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',

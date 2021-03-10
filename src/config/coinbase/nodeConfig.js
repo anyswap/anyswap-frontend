@@ -181,7 +181,7 @@ let chainInfo = {
     lookAddr: ARBITRUM_TEST_EXPLORER + '/address/',
     explorer: ARBITRUM_TEST_EXPLORER,
     symbol: 'ARBITRUM',
-    name: 'ARBITRUM',
+    name: 'Arbitrum',
     type: 'test',
     label: 'ARBITRUM_TEST',
     isSwitch: 1
