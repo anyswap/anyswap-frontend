@@ -1,6 +1,6 @@
 import {chainInfo} from './nodeConfig'
 
-const NAME_PREFIX = 'ANY'
+const NAME_PREFIX = '-FRC20'
 
 const ANY_TEST_TOKEN = '0xC20b5E92E1ce63Af6FE537491f75C19016ea5fb4'
 

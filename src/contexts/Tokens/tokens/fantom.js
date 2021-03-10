@@ -66,7 +66,7 @@ export default {
       }
     },
     '0xb688e18f34e6e424c44b247318f22367ed7df3e2': { // ETH
-      [NAME]: 'Ethereum',
+      [NAME]: 'Ethereum' + config.namePrefix,
       [SYMBOL]: 'anyETH',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xe9ab6fb12c1aa4be556b215865411be8a55d192a',
@@ -157,8 +157,8 @@ export default {
       }
     },
     '0x50eb82cc284e3d35936827023b048106aaecfc5f': { // FSN
-      [NAME]: 'Fusion',
-      [SYMBOL]: 'FSN',
+      [NAME]: 'Fusion' + config.namePrefix,
+      [SYMBOL]: 'anyFSN',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x5b46734ec6def348653bb193638b474731a833b0',
       [REDEEM_MAX_NUM]: 500000,

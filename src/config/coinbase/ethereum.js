@@ -16,7 +16,7 @@ const COIN_BASE ={
   decimals: 18, // 小数位
   networkName: 'ETH', // 网络名称
   reverseSwitch: 0,  // 是否反向禁用,
-  suffix: 'ERC20', // 后缀
+  suffix: '-ERC20', // 后缀
   prefix: 'a',
   keepDec: 6, // 保留小数位
   namePrefix: NAME_PREFIX, // 币名前缀

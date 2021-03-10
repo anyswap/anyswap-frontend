@@ -53,6 +53,7 @@ const StyledDialogContent = styled(FilteredDialogContent)`
     box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
     padding: 0px;
     width: 50vw;
+    overflow:auto;
 
     max-width: 650px;
     ${({ maxHeight }) =>

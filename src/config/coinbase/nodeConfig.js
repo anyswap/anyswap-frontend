@@ -36,7 +36,7 @@ const FTM_MAIN_EXPLORER = 'https://ftmscan.com'
 
 const HT_MAINNET = 'https://http-mainnet.hecochain.com'
 const HT_MAIN_CHAINID = 128
-const HT_MAIN_EXPLORER = 'https://scan.hecochain.com'
+const HT_MAIN_EXPLORER = 'https://hecoinfo.com'
 
 const HT_TESTNET = 'https://http-testnet.hecochain.com'
 const HT_TEST_CHAINID = 256

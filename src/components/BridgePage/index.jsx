@@ -821,7 +821,7 @@ function isSpecialCoin (coin) {
   }
 }
 
-function formatName (name) {
+function formatName (name, extendObj) {
   // console.log(name)
   if (name) {
     if (
@@ -829,21 +829,43 @@ function formatName (name) {
       config.symbol === 'ETH' ||
       config.symbol === 'FTM'
     ) {
-      name = name.replace(config.suffix, '')
-      if (name === 'Anyswap') {
-        name = name + '(Fusion)'
+      if (name.indexOf('Anyswap') !== -1) {
+        name = name.replace(config.suffix, '')
+        return name + '(Fusion)'
+      } else {
+        return formatOutName(name, extendObj)
       }
-      return name
     } else {
-      if (name === 'Anyswap') {
-        name = name + '(Fusion)'
+      if (name.indexOf('Anyswap') !== -1) {
+        return name + '(Fusion)'
+      } else {
+        return formatOutName(name, extendObj)
       }
-      name = name.replace(config.namePrefix, '')
-      return name
     }
   } else {
     return name
   }
+}
+
+function formatOutName (name, extendObj) {
+  let srcChainId = extendObj && extendObj.BRIDGE && extendObj.BRIDGE.length > 0 ? extendObj.BRIDGE[0].type : ''
+  name = name.replace(config.namePrefix, '').replace(config.suffix, '')
+
+  if (srcChainId) {
+    if (Number(srcChainId) === 1 && name.indexOf('Ethereum') === -1) {
+      name = name + '-ERC20'
+    } else if (Number(srcChainId) === 56 && name.indexOf('Binance') === -1) {
+      name = name + '-BEP20'
+    } else if (Number(srcChainId) === 128 && name.indexOf('Huobi') === -1) {
+      name = name + '-HECO'
+    } else if (Number(srcChainId) === 250 && name.indexOf('Fantom') === -1) {
+      name = name + '-FRC20'
+    } else if (Number(srcChainId) === 32659 && name.indexOf('Fusion') === -1) {
+      name = name + '(Fusion)'
+    }
+  }
+  // console.log(name)
+  return name
 }
 
 const selfUseAllToken = config.noSupportBridge
@@ -2430,7 +2452,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? inputSymbol : (inputSymbol && formatCoin(inputSymbol))}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? '' : (inputSymbol && formatCoin(inputSymbol))}
-        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : formatName(inputName)}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? '' : formatName(inputName, extendObj)}
         showUnlock={false}
         selectedTokens={[inputCurrency, outputCurrency]}
         selectedTokenAddress={inputCurrency}
@@ -2495,7 +2517,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }}
         isSelfSymbol={bridgeType && bridgeType === 'redeem' && inputSymbol ? formatCoin(inputSymbol) : inputSymbol}
         isSelfLogo={bridgeType && bridgeType === 'redeem' && inputSymbol ? formatCoin(inputSymbol) : ''}
-        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? formatName(inputName) : ''}
+        isSelfName={bridgeType && bridgeType === 'redeem' && inputName ? formatName(inputName, extendObj) : ''}
         showUnlock={false}
         disableUnlock={true}
         selectedTokens={[inputCurrency, outputCurrency]}

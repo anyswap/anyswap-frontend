@@ -1,6 +1,6 @@
 import {chainInfo} from './nodeConfig'
 
-const NAME_PREFIX = ''
+const NAME_PREFIX = '-BEP20'
 
 const REWARDS_DAY = 10000 / 2
 const REWARDS_ANY_DAY = 5000

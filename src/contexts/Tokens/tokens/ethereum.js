@@ -23,7 +23,7 @@ import {dirSwitch} from '../methods/common'
 export default {
   1: {
     '0xf99d58e463a2e07e5692127302c20a191861b4d6': { // ANY
-      [NAME]: 'Anyswap ' + config.suffix,
+      [NAME]: 'Anyswap' + config.suffix,
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xd1D0C2f4291F7002E1591d2a87975f0701a3fa2C',
@@ -66,7 +66,7 @@ export default {
     //   [EXTENDOBJ]: {},
     // },
     '0x51600b0cff6bbf79e7767158c41fd15e968ec404': { // BTC
-      [NAME]: 'Bitcoin ' + config.suffix,
+      [NAME]: 'Bitcoin' + config.suffix,
       [SYMBOL]: 'anyBTC',
       [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0x34358Ff75D78652F1797ebd73E8f7aFA92DaB501',
@@ -106,7 +106,7 @@ export default {
     //   [EXTENDOBJ]: {},
     // },
     '0x979aca85ba37c675e78322ed5d97fa980b9bdf00': { // FSN
-      [NAME]: 'Fusion ' + config.suffix,
+      [NAME]: 'Fusion' + config.suffix,
       [SYMBOL]: 'FSN',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xbD1F974bc2730E9620D91924993d30C2F96983b8',
@@ -130,7 +130,7 @@ export default {
       },
     },
     '0x0abcfbfa8e3fda8b7fba18721caf7d5cf55cf5f5': { // LTC 5
-      [NAME]: 'Litecoin ' + config.suffix,
+      [NAME]: 'Litecoin' + config.suffix,
       [SYMBOL]: 'anyLTC',
       [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0x7b41Fc5889e35818c295c5Dbed4C28Ce2b40dB38',
@@ -246,7 +246,7 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0x4e15361fd6b4bb609fa63c81a2be19d873717870': { // FTM
-      [NAME]: 'Fantom ERC20',
+      [NAME]: 'Fantom' + config.suffix,
       [SYMBOL]: 'FTM',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x90c8ea8ec7710034274868971c4e27ede33d9c10',
@@ -272,7 +272,7 @@ export default {
       },
     },
     '0xe692c8d72bd4ac7764090d54842a305546dd1de5': { // BLOCK 5
-      [NAME]: 'Blocknet ' + config.suffix,
+      [NAME]: 'Blocknet' + config.suffix,
       [SYMBOL]: 'aBLOCK',
       [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0x2f9755c371C7f23AEcdF1C136D233b41cE3E0D55',

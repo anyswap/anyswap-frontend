@@ -506,7 +506,7 @@ export default {
       [EXTENDOBJ]: {},
     },
     '0x9ef1918a9bee17054b35108bd3e2665e2af1bb1b': { // TPT
-      [NAME]: 'TokenPocket',
+      [NAME]: 'TokenPocket' + config.namePrefix,
       [SYMBOL]: 'TPT',
       [DECIMALS]: 4,
       [EXCHANGE_ADDRESS]: '0xb360e1be24c0ab06516ec16ed87ebad640c00bda',

@@ -1,6 +1,6 @@
 import {chainInfo} from './nodeConfig'
 
-const NAME_PREFIX = 'ANY'
+const NAME_PREFIX = '-HECO'
 
 const ANY_MAIN_TOKEN = '0x538cee985e930557d16c383783ca957fa90b63b3'
 const ANY_TEST_TOKEN = '0x4373ca233c17b8bf1bf8159d56019d3394a0670d'
