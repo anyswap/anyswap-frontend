@@ -48,8 +48,12 @@ const OKT_TEST_CHAINID = 2
 const OKT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
 
 
+const ARBITRUM_TESTNET = 'https://kovan3.arbitrum.io/rpc'
+const ARBITRUM_TEST_CHAINID = 79377087078960
+const ARBITRUM_TEST_EXPLORER = 'https://explorer.arbitrum.io/#/'
+
 let chainInfo = {
-  1: {
+  [ETH_MAIN_CHAINID]: {
     rpc: ETH_MAINNET,
     chainID: ETH_MAIN_CHAINID,
     lookHash: ETH_MAIN_EXPLORER + '/tx/',
@@ -61,7 +65,7 @@ let chainInfo = {
     label: 'ETH_MAIN',
     isSwitch: 1
   },
-  2: {
+  [OKT_TEST_CHAINID]: {
     rpc: OKT_TESTNET,
     chainID: OKT_TEST_CHAINID,
     lookHash: OKT_TEST_EXPLORER + '/tx/',
@@ -73,7 +77,7 @@ let chainInfo = {
     label: 'OKT_TEST',
     isSwitch: 1
   },
-  4: {
+  [ETH_TEST_CHAINID]: {
     rpc: ETH_TESTNET,
     chainID: ETH_TEST_CHAINID,
     lookHash: ETH_TEST_EXPLORER + '/tx/',
@@ -85,7 +89,7 @@ let chainInfo = {
     label: 'ETH_TEST',
     isSwitch: 1
   },
-  56: {
+  [BNB_MAIN_CHAINID]: {
     rpc: BNB_MAINNET,
     chainID: BNB_MAIN_CHAINID,
     lookHash: BNB_MAIN_EXPLORER + '/tx/',
@@ -97,7 +101,7 @@ let chainInfo = {
     label: 'BNB_MAIN',
     isSwitch: 1
   },
-  97: {
+  [BNB_TEST_CHAINID]: {
     rpc: BNB_TESTNET,
     chainID: BNB_TEST_CHAINID,
     lookHash: BNB_TEST_EXPLORER + '/tx/',
@@ -109,7 +113,7 @@ let chainInfo = {
     label: 'BNB_TEST',
     isSwitch: 1
   },
-  128: {
+  [HT_MAIN_CHAINID]: {
     rpc: HT_MAINNET,
     chainID: HT_MAIN_CHAINID,
     lookHash: HT_MAIN_EXPLORER + '/tx/',
@@ -121,7 +125,7 @@ let chainInfo = {
     label: 'HT_MAIN',
     isSwitch: 1
   },
-  256: {
+  [HT_TEST_CHAINID]: {
     rpc: HT_TESTNET,
     chainID: HT_TEST_CHAINID,
     lookHash: HT_TEST_EXPLORER + '/tx/',
@@ -133,7 +137,7 @@ let chainInfo = {
     label: 'HT_TEST',
     isSwitch: 1
   },
-  250: {
+  [FTM_MAIN_CHAINID]: {
     rpc: FTM_MAINNET,
     chainID: FTM_MAIN_CHAINID,
     lookHash: FTM_MAIN_EXPLORER + '/tx/',
@@ -145,7 +149,7 @@ let chainInfo = {
     label: 'FTM_MAIN',
     isSwitch: 1
   },
-  32659: {
+  [FSN_MAIN_CHAINID]: {
     rpc: FSN_MAINNET,
     rpc1: FSN_MAINNET1,
     chainID: FSN_MAIN_CHAINID,
@@ -158,7 +162,7 @@ let chainInfo = {
     label: 'FSN_MAIN',
     isSwitch: 1
   },
-  46688: {
+  [FSN_TEST_CHAINID]: {
     rpc: FSN_TESTNET,
     chainID: FSN_TEST_CHAINID,
     lookHash: FSN_TEST_EXPLORER + '/transaction/',
@@ -170,22 +174,35 @@ let chainInfo = {
     label: 'FSN_TEST',
     isSwitch: 1
   },
+  [ARBITRUM_TEST_CHAINID]: {
+    rpc: ARBITRUM_TESTNET,
+    chainID: ARBITRUM_TEST_CHAINID,
+    lookHash: ARBITRUM_TEST_EXPLORER + '/transaction/',
+    lookAddr: ARBITRUM_TEST_EXPLORER + '/address/',
+    explorer: ARBITRUM_TEST_EXPLORER,
+    symbol: 'ARBITRUM',
+    name: 'ARBITRUM',
+    type: 'test',
+    label: 'ARBITRUM_TEST',
+    isSwitch: 1
+  },
 }
 
 let chainList = {
   main: [
-    chainInfo['1'],
-    chainInfo['32659'],
-    chainInfo['56'],
-    chainInfo['250'],
-    chainInfo['128'],
+    chainInfo[ETH_MAIN_CHAINID],
+    chainInfo[FSN_MAIN_CHAINID],
+    chainInfo[BNB_MAIN_CHAINID],
+    chainInfo[FTM_MAIN_CHAINID],
+    chainInfo[HT_MAIN_CHAINID],
   ],
   test: [
-    chainInfo['46688'],
-    chainInfo['97'],
-    chainInfo['256'],
-    chainInfo['2'],
-    chainInfo['4'],
+    chainInfo[FSN_TEST_CHAINID],
+    chainInfo[BNB_TEST_CHAINID],
+    chainInfo[HT_TEST_CHAINID],
+    chainInfo[OKT_TEST_CHAINID],
+    chainInfo[ETH_TEST_CHAINID],
+    chainInfo[ARBITRUM_TEST_CHAINID],
   ]
 }
 

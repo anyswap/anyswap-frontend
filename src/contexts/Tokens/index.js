@@ -36,6 +36,7 @@ import fantom from './tokens/fantom'
 import ethereum from './tokens/ethereum'
 import huobi from './tokens/huobi'
 import okex from './tokens/okex'
+import arbitrum from './tokens/arbitrum'
 
 
 const UPDATE = 'UPDATE'
@@ -68,7 +69,8 @@ export const INITIAL_TOKENS_CONTEXT = {
   ...fusion,
   ...ethereum,
   ...huobi,
-  ...okex
+  ...okex,
+  ...arbitrum
 }
 
 const TokensContext = createContext()

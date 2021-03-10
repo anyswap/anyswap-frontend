@@ -4,6 +4,7 @@ import getFTMConfig from './coinbase/fantom'
 import getETHConfig from './coinbase/ethereum'
 import getHTConfig from './coinbase/huobi'
 import getOKTConfig from './coinbase/okex'
+import getArbitrumConfig from './coinbase/arbitrum'
 
 import {getNetwork, getIdCode} from './getUrlParams'
 import {chainInfo} from './coinbase/nodeConfig'
@@ -40,6 +41,8 @@ if (netArr[0] === 'FSN') {
   netConfig = getHTConfig(netArr[1])
 } else if (netArr[0] === 'OKT') {
   netConfig = getOKTConfig(netArr[1])
+} else if (netArr[0] === 'ARBITRUM') {
+  netConfig = getArbitrumConfig(netArr[1])
 }
 
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
