@@ -1065,6 +1065,71 @@ export default {
       [NAME]: 'TokenPocket',
       [TOKEN]: '0x4161725d019690a3e0de50f6be67b07a86a9fae1',
       [DECIMALS]: 4
+    },
+    'BFC': {
+      [NAME]: 'Bifrost',
+      [TOKEN]: '0x0c7D5ae016f806603CB1782bEa29AC69471CAb9c',
+      [DECIMALS]: 18
+    },
+    'BiFi': {
+      [NAME]: 'BiFi',
+      [TOKEN]: '0x2791bfd60d232150bff86b39b7146c0eaaa2ba81',
+      [DECIMALS]: 18
+    },
+    'KEK': {
+      [NAME]: 'Cryptokek.com',
+      [TOKEN]: '0x3fa400483487A489EC9b1dB29C4129063EEC4654',
+      [DECIMALS]: 18
+    },
+    'HDI': {
+      [NAME]: 'HEIDI',
+      [TOKEN]: '0x58a3520d738b268c2353ecee518a1ad8e28e4ae5',
+      [DECIMALS]: 2
+    },
+    'GDAO': {
+      [NAME]: 'Governor',
+      [TOKEN]: '0x515d7E9D75E2b76DB60F8a051Cd890eBa23286Bc',
+      [DECIMALS]: 18
+    },
+    'RAZOR': {
+      [NAME]: 'RAZOR',
+      [TOKEN]: '0x50de6856358cc35f3a9a57eaaa34bd4cb707d2cd',
+      [DECIMALS]: 18
+    },
+    'ETHIX': {
+      [NAME]: 'Ethix',
+      [TOKEN]: '0xfd09911130e6930bf87f2b0554c44f400bd80d3e',
+      [DECIMALS]: 18
+    },
+    'DFX': {
+      [NAME]: 'Definitex',
+      [TOKEN]: '0xf1f5De69C9C8D9BE8a7B01773Cc1166D4Ec6Ede2',
+      [DECIMALS]: 18
+    },
+    'STA': {
+      [NAME]: 'Statera',
+      [TOKEN]: '0xa7DE087329BFcda5639247F96140f9DAbe3DeED1',
+      [DECIMALS]: 18
+    },
+    'DAO': {
+      [NAME]: 'DAO Maker',
+      [TOKEN]: '0x0f51bb10119727a7e5ea3538074fb341f56b09ad',
+      [DECIMALS]: 18
+    },
+    'PKG': {
+      [NAME]: 'PKG Token',
+      [TOKEN]: '0x02f2d4a04e6e01ace88bd2cd632875543b2ef577',
+      [DECIMALS]: 18
+    },
+    'XIV': {
+      [NAME]: 'INVERSE',
+      [TOKEN]: '0x44f262622248027f8e2a8fb1090c4cf85072392c',
+      [DECIMALS]: 18
+    },
+    'YFL': {
+      [NAME]: 'YFLink',
+      [TOKEN]: '0x28cb7e841ee97947a86b06fa4090c8451f64c0be',
+      [DECIMALS]: 18
     }
   },
   4: {

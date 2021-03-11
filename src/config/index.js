@@ -5,6 +5,8 @@ import getETHConfig from './coinbase/ethereum'
 import getHTConfig from './coinbase/huobi'
 import getOKTConfig from './coinbase/okex'
 import getArbitrumConfig from './coinbase/arbitrum'
+import getMATICConfig from './coinbase/polygon'
+import getxDAIConfig from './coinbase/xDAI'
 
 import {getNetwork, getIdCode} from './getUrlParams'
 import {chainInfo} from './coinbase/nodeConfig'
@@ -43,6 +45,10 @@ if (netArr[0] === 'FSN') {
   netConfig = getOKTConfig(netArr[1])
 } else if (netArr[0] === 'ARBITRUM') {
   netConfig = getArbitrumConfig(netArr[1])
+} else if (netArr[0] === 'MATIC') {
+  netConfig = getMATICConfig(netArr[1])
+} else if (netArr[0] === 'xDAI') {
+  netConfig = getxDAIConfig(netArr[1])
 }
 
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'

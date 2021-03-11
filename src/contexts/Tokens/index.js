@@ -37,6 +37,8 @@ import ethereum from './tokens/ethereum'
 import huobi from './tokens/huobi'
 import okex from './tokens/okex'
 import arbitrum from './tokens/arbitrum'
+import polygon from './tokens/polygon'
+import xDAI from './tokens/xDAI'
 
 
 const UPDATE = 'UPDATE'
@@ -70,7 +72,9 @@ export const INITIAL_TOKENS_CONTEXT = {
   ...ethereum,
   ...huobi,
   ...okex,
-  ...arbitrum
+  ...arbitrum,
+  ...polygon,
+  ...xDAI
 }
 
 const TokensContext = createContext()

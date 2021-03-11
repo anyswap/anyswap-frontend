@@ -1612,6 +1612,78 @@ export default {
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]: {},
     },
+    '0x049d68029688eabf473097a2fc38ef61633a3c7a': { // USDT-ERC20
+      [NAME]: 'Frapped USDT' + config.suffix,
+      [SYMBOL]: 'USDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0xc1e8db29e0255a7d11cd9fc4bf56294bf695ed22',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xbfdcce6ab5533a8b285a86116c957808e118c3b6': { // MYM
+      [NAME]: 'Moyom' + config.suffix,
+      [SYMBOL]: 'MYM',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xf7de1d13190e9f707424de858b3babf9ee807abc',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x1f7216fdb338247512ec99715587bb97bbf96eae': { // bBADGER
+      [NAME]: 'Moyom' + config.suffix,
+      [SYMBOL]: 'bBADGER',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xf89d7f0a1c698600888fdd4f16d39d84de1d348d',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
       [SYMBOL]: config.prefix + 'XRP',

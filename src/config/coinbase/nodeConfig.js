@@ -52,7 +52,39 @@ const ARBITRUM_TESTNET = 'https://kovan3.arbitrum.io/rpc'
 const ARBITRUM_TEST_CHAINID = 79377087078960
 const ARBITRUM_TEST_EXPLORER = 'https://explorer.arbitrum.io/#/'
 
+const MATIC_MAINNET = 'https://rpc-mainnet.maticvigil.com'
+const MATIC_MAIN_CHAINID = 137
+const MATIC_MAIN_EXPLORER = 'https://explorer-mainnet.maticvigil.com'
+
+const xDAI_MAINNET = 'https://rpc.xdaichain.com'
+const xDAI_MAIN_CHAINID = 100
+const xDAI_MAIN_EXPLORER = 'https://blockscout.com/xdai/mainnet'
+
 let chainInfo = {
+  [xDAI_MAIN_CHAINID]: {
+    rpc: xDAI_MAINNET,
+    chainID: xDAI_MAIN_CHAINID,
+    lookHash: xDAI_MAIN_EXPLORER + '/tx/',
+    lookAddr: xDAI_MAIN_EXPLORER + '/address/',
+    explorer: xDAI_MAIN_EXPLORER,
+    symbol: 'xDAI',
+    name: 'xDAI',
+    type: 'main',
+    label: 'xDAI_MAIN',
+    isSwitch: 1
+  },
+  [MATIC_MAIN_CHAINID]: {
+    rpc: MATIC_MAINNET,
+    chainID: MATIC_MAIN_CHAINID,
+    lookHash: MATIC_MAIN_EXPLORER + '/tx/',
+    lookAddr: MATIC_MAIN_EXPLORER + '/address/',
+    explorer: MATIC_MAIN_EXPLORER,
+    symbol: 'MATIC',
+    name: 'Polygon',
+    type: 'main',
+    label: 'MATIC_MAIN',
+    isSwitch: 1
+  },
   [ETH_MAIN_CHAINID]: {
     rpc: ETH_MAINNET,
     chainID: ETH_MAIN_CHAINID,
@@ -195,6 +227,8 @@ let chainList = {
     chainInfo[BNB_MAIN_CHAINID],
     chainInfo[FTM_MAIN_CHAINID],
     chainInfo[HT_MAIN_CHAINID],
+    // chainInfo[MATIC_MAIN_CHAINID],
+    // chainInfo[xDAI_MAIN_CHAINID]
   ],
   test: [
     chainInfo[FSN_TEST_CHAINID],

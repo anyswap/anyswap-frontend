@@ -662,5 +662,125 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x84c882a4d8eb448ce086ea19418ca0f32f106117': { // BFC
+      [NAME]: 'Bifrost' + config.suffix,
+      [SYMBOL]: 'BFC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xc7bd3b70619340fa456aed4635dc281656a0f860',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xad260f380c9a30b1d60e4548a75010ede630b665': { // BiFi
+      [NAME]: 'BiFi' + config.suffix,
+      [SYMBOL]: 'BiFi',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xf061133f29daa83958b8f51f1b799df8fa6d18b4',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x627524d78b4fc840c887ffec90563c7a42b671fd': { // KEK 
+      [NAME]: 'Cryptokek.com' + config.suffix,
+      [SYMBOL]: 'KEK',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xab796e0ddfaa3ca4a974f134947cd76d760d2896',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x354bcec10cfd5c8ce285c73093b3edb7bb3c4888': { // JPYC 
+      [NAME]: 'JPY Coin' + config.suffix,
+      [SYMBOL]: 'JPYC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xe69c7b682beee34128e204d0c2e60ef2c6bfe20f',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x1f7216fdb338247512ec99715587bb97bbf96eae': { // bBADGER 
+      [NAME]: 'Badger Sett Badger' + config.suffix,
+      [SYMBOL]: 'bBADGER',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8ad193f348330a82016b32ef22825c310cc95b4b',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }

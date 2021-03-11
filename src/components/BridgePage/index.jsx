@@ -879,7 +879,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   let walletType = sessionStorage.getItem('walletType')
   params = params ? params : {}
   // let HDPath = sessionStorage.getItem('HDPath')
-  // account = '0x8c270c4ef7f62C6663EbCd116D4b2dc038fCF8BB'
+  // account = '0x12139f3afa1C93303e1EfE3Df142039CC05C6c58'
   // console.log(allTokens)
   
   const urlAddedTokens = {}
@@ -1065,7 +1065,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     // if (true) {
       // getAllowanceInfo(account, '', chainId, inputCurrency).then(res => {
       getAllowanceInfo(account, extendObj.APPROVE, chainId, inputCurrency).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.msg === 'Success') {
           setApproveNum(res.info.approve)
         } else {
@@ -1251,7 +1251,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     if (extendObj && extendObj.APPROVE) {
       let node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
       if (bridgeType && bridgeType === 'redeem') {
-        getTokenBalance(node, inputCurrency, initDepositAddress, 0).then(res => {
+        let coin = formatCoin(inputSymbol)
+        let erc20Token = BridgeTokens[node] && BridgeTokens[node][coin] && BridgeTokens[node][coin].token ? BridgeTokens[node][coin].token : ''
+        getTokenBalance(node, erc20Token, initDepositAddress, 0).then(res => {
+          console.log(res)
           let amount = amountFormatter(ethers.utils.bigNumberify(res), inputDecimals)
           amount = Number(amount)
           let num = Number(inputValueFormatted)
@@ -1264,11 +1267,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         })
       } else {
         getTokenBalance(config.nodeRpc, inputCurrency, extendObj.APPROVE, 1).then(res => {
-          // console.log(res)
+          console.log(res)
           let amount = amountFormatter(ethers.utils.bigNumberify(res), inputDecimals)
           amount = Number(amount)
           let num = Number(inputValueFormatted)
-          console.log(amount)
+          // console.log(amount)
           setLimitAmount(amount)
           if ((amount - extendObj.APPROVELIMIT) > num) {
             setIsLimitAction(true)
