@@ -41,6 +41,10 @@ function getParamNode (type, INIT_NODE) {
       return chainInfo['2'].label
     case 'arbitrumtestnet':
       return chainInfo['79377087078960'].label
+    case 'matic':
+      return chainInfo['137'].label
+    case 'xdai':
+      return chainInfo['100'].label
     default:
       return INIT_NODE
   }

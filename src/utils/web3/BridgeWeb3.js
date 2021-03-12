@@ -33,7 +33,7 @@ setTimeout(() => {
   //     console.log(res)
   //   })
   // }
-  factory.methods.getExchange('0x1f7216fdb338247512ec99715587bb97bbf96eae').call((err, res) => {
+  factory.methods.getExchange('0xa5A99B7aFB14F74A7709E4cE0EAF0bd216c1A828').call((err, res) => {
     console.log('coin')
     console.log(res)
   })
