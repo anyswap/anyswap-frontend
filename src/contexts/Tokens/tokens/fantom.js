@@ -782,5 +782,29 @@ export default {
         VERSION: 'V2'
       }
     },
+    // '0x049d68029688eabf473097a2fc38ef61633a3c7a': { // USDT
+    //   [NAME]: 'Tether' + config.suffix,
+    //   [SYMBOL]: 'USDT',
+    //   [DECIMALS]: 6,
+    //   [EXCHANGE_ADDRESS]: '0x367383da74d67196ec78d8536b6562de30e6dc7a',
+    //   [REDEEM_MAX_NUM]: 200000,
+    //   [REDEEM_MIN_NUM]: 20,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 50,
+    //   [MINFEE]: 5,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 200000,
+    //   [DEPOSIT_MIN_NUM]: 0.5,
+    //   [EXTENDOBJ]:  {
+    //     BRIDGE: [
+    //       { type: 1, isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2'
+    //   }
+    // },
   }
 }
