@@ -1684,28 +1684,6 @@ export default {
         VERSION: 'V2'
       }
     },
-    'XRP': { // XRP
-      [NAME]: 'ANY XRP',
-      [SYMBOL]: config.prefix + 'XRP',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: 'XRP',
-      [REDEEM_MAX_NUM]: 100,
-      [REDEEM_MIN_NUM]: 0.00001,
-      [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(1),
-      [ISDEPOSIT]: 0,
-      [ISREDEEM]: 0,
-      [DEPOSIT_ADDRESS]: '',
-      [DEPOSIT_TYPE]: 0,
-      [DEPOSIT_MAX_NUM]: 0,
-      [DEPOSIT_MIN_NUM]: 0,
-      [EXTENDOBJ]: {},
-    },
-
-
-
     '0xc4726d59761a35e3a7e8d4eac631d034aa68ee3c': { // HDI
       [NAME]: 'HEIDI' + config.suffix,
       [SYMBOL]: 'HDI',
@@ -1994,6 +1972,27 @@ export default {
         VERSION: 'V2'
       }
     },
+    'XRP': { // XRP
+      [NAME]: 'ANY XRP',
+      [SYMBOL]: config.prefix + 'XRP',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: 'XRP',
+      [REDEEM_MAX_NUM]: 100,
+      [REDEEM_MIN_NUM]: 0.00001,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(1),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
+    },
+
+
 
   },
   97: {
