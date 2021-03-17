@@ -55,7 +55,7 @@ import BridgeTokens from '../../contexts/BridgeTokens'
 import {createAddress, isBTCAddress, GetBTCtxnsAll, GetBTChashStatus} from '../../utils/birdge/BTC'
 // import { GetServerInfo, RegisterAddress } from '../../utils/birdge'
 
-import {getServerInfo, removeLocalConfig, getRegisterInfo} from '../../utils/birdge/getServerInfo'
+import {getServerInfo, removeLocalConfig, getRegisterInfo, RegisterAddress} from '../../utils/birdge/getServerInfo'
 import {getAllowanceInfo}  from '../../utils/birdge/approve'
 
 import {getAllOutBalance, getLocalOutBalance, getTokenBalance} from '../../utils/birdge/getOutBalance'
@@ -1093,14 +1093,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let version = extendObj && extendObj.VERSION ? extendObj.VERSION : ''
     let tokenOnlyOne = inputCurrency
 
-    setInit(1)
+    setInit('')
     let coin = formatCoin(inputSymbol)
     if (account && initIsDeposit && initIsRedeem) {
       getServerInfo(account, tokenOnlyOne, inputSymbol, chainId, version).then(res => {
         console.log(res)
         if (res.msg === 'Success' && res.info) {
           let serverInfo = res.info
-          setIsRegister(true)
+          // setIsRegister(true)
           try {
             let DepositAddress = ''
             if (!isSpecialCoin(coin)) {
@@ -1146,7 +1146,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 console.log(4)
                 // removeRegisterInfo(account, tokenOnlyOne)
                 // removeLocalConfig(account, tokenOnlyOne, chainId)
-                setInit(0)
+                setInit('')
                 return
               }
             }
@@ -1179,13 +1179,32 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           }
         } else {
           setInit('')
-          setIsRegister(false)
+          // setIsRegister(false)
         }
       })
     } else {
       setInit('')
     }
-  }, [inputCurrency, account, initDepositAddress, initIsDeposit, initDepositMaxNum, initDepositMinNum, initIsRedeem, initRedeemMaxNum, initRedeemMinNum, initMaxFee, initMinFee, initFee, inputSymbol])
+  }, [inputCurrency, account, initDepositAddress, initIsDeposit, initDepositMaxNum, initDepositMinNum, initIsRedeem, initRedeemMaxNum, initRedeemMinNum, initMaxFee, initMinFee, initFee, inputSymbol, isRegister])
+
+  useEffect(() => {
+    let version = extendObj && extendObj.VERSION ? extendObj.VERSION : ''
+    let tokenOnlyOne = inputCurrency
+
+    setIsRegister(false)
+    let coin = formatCoin(inputSymbol)
+    if (account && initIsDeposit && initIsRedeem) {
+      RegisterAddress(account, tokenOnlyOne, coin, chainId, version).then(res => {
+        if (res && res.msg === 'Success') {
+          setIsRegister(true)
+        } else {
+          setIsRegister(false)
+        }
+      })
+    } else {
+      setIsRegister(false)
+    }
+  }, [inputSymbol, initIsDeposit, initIsRedeem, account, extendObj])
 
 
   const [outNetBalance, setOutNetBalance] = useState()

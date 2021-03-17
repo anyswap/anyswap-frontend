@@ -154,7 +154,43 @@ function getServerData (account, chainID, version, coin) {
   })
 }
 
-function RegisterAddress(account, token, coin, chainID, version) {
+// function RegisterAddress(account, token, coin, chainID, version) {
+//   return new Promise(resolve => {
+//     let data = {
+//       msg: 'Error',
+//       info: ''
+//     }
+//     let url = config.serverInfoUrl['V1'] + '/register/' + account + '/' + chainID + '/' + coin
+//     if (version === 'V2') {
+//       url = config.serverInfoUrl['V2'] + '/register/' + account + '/' + chainID + '/' + coin
+//     }
+//     axios.get(url).then(res => {
+//       let rsData = res.data
+//       if ( 
+//         (rsData.msg === 'Success' && rsData.info && rsData.info.P2shAddress)
+//         || (rsData.error && rsData.error.indexOf('mgoError: Item is duplicate') !== -1)
+//         || (rsData.msg === 'Success' && rsData.info === 'Success')
+//       ) {
+//         setRegisterInfo(account, token, {
+//           isRegister: true,
+//           p2pAddress: rsData.info && rsData.info.P2shAddress
+//         }, chainID, version, coin)
+//         resolve({
+//           msg: 'Success',
+//           info: ''
+//         })
+//       } else {
+//         data.error = 'Register error!'
+//         resolve(data)
+//       }
+//     }).catch(err => {
+//       console.log(err)
+//       data.error = err
+//       resolve(data)
+//     })
+//   })
+// }
+export function RegisterAddress(account, token, coin, chainID, version) {
   return new Promise(resolve => {
     let data = {
       msg: 'Error',
@@ -201,46 +237,71 @@ export function getServerInfo (account, token, coin, chainID, version) {
     if (!account) {
       resolve('')
     } else {
-      let lrInfo = getRegisterInfo(account, token, chainID, version, coin)
-      // console.log(lrInfo)
-      if (!lrInfo) {
-        RegisterAddress(account, token, coin, chainID, version).then(res => {
-          if (res.msg === 'Success') {
-            let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
-            if (lData) {
-              resolve(lData)
-            } else {
-              getServerData(account, chainID, version, coin).then(result => {
-                let lData1 = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
-                if (lData1) {
-                  resolve(lData1)
-                } else {
-                  resolve({
-                    msg: 'Null'
-                  })
-                }
-              })
-            }
+      let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
+      if (lData) {
+        resolve(lData)
+      } else {
+        getServerData(account, chainID, version, coin).then(result => {
+          let lData1 = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
+          if (lData1) {
+            resolve(lData1)
           } else {
-            resolve(res)
+            resolve({
+              msg: 'Null'
+            })
           }
         })
-      } else {
-        if (!getLocalConfig(account, token, chainID, SERVER_BRIDGE_CONFIG)) {
-          getServerData(account, chainID, version, coin).then(result => {
-            let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
-            if (lData) {
-              resolve(lData)
-            } else {
-              resolve({
-                msg: 'Null'
-              })
-            }
-          })
-        } else {
-          resolve(getLocalConfig(account, token, chainID, SERVER_BRIDGE_CONFIG))
-        }
       }
     }
   })
 }
+// export function getServerInfo (account, token, coin, chainID, version) {
+//   getInfoObj = {account, token, coin}
+//   // count ++
+//   return new Promise(resolve => {
+//     if (!account) {
+//       resolve('')
+//     } else {
+//       let lrInfo = getRegisterInfo(account, token, chainID, version, coin)
+//       // console.log(lrInfo)
+//       if (!lrInfo) {
+//         RegisterAddress(account, token, coin, chainID, version).then(res => {
+//           if (res.msg === 'Success') {
+//             let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
+//             if (lData) {
+//               resolve(lData)
+//             } else {
+//               getServerData(account, chainID, version, coin).then(result => {
+//                 let lData1 = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
+//                 if (lData1) {
+//                   resolve(lData1)
+//                 } else {
+//                   resolve({
+//                     msg: 'Null'
+//                   })
+//                 }
+//               })
+//             }
+//           } else {
+//             resolve(res)
+//           }
+//         })
+//       } else {
+//         if (!getLocalConfig(account, token, chainID, SERVER_BRIDGE_CONFIG)) {
+//           getServerData(account, chainID, version, coin).then(result => {
+//             let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
+//             if (lData) {
+//               resolve(lData)
+//             } else {
+//               resolve({
+//                 msg: 'Null'
+//               })
+//             }
+//           })
+//         } else {
+//           resolve(getLocalConfig(account, token, chainID, SERVER_BRIDGE_CONFIG))
+//         }
+//       }
+//     }
+//   })
+// }
