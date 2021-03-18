@@ -1130,6 +1130,71 @@ export default {
       [NAME]: 'YFLink',
       [TOKEN]: '0x28cb7e841ee97947a86b06fa4090c8451f64c0be',
       [DECIMALS]: 18
+    },
+    'XED': {
+      [NAME]: 'Exeedme',
+      [TOKEN]: '0xee573a945b01b788b9287ce062a0cfc15be9fd86',
+      [DECIMALS]: 18
+    },
+    'SPDR': {
+      [NAME]: 'SpiderDAO Token',
+      [TOKEN]: '0xbcD4b7dE6fde81025f74426D43165a5b0D790Fdd',
+      [DECIMALS]: 18
+    },
+    'ROOBEE': {
+      [NAME]: 'ROOBEE',
+      [TOKEN]: '0xa31b1767e09f842ecfd4bc471fe44f830e3891aa',
+      [DECIMALS]: 18
+    },
+    'BONDLY': {
+      [NAME]: 'Bondly Token',
+      [TOKEN]: '0xd2dda223b2617cb616c1580db421e4cfae6a8a85',
+      [DECIMALS]: 18
+    },
+    'HGET': {
+      [NAME]: 'Hedget',
+      [TOKEN]: '0x7968bc6a03017ea2de509aaa816f163db0f35148',
+      [DECIMALS]: 6
+    },
+    'PCNT': {
+      [NAME]: 'Playcent',
+      [TOKEN]: '0x657b83a0336561c8f64389a6f5ade675c04b0c3b',
+      [DECIMALS]: 18
+    },
+    'LIEN': {
+      [NAME]: 'lien',
+      [TOKEN]: '0xab37e1358b639fd877f015027bb62d3ddaa7557e',
+      [DECIMALS]: 8
+    },
+    'PARETO': {
+      [NAME]: 'Pareto Network Token',
+      [TOKEN]: '0xea5f88e54d982cbb0c441cde4e79bc305e5b43bc',
+      [DECIMALS]: 18
+    },
+    'RAMP': {
+      [NAME]: 'RAMP DEFI',
+      [TOKEN]: '0x33D0568941C0C64ff7e0FB4fbA0B11BD37deEd9f',
+      [DECIMALS]: 18
+    },
+    'LAYER': {
+      [NAME]: 'Unilayer',
+      [TOKEN]: '0x0fF6ffcFDa92c53F615a4A75D982f399C989366b',
+      [DECIMALS]: 18
+    },
+    'SMDX': {
+      [NAME]: 'SOMIDAX',
+      [TOKEN]: '0x7e8539d1e5cb91d63e46b8e188403b3f262a949b',
+      [DECIMALS]: 18
+    },
+    'DEGEN': {
+      [NAME]: 'DEGEN Index',
+      [TOKEN]: '0x126c121f99e1e211df2e5f8de2d96fa36647c855',
+      [DECIMALS]: 18
+    },
+    'ORBS': {
+      [NAME]: 'Orbs',
+      [TOKEN]: '0xff56cc6b1e6ded347aa0b7676c85ab0b3d08b0fa',
+      [DECIMALS]: 18
     }
   },
   4: {

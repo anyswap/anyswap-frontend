@@ -22,24 +22,29 @@ import {dirSwitch} from '../methods/common'
 
 export default {
   100: {
-    '0xa5a99b7afb14f74a7709e4ce0eaf0bd216c1a828': { // ANY
+    '0xb44a9b6905af7c801311e8f4e76932ee959c663c': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x4c2c7e88164f08fe1cfe387272c8d59e770c8778',
-      [REDEEM_MAX_NUM]: 1000000,
-      [REDEEM_MIN_NUM]: 0.1,
+      [EXCHANGE_ADDRESS]: '0x781f19e8e6132d02ff6b47d6856eba7eda393310',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
       [FEE]: 0.001,
       [MAXFEE]: 50,
       [MINFEE]: 1,
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '',
-      [DEPOSIT_TYPE]: 0,
-      [DEPOSIT_MAX_NUM]: 0,
-      [DEPOSIT_MIN_NUM]: 0,
-      [EXTENDOBJ]: {},
+      [DEPOSIT_ADDRESS]: '0xa2F8a1d03A3ccce38f59f539F131F296276E9fCb',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 32659, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
     },
   }
 }

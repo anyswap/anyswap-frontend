@@ -753,7 +753,14 @@ export default function DashboardDtil () {
                                       poolObj[item.symbol]
                                       && config.dirSwitchFn(poolObj[item.symbol].isSwitch)
                                       && item.balance !== '-'
-                                      ? formatDecimal(Number(amountFormatter(poolObj[item.symbol].Basebalance, 18, config.keepDec)) + Number(item.balance), config.keepDec) : '0'}
+                                      && !isNaN(item.balance)
+                                      && poolObj[item.symbol].Basebalance
+                                      ? (
+                                        !isNaN(amountFormatter(poolObj[item.symbol].Basebalance, 18, config.keepDec)) ? 
+                                        formatDecimal(Number(amountFormatter(poolObj[item.symbol].Basebalance, 18, config.keepDec)) + Number(item.balance), config.keepDec)
+                                        :
+                                        formatDecimal(Number(item.balance), config.keepDec)
+                                      ) : '0'}
                                   </DBTd>
                                 </>
                               ) : (
