@@ -7,6 +7,7 @@ import getOKTConfig from './coinbase/okex'
 import getArbitrumConfig from './coinbase/arbitrum'
 import getMATICConfig from './coinbase/polygon'
 import getxDAIConfig from './coinbase/xDAI'
+import getAVAXConfig from './coinbase/avalanche'
 
 import {getNetwork, getIdCode} from './getUrlParams'
 import {chainInfo} from './coinbase/nodeConfig'
@@ -49,6 +50,8 @@ if (netArr[0] === 'FSN') {
   netConfig = getMATICConfig(netArr[1])
 } else if (netArr[0] === 'xDAI') {
   netConfig = getxDAIConfig(netArr[1])
+} else if (netArr[0] === 'AVAX') {
+  netConfig = getAVAXConfig(netArr[1])
 }
 
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'

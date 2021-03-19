@@ -39,6 +39,7 @@ import okex from './tokens/okex'
 import arbitrum from './tokens/arbitrum'
 import polygon from './tokens/polygon'
 import xDAI from './tokens/xDAI'
+import avalanche from './tokens/avalanche'
 
 
 const UPDATE = 'UPDATE'
@@ -74,7 +75,8 @@ export const INITIAL_TOKENS_CONTEXT = {
   ...okex,
   ...arbitrum,
   ...polygon,
-  ...xDAI
+  ...xDAI,
+  ...avalanche
 }
 
 const TokensContext = createContext()

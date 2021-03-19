@@ -1,66 +1,82 @@
 const navLang = navigator.language
 
-const BNB_MAINNET = 'https://bsc-dataseed1.binance.org/'
-const BNB_MAIN_CHAINID = 56
-const BNB_MAIN_EXPLORER = 'https://bscscan.com'
+export const BNB_MAINNET = 'https://bsc-dataseed1.binance.org/'
+export const BNB_MAIN_CHAINID = 56
+export const BNB_MAIN_EXPLORER = 'https://bscscan.com'
 
-const BNB_TESTNET = 'https://data-seed-prebsc-1-s1.binance.org:8545'
-const BNB_TEST_CHAINID = 97
-const BNB_TEST_EXPLORER = 'https://explorer.binance.org/smart-testnet'
-
-
-// const FSN_MAINNET = 'https://fsnmainnet2.anyswap.exchange'
-const FSN_MAINNET = 'https://mainnet.anyswap.exchange'
-const FSN_MAINNET1 = 'https://mainnet.anyswap.exchange'
-const FSN_MAIN_CHAINID = 32659
-const FSN_MAIN_EXPLORER = 'https://fsnex.com'
-
-// const FSN_TESTNET = 'https://testnet.anyswap.exchange'
-const FSN_TESTNET = 'https://testnet.fsn.dev/api'
-const FSN_TEST_CHAINID = 46688
-const FSN_TEST_EXPLORER = 'https://fsnex.com'
-
-const ETH_MAINNET = 'https://ethmainnet.anyswap.exchange'
-// const ETH_MAINNET = 'https://mainnet.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0'
-const ETH_MAIN_CHAINID = 1
-const ETH_MAIN_EXPLORER = navLang === 'zh-CN' ? 'https://cn.etherscan.com' : 'https://etherscan.io'
+export const BNB_TESTNET = 'https://data-seed-prebsc-1-s1.binance.org:8545'
+export const BNB_TEST_CHAINID = 97
+export const BNB_TEST_EXPLORER = 'https://explorer.binance.org/smart-testnet'
 
 
-const ETH_TESTNET = 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0'
-const ETH_TEST_CHAINID = 4
-const ETH_TEST_EXPLORER = 'https://rinkeby.etherscan.io'
+// export const FSN_MAINNET = 'https://fsnmainnet2.anyswap.exchange'
+export const FSN_MAINNET = 'https://mainnet.anyswap.exchange'
+export const FSN_MAINNET1 = 'https://mainnet.anyswap.exchange'
+export const FSN_MAIN_CHAINID = 32659
+export const FSN_MAIN_EXPLORER = 'https://fsnex.com'
 
-const FTM_MAINNET = 'https://rpcapi.fantom.network'
-const FTM_MAIN_CHAINID = 250
-const FTM_MAIN_EXPLORER = 'https://ftmscan.com'
+// export const FSN_TESTNET = 'https://testnet.anyswap.exchange'
+export const FSN_TESTNET = 'https://testnet.fsn.dev/api'
+export const FSN_TEST_CHAINID = 46688
+export const FSN_TEST_EXPLORER = 'https://fsnex.com'
 
-const HT_MAINNET = 'https://http-mainnet.hecochain.com'
-const HT_MAIN_CHAINID = 128
-const HT_MAIN_EXPLORER = 'https://hecoinfo.com'
-
-const HT_TESTNET = 'https://http-testnet.hecochain.com'
-const HT_TEST_CHAINID = 256
-const HT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
-
-// const OKT_TESTNET = 'http://13.230.73.12:8545'
-const OKT_TESTNET = 'https://oktestrpc.anayswap.exchange'
-const OKT_TEST_CHAINID = 2
-const OKT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
+export const ETH_MAINNET = 'https://ethmainnet.anyswap.exchange'
+// export const ETH_MAINNET = 'https://mainnet.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0'
+export const ETH_MAIN_CHAINID = 1
+export const ETH_MAIN_EXPLORER = navLang === 'zh-CN' ? 'https://cn.etherscan.com' : 'https://etherscan.io'
 
 
-const ARBITRUM_TESTNET = 'https://kovan3.arbitrum.io/rpc'
-const ARBITRUM_TEST_CHAINID = 79377087078960
-const ARBITRUM_TEST_EXPLORER = 'https://explorer.arbitrum.io/#/'
+export const ETH_TESTNET = 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0'
+export const ETH_TEST_CHAINID = 4
+export const ETH_TEST_EXPLORER = 'https://rinkeby.etherscan.io'
 
-const MATIC_MAINNET = 'https://rpc-mainnet.maticvigil.com'
-const MATIC_MAIN_CHAINID = 137
-const MATIC_MAIN_EXPLORER = 'https://explorer-mainnet.maticvigil.com'
+export const FTM_MAINNET = 'https://rpcapi.fantom.network'
+export const FTM_MAIN_CHAINID = 250
+export const FTM_MAIN_EXPLORER = 'https://ftmscan.com'
 
-const xDAI_MAINNET = 'https://rpc.xdaichain.com'
-const xDAI_MAIN_CHAINID = 100
-const xDAI_MAIN_EXPLORER = 'https://blockscout.com/xdai/mainnet'
+export const HT_MAINNET = 'https://http-mainnet.hecochain.com'
+export const HT_MAIN_CHAINID = 128
+export const HT_MAIN_EXPLORER = 'https://hecoinfo.com'
+
+export const HT_TESTNET = 'https://http-testnet.hecochain.com'
+export const HT_TEST_CHAINID = 256
+export const HT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
+
+// export const OKT_TESTNET = 'http://13.230.73.12:8545'
+export const OKT_TESTNET = 'https://oktestrpc.anayswap.exchange'
+export const OKT_TEST_CHAINID = 2
+export const OKT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
+
+
+export const ARBITRUM_TESTNET = 'https://kovan3.arbitrum.io/rpc'
+export const ARBITRUM_TEST_CHAINID = 79377087078960
+export const ARBITRUM_TEST_EXPLORER = 'https://explorer.arbitrum.io/#/'
+
+export const MATIC_MAINNET = 'https://rpc-mainnet.maticvigil.com'
+export const MATIC_MAIN_CHAINID = 137
+export const MATIC_MAIN_EXPLORER = 'https://explorer-mainnet.maticvigil.com'
+
+export const xDAI_MAINNET = 'https://rpc.xdaichain.com'
+export const xDAI_MAIN_CHAINID = 100
+export const xDAI_MAIN_EXPLORER = 'https://blockscout.com/xdai/mainnet'
+
+export const AVAX_MAINNET = 'https://api.avax.network/ext/bc/C/rpc'
+export const AVAX_MAIN_CHAINID = 43114
+export const AVAX_MAIN_EXPLORER = 'https://cchain.explorer.avax.network/'
 
 let chainInfo = {
+  [AVAX_MAIN_CHAINID]: {
+    rpc: AVAX_MAINNET,
+    chainID: AVAX_MAIN_CHAINID,
+    lookHash: AVAX_MAIN_EXPLORER + '/tx/',
+    lookAddr: AVAX_MAIN_EXPLORER + '/address/',
+    explorer: AVAX_MAIN_EXPLORER,
+    symbol: 'AVAX',
+    name: 'Avalanche',
+    type: 'main',
+    label: 'AVAX_MAIN',
+    isSwitch: 1
+  },
   [xDAI_MAIN_CHAINID]: {
     rpc: xDAI_MAINNET,
     chainID: xDAI_MAIN_CHAINID,
@@ -228,7 +244,8 @@ let chainList = {
     chainInfo[FTM_MAIN_CHAINID],
     chainInfo[HT_MAIN_CHAINID],
     chainInfo[MATIC_MAIN_CHAINID],
-    chainInfo[xDAI_MAIN_CHAINID]
+    chainInfo[xDAI_MAIN_CHAINID],
+    chainInfo[AVAX_MAIN_CHAINID]
   ],
   test: [
     chainInfo[FSN_TEST_CHAINID],

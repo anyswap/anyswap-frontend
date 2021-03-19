@@ -1,4 +1,19 @@
-import {chainInfo} from './coinbase/nodeConfig'
+import {
+  chainInfo,
+  BNB_MAIN_CHAINID,
+  BNB_TEST_CHAINID,
+  FSN_MAIN_CHAINID,
+  FSN_TEST_CHAINID,
+  ETH_MAIN_CHAINID,
+  FTM_MAIN_CHAINID,
+  HT_MAIN_CHAINID,
+  HT_TEST_CHAINID,
+  OKT_TEST_CHAINID,
+  ARBITRUM_TEST_CHAINID,
+  MATIC_MAIN_CHAINID,
+  xDAI_MAIN_CHAINID,
+  AVAX_MAIN_CHAINID
+} from './coinbase/nodeConfig'
 
 
 function getParams (param) {
@@ -22,46 +37,48 @@ function getParams (param) {
 function getParamNode (type, INIT_NODE) {
   switch (type) {
     case 'fusion':
-      return chainInfo['32659'].label
+      return chainInfo[FSN_MAIN_CHAINID].label
     case 'fusiontestnet':
-      return chainInfo['46688'].label
+      return chainInfo[FSN_TEST_CHAINID].label
     case 'bsc':
-      return chainInfo['56'].label
+      return chainInfo[BNB_MAIN_CHAINID].label
     case 'bsctestnet':
-      return chainInfo['97'].label
+      return chainInfo[BNB_TEST_CHAINID].label
     case 'fantom':
-      return chainInfo['250'].label
+      return chainInfo[FTM_MAIN_CHAINID].label
     case 'eth':
-      return chainInfo['1'].label
+      return chainInfo[ETH_MAIN_CHAINID].label
     case 'huobi':
-      return chainInfo['128'].label
+      return chainInfo[HT_MAIN_CHAINID].label
     case 'huobitestnet':
-      return chainInfo['256'].label
+      return chainInfo[HT_TEST_CHAINID].label
     case 'okbtest':
-      return chainInfo['2'].label
+      return chainInfo[OKT_TEST_CHAINID].label
     case 'arbitrumtestnet':
-      return chainInfo['79377087078960'].label
+      return chainInfo[ARBITRUM_TEST_CHAINID].label
     case 'matic':
-      return chainInfo['137'].label
+      return chainInfo[MATIC_MAIN_CHAINID].label
     case 'xdai':
-      return chainInfo['100'].label
+      return chainInfo[xDAI_MAIN_CHAINID].label
+    case 'avax':
+      return chainInfo[AVAX_MAIN_CHAINID].label
     default:
       return INIT_NODE
   }
 }
 function getNode (type, INIT_NODE) {
   if (type.indexOf('fsn') !== -1) {
-    return chainInfo['32659'].label
+    return chainInfo[FSN_MAIN_CHAINID].label
   } else if (type.indexOf('bsc') !== -1) {
-    return chainInfo['56'].label
+    return chainInfo[BNB_MAIN_CHAINID].label
   } else if (type.indexOf('ftm') !== -1) {
-    return chainInfo['250'].label
+    return chainInfo[FTM_MAIN_CHAINID].label
   } else if (type.indexOf('eth') !== -1) {
-    return chainInfo['1'].label
+    return chainInfo[ETH_MAIN_CHAINID].label
   } else if (type.indexOf('huobi') !== -1) {
-    return chainInfo['128'].label
+    return chainInfo[HT_MAIN_CHAINID].label
   } else if (type.indexOf('okex') !== -1) {
-    return chainInfo['2'].label
+    return chainInfo[OKT_TEST_CHAINID].label
   } else {
     return INIT_NODE
   }
