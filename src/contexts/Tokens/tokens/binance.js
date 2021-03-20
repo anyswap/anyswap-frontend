@@ -2293,6 +2293,270 @@ export default {
 
 
 
+    '0x7b2223aa112c08356b10e4675ce32724a10fac51': { // ARMOR    
+      [NAME]: 'Armor' + config.suffix,
+      [SYMBOL]: 'ARMOR',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x2ec3d3a2b5f25895f62cd9ea68b2f65414cb1a79',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xcfb24d3c3767364391340a2e6d99c64f1cbd7a3d': { // LPOOL    
+      [NAME]: 'Launchpool token' + config.suffix,
+      [SYMBOL]: 'LPOOL',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x640974cc2f0622d2a68bc3d0c1ee2f18b67e0313',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xd4fbc57b6233f268e7fba3b66e62719d74deecbc': { // MOD    
+      [NAME]: 'Modefi' + config.suffix,
+      [SYMBOL]: 'MOD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x7b604ee9b725667aaf24373cc3d55f70eeb45484',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xb235163f7f567b97d33775bfde6811e43212c098': { // QKC    
+      [NAME]: 'QuarkChain Token' + config.suffix,
+      [SYMBOL]: 'QKC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xb4f5a3e703c0b5780da381374cac9865c41eb951',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x19c91764a976ac6c1e2c2e4c5856f2939342a814': { // PAR    
+      [NAME]: 'Parachute' + config.suffix,
+      [SYMBOL]: 'PAR',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xcc3889597d571fc8c9fefdef25b15ba070184a97',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x5478a575ece4fb4768d1d43edf5826cfe1c6225a': { // BT    
+      [NAME]: 'BT.Finance' + config.suffix,
+      [SYMBOL]: 'BT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xdf338f9bced2053175c398aa130537c83fc4081f',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xac118686565af7393b0843587d483cbded9c3baf': { // EDDA    
+      [NAME]: 'EDDA' + config.suffix,
+      [SYMBOL]: 'EDDA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x7371bec4bce269e97a8862d7b2209177b9d66d32',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xe7b91602ce96a537cb729f484b8ddb3c1fecbb45': { // ALICE    
+      [NAME]: 'ALICE' + config.suffix,
+      [SYMBOL]: 'ALICE',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x34454c5b564541964a1d8b3d3a201fad099eace8',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xbbeb90cfb6fafa1f69aa130b7341089abeef5811': { // UBXT     
+      [NAME]: 'UpBots' + config.suffix,
+      [SYMBOL]: 'UBXT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x721c407ceb7d94af5cbfe9d4e56927b6d78e3ead',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x8683e604cdf911cd72652a04bf9d571697a86a60': { // BCDT
+      [NAME]: 'Blockchain Certified Data Token' + config.suffix,
+      [SYMBOL]: 'BCDT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xfb1dab032a7c56f6616f2f95d13ff42a928c760f',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xf48fbc59e6b45cff26a7608ff7d5a22ebc40df7f': { // UNN
+      [NAME]: 'UNION Protocol Governance Token' + config.suffix,
+      [SYMBOL]: 'UNN',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8e841b8f2a37a1fe962ab94f2064d3d3557e2726',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
       [SYMBOL]: config.prefix + 'XRP',

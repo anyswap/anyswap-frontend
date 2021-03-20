@@ -1195,6 +1195,56 @@ export default {
       [NAME]: 'Orbs',
       [TOKEN]: '0xff56cc6b1e6ded347aa0b7676c85ab0b3d08b0fa',
       [DECIMALS]: 18
+    },
+    'ARMOR': {
+      [NAME]: 'Armor',
+      [TOKEN]: '0x1337def16f9b486faed0293eb623dc8395dfe46a',
+      [DECIMALS]: 18
+    },
+    'LPOOL': {
+      [NAME]: 'Launchpool token',
+      [TOKEN]: '0x6149c26cd2f7b5ccdb32029af817123f6e37df5b',
+      [DECIMALS]: 18
+    },
+    'QKC': {
+      [NAME]: 'QuarkChain Token',
+      [TOKEN]: '0xea26c4ac16d4a5a106820bc8aee85fd0b7b2b664',
+      [DECIMALS]: 18
+    },
+    'PAR': {
+      [NAME]: 'Parachute',
+      [TOKEN]: '0x1beef31946fbbb40b877a72e4ae04a8d1a5cee06',
+      [DECIMALS]: 18
+    },
+    'BT': {
+      [NAME]: 'BT.Finance',
+      [TOKEN]: '0x76c5449f4950f6338a393f53cda8b53b0cd3ca3a',
+      [DECIMALS]: 18
+    },
+    'EDDA': {
+      [NAME]: 'EDDA',
+      [TOKEN]: '0xfbbe9b1142c699512545f47937ee6fae0e4b0aa9',
+      [DECIMALS]: 18
+    },
+    'ALICE': {
+      [NAME]: 'ALICE',
+      [TOKEN]: '0xac51066d7bec65dc4589368da368b212745d63e8',
+      [DECIMALS]: 6
+    },
+    'UBXT': {
+      [NAME]: 'UpBots',
+      [TOKEN]: '0x8564653879a18C560E7C0Ea0E084c516C62F5653',
+      [DECIMALS]: 18
+    },
+    'BCDT': {
+      [NAME]: 'Blockchain Certified Data Token',
+      [TOKEN]: '0xacfa209fb73bf3dd5bbfb1101b9bc999c49062a5',
+      [DECIMALS]: 18
+    },
+    'UNN': {
+      [NAME]: 'UNION Protocol Governance Token',
+      [TOKEN]: '0x226f7b842e0f0120b7e194d05432b3fd14773a9d',
+      [DECIMALS]: 18
     }
   },
   4: {
