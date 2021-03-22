@@ -67,7 +67,7 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
   // console.log(address)
   if (address) {
     if (isAny) {
-      if (address.indexOf('a') === 0 && address.indexOf('any') === -1) {
+      if (address.indexOf('a') === 0 && address.indexOf('any') === -1 && address.indexOf('acBTC') === -1) {
         address = address.replace('a', 'any')
         path = getAnyPath(address)
       } else if (address.indexOf('any') !== -1) {

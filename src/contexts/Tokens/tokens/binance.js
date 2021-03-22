@@ -2290,10 +2290,6 @@ export default {
         VERSION: 'V2'
       }
     },
-
-
-
-
     '0x7b2223aa112c08356b10e4675ce32724a10fac51': { // ARMOR    
       [NAME]: 'Armor' + config.suffix,
       [SYMBOL]: 'ARMOR',
@@ -2539,6 +2535,105 @@ export default {
       [SYMBOL]: 'UNN',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x8e841b8f2a37a1fe962ab94f2064d3d3557e2726',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+
+
+    
+    '0x0aaef3db5d2847b231468658001c278ee892b7e8': { // BAB
+      [NAME]: 'BAB' + config.suffix,
+      [SYMBOL]: 'BAB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x964ac003ef13bad1b5ed6c30093a2ad8f6d00bb6',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x5e23bea955bc322f2894d94faceca744bb5c3cf9': { // BASv2
+      [NAME]: 'BASv2' + config.suffix,
+      [SYMBOL]: 'BASv2',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x2a68a051540749b0312d7cbf46726678d233aa1e',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x83085138ed8a96ec0cbd2013ddfe1ebb975940cc': { // BAC
+      [NAME]: 'BAC' + config.suffix,
+      [SYMBOL]: 'BAC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x11e51d4f7830c8b150f3ec7c76d30697768c7118',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c': { // acBTC
+      [NAME]: 'ACoconut BTC' + config.suffix,
+      [SYMBOL]: 'acBTC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xea34341a31a7601c39eca29ed11df3ac8b4ec3d1',
       [REDEEM_MAX_NUM]: 200000,
       [REDEEM_MIN_NUM]: 20,
       [FEE]: 0.001,

@@ -56,7 +56,7 @@ function getParamNode (type, INIT_NODE) {
       return chainInfo[OKT_TEST_CHAINID].label
     case 'arbitrumtestnet':
       return chainInfo[ARBITRUM_TEST_CHAINID].label
-    case 'matic':
+    case 'polygon':
       return chainInfo[MATIC_MAIN_CHAINID].label
     case 'xdai':
       return chainInfo[xDAI_MAIN_CHAINID].label

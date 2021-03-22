@@ -1245,6 +1245,26 @@ export default {
       [NAME]: 'UNION Protocol Governance Token',
       [TOKEN]: '0x226f7b842e0f0120b7e194d05432b3fd14773a9d',
       [DECIMALS]: 18
+    },
+    'BAB': {
+      [NAME]: 'BAB',
+      [TOKEN]: '0xc36824905dff2eaaee7ecc09fcc63abc0af5abc5',
+      [DECIMALS]: 18
+    },
+    'BASv2': {
+      [NAME]: 'BASv2',
+      [TOKEN]: '0x106538cc16f938776c7c180186975bca23875287',
+      [DECIMALS]: 18
+    },
+    'BAC': {
+      [NAME]: 'BAC',
+      [TOKEN]: '0x3449fc1cd036255ba1eb19d65ff4ba2b8903a69a',
+      [DECIMALS]: 18
+    },
+    'acBTC': {
+      [NAME]: 'ACoconut BTC',
+      [TOKEN]: '0xeF6e45af9a422c5469928F927ca04ed332322e2e',
+      [DECIMALS]: 18
     }
   },
   4: {
