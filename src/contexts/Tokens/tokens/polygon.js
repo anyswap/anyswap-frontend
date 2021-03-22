@@ -1,4 +1,5 @@
 import config from '../../../config/index.js'
+import {MATIC_MAIN_CHAINID} from '../../../config/coinbase/nodeConfig'
 import {
   NAME,
   SYMBOL,
@@ -21,7 +22,7 @@ import {
 import {dirSwitch} from '../methods/common'
 
 export default {
-  137: {
+  [MATIC_MAIN_CHAINID]: {
     '0x6ab6d61428fde76768d7b45d8bfeec19c6ef91a8': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',

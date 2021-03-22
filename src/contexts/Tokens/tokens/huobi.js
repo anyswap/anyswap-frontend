@@ -1,4 +1,5 @@
 import config from '../../../config/index.js'
+import {HT_MAIN_CHAINID, HT_TEST_CHAINID} from '../../../config/coinbase/nodeConfig'
 import {
   NAME,
   SYMBOL,
@@ -21,7 +22,7 @@ import {
 import {dirSwitch} from '../methods/common'
 
 export default {
-  128: {
+  [HT_MAIN_CHAINID]: {
     '0x538cee985e930557d16c383783ca957fa90b63b3': { // ANY
       [NAME]: 'Anyswap' + config.suffix,
       [SYMBOL]: 'ANY',
@@ -533,7 +534,7 @@ export default {
     },
 
   },
-  256: {
+  [HT_TEST_CHAINID]: {
     '0x4373ca233c17b8bf1bf8159d56019d3394a0670d': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',

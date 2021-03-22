@@ -1,4 +1,5 @@
 import config from '../../../config/index.js'
+import {FTM_MAIN_CHAINID} from '../../../config/coinbase/nodeConfig'
 import {
   NAME,
   SYMBOL,
@@ -21,7 +22,7 @@ import {
 import {dirSwitch} from '../methods/common'
 
 export default {
-  250: {
+  [FTM_MAIN_CHAINID]: {
     '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83': { // wFTM
       [NAME]: 'Wrapped Fantom',
       [SYMBOL]: 'wFTM',

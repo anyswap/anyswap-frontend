@@ -1,4 +1,5 @@
 import config from '../../../config/index.js'
+import {ARBITRUM_TEST_CHAINID} from '../../../config/coinbase/nodeConfig'
 import {
   NAME,
   SYMBOL,
@@ -21,7 +22,7 @@ import {
 import {dirSwitch} from '../methods/common'
 
 export default {
-  79377087078960: {
+  [ARBITRUM_TEST_CHAINID]: {
     '0xcfd6a2af722dc41e6a16bcfb73c43252144782df': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',

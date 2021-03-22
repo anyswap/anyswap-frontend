@@ -1,4 +1,5 @@
 import config from '../../../config/index.js'
+import {BNB_MAIN_CHAINID, BNB_TEST_CHAINID} from '../../../config/coinbase/nodeConfig'
 import {
   NAME,
   SYMBOL,
@@ -21,7 +22,7 @@ import {
 import {dirSwitch} from '../methods/common'
 
 export default {
-  56: {
+  [BNB_MAIN_CHAINID]: {
     '0xf68c9df95a18b2a5a5fa1124d79eeeffbad0b6fa': { // ANY
       [NAME]: 'Anyswap' + config.suffix,
       [SYMBOL]: 'ANY',
@@ -2580,7 +2581,7 @@ export default {
 
 
   },
-  97: {
+  [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT
       [NAME]: 'ANY Tether',
       [SYMBOL]: config.prefix + 'USDT',

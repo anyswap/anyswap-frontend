@@ -1,4 +1,5 @@
 import config from '../../../config/index.js'
+import {AVAX_MAIN_CHAINID} from '../../../config/coinbase/nodeConfig'
 import {
   NAME,
   SYMBOL,
@@ -21,7 +22,7 @@ import {
 import {dirSwitch} from '../methods/common'
 
 export default {
-  43114: {
+  [AVAX_MAIN_CHAINID]: {
     '0xb44a9b6905af7c801311e8f4e76932ee959c663c': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',

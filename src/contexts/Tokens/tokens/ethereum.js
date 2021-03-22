@@ -1,4 +1,5 @@
 import config from '../../../config/index.js'
+import {ETH_MAIN_CHAINID, ETH_TEST_CHAINID} from '../../../config/coinbase/nodeConfig'
 import {
   NAME,
   SYMBOL,
@@ -21,7 +22,7 @@ import {
 import {dirSwitch} from '../methods/common'
 
 export default {
-  1: {
+  [ETH_MAIN_CHAINID]: {
     '0xf99d58e463a2e07e5692127302c20a191861b4d6': { // ANY
       [NAME]: 'Anyswap' + config.suffix,
       [SYMBOL]: 'ANY',
@@ -402,7 +403,7 @@ export default {
     //   },
     // },
   },
-  '4': {
+  [ETH_TEST_CHAINID]: {
     '0xd5190a1c83b7cf3566098605e00fa0c0fd5f3778': { // FTM
       [NAME]: 'Fantom',
       [SYMBOL]: 'FTM',

@@ -1,4 +1,5 @@
 import config from '../../../config/index.js'
+import {OKT_TEST_CHAINID} from '../../../config/coinbase/nodeConfig'
 import {
   NAME,
   SYMBOL,
@@ -21,7 +22,7 @@ import {
 import {dirSwitch} from '../methods/common'
 
 export default {
-  2: {
+  [OKT_TEST_CHAINID]: {
     '0x40af41149a6e82e378fe8ad7e1ae11e42c78a985': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',

@@ -48,8 +48,8 @@ export const OKT_TEST_CHAINID = 2
 export const OKT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
 
 
-export const ARBITRUM_TESTNET = 'https://kovan3.arbitrum.io/rpc'
-export const ARBITRUM_TEST_CHAINID = 79377087078960
+export const ARBITRUM_TESTNET = 'https://kovan4.arbitrum.io/rpc'
+export const ARBITRUM_TEST_CHAINID = 212984383488152
 export const ARBITRUM_TEST_EXPLORER = 'https://explorer.arbitrum.io/#/'
 
 export const MATIC_MAINNET = 'https://rpc-mainnet.maticvigil.com'
@@ -243,7 +243,7 @@ let chainList = {
     chainInfo[BNB_MAIN_CHAINID],
     chainInfo[FTM_MAIN_CHAINID],
     chainInfo[HT_MAIN_CHAINID],
-    // chainInfo[MATIC_MAIN_CHAINID],
+    chainInfo[MATIC_MAIN_CHAINID],
     // chainInfo[xDAI_MAIN_CHAINID],
     // chainInfo[AVAX_MAIN_CHAINID]
   ],

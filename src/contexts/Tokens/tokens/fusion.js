@@ -1,4 +1,5 @@
 import config from '../../../config/index.js'
+import {FSN_MAIN_CHAINID, FSN_TEST_CHAINID} from '../../../config/coinbase/nodeConfig'
 import {
   NAME,
   SYMBOL,
@@ -22,7 +23,7 @@ import {dirSwitch} from '../methods/common'
 
 
 export default {
-  32659: {
+  [FSN_MAIN_CHAINID]: {
     '0x0c74199d22f732039e843366a236ff4f61986b32': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',
@@ -455,7 +456,7 @@ export default {
       [EXTENDOBJ]: {},
     }
   },
-  46688: {
+  [FSN_TEST_CHAINID]: {
     '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',

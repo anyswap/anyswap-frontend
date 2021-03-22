@@ -1,4 +1,7 @@
-import {chainInfo} from './nodeConfig'
+import {
+  chainInfo,
+  ARBITRUM_TEST_CHAINID
+} from './nodeConfig'
 
 const NAME_PREFIX = 'ANY'
 
@@ -10,7 +13,7 @@ const REWARDS_DAY = 33000 / 2
 const DEPOSIT_AMOUNT = 10000
 
 const CHAIN_MAIN_INFO = chainInfo['32659']
-const CHAIN_TEST_INFO = chainInfo['79377087078960']
+const CHAIN_TEST_INFO = chainInfo[ARBITRUM_TEST_CHAINID]
 
 const COIN_BASE ={
   symbol: 'ETH', // 符号
@@ -91,7 +94,6 @@ const MAIN_CONFIG = {
   isChangeDashboard: 1, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
-    ANY_MAIN_TOKEN,
   ], // 不支持的跨链合约或币种
   queryToken: '0x25afd2058b6e5e00995467d58778a2790a0e5038' // 查询余额合约
 }
