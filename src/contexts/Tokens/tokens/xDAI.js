@@ -47,5 +47,53 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x59676af932247d48755aab7a7b94f8bb4bea2a6e': { // WBTC
+      [NAME]: 'Wrapped BTC',
+      [SYMBOL]: 'WBTC',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xb773044d217949ad4529c84303a0cceabbffe146',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x2F10c5eE93ac666dA72195abA8a49FD6D27fA02F',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xd185c16756873b907df064bd7b4815839de4e6b9': { // UNISTAKE
+      [NAME]: 'Unistake',
+      [SYMBOL]: 'UNISTAKE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xdb257941c24837d9dc0be6578e68c7240ffc36ee ',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x2F10c5eE93ac666dA72195abA8a49FD6D27fA02F',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

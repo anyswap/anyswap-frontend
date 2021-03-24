@@ -1261,9 +1261,44 @@ export default {
       [TOKEN]: '0x3449fc1cd036255ba1eb19d65ff4ba2b8903a69a',
       [DECIMALS]: 18
     },
-    'acBTC': {
-      [NAME]: 'ACoconut BTC',
-      [TOKEN]: '0xeF6e45af9a422c5469928F927ca04ed332322e2e',
+    'ARIA20': {
+      [NAME]: 'ARIANEE',
+      [TOKEN]: '0xedf6568618a00c6f0908bf7758a16f76b6e04af9',
+      [DECIMALS]: 18
+    },
+    'UNISTAKE': {
+      [NAME]: 'Unistake',
+      [TOKEN]: '0x9Ed8e7C9604790F7Ec589F99b94361d8AAB64E5E',
+      [DECIMALS]: 18
+    },
+    'KIT': {
+      [NAME]: 'DexKit',
+      [TOKEN]: '0x7866E48C74CbFB8183cd1a929cd9b95a7a5CB4F4',
+      [DECIMALS]: 18
+    },
+    'Suter': {
+      [NAME]: 'Suter',
+      [TOKEN]: '0xAA2ce7Ae64066175E0B90497CE7d9c190c315DB4',
+      [DECIMALS]: 18
+    },
+    'BITX': {
+      [NAME]: 'BITX',
+      [TOKEN]: '0xff2b3353c3015e9f1fbf95b9bda23f58aa7ce007',
+      [DECIMALS]: 18
+    },
+    'SURE': {
+      [NAME]: 'SURE',
+      [TOKEN]: '0xb5a4ac5b04e777230ba3381195eff6a60c3934f2',
+      [DECIMALS]: 18
+    },
+    'DEC': {
+      [NAME]: 'DEC',
+      [TOKEN]: '0x30f271C9E86D2B7d00a6376Cd96A1cFBD5F0b9b3',
+      [DECIMALS]: 18
+    },
+    'RFOX': {
+      [NAME]: 'RFOX',
+      [TOKEN]: '0xa1d6df714f91debf4e0802a542e13067f31b8262',
       [DECIMALS]: 18
     }
   },
