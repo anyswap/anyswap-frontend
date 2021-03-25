@@ -2846,6 +2846,127 @@ export default {
         VERSION: 'V2'
       }
     },
+    
+    '0xc04e039ae8587e71f8024b36d630f841cc2106cc': { // FRY
+      [NAME]: 'Foundry Logistics Token' + config.suffix,
+      [SYMBOL]: 'FRY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x0d3afeebfc84c265da59cb63559a8241b2cb083f',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x6bb751a8cabe31a60b56ba6bc162c33cfc3917af': { // FNX
+      [NAME]: 'FinNexus' + config.suffix,
+      [SYMBOL]: 'FNX',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x10e006dadc2c4b432ca39e9e4fec75112522c055',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x1a6990fcce4fe96be417d48f60b7ea5cc329de80': { // NIF
+      [NAME]: 'Unifty' + config.suffix,
+      [SYMBOL]: 'NIF',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x52bd8db9f7b63c77220f54eb10e5244f6588ec94',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x2c961ff9b386b597abc58a56f3ec63e313cada76': { // SUKU
+      [NAME]: 'SUKU' + config.suffix,
+      [SYMBOL]: 'SUKU',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xd59aed5b7c8aa7d89291872a7d4148fde1ec5c99',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xded6a27debe293d373bc4bfed4ae8d70fbc80001': { // BOOST
+      [NAME]: 'Boosted Finance' + config.suffix,
+      [SYMBOL]: 'BOOST',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1456000275ebf14a858dbd673fac6de6ff15ca7b',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
       [SYMBOL]: config.prefix + 'XRP',
@@ -2865,9 +2986,6 @@ export default {
       [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
-
-
-
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT

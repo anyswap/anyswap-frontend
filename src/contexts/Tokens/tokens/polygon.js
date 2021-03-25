@@ -71,5 +71,29 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x5e21d04c7db93c195b158b6e85238e471a3baf28': { // CTSI
+      [NAME]: 'Cartesi Token',
+      [SYMBOL]: 'CTSI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x09866dba0886f6d6d8597229224c8619364a597b',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x668b9734FfE9eE8a01d4Ade3362De71E8989EA87',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

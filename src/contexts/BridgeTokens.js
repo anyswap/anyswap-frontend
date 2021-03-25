@@ -1300,6 +1300,31 @@ export default {
       [NAME]: 'RFOX',
       [TOKEN]: '0xa1d6df714f91debf4e0802a542e13067f31b8262',
       [DECIMALS]: 18
+    },
+    'FRY': {
+      [NAME]: 'FRY',
+      [TOKEN]: '0x6c972b70c533e2e045f333ee28b9ffb8d717be69',
+      [DECIMALS]: 18
+    },
+    'FNX': {
+      [NAME]: 'FNX',
+      [TOKEN]: '0xeF9Cd7882c067686691B6fF49e650b43AFBBCC6B',
+      [DECIMALS]: 18
+    },
+    'NIF': {
+      [NAME]: 'NIF',
+      [TOKEN]: '0x7e291890b01e5181f7ecc98d79ffbe12ad23df9e',
+      [DECIMALS]: 18
+    },
+    'SUKU': {
+      [NAME]: 'SUKU',
+      [TOKEN]: '0x0763fdccf1ae541a5961815c0872a8c5bc6de4d7',
+      [DECIMALS]: 18
+    },
+    'BOOST': {
+      [NAME]: 'BOOST',
+      [TOKEN]: '0x3e780920601D61cEdb860fe9c4a90c9EA6A35E78',
+      [DECIMALS]: 18
     }
   },
   4: {
