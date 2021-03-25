@@ -1799,7 +1799,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   }
 
   function walletTip () {
-    let node = extendObj.BRIDGE ? extendObj.BRIDGE[0] : ''
+    let node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0] : ''
     if (node) {
       let coin = config.bridgeAll[node.type].symbol
       return (
@@ -2106,7 +2106,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   function viewBtn (type) {
     let btn = ''
     if (type === 'redeem') {
-      if (extendObj.BRIDGE) {
+      if (extendObj && extendObj.BRIDGE) {
         btn = extendObj.BRIDGE.map((item, index) => {
           if (item.isSwitch) {
             return (
@@ -2130,7 +2130,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           </Button>
         )
       } else {
-        if (extendObj.BRIDGE) {
+        if (extendObj && extendObj.BRIDGE) {
           btn = extendObj.BRIDGE.map((item, index) => {
             if (item.isSwitch) {
               // return mintBtn(item.type, index)

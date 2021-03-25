@@ -1006,6 +1006,7 @@ export default function CurrencyInputPanel({
             allBalances={allBalances}
             hideETH={hideETH}
             selfUseAllToken={selfUseAllToken}
+            isSelfSymbol={isSelfSymbol}
           />
         )}
       </InputPanel>
@@ -1027,7 +1028,7 @@ export default function CurrencyInputPanel({
   )
 }
 
-function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens, hideETH, selfUseAllToken }) {
+function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens, hideETH, selfUseAllToken, isSelfSymbol }) {
   const { t } = useTranslation()
 
   const [searchQuery, setSearchQuery] = useState('')
@@ -1140,7 +1141,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
 
       // check the regex for each field
       const regexMatches = Object.keys(tokenEntry).map(tokenEntryKey => {
-        // if address field only search if input starts with 0x
+        // if address field only search if input starts with 0x.
         if (tokenEntryKey === 'address') {
           return (
             inputIsAddress &&
