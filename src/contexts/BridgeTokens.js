@@ -1325,6 +1325,11 @@ export default {
       [NAME]: 'BOOST',
       [TOKEN]: '0x3e780920601D61cEdb860fe9c4a90c9EA6A35E78',
       [DECIMALS]: 18
+    },
+    'XEND': {
+      [NAME]: 'XEND',
+      [TOKEN]: '0xe4cfe9eaa8cdb0942a80b7bc68fd8ab0f6d44903',
+      [DECIMALS]: 18
     }
   },
   4: {
