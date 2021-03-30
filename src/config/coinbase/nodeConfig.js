@@ -76,7 +76,7 @@ let chainInfo = {
     name: 'Avalanche',
     type: 'main',
     label: 'AVAX_MAIN',
-    isSwitch: 1
+    isSwitch: 0
   },
   [xDAI_MAIN_CHAINID]: {
     rpc: xDAI_MAINNET,
@@ -246,7 +246,7 @@ let chainList = {
     chainInfo[HT_MAIN_CHAINID],
     chainInfo[MATIC_MAIN_CHAINID],
     chainInfo[xDAI_MAIN_CHAINID],
-    chainInfo[AVAX_MAIN_CHAINID]
+    // chainInfo[AVAX_MAIN_CHAINID]
   ],
   test: [
     chainInfo[FSN_TEST_CHAINID],

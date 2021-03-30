@@ -1330,6 +1330,46 @@ export default {
       [NAME]: 'XEND',
       [TOKEN]: '0xe4cfe9eaa8cdb0942a80b7bc68fd8ab0f6d44903',
       [DECIMALS]: 18
+    },
+    'ICE': {
+      [NAME]: 'ICE',
+      [TOKEN]: '0xf16e81dce15B08F326220742020379B855B87DF9',
+      [DECIMALS]: 18
+    },
+    'BAO': {
+      [NAME]: 'BAO',
+      [TOKEN]: '0x374cb8c27130e2c9e04f44303f3c8351b9de61c1',
+      [DECIMALS]: 18
+    },
+    'FRAX': {
+      [NAME]: 'FRAX',
+      [TOKEN]: '0x853d955acef822db058eb8505911ed77f175b99e',
+      [DECIMALS]: 18
+    },
+    'BTAP': {
+      [NAME]: 'BTAP',
+      [TOKEN]: '0x270371c58d9d775ed73971dd414656107384f235',
+      [DECIMALS]: 18
+    },
+    'POLS': {
+      [NAME]: 'POLS',
+      [TOKEN]: '0x83e6f1E41cdd28eAcEB20Cb649155049Fac3D5Aa',
+      [DECIMALS]: 18
+    },
+    'WAIF': {
+      [NAME]: 'WAIF',
+      [TOKEN]: '0xb2279b6769cfba691416f00609b16244c0cf4b20',
+      [DECIMALS]: 18
+    },
+    'BITT': {
+      [NAME]: 'BITT',
+      [TOKEN]: '0x9f9913853f749b3fe6d6d4e16a1cc3c1656b6d51',
+      [DECIMALS]: 18
+    },
+    'FEG': {
+      [NAME]: 'FEG',
+      [TOKEN]: '0x389999216860ab8e0175387a0c90e5c52522c945',
+      [DECIMALS]: 9
     }
   },
   4: {

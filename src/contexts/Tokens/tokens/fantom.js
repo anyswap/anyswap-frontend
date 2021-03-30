@@ -133,6 +133,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x049d68029688eabf473097a2fc38ef61633a3c7a': { // fUSDT
+      [NAME]: 'Frapped USDT',
+      [SYMBOL]: 'FUSDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x367383da74d67196ec78d8536b6562de30e6dc7a',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     '0xf5c8054efc6acd25f31a17963462b90e82fdecad': { // DAI
       [NAME]: 'DAI' + config.suffix,
       [SYMBOL]: 'DAI',
@@ -250,59 +274,6 @@ export default {
         VERSION: 'V2'
       }
     },
-
-    // test
-    // '0x04068da6c83afcfa0e13ba15a6696662335d5b75': { // USDC
-    //   [NAME]: 'USDC' + config.suffix,
-    //   [SYMBOL]: 'USDC',
-    //   [DECIMALS]: 6,
-    //   [EXCHANGE_ADDRESS]: '',
-    //   [REDEEM_MAX_NUM]: 100000,
-    //   [REDEEM_MIN_NUM]: 2,
-    //   [FEE]: 0.001,
-    //   [MAXFEE]: 5,
-    //   [MINFEE]: 0.5,
-    //   [ISSWITCH]: dirSwitch(0),
-    //   [ISDEPOSIT]: 1,
-    //   [ISREDEEM]: 1,
-    //   [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
-    //   [DEPOSIT_TYPE]: 1,
-    //   [DEPOSIT_MAX_NUM]: 100000,
-    //   [DEPOSIT_MIN_NUM]: 1,
-    //   [EXTENDOBJ]:  {
-    //     BRIDGE: [
-    //       { type: 1, isSwitch: 1 }
-    //     ],
-    //     VERSION: 'V2'
-    //   }
-    // },
-    // '0x1b27a9de6a775f98aaa5b90b62a4e2a0b84dbdd9': { // USDT
-    //   [NAME]: 'USDT' + config.suffix,
-    //   [SYMBOL]: 'USDT',
-    //   [DECIMALS]: 6,
-    //   [EXCHANGE_ADDRESS]: '',
-    //   [REDEEM_MAX_NUM]: 100000,
-    //   [REDEEM_MIN_NUM]: 2,
-    //   [FEE]: 0.001,
-    //   [MAXFEE]: 5,
-    //   [MINFEE]: 0.5,
-    //   [ISSWITCH]: dirSwitch(0),
-    //   [ISDEPOSIT]: 1,
-    //   [ISREDEEM]: 1,
-    //   [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
-    //   [DEPOSIT_TYPE]: 1,
-    //   [DEPOSIT_MAX_NUM]: 100000,
-    //   [DEPOSIT_MIN_NUM]: 1,
-    //   [EXTENDOBJ]:  {
-    //     BRIDGE: [
-    //       { type: 1, isSwitch: 1 }
-    //     ],
-    //     VERSION: 'V2'
-    //   }
-    // },
-    
-
-
     '0xe64b9fd040d1f9d4715c645e0d567ef69958d3d9': { // MOD
       [NAME]: 'Modefi' + config.suffix,
       [SYMBOL]: 'MOD',
@@ -783,29 +754,29 @@ export default {
         VERSION: 'V2'
       }
     },
-    // '0x049d68029688eabf473097a2fc38ef61633a3c7a': { // USDT
-    //   [NAME]: 'Tether' + config.suffix,
-    //   [SYMBOL]: 'USDT',
-    //   [DECIMALS]: 6,
-    //   [EXCHANGE_ADDRESS]: '0x367383da74d67196ec78d8536b6562de30e6dc7a',
-    //   [REDEEM_MAX_NUM]: 200000,
-    //   [REDEEM_MIN_NUM]: 20,
-    //   [FEE]: 0.001,
-    //   [MAXFEE]: 50,
-    //   [MINFEE]: 5,
-    //   [ISSWITCH]: dirSwitch(0),
-    //   [ISDEPOSIT]: 1,
-    //   [ISREDEEM]: 1,
-    //   [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
-    //   [DEPOSIT_TYPE]: 1,
-    //   [DEPOSIT_MAX_NUM]: 200000,
-    //   [DEPOSIT_MIN_NUM]: 0.5,
-    //   [EXTENDOBJ]:  {
-    //     BRIDGE: [
-    //       { type: 1, isSwitch: 1 }
-    //     ],
-    //     VERSION: 'V2'
-    //   }
-    // },
+    '0xf16e81dce15b08f326220742020379b855b87df9': { // ICE 
+      [NAME]: 'IceToken' + config.suffix,
+      [SYMBOL]: 'ICE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x65fd4b4d54cac9ee6f2d912e2015ec79d9ed74dc',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }
