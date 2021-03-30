@@ -157,6 +157,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x1b27a9de6a775f98aaa5b90b62a4e2a0b84dbdd9': { // USDT
+      [NAME]: 'Tether',
+      [SYMBOL]: 'USDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x939e12fda3ae6714e550aedf90e22be1df2f2221',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 20,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 5,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xBe008e52c5682A49dd0260735a26Aa221f303456',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     '0xf5c8054efc6acd25f31a17963462b90e82fdecad': { // DAI
       [NAME]: 'DAI' + config.suffix,
       [SYMBOL]: 'DAI',

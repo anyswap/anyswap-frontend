@@ -1377,6 +1377,11 @@ export default {
       [NAME]: 'FEG',
       [TOKEN]: '0x389999216860ab8e0175387a0c90e5c52522c945',
       [DECIMALS]: 9
+    },
+    'BUSD': {
+      [NAME]: 'BUSD',
+      [TOKEN]: '0x4fabb145d64652a948d72533023f6e7a623c7c53',
+      [DECIMALS]: 18
     }
   },
   4: {
