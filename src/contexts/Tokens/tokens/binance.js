@@ -1613,9 +1613,9 @@ export default {
       [DEPOSIT_MIN_NUM]: 0.5,
       [EXTENDOBJ]: {},
     },
-    '0x049d68029688eabf473097a2fc38ef61633a3c7a': { // FUSDT
+    '0x049d68029688eabf473097a2fc38ef61633a3c7a': { // fUSDT
       [NAME]: 'Frapped USDT' + config.suffix,
-      [SYMBOL]: 'FUSDT',
+      [SYMBOL]: 'fUSDT',
       [DECIMALS]: 6,
       [EXCHANGE_ADDRESS]: '0xc1e8db29e0255a7d11cd9fc4bf56294bf695ed22',
       [REDEEM_MAX_NUM]: 200000,

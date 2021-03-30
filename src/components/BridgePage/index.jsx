@@ -853,7 +853,11 @@ function formatOutName (name, extendObj) {
 
   if (srcChainId) {
     if (Number(srcChainId) === 1 && name.indexOf('Ethereum') === -1) {
-      name = name + '-ERC20'
+      if (name === 'Frapped USDT') {
+        name = 'Tether-ERC20'
+      } else {
+        name = name + '-ERC20'
+      }
     } else if (Number(srcChainId) === 56 && name.indexOf('Binance') === -1) {
       name = name + '-BEP20'
     } else if (Number(srcChainId) === 128 && name.indexOf('Huobi') === -1) {

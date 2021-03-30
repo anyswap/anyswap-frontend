@@ -25,6 +25,9 @@ export const copyTxt = (cont) => {
 
 export function formatCoin (coin) {
   if (coin) {
+    if (coin === 'fUSDT') {
+      return 'USDT'
+    }
     return coin.replace('any', '').replace(config.prefix, '')
   } else {
     return coin

@@ -135,7 +135,7 @@ export default {
     },
     '0x049d68029688eabf473097a2fc38ef61633a3c7a': { // fUSDT
       [NAME]: 'Frapped USDT',
-      [SYMBOL]: 'FUSDT',
+      [SYMBOL]: 'fUSDT',
       [DECIMALS]: 6,
       [EXCHANGE_ADDRESS]: '0x367383da74d67196ec78d8536b6562de30e6dc7a',
       [REDEEM_MAX_NUM]: 200000,

@@ -756,6 +756,13 @@ export default {
       [DECIMALS]: 6,
       [EXCHANGE_ADDRESS]: '0x36928500bc1dcd7af6a2b4008875cc336b927d57'
     },
+    'fUSDT': {
+      [NAME]: 'USDTERC20',
+      [TOKEN]: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+      [SYMBOL]: 'USDT',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x36928500bc1dcd7af6a2b4008875cc336b927d57'
+    },
     'UNI': { // 
       [NAME]: 'Uniswap',
       [TOKEN]: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
