@@ -16,8 +16,8 @@ const CHAIN_MAIN_INFO = chainInfo['32659']
 const CHAIN_TEST_INFO = chainInfo[ARBITRUM_TEST_CHAINID]
 
 const COIN_BASE ={
-  symbol: 'ETH', // 符号
-  name: 'Ethereum', // 代币名
+  symbol: 'ARBITRUM', // 符号
+  name: 'Arbitrum', // 代币名
   decimals: 18, // 小数位
   networkName: 'Arbitrum', // 网络名称
   reverseSwitch: 0,  // 是否反向禁用,
