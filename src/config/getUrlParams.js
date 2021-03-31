@@ -63,7 +63,7 @@ function getParamNode (type, INIT_NODE) {
       return chainInfo[xDAI_MAIN_CHAINID].label
     case 'avax':
       return chainInfo[AVAX_MAIN_CHAINID].label
-    case 'dev':
+    case 'moonbeamtest':
       return chainInfo[DEV_TEST_CHAINID].label
     default:
       return INIT_NODE
