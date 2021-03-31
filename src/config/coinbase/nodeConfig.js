@@ -65,7 +65,23 @@ export const AVAX_MAINNET = 'https://api.avax.network/ext/bc/C/rpc'
 export const AVAX_MAIN_CHAINID = 43114
 export const AVAX_MAIN_EXPLORER = 'https://cchain.explorer.avax.network/'
 
+export const DEV_TESTNET = 'https://rpc.testnet.moonbeam.network'
+export const DEV_TEST_CHAINID = 1287
+export const DEV_TEST_EXPLORER = ''
+
 let chainInfo = {
+  [DEV_TEST_CHAINID]: {
+    rpc: DEV_TESTNET,
+    chainID: DEV_TEST_CHAINID,
+    lookHash: DEV_TEST_EXPLORER + '/tx/',
+    lookAddr: DEV_TEST_EXPLORER + '/address/',
+    explorer: DEV_TEST_EXPLORER,
+    symbol: 'DEV',
+    name: 'Moonbase',
+    type: 'main',
+    label: 'DEV_TEST',
+    isSwitch: 1
+  },
   [AVAX_MAIN_CHAINID]: {
     rpc: AVAX_MAINNET,
     chainID: AVAX_MAIN_CHAINID,
@@ -255,6 +271,7 @@ let chainList = {
     chainInfo[OKT_TEST_CHAINID],
     chainInfo[ETH_TEST_CHAINID],
     chainInfo[ARBITRUM_TEST_CHAINID],
+    chainInfo[DEV_TEST_CHAINID]
   ]
 }
 

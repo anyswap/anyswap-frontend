@@ -12,7 +12,8 @@ import {
   ARBITRUM_TEST_CHAINID,
   MATIC_MAIN_CHAINID,
   xDAI_MAIN_CHAINID,
-  AVAX_MAIN_CHAINID
+  AVAX_MAIN_CHAINID,
+  DEV_TEST_CHAINID
 } from './coinbase/nodeConfig'
 
 
@@ -62,6 +63,8 @@ function getParamNode (type, INIT_NODE) {
       return chainInfo[xDAI_MAIN_CHAINID].label
     case 'avax':
       return chainInfo[AVAX_MAIN_CHAINID].label
+    case 'dev':
+      return chainInfo[DEV_TEST_CHAINID].label
     default:
       return INIT_NODE
   }

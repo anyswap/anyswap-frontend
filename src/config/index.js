@@ -8,6 +8,7 @@ import getArbitrumConfig from './coinbase/arbitrum'
 import getMATICConfig from './coinbase/polygon'
 import getxDAIConfig from './coinbase/xDAI'
 import getAVAXConfig from './coinbase/avalanche'
+import getDEVConfig from './coinbase/moonbase'
 
 import {getNetwork, getIdCode} from './getUrlParams'
 import {chainInfo} from './coinbase/nodeConfig'
@@ -52,6 +53,8 @@ if (netArr[0] === 'FSN') {
   netConfig = getxDAIConfig(netArr[1])
 } else if (netArr[0] === 'AVAX') {
   netConfig = getAVAXConfig(netArr[1])
+} else if (netArr[0] === 'DEV') {
+  netConfig = getDEVConfig(netArr[1])
 }
 
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'

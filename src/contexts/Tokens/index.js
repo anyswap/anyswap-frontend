@@ -40,6 +40,7 @@ import arbitrum from './tokens/arbitrum'
 import polygon from './tokens/polygon'
 import xDAI from './tokens/xDAI'
 import avalanche from './tokens/avalanche'
+import moonbase from './tokens/moonbase'
 
 
 const UPDATE = 'UPDATE'
@@ -76,7 +77,8 @@ export const INITIAL_TOKENS_CONTEXT = {
   ...arbitrum,
   ...polygon,
   ...xDAI,
-  ...avalanche
+  ...avalanche,
+  ...moonbase
 }
 
 const TokensContext = createContext()
