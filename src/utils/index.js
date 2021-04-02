@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-
+// import { Contract } from '@ethersproject/contracts'
 import FACTORY_ABI from '../constants/abis/factory'
 import EXCHANGE_ABI from '../constants/abis/exchange'
 import ERC20_ABI from '../constants/abis/erc20'
@@ -187,6 +187,7 @@ export function getContract(address, ABI, library, account) {
   }
 
   return new ethers.Contract(address, ABI, getProviderOrSigner(library, account))
+  // return new Contract(address, ABI, getProviderOrSigner(library, account))
 }
 
 // account is optional

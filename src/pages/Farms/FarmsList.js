@@ -510,6 +510,50 @@ export default function FarmsList () {
       </BannerBox> */}
       <FarmListBox>
         <FarmList>
+          <LinkBox onClick={() => {
+            // window.open('https://htswap.io/')
+            const type = 'MOD'
+            let url = 'https://dashboard.modefi.io'
+            openThirdWeb(url, type)
+          }}>
+            <div className='default'>
+              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
+              <DoubleLogo>
+                <div className="logo left"><TokenLogo1 address='MOD' size='100%'/></div>
+                <span className="add">+</span>
+                <div className="logo right"><TokenLogo1 address='FTM' size='100%'/></div>
+              </DoubleLogo>
+              <div className='info'>
+                <h3>MOD Farming</h3>
+                <p>Modefi Farming</p>
+              </div>
+            </div>
+          </LinkBox>
+        </FarmList>
+        <FarmList>
+          <LinkBox onClick={() => {
+            // window.open('https://htswap.io/')
+            const type = 'ICE'
+            let url = 'https://popsicle.finance/popsicle-stand'
+            openThirdWeb(url, type)
+          }}>
+            <div className='default'>
+              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
+              <DoubleLogo>
+                <div className="logo left"><TokenLogo1 address='ICE' size='100%'/></div>
+                <span className="add">+</span>
+                <div className="logo right"><TokenLogo1 address='FTM' size='100%'/></div>
+                <span className="add">+</span>
+                <div className="logo right"><TokenLogo1 address='BNB' size='100%'/></div>
+              </DoubleLogo>
+              <div className='info'>
+                <h3>ICE Farming</h3>
+                <p>Popsicle Farming</p>
+              </div>
+            </div>
+          </LinkBox>
+        </FarmList>
+        <FarmList>
           <StyledNavLink to={config.farmUrl + 'ftmfarming'}>
             <div className='default'>
               {/* <div className='img'><img src={require('../../assets/images/coin/source/HT.svg')} alt=""/></div> */}

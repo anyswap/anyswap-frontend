@@ -92,7 +92,7 @@ let chainInfo = {
     name: 'Avalanche',
     type: 'main',
     label: 'AVAX_MAIN',
-    isSwitch: 0
+    isSwitch: 1
   },
   [xDAI_MAIN_CHAINID]: {
     rpc: xDAI_MAINNET,

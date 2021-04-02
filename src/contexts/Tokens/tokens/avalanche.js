@@ -27,7 +27,7 @@ export default {
     //   [NAME]: 'Anyswap',
     //   [SYMBOL]: 'ANY',
     //   [DECIMALS]: 18,
-    //   [EXCHANGE_ADDRESS]: '0x781f19e8e6132d02ff6b47d6856eba7eda393310',
+    //   [EXCHANGE_ADDRESS]: '',
     //   [REDEEM_MAX_NUM]: 200000,
     //   [REDEEM_MIN_NUM]: 10,
     //   [FEE]: 0.001,

@@ -35,7 +35,7 @@ export function getWeb3BaseInfo (ContractAddress, input, address, value) {
     batch.add(web3Fn.eth.estimateGas.request(data, (err, res) => {
       if (err) {
         // console.log(err)
-        data.gas = web3Fn.utils.toHex(200000)
+        data.gas = web3Fn.utils.toHex(210000)
         count ++
       } else {
         data.gas = web3Fn.utils.toHex(parseInt(Number(res) * 1.2))
@@ -66,6 +66,7 @@ export function getWeb3BaseInfo (ContractAddress, input, address, value) {
       if (count >= 3 && ( (Date.now() - time) <= 30000 )) {
         // this.dataPage = data
         // this.getInputData()
+        console.log(data)
         toLedgerSign(HDPath, data).then(res => {
           if (res.msg === 'Success') {
             web3Fn.eth.sendSignedTransaction(res.info.signedTx, (err, hash) => {
