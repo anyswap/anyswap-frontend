@@ -3087,30 +3087,30 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0x91a22f94ee917efc8f804e251f385cbeb1c6d6bc': { // WAIF 
-      [NAME]: 'Waifu' + config.suffix,
-      [SYMBOL]: 'WAIF',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xb0a7253d1063c3d1a9c77a0725b76f44eaf5f8c5',
-      [REDEEM_MAX_NUM]: 5000,
-      [REDEEM_MIN_NUM]: 0.16,
-      [FEE]: 0.001,
-      [MAXFEE]: 0.8,
-      [MINFEE]: 0.08,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 143000,
-      [DEPOSIT_MIN_NUM]: 0.16,
-      [EXTENDOBJ]:  {
-        BRIDGE: [
-          { type: 1, isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      }
-    },
+    // '0x91a22f94ee917efc8f804e251f385cbeb1c6d6bc': { // WAIF 
+    //   [NAME]: 'Waifu' + config.suffix,
+    //   [SYMBOL]: 'WAIF',
+    //   [DECIMALS]: 18,
+    //   [EXCHANGE_ADDRESS]: '0xb0a7253d1063c3d1a9c77a0725b76f44eaf5f8c5',
+    //   [REDEEM_MAX_NUM]: 5000,
+    //   [REDEEM_MIN_NUM]: 0.16,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 0.8,
+    //   [MINFEE]: 0.08,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 143000,
+    //   [DEPOSIT_MIN_NUM]: 0.16,
+    //   [EXTENDOBJ]:  {
+    //     BRIDGE: [
+    //       { type: 1, isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2'
+    //   }
+    // },
     '0x518445f0db93863e5e93a7f70617c05afa8048f1': { // BITT 
       [NAME]: 'BITTOKEN' + config.suffix,
       [SYMBOL]: 'BITT',
