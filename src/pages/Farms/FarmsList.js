@@ -512,6 +512,23 @@ export default function FarmsList () {
         <FarmList>
           <LinkBox onClick={() => {
             // window.open('https://htswap.io/')
+            const type = 'NRV'
+            let url = 'https://app.nerve.fi/pools'
+            openThirdWeb(url, type)
+          }}>
+            <div className='default'>
+              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
+              <div className='img'><img src={require('../../assets/images/icon/NRV.svg')} alt=""/></div>
+              <div className='info'>
+                <h3>Nerve Farming</h3>
+                <p>Nerve Farming</p>
+              </div>
+            </div>
+          </LinkBox>
+        </FarmList>
+        <FarmList>
+          <LinkBox onClick={() => {
+            // window.open('https://htswap.io/')
             const type = 'MOD'
             let url = 'https://dashboard.modefi.io'
             openThirdWeb(url, type)
