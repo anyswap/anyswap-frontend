@@ -23,53 +23,53 @@ import {dirSwitch} from '../methods/common'
 
 export default {
   [AVAX_MAIN_CHAINID]: {
-    // '0xb44a9b6905af7c801311e8f4e76932ee959c663c': { // ANY
-    //   [NAME]: 'Anyswap',
-    //   [SYMBOL]: 'ANY',
-    //   [DECIMALS]: 18,
-    //   [EXCHANGE_ADDRESS]: '',
-    //   [REDEEM_MAX_NUM]: 200000,
-    //   [REDEEM_MIN_NUM]: 10,
-    //   [FEE]: 0.001,
-    //   [MAXFEE]: 50,
-    //   [MINFEE]: 1,
-    //   [ISSWITCH]: dirSwitch(0),
-    //   [ISDEPOSIT]: 1,
-    //   [ISREDEEM]: 1,
-    //   [DEPOSIT_ADDRESS]: '0xa0357C461bF599092652e489961FB82c647a77bf',
-    //   [DEPOSIT_TYPE]: 1,
-    //   [DEPOSIT_MAX_NUM]: 200000,
-    //   [DEPOSIT_MIN_NUM]: 0.5,
-    //   [EXTENDOBJ]: {
-    //     BRIDGE: [
-    //       { type: 32659, isSwitch: 1 }
-    //     ],
-    //     VERSION: 'V2'
-    //   },
-    // },
-    // '0xfa9343c3897324496a05fc75abed6bac29f8a40f': { // ETH
-    //   [NAME]: 'Ethereum',
-    //   [SYMBOL]: 'ETH',
-    //   [DECIMALS]: 18,
-    //   [EXCHANGE_ADDRESS]: '',
-    //   [REDEEM_MAX_NUM]: 200000,
-    //   [REDEEM_MIN_NUM]: 10,
-    //   [FEE]: 0.001,
-    //   [MAXFEE]: 50,
-    //   [MINFEE]: 1,
-    //   [ISSWITCH]: dirSwitch(0),
-    //   [ISDEPOSIT]: 1,
-    //   [ISREDEEM]: 1,
-    //   [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
-    //   [DEPOSIT_TYPE]: 1,
-    //   [DEPOSIT_MAX_NUM]: 200000,
-    //   [DEPOSIT_MIN_NUM]: 0.5,
-    //   [EXTENDOBJ]: {
-    //     BRIDGE: [
-    //       { type: 1, isSwitch: 1 }
-    //     ],
-    //     VERSION: 'V2'
-    //   },
-    // },
+    '0xb44a9b6905af7c801311e8f4e76932ee959c663c': { // ANY
+      [NAME]: 'Anyswap',
+      [SYMBOL]: 'ANY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x34cd63977c2a561d430966fc6720bab984e5caa2',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xa0357C461bF599092652e489961FB82c647a77bf',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 32659, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xfa9343c3897324496a05fc75abed6bac29f8a40f': { // ETH
+      [NAME]: 'Ethereum',
+      [SYMBOL]: 'ETH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xcf7060e5d2913401b66393a60c4dc46f7c30eb37',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

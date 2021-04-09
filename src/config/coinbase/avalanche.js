@@ -5,7 +5,7 @@ import {
 
 const NAME_PREFIX = 'ANY'
 
-const ANY_MAIN_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
+const ANY_MAIN_TOKEN = '0xb44a9b6905af7c801311e8f4e76932ee959c663c'
 const ANY_TEST_TOKEN = '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4'
 
 const REWARDS_DAY = 33000 / 2
@@ -75,7 +75,7 @@ const MAIN_CONFIG = {
   nodeRpc1: CHAIN_MAIN_INFO.rpc1, // 节点地址
   chainID: CHAIN_MAIN_INFO.chainID, // 节点chainID
   initToken: INIT_MAIN_TOKEN, // 交易默认合约
-  initBridge: '0x445166c4854836292a5af7e3f165a3b8b4eedf97', // 跨链桥默认合约
+  initBridge: '0xb44a9b6905af7c801311e8f4e76932ee959c663c', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
   btc: { // btc配置
@@ -95,7 +95,7 @@ const MAIN_CONFIG = {
   noSupportBridge: [
     COIN_BASE.symbol,
   ], // 不支持的跨链合约或币种
-  queryToken: '0x25afd2058b6e5e00995467d58778a2790a0e5038' // 查询余额合约
+  queryToken: '0xd8e95abcce8901cc2640d2ff4444c85506fb829d' // 查询余额合约
 }
 
 const TEST_CONFIG = {

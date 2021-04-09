@@ -47,6 +47,30 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x2bf9b864cdc97b08b6d79ad4663e71b8ab65c45c': { // FSN
+      [NAME]: 'Fusion',
+      [SYMBOL]: 'FSN',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x19a959a5079a65ede5fa657dd38769cdab6cba0e',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xE9c3967E1442287e6Ed45bEfC26A1bAd8c811b67',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 32659, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
     '0xc4bfaa8e2310bee9f80b27b253fc5f05221ab202': { // ARIA20
       [NAME]: 'ARIANEE',
       [SYMBOL]: 'ARIA20',

@@ -262,7 +262,7 @@ let chainList = {
     chainInfo[HT_MAIN_CHAINID],
     chainInfo[MATIC_MAIN_CHAINID],
     chainInfo[xDAI_MAIN_CHAINID],
-    // chainInfo[AVAX_MAIN_CHAINID]
+    chainInfo[AVAX_MAIN_CHAINID]
   ],
   test: [
     chainInfo[FSN_TEST_CHAINID],
