@@ -1382,6 +1382,41 @@ export default {
       [NAME]: 'BUSD',
       [TOKEN]: '0x4fabb145d64652a948d72533023f6e7a623c7c53',
       [DECIMALS]: 18
+    },
+    'AMP': {
+      [NAME]: 'AMP',
+      [TOKEN]: '0xfF20817765cB7f73d4bde2e66e067E58D11095C2',
+      [DECIMALS]: 18
+    },
+    'Titan': {
+      [NAME]: 'Titan',
+      [TOKEN]: '0x3A8cCCB969a61532d1E6005e2CE12C200caeCe87',
+      [DECIMALS]: 18
+    },
+    'BCP1': {
+      [NAME]: 'BitcashPay',
+      [TOKEN]: '0xe047705117Eb07e712C3d684f5B18E74577e83aC',
+      [DECIMALS]: 18
+    },
+    'CBC': {
+      [NAME]: 'CashBetCoin',
+      [TOKEN]: '0x26db5439f651caf491a87d48799da81f191bdb6b',
+      [DECIMALS]: 8
+    },
+    'NEXT': {
+      [NAME]: 'NEXT',
+      [TOKEN]: '0x377d552914e7a104bc22b4f3b6268ddc69615be7',
+      [DECIMALS]: 18
+    },
+    'PRT': {
+      [NAME]: 'PRT',
+      [TOKEN]: '0x6D0F5149c502faf215C89ab306ec3E50b15e2892',
+      [DECIMALS]: 18
+    },
+    'OCTO': {
+      [NAME]: 'OCTO',
+      [TOKEN]: '0x7240aC91f01233BaAf8b064248E80feaA5912BA3',
+      [DECIMALS]: 18
     }
   },
   4: {
@@ -1406,6 +1441,11 @@ export default {
       [NAME]: 'TokenPocket',
       [TOKEN]: '0xeca41281c24451168a37211f0bc2b8645af45092',
       [DECIMALS]: 4
+    },
+    'BIFI': {
+      [NAME]: 'beefy.finance',
+      [TOKEN]: '0xCa3F508B8e4Dd382eE878A314789373D80A5190A',
+      [DECIMALS]: 18
     }
   },
   250: {
