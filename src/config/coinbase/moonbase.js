@@ -6,7 +6,7 @@ import {
 const NAME_PREFIX = 'ANY'
 
 const ANY_MAIN_TOKEN = '0x0c74199d22f732039e843366a236ff4f61986b32'
-const ANY_TEST_TOKEN = '0x87fe4ea2692aeb64dbab6593de87cc4741e20c7f'
+const ANY_TEST_TOKEN = '0x149e0adb3ceac41f2ce952c4b835407cf73b35f5'
 
 const REWARDS_DAY = 33000 / 2
 // const REWARDS_DAY = 7600
@@ -104,7 +104,7 @@ const TEST_CONFIG = {
   nodeRpc1: CHAIN_TEST_INFO.rpc, // 节点地址
   chainID: CHAIN_TEST_INFO.chainID,
   initToken: INIT_TEST_TOKEN,
-  initBridge: '0x32d2731a99d4b2ccb11359ca656602376106da80',
+  initBridge: '0x149e0adb3ceac41f2ce952c4b835407cf73b35f5',
   explorerUrl: CHAIN_TEST_INFO.explorer,
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btc: {

@@ -23,11 +23,11 @@ import {dirSwitch} from '../methods/common'
 
 export default {
   [DEV_TEST_CHAINID]: {
-    '0x87fe4ea2692aeb64dbab6593de87cc4741e20c7f': { // ANY
+    '0x149e0adb3ceac41f2ce952c4b835407cf73b35f5': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xb17581cdad54879171b5f36cff720a58097beffd',
+      [EXCHANGE_ADDRESS]: '0xf806de28f07644c0738f3ff384157b8e9d246ec4',
       [REDEEM_MAX_NUM]: 1000000,
       [REDEEM_MIN_NUM]: 0.1,
       [FEE]: 0.001,
