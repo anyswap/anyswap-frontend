@@ -532,7 +532,54 @@ export default {
         APPROVELIMIT: 0
       },
     },
-
+    '0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c': { // LAYER
+      [NAME]: 'Unilayer',
+      [SYMBOL]: 'LAYER',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x3e4da5136f4e1408f15747b91129b599d3c14d07',
+      [REDEEM_MAX_NUM]: 1000,
+      [REDEEM_MIN_NUM]: 0.05,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.1,
+      [MINFEE]: 0.008,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xd779967f8b511c5edf39115341b310022900efed',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 1000,
+      [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x765277eebeca2e31912c9946eae1021199b39c61': { // BIFI
+      [NAME]: 'beefy.finance' + config.suffix,
+      [SYMBOL]: 'BIFI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xa45ed150f92d1f18e8e1fd8c7fbbf38ebe6e734e',
+      [REDEEM_MAX_NUM]: 10000,
+      [REDEEM_MIN_NUM]: 0.5,
+      [FEE]: 0.001,
+      [MAXFEE]: 2,
+      [MINFEE]: 0.2,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xe09c98f97dafb1f954cea0ce550383e2bd0c8829',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000,
+      [DEPOSIT_MIN_NUM]: 0.2,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [HT_TEST_CHAINID]: {
     '0x4373ca233c17b8bf1bf8159d56019d3394a0670d': { // ANY

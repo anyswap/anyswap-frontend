@@ -119,5 +119,29 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x7c598c96d02398d89fbcb9d41eab3df0c16f227d': { // AMP
+      [NAME]: 'Amp',
+      [SYMBOL]: 'AMP',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x9560ed0bc8d209653f31a94aa566d72252ff2117',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x668b9734FfE9eE8a01d4Ade3362De71E8989EA87',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

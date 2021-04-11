@@ -1078,8 +1078,8 @@ export default {
       [TOKEN]: '0x0c7D5ae016f806603CB1782bEa29AC69471CAb9c',
       [DECIMALS]: 18
     },
-    'BiFi': {
-      [NAME]: 'BiFi',
+    'BIFI': {
+      [NAME]: 'BIFI',
       [TOKEN]: '0x2791bfd60d232150bff86b39b7146c0eaaa2ba81',
       [DECIMALS]: 18
     },
@@ -1393,7 +1393,7 @@ export default {
       [TOKEN]: '0x3A8cCCB969a61532d1E6005e2CE12C200caeCe87',
       [DECIMALS]: 18
     },
-    'BCP1': {
+    'BCP ': {
       [NAME]: 'BitcashPay',
       [TOKEN]: '0xe047705117Eb07e712C3d684f5B18E74577e83aC',
       [DECIMALS]: 18

@@ -682,9 +682,9 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0xad260f380c9a30b1d60e4548a75010ede630b665': { // BiFi
-      [NAME]: 'BiFi' + config.suffix,
-      [SYMBOL]: 'BiFi',
+    '0xad260f380c9a30b1d60e4548a75010ede630b665': { // BIFI
+      [NAME]: 'BIFI' + config.suffix,
+      [SYMBOL]: 'BIFI',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xf061133f29daa83958b8f51f1b799df8fa6d18b4',
       [REDEEM_MAX_NUM]: 5000,
@@ -783,6 +783,30 @@ export default {
       [SYMBOL]: 'ICE',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x65fd4b4d54cac9ee6f2d912e2015ec79d9ed74dc',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c': { // OCTO 
+      [NAME]: 'Octo.fi' + config.suffix,
+      [SYMBOL]: 'OCTO',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1b3d0a484c06e6e787dc3d10437f383c44bd1b6b',
       [REDEEM_MAX_NUM]: 5000,
       [REDEEM_MIN_NUM]: 0.16,
       [FEE]: 0.001,
