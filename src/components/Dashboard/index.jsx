@@ -428,7 +428,7 @@ function isBaseUSD (coin) {
   return false
 }
 
-const pagesize = 10
+const pagesize = 18
 
 export default function DashboardDtil () {
   const { account } = useWeb3React()
@@ -753,6 +753,8 @@ export default function DashboardDtil () {
   function getMyAccount () {
     // if (!account) return
     const myAccount = account ? allBalances[account] : ''
+    // console.log(allBalances)
+    // console.log(myAccount)
     
     let tokenList = Object.keys(allTokens).map(k => {
       // console.log(k)
@@ -762,12 +764,13 @@ export default function DashboardDtil () {
       // only update if we have data
       if (k === config.symbol && myAccount && myAccount[k] && myAccount[k].value) {
         balance = formatEthBalance(ethers.utils.bigNumberify(myAccount[k].value))
+        // console.log(myAccount[k].value)
+        // console.log(k)
+        // console.log(balance)
       } else if (myAccount && myAccount[k] && myAccount[k].value) {
         balance = formatTokenBalance(ethers.utils.bigNumberify(myAccount[k].value), allTokens[k].decimals)
       }
-      // console.log(myAccount && myAccount[k])
-      // console.log(k)
-      if (myAccount && myAccount[k] && poolObj[allTokens[k].symbol] && baseMarket) {
+      if (poolObj[allTokens[k].symbol] && baseMarket) {
         if (allTokens[k].symbol === config.symbol) {
           price = formatNum(baseMarket, config.keepDec)
         } else {
@@ -776,6 +779,7 @@ export default function DashboardDtil () {
         if (!isNaN(balance) && !isNaN(price)) {
           tvl = Number(balance) * Number(price)
         }
+        // console.log(price)
       }
       return {
         name: allTokens[k].name,
