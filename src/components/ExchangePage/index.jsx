@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react'
+import React, { useState, useReducer, useEffect, useCallback } from 'react'
 // import ReactGA from 'react-ga'
 import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
@@ -759,6 +759,17 @@ export default function ExchangePage({ initialCurrency, params }) {
 
   const [isDisabled, setIsDisableed] = useState(true)
 
+  const onSwapValid = useCallback(() => {
+    if (!isNaN(percentSlippageFormatted) && Number(percentSlippageFormatted) >= 5) {
+      const r = confirm(t('slippageWarning') + ':' + percentSlippageFormatted + '%')
+      if (r) {
+        onSwap()
+      }
+    } else {
+      onSwap()
+    }
+  }, [percentSlippageFormatted, onSwap, t])
+
   async function onSwap() {
     if (!isDisabled) return
     setIsDisableed(false)
@@ -1272,7 +1283,7 @@ export default function ExchangePage({ initialCurrency, params }) {
             disabled={
               brokenTokenWarning || !isDisabled || showBetaMessage ? true : !account && !error ? false : !isValid || customSlippageError === 'invalid'
             }
-            onClick={account && !error ? onSwap : toggleWalletModal}
+            onClick={account && !error ? onSwapValid : toggleWalletModal}
             warning={highSlippageWarning || customSlippageError === 'warning'}
             loggedOut={!account}
           >
