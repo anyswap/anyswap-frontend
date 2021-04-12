@@ -32,36 +32,34 @@ const measureFileSizesBeforeBuild =
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
 const useYarn = fs.existsSync(paths.yarnLockFile);
 
-// These sizes are pretty large. We'll warn for bundles exceeding them.
+// 这些尺寸相当大。我们会警告超过它们的包裹。
 const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024;
 const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024;
 
 const isInteractive = process.stdout.isTTY;
 
-// Warn and crash if required files are missing
+// 如果所需文件丢失，则发出警告并崩溃
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
 
-// Generate configuration
+// 生成配置
 const config = configFactory('production');
 
-// We require that you explicitly set browsers and do not fall back to
-// browserslist defaults.
+// 我们要求您显式地设置浏览器，不要退回到browserslist默认值。
 const { checkBrowsers } = require('react-dev-utils/browsersHelper');
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
-    // First, read the current file sizes in build directory.
-    // This lets us display how much they changed later.
+    // 首先，读取build目录中的当前文件大小。
+    // 这让我们可以显示他们后来改变了多少。
     return measureFileSizesBeforeBuild(paths.appBuild);
   })
   .then(previousFileSizes => {
-    // Remove all content but keep the directory so that
-    // if you're in it, you don't end up in Trash
+    // 删除所有内容，但保留目录，这样，如果你在其中，你就不会在垃圾桶结束
     fs.emptyDirSync(paths.appBuild);
-    // Merge with the public folder
+    // 与公用文件夹合并
     copyPublicFolder();
-    // Start the webpack build
+    // 启动网页包生成
     return build(previousFileSizes);
   })
   .then(
@@ -128,7 +126,7 @@ checkBrowsers(paths.appPath, isInteractive)
     process.exit(1);
   });
 
-// Create the production build and print the deployment instructions.
+// 创建生产构建并打印部署说明。
 function build(previousFileSizes) {
   // We used to support resolving modules according to `NODE_PATH`.
   // This now has been deprecated in favor of jsconfig/tsconfig.json
@@ -172,8 +170,7 @@ function build(previousFileSizes) {
         );
       }
       if (messages.errors.length) {
-        // Only keep the first error. Others are often indicative
-        // of the same problem, but confuse the reader with noise.
+        // 只保留第一个错误。另一些则常常暗示着同样的问题，但却用噪音迷惑读者。
         if (messages.errors.length > 1) {
           messages.errors.length = 1;
         }

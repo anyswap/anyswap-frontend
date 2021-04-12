@@ -3423,11 +3423,11 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0xefaeee334f0fd1712f9a8cc375f427d9cdd40d73': { // PRT 
+    '0xaf00aac2431b04ef6afd904d19b08d5146e3a9a0': { // PRT 
       [NAME]: 'Portion' + config.suffix,
       [SYMBOL]: 'PRT',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x7d2c1fdac8c029deb94004859b27830e2611d227',
+      [EXCHANGE_ADDRESS]: '0x5eea1c1a4a27c7e7a24df80f1f40cd10c954620c',
       [REDEEM_MAX_NUM]: 5000,
       [REDEEM_MIN_NUM]: 0.16,
       [FEE]: 0.001,
