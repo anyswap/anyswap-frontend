@@ -56,7 +56,7 @@ function getMarketRate(reserveETH, reserveToken, decimals, invert = false) {
   return getExchangeRate(reserveETH, 18, reserveToken, decimals, invert)
 }
 
-export function getPoolInfo (arr) {
+export function getPoolInfo (arr, account) {
   return new Promise(resolve => {
     let callArr = []
     for (let obj of arr) {
@@ -77,10 +77,10 @@ export function getPoolInfo (arr) {
           returns: [['exchangeETHBalance_' + obj.symbol, val => val / 10 ** Number(obj.decimals)]]
         }
       ])
-      if (obj.account) {
+      if (account) {
         callArr.push({
           target: obj.exchangeAddress,
-          call: ['balanceOf(address)(uint256)', obj.account],
+          call: ['balanceOf(address)(uint256)', account],
           returns: [['poolTokenBalance_' + obj.symbol, val => val / 10 ** Number(obj.decimals)]]
         })
       }

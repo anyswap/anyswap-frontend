@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
 // import ReactGA from 'react-ga'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
@@ -23,10 +23,12 @@ import { useDarkModeManager } from '../../contexts/LocalStorage'
 
 import { ReactComponent as Dropup } from '../../assets/images/dropup-blue.svg'
 import { ReactComponent as Dropdown } from '../../assets/images/dropdown-blue.svg'
+import NextkIcon from '../../assets/images/icon/Next.svg'
+import PreviouskIcon from '../../assets/images/icon/Previous.svg'
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 
 import {getRewards} from '../../utils/axios'
-import {getDashBoards} from '../../utils/dashboard/index.js'
+// import {getDashBoards} from '../../utils/dashboard/index.js'
 import {getPoolInfo} from '../../utils/dashboard/getPoolInfo'
 
 import IconLiquidityRewards from '../../assets/images/icn-liquidity-rewards.svg'
@@ -390,7 +392,26 @@ font-family: 'Manrope';
   }
 `
 
-let count = 0
+const SelectHDPathPage = styled.div`
+  ${({ theme }) => theme.FlexBC};
+  height: 34px;
+  object-fit: contain;
+  border-radius: 6px;
+  background-color: ${({ theme }) => theme.moreBtn};
+  padding: 0 1.25rem;
+`
+const ArrowBox = styled.div`
+${({theme}) => theme.FlexC}
+  font-family: 'Manrope';
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: ${({theme}) => theme.textColorBold};
+  cursor:pointer;
+`
 
 function isBaseUSD (coin) {
   if (
@@ -407,6 +428,8 @@ function isBaseUSD (coin) {
   return false
 }
 
+const pagesize = 10
+
 export default function DashboardDtil () {
   const { account } = useWeb3React()
   // const account = '0x7aA84636251A56502bbb2C2b2671344b9Ff87CFa'
@@ -415,87 +438,152 @@ export default function DashboardDtil () {
   const { t } = useTranslation()
   const [poolList, setPoolList] = useState([])
   const [poolObj, setPoolObj] = useState({})
-  const [baseMarket, setSaseMarket] = useState()
-  const [rewardAPY, setRewardAPY] = useState({})
-  const [darkMode] = useDarkModeManager()
-  useEffect(() => {
-    setTimeout(() => {
+  const [baseMarket, setBaseMarket] = useState()
+  // const [rewardAPY, setRewardAPY] = useState({})
 
-      let poolArr = []
-      let poolInfoObj = {}
-      for (let obj in allTokens) {
-        poolArr.push({
-          account,
-          token: obj,
-          exchangeAddress: allTokens[obj].exchangeAddress,
-          ...allTokens[obj]
+  const [pagecount, setPagecount] = useState(0)
+  const [poolPagecount, setPoolPagecount] = useState(0)
+
+  const [searchBalance, setSearchBalance] =  useState('')
+  const [searchPool, setSearchPool] =  useState('')
+  const [showMore, setShowMore] =  useState(false)
+  const [showMorePool, setShowMorePool] =  useState(false)
+  const [accountRewars, setAccountRewars] = useState([])
+
+  const [darkMode] = useDarkModeManager()
+
+  const poolArr = useMemo(() => {
+    const arr = []
+    for (const obj in allTokens) {
+      arr.push({
+        token: obj,
+        exchangeAddress: allTokens[obj].exchangeAddress,
+        ...allTokens[obj]
+      })
+    }
+    return arr
+  }, [allTokens])
+  const totalCount = poolArr.length
+
+  const poolInfoObj = {}
+
+  function formatData (res) {
+    let arr = []
+    let baseAccountBalance = ethers.utils.bigNumberify(0)
+    // let baseAllBalance = ethers.utils.bigNumberify(0)
+    let rwArr = []
+    for (let obj of res) {
+      obj.pecent = amountFormatter(obj.pecent, 18, Math.min(config.keepDec, obj.decimals))
+      obj.balance = amountFormatter(obj.balance, obj.decimals, Math.min(config.keepDec, obj.decimals))
+      if (obj.Basebalance) {
+        baseAccountBalance = baseAccountBalance.add(obj.Basebalance)
+      }
+      // if (obj.exchangeETHBalance) {
+      //   baseAllBalance = baseAllBalance.add(obj.exchangeETHBalance)
+      // }
+      if (isBaseUSD(obj.symbol)) {
+        setBaseMarket(Number(amountFormatter( obj.market, 18, Math.min(config.keepDec, obj.decimals) )))
+      }
+      poolInfoObj[obj.symbol] = obj
+      arr.push(obj)
+      if (obj.exchangeETHBalance && obj.exchangeTokenBalancem && obj.market) {
+        rwArr.push({
+          coin: obj.symbol,
+          market: obj.market ? obj.market.toString() : 0,
+          baseAmount: obj.exchangeETHBalance ? obj.exchangeETHBalance.toString() : 0,
+          tokenAmount: obj.exchangeTokenBalancem ? obj.exchangeTokenBalancem.toString() : 0
         })
       }
-      
-      getPoolInfo(poolArr).then(res => {
-      // getDashBoards(poolArr).then(res => {
-        let arr = []
-        let baseAccountBalance = ethers.utils.bigNumberify(0)
-        let baseAllBalance = ethers.utils.bigNumberify(0)
-        let rwArr = []
-        for (let obj of res) {
-          obj.pecent = amountFormatter(obj.pecent, 18, Math.min(config.keepDec, obj.decimals))
-          obj.balance = amountFormatter(obj.balance, obj.decimals, Math.min(config.keepDec, obj.decimals))
-          if (obj.Basebalance) {
-            baseAccountBalance = baseAccountBalance.add(obj.Basebalance)
-          }
-          if (obj.exchangeETHBalance) {
-            baseAllBalance = baseAllBalance.add(obj.exchangeETHBalance)
-          }
-          if (isBaseUSD(obj.symbol)) {
-            setSaseMarket(Number(amountFormatter( obj.market, 18, Math.min(config.keepDec, obj.decimals) )))
-          }
-          poolInfoObj[obj.symbol] = obj
-          arr.push(obj)
-          if (obj.exchangeETHBalance && obj.exchangeTokenBalancem && obj.market) {
-            rwArr.push({
-              coin: obj.symbol,
-              market: obj.market ? obj.market.toString() : 0,
-              baseAmount: obj.exchangeETHBalance ? obj.exchangeETHBalance.toString() : 0,
-              tokenAmount: obj.exchangeTokenBalancem ? obj.exchangeTokenBalancem.toString() : 0
-            })
-          }
-        }
-        // console.log(arr)
-        arr[0].Basebalance = baseAccountBalance
-        poolInfoObj[config.symbol].Basebalance = baseAccountBalance
-        setRewardAPY(config.rewardRate(rwArr))
-        setPoolObj(poolInfoObj)
-        setPoolList(arr)
-      })
-    }, 1000)
-  }, [allTokens, account])
+    }
+    if (arr[0].symbol === config.symbol) {
+      arr[0].Basebalance = baseAccountBalance
+      poolInfoObj[config.symbol].Basebalance = baseAccountBalance
+    }
+    setPoolObj(poolInfoObj)
+    return arr
+  }
 
-  function rewardsPencent (coin, isSwitch) {
-    if (!config.dirSwitchFn(isSwitch)) {
-      return (
-        <ComineSoon>
-          <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
-          {t('ComineSoon')}
-        </ComineSoon>
-      )
+  async function getData (account) {
+    let arr = []
+    for (let i = 0; i < parseInt(totalCount / pagesize); i++) {
+      const start = i * pagesize
+      const end = start + pagesize
+      const resArr = poolArr.slice(start, end)
+
+      const result = await getPoolInfo(resArr, account)
+      arr.push(...formatData(result))
+      setPoolList(arr)
     }
-    if (config.symbol === 'BNB') {
-      if (rewardAPY[coin]) {
-        return formatDecimal(rewardAPY[coin].AnnualizedROI, 2) + '%'
-      } else {
-        return '-%'
-      }
-    } else {
-      if (rewardAPY[coin]) {
-        return formatDecimal(rewardAPY[coin].AnnualizedROI, 2) + '%'
-      } else {
-        return '-%'
-      }
+    // console.log(arr)
+  }
+
+  useEffect(() => {
+    if (poolArr.length > 0) {
+      getData(account)
     }
+  }, [poolArr, account])
+
+  // function rewardsPencent (coin, isSwitch) {
+  //   if (!config.dirSwitchFn(isSwitch)) {
+  //     return (
+  //       <ComineSoon>
+  //         <img alt={''} src={ScheduleIcon} style={{marginRight: '10px'}} />
+  //         {t('ComineSoon')}
+  //       </ComineSoon>
+  //     )
+  //   }
+  //   if (config.symbol === 'BNB') {
+  //     if (rewardAPY[coin]) {
+  //       return formatDecimal(rewardAPY[coin].AnnualizedROI, 2) + '%'
+  //     } else {
+  //       return '-%'
+  //     }
+  //   } else {
+  //     if (rewardAPY[coin]) {
+  //       return formatDecimal(rewardAPY[coin].AnnualizedROI, 2) + '%'
+  //     } else {
+  //       return '-%'
+  //     }
+  //   }
+  // }
+
+  function changePage (callback, pCount, type) {
+    
+    return (
+      <SelectHDPathPage>
+        <ArrowBox onClick={() => {
+          if (pCount >= 1) {
+            callback(pCount - 1)
+            if (type === 1) {
+              setSearchBalance('')
+            } else {
+              setSearchPool('')
+            }
+          }
+        }}><img alt={''} src={PreviouskIcon} style={{marginRight: '0.625rem'}}/>Previous</ArrowBox>
+        <ArrowBox onClick={() => {
+          if (pCount < parseInt(totalCount / pagesize)) {
+            callback(pCount + 1)
+            if (type === 1) {
+              setSearchBalance('')
+            } else {
+              setSearchPool('')
+            }
+          }
+        }}>Next<img alt={''} src={NextkIcon} style={{marginLeft: '0.625rem'}} /></ArrowBox>
+      </SelectHDPathPage>
+    )
   }
 
   function PoolListView () {
+    const start = poolPagecount * pagesize
+    const end = start + pagesize
+    poolList.sort((a, b) => {
+      if (a.exchangeETHBalance.gt(b.exchangeETHBalance)) {
+        return -1
+      }
+    })
+    const resArr = searchPool ? poolList : poolList.slice(start, end)
     return (
       <>
         <DBTables>
@@ -510,8 +598,8 @@ export default function DashboardDtil () {
           </DBThead>
           <DBTbody>
             {
-              poolList.length > 0 ? (
-                poolList.map((item, index) => {
+              resArr.length > 0 ? (
+                resArr.map((item, index) => {
                   if (
                     (!searchPool
                     || item.symbol.toLowerCase().indexOf(searchPool.toLowerCase()) !== -1
@@ -593,12 +681,6 @@ export default function DashboardDtil () {
   }
 
 
-  const [searchBalance, setSearchBalance] =  useState('')
-  const [searchPool, setSearchPool] =  useState('')
-  const [showMore, setShowMore] =  useState(false)
-  const [showMorePool, setShowMorePool] =  useState(false)
-  const [accountRewars, setAccountRewars] = useState([])
-
   useEffect(() => {
     if (account && config.isOpenRewards) {
       setTimeout(() => {
@@ -645,6 +727,7 @@ export default function DashboardDtil () {
           </div>
           <SearchInput
             placeholder={t('searchToken')}
+            value={type === 1 ? searchBalance : searchPool}
             onChange={e => {
               if (type === 1) {
                 setSearchBalance(e.target.value)
@@ -674,18 +757,39 @@ export default function DashboardDtil () {
     let tokenList = Object.keys(allTokens).map(k => {
       // console.log(k)
       let balance = '-'
+      let price = '-'
+      let tvl = 0
       // only update if we have data
       if (k === config.symbol && myAccount && myAccount[k] && myAccount[k].value) {
         balance = formatEthBalance(ethers.utils.bigNumberify(myAccount[k].value))
       } else if (myAccount && myAccount[k] && myAccount[k].value) {
         balance = formatTokenBalance(ethers.utils.bigNumberify(myAccount[k].value), allTokens[k].decimals)
       }
+      // console.log(myAccount && myAccount[k])
+      // console.log(k)
+      if (myAccount && myAccount[k] && poolObj[allTokens[k].symbol] && baseMarket) {
+        if (allTokens[k].symbol === config.symbol) {
+          price = formatNum(baseMarket, config.keepDec)
+        } else {
+          price = getPrice(poolObj[allTokens[k].symbol].market, allTokens[k].symbol)
+        }
+        if (!isNaN(balance) && !isNaN(price)) {
+          tvl = Number(balance) * Number(price)
+        }
+      }
       return {
         name: allTokens[k].name,
         symbol: allTokens[k].symbol,
         address: k,
         balance: balance,
-        isSwitch: allTokens[k].isSwitch
+        isSwitch: allTokens[k].isSwitch,
+        price: price,
+        tvl: tvl
+      }
+    })
+    tokenList.sort((a, b) => {
+      if (!isNaN(a.tvl) && !isNaN(b.tvl) && Number(a.tvl) > Number(b.tvl)) {
+        return -1
       }
     })
     // console.log(tokenList)
@@ -700,6 +804,10 @@ export default function DashboardDtil () {
       }
       tokenList.unshift(ANYItem)
     }
+    const start = pagecount * pagesize
+    const end = start + pagesize
+    // console.log(tokenList)
+    const resArr = searchBalance ? tokenList : tokenList.slice(start, end)
     return (
       <DBTables>
         <DBThead>
@@ -714,7 +822,7 @@ export default function DashboardDtil () {
         </DBThead>
         <DBTbody>
           {
-            tokenList.length > 0 ? tokenList.map((item, index) => {
+            resArr.length > 0 ? resArr.map((item, index) => {
               if (
                 !searchBalance
                 || item.name.toLowerCase().indexOf(searchBalance.toLowerCase()) !== -1
@@ -736,9 +844,7 @@ export default function DashboardDtil () {
                       poolObj[item.symbol] ? (
                         config.dirSwitchFn(poolObj[item.symbol].isSwitch) ? (
                           <>
-                            <DBTd className='l'>$ {poolObj[item.symbol] && baseMarket ? 
-                              (item.symbol === config.symbol ? formatNum(baseMarket, config.keepDec) : getPrice(poolObj[item.symbol].market, item.symbol)) : '-'
-                            }</DBTd>
+                            <DBTd className='l'>$ {item.price}</DBTd>
                             <DBTd className='r'>{account ? item.balance : '-'}</DBTd>
                             {
                               item.symbol === config.symbol ? (
@@ -844,6 +950,7 @@ export default function DashboardDtil () {
         <MyBalanceTokenBox className={showMore ? 'showMore' : ''}>
           {getMyAccount()}
         </MyBalanceTokenBox>
+        {changePage(setPagecount, pagecount, 1)}
         <MoreBtnBox onClick={() => {
           setShowMore(!showMore)
         }}>
@@ -898,6 +1005,7 @@ export default function DashboardDtil () {
         <MyBalanceTokenBox className={showMorePool ? 'showMore' : ''}>
           {PoolListView()}
         </MyBalanceTokenBox>
+        {changePage(setPoolPagecount, poolPagecount)}
         <MoreBtnBox onClick={() => {
           setShowMorePool(!showMorePool)
         }}>
