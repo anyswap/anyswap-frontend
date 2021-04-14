@@ -954,7 +954,7 @@ export default function DashboardDtil () {
         <MyBalanceTokenBox className={showMore ? 'showMore' : ''}>
           {getMyAccount()}
         </MyBalanceTokenBox>
-        {changePage(setPagecount, pagecount, 1)}
+        {showMore ? changePage(setPagecount, pagecount, 1) : ''}
         <MoreBtnBox onClick={() => {
           setShowMore(!showMore)
         }}>
@@ -1009,7 +1009,7 @@ export default function DashboardDtil () {
         <MyBalanceTokenBox className={showMorePool ? 'showMore' : ''}>
           {PoolListView()}
         </MyBalanceTokenBox>
-        {changePage(setPoolPagecount, poolPagecount)}
+        {showMorePool ? changePage(setPoolPagecount, poolPagecount) : ''}
         <MoreBtnBox onClick={() => {
           setShowMorePool(!showMorePool)
         }}>

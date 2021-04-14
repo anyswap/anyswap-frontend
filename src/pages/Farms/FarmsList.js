@@ -477,6 +477,63 @@ export default function FarmsList () {
     }
   }
 
+  function farmItem (isDoubleLogo, isOutLink, url, title, info, coin1, coin2, coin3) {
+    let coinLogo = isDoubleLogo ? (
+      <DoubleLogo>
+        <div className="logo left"><TokenLogo1 address={coin1} size='100%'/></div>
+        <span className="add">+</span>
+        <div className="logo right"><TokenLogo1 address={coin2} size='100%'/></div>
+      </DoubleLogo>
+    ) : (
+      <div className='img'><img src={coin1} alt={title}/></div>
+    )
+    if (isDoubleLogo === 0) {
+      coinLogo = <div className='img'><img src={coin1} alt={title}/></div>
+    } else if (isDoubleLogo === 1) {
+      coinLogo = <DoubleLogo>
+        <div className="logo left"><TokenLogo1 address={coin1} size='100%'/></div>
+        <span className="add">+</span>
+        <div className="logo right"><TokenLogo1 address={coin2} size='100%'/></div>
+      </DoubleLogo>
+    } else if (isDoubleLogo === 2) {
+      coinLogo = <DoubleLogo>
+        <div className="logo left"><TokenLogo1 address={coin1} size='100%'/></div>
+        <span className="add">+</span>
+        <div className="logo right"><TokenLogo1 address={coin2} size='100%'/></div>
+        <span className="add">+</span>
+        <div className="logo right"><TokenLogo1 address={coin3} size='100%'/></div>
+      </DoubleLogo>
+    }
+    const titleInfo = <div className='info'>
+      <h3>{title}</h3>
+      <p dangerouslySetInnerHTML={{__html: info}}></p>
+    </div>
+    if (isOutLink) {
+      return (
+        <FarmList>
+          <LinkBox onClick={() => {
+            openThirdWeb(url, coin1)
+          }}>
+            <div className='default'>
+              {coinLogo}
+              {titleInfo}
+            </div>
+          </LinkBox>
+        </FarmList>
+      )
+    }
+    return (
+      <FarmList>
+        <StyledNavLink to={url}>
+          <div className='default'>
+            {coinLogo}
+            {titleInfo}
+          </div>
+        </StyledNavLink>
+      </FarmList>
+    )
+  }
+
 
   return (
     <>
@@ -509,221 +566,19 @@ export default function FarmsList () {
         <img src={require('../../assets/images/banner/farm.png')} />
       </BannerBox> */}
       <FarmListBox>
-        <FarmList>
-          <LinkBox onClick={() => {
-            // window.open('https://htswap.io/')
-            const type = 'NRV'
-            let url = 'https://app.nerve.fi/pools'
-            openThirdWeb(url, type)
-          }}>
-            <div className='default'>
-              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
-              <div className='img'><img src={require('../../assets/images/icon/NRV.svg')} alt=""/></div>
-              <div className='info'>
-                <h3>Nerve Farming</h3>
-                <p>Nerve Farming</p>
-              </div>
-            </div>
-          </LinkBox>
-        </FarmList>
-        <FarmList>
-          <LinkBox onClick={() => {
-            // window.open('https://htswap.io/')
-            const type = 'MOD'
-            let url = 'https://dashboard.modefi.io'
-            openThirdWeb(url, type)
-          }}>
-            <div className='default'>
-              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
-              <DoubleLogo>
-                <div className="logo left"><TokenLogo1 address='MOD' size='100%'/></div>
-                <span className="add">+</span>
-                <div className="logo right"><TokenLogo1 address='FTM' size='100%'/></div>
-              </DoubleLogo>
-              <div className='info'>
-                <h3>MOD Farming</h3>
-                <p>Modefi Farming</p>
-              </div>
-            </div>
-          </LinkBox>
-        </FarmList>
-        <FarmList>
-          <LinkBox onClick={() => {
-            // window.open('https://htswap.io/')
-            const type = 'ICE'
-            let url = 'https://popsicle.finance/popsicle-stand'
-            openThirdWeb(url, type)
-          }}>
-            <div className='default'>
-              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
-              <DoubleLogo>
-                <div className="logo left"><TokenLogo1 address='ICE' size='100%'/></div>
-                <span className="add">+</span>
-                <div className="logo right"><TokenLogo1 address='FTM' size='100%'/></div>
-                <span className="add">+</span>
-                <div className="logo right"><TokenLogo1 address='BNB' size='100%'/></div>
-              </DoubleLogo>
-              <div className='info'>
-                <h3>ICE Farming</h3>
-                <p>Popsicle Farming</p>
-              </div>
-            </div>
-          </LinkBox>
-        </FarmList>
-        <FarmList>
-          <StyledNavLink to={config.farmUrl + 'ftmfarming'}>
-            <div className='default'>
-              {/* <div className='img'><img src={require('../../assets/images/coin/source/HT.svg')} alt=""/></div> */}
-              <DoubleLogo>
-                <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
-                <span className="add">+</span>
-                <div className="logo right"><TokenLogo1 address='FTM' size='100%'/></div>
-              </DoubleLogo>
-              <div className='info'>
-                <h3>ANY Farming</h3>
-                {/* <p>{t('LaunchTime')}</p> */}
-                {/* <p>{t('ComineSoon')}</p> */}
-                <p>{t('ANYHTStakingTip')}<span className='pecent'>+{FTMFarmingAPY ? (Number(FTMFarmingAPY)).toFixed(2) : '0.00'}%</span></p>
-              </div>
-            </div>
-          </StyledNavLink>
-        </FarmList>
-        <FarmList>
-          <StyledNavLink to={config.farmUrl + 'fsnfarming'}>
-            <div className='default'>
-              {/* <div className='img'><img src={require('../../assets/images/coin/source/HT.svg')} alt=""/></div> */}
-              <DoubleLogo>
-                <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
-                <span className="add">+</span>
-                <div className="logo right"><TokenLogo1 address='FSN' size='100%'/></div>
-              </DoubleLogo>
-              <div className='info'>
-                <h3>ANY Farming</h3>
-                {/* <p>{t('LaunchTime')}</p> */}
-                {/* <p>{t('ComineSoon')}</p> */}
-                <p>{t('ANYHTStakingTip')}<span className='pecent'>+{FSNStakingAPY ? (Number(FSNStakingAPY)).toFixed(2) : '0.00'}%</span></p>
-              </div>
-            </div>
-          </StyledNavLink>
-        </FarmList>
-        <FarmList>
-          <LinkBox onClick={() => {
-            // window.open('https://htswap.io/')
-            const type = 'SDC'
-            let url = 'https://htswap.io/rebase'
-            openThirdWeb(url, type)
-          }}>
-            <div className='default'>
-              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
-              <DoubleLogo>
-                <div className="logo left"><TokenLogo1 address='SDC' size='100%'/></div>
-                <span className="add">+</span>
-                <div className="logo right"><TokenLogo1 address='HT' size='100%'/></div>
-              </DoubleLogo>
-              <div className='info'>
-                <h3>SDC Farming</h3>
-                <p>USD Rebase token Farming</p>
-              </div>
-            </div>
-          </LinkBox>
-        </FarmList>
-        <FarmList>
-          <LinkBox onClick={() => {
-            // window.open('https://htswap.io/')
-            const type = 'EDC'
-            let url = 'http://heco.earndefi.finance/'
-            openThirdWeb(url, type)
-          }}>
-            <div className='default'>
-              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
-              <DoubleLogo>
-                <div className="logo left"><TokenLogo1 address='EDC' size='100%'/></div>
-                <span className="add">+</span>
-                <div className="logo right"><TokenLogo1 address='HT' size='100%'/></div>
-              </DoubleLogo>
-              <div className='info'>
-                <h3>EDC Farming</h3>
-                <p>EarnDefiCoin Farming</p>
-              </div>
-            </div>
-          </LinkBox>
-        </FarmList>
-        <FarmList>
-          <StyledNavLink to={config.farmUrl + 'bscfarming2'}>
-            <div className='default'>
-              <DoubleLogo>
-                <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
-                <span className="add">+</span>
-                <div className="logo right"><TokenLogo1 address='BNB' size='100%'/></div>
-              </DoubleLogo>
-              <div className='info'>
-                <h3>ANY Farming</h3>
-                <p>{t('ANYHTStakingTip')}<span className='pecent'>+{BSCFarmingAPY ? (Number(BSCFarmingAPY)).toFixed(2) : '0.00'}%</span></p>
-              </div>
-            </div>
-          </StyledNavLink>
-        </FarmList>
-        <FarmList>
-          <LinkBox onClick={() => {
-            // window.open('https://htswap.io/')
-            const type = 'HTSWAP'
-            let url = 'https://htswap.io'
-            openThirdWeb(url, type)
-          }}>
-            <div className='default'>
-              {/* <div className='img'><img src={require('../../assets/images/coin/source/htcIcon.svg')} alt=""/></div> */}
-              <DoubleLogo>
-                <div className="logo left"><TokenLogo1 address='HTC' size='100%'/></div>
-                <span className="add">+</span>
-                <div className="logo right"><TokenLogo1 address='HT' size='100%'/></div>
-              </DoubleLogo>
-              <div className='info'>
-                <h3>HT Swap</h3>
-                <p>{t('htSwapTip')}</p>
-              </div>
-            </div>
-          </LinkBox>
-        </FarmList>
-        <FarmList>
-          <StyledNavLink to={config.farmUrl + 'htfarming'}>
-            <div className='default'>
-              {/* <div className='img'><img src={require('../../assets/images/coin/source/HT.svg')} alt=""/></div> */}
-              <DoubleLogo>
-                <div className="logo left"><TokenLogo1 address='ANY' size='100%'/></div>
-                <span className="add">+</span>
-                <div className="logo right"><TokenLogo1 address='HT' size='100%'/></div>
-              </DoubleLogo>
-              <div className='info'>
-                <h3>ANY Farming</h3>
-                {/* <p>{t('LaunchTime')}</p> */}
-                {/* <p>{t('ComineSoon')}</p> */}
-                <p>{t('ANYHTStakingTip')}<span className='pecent'>+{HTStakingAPY ? (Number(HTStakingAPY)).toFixed(2) : '0.00'}%</span></p>
-              </div>
-            </div>
-          </StyledNavLink>
-        </FarmList>
-        <FarmList>
-          <StyledNavLink to={config.farmUrl + 'bscfarming'}>
-            <div className='default'>
-              <div className='img'><img src={require('../../assets/images/icon/cycIcon.svg')} alt=""/></div>
-              <div className='info'>
-                <h3>CYC Farming</h3>
-                <p>{t('BSCStakingTip')}<span className='pecent'>+{BSCStakingAPY ? (Number(BSCStakingAPY)).toFixed(2) : '0.00'}%</span></p>
-              </div>
-            </div>
-          </StyledNavLink>
-        </FarmList>
-        <FarmList>
-          <StyledNavLink to={config.farmUrl + 'staking'}>
-            <div className='default'>
-              <div className='img'><img src={require('../../assets/images/icon/anyIcon.svg')} alt=""/></div>
-              <div className='info'>
-                <h3>ANY Staking</h3>
-                <p>{t('ANYStakingTip')}<span className='pecent'>+{StakingAPY ? (Number(StakingAPY) / 100).toFixed(2) : '0.00'}%</span></p>
-              </div>
-            </div>
-          </StyledNavLink>
-        </FarmList>
+        {farmItem(1, 1, 'https://ellipsis.finance/fusdt', 'EPS Farming', 'Ellipsis Farming', 'EPS', 'BNB')}
+        {farmItem(1, 1, 'https://app.nerve.fi/pools', 'NRV Farming', 'Nerve Farming', 'NRV', 'BNB')}
+        {farmItem(1, 1, 'https://dashboard.modefi.io', 'MOD Farming', 'Modefi Farming', 'MOD', 'BNB')}
+        {farmItem(2, 1, 'https://popsicle.finance/popsicle-stand', 'ICE Farming', 'Popsicle Farming', 'ICE', 'FTM', 'BNB')}
+        {farmItem(1, 0, config.farmUrl + 'ftmfarming', 'ANY Farming', (t('ANYHTStakingTip') + "<span class='pecent'>" + (FTMFarmingAPY ? (Number(FTMFarmingAPY)).toFixed(2) : '0.00') + "%</span>"), 'ANY', 'FTM')}
+        {farmItem(1, 0, config.farmUrl + 'fsnfarming', 'ANY Farming', (t('ANYHTStakingTip') + "<span class='pecent'>" + (FSNStakingAPY ? (Number(FSNStakingAPY)).toFixed(2) : '0.00') + "%</span>"), 'ANY', 'FSN')}
+        {farmItem(1, 1, 'https://htswap.io/rebase', 'SDC Farming', 'USD Rebase token Farming', 'SDC', 'HT')}
+        {farmItem(1, 1, 'http://heco.earndefi.finance/', 'EDC Farming', 'EarnDefiCoin Farming', 'EDC', 'HT')}
+        {farmItem(1, 0, config.farmUrl + 'bscfarming2', 'EDC ANY', (t('ANYHTStakingTip') + "<span class='pecent'>" + (BSCFarmingAPY ? (Number(BSCFarmingAPY)).toFixed(2) : '0.00') + "%</span>"), 'ANY', 'BNB')}
+        {farmItem(1, 1, 'https://htswap.io', 'HT Swap', t('htSwapTip'), 'HTC', 'HT')}
+        {farmItem(1, 0, config.farmUrl + 'htfarming', 'ANY Farming', (t('ANYHTStakingTip') + "<span class='pecent'>" + (HTStakingAPY ? (Number(HTStakingAPY)).toFixed(2) : '0.00') + "%</span>"), 'ANY', 'HT')}
+        {farmItem(0, 0, config.farmUrl + 'bscfarming', 'CYC Farming', (t('BSCStakingTip') + "<span class='pecent'>" + (BSCStakingAPY ? (Number(BSCStakingAPY)).toFixed(2) : '0.00') + "%</span>"), require('../../assets/images/icon/cycIcon.svg'))}
+        {farmItem(0, 0, config.farmUrl + 'staking', 'ANY Staking', (t('ANYStakingTip') + "<span class='pecent'>" + (StakingAPY ? (Number(StakingAPY)).toFixed(2) : '0.00') + "%</span>"), require('../../assets/images/icon/anyIcon.svg'))}
       </FarmListBox>
     </>
   )
