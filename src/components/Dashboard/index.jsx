@@ -505,7 +505,8 @@ export default function DashboardDtil () {
 
   async function getData (account) {
     let arr = []
-    for (let i = 0; i < parseInt(totalCount / pagesize); i++) {
+    for (let i = 0; i <= parseInt(totalCount / pagesize); i++) {
+      console.log(i)
       const start = i * pagesize
       const end = start + pagesize
       const resArr = poolArr.slice(start, end)
@@ -514,11 +515,13 @@ export default function DashboardDtil () {
       arr.push(...formatData(result))
       setPoolList(arr)
     }
-    // console.log(arr)
   }
 
   useEffect(() => {
     if (poolArr.length > 0) {
+      if (poolList.length <= 0) {
+        setPoolList(poolArr)
+      }
       getData(account)
     }
   }, [poolArr, account])
@@ -579,7 +582,7 @@ export default function DashboardDtil () {
     const start = poolPagecount * pagesize
     const end = start + pagesize
     poolList.sort((a, b) => {
-      if (a.exchangeETHBalance.gt(b.exchangeETHBalance)) {
+      if (a && b && a.exchangeETHBalance && b.exchangeETHBalance && a.exchangeETHBalance.gt(b.exchangeETHBalance)) {
         return -1
       }
     })

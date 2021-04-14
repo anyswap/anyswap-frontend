@@ -1,6 +1,7 @@
 import React, { useState, useReducer, useEffect, useCallback } from 'react'
 // import ReactGA from 'react-ga'
 import { createBrowserHistory } from 'history'
+import { darken } from 'polished'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
@@ -21,6 +22,8 @@ import CurrencyInputPanel from '../CurrencyInputPanel'
 import AddressInputPanel from '../AddressInputPanel'
 import OversizedPanel from '../OversizedPanel'
 import TransactionDetails from '../TransactionDetails'
+import Modal from '../Modal'
+import ModalContent from '../Modal/ModalContent'
 // import ArrowDown from '../../assets/svg/SVGArrowDown'
 import WarningCard from '../WarningCard'
 import config from '../../config'
@@ -220,6 +223,62 @@ const TxnsDtilBtn = styled.div`
     marign: auto;
     margin-bottom:0.625rem;
   }
+`
+const TransactionInfo = styled.div`
+font-family: 'Manrope';
+  padding: 2rem 1.25rem 1.5625rem;
+  border-bottom: 0.0625rem solid #dadada;
+  @media screen and (max-width: 960px) {
+    padding: 0 0.625rem 0.625rem;
+    height: auto;
+  }
+`
+const LastSummaryText = styled.div`
+${({ theme }) => theme.FlexSC}
+font-family: 'Manrope';
+  font-size: 0.75rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  color: ${({ theme }) => theme.textColorBold};
+  height: 32px;
+  margin-bottom: 0.625rem;
+  .icon {
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    object-fit: contain;
+    border: solid 0.5px #c0d6ea;
+    background-color: #ecf6ff;
+    border-radius: 100%;
+    margin-right: 0.625rem;
+    img {
+      height: 100%;
+      display:block;
+    }
+  }
+`
+const ValueWrapper = styled.span`
+${({ theme }) => theme.FlexC};
+  font-family: 'Manrope';
+  padding: 0.125rem 0.3rem 0.1rem 0.3rem;
+  // background-color: ${({ theme }) => darken(0.04, theme.concreteGray)};
+  background-color: ${({ theme }) => theme.dtilTxtBg};
+  border-radius: 0.75rem;
+  font-variant: tabular-nums;
+`
+const Bold = styled.span`
+  font-size: 0.75rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  white-space:nowrap;
+  color: ${({ theme }) => theme.textColorBold};
+  margin: 0 5px;
 `
 
 function calculateSlippageBounds(value, token = false, tokenAllowedSlippage, allowedSlippage) {
@@ -442,6 +501,8 @@ export default function ExchangePage({ initialCurrency, params }) {
 
   const [rawSlippage, setRawSlippage] = useState(() => initialSlippage())
   const [rawTokenSlippage, setRawTokenSlippage] = useState(() => initialSlippage(true))
+
+  const [slippageView, setSlippageView] = useState(false)
 
   const allowedSlippageBig = ethers.utils.bigNumberify(rawSlippage)
   const tokenAllowedSlippageBig = ethers.utils.bigNumberify(rawTokenSlippage)
@@ -761,10 +822,7 @@ export default function ExchangePage({ initialCurrency, params }) {
 
   const onSwapValid = useCallback(() => {
     if (!isNaN(percentSlippageFormatted) && Number(percentSlippageFormatted) >= 5) {
-      const r = confirm(t('slippageWarning') + ':' + percentSlippageFormatted + '%')
-      if (r) {
-        onSwap()
-      }
+      setSlippageView(true)
     } else {
       onSwap()
     }
@@ -988,6 +1046,8 @@ export default function ExchangePage({ initialCurrency, params }) {
   const [isHardwareError, setIsHardwareError] = useState(false)
   const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
 
+  const b = text => <Bold>{text}</Bold>
+
   useEffect(() => {
     if (newInputDetected) {
       setShowInputWarning(true)
@@ -1106,6 +1166,44 @@ export default function ExchangePage({ initialCurrency, params }) {
           currency={outputCurrency}
         />
       )}
+      <Modal isOpen={slippageView} maxHeight={800}>
+        <ModalContent onClose={() => {setSlippageView(false)}}>
+          <TransactionInfo>
+            <LastSummaryText>
+              {t('youAreSelling')}{' '}
+              <ValueWrapper>
+                {b(
+                  `${amountFormatter(
+                    independentValueParsed,
+                    independentDecimals,
+                    Math.min(6, independentDecimals)
+                  )} ${inputSymbol}`
+                )}
+              </ValueWrapper>{' '}
+              {t('forAtLeast')}
+              <ValueWrapper>
+                {b(
+                  `${amountFormatter(
+                    dependentValueMinumum,
+                    dependentDecimals,
+                    Math.min(6, dependentDecimals)
+                  )} ${outputSymbol}`
+                )}
+              </ValueWrapper>
+            </LastSummaryText>
+            <LastSummaryText>
+              {t('priceChange')} <ValueWrapper>{b(`${percentSlippageFormatted}%`)}</ValueWrapper>
+            </LastSummaryText>
+          </TransactionInfo>
+          <Flex>
+            <Button onClick={onSwap} disabled={
+              brokenTokenWarning || !isDisabled || showBetaMessage ? true : !account && !error ? false : !isValid || customSlippageError === 'invalid'
+            }>
+              {t('swapAnyway')}
+            </Button>
+          </Flex>
+        </ModalContent>
+      </Modal>
       <Title
         title={t('swap')}
         tabList={[
