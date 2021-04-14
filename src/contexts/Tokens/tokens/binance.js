@@ -3471,6 +3471,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x9ba4c78b048eeed69f4ed3cfddeda7b51baf7ca8': { // GS 
+      [NAME]: 'Gen Shards' + config.suffix,
+      [SYMBOL]: 'GS',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x097c715cc0b9a18ca792745a127bb645465c867e',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     'XRP': { // XRP
       [NAME]: 'ANY XRP',
       [SYMBOL]: config.prefix + 'XRP',

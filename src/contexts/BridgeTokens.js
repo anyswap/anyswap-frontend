@@ -1417,6 +1417,11 @@ export default {
       [NAME]: 'OCTO',
       [TOKEN]: '0x7240aC91f01233BaAf8b064248E80feaA5912BA3',
       [DECIMALS]: 18
+    },
+    'GS': {
+      [NAME]: 'GS',
+      [TOKEN]: '0xe0b9a2c3e9f40cf74b2c7f591b2b0cca055c3112',
+      [DECIMALS]: 18
     }
   },
   4: {
