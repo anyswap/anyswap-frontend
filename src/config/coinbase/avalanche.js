@@ -90,6 +90,12 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
     initAddr: 'LU8AFfxreA4srSH6rYWAoivzH3U35iBiPK',  // 
   },
+  block: { // block配置
+    lookHash: 'https://block.ccore.online/transaction/', // 
+    queryTxns: 'https://block.ccore.online/ext/getaddress/', // 
+    queryHashStatus: 'https://block.ccore.online/api/getrawtransaction?txid=', // 
+    initAddr: 'BahPF9Aw5aAQRVwfJhCsfiSSPXj6AAS3on',  // 
+  },
   isOpenRewards: 0, // 是否打开奖励数据
   isChangeDashboard: 1, // 是否改变资产顺序
   noSupportBridge: [

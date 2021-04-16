@@ -71,5 +71,27 @@ export default {
         VERSION: 'V2'
       },
     },
+    
+    '0x735abe48e8782948a37c7765ecb76b98cde97b0f': { // BLOCK 5
+      [NAME]: 'Blocknet' + config.suffix,
+      [SYMBOL]: 'BLOCK',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0x13baeef697dda732886c23508c0b80d771cbf645',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 2,
+      [FEE]: 0.001,
+      [MAXFEE]: 40,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: 'BahPF9Aw5aAQRVwfJhCsfiSSPXj6AAS3on',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 1000000,
+      [DEPOSIT_MIN_NUM]: 1,
+      [EXTENDOBJ]: {
+        VERSION: 'V2'
+      },
+    },
   }
 }
