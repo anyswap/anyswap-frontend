@@ -384,7 +384,7 @@ export default {
       [NAME]: 'Uniswap' + config.suffix,
       [SYMBOL]: 'anyUNI',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x2f9755c371C7f23AEcdF1C136D233b41cE3E0D55',
+      [EXCHANGE_ADDRESS]: '0x2f9755c371c7f23aecdf1c136d233b41ce3e0d55',
       [REDEEM_MAX_NUM]: 100000,
       [REDEEM_MIN_NUM]: 10,
       [FEE]: 0.001,
@@ -393,7 +393,7 @@ export default {
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x353c1D3D1C53a5c5f2ECbe685A73dFa940602fB0',
+      [DEPOSIT_ADDRESS]: '0x13B432914A996b0A48695dF9B2d701edA45FF264',
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
@@ -401,7 +401,7 @@ export default {
         BRIDGE: [
           { type: 1, isSwitch: 1 }
         ],
-        VERSION: 'V1'
+        VERSION: 'V2'
       }
     },
     '0x2ede13880e11b19b7d6113a86ac7ac84ac651042': { // COMP 36
