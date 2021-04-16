@@ -506,7 +506,7 @@ export default function DashboardDtil () {
   async function getData (account) {
     let arr = []
     for (let i = 0; i <= parseInt(totalCount / pagesize); i++) {
-      console.log(i)
+      // console.log(i)
       const start = i * pagesize
       const end = start + pagesize
       const resArr = poolArr.slice(start, end)

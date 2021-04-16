@@ -1422,6 +1422,51 @@ export default {
       [NAME]: 'GS',
       [TOKEN]: '0xe0b9a2c3e9f40cf74b2c7f591b2b0cca055c3112',
       [DECIMALS]: 18
+    },
+    'STN': {
+      [NAME]: 'STN',
+      [TOKEN]: '0xe63d6b308bce0f6193aec6b7e6eba005f41e36ab',
+      [DECIMALS]: 18
+    },
+    'ATRI': {
+      [NAME]: 'ATRI',
+      [TOKEN]: '0xdacD69347dE42baBfAEcD09dC88958378780FB62',
+      [DECIMALS]: 0
+    },
+    'SHEESHA': {
+      [NAME]: 'SHEESHA',
+      [TOKEN]: '0x232FB065D9d24c34708eeDbF03724f2e95ABE768',
+      [DECIMALS]: 18
+    },
+    'VID': {
+      [NAME]: 'VID',
+      [TOKEN]: '0x2c9023bbc572ff8dc1228c7858a280046ea8c9e5',
+      [DECIMALS]: 18
+    },
+    'VSP': {
+      [NAME]: 'VSP',
+      [TOKEN]: '0x1b40183efb4dd766f11bda7a7c3ad8982e998421',
+      [DECIMALS]: 18
+    },
+    'RAZE': {
+      [NAME]: 'RAZE',
+      [TOKEN]: '0x5Eaa69B29f99C84Fe5dE8200340b4e9b4Ab38EaC',
+      [DECIMALS]: 18
+    },
+    'KOIN': {
+      [NAME]: 'KOIN',
+      [TOKEN]: '0x66d28cb58487a7609877550e1a34691810a6b9fc',
+      [DECIMALS]: 8
+    },
+    'DTH': {
+      [NAME]: 'DTH',
+      [TOKEN]: '0x5adc961d6ac3f7062d2ea45fefb8d8167d44b190',
+      [DECIMALS]: 18
+    },
+    'AUC': {
+      [NAME]: 'AUC',
+      [TOKEN]: '0xc12d099be31567add4e4e4d0D45691C3F58f5663',
+      [DECIMALS]: 18
     }
   },
   4: {

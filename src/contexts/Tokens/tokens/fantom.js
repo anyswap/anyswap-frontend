@@ -826,5 +826,149 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x765277eebeca2e31912c9946eae1021199b39c61': { // KNC 
+      [NAME]: 'KyberNetwork' + config.suffix,
+      [SYMBOL]: 'KNC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x26f0343418e6eb5b980f8835c8bb8b412f314f1f',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xfa9343c3897324496a05fc75abed6bac29f8a40f': { // STN 
+      [NAME]: 'Stone Token' + config.suffix,
+      [SYMBOL]: 'STN',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xd09452a0e6061a55ee6d4ce60e05478e0da25151',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b': { // ATRI 
+      [NAME]: 'AtariToken' + config.suffix,
+      [SYMBOL]: 'ATRI',
+      [DECIMALS]: 0,
+      [EXCHANGE_ADDRESS]: '0xd4a1662b603164f083cf7025e13dba97bc34b3c8',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xefaeee334f0fd1712f9a8cc375f427d9cdd40d73': { // SHEESHA 
+      [NAME]: 'Sheesha Finance' + config.suffix,
+      [SYMBOL]: 'SHEESHA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xcd7faf3a33d5af8d7d878c12afb086feb9d70973',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x922d641a426dcffaef11680e5358f34d97d112e1': { // VID 
+      [NAME]: 'VideoCoin' + config.suffix,
+      [SYMBOL]: 'VID',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1d0bf48596feed7a0cf6fa1d5c06aab01f1883a3',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x461d52769884ca6235b685ef2040f47d30c94eb5': { // VSP 
+      [NAME]: 'VesperToken' + config.suffix,
+      [SYMBOL]: 'VSP',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1bc9bb0dd8c3979e8cb781c068bc1a20dfe41648',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }
