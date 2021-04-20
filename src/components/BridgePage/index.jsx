@@ -883,7 +883,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   let walletType = sessionStorage.getItem('walletType')
   params = params ? params : {}
   // let HDPath = sessionStorage.getItem('HDPath')
-  // account = '0x12139f3afa1C93303e1EfE3Df142039CC05C6c58'
+  // account = '0xeb0cbe40c8cdfa1838a21a031edfb401eaefc651'
   // console.log(allTokens)
   
   const urlAddedTokens = {}
@@ -2388,13 +2388,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
             _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
             _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
-          } else if (bridgeType && bridgeType !== 'redeem' && outNetBalance && inputDecimals) {
-            inputVal = ethers.utils.parseUnits(outNetBalance.toString(), inputDecimals)
-            _swapMinNum = ethers.utils.parseUnits(redeemMinNum.toString(), inputDecimals)
-            _swapMaxNum = ethers.utils.parseUnits(redeemMaxNum.toString(), inputDecimals)
-            _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-            _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
-            _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
+          } else {
+            if (outNetBalance && inputDecimals) {
+              inputVal = ethers.utils.parseUnits(outNetBalance.toString(), inputDecimals)
+              _swapMinNum = ethers.utils.parseUnits(depositMinNum.toString(), inputDecimals)
+              _swapMaxNum = ethers.utils.parseUnits(depositMaxNum.toString(), inputDecimals)
+              _fee = inputVal.mul(ethers.utils.parseUnits(dFee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+              _minFee = ethers.utils.parseUnits(dMinFee.toString(), inputDecimals)
+              _maxFee = ethers.utils.parseUnits(dMaxFee.toString(), inputDecimals)
+            }
           }
 
           if (inputVal && inputVal.gt(ethers.constants.Zero)) {

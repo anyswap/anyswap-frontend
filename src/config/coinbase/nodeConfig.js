@@ -23,7 +23,7 @@ export const FSN_TEST_CHAINID = 46688
 export const FSN_TEST_EXPLORER = 'https://fsnex.com'
 
 export const ETH_MAINNET = 'https://ethmainnet.anyswap.exchange'
-// export const ETH_MAINNET = 'https://mainnet.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0'
+// export const ETH_MAINNET = 'https://eth-mainnet.alchemyapi.io/v2/q1gSNoSMEzJms47Qn93f9-9Xg5clkmEC'
 export const ETH_MAIN_CHAINID = 1
 export const ETH_MAIN_EXPLORER = navLang === 'zh-CN' ? 'https://cn.etherscan.com' : 'https://etherscan.io'
 
