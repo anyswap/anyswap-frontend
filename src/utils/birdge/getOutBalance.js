@@ -95,20 +95,41 @@ export function getTokenBalance (chainId, token, address, type) {
     } else {
       if (type) {
         web3.setProvider(config.nodeRpc)
+        contract.options.address = token
+        contract.methods.balanceOf(address).call((err, res) => {
+          if (err) {
+            resolve(0)
+          } else {
+            setLocalConfig (address, token, {data: res}, config.chainID, 'APPROVE_BALANCE')
+            resolve(res)
+          }
+        })
       } else {
+        // console.log(getNodeRpc(chainId))
         web3.setProvider(getNodeRpc(chainId))
-      }
-      contract.options.address = token
-      contract.methods.balanceOf(address).call((err, res) => {
-        // console.log(err)
-        // console.log(res)
-        if (err) {
-          resolve(0)
-        } else {
+        web3.eth.getBalance(address, 'latest').then(res => {
           setLocalConfig (address, token, {data: res}, config.chainID, 'APPROVE_BALANCE')
           resolve(res)
-        }
-      })
+        }).catch(err => {
+          resolve(0)
+        })
+      }
+      // if (type) {
+      //   web3.setProvider(config.nodeRpc)
+      // } else {
+      //   web3.setProvider(getNodeRpc(chainId))
+      // }
+      // contract.options.address = token
+      // contract.methods.balanceOf(address).call((err, res) => {
+      //   // console.log(err)
+      //   // console.log(res)
+      //   if (err) {
+      //     resolve(0)
+      //   } else {
+      //     setLocalConfig (address, token, {data: res}, config.chainID, 'APPROVE_BALANCE')
+      //     resolve(res)
+      //   }
+      // })
     }
   })
 }

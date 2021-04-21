@@ -1277,7 +1277,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         let coin = formatCoin(inputSymbol)
         let erc20Token = BridgeTokens[node] && BridgeTokens[node][coin] && BridgeTokens[node][coin].token ? BridgeTokens[node][coin].token : ''
         getTokenBalance(node, erc20Token, initDepositAddress, 0).then(res => {
-          console.log(res)
+          // console.log(initDepositAddress)
+          // console.log(res)
           let amount = amountFormatter(ethers.utils.bigNumberify(res), inputDecimals)
           amount = Number(amount)
           let num = Number(inputValueFormatted)
