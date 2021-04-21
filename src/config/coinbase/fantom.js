@@ -95,7 +95,7 @@ const MAIN_CONFIG = {
     initAddr: 'LPpmqgdvbBh6jMn2TS4nCKv54SS2GCEevH',  // 
   },
   isOpenRewards: 0, // 是否打开奖励数据
-  isChangeDashboard: 0, // 是否改变资产顺序
+  isChangeDashboard: 1, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
     '0xad84341756bf337f5a0164515b1f6f993d194e1f',

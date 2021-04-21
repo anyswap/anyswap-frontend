@@ -84,7 +84,7 @@ const MAIN_CONFIG = {
     initAddr: 'Lf2GpJmz2FZM1xW5V8xo1ZvA3Rh7ZX51iQ',  // 
   },
   isOpenRewards: 0,
-  isChangeDashboard: 0,
+  isChangeDashboard: 1,
   noSupportBridge: [
     COIN_BASE.symbol,
     '0xae9269f27437f0fcbc232d39ec814844a51d6b8f',
@@ -130,7 +130,7 @@ const TEST_CONFIG = {
     initAddr: ''
   },
   isOpenRewards: 0,
-  isChangeDashboard: 0,
+  isChangeDashboard: 1,
   noSupportBridge: [COIN_BASE.symbol],
   queryToken: '' // 查询余额合约
 }

@@ -3732,24 +3732,149 @@ export default {
         VERSION: 'V2'
       }
     },
-    'XRP': { // XRP
-      [NAME]: 'ANY XRP',
-      [SYMBOL]: config.prefix + 'XRP',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: 'XRP',
-      [REDEEM_MAX_NUM]: 100,
-      [REDEEM_MIN_NUM]: 0.00001,
+    '0x9617857e191354dbea0b714d78bc59e57c411087': { // LMT 
+      [NAME]: 'Lympo Market' + config.suffix,
+      [SYMBOL]: 'LMT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x35859b0ac2567e9a4a26604004bf2cc236ab57cc',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
       [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(1),
-      [ISDEPOSIT]: 0,
-      [ISREDEEM]: 0,
-      [DEPOSIT_ADDRESS]: '',
-      [DEPOSIT_TYPE]: 0,
-      [DEPOSIT_MAX_NUM]: 0,
-      [DEPOSIT_MIN_NUM]: 0,
-      [EXTENDOBJ]: {},
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xb5badfa6e69728adba44d67c98b05f1d1d40182e': { // vBCH 
+      [NAME]: 'Bitcoin Cash by Strudel' + config.suffix,
+      [SYMBOL]: 'vBCH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xa694e2b85eaa34cacf021164f2a24b25fcf67515',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x73f059db0182dc2ed716d028e1b13033cfcbf63b': { // MM 
+      [NAME]: 'MMToken' + config.suffix,
+      [SYMBOL]: 'MM',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1e3866cf93c62ef03302c85584674aab83046cc9',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x0e37d70b51ffa2b98b4d34a5712c5291115464e3': { // IQ 
+      [NAME]: 'Everipedia IQ' + config.suffix,
+      [SYMBOL]: 'IQ',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xaa8c5341ac0bd9c4646c282bb20d52d2f65e6a47',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xdae6c2a48bfaa66b43815c5548b10800919c993e': { // KTN 
+      [NAME]: 'Kattana' + config.suffix,
+      [SYMBOL]: 'KTN',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x78861ea345a5a4ff46d77f2a38d332e1814a71c4',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x1ccca1ce62c62f7be95d4a67722a8fdbed6eecb4': { // PLF
+      [NAME]: 'PolkaFinance' + config.suffix,
+      [SYMBOL]: 'PLF',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xd80751e6e2b18433cb8a16944be17696b9fba0b0',
+      [REDEEM_MAX_NUM]: 75000,
+      [REDEEM_MIN_NUM]: 1,
+      [FEE]: 0.001,
+      [MAXFEE]: 4,
+      [MINFEE]: 0.4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x0FD4E376C6C125C276D4020EFc1842a495cb1cF3',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 75000,
+      [DEPOSIT_MIN_NUM]: 1,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 128, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
     },
   },
   [BNB_TEST_CHAINID]: {
@@ -3846,44 +3971,6 @@ export default {
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 1000,
       [DEPOSIT_MIN_NUM]: 0.01,
-      [EXTENDOBJ]: {},
-    },
-    'BTC': { // BTC
-      [NAME]: 'ANY Bitcoin',
-      [SYMBOL]: config.prefix + 'BTC',
-      [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: config.prefix + 'BTC',
-      [REDEEM_MAX_NUM]: 100,
-      [REDEEM_MIN_NUM]: 0.00001,
-      [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(1),
-      [ISDEPOSIT]: 0,
-      [ISREDEEM]: 0,
-      [DEPOSIT_ADDRESS]: '',
-      [DEPOSIT_TYPE]: 0,
-      [DEPOSIT_MAX_NUM]: 0,
-      [DEPOSIT_MIN_NUM]: 0,
-      [EXTENDOBJ]: {},
-    },
-    'XRP': { // XRP
-      [NAME]: 'ANY XRP',
-      [SYMBOL]: config.prefix + 'XRP',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: 'XRP',
-      [REDEEM_MAX_NUM]: 100,
-      [REDEEM_MIN_NUM]: 0.00001,
-      [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(1),
-      [ISDEPOSIT]: 0,
-      [ISREDEEM]: 0,
-      [DEPOSIT_ADDRESS]: '',
-      [DEPOSIT_TYPE]: 0,
-      [DEPOSIT_MAX_NUM]: 0,
-      [DEPOSIT_MIN_NUM]: 0,
       [EXTENDOBJ]: {},
     },
   },

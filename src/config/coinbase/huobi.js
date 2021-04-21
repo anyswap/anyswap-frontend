@@ -87,7 +87,7 @@ const MAIN_CONFIG = {
     initAddr: '',  // 
   },
   isOpenRewards: 0, // 是否打开奖励数据
-  isChangeDashboard: 0, // 是否改变资产顺序
+  isChangeDashboard: 1, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
     '0x0298c2b32eae4da002a15f36fdf7615bea3da047',
@@ -131,7 +131,7 @@ const TEST_CONFIG = {
 
   },
   isOpenRewards: 0,
-  isChangeDashboard: 0,
+  isChangeDashboard: 1,
   noSupportBridge: [COIN_BASE.symbol, ANY_TEST_TOKEN],
   queryToken: '0xe4ea48020f648b1aa7fc25af7b196596190c6b29' // 查询余额合约
 }

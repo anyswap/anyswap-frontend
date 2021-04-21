@@ -1467,6 +1467,26 @@ export default {
       [NAME]: 'AUC',
       [TOKEN]: '0xc12d099be31567add4e4e4d0D45691C3F58f5663',
       [DECIMALS]: 18
+    },
+    'LMT': {
+      [NAME]: 'LMT',
+      [TOKEN]: '0x327673ae6b33bd3d90f0096870059994f30dc8af',
+      [DECIMALS]: 18
+    },
+    'vBCH': {
+      [NAME]: 'vBCH',
+      [TOKEN]: '0xb5badfa6e69728adba44d67c98b05f1d1d40182e',
+      [DECIMALS]: 18
+    },
+    'IQ': {
+      [NAME]: 'IQ',
+      [TOKEN]: '0x579cea1889991f68acc35ff5c3dd0621ff29b0c9',
+      [DECIMALS]: 18
+    },
+    'KTN': {
+      [NAME]: 'KTN',
+      [TOKEN]: '0x491E136FF7FF03E6aB097E54734697Bb5802FC1C',
+      [DECIMALS]: 18
     }
   },
   4: {
@@ -1497,6 +1517,13 @@ export default {
       [TOKEN]: '0xCa3F508B8e4Dd382eE878A314789373D80A5190A',
       [DECIMALS]: 18
     }
+  },
+  128: {
+    'PLF': { // 
+      [NAME]: 'PLF',
+      [TOKEN]: '0x601464Aa0Df93e1FcB4afc96C0a615d546BAdC9f',
+      [DECIMALS]: 18,
+    },
   },
   250: {
     'fUSD': { // 

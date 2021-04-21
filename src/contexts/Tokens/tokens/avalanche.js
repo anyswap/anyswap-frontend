@@ -165,5 +165,29 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xd6070ae98b8069de6b494332d1a1a81b6179d960': { // BIFI
+      [NAME]: 'beefy.finance',
+      [SYMBOL]: config.prefix + 'BIFI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x0aa4abab785c189be67abbd0ce5b4ab044d96841',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb1CB88B1a1992deB4189Ea4f566b594c13392Ada',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }
