@@ -72,11 +72,11 @@ export default {
       },
     },
     
-    '0x735abe48e8782948a37c7765ecb76b98cde97b0f': { // BLOCK 5
+    '0xc931f61b1534eb21d8c11b24f3f5ab2471d4ab50': { // BLOCK 5
       [NAME]: 'Blocknet' + config.suffix,
       [SYMBOL]: config.prefix + 'BLOCK',
       [DECIMALS]: 8,
-      [EXCHANGE_ADDRESS]: '0x13baeef697dda732886c23508c0b80d771cbf645',
+      [EXCHANGE_ADDRESS]: '0x4dfd9d31b5b18626dd5da2e70d3890e1276ae1ff',
       [REDEEM_MAX_NUM]: 1000000,
       [REDEEM_MIN_NUM]: 2,
       [FEE]: 0.001,
