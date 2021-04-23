@@ -36,7 +36,7 @@ export default {
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x94e840798e333cB1974E086B58c10C374E966bc7',
+      [DEPOSIT_ADDRESS]: '0xf38C36bc1B2Fe5E9029C91AB520457bE7DFC68D8',
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
@@ -44,7 +44,7 @@ export default {
         BRIDGE: [
           { type: 32659, isSwitch: 1 }
         ],
-        VERSION: 'V1'
+        VERSION: 'V2'
       },
     },
     '0x4028433877f9c14764eb93d0bb6570573da2726f': { // CYC
