@@ -1083,11 +1083,6 @@ export default {
       [TOKEN]: '0x2791bfd60d232150bff86b39b7146c0eaaa2ba81',
       [DECIMALS]: 18
     },
-    'KEK': {
-      [NAME]: 'Cryptokek.com',
-      [TOKEN]: '0x3fa400483487A489EC9b1dB29C4129063EEC4654',
-      [DECIMALS]: 18
-    },
     'HDI': {
       [NAME]: 'HEIDI',
       [TOKEN]: '0x58a3520d738b268c2353ecee518a1ad8e28e4ae5',
