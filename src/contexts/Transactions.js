@@ -178,15 +178,14 @@ export function usePendingApproval(tokenAddress) {
 
   return (
     Object.keys(allTransactions).filter(hash => {
-      if (allTransactions[hash][RECEIPT]) {
+      if (
+        allTransactions[hash][RECEIPT] ||
+        !allTransactions[hash][RESPONSE] ||
+        allTransactions[hash][RESPONSE][CUSTOM_DATA].approval !== tokenAddress
+      ) {
         return false
-      } else if (!allTransactions[hash][RESPONSE]) {
-        return false
-      } else if (allTransactions[hash][RESPONSE][CUSTOM_DATA].approval !== tokenAddress) {
-        return false
-      } else {
-        return true
       }
+      return true
     }).length >= 1
   )
 }

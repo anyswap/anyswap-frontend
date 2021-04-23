@@ -2,7 +2,6 @@ import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
 import copy from 'copy-to-clipboard'
 import { isMobile } from 'react-device-detect'
-
 import { NetworkContextName } from '../constants'
 import ERC20_ABI from '../constants/abis/erc20'
 import { getContract, getFactoryContract, getExchangeContract, isAddress } from '../utils'
@@ -12,10 +11,6 @@ import config from '../config'
 export function useWeb3React() {
   const context = useWeb3ReactCore()
   const contextNetwork = useWeb3ReactCore(NetworkContextName)
-  // console.log(context)
-  // console.log(contextNetwork)
-  // console.log(useContext(context))
-  // console.log(useContext(contextNetwork))
   return context.active ? context : contextNetwork
 }
 
@@ -25,11 +20,10 @@ export function useEagerConnect() {
   const [tried, setTried] = useState(false)
 
   useEffect(() => {
-    // console.log(injected)
     injected.isAuthorized().then(isAuthorized => {
       setTried(true)
       if (isAuthorized) {
-        activate(injected, undefined, true).catch((err) => {
+        activate(injected, undefined, true).catch(err => {
           setTried(true)
         })
       } else {
@@ -38,11 +32,9 @@ export function useEagerConnect() {
             setTried(true)
           })
         } else {
-          // setTried(true)
           injected.getChainId().then(chainId => {
-            // console.log(parseInt(chainId))
             if (chainId && parseInt(chainId) === Number(config.chainID)) {
-              activate(injected, undefined, true).catch((err) => {
+              activate(injected, undefined, true).catch(err => {
                 setTried(true)
               })
             } else {
@@ -52,7 +44,6 @@ export function useEagerConnect() {
         }
       }
     })
-
   }, [activate]) // intentionally only running on mount (make sure it's only mounted once :))
 
   // if the connection worked, wait until we get confirmation of that to flip the flag

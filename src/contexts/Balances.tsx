@@ -43,12 +43,6 @@ interface BalancesState {
 
 function initialize(): BalancesState {
   return {}
-  // try {
-  //   // return JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY) as string)
-  //   return {}
-  // } catch {
-  //   return {}
-  // }
 }
 
 enum Action {
@@ -173,22 +167,7 @@ function useBalancesContext() {
 }
 
 export default function Provider({ children }: { children: ReactNode }) {
-  // const { account } = useWeb3React()
   const [state, dispatch] = useReducer(reducer, undefined, initialize)
-  // const allTokenDetails = useAllTokenDetails()
-  // const allExchanges = useMemo(
-  //   () =>
-  //     Object.keys(allTokenDetails)
-  //       .filter(tokenAddress => tokenAddress !== COIN)
-  //       .map(tokenAddress => ({
-  //         tokenAddress,
-  //         exchangeAddress: allTokenDetails[tokenAddress].exchangeAddress
-  //       })),
-  //   [allTokenDetails]
-  // )
-  // console.log(allExchanges)
-  // console.log(state)
-  // console.log(account)
   const startListening = useCallback((chainId, address, tokenAddress) => {
     dispatch({ type: Action.START_LISTENING, payload: { chainId, address, tokenAddress } })
   }, [])
@@ -198,8 +177,6 @@ export default function Provider({ children }: { children: ReactNode }) {
   }, [])
 
   const update = useCallback((chainId, address, tokenAddress, value, blockNumber) => {
-    // console.log(address)
-    // window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({}))
     dispatch({ type: Action.UPDATE, payload: { chainId, address, tokenAddress, value, blockNumber } })
   }, [])
 

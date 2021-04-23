@@ -33,7 +33,6 @@ const darkSelectBg = '#2b314f'
 
 export default function ThemeProvider({ children }) {
   const [darkMode, toggleDarkMode] = useDarkModeManager()
-  // console.log(darkMode)
   const themeURL = checkSupportedTheme(getQueryParam(window.location, 'theme'))
   const themeToRender = themeURL
     ? themeURL.toUpperCase() === SUPPORTED_THEMES.DARK
@@ -44,9 +43,7 @@ export default function ThemeProvider({ children }) {
     : darkMode
   useEffect(() => {
     toggleDarkMode(themeToRender)
-    // toggleDarkMode(false)
   }, [toggleDarkMode, themeToRender])
-  // console.log(themeToRender)
   return <StyledComponentsThemeProvider theme={theme(themeToRender)}>{children}</StyledComponentsThemeProvider>
 }
 
@@ -115,7 +112,7 @@ const theme = darkMode => ({
   tipColor: darkMode ? white : '#734be2',
 
   inputBorder: darkMode ? '#5c677d' : '#062536',
-  
+
   networkBorder: darkMode ? '#5c677d' : '#dadada',
 
   switchColor: darkMode ? '#00bde3' : '#734be2',
@@ -128,7 +125,6 @@ const theme = darkMode => ({
   birdgeStateBorder2: darkMode ? 'rgba(0,0,0,0.6)' : 'rgb(255,104,113)',
 
   swapBg: darkMode ? 'rgba(255,255,255,0.1)' : '',
-
 
   modalBackground: darkMode ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.5)',
   inputBackground: darkMode ? '#202124' : white,
@@ -194,23 +190,23 @@ const theme = darkMode => ({
   `,
   FlexC: css`
     display: flex;
-    justify-content:  center;
-    align-items:center;
+    justify-content: center;
+    align-items: center;
   `,
   FlexSC: css`
     display: flex;
-    justify-content:  flex-start;
-    align-items:center;
+    justify-content: flex-start;
+    align-items: center;
   `,
   FlexEC: css`
     display: flex;
-    justify-content:  flex-end;
-    align-items:center;
+    justify-content: flex-end;
+    align-items: center;
   `,
   FlexBC: css`
     display: flex;
-    justify-content:  space-between;
-    align-items:center;
+    justify-content: space-between;
+    align-items: center;
   `
 })
 

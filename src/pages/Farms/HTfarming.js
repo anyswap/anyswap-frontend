@@ -15,15 +15,14 @@ export default function HTfaring({ initialTrade }) {
   }
   return (
     <>
-      <Title title='Stake LP tokens to earn ANY'></Title>
+      <Title title="Stake LP tokens to earn ANY"></Title>
       <Farming
-        initLpToken = {initLpToken}
-        initialTrade = {initialTrade}
-        CHAINID = {CHAINID}
-        FARMTOKEN = {FARMTOKEN}
-        FARMURL = {config.farmUrl + 'htfarming'}
-        // initPairs = {['ANY', 'anyBTC', 'anyETH', 'anyUSDT', 'anyBNB', 'anyFSN']}
-        poolCoin = 'ANY'
+        initLpToken={initLpToken}
+        initialTrade={initialTrade}
+        CHAINID={CHAINID}
+        FARMTOKEN={FARMTOKEN}
+        FARMURL={config.farmUrl + 'htfarming'}
+        poolCoin="ANY"
       />
     </>
   )

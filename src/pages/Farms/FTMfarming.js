@@ -15,16 +15,15 @@ export default function FTMfaring({ initialTrade }) {
   }
   return (
     <>
-      <Title title='Stake LP tokens to earn ANY'></Title>
+      <Title title="Stake LP tokens to earn ANY"></Title>
       <Farming
-        initLpToken = {initLpToken}
-        initialTrade = {initialTrade}
-        CHAINID = {CHAINID}
-        FARMTOKEN = {FARMTOKEN}
-        FARMURL = {config.farmUrl + 'ftmfarming'}
-        // initPairs = {['ANY', 'anyBTC', 'anyETH', 'anyUSDT', 'anyBNB', 'anyFSN']}
-        poolCoin = 'ANY'
-        blockNumber = {8500}
+        initLpToken={initLpToken}
+        initialTrade={initialTrade}
+        CHAINID={CHAINID}
+        FARMTOKEN={FARMTOKEN}
+        FARMURL={config.farmUrl + 'ftmfarming'}
+        poolCoin="ANY"
+        blockNumber={8500}
         BASEMARKET={10}
       />
     </>

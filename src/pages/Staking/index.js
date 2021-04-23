@@ -1,11 +1,9 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { ethers } from 'ethers'
 import { transparentize } from 'polished'
 import { useWeb3React, useSwapTokenContract } from '../../hooks'
-// import { useAddressAllowance } from '../../contexts/Allowances'
-// import { INITIAL_TOKENS_CONTEXT } from '../../contexts/Tokens/index.js'
 import { useTransactionAdder } from '../../contexts/Transactions'
 import { useWalletModalToggle } from '../../contexts/Application'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
@@ -21,31 +19,31 @@ import ModalContent from '../../components/Modal/ModalContent'
 import HardwareTip from '../../components/HardwareTip'
 
 import { amountFormatter } from '../../utils'
-import {getWeb3BaseInfo} from '../../utils/web3/txns'
+import { getWeb3BaseInfo } from '../../utils/web3/txns'
 import config from '../../config'
-import {chainInfo} from '../../config/coinbase/nodeConfig'
-import {thousandBit, formatNum} from '../../utils/tools'
+import { chainInfo } from '../../config/coinbase/nodeConfig'
+import { thousandBit, formatNum } from '../../utils/tools'
 
-import {getSupply} from '../../utils/staking'
+import { getSupply } from '../../utils/staking'
 import TokenLogo from '../../components/TokenLogo'
 
 const StakingBox = styled.div`
-  width:100%;
+  width: 100%;
 `
 
 const TokenLogo1 = styled(TokenLogo)`
-background:none;
+  background: none;
 `
 
 const StakingList = styled.ul`
   ${({ theme }) => theme.FlexC};
-  list-style:none;
-  padding:0!important;
+  list-style: none;
+  padding: 0 !important;
 
   .item {
     ${({ theme }) => theme.FlexC};
-    flex-wrap:wrap;
-    width:100%;
+    flex-wrap: wrap;
+    width: 100%;
     max-width: 320px;
     background: ${({ theme }) => theme.contentBg};
     box-shadow: 0.4375rem 0.125rem 1.625rem 0 rgba(0, 0, 0, 0.06);
@@ -55,42 +53,42 @@ const StakingList = styled.ul`
 
     .pic {
       ${({ theme }) => theme.FlexC};
-      width:80px;
-      height:80px;
-      padding:15px;
-      background:#fff;
-      border-radius:100%;
-      margin:auth;
+      width: 80px;
+      height: 80px;
+      padding: 15px;
+      background: #fff;
+      border-radius: 100%;
+      margin: auth;
       img {
-        display:block;
-        width:100%;
+        display: block;
+        width: 100%;
       }
     }
     .info {
-      width:100%;
-      text-align:center;
-      margin:30px 0;
+      width: 100%;
+      text-align: center;
+      margin: 30px 0;
       h3 {
         color: ${({ theme }) => theme.textColorBold};
-        font-size:16px;
-        margin:0;
+        font-size: 16px;
+        margin: 0;
       }
       p {
         color: ${({ theme }) => theme.textColor};
-        font-size:14px;
-        margin-bottom:0;
+        font-size: 14px;
+        margin-bottom: 0;
       }
     }
     .btn {
       ${({ theme }) => theme.FlexC};
-      width:100%;
+      width: 100%;
     }
   }
   .green {
     color: #2ead65;
   }
   @media screen and (max-width: 960px) {
-    flex-wrap:wrap;
+    flex-wrap: wrap;
   }
 `
 
@@ -104,20 +102,20 @@ const StakingLi = styled.li`
   padding: 25px 15px 25px;
   border-radius: 10px;
   .title {
-    width:100%;
-    margin:0;
-    font-size:14px;
+    width: 100%;
+    margin: 0;
+    font-size: 14px;
     color: ${({ theme }) => theme.textColorBold};
   }
   .num {
-    width:100%;
-    margin:10px 0 0;
-    font-size:16px;
+    width: 100%;
+    margin: 10px 0 0;
+    font-size: 16px;
     color: ${({ theme }) => theme.textColorBold};
   }
   .content {
-    width:100%;
-    margin-left:15px;
+    width: 100%;
+    margin-left: 15px;
   }
 `
 
@@ -125,7 +123,7 @@ const InputRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
   padding: 0 25px;
-  width:100%;
+  width: 100%;
 `
 const Input = styled.input`
   outline: none;
@@ -133,7 +131,7 @@ const Input = styled.input`
   flex: 1 1 auto;
   width: 0;
   background-color: transparent;
-  border-bottom: 0.0625rem solid ${({theme}) => theme.inputBorder};
+  border-bottom: 0.0625rem solid ${({ theme }) => theme.inputBorder};
 
   color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
   overflow: hidden;
@@ -152,46 +150,47 @@ const Input = styled.input`
 `
 const MaxBox = styled.div`
   ${({ theme }) => theme.FlexC};
-  width:60px;
-  height:50px;
-  margin-left:15px;
-  border-radius:10px;
-  cursor:pointer;
-  background:${({ theme }) => theme.tipBg};
+  width: 60px;
+  height: 50px;
+  margin-left: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: ${({ theme }) => theme.tipBg};
 `
 
 const StakingModalBox = styled.div`
   ${({ theme }) => theme.FlexC}
   width:100%;
   padding: 25px 15px 30px;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 `
 
 const AddBox = styled(Button)`
   ${({ theme }) => theme.FlexC};
   width: 45px;
   min-width: 45px;
-  height:45px;
+  height: 45px;
   border: solid 0.5px ${({ theme }) => theme.tipBorder};
   box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
-  background: ${({theme}) => theme.tipBg};
+  background: ${({ theme }) => theme.tipBg};
   border-radius: 9px;
-  margin-left:15px;
-  cursor:pointer;
-  padding:0;
-  &:hover, &:focus{
+  margin-left: 15px;
+  cursor: pointer;
+  padding: 0;
+  &:hover,
+  &:focus {
     border: solid 0.5px ${({ theme }) => theme.tipBorder};
     box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
-    background: ${({theme}) => theme.tipBg};
+    background: ${({ theme }) => theme.tipBg};
   }
 `
 
 const AmountView = styled.div`
-  width:100%;
-  padding:10px 25px;
-  font-size:14px;
-  color:${({ theme }) => theme.textColor};
-  margin-bottom:20px;
+  width: 100%;
+  padding: 10px 25px;
+  font-size: 14px;
+  color: ${({ theme }) => theme.textColor};
+  margin-bottom: 20px;
 `
 const Flex = styled.div`
   display: flex;
@@ -215,8 +214,7 @@ const Web3Fn = require('web3')
 // const useChain = chainInfo[CHAINID]
 // const web3Fn = new Web3Fn(new Web3Fn.providers.HttpProvider(useChain.rpc))
 
-
-export default function Staking () {
+export default function Staking() {
   let { account, library, chainId } = useWeb3React()
   // account = '0x9059e64e4a52e4f19edea188cfb658182db35106'
   const { t } = useTranslation()
@@ -238,7 +236,6 @@ export default function Staking () {
     // STAKE_TOKEN = '0xa5a3c93776ba2e1a78c79e88a2cb5abab2a0097f'
     STAKE_TOKEN = '0x2e1f1c7620eecc7b7c571dff36e43ac7ed276779'
   }
-  
 
   const web3Contract = new web3Fn.eth.Contract(STAKE_ABI, STAKE_TOKEN)
   const web3ErcContract = new web3Fn.eth.Contract(ERC20_ABI, ANY_TOKEN)
@@ -282,7 +279,7 @@ export default function Staking () {
       } else {
         setDepositDisabled(true)
       }
-      
+
       if (userInfo && Number(userInfo) > 0 && BtnDelayDisabled !== 2) {
         setWithdrawDisabled(false)
       } else {
@@ -295,60 +292,71 @@ export default function Staking () {
     }
   }, [approveAmount, pendingReward, balance, userInfo, account, BtnDelayDisabled])
 
-
   const getBaseInfo = useCallback(() => {
     const batch = new web3Fn.BatchRequest()
     if (account && Number(CHAINID) === Number(chainId)) {
       const prData = web3Contract.methods.pendingReward(account).encodeABI()
-      batch.add(web3Fn.eth.call.request({data: prData, to: STAKE_TOKEN}, 'latest', (err, reward) => {
-        if (!err) {
-          console.log('reward')
-          console.log(formatCellData(reward, 66).toString())
-          setPendingReward(formatCellData(reward, 66))
-        }
-      }))
+      batch.add(
+        web3Fn.eth.call.request({ data: prData, to: STAKE_TOKEN }, 'latest', (err, reward) => {
+          if (!err) {
+            console.log('reward')
+            console.log(formatCellData(reward, 66).toString())
+            setPendingReward(formatCellData(reward, 66))
+          }
+        })
+      )
 
       const blData = web3ErcContract.methods.balanceOf(account).encodeABI()
-      batch.add(web3Fn.eth.call.request({data: blData, to: ANY_TOKEN}, 'latest', (err, balance) => {
-        if (!err) {
-          setBalance(formatCellData(balance, 66))
-        }
-      }))
+      batch.add(
+        web3Fn.eth.call.request({ data: blData, to: ANY_TOKEN }, 'latest', (err, balance) => {
+          if (!err) {
+            setBalance(formatCellData(balance, 66))
+          }
+        })
+      )
 
       const alData = web3ErcContract.methods.allowance(account, STAKE_TOKEN).encodeABI()
-      batch.add(web3Fn.eth.call.request({data: alData, to: ANY_TOKEN}, 'latest', (err, allowance) => {
-        if (!err) {
-          setApproveAmount(formatCellData(allowance, 66))
-          if (Number(formatCellData(allowance, 66).toString()) > 0) {
-            setUnlocking(false)
+      batch.add(
+        web3Fn.eth.call.request({ data: alData, to: ANY_TOKEN }, 'latest', (err, allowance) => {
+          if (!err) {
+            setApproveAmount(formatCellData(allowance, 66))
+            if (Number(formatCellData(allowance, 66).toString()) > 0) {
+              setUnlocking(false)
+            }
           }
-        }
-      }))
+        })
+      )
 
       const uiData = web3Contract.methods.userInfo(account).encodeABI()
-      batch.add(web3Fn.eth.call.request({data: uiData, to: STAKE_TOKEN}, 'latest', (err, userInfo) => {
-        if (!err) {
-          setUserInfo(formatCellData(userInfo, 66))
-        }
-      }))
+      batch.add(
+        web3Fn.eth.call.request({ data: uiData, to: STAKE_TOKEN }, 'latest', (err, userInfo) => {
+          if (!err) {
+            setUserInfo(formatCellData(userInfo, 66))
+          }
+        })
+      )
     }
 
     const tsData = web3ErcContract.methods.balanceOf(STAKE_TOKEN).encodeABI()
-    batch.add(web3Fn.eth.call.request({data: tsData, to: ANY_TOKEN}, 'latest', (err, res) => {
-      if (!err && res) {
-        setStakePool(ethers.utils.bigNumberify(res))
-      }
-    }))
+    batch.add(
+      web3Fn.eth.call.request({ data: tsData, to: ANY_TOKEN }, 'latest', (err, res) => {
+        if (!err && res) {
+          setStakePool(ethers.utils.bigNumberify(res))
+        }
+      })
+    )
 
     const rpbData = web3Contract.methods.rewardPerBlock().encodeABI()
-    batch.add(web3Fn.eth.call.request({data: rpbData, to: STAKE_TOKEN}, 'latest', (err, res) => {
-      if (!err && res) {
-        // console.log(ethers.utils.bigNumberify(res).toString())
-        setBlockReward(ethers.utils.bigNumberify(res))
-      }
-    }))
+    batch.add(
+      web3Fn.eth.call.request({ data: rpbData, to: STAKE_TOKEN }, 'latest', (err, res) => {
+        if (!err && res) {
+          // console.log(ethers.utils.bigNumberify(res).toString())
+          setBlockReward(ethers.utils.bigNumberify(res))
+        }
+      })
+    )
     batch.execute()
-    
+
     getSupply().then(res => {
       // console.log(res)
       if (res.CirculatingSupply) {
@@ -363,7 +371,6 @@ export default function Staking () {
       setStakingAPY(apy)
     }
   }, [BlockReward, StakePool])
-  
 
   useEffect(() => {
     getBaseInfo()
@@ -396,18 +403,18 @@ export default function Staking () {
         setStakeAmount('')
       }
     }
-    
+
     setStakeDisabled(status)
   }, [stakingType, pendingReward, balance, stakeAmount, BtnDelayDisabled])
 
-  function backInit () {
+  function backInit() {
     setStakingModal(false)
     setIsHardwareTip(false)
     setStakeAmount('')
     setStakingType('')
   }
 
-  function deposit () {
+  function deposit() {
     if (isNaN(stakeAmount)) {
       setStakeAmount('')
       alert('Param is error!')
@@ -439,17 +446,19 @@ export default function Staking () {
       })
       return
     }
-    MMContract.deposit(amount).then(res => {
-      console.log(res)
-      addTransaction(res)
-      backInit()
-    }).catch(err => {
-      console.log(err)
-      backInit()
-    })
+    MMContract.deposit(amount)
+      .then(res => {
+        console.log(res)
+        addTransaction(res)
+        backInit()
+      })
+      .catch(err => {
+        console.log(err)
+        backInit()
+      })
   }
 
-  function withdraw (amount) {
+  function withdraw(amount) {
     if (isNaN(stakeAmount) && !amount) {
       setStakeAmount('')
       alert('Param is error!')
@@ -480,17 +489,19 @@ export default function Staking () {
       })
       return
     }
-    MMContract.withdraw(amount).then(res => {
-      console.log(res)
-      addTransaction(res)
-      backInit()
-    }).catch(err => {
-      console.log(err)
-      backInit()
-    })
+    MMContract.withdraw(amount)
+      .then(res => {
+        console.log(res)
+        addTransaction(res)
+        backInit()
+      })
+      .catch(err => {
+        console.log(err)
+        backInit()
+      })
   }
 
-  function approve () {
+  function approve() {
     let _userTokenBalance = ethers.constants.MaxUint256.toString()
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareTip(true)
@@ -508,18 +519,20 @@ export default function Staking () {
       })
       return
     }
-    MMErcContract.approve(STAKE_TOKEN, _userTokenBalance).then(res => {
-      console.log(res)
-      addTransaction(res)
-      setUnlocking(true)
-      backInit()
-    }).catch(err => {
-      console.log(err)
-      backInit()
-    })
+    MMErcContract.approve(STAKE_TOKEN, _userTokenBalance)
+      .then(res => {
+        console.log(res)
+        addTransaction(res)
+        setUnlocking(true)
+        backInit()
+      })
+      .catch(err => {
+        console.log(err)
+        backInit()
+      })
   }
 
-  function onMax () {
+  function onMax() {
     let amount = ''
     if (stakingType === 'deposit') {
       let bl = ethers.utils.bigNumberify(balance)
@@ -531,68 +544,113 @@ export default function Staking () {
     setStakeAmount(amount)
   }
 
-  function stakingView () {
+  function stakingView() {
     let btnView = ''
     if (Number(CHAINID) !== Number(chainId)) {
-      btnView = <Button onClick={() => {
-        localStorage.setItem(config.ENV_NODE_CONFIG, useChain.label)
-        history.go(0)
-      }}  style={{height: '45px', maxWidth: '200px'}}>
-        {t('SwitchTo')} Fusion {t('mainnet')}
-      </Button>
+      btnView = (
+        <Button
+          onClick={() => {
+            localStorage.setItem(config.ENV_NODE_CONFIG, useChain.label)
+            history.go(0)
+          }}
+          style={{ height: '45px', maxWidth: '200px' }}
+        >
+          {t('SwitchTo')} Fusion {t('mainnet')}
+        </Button>
+      )
     } else if (!account) {
-      btnView = <Button onClick={toggleWalletModal}  style={{height: '45px',maxWidth: '200px'}}>
-        {t('connectToWallet')}
-      </Button>
+      btnView = (
+        <Button onClick={toggleWalletModal} style={{ height: '45px', maxWidth: '200px' }}>
+          {t('connectToWallet')}
+        </Button>
+      )
     } else if (approveAmount && Number(approveAmount)) {
-      btnView = <>
-        <Button style={{height: '45px', maxWidth: '200px'}} disabled={WithdrawDisabled} onClick={() => {
-          setStakingType('Unstake')
-          setStakingModal(true)
-        }}>{t('Unstake')}</Button>
-        <AddBox disabled={DepositDisabled} onClick={() => {
-          setStakingType('deposit')
-          setStakingModal(true)
-        }}>
-          {
-            isDark ? (
-              <img src={require('../../assets/images/icon/add-fff.svg')} alt='' />
+      btnView = (
+        <>
+          <Button
+            style={{ height: '45px', maxWidth: '200px' }}
+            disabled={WithdrawDisabled}
+            onClick={() => {
+              setStakingType('Unstake')
+              setStakingModal(true)
+            }}
+          >
+            {t('Unstake')}
+          </Button>
+          <AddBox
+            disabled={DepositDisabled}
+            onClick={() => {
+              setStakingType('deposit')
+              setStakingModal(true)
+            }}
+          >
+            {isDark ? (
+              <img src={require('../../assets/images/icon/add-fff.svg')} alt="" />
             ) : (
-              <img src={require('../../assets/images/icon/add.svg')} alt='' />
-            )
-          }
-        </AddBox>
-      </>
+              <img src={require('../../assets/images/icon/add.svg')} alt="" />
+            )}
+          </AddBox>
+        </>
+      )
     } else {
-      btnView = <Button style={{height: '45px', maxWidth: '200px'}} disabled={unlocking} onClick={() => {
-        approve()
-      }}>{unlocking ? t('pending') : t('unlock')}</Button>
+      btnView = (
+        <Button
+          style={{ height: '45px', maxWidth: '200px' }}
+          disabled={unlocking}
+          onClick={() => {
+            approve()
+          }}
+        >
+          {unlocking ? t('pending') : t('unlock')}
+        </Button>
+      )
     }
     return (
       <>
         <StakingBox>
           <StakingList>
-            <li className='item'>
-              <div className='pic'><img src={require('../../assets/images/coin/source/ANY.svg')} /></div>
-              <div className='info'>
-                <h3>{pendingReward && Number(pendingReward.toString()) > 0 ? amountFormatter(pendingReward, 18, config.keepDec) : '0.00'}</h3>
+            <li className="item">
+              <div className="pic">
+                <img src={require('../../assets/images/coin/source/ANY.svg')} />
+              </div>
+              <div className="info">
+                <h3>
+                  {pendingReward && Number(pendingReward.toString()) > 0
+                    ? amountFormatter(pendingReward, 18, config.keepDec)
+                    : '0.00'}
+                </h3>
                 <p>
-                  ANY {t('Earned')}<span className='green' style={{marginLeft:'2px'}}>(APY:{StakingAPY ? (Number(StakingAPY) / 100).toFixed(2) : '0.00'}%)</span>
+                  ANY {t('Earned')}
+                  <span className="green" style={{ marginLeft: '2px' }}>
+                    (APY:{StakingAPY ? (Number(StakingAPY) / 100).toFixed(2) : '0.00'}%)
+                  </span>
                 </p>
               </div>
-              <div className='btn'><Button style={{height: '45px', maxWidth: '200px'}} disabled={HarvestDisabled} onClick={() => {
-                withdraw(0)
-              }}>{t('Harvest')}</Button></div>
+              <div className="btn">
+                <Button
+                  style={{ height: '45px', maxWidth: '200px' }}
+                  disabled={HarvestDisabled}
+                  onClick={() => {
+                    withdraw(0)
+                  }}
+                >
+                  {t('Harvest')}
+                </Button>
+              </div>
             </li>
-            <li className='item'>
-              <div className='pic'><img src={require('../../assets/images/coin/source/ANY.svg')} /></div>
-              <div className='info'>
-                <h3>{userInfo && Number(userInfo.toString()) > 0 ? formatNum(amountFormatter(userInfo, 18, config.keepDec)) : '0.00'}</h3>
+            <li className="item">
+              <div className="pic">
+                <img src={require('../../assets/images/coin/source/ANY.svg')} />
+              </div>
+              <div className="info">
+                <h3>
+                  {userInfo && Number(userInfo.toString()) > 0
+                    ? formatNum(amountFormatter(userInfo, 18, config.keepDec))
+                    : '0.00'}
+                </h3>
                 <p>ANY Tokens {t('Staked')}</p>
               </div>
-              <div className='btn'>
-                {btnView}
-              </div>
+              <div className="btn">{btnView}</div>
             </li>
           </StakingList>
         </StakingBox>
@@ -607,30 +665,6 @@ export default function Staking () {
     amountView = userInfo ? amountFormatter(ethers.utils.bigNumberify(userInfo), 18, config.keepDec) : '0.00'
   }
 
-  // function test (amount) {
-  //   if (config.supportWallet.includes(walletType)) {
-  //     setIsHardwareTip(true)
-  //     const data = web3Contract.methods.emergencyWithdraw().encodeABI()
-  //     getWeb3BaseInfo(STAKE_TOKEN, data, account).then(res => {
-  //       if (res.msg === 'Success') {
-  //         console.log(res.info)
-  //         addTransaction(res.info)
-  //       } else {
-  //         alert(res.error)
-  //       }
-  //       backInit()
-  //     })
-  //     return
-  //   }
-  //   MMContract.emergencyWithdraw().then(res => {
-  //     console.log(res)
-  //     addTransaction(res)
-  //     backInit()
-  //   }).catch(err => {
-  //     console.log(err)
-  //     backInit()
-  //   })
-  // }
   return (
     <>
       <HardwareTip
@@ -640,8 +674,7 @@ export default function Staking () {
         }}
         txnsInfo={hardwareTxnsInfo}
         title={t(stakingType ? stakingType : 'deposit')}
-      >
-      </HardwareTip>
+      ></HardwareTip>
       <Modal
         style={{ userSelect: 'none' }}
         isOpen={stakingModal}
@@ -651,54 +684,62 @@ export default function Staking () {
         minHeight={null}
         maxHeight={90}
       >
-        <ModalContent
-          title={t(stakingType ? stakingType : 'deposit')}
-          onClose={setStakingModal}
-        >
+        <ModalContent title={t(stakingType ? stakingType : 'deposit')} onClose={setStakingModal}>
           <StakingModalBox>
             <InputRow>
-              <Input type="text"  placeholder="" value={stakeAmount} onChange={e => {
-                setStakeAmount(e.target.value)
-              }}/>
-              <MaxBox onClick={() => {onMax()}}>Max</MaxBox>
+              <Input
+                type="text"
+                placeholder=""
+                value={stakeAmount}
+                onChange={e => {
+                  setStakeAmount(e.target.value)
+                }}
+              />
+              <MaxBox
+                onClick={() => {
+                  onMax()
+                }}
+              >
+                Max
+              </MaxBox>
             </InputRow>
-            <AmountView>
-              {amountView} ANY
-            </AmountView>
-            <Button style={{height: '45px',width: '150px'}} disabled={stakeDisabled} onClick={() => {
-              if (stakingType === 'deposit') {
-                deposit()
-              } else {
-                withdraw()
-              }
-            }}>{t(stakingType)}</Button>
+            <AmountView>{amountView} ANY</AmountView>
+            <Button
+              style={{ height: '45px', width: '150px' }}
+              disabled={stakeDisabled}
+              onClick={() => {
+                if (stakingType === 'deposit') {
+                  deposit()
+                } else {
+                  withdraw()
+                }
+              }}
+            >
+              {t(stakingType)}
+            </Button>
           </StakingModalBox>
         </ModalContent>
       </Modal>
 
       <Title title={t('staking')}></Title>
-      {/* <Flex>
-        <Button onClick={() => {test()}} style={{height: '45px',width: '240px'}}>Withdraw All</Button>
-      </Flex> */}
       <StakingBox>
         <StakingList>
           <StakingLi>
-            <TokenLogo1 address='ANY' size='48px'></TokenLogo1>
-            <div className='content'>
-              <h2 className='title'>{t('TotalStaking')}</h2>
-              <h3 className='num'>{StakePool ? thousandBit(amountFormatter(StakePool), 2) : '0.00'}</h3>
+            <TokenLogo1 address="ANY" size="48px"></TokenLogo1>
+            <div className="content">
+              <h2 className="title">{t('TotalStaking')}</h2>
+              <h3 className="num">{StakePool ? thousandBit(amountFormatter(StakePool), 2) : '0.00'}</h3>
             </div>
           </StakingLi>
           <StakingLi>
             {/* <h2 className='title'>Total ANY Supply</h2> */}
-            <div className='content'>
-              <h2 className='title'>{t('CirculatingSupply')}</h2>
-              <h3 className='num'>{CirculatingSupply ? thousandBit(CirculatingSupply, 2) : '0.00'}</h3>
+            <div className="content">
+              <h2 className="title">{t('CirculatingSupply')}</h2>
+              <h3 className="num">{CirculatingSupply ? thousandBit(CirculatingSupply, 2) : '0.00'}</h3>
             </div>
           </StakingLi>
         </StakingList>
       </StakingBox>
-      {/* {Number(CHAINID) !== Number(chainId) || !account ? connectWallet() : ''} */}
       {stakingView()}
     </>
   )

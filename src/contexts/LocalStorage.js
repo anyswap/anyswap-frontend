@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect } from 'react'
-import config from '../config'
 const UNISWAP = 'UNISWAP'
 
 const VERSION = 'VERSION'

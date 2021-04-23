@@ -10,24 +10,17 @@ import getxDAIConfig from './coinbase/xDAI'
 import getAVAXConfig from './coinbase/avalanche'
 import getDEVConfig from './coinbase/moonbase'
 
-import {getNetwork, getIdCode} from './getUrlParams'
-import {chainInfo} from './coinbase/nodeConfig'
+import { getNetwork, getIdCode } from './getUrlParams'
+import { chainInfo } from './coinbase/nodeConfig'
 
 import farmConfig from './farming'
 
-// console.log(location.href)
 const ENV_NODE_CONFIG = 'ENV_NODE_CONFIG'
-// const INIT_NODE = 'FSN_MAIN'
-// const INIT_NODE = 'BNB_MAIN'
-// const INIT_NODE = 'FTM_MAIN'
 const INIT_NODE = 'ETH_MAIN'
-// const INIT_NODE = 'BNB_TEST'
-// const INIT_NODE = 'FSN_TEST'
 
 getIdCode()
 
 let ENV_CONFIG = getNetwork(ENV_NODE_CONFIG, INIT_NODE)
-// ENV_CONFIG = 'FTM_MAIN'
 console.log(ENV_CONFIG)
 
 let netArr = ENV_CONFIG.split('_')
@@ -58,7 +51,6 @@ if (netArr[0] === 'FSN') {
 }
 
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
-// serverInfoUrl = 'http://localhost:8107'
 
 export default {
   ...netConfig,
@@ -74,15 +66,12 @@ export default {
   BSCmainUrl: 'https://bsc.anyswap.exchange',
   serverInfoUrl: {
     V1: serverInfoUrl,
-    // V2: 'http://localhost:8107/v2'
     V2: serverInfoUrl + '/v2'
   },
   api: 'https://api.anyswap.exchange/',
   recordsTxnsUrl: 'https://agentapi.anyswap.exchange/recordTxns',
   farmUrl: '/farms/',
-  // farmUrl: '/',
-  // recordsTxnsUrl: 'http://localhost:8108/recordTxns',
-  dirSwitchFn (type) {
+  dirSwitchFn(type) {
     if (netConfig.reverseSwitch) {
       if (type) return 1
       else return 0

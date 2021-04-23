@@ -77,14 +77,11 @@ export function useAddressAllowance(address, tokenAddress, spenderAddress) {
 
       getTokenAllowance(address, tokenAddress, spenderAddress, library)
         .then(value => {
-          // console.log(value)
           if (!stale) {
             update(chainId, address, tokenAddress, spenderAddress, value, globalBlockNumber)
           }
         })
-        .catch((err) => {
-          // console.log(err.toString())
-          // console.log(err.toString().indexOf('multiplication overflow') !== -1)
+        .catch(err => {
           if (!stale) {
             if (err && err.toString().indexOf('multiplication overflow') !== -1) {
               update(chainId, address, tokenAddress, spenderAddress, ethers.constants.MaxUint256, globalBlockNumber)

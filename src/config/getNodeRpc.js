@@ -1,8 +1,6 @@
-import {chainInfo} from './coinbase/nodeConfig'
+import { chainInfo } from './coinbase/nodeConfig'
 
-export function getNodeRpc (node) {
-  // console.log(node)
-  // console.log(chainInfo[node])
+export function getNodeRpc(node) {
   if (chainInfo[node]) {
     return chainInfo[node].rpc
   } else {

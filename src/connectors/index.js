@@ -9,10 +9,6 @@ import { FortmaticConnector } from './Fortmatic'
 import config from '../config'
 
 const POLLING_INTERVAL = 10000
-// const NETWORK_URL =
-//   process.env.REACT_APP_IS_PRODUCTION_DEPLOY === 'true'
-//     ? process.env.REACT_APP_NETWORK_URL_PROD
-//     : process.env.REACT_APP_NETWORK_URL
 const NETWORK_URL = config.nodeRpc
 export const network = new NetworkConnector({
   urls: { [Number(config.chainID)]: NETWORK_URL },

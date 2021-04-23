@@ -2,10 +2,6 @@ import React, { Suspense, lazy } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import config from '../../config'
 
-// const Farms = lazy(() => import('./FarmsList'))
-// const Staking = lazy(() => import('./Staking'))
-// const BSCfarming = lazy(() => import('./BSCfarming'))
-
 import Farms from './FarmsList'
 import Staking from './Staking'
 import BSCfarming from './BSCfarming'
@@ -20,43 +16,43 @@ export default function Farm() {
       <Suspense fallback={null}>
         <Switch>
           <Route exact strict path="/farms" component={() => <Farms />} />
-          <Route exact strict path={config.farmUrl + "staking"} component={() => <Staking />} />
+          <Route exact strict path={config.farmUrl + 'staking'} component={() => <Staking />} />
 
-          <Route exact strict path={config.farmUrl + "bscfarming"} component={() => <BSCfarming />} />
+          <Route exact strict path={config.farmUrl + 'bscfarming'} component={() => <BSCfarming />} />
           <Route
-            path={config.farmUrl + "bscfarming/:lpToken"}
+            path={config.farmUrl + 'bscfarming/:lpToken'}
             render={({ match }) => {
               return <BSCfarming initialTrade={match.params.lpToken} />
             }}
           />
-          
-          <Route exact strict path={config.farmUrl + "htfarming"} component={() => <HTfarming />} />
+
+          <Route exact strict path={config.farmUrl + 'htfarming'} component={() => <HTfarming />} />
           <Route
-            path={config.farmUrl + "htfarming/:lpToken"}
+            path={config.farmUrl + 'htfarming/:lpToken'}
             render={({ match }) => {
               return <HTfarming initialTrade={match.params.lpToken} />
             }}
           />
 
-          <Route exact strict path={config.farmUrl + "bscfarming2"} component={() => <BSCfarming2 />} />
+          <Route exact strict path={config.farmUrl + 'bscfarming2'} component={() => <BSCfarming2 />} />
           <Route
-            path={config.farmUrl + "bscfarming2/:lpToken"}
+            path={config.farmUrl + 'bscfarming2/:lpToken'}
             render={({ match }) => {
               return <BSCfarming2 initialTrade={match.params.lpToken} />
             }}
           />
 
-          <Route exact strict path={config.farmUrl + "fsnfarming"} component={() => <FSNfarming />} />
+          <Route exact strict path={config.farmUrl + 'fsnfarming'} component={() => <FSNfarming />} />
           <Route
-            path={config.farmUrl + "fsnfarming/:lpToken"}
+            path={config.farmUrl + 'fsnfarming/:lpToken'}
             render={({ match }) => {
               return <FSNfarming initialTrade={match.params.lpToken} />
             }}
           />
 
-          <Route exact strict path={config.farmUrl + "ftmfarming"} component={() => <FTMfarming />} />
+          <Route exact strict path={config.farmUrl + 'ftmfarming'} component={() => <FTMfarming />} />
           <Route
-            path={config.farmUrl + "ftmfarming/:lpToken"}
+            path={config.farmUrl + 'ftmfarming/:lpToken'}
             render={({ match }) => {
               return <FTMfarming initialTrade={match.params.lpToken} />
             }}

@@ -1,41 +1,19 @@
 import React, { Suspense, lazy } from 'react'
 import styled from 'styled-components'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
-// import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
-// import { Router, Redirect, Route, Switch } from 'react-router-dom'
-
 import Web3ReactManager from '../components/Web3ReactManager'
 import Header from '../components/Header'
-// import Footer from '../components/Footer'
-
 import NavigationTabs from '../components/NavigationTabs'
 import { isAddress, getAllQueryParams } from '../utils'
 
 import config from '../config'
 
-import Swap from'./Swap'
-import Send from'./Send'
-import Pool from'./Pool'
-import Farms from'./Farms'
-import FarmsList from'./Farms/FarmsList'
-import Bridge from'./Bridge'
-import Dashboard from'./Dashboard'
-import Staking from'./Staking'
-
-// import { createBrowserHistory } from 'history';
-// const browserHistory = createBrowserHistory()
-// import createHistory from 'history/createHashHistory'
-// const history = createHistory();
-
-
-// const Swap = lazy(() => import('./Swap'))
-// const Send = lazy(() => import('./Send'))
-// const Pool = lazy(() => import('./Pool'))
-// // const Farms = lazy(() => import('./Farms'))
-// const FarmsList = lazy(() => import('./Farms/FarmsList'))
-// const Bridge = lazy(() => import('./Bridge'))
-// const Dashboard = lazy(() => import('./Dashboard'))
-// const Staking = lazy(() => import('./Staking'))
+import Swap from './Swap'
+import Send from './Send'
+import Pool from './Pool'
+import Farms from './Farms'
+import Bridge from './Bridge'
+import Dashboard from './Dashboard'
 
 const AppWrapper = styled.div`
   display: flex;
@@ -48,7 +26,7 @@ const HeaderWrapper = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   width: 100%;
   justify-content: space-between;
-  background: ${({theme}) => theme.contentBg};
+  background: ${({ theme }) => theme.contentBg};
 `
 const FooterWrapper = styled.div`
   width: 100%;
@@ -65,14 +43,14 @@ const BodyWrapper = styled.div`
   align-items: center;
   flex: 1;
   overflow: auto;
-  box-shadow: ${({theme}) => theme.contentShadow};
+  box-shadow: ${({ theme }) => theme.contentShadow};
 `
 
 const Body = styled.div`
   max-width: 1440px;
   width: 100%;
   min-height: 100%;
-  position:relative;
+  position: relative;
   padding-left: 322px;
   box-sizing: border-box;
   @media screen and (max-width: 960px) {
@@ -83,17 +61,17 @@ const Body = styled.div`
 const NavTabBoxLeft = styled.div`
   position: absolute;
   left: 0;
-  top:0;
+  top: 0;
   bottom: 0;
   right: 322px;
   width: 322px;
   height: 100%;
-  overflow:auto;
-  box-shadow: ${({theme}) => theme.contentShadow};
-  background: ${({theme}) => theme.contentBg};
-  z-index:1;
+  overflow: auto;
+  box-shadow: ${({ theme }) => theme.contentShadow};
+  background: ${({ theme }) => theme.contentBg};
+  z-index: 1;
   @media screen and (max-width: 960px) {
-    display:none;
+    display: none;
   }
 `
 const NavTabBoxBottom = styled.div`
@@ -103,37 +81,34 @@ const NavTabBoxBottom = styled.div`
   right: 0;
   width: 100;
   height: auto;
-  overflow:auto;
-  box-shadow: ${({theme}) => theme.contentShadow};
-  background: ${({theme}) => theme.contentBg};
-  display:none;
+  overflow: auto;
+  box-shadow: ${({ theme }) => theme.contentShadow};
+  background: ${({ theme }) => theme.contentBg};
+  display: none;
   @media screen and (max-width: 960px) {
-    display:block;
-    z-index: 1
+    display: block;
+    z-index: 1;
   }
 `
 const ContentBox = styled.div`
   position: absolute;
   left: 322px;
-  top:0;
+  top: 0;
   bottom: 0;
   right: 0;
   padding: 2.5rem 97px;
-  background: ${({theme}) => theme.bodyBg};
-  overflow:auto;
+  background: ${({ theme }) => theme.bodyBg};
+  overflow: auto;
   @media screen and (max-width: 960px) {
     width: 100%;
     height: auto;
     padding: 1.25rem 1rem 86px;
-    left:  0;
+    left: 0;
   }
 `
 
 export default function App() {
   const params = getAllQueryParams()
-  // console.log(params)
-  // console.log(window.location)
-  // const params = {}
   return (
     <>
       <Suspense fallback={null}>
@@ -144,12 +119,10 @@ export default function App() {
           <BodyWrapper>
             <Body>
               <Web3ReactManager>
-                {/* <Router history={ browserHistory }> */}
                 <BrowserRouter>
                   <NavTabBoxLeft>
                     <NavigationTabs />
                   </NavTabBoxLeft>
-                  {/* this Suspense is for route code-splitting */}
                   <Suspense fallback={null}>
                     <ContentBox>
                       <Switch>
@@ -159,7 +132,6 @@ export default function App() {
                           strict
                           path="/swap/:tokenAddress?"
                           render={({ match, location }) => {
-                            // console.log(match.params.tokenAddress)
                             if (isAddress(match.params.tokenAddress)) {
                               return (
                                 <Swap
@@ -196,9 +168,7 @@ export default function App() {
                           component={() => <Pool params={params} />}
                         />
                         <Route exact strict path="/bridge" component={() => <Bridge params={params} />} />
-                        <Route exact strict path="/dashboard" component={() => <Dashboard/>} />
-                        {/* <Route exact strict path="/farms/staking" component={() => <Staking/>} /> */}
-                        {/* <Route exact strict path="/farms" component={() => <FarmsList/>} /> */}
+                        <Route exact strict path="/dashboard" component={() => <Dashboard />} />
                         <Route
                           path={[
                             '/farms',
@@ -212,7 +182,7 @@ export default function App() {
                             config.farmUrl + 'fsnfarming',
                             config.farmUrl + 'fsnfarming/:lpToken?',
                             config.farmUrl + 'ftmfarming',
-                            config.farmUrl + 'ftmfarming/:lpToken?',
+                            config.farmUrl + 'ftmfarming/:lpToken?'
                           ]}
                           component={() => <Farms params={params} />}
                         />
@@ -227,9 +197,6 @@ export default function App() {
               </Web3ReactManager>
             </Body>
           </BodyWrapper>
-          {/* <FooterWrapper>
-            <Footer />
-          </FooterWrapper> */}
         </AppWrapper>
       </Suspense>
     </>
