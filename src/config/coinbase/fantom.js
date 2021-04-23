@@ -1,4 +1,4 @@
-import {chainInfo} from './nodeConfig'
+import { chainInfo } from './nodeConfig'
 
 const NAME_PREFIX = '-FRC20'
 
@@ -10,12 +10,12 @@ const DEPOSIT_AMOUNT = 10000
 const CHAIN_MAIN_INFO = chainInfo['250']
 const CHAIN_TEST_INFO = chainInfo['97']
 
-const COIN_BASE ={
+const COIN_BASE = {
   symbol: 'FTM', // 符号
   name: 'Fantom', // 代币名
   decimals: 18, // 小数位
   networkName: 'FTM', // 网络名称
-  reverseSwitch: 0,  // 是否反向禁用,
+  reverseSwitch: 0, // 是否反向禁用,
   suffix: '-FRC20', // 后缀
   prefix: '',
   keepDec: 6, // 保留小数位
@@ -23,14 +23,12 @@ const COIN_BASE ={
   marketsUrl: 'https://markets.anyswap.exchange/?trade=ANY_FTM', // K线图地址
   rewardUrl: 'https://rewardapiv2.anyswap.exchange/accounts/getFTMReward/', // 获取奖励地址
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
-  rewardRate (arr) {
+  rewardRate(arr) {
     let totalLq = 0
     let coinObj = {}
-    // return coinObj
     for (let obj of arr) {
       let mt = Number(obj.market) / Math.pow(10, 18)
-      // let totalBaseAmount = Number(obj.baseAmount) + Number(obj.tokenAmount) / mt
-      let totalBaseAmount = Number(obj.baseAmount) * 2 /  Math.pow(10, 18)
+      let totalBaseAmount = (Number(obj.baseAmount) * 2) / Math.pow(10, 18)
       if (obj.coin === 'wFTM') {
         totalBaseAmount = totalBaseAmount / 10
       }
@@ -44,30 +42,24 @@ const COIN_BASE ={
         totalBaseAmount
       }
     }
-    // totalLq = totalLq  /  Math.pow(10, 18)
     for (let obj in coinObj) {
       coinObj[obj].pecent = coinObj[obj].totalBaseAmount / totalLq
       coinObj[obj].totalReward = REWARDS_DAY * coinObj[obj].pecent
       if (obj === 'wFTM') {
-        coinObj[obj].totalReward = REWARDS_DAY * coinObj[obj].pecent / 10
+        coinObj[obj].totalReward = (REWARDS_DAY * coinObj[obj].pecent) / 10
       }
       if (obj === 'ANY') {
         coinObj[obj].poolShare = (DEPOSIT_AMOUNT / coinObj[obj].totalBaseAmount) * 2
-        coinObj[obj].accountReward = coinObj[obj].poolShare * coinObj[obj].totalReward / coinObj[obj].market
+        coinObj[obj].accountReward = (coinObj[obj].poolShare * coinObj[obj].totalReward) / coinObj[obj].market
         coinObj[obj].ROIPerDay = coinObj[obj].accountReward / DEPOSIT_AMOUNT
         coinObj[obj].AnnualizedROI = coinObj[obj].ROIPerDay * 100 * 365
       } else {
-        coinObj[obj].poolShare = (DEPOSIT_AMOUNT / coinObj[obj].totalBaseAmount)
-        coinObj[obj].accountReward = coinObj[obj].poolShare * coinObj[obj].totalReward / coinObj['ANY'].market
+        coinObj[obj].poolShare = DEPOSIT_AMOUNT / coinObj[obj].totalBaseAmount
+        coinObj[obj].accountReward = (coinObj[obj].poolShare * coinObj[obj].totalReward) / coinObj['ANY'].market
         coinObj[obj].ROIPerDay = coinObj[obj].accountReward / DEPOSIT_AMOUNT
-        // if (obj === 'wFTM') {
-        //   coinObj[obj].ROIPerDay = (coinObj[obj].accountReward / DEPOSIT_AMOUNT) / 10
-        // }
         coinObj[obj].AnnualizedROI = coinObj[obj].ROIPerDay * 100 * 365
       }
     }
-    // console.log(coinObj)
-    // console.log(totalBaseAmount)
     return coinObj
   }
 }
@@ -82,17 +74,19 @@ const MAIN_CONFIG = {
   initToken: '0xddcb3ffd12750b45d32e084887fdf1aabab34239', // 交易默认合约
   initBridge: '0xddcb3ffd12750b45d32e084887fdf1aabab34239', // 跨链桥默认合约
   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
-  btc: { // btc配置
-    lookHash: 'https://www.blockchain.com/btc/tx/', // 
-    queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/', // 
-    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
-    initAddr: '',  // 
+  btc: {
+    // btc配置
+    lookHash: 'https://www.blockchain.com/btc/tx/', //
+    queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/', //
+    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', //
+    initAddr: '' //
   },
-  ltc: { // ltc配置
-    lookHash: 'https://blockchair.com/litecoin/transaction/', // 
-    queryTxns: 'https://sochain.com/api/v2/get_tx_received/LTC/', // 
-    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
-    initAddr: 'LPpmqgdvbBh6jMn2TS4nCKv54SS2GCEevH',  // 
+  ltc: {
+    // ltc配置
+    lookHash: 'https://blockchair.com/litecoin/transaction/', //
+    queryTxns: 'https://sochain.com/api/v2/get_tx_received/LTC/', //
+    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', //
+    initAddr: 'LPpmqgdvbBh6jMn2TS4nCKv54SS2GCEevH' //
   },
   isOpenRewards: 0, // 是否打开奖励数据
   isChangeDashboard: 1, // 是否改变资产顺序
@@ -124,7 +118,7 @@ const MAIN_CONFIG = {
 //   queryToken: '0x2fd94457b707b2776d4f4e4292a4280164fe8a15' // 查询余额合约
 // }
 
-function getFSNConfig (type) {
+function getFSNConfig(type) {
   if (type.toLowerCase() === 'main') {
     return MAIN_CONFIG
   }
