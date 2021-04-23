@@ -67,32 +67,12 @@ export default function TokenLogo({ address, size = '1rem', isAny = true, ...res
   // console.log(address)
   if (address) {
     if (isAny) {
-      if (address.indexOf('a') === 0 && address.indexOf('any') === -1 && address.indexOf('acBTC') === -1) {
+      if (address.indexOf('a') === 0 && address.indexOf('any') === -1 && address.indexOf('acBTC') === -1 && address.indexOf('aaBLOCK') === -1) {
         address = address.replace('a', 'any')
         path = getAnyPath(address)
       } else if (address.indexOf('any') !== -1) {
         path = getAnyPath(address)
       } else {
-        // if (
-        //   address.lastIndexOf('B') === (address.length - 1)
-        //   && address.indexOf('BNB') === -1
-        //   && address.indexOf('OKB') === -1
-        //   && address.indexOf('HWBTB') === -1
-        //   && address.indexOf('HWBTE') === -1
-        // ) {
-        //   address = address.substr(0, address.lastIndexOf('B'))
-        // } else 
-        // if (
-        //   address.indexOf('HUSD') === -1
-        //   && address.indexOf('HT') === -1
-        //   && address.indexOf('HTC') === -1
-        //   && address.indexOf('Hi') === -1
-        //   && address.indexOf('HWBTB') === -1
-        //   && address.indexOf('HWBTE') === -1
-        //   && address.indexOf('H') === 0
-        // ) {
-        //   address = address.substr(1)
-        // }
         path = getSourcePath(address)
       }
     } else {

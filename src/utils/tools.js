@@ -28,6 +28,9 @@ export function formatCoin (coin) {
     if (coin === 'fUSDT') {
       return 'USDT'
     }
+    if (coin === 'aaBLOCK') {
+      return 'BLOCK'
+    }
     return coin.replace('any', '').replace(config.prefix, '')
   } else {
     return coin

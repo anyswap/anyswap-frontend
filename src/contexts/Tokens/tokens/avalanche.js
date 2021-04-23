@@ -74,7 +74,7 @@ export default {
     
     '0xc931f61b1534eb21d8c11b24f3f5ab2471d4ab50': { // BLOCK 5
       [NAME]: 'Blocknet' + config.suffix,
-      [SYMBOL]: config.prefix + 'BLOCK',
+      [SYMBOL]: 'aaBLOCK',
       [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0x4dfd9d31b5b18626dd5da2e70d3890e1276ae1ff',
       [REDEEM_MAX_NUM]: 1000000,

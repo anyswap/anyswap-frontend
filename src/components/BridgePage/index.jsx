@@ -1395,6 +1395,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       }
     } else {
+      console.log(isDisabled)
+      console.log(isDeposit)
+      console.log(inputValueFormatted)
+      console.log(registerAddress)
+      console.log(isRegister)
+      console.log(isLimitAction)
       if (
         isDisabled 
         && isDeposit 
