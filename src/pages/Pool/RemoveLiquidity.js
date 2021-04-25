@@ -493,7 +493,7 @@ export default function RemoveLiquidity({ params }) {
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
-      setHardwareTxnsInfo(`${amountFormatter(ethWithdrawn, 18, 6, false)} ${config.symbol}` + ' + ' + `${amountFormatter(tokenWithdrawn, decimals, Math.min(6, decimals))} ${symbol}`)
+      setHardwareTxnsInfo(`${amountFormatter(ethWithdrawn, 18, 6, false)} ${config.symbol}`, ' + ', `${amountFormatter(tokenWithdrawn, decimals, Math.min(6, decimals))} ${symbol}`)
       let web3Contract = getWeb3ConTract(EXCHANGE_ABI, exchangeAddress)
 
       // let data = web3Contract.removeLiquidity.getData(valueParsed.toString(), ethWithdrawnMin.toString(), tokenWithdrawnMin.toString(), deadline)
