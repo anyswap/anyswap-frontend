@@ -1,4 +1,4 @@
-/*eslint-disable*/
+
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
 import copy from 'copy-to-clipboard'
@@ -226,7 +226,7 @@ export function useSwapTokenContract(tokenAddress, ABI, withSignerIfPossible = t
     } catch {
       return null
     }
-  }, [tokenAddress, library, withSignerIfPossible, account])
+  }, [tokenAddress, library, withSignerIfPossible, account, ABI])
 }
 
 // returns null on errors

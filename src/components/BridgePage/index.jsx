@@ -1,4 +1,4 @@
-/*eslint-disable*/
+
 import React, { useState, useReducer, useEffect, useCallback, useMemo } from 'react'
 // import ReactGA from 'react-ga'
 import { ethers } from 'ethers'
@@ -807,22 +807,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     urlAddedTokens[initialCurrency] = true
   }
 
-  // function getAllOutBalanceFn () {
-  //   let tokenClass = {}
-  //   for (let tk in allTokens) {
-  //     if (allTokens[tk].extendObj && allTokens[tk].extendObj.BRIDGE) {
-  //       for (let cd of allTokens[tk].extendObj.BRIDGE) {
-  //         if (cd.isSwitch) {
-  //           if (!tokenClass[cd.type]) {
-  //             tokenClass[cd.type] = {}
-  //           }
-  //           tokenClass[cd.type][tk] = allTokens[tk]
-  //         }
-  //       }
-  //     }
-  //   }
-  //   getAllOutBalance(tokenClass, account)
-  // }
   const getAllOutBalanceFn = useCallback(() => {
     let tokenClass = {}
     for (let tk in allTokens) {
@@ -1105,7 +1089,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     } else {
       setInit('')
     }
-  }, [inputCurrency, account, initDepositAddress, initIsDeposit, initDepositMaxNum, initDepositMinNum, initIsRedeem, initRedeemMaxNum, initRedeemMinNum, initMaxFee, initMinFee, initFee, inputSymbol, isRegister])
+  }, [inputCurrency, account, initDepositAddress, initIsDeposit, initDepositMaxNum, initDepositMinNum, initIsRedeem, initRedeemMaxNum, initRedeemMinNum, initMaxFee, initMinFee, initFee, inputSymbol, isRegister, chainId, extendObj])
 
   useEffect(() => {
     let version = extendObj && extendObj.VERSION ? extendObj.VERSION : ''
@@ -1124,7 +1108,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     } else {
       setIsRegister(false)
     }
-  }, [inputSymbol, initIsDeposit, initIsRedeem, account, extendObj])
+  }, [inputSymbol, initIsDeposit, initIsRedeem, account, extendObj, chainId, inputCurrency])
 
 
   const [outNetBalance, setOutNetBalance] = useState()
@@ -1140,7 +1124,26 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   //   setOutNetETHBalance('')
   //   getOutBalance()
   // }, [inputCurrency, account, isDeposit, isRedeem])
-  function setOutBalance () {
+  // function setOutBalance () {
+  //   let node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
+  //   if (node && account) {
+  //     let lob = getLocalOutBalance(node, account, inputCurrency)
+  //     if (lob && lob.info) {
+  //       let bl = amountFormatter(ethers.utils.bigNumberify(lob.info.balance), inputDecimals, Math.min(8, inputDecimals))
+  //       setOutNetBalance(bl)
+  //     } else {
+  //       setOutNetBalance('')
+  //     }
+  //     let lobBase = getLocalOutBalance(node, account, 'BASE')
+  //     if (lobBase && lobBase.info) {
+  //       let bl = amountFormatter(ethers.utils.bigNumberify(lobBase.info.balance), 18, 8)
+  //       setOutNetETHBalance(bl)
+  //     } else {
+  //       setOutNetETHBalance('')
+  //     }
+  //   }
+  // }
+  const setOutBalance = useCallback(() => {
     let node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
     if (node && account) {
       let lob = getLocalOutBalance(node, account, inputCurrency)
@@ -1158,13 +1161,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         setOutNetETHBalance('')
       }
     }
-  }
+  }, [inputCurrency, account, extendObj, inputDecimals])
   useEffect(() => {
     // getOutBalance()
     setOutNetBalance('')
     setOutNetETHBalance('')
     setOutBalance()
-  }, [inputCurrency, account, extendObj, inputBalance, hashCount, hashArr, FSNBalance])
+  }, [inputCurrency, account, extendObj, inputBalance, hashCount, hashArr, FSNBalance, setOutBalance])
   
 
   // console.log(FSNBalanceNum)
@@ -1224,7 +1227,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setIsLimitAction(true)
       setLimitAmount('')
     }
-  }, [account, inputCurrency, inputValueFormatted, bridgeType, extendObj])
+  }, [account, inputCurrency, inputValueFormatted, bridgeType, extendObj, initDepositAddress, inputDecimals, inputSymbol])
 
   // console.log(limitAmount)
 
@@ -1349,7 +1352,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       }
     }
-  }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol, isDeposit, registerAddress, outNetBalance, bridgeType, depositMaxNum, depositMinNum, isLimitAction])
+  }, [account, isDisabled, isRedeem, showBetaMessage, recipient.address, independentValue, inputSymbol, isDeposit, registerAddress, outNetBalance, bridgeType, depositMaxNum, depositMinNum, isLimitAction, approveNum, error, extendObj, inputBalanceFormatted, inputValueFormatted, isRegister, outNetETHBalance, redeemMaxNum, redeemMinNum])
 
   
   
@@ -1604,7 +1607,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     setRemoveHashStatus(Date.now())
   }
 
-  function updateHashStatusData (res) {
+  const updateHashStatusData = useCallback(() => {
     if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
       hashArr[res.index].status = res.status
       hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
@@ -1619,8 +1622,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       })
     }
-  }
-  function updateHashStatus () {
+  }, [hashArr])
+
+  const updateHashStatus = useCallback(() => {
     if (hashArr.length > 0) {
       for (let i = 0, len = hashArr.length; i < len; i ++) {
         if (hashArr[i].chainID && hashArr[i].chainID !== config.chainID) continue
@@ -1643,9 +1647,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       }
     }
-  }
+  }, [hashArr, updateHashStatusData])
 
-  function updateWithdrawStatus () {
+  const updateWithdrawStatus = useCallback(() => {
     if (withdrawArr.length > 0) {
       for (let i = 0, len = withdrawArr.length; i < len; i ++) {
         if (withdrawArr[i].chainID && withdrawArr[i].chainID !== config.chainID) continue
@@ -1677,7 +1681,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       }
     }
-  }
+  }, [withdrawArr])
 
   useEffect(() => {
     if (!account) return
@@ -1692,7 +1696,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         clearInterval(hashInterval)
       }
     }, 1000 * 30)
-  }, [removeHashStatus, account])
+  }, [removeHashStatus, account, updateHashStatus, updateWithdrawStatus])
   const [mintBTCErrorTip, setMintBTCErrorTip] = useState()
   const [loadingState, setLoadingState] = useState(false)
   function getBTCtxns () {
@@ -1724,6 +1728,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     if (node) {
       let coin = config.bridgeAll[node.type].symbol
       return (
+        // eslint-disable-next-line
         <dd><i></i>💀 {t('bridgeMintTip', {
           account,
           coin: coin
@@ -1824,13 +1829,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
     let curHash = (
       <MintListVal>
-        <a href={hashCurObj.url} target="_blank" className='link'>{hashCurObj.hash}</a>
+        <a href={hashCurObj.url} rel="noopener noreferrer" target="_blank" className='link'>{hashCurObj.hash}</a>
         <Copy toCopy={hashCurObj.hash} />
       </MintListVal>
     )
     let outHash = (
       <MintListVal>
-        <a href={hashOutObj.url} target="_blank" className='link'>{hashOutObj.hash}</a>
+        <a href={hashOutObj.url} rel="noopener noreferrer" target="_blank" className='link'>{hashOutObj.hash}</a>
         <Copy toCopy={hashOutObj.hash} />
       </MintListVal>
     )

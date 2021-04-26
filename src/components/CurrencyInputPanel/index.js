@@ -1,4 +1,4 @@
-/*eslint-disable*/
+
 import React, { useState, useRef, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -696,7 +696,7 @@ export default function CurrencyInputPanel({
       _val = _val !== '' ? _val : ''
       onValueChange(_val + '')
     }
-  }, [valueRange, isRange])
+  }, [valueRange, isRange, tokenBalance, onValueChange])
 
   useEffect(() => {
     if (!value) {

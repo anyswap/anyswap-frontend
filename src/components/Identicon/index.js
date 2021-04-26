@@ -1,4 +1,4 @@
-/*eslint-disable*/
+
 import React, { useEffect, useRef } from 'react'
 
 import styled from 'styled-components'
@@ -23,7 +23,7 @@ export default function Identicon({size = 16}) {
       ref.current.innerHTML = ''
       ref.current.appendChild(Jazzicon(size, parseInt(account.slice(2, 10), size)))
     }
-  }, [account])
+  }, [account, size])
 
   return <StyledIdenticon ref={ref} size={size + 'px'} />
 }

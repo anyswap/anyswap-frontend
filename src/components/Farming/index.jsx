@@ -1,7 +1,6 @@
 /*eslint-disable*/
 import React, {useCallback, useEffect, useState, useReducer} from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import styled from 'styled-components'
 import { ethers } from 'ethers'
@@ -529,7 +528,7 @@ export default function Farming ({
     //     })  
     //   }
     // })  
-  }, [])
+  }, [useChain])
 
   useEffect(() => {
     let pr = lpObj && lpObj[exchangeAddress] && lpObj[exchangeAddress].pendingReward ? lpObj[exchangeAddress].pendingReward : ''
@@ -556,7 +555,7 @@ export default function Farming ({
       setDepositDisabled(true)
       setWithdrawDisabled(true)
     }
-  }, [approveAmount, balance, userInfo, account, BtnDelayDisabled, lpObj, exchangeAddress])
+  }, [approveAmount, balance, userInfo, account, BtnDelayDisabled, lpObj, exchangeAddress, CHAINID, chainId])
 
   useEffect(() => {
     let status = true
@@ -582,7 +581,7 @@ export default function Farming ({
     }
     
     setStakeDisabled(status)
-  }, [stakingType, balance, stakeAmount, BtnDelayDisabled, lpObj, exchangeAddress])
+  }, [stakingType, balance, stakeAmount, BtnDelayDisabled, lpObj, exchangeAddress, userInfo])
 
 
   
