@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState, useEffect } from 'react'
 // import ReactGA from 'react-ga'
 import styled from 'styled-components'

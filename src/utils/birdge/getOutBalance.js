@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { ethers } from 'ethers'
 import config from '../../config'
 import ERC20_ABI from '../../constants/abis/erc20'

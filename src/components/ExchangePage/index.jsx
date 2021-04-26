@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState, useReducer, useEffect, useCallback } from 'react'
 import { darken } from 'polished'
 import { ethers } from 'ethers'

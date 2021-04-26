@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState, useReducer, useEffect, useCallback, useMemo } from 'react'
 // import ReactGA from 'react-ga'
 import { ethers } from 'ethers'
