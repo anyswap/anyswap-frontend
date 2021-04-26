@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css, keyframes } from 'styled-components'
-import { darken, lighten } from 'polished'
-import { isAddress, amountFormatter } from '../../utils'
+import { darken } from 'polished'
+import { amountFormatter } from '../../utils'
 import { useDebounce } from '../../hooks'
 
 import question from '../../assets/images/question.svg'
-
-import NewContextualInfo from '../../components/ContextualInfoNew'
 
 import AddressIcon from '../../assets/images/icon/address.svg'
 import ArrowTopRightIcon from '../../assets/images/icon/arrowTopRight.png'
 import AlippageIcon from '../../assets/images/icon/slippage.svg'
 import { BorderlessInput } from '../../theme'
+
 const WARNING_TYPE = Object.freeze({
   none: 'none',
   emptyInput: 'emptyInput',

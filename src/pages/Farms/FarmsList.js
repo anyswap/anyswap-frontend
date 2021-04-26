@@ -21,6 +21,10 @@ import { Button } from '../../theme'
 import Modal from '../../components/Modal'
 import ModalContent from '../../components/Modal/ModalContent'
 
+import {
+  Flex,
+} from '../../components/Styled'
+
 const FarmListBox = styled.div`
   ${({ theme }) => theme.FlexSC};
   flex-wrap:wrap;
@@ -214,17 +218,6 @@ const JumpTipBox = styled.div`
 width:100%;
 padding: 20px;
 `
-
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-
-  button {
-    max-width: 20rem;
-  }
-`
-
 
 function getExchangeRate(inputValue, inputDecimals, outputValue, outputDecimals, invert = false) {
   try {

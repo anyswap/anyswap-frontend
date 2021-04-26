@@ -8,20 +8,13 @@ import { getEtherscanLink } from '../../utils'
 
 import { Link } from '../../theme'
 import TokenLogo from '../TokenLogo'
+import {
+  Flex
+} from '../Styled'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import question from '../../assets/images/question.svg'
 
 import config from '../../config'
-
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-
-  button {
-    max-width: 20rem;
-  }
-`
 
 const Wrapper = styled.div`
   background: rgba(243, 190, 30, 0.1);

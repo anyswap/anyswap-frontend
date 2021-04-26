@@ -39,6 +39,14 @@ import Warning from '../../assets/images/icon/warning.svg'
 import NoCoinIcon from '../../assets/images/icon/no-coin.svg'
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
 
+import {
+  InputPanel,
+  LabelRow,
+  LabelContainer,
+  InputRow,
+  Input
+} from '../Styled'
+
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
 const SubCurrencySelect = styled.button`
@@ -82,32 +90,6 @@ const SubCurrencySelectBox = styled.div`
       color: #734be2;
       margin-left:8px;
     }
-  }
-`
-
-const InputRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  width: 100%;
-  align-items: center;
-  background:none;
-  padding: 0.625rem 0 0;
-`
-
-const Input = styled(BorderlessInput)`
-  font-size: 44px;
-  font-family: 'Manrope';
-  height: 70px;
-  color: ${({ error, theme }) => error ? 'rgb(255, 104, 113)' : theme.textColorBold};
-  background: none;
-  border-bottom: 0.0625rem solid ${({theme}) => theme.inputBorder};
-  -moz-appearance: textfield;
-  margin-right: 1.875rem;
-  ::placeholder {
-    color:#DADADA;
-    // border-bottom: 0.0625rem solid #DADADA;
-  }
-  @media screen and (max-width: 960px) {
-    font-size: 32px;
   }
 `
 
@@ -177,50 +159,8 @@ const StyledDropDown = styled(DropDown)`
   }
 `
 
-const InputPanel = styled.div`
-  ${({ theme }) => theme.flexColumnNoWrap}
-  position: relative;
-  z-index: 1;
-  box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
-  border-radius: 0.5625rem;
-  background: ${({theme}) => theme.contentBg};
-  height:154px;
-  padding: 1.25rem 2.5rem;
-  
-  border: 1px solid ${({ error, theme }) => (error ? 'rgb(255, 104, 113)' : 'rgb (255, 92, 177)')};
-  @media screen and (max-width: 960px) {
-    padding: 1rem 1.5625rem;
-  }
-`
-
 const Container = styled.div`
   border-radius: 1.25rem;
-`
-
-const LabelRow = styled.div`
-  ${({ theme }) => theme.FlexBC}
-  align-items: center;
-  color: ${({ theme }) => theme.doveGray};
-  font-size: 0.75rem;
-  font-family: 'Manrope';
-  line-height: 1rem;
-  height: 1.875rem;
-  padding: 0;
-  span:hover {
-    cursor: pointer;
-    color: ${({ theme }) => darken(0.2, theme.doveGray)};
-  }
-`
-
-const LabelContainer = styled.div`
-font-family: 'Manrope';
-  font-size: 0.875rem;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.71;
-  letter-spacing: normal;
-  color: #96989e;
 `
 
 const ErrorSpanBox = styled.div`

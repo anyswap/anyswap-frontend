@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect, useCallback } from 'react'
+import React, { useState, useReducer, useEffect, useCallback, useMemo } from 'react'
 // import ReactGA from 'react-ga'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
@@ -64,102 +64,20 @@ import {recordTxns} from '../../utils/records'
 
 import Title from '../Title'
 
+import {
+  DownArrowBackground,
+  Flex,
+  InputPanel,
+  ContainerRow,
+  LabelRow,
+  InputContainer,
+  LabelContainer,
+  InputRow,
+  Input
+} from '../Styled'
+
 const INPUT = 0
 const OUTPUT = 1
-
-const DownArrowBackground = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  border-radius: 6px;
-  margin: 3px auto;
-  cursor:pointer;
-  background: ${({ theme }) => theme.swapBg}
-`
-
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-
-  button {
-    max-width: 20rem;
-  }
-`
-const InputPanel = styled.div`
-${({ theme }) => theme.flexColumnNoWrap}
-box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
-background: ${({theme}) => theme.contentBg};
-position: relative;
-border-radius: 1.25rem;
-z-index: 1;
-padding: 1.5625rem 2.5rem;
-margin-top: 0.625rem;
-@media screen and (max-width: 960px) {
-  padding: 1rem 1.5625rem;
-}
-`
-
-const ContainerRow = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-`
-
-const InputContainer = styled.div`
-flex: 1;
-`
-
-const LabelRow = styled.div`
-${({ theme }) => theme.flexRowNoWrap}
-align-items: center;
-color: ${({ theme }) => theme.doveGray};
-font-size: 0.75rem;
-font-family: 'Manrope';
-line-height: 1rem;
-padding: 0.75rem 0;
-`
-
-const LabelContainer = styled.div`
-flex: 1 1 auto;
-width: 0;
-overflow: hidden;
-white-space: nowrap;
-text-overflow: ellipsis;
-`
-
-const InputRow = styled.div`
-${({ theme }) => theme.flexRowNoWrap}
-align-items: center;
-padding: 0.25rem 0rem 0.75rem;
-`
-
-const Input = styled.input`
-outline: none;
-border: none;
-flex: 1 1 auto;
-width: 0;
-background-color: transparent;
-border-bottom: 0.0625rem solid ${({theme}) => theme.inputBorder};
-
-color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
-overflow: hidden;
-text-overflow: ellipsis;
-font-family: 'Manrope';
-font-size: 24px;
-font-weight: 500;
-font-stretch: normal;
-font-style: normal;
-line-height: 1;
-letter-spacing: -0.0625rem;
-padding: 8px 0.75rem;
-::placeholder {
-  color: ${({ theme }) => theme.placeholderGray};
-}
-`
 
 const MintDiv = styled.div`
   width: 100%;
@@ -280,15 +198,6 @@ const MintHahshList = styled.div`
     ${({ theme }) => theme.FlexC};
     width:100%;
     background: rgba(0,0,0,.1);
-  }
-`
-
-const FlexCneter = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  button {
-    max-width: 20rem;
   }
 `
 
@@ -897,16 +806,23 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     urlAddedTokens[initialCurrency] = true
   }
 
-
-  // check URL params for recipient, only on send page
-  const initialRecipient = () => {
-    if (sending && params.recipient) {
-      return params.recipient
-    }
-    return ''
-  }
-
-  function getAllOutBalanceFn () {
+  // function getAllOutBalanceFn () {
+  //   let tokenClass = {}
+  //   for (let tk in allTokens) {
+  //     if (allTokens[tk].extendObj && allTokens[tk].extendObj.BRIDGE) {
+  //       for (let cd of allTokens[tk].extendObj.BRIDGE) {
+  //         if (cd.isSwitch) {
+  //           if (!tokenClass[cd.type]) {
+  //             tokenClass[cd.type] = {}
+  //           }
+  //           tokenClass[cd.type][tk] = allTokens[tk]
+  //         }
+  //       }
+  //     }
+  //   }
+  //   getAllOutBalance(tokenClass, account)
+  // }
+  const getAllOutBalanceFn = useCallback(() => {
     let tokenClass = {}
     for (let tk in allTokens) {
       if (allTokens[tk].extendObj && allTokens[tk].extendObj.BRIDGE) {
@@ -921,12 +837,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
     }
     getAllOutBalance(tokenClass, account)
-  }
+  }, [allTokens, account])
+
   useEffect(() => {
     if (account) {
       getAllOutBalanceFn()
     }
-  }, [account])
+  }, [account, getAllOutBalanceFn])
 
 
   // core swap state
@@ -980,11 +897,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     address: '',
     name: ''
   })
-  const [recipientCount, setRecipientCount] = useState(0)
 
-  useEffect(() => {
-    let count = recipientCount + 1
-    setRecipientCount(count)
+  const recipientCount = useMemo(() => {
+    return Date.now() + inputCurrency + bridgeType
   }, [inputCurrency, bridgeType])
 
 
@@ -1081,7 +996,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       setApproveNum('')
       setApproveNumBtnView(1)
     }
-  }, [inputCurrency, account, library])
+  }, [inputCurrency, account, extendObj, chainId])
 
   useEffect(() => {
     fetchPoolTokens()
@@ -1828,7 +1743,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             }
             return (
               <li key={count ? index + count : index}>
-                <FlexCneter>
+                <Flex className='pd0'>
                   <TokenLogoBox address={item.coin} size={'2rem'}  onClick={() => {
                     setMintDtil(item)
                     setMintDtilView(true)
@@ -1839,7 +1754,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       removeHash(index)
                     }}
                   >x</div>
-                </FlexCneter>
+                </Flex>
               </li>
             )
           })}
@@ -1974,17 +1889,17 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           <MintListLabel>{t('value')}:</MintListLabel>
           <MintListVal>{Number(mintDtil.value)}</MintListVal>
         </MintList>
-        <FlexCneter>
+        <Flex className='pd0'>
           <TokenLogoBox1>
             <TokenLogo address={mintDtil.coin} size={'26px'} ></TokenLogo>
           </TokenLogoBox1>
-        </FlexCneter>
-        <FlexCneter>
+        </Flex>
+        <Flex className='pd0'>
           <DepositValue>
             <p>{bridgeType === 'redeem' ? t('ValueWithdraw') : t('ValueDeposited')}</p>
             <span>{Number(mintDtil.value)} {mintDtil.coin}</span>
           </DepositValue>
-        </FlexCneter>
+        </Flex>
         {
           bridgeType && bridgeType === 'redeem' ? '' : outStatus
         }
@@ -2307,9 +2222,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             <MintListLabel>{t('receive')} {config.symbol} {t('address')}:</MintListLabel>
             <MintListVal>{account}</MintListVal>
           </MintList>
-          <FlexCneter style={{marginTop: '30px'}}>
+          <Flex className='pd0' style={{marginTop: '30px'}}>
             <Button onClick={MintInfoModelView} >{t('close')}</Button>
-          </FlexCneter>
+          </Flex>
         </MintDiv>
       </Modal>
 
@@ -2338,10 +2253,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           (
             <>
               <MintTip onClick={MintInfoModelView}>
-                <FlexCneter>
-                  <FlexCneter><TokenLogoBox size={'34px'} address={inputSymbol ? 'BTC' : formatCoin(inputSymbol)} /></FlexCneter>
-                  <span className="txt"><FlexCneter>Waiting for deposit</FlexCneter></span>
-                </FlexCneter>
+              <Flex className='pd0'>
+                <Flex className='pd0'><TokenLogoBox size={'34px'} address={inputSymbol ? 'BTC' : formatCoin(inputSymbol)} /></Flex>
+                  <span className="txt"><Flex className='pd0'>Waiting for deposit</Flex></span>
+                </Flex>
               </MintTip>
             </>
           )
@@ -2562,7 +2477,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       ) : (
         isSpecialCoin(inputSymbol) && account && registerAddress ? (
           <>
-          <InputPanel>
+          <InputPanel style={{marginTop: '20px'}}>
             <ContainerRow>
               <InputContainer>
                 <LabelRow>
@@ -2571,7 +2486,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                   </LabelContainer>
                 </LabelRow>
                 <InputRow>
-                  <Input type="text" autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={account && registerAddress ? registerAddress : ''} readOnly/>
+                  <Input type="text" className='small' autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false" placeholder="" value={account && registerAddress ? registerAddress : ''} readOnly/>
                   <Copy toCopy={registerAddress} />
                   <StyledQRcode size={'1.25rem'} onClick={MintModelView}></StyledQRcode>
                 </InputRow>

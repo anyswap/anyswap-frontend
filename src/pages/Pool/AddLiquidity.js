@@ -37,6 +37,10 @@ import TokenLogo from '../../components/TokenLogo'
 
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../../components/WarningTip'
+import {
+  DownArrowBackground,
+  Flex
+} from '../../components/Styled'
 
 import {recordTxns} from '../../utils/records'
 
@@ -170,17 +174,6 @@ flex-wrap:wrap;
   margin-top:1.25rem;
 `
 
-const DownArrowBackground = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  border-radius: 6px;
-  margin: 3px auto;
-  background: ${({ theme }) => theme.swapBg}
-`
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   padding: 1rem 0;
@@ -230,15 +223,6 @@ const ExchangeRate = styled.div`
   margin-right: 5px;
 `
 
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-
-  button {
-    max-width: 20rem;
-  }
-`
 
 const SummaryPanelBox = styled.div`
   ${({ theme }) => theme.FlexBC}

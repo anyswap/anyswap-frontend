@@ -37,6 +37,10 @@ import RemoveIcon from '../../assets/images/icon/remove-white.svg'
 import TokenLogo from '../../components/TokenLogo'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../../components/WarningTip'
+import {
+  DownArrowBackground,
+  Flex
+} from '../../components/Styled'
 
 import {recordTxns} from '../../utils/records'
 
@@ -59,18 +63,6 @@ font-family: 'Manrope';
   letter-spacing: normal;
   color: ${({ theme }) => theme.textColorBold};
   margin: 0 5px;
-`
-
-const DownArrowBackground = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  border-radius: 6px;
-  margin: 3px auto;
-  background: ${({ theme }) => theme.swapBg}
 `
 
 const DownArrow = styled(ArrowDown)`
@@ -250,15 +242,6 @@ const ExchangeRate = styled.div`
   margin-right: 5px;
 `
 
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-
-  button {
-    max-width: 20rem;
-  }
-`
 const TxnsDtilBtn = styled.div`
   ${({ theme }) => theme.FlexC};
   height: 34px;

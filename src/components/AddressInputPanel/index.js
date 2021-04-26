@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import { transparentize } from 'polished'
+// import { transparentize } from 'polished'
 
 import { isAddress } from '../../utils'
 import { useWeb3React, useDebounce } from '../../hooks'
@@ -9,74 +9,16 @@ import { useWeb3React, useDebounce } from '../../hooks'
 import Warning from '../../assets/images/icon/warning.svg'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 
-const InputPanel = styled.div`
-  ${({ theme }) => theme.flexColumnNoWrap}
-  box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
-  position: relative;
-  border-radius: 1.25rem;
-  background: ${({theme}) => theme.contentBg};
-  z-index: 1;
-  padding: 1.5625rem 2.5rem;
-  margin-top: 0.625rem;
-`
+import {
+  InputPanel,
+  ContainerRow,
+  InputContainer,
+  LabelRow,
+  LabelContainer,
+  InputRow,
+  Input
+} from '../Styled'
 
-const ContainerRow = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const InputContainer = styled.div`
-  flex: 1;
-`
-
-const LabelRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: center;
-  color: ${({ theme }) => theme.doveGray};
-  font-size: 0.75rem;
-  font-family: 'Manrope';
-  line-height: 1rem;
-  padding: 0.75rem 0;
-`
-
-const LabelContainer = styled.div`
-  flex: 1 1 auto;
-  width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`
-
-const InputRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: center;
-  padding: 0.25rem 0rem 0.75rem;
-`
-
-const Input = styled.input`
-  outline: none;
-  border: none;
-  flex: 1 1 auto;
-  width: 0;
-  background-color: transparent;
-  border-bottom: 0.0625rem solid ${({theme}) => theme.inputBorder};
-
-  color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-family: 'Manrope';
-  font-size: 24px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: -0.0625rem;
-  padding: 8px 0.75rem;
-  ::placeholder {
-    color: ${({ theme }) => theme.placeholderGray};
-  }
-`
 
 const SubCurrencySelectBox = styled.div`
   ${({ theme }) => theme.FlexBC}
@@ -219,30 +161,33 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
   }
 
   return (
-    <InputPanel>
-      <ContainerRow error={input !== '' && error}>
-        <InputContainer>
-          <LabelRow>
-            <LabelContainer>
-              <span>{title || t('recipientAddress')}</span>
-            </LabelContainer>
-          </LabelRow>
-          <InputRow>
-            <Input
-              type="text"
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck="false"
-              placeholder={t('enterAddress')}
-              error={input !== '' && error}
-              onChange={onInput}
-              value={input}
-              disabled={disabled}
-            />
-          </InputRow>
-        </InputContainer>
-      </ContainerRow>
+    <>
+      <InputPanel style={{marginTop: '20px'}}>
+        <ContainerRow error={input !== '' && error}>
+          <InputContainer>
+            <LabelRow>
+              <LabelContainer>
+                <span>{title || t('recipientAddress')}</span>
+              </LabelContainer>
+            </LabelRow>
+            <InputRow>
+              <Input
+                type="text"
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck="false"
+                placeholder={t('enterAddress')}
+                error={input !== '' && error}
+                onChange={onInput}
+                value={input}
+                disabled={disabled}
+                className='small'
+              />
+            </InputRow>
+          </InputContainer>
+        </ContainerRow>
+      </InputPanel>
       {
         !ADDRESS_TIP_VIEW && !addressTip && !isShowTip ? (
           <SubCurrencySelectBox>
@@ -260,6 +205,6 @@ export default function AddressInputPanel({ title, initialInput = '', onChange =
           </SubCurrencySelectBox>
         ) : ''
       }
-    </InputPanel>
+    </>
   )
 }

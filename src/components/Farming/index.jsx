@@ -30,6 +30,11 @@ import {chainInfo} from '../../config/coinbase/nodeConfig'
 import {formatNum} from '../../utils/tools'
 
 import TokenLogo from '../../components/TokenLogo'
+import {
+  Flex,
+  InputRow,
+  Input
+} from '../Styled'
 
 import {getPrice} from '../../utils/axios'
 
@@ -62,36 +67,6 @@ const ComineSoon = styled.div`
   border-radius: 6px;
   background-color: ${({ theme }) => theme.CommingSoon};
   white-space: nowrap;
-`
-
-const InputRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: center;
-  padding: 0 25px;
-  width:100%;
-`
-const Input = styled.input`
-  outline: none;
-  border: none;
-  flex: 1 1 auto;
-  width: 0;
-  background-color: transparent;
-  border-bottom: 0.0625rem solid ${({theme}) => theme.inputBorder};
-
-  color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-family: 'Manrope';
-  font-size: 24px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: -0.0625rem;
-  padding: 8px 0.75rem;
-  ::placeholder {
-    color: ${({ theme }) => theme.placeholderGray};
-  }
 `
 
 const FarmListBox = styled.div`
@@ -178,15 +153,6 @@ const FarmInfo = styled.div`
     }
   }
 `
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-
-  button {
-    max-width: 20rem;
-  }
-`
-
 const StakingBox = styled.div`
   width:100%;
 `
@@ -1388,7 +1354,7 @@ export default function Farming ({
         >
           <StakingModalBox>
             <InputRow>
-              <Input type="text"  placeholder="" value={stakeAmount || ''} onChange={e => {
+              <Input type="text" className='small' placeholder="" value={stakeAmount || ''} onChange={e => {
                 setStakeAmount(e.target.value)
               }}/>
               <MaxBox onClick={() => {onMax()}}>Max</MaxBox>

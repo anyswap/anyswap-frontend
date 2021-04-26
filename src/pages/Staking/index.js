@@ -29,6 +29,11 @@ import {thousandBit, formatNum} from '../../utils/tools'
 import {getSupply} from '../../utils/staking'
 import TokenLogo from '../../components/TokenLogo'
 
+import {
+  InputRow,
+  Input
+} from '../../components/Styled'
+
 const StakingBox = styled.div`
   width:100%;
 `
@@ -120,36 +125,6 @@ const StakingLi = styled.li`
     margin-left:15px;
   }
 `
-
-const InputRow = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: center;
-  padding: 0 25px;
-  width:100%;
-`
-const Input = styled.input`
-  outline: none;
-  border: none;
-  flex: 1 1 auto;
-  width: 0;
-  background-color: transparent;
-  border-bottom: 0.0625rem solid ${({theme}) => theme.inputBorder};
-
-  color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-family: 'Manrope';
-  font-size: 24px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: -0.0625rem;
-  padding: 8px 0.75rem;
-  ::placeholder {
-    color: ${({ theme }) => theme.placeholderGray};
-  }
-`
 const MaxBox = styled.div`
   ${({ theme }) => theme.FlexC};
   width:60px;
@@ -192,15 +167,6 @@ const AmountView = styled.div`
   font-size:14px;
   color:${({ theme }) => theme.textColor};
   margin-bottom:20px;
-`
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-
-  button {
-    max-width: 20rem;
-  }
 `
 
 function formatCellData(str, len, start) {
@@ -657,7 +623,7 @@ export default function Staking () {
         >
           <StakingModalBox>
             <InputRow>
-              <Input type="text"  placeholder="" value={stakeAmount} onChange={e => {
+              <Input type="text" className='small' placeholder="" value={stakeAmount} onChange={e => {
                 setStakeAmount(e.target.value)
               }}/>
               <MaxBox onClick={() => {onMax()}}>Max</MaxBox>
@@ -677,9 +643,6 @@ export default function Staking () {
       </Modal>
 
       <Title title={t('staking')}></Title>
-      {/* <Flex>
-        <Button onClick={() => {test()}} style={{height: '45px',width: '240px'}}>Withdraw All</Button>
-      </Flex> */}
       <StakingBox>
         <StakingList>
           <StakingLi>

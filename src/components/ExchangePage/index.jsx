@@ -1,6 +1,4 @@
 import React, { useState, useReducer, useEffect, useCallback } from 'react'
-// import ReactGA from 'react-ga'
-import { createBrowserHistory } from 'history'
 import { darken } from 'polished'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
@@ -46,6 +44,10 @@ import WarningTip from '../WarningTip'
 import {recordTxns} from '../../utils/records'
 
 import Title from '../Title'
+import {
+  DownArrowBackground,
+  Flex
+} from '../Styled'
 
 
 const INPUT = 0
@@ -65,18 +67,6 @@ const DEFAULT_DEADLINE_FROM_NOW = 60 * 15
 // % above the calculated gas cost that we actually send, denominated in bips
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
-const DownArrowBackground = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  border-radius: 6px;
-  margin: 3px auto;
-  cursor:pointer;
-  background: ${({ theme }) => theme.swapBg}
-`
 
 // const WrappedArrowDown = ({ clickable, active, ...rest }) => <ArrowDown {...rest} />
 // const DownArrow = styled(WrappedArrowDown)`
@@ -155,15 +145,6 @@ const ExchangeRate = styled.div`
   color: ${({ theme }) => theme.doveGray};
 `
 
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-
-  button {
-    max-width: 20rem;
-  }
-`
 const WrappedDropup = ({ isError, highSlippageWarning, ...rest }) => <Dropup {...rest} />
 const ColoredDropup = styled(WrappedDropup)`
 margin-right: 0.625rem;
@@ -826,7 +807,7 @@ export default function ExchangePage({ initialCurrency, params }) {
     } else {
       onSwap()
     }
-  }, [percentSlippageFormatted, onSwap, t])
+  }, [percentSlippageFormatted, onSwap])
 
   async function onSwap() {
     if (!isDisabled) return

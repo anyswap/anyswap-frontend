@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router'
-import { createBrowserHistory } from 'history'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
@@ -9,7 +8,6 @@ import { useTranslation } from 'react-i18next'
 import { useWeb3React, useFactoryContract } from '../../hooks'
 import { Button } from '../../theme'
 import AddressInputPanel from '../../components/AddressInputPanel'
-import OversizedPanel from '../../components/OversizedPanel'
 import { useTokenDetails } from '../../contexts/Tokens/index.js'
 import { useTransactionAdder } from '../../contexts/Transactions'
 import { useWalletModalToggle } from '../../contexts/Application'
@@ -25,6 +23,9 @@ import HardwareTip from '../../components/HardwareTip'
 import CreateIcon from '../../assets/images/icon/create-exchange-white.svg'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 import WarningTip from '../../components/WarningTip'
+import {
+  Flex
+} from '../../components/Styled'
 const SummaryPanel = styled.div`
 ${({ theme }) => theme.flexColumnNoWrap}
 padding: 1rem 0;
@@ -72,15 +73,6 @@ const ExchangeRate = styled.div`
   margin-right: 5px;
 `
 
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-
-  button {
-    max-width: 20rem;
-  }
-`
 const SummaryPanelBox = styled.div`
   ${({ theme }) => theme.FlexBC}
   height: 115px;
