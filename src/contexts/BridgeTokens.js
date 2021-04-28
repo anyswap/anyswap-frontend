@@ -1588,5 +1588,12 @@ export default {
       [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0xc375117c72c3a5698cf5a37087f8fd3154e498a2'
     }
+  },
+  'TRX': {
+    'anyUSDTTRC20': {
+      [NAME]: 'USDT',
+      [TOKEN]: 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t',
+      [DECIMALS]: 6
+    },
   }
 }

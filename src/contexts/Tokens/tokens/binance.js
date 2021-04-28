@@ -47,6 +47,54 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x0e6ddf2a953842fb8efaada167bd3e7a2496aa08': { // TRX
+      [NAME]: 'Tron coin' + config.suffix,
+      [SYMBOL]: 'TRX',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 'TRX', isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x611134123e01699a5f0eda6379c6a52df87db472': { // anyUSDTTRC20
+      [NAME]: 'Tether USD' + config.suffix,
+      [SYMBOL]: 'anyUSDTTRC20',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 'TRX', isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
     '0x4028433877f9c14764eb93d0bb6570573da2726f': { // CYC
       [NAME]: 'CYCoin',
       [SYMBOL]: 'CYC',

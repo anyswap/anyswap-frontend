@@ -5,6 +5,7 @@ import ERC20_ABI from '../../constants/abis/erc20'
 import TOKEN from '../../contexts/BridgeTokens'
 import {getNodeRpc} from '../../config/getNodeRpc'
 import {formatCoin, getLocalConfig, setLocalConfig} from '../tools'
+import {getTRXBalance} from './TRX'
 
 const Web3 = require('web3')
 const web3 = new Web3()
@@ -42,7 +43,7 @@ export function getLocalOutBalance (chainID, account, token) {
   }
 }
 
-function setLocalOutBalance (chainID, account, token, data) {
+export function setLocalOutBalance (chainID, account, token, data) {
   let lstr = sessionStorage.getItem(OUT_TOKEN_BALANCE)
   let lboj = {}
   if (!lstr) {
@@ -137,7 +138,6 @@ export function getTokenBalance (chainId, token, address, type) {
 
 function getOutTokenBalance (chainId, account, tokenList) {
   return new Promise(resolve => {
-    // console.log(chainId)
     const batch = new web3.BatchRequest()
     let BridgeToken = TOKEN[chainId]
     chainId = Number(chainId)
@@ -145,6 +145,7 @@ function getOutTokenBalance (chainId, account, tokenList) {
     let isHaveoutBaseCoin = true
     for (let token in tokenList) {
       let coin = formatCoin(tokenList[token].symbol)
+      // if () continue
       if (
         (coin === 'ETH' && (chainId === 1 || chainId === 4))
         || (coin === 'FSN' && (chainId === 32659 || chainId === 46688))
@@ -196,11 +197,17 @@ function getOutTokenBalance (chainId, account, tokenList) {
 
 let getBalanceInterval = ''
 
+
 function getAllOutBalanceFn (allToken, account) {
   if (getBalanceInterval) clearTimeout(getBalanceInterval) 
   let arr = []
   for (let chainId in allToken) {
-    arr.push(getOutTokenBalance(chainId, account, allToken[chainId]))
+    if (chainId === 'TRX') {
+      console.log(allToken[chainId])
+      getTRXBalance(account, allToken[chainId])
+    } else {
+      arr.push(getOutTokenBalance(chainId, account, allToken[chainId]))
+    }
   }
   Promise.all(arr).then(res => {
     getBalanceInterval = setTimeout(() => {

@@ -22,8 +22,8 @@ export const FSN_TESTNET = 'https://testnet.fsn.dev/api'
 export const FSN_TEST_CHAINID = 46688
 export const FSN_TEST_EXPLORER = 'https://fsnex.com'
 
-export const ETH_MAINNET = 'https://ethmainnet.anyswap.exchange'
-// export const ETH_MAINNET = 'https://eth-mainnet.alchemyapi.io/v2/q1gSNoSMEzJms47Qn93f9-9Xg5clkmEC'
+// export const ETH_MAINNET = 'https://ethmainnet.anyswap.exchange'
+export const ETH_MAINNET = 'https://eth-mainnet.alchemyapi.io/v2/q1gSNoSMEzJms47Qn93f9-9Xg5clkmEC'
 export const ETH_MAIN_CHAINID = 1
 export const ETH_MAIN_EXPLORER = navLang === 'zh-CN' ? 'https://cn.etherscan.com' : 'https://etherscan.io'
 
@@ -70,7 +70,23 @@ export const DEV_TESTNET = 'https://rpc.testnet.moonbeam.network'
 export const DEV_TEST_CHAINID = 1287
 export const DEV_TEST_EXPLORER = ''
 
+export const TRX_MAINNET = 'https://api.avax.network/ext/bc/C/rpc'
+export const TRX_MAIN_CHAINID = 'TRX'
+export const TRX_MAIN_EXPLORER = 'https://cchain.explorer.avax.network/'
+
 let chainInfo = {
+  [TRX_MAIN_CHAINID]: {
+    rpc: TRX_MAINNET,
+    chainID: TRX_MAIN_CHAINID,
+    lookHash: TRX_MAIN_EXPLORER + '/tx/',
+    lookAddr: TRX_MAIN_EXPLORER + '/address/',
+    explorer: TRX_MAIN_EXPLORER,
+    symbol: 'TRX',
+    name: 'Tron coin',
+    type: 'main',
+    label: 'TRX_TEST',
+    isSwitch: 1
+  },
   [DEV_TEST_CHAINID]: {
     rpc: DEV_TESTNET,
     chainID: DEV_TEST_CHAINID,

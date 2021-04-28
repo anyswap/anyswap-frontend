@@ -77,6 +77,8 @@ import {
   Input
 } from '../Styled'
 
+import {sendTRXTxns, isTRXAddress} from '../../utils/birdge/TRX'
+// sendTxns()
 const INPUT = 0
 const OUTPUT = 1
 
@@ -640,6 +642,7 @@ function swapStateReducer(state, action) {
         redeemBigValMoreTime: action.redeemBigValMoreTime ? action.redeemBigValMoreTime : '',
         depositBigValMoreTime: action.depositBigValMoreTime ? action.depositBigValMoreTime : '',
         pairid: action.pairid ? action.pairid : '',
+        outnetToken: action.outnetToken ? action.outnetToken : '',
       }
     }
     case 'UPDATE_MINTTYPE': {
@@ -1001,7 +1004,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let coin = formatCoin(inputSymbol)
     if (account && initIsDeposit && initIsRedeem) {
       getServerInfo(account, tokenOnlyOne, inputSymbol, chainId, version).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.msg === 'Success' && res.info) {
           let serverInfo = res.info
           // setIsRegister(true)
@@ -1054,7 +1057,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                 return
               }
             }
-            let serverObj = {
+            const serverObj = {
               type: 'UPDATE_SWAPREGISTER',
               payload: DepositAddress,
               PlusGasPricePercentage: serverInfo.PlusGasPricePercentage,
@@ -1074,6 +1077,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
               redeemBigValMoreTime: serverInfo.redeemBigValMoreTime,
               token: serverInfo.token,
               pairid: serverInfo.pairid,
+              outnetToken: serverInfo.outnetToken
             }
             dispatchSwapState(serverObj)
           } catch (error) {
@@ -1119,32 +1123,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const FSNBalance = useAddressBalance(account, config.symbol)
   const FSNBalanceNum = FSNBalance ? amountFormatter(FSNBalance) : 0
 
-  // useEffect(() => {
-  //   setOutNetBalance('')
-  //   setOutNetETHBalance('')
-  //   getOutBalance()
-  // }, [inputCurrency, account, isDeposit, isRedeem])
-  // function setOutBalance () {
-  //   let node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
-  //   if (node && account) {
-  //     let lob = getLocalOutBalance(node, account, inputCurrency)
-  //     if (lob && lob.info) {
-  //       let bl = amountFormatter(ethers.utils.bigNumberify(lob.info.balance), inputDecimals, Math.min(8, inputDecimals))
-  //       setOutNetBalance(bl)
-  //     } else {
-  //       setOutNetBalance('')
-  //     }
-  //     let lobBase = getLocalOutBalance(node, account, 'BASE')
-  //     if (lobBase && lobBase.info) {
-  //       let bl = amountFormatter(ethers.utils.bigNumberify(lobBase.info.balance), 18, 8)
-  //       setOutNetETHBalance(bl)
-  //     } else {
-  //       setOutNetETHBalance('')
-  //     }
-  //   }
-  // }
   const setOutBalance = useCallback(() => {
-    let node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
+    const node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
     if (node && account) {
       let lob = getLocalOutBalance(node, account, inputCurrency)
       if (lob && lob.info) {
@@ -1155,7 +1135,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
       let lobBase = getLocalOutBalance(node, account, 'BASE')
       if (lobBase && lobBase.info) {
-        let bl = amountFormatter(ethers.utils.bigNumberify(lobBase.info.balance), 18, 8)
+        const dec = node === 'TRX' ? 6 : 18
+
+        let bl = amountFormatter(ethers.utils.bigNumberify(lobBase.info.balance), dec, Math.min(dec, 8))
         setOutNetETHBalance(bl)
       } else {
         setOutNetETHBalance('')
@@ -1314,6 +1296,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         }
       }
     } else {
+      // console.log(isDisabled)
+      // console.log(isDeposit)
+      // console.log(showBetaMessage)
+      // console.log(inputValueFormatted)
+      // console.log(registerAddress)
+      // console.log(Number(inputValueFormatted) <= depositMaxNum)
+      // console.log(Number(inputValueFormatted) >= depositMinNum)
       if (
         isDisabled 
         && isDeposit 
@@ -1326,6 +1315,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && isLimitAction
       ) {
         if ( isSpecialCoin(inputSymbol)) {
+          console.log(1)
           setIsMintBtn(false)
           setBalanceError('')
         } else if (
@@ -1333,13 +1323,19 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           && Number(inputValueFormatted) <= Number(outNetBalance)
           && Number(outNetETHBalance) >= 0.01
         ) {
+          console.log(2)
           setIsMintBtn(false)
           setBalanceError('')
         } else {
+          console.log(3)
+          console.log(Number(outNetBalance))
+          console.log(Number(outNetETHBalance))
           setIsMintBtn(true)
           if (inputValueFormatted === '' || ( Number(inputValueFormatted) <= depositMaxNum && Number(inputValueFormatted) >= depositMinNum ) ) {
+            console.log(4)
             setBalanceError('')
           } else {
+            console.log(5)
             setBalanceError('Error')
           }
         }
@@ -1399,7 +1395,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     cleanInput()
   }
   function sendTxns (node) {
-    if (isSpecialCoin(inputSymbol) && !isBTCAddress(recipient.address, inputSymbol)) {
+    if (
+      (isSpecialCoin(inputSymbol) && !isBTCAddress(recipient.address, inputSymbol))
+      || (node === 'TRX' && !isTRXAddress(recipient.address))
+    ) {
       alert('Illegal address!')
       return
     }
@@ -1415,7 +1414,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
     let address = recipient.address
     let token = extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency
-    console.log(token)
+    // console.log(token)
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
@@ -1473,13 +1472,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     })
   }
   function changeMorR (type) {
-    // let bt = ''
-    // if ()
-    // if (bridgeType && bridgeType === 'redeem') {
-    //   bt = 'mint'
-    // } else {
-    //   bt = 'redeem'
-    // }
     dispatchSwapState({ type: 'UPDATE_BREDGETYPE', payload: type })
     cleanInput()
   }
@@ -1514,15 +1506,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   
   function mintAmount (mintAddress, mintCoin) {
     let coin = formatCoin(mintCoin)
-
-    if (initDepositAddress.toLowerCase() !== mintAddress.toLowerCase()) {
-      alert('Data error, please refresh and try again!')
-      setIsHardwareTip(false)
-      setMintSureBtn(false)
-      setMintModelTitle('')
-      setMintModelTip('')
-      return
-    }
 
     // let token = extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency
     let token = inputCurrency
@@ -1607,7 +1590,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     setRemoveHashStatus(Date.now())
   }
 
-  const updateHashStatusData = useCallback(() => {
+  const updateHashStatusData = useCallback((res) => {
     if (hashArr[res.index] && res.hash === hashArr[res.index].hash) {
       hashArr[res.index].status = res.status
       hashArr[res.index].swapHash = res.swapHash ? res.swapHash : ''
@@ -1765,13 +1748,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             )
           })}
         </ul>
-        {/* {
-          hashArr.length > 0 ? (
-            <div onClick={() => {
-              removeHashArr()
-            }} className='delete'>x</div>
-          ) : ''
-        } */}
       </MintHahshList>
     )
   }
@@ -2113,20 +2089,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   // console.log(hashArr)
   return (
     <>
-    {/* <Button
-      onClick={() => {
-        // approve()
-        tokenERC20Contract.approve('0x5cbe98480a790554403694b98bff71a525907f5d', ethers.constants.MaxUint256.toString()).then(res => {
-          
-        })
-      }}
-      loggedOut={!account}
-    >
-      <StyledBirdgeIcon>
-        <img src={BirdgeIcon} alt={''} />
-        {t('unlock')}
-      </StyledBirdgeIcon>
-    </Button> */}
       <HardwareTip
         HardwareTipOpen={isHardwareTip}
         closeHardwareTip={() => {
@@ -2137,7 +2099,37 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         txnsInfo={hardwareTxnsInfo}
         isSelfBtn={mintSureBtn}
         onSure={() => {
-          mintAmount(registerAddress, inputSymbol)
+          if (initDepositAddress.toLowerCase() !== registerAddress.toLowerCase()) {
+            alert('Data error, please refresh and try again!')
+            setIsHardwareTip(false)
+            setMintSureBtn(false)
+            setMintModelTitle('')
+            setMintModelTip('')
+            return
+          }
+          const node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
+          const coin = formatCoin(inputSymbol)
+          const outChainToken = BridgeTokens[node] && BridgeTokens[node][coin] && BridgeTokens[node][coin].token ? BridgeTokens[node][coin].token : ''
+          if (node === 'TRX') {
+            sendTRXTxns(account, initDepositAddress, inputValueFormatted, coin, outChainToken, inputDecimals).then(res => {
+              // console.log(res)
+              if (res.msg === 'Success') {
+                console.log(bridgeNode)
+                recordTxns(res.info, 'DEPOSIT', inputSymbol, account, registerAddress, bridgeNode)
+                insertMintHistory(pairid, coin, inputValueFormatted, res.info.txid, account, registerAddress, bridgeNode)
+                cleanInput()
+              } else {
+                console.log(res.error)
+                alert(res.error.toString())
+              }
+              setIsHardwareTip(false)
+              setMintSureBtn(false)
+              setMintModelTitle('')
+              setMintModelTip('')
+            })
+          } else {
+            mintAmount(registerAddress, inputSymbol)
+          }
         }}
         title={mintModelTitle}
         tipInfo={mintModelTip}
@@ -2607,6 +2599,14 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           </Flex>
         </>
       )}
+      {/* <Button onClick={() => {
+        // sendTRXTxns(account, 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX', '0.05', 'TRX', '', 6).then(res => {
+        sendTRXTxns(account, 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX', '10', 'USDT', 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t', 6).then(res => {
+          console.log(res)
+        })
+      }}>
+        {t('CrossChainDeposit')}
+      </Button> */}
     </>
   )
 }

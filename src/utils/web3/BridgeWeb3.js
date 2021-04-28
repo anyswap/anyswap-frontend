@@ -12,6 +12,7 @@ import { ethers } from 'ethers'
 
 import { amountFormatter } from '../index'
 import { getChainHashStatus, getSwapoutHashStatus } from '../birdge'
+import {getTRXTxnsStatus} from '../birdge/TRX'
 import {getNodeRpc} from '../../config/getNodeRpc'
 
 
@@ -110,6 +111,42 @@ export function getHashStatus (hash, index, coin, status, node, account, version
             index,
             hash,
             status
+          })
+        }
+      })
+    } else if (node === 'TRX') {
+      console.log(node)
+      getTRXTxnsStatus(hash).then(res => {
+        if (res) {
+          if (res.status) {
+            getChainHashStatus(hash, coin, account, version, node).then(result => {
+              if (result) {
+                resolve({
+                  ...result,
+                  index,
+                  hash,
+                  status: 1
+                })
+              } else {
+                resolve({
+                  index,
+                  hash,
+                  status: 1
+                })
+              }
+            })
+          } else {
+            resolve({
+              index,
+              hash,
+              status: 2
+            })
+          }
+        } else {
+          resolve({
+            index,
+            hash,
+            status: 0
           })
         }
       })
