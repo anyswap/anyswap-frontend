@@ -16,48 +16,42 @@ export function fromHexAddress (address) {
 }
 
 export async function sendTRXTxns (account, toAddress, amount, symbol, tokenID, decimals) {
-  console.log(tronweb)
+  // console.log(tronweb)
   if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
     const TRXAccount = tronweb.defaultAddress.base58
     const curTRXAccount = toHexAddress(TRXAccount)
-
+    // console.log(TRXAccount)
+    // console.log(curTRXAccount)
+    // console.log(tokenID)
     if (curTRXAccount === account.toLowerCase()) {
       amount = ethers.utils.parseUnits(amount.toString(), decimals)
       let tx = ''
       try {
         if (symbol === 'TRX') {
-          console.log(1, symbol)
           tx = await tronweb.transactionBuilder.sendTrx(toAddress, amount, TRXAccount)
-          console.log(tx)
+          // console.log(tx)
         } else {
-          console.log(2, symbol)
           const parameter1 = [{type:'address',value: toAddress},{type:'uint256',value: amount}]
-          // const transaction = await tronWeb.transactionBuilder.triggerSmartContract(tokenID, "transfer(address,uint256)", {}, parameter1, TRXAccount)
-          // tx = await tronweb.transactionBuilder.sendToken(toAddress, amount, tokenID, TRXAccount)
           tx = await tronweb.transactionBuilder.triggerSmartContract(tokenID, "transfer(address,uint256)", {}, parameter1, TRXAccount)
           tx = tx.transaction
-          console.log(tx.transaction)
         }
         const signedTx = await tronweb.trx.sign(tx)
-        console.log(signedTx)
         const broastTx = await tronweb.trx.sendRawTransaction(signedTx)
-  
-        // alert('Account verification success!')
-        console.log(broastTx)
         return {
           msg: 'Success',
           info: broastTx
         }
       } catch (error) {
+        console.log(error)
         return {
           msg: 'Error',
-          info: error.toString()
+          error: error.toString()
         }
       }
     } else {
       return {
         msg: 'Error',
-        info: 'Account verification failed!'
+        error: 'Account verification failed!'
       }
     }
   }
@@ -118,4 +112,12 @@ export function getTRXTxnsStatus (txid) {
       })
     }
   })
+}
+
+export function formatTRXAddress (address) {
+  if (address.indexOf('0x') === 0) {
+    address = address.replace('0x', '41')
+    address = tronweb.address.fromHex(address)
+  }
+  return address
 }

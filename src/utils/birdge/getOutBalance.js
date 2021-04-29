@@ -203,7 +203,7 @@ function getAllOutBalanceFn (allToken, account) {
   let arr = []
   for (let chainId in allToken) {
     if (chainId === 'TRX') {
-      console.log(allToken[chainId])
+      // console.log(allToken[chainId])
       getTRXBalance(account, allToken[chainId])
     } else {
       arr.push(getOutTokenBalance(chainId, account, allToken[chainId]))

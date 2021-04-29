@@ -72,13 +72,13 @@ export const DEV_TEST_EXPLORER = ''
 
 export const TRX_MAINNET = 'https://api.avax.network/ext/bc/C/rpc'
 export const TRX_MAIN_CHAINID = 'TRX'
-export const TRX_MAIN_EXPLORER = 'https://cchain.explorer.avax.network/'
+export const TRX_MAIN_EXPLORER = 'https://tronscan.io/#'
 
 let chainInfo = {
   [TRX_MAIN_CHAINID]: {
     rpc: TRX_MAINNET,
     chainID: TRX_MAIN_CHAINID,
-    lookHash: TRX_MAIN_EXPLORER + '/tx/',
+    lookHash: TRX_MAIN_EXPLORER + '/transaction/',
     lookAddr: TRX_MAIN_EXPLORER + '/address/',
     explorer: TRX_MAIN_EXPLORER,
     symbol: 'TRX',

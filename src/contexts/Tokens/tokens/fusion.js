@@ -77,7 +77,7 @@ export default {
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0xCc6140a667980fbA8bF650b4aEC4f6e7Aff3a37F',
+      [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 1000,
       [DEPOSIT_MIN_NUM]: 0.01,
@@ -85,7 +85,7 @@ export default {
         BRIDGE: [
           { type: 1, isSwitch: 1 }
         ],
-        VERSION: 'V1'
+        VERSION: 'V2'
       }
     },
     '0xc7c64ac6d46be3d6ea318ec6276bb55291f8e496': { // USDT
@@ -101,7 +101,7 @@ export default {
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x94e840798e333cB1974E086B58c10C374E966bc7',
+      [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 100000,
       [DEPOSIT_MIN_NUM]: 0.5,
@@ -109,7 +109,7 @@ export default {
         BRIDGE: [
           { type: 1, isSwitch: 1 }
         ],
-        VERSION: 'V1'
+        VERSION: 'V2'
       }
     },
     '0x10c43b6d6eb224d71f1831b5cdd6dd57bd475461': { // LTC 5
@@ -194,7 +194,7 @@ export default {
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x94e840798e333cB1974E086B58c10C374E966bc7',
+      [DEPOSIT_ADDRESS]: '0x46290B0c3A234E3d538050d8F34421797532A827',
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 200000,
       [DEPOSIT_MIN_NUM]: 0.5,
@@ -202,7 +202,7 @@ export default {
         BRIDGE: [
           { type: 1, isSwitch: 1 }
         ],
-        VERSION: 'V1'
+        VERSION: 'V2'
       }
     },
     '0xc0d7857b10551f784c80942b7e8b5abfa373d802': { // COMP 36

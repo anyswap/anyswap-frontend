@@ -77,7 +77,7 @@ import {
   Input
 } from '../Styled'
 
-import {sendTRXTxns, isTRXAddress} from '../../utils/birdge/TRX'
+import {sendTRXTxns, isTRXAddress, toHexAddress} from '../../utils/birdge/TRX'
 // sendTxns()
 const INPUT = 0
 const OUTPUT = 1
@@ -1260,7 +1260,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             setIsRedeem(false)
           }
           setBalanceError('')
-        } else if (!isSpecialCoin(inputSymbol) && isAddress(recipient.address)) {
+        } else if (!isSpecialCoin(inputSymbol) && (isAddress(recipient.address) || isTRXAddress(recipient.address))) {
+          console.log(1)
           if (extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum))) {
             setIsRedeem(true)
           } else {
@@ -1268,6 +1269,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           }
           setBalanceError('')
         } else {
+          console.log(2)
           setIsRedeem(true)
           if (inputValueFormatted === ''
             || (
@@ -1315,7 +1317,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && isLimitAction
       ) {
         if ( isSpecialCoin(inputSymbol)) {
-          console.log(1)
+          // console.log(1)
           setIsMintBtn(false)
           setBalanceError('')
         } else if (
@@ -1323,19 +1325,19 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           && Number(inputValueFormatted) <= Number(outNetBalance)
           && Number(outNetETHBalance) >= 0.01
         ) {
-          console.log(2)
+          // console.log(2)
           setIsMintBtn(false)
           setBalanceError('')
         } else {
-          console.log(3)
-          console.log(Number(outNetBalance))
-          console.log(Number(outNetETHBalance))
+          // console.log(3)
+          // console.log(Number(outNetBalance))
+          // console.log(Number(outNetETHBalance))
           setIsMintBtn(true)
           if (inputValueFormatted === '' || ( Number(inputValueFormatted) <= depositMaxNum && Number(inputValueFormatted) >= depositMinNum ) ) {
-            console.log(4)
+            // console.log(4)
             setBalanceError('')
           } else {
-            console.log(5)
+            // console.log(5)
             setBalanceError('Error')
           }
         }
@@ -1413,8 +1415,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       amountVal = inputBalance
     }
     let address = recipient.address
+    const formatAddress = node === 'TRX' ? toHexAddress(address) : address
     let token = extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency
-    // console.log(token)
+    console.log(formatAddress)
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
@@ -1424,7 +1427,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       if (isSpecialCoin(inputSymbol)) {
         web3Contract = getWeb3ConTract(swapBTCABI, token)
       }
-      let data = web3Contract.methods.Swapout(amountVal, address).encodeABI()
+      let data = web3Contract.methods.Swapout(amountVal, formatAddress).encodeABI()
       getWeb3BaseInfo(token, data, account).then(res => {
         if (res.msg === 'Success') {
           // console.log(res.info)
@@ -1438,7 +1441,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
 
     if (isSpecialCoin(inputSymbol) === 0) {
-      tokenETHContract.Swapout(amountVal, address).then(res => {
+      tokenETHContract.Swapout(amountVal, formatAddress).then(res => {
         sendTxnsEnd(res, amountVal, address, node)
         setIsHardwareTip(false)
       }).catch(err => {
@@ -1446,7 +1449,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         setIsHardwareTip(false)
       })
     } else {
-      tokenContract.Swapout(amountVal, address).then(res => {
+      tokenContract.Swapout(amountVal, formatAddress).then(res => {
         sendTxnsEnd(res, amountVal, address, node)
         setIsHardwareTip(false)
       }).catch(err => {
@@ -2109,7 +2112,10 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           }
           const node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
           const coin = formatCoin(inputSymbol)
-          const outChainToken = BridgeTokens[node] && BridgeTokens[node][coin] && BridgeTokens[node][coin].token ? BridgeTokens[node][coin].token : ''
+          const outChainToken = BridgeTokens[node] && BridgeTokens[node][inputSymbol] && BridgeTokens[node][inputSymbol].token ? BridgeTokens[node][inputSymbol].token : ''
+          console.log(node)
+          console.log(coin)
+          console.log(outChainToken)
           if (node === 'TRX') {
             sendTRXTxns(account, initDepositAddress, inputValueFormatted, coin, outChainToken, inputDecimals).then(res => {
               // console.log(res)
