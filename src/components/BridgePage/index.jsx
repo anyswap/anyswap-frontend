@@ -903,14 +903,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     name: inputName,
     depositAddress: initDepositAddress,
     isDeposit: initIsDeposit,
-    depositMaxNum: initDepositMaxNum,
-    depositMinNum: initDepositMinNum,
     isRedeem: initIsRedeem,
-    redeemMaxNum: initRedeemMaxNum,
-    redeemMinNum: initRedeemMinNum,
-    maxFee: initMaxFee,
-    minFee: initMinFee,
-    fee: initFee,
     extendObj
   } = useTokenDetails( inputCurrency )
 
@@ -1093,7 +1086,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     } else {
       setInit('')
     }
-  }, [inputCurrency, account, initDepositAddress, initIsDeposit, initDepositMaxNum, initDepositMinNum, initIsRedeem, initRedeemMaxNum, initRedeemMinNum, initMaxFee, initMinFee, initFee, inputSymbol, isRegister, chainId, extendObj])
+  }, [inputCurrency, account, initDepositAddress, initIsDeposit, initIsRedeem, inputSymbol, isRegister, chainId, extendObj])
 
   useEffect(() => {
     let version = extendObj && extendObj.VERSION ? extendObj.VERSION : ''
@@ -2113,9 +2106,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           const node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
           const coin = formatCoin(inputSymbol)
           const outChainToken = BridgeTokens[node] && BridgeTokens[node][inputSymbol] && BridgeTokens[node][inputSymbol].token ? BridgeTokens[node][inputSymbol].token : ''
-          console.log(node)
-          console.log(coin)
-          console.log(outChainToken)
+          // console.log(node)
+          // console.log(coin)
+          // console.log(outChainToken)
           if (node === 'TRX') {
             sendTRXTxns(account, initDepositAddress, inputValueFormatted, coin, outChainToken, inputDecimals).then(res => {
               // console.log(res)
