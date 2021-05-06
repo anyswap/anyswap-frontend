@@ -303,7 +303,6 @@ export default function AccountDetails({
   let walletType = sessionStorage.getItem('walletType')
   let HDPath = sessionStorage.getItem('HDPath')
   const { t } = useTranslation()
-  // account = config.supportWallet.includes(walletType) ? sessionStorage.getItem('account') : account
   function formatConnectorName() {
     const isMetaMask = window.ethereum && window.ethereum.isMetaMask ? true : false
     let name = Object.keys(SUPPORTED_WALLETS)

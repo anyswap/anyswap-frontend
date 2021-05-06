@@ -90,5 +90,12 @@ export default {
       if (type) return 0
       else return 1
     }
+  },
+  getCurChainInfo (chainID) {
+    if (chainID && chainInfo[chainID]) {
+      return chainInfo[chainID]
+    } else {
+      return netConfig
+    }
   }
 }

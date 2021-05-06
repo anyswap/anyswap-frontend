@@ -620,7 +620,7 @@ export default function CurrencyInputPanel({
   const [hardwareTxnsInfo, setHardwareTxnsInfo] = useState('')
 
   function renderUnlockButton(classType) {
-    if (disableUnlock || !showUnlock || selectedTokenAddress === config.symbol || !selectedTokenAddress) {
+    if (disableUnlock || !showUnlock || selectedTokenAddress === config.getCurChainInfo(chainId).symbol || !selectedTokenAddress) {
       return null
     } else {
       if (!pendingApproval) {
@@ -950,7 +950,7 @@ export default function CurrencyInputPanel({
         )}
       </InputPanel>
       {
-        disableUnlock || !showUnlock || selectedTokenAddress === config.symbol || !selectedTokenAddress ? '' : (
+        disableUnlock || !showUnlock || selectedTokenAddress === config.getCurChainInfo(chainId).symbol || !selectedTokenAddress ? '' : (
           <>
             <SubCurrencySelectBox>
               <div>
@@ -1057,7 +1057,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
       .map(k => {
         let balance
         // only update if we have data
-        if (k === config.symbol && allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
+        if (k === config.getCurChainInfo(chainId).symbol && allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
           balance = formatEthBalance(ethers.utils.bigNumberify(allBalances[account][k].value))
         } else if (allBalances[account] && allBalances[account][k] && allBalances[account][k].value) {
           balance = formatTokenBalance(ethers.utils.bigNumberify(allBalances[account][k].value), allTokens[k].decimals)
@@ -1072,7 +1072,7 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
           isSwitch: allTokens[k].isSwitch
         }
       })
-  }, [allBalances, allTokens, account])
+  }, [allBalances, allTokens, account, chainId])
 
   const filteredTokenList = useMemo(() => {
     const list = tokenList.filter(tokenEntry => {
@@ -1129,12 +1129,12 @@ function CurrencySelectModal({ isOpen, onDismiss, onTokenSelect, urlAddedTokens,
     return filteredTokenList.map(({ address, symbol, name, balance, isSwitch }) => {
       const urlAdded = urlAddedTokens && urlAddedTokens.hasOwnProperty(address)
       const customAdded =
-        address !== config.symbol &&
+        address !== config.getCurChainInfo(chainId).symbol &&
         INITIAL_TOKENS_CONTEXT[chainId] &&
         !INITIAL_TOKENS_CONTEXT[chainId].hasOwnProperty(address) &&
         !urlAdded
 
-      if (hideETH && address === config.symbol) {
+      if (hideETH && address === config.getCurChainInfo(chainId).symbol) {
         return null
       }
 
