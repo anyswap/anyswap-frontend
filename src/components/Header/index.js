@@ -17,13 +17,13 @@ import IconDay from '../../assets/images/icon/day.svg'
 import IconNight from '../../assets/images/icon/night.svg'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
-// import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history'
 
 import {chainList} from '../../config/coinbase/nodeConfig'
 import TokenLogo from '../TokenLogo'
 import Modal from '../Modal'
 
-import web3Fn from '../../utils/web3'
+// import web3Fn from '../../utils/web3'
 
 const HeaderFrame = styled.div`
   display: flex;
@@ -302,66 +302,66 @@ export default function Header() {
   const { t } = useTranslation()
   const [isDark, toggleDarkMode] = useDarkModeManager()
   const [networkView, setNetworkView] = useState(false)
-  // const history = createBrowserHistory()
+  const history = createBrowserHistory()
   // console.log(window.location)
 
 
-  function setMetamaskNetwork (item) {
-    const { ethereum } = window
-    const ethereumFN = {
-      request: '',
-      ...ethereum
-    }
-    if (ethereumFN && ethereumFN.request) {
-      ethereumFN.request({
-        method: 'wallet_addEthereumChain',
-        params: [
-          {
-            chainId: web3Fn.utils.toHex(item.chainID), // A 0x-prefixed hexadecimal string
-            chainName: item.networkName,
-            nativeCurrency: {
-              name: item.name,
-              symbol: item.symbol, // 2-6 characters long
-              decimals: 18,
-            },
-            rpcUrls: [item.rpc],
-            blockExplorerUrls: [item.explorer],
-            iconUrls: null // Currently ignored.
-          }
-        ],
-      }).then((res) => {
-        console.log(res)
-        localStorage.setItem(config.ENV_NODE_CONFIG, item.label)
-        history.push(window.location.pathname + '')
-        history.go(0)
-        setNetworkView(false)
-      }).catch((err) => {
-        console.log(err)
-        alert(t('changeMetamaskNetwork', {label: item.networkName}))
-        setNetworkView(false)
-      })
-    } else {
-      alert(t('changeMetamaskNetwork', {label: item.networkName}))
-      setNetworkView(false)
-    }
-  }
+  // function setMetamaskNetwork (item) {
+  //   const { ethereum } = window
+  //   const ethereumFN = {
+  //     request: '',
+  //     ...ethereum
+  //   }
+  //   if (ethereumFN && ethereumFN.request) {
+  //     ethereumFN.request({
+  //       method: 'wallet_addEthereumChain',
+  //       params: [
+  //         {
+  //           chainId: web3Fn.utils.toHex(item.chainID), // A 0x-prefixed hexadecimal string
+  //           chainName: item.networkName,
+  //           nativeCurrency: {
+  //             name: item.name,
+  //             symbol: item.symbol, // 2-6 characters long
+  //             decimals: 18,
+  //           },
+  //           rpcUrls: [item.rpc],
+  //           blockExplorerUrls: [item.explorer],
+  //           iconUrls: null // Currently ignored.
+  //         }
+  //       ],
+  //     }).then((res) => {
+  //       console.log(res)
+  //       localStorage.setItem(config.ENV_NODE_CONFIG, item.label)
+  //       history.push(window.location.pathname + '')
+  //       history.go(0)
+  //       setNetworkView(false)
+  //     }).catch((err) => {
+  //       console.log(err)
+  //       alert(t('changeMetamaskNetwork', {label: item.networkName}))
+  //       setNetworkView(false)
+  //     })
+  //   } else {
+  //     alert(t('changeMetamaskNetwork', {label: item.networkName}))
+  //     setNetworkView(false)
+  //   }
+  // }
 
-  function openUrl (item) {
-    if (!item.isSwitch) {
-      return
-    }
-    console.log(item)
-    setMetamaskNetwork(item)
-  }
   // function openUrl (item) {
-  //   if (item.symbol === config.symbol || !item.isSwitch) {
+  //   if (!item.isSwitch) {
   //     return
   //   }
-  //   // console.log(item.label)
-  //   localStorage.setItem(config.ENV_NODE_CONFIG, item.label)
-  //   history.push(window.location.pathname + '')
-  //   history.go(0)
+  //   console.log(item)
+  //   setMetamaskNetwork(item)
   // }
+  function openUrl (item) {
+    if (item.symbol === config.symbol || !item.isSwitch) {
+      return
+    }
+    // console.log(item.label)
+    localStorage.setItem(config.ENV_NODE_CONFIG, item.label)
+    history.push(window.location.pathname + '')
+    history.go(0)
+  }
 
   
 

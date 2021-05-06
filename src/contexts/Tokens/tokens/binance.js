@@ -47,54 +47,54 @@ export default {
         VERSION: 'V2'
       },
     },
-    '0x0e6ddf2a953842fb8efaada167bd3e7a2496aa08': { // TRX
-      [NAME]: 'Tron coin' + config.suffix,
-      [SYMBOL]: 'TRX',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '',
-      [REDEEM_MAX_NUM]: 200000,
-      [REDEEM_MIN_NUM]: 10,
-      [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 200000,
-      [DEPOSIT_MIN_NUM]: 0.5,
-      [EXTENDOBJ]: {
-        BRIDGE: [
-          { type: 'TRX', isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      },
-    },
-    '0x611134123e01699a5f0eda6379c6a52df87db472': { // anyUSDTTRC20
-      [NAME]: 'Tether USD' + config.suffix,
-      [SYMBOL]: 'anyUSDTTRC20',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: '',
-      [REDEEM_MAX_NUM]: 200000,
-      [REDEEM_MIN_NUM]: 10,
-      [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 200000,
-      [DEPOSIT_MIN_NUM]: 0.5,
-      [EXTENDOBJ]: {
-        BRIDGE: [
-          { type: 'TRX', isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      },
-    },
+    // '0x0e6ddf2a953842fb8efaada167bd3e7a2496aa08': { // TRX
+    //   [NAME]: 'Tron coin' + config.suffix,
+    //   [SYMBOL]: 'TRX',
+    //   [DECIMALS]: 6,
+    //   [EXCHANGE_ADDRESS]: '',
+    //   [REDEEM_MAX_NUM]: 200000,
+    //   [REDEEM_MIN_NUM]: 10,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 50,
+    //   [MINFEE]: 1,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 200000,
+    //   [DEPOSIT_MIN_NUM]: 0.5,
+    //   [EXTENDOBJ]: {
+    //     BRIDGE: [
+    //       { type: 'TRX', isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2'
+    //   },
+    // },
+    // '0x611134123e01699a5f0eda6379c6a52df87db472': { // anyUSDTTRC20
+    //   [NAME]: 'Tether USD' + config.suffix,
+    //   [SYMBOL]: 'anyUSDTTRC20',
+    //   [DECIMALS]: 6,
+    //   [EXCHANGE_ADDRESS]: '',
+    //   [REDEEM_MAX_NUM]: 200000,
+    //   [REDEEM_MIN_NUM]: 10,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 50,
+    //   [MINFEE]: 1,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 200000,
+    //   [DEPOSIT_MIN_NUM]: 0.5,
+    //   [EXTENDOBJ]: {
+    //     BRIDGE: [
+    //       { type: 'TRX', isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2'
+    //   },
+    // },
     '0x4028433877f9c14764eb93d0bb6570573da2726f': { // CYC
       [NAME]: 'CYCoin',
       [SYMBOL]: 'CYC',
@@ -3920,6 +3920,54 @@ export default {
       [EXTENDOBJ]:  {
         BRIDGE: [
           { type: 128, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xd8a1734945b9ba38eb19a291b475e31f49e59877': { // SHARD 
+      [NAME]: 'Shard' + config.suffix,
+      [SYMBOL]: 'SHARD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xb1302de0c7ab0ce28ae489dc76f43474a6d98c35',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x264c1383ea520f73dd837f915ef3a732e204a493': { // ZCX 
+      [NAME]: 'ZEN Exchange Token' + config.suffix,
+      [SYMBOL]: 'ZCX',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8aeabc3eef61da0fb011340e36dfffa17eb66ccc',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
         ],
         VERSION: 'V2'
       }

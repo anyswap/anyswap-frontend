@@ -1482,6 +1482,16 @@ export default {
       [NAME]: 'KTN',
       [TOKEN]: '0x491E136FF7FF03E6aB097E54734697Bb5802FC1C',
       [DECIMALS]: 18
+    },
+    'SHARD': {
+      [NAME]: 'SHARD',
+      [TOKEN]: '0xBeBdab6DA046Bc49ffBb61fbD7b33157Eb270D05',
+      [DECIMALS]: 18
+    },
+    'ZCX': {
+      [NAME]: 'ZCX',
+      [TOKEN]: '0xc52c326331e9ce41f04484d3b5e5648158028804',
+      [DECIMALS]: 18
     }
   },
   4: {

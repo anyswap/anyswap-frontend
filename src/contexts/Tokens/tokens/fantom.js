@@ -970,5 +970,53 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x7c598c96d02398d89fbcb9d41eab3df0c16f227d': { // NEXO 
+      [NAME]: 'Nexo' + config.suffix,
+      [SYMBOL]: 'NEXO',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x259dadf508b195a099d4fc6f2155ec1e7d102678',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x2c78f1b70ccf63cdee49f9233e9faa99d43aa07e': { // CEL 
+      [NAME]: 'Celsius' + config.suffix,
+      [SYMBOL]: 'CEL',
+      [DECIMALS]: 4,
+      [EXCHANGE_ADDRESS]: '0x3a9630bb5f446d2881378f02adaaac0986b38077',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }
