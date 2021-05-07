@@ -167,5 +167,29 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xc9baa8cfdde8e328787e29b4b078abf2dadc2055': { // FRY
+      [NAME]: 'Foundry Logistics Token',
+      [SYMBOL]: 'FRY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xd471028ac862261ff88ddc98c4949b541a0c8101',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x668b9734FfE9eE8a01d4Ade3362De71E8989EA87',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

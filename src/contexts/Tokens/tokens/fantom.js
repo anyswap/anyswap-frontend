@@ -1018,5 +1018,53 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xc1be9a4d5d45beeacae296a7bd5fadbfc14602c4': { // GTON 
+      [NAME]: 'Graviton' + config.suffix,
+      [SYMBOL]: 'GTON',
+      [DECIMALS]: 4,
+      [EXCHANGE_ADDRESS]: '0x382a3346221dc4dc3b9abc676026fd0ed13ec1a9',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x332730a4f6e03d9c55829435f10360e13cfa41ff': { // FRY 
+      [NAME]: 'Foundry Logistics Token' + config.suffix,
+      [SYMBOL]: 'FRY',
+      [DECIMALS]: 4,
+      [EXCHANGE_ADDRESS]: '0x27f5709f7ae47d131921d1fd17a0106b651a4b30',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }

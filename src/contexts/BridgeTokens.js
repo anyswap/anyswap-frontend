@@ -1492,6 +1492,41 @@ export default {
       [NAME]: 'ZCX',
       [TOKEN]: '0xc52c326331e9ce41f04484d3b5e5648158028804',
       [DECIMALS]: 18
+    },
+    'RULER': {
+      [NAME]: 'RULER',
+      [TOKEN]: '0x2aeccb42482cc64e087b6d2e5da39f5a7a7001f8',
+      [DECIMALS]: 18
+    },
+    'BIRD': {
+      [NAME]: 'BIRD',
+      [TOKEN]: '0x70401dFD142A16dC7031c56E862Fc88Cb9537Ce0',
+      [DECIMALS]: 18
+    },
+    'DON': {
+      [NAME]: 'DON',
+      [TOKEN]: '0x217ddead61a42369a266f1fb754eb5d3ebadc88a',
+      [DECIMALS]: 18
+    },
+    'GTON': {
+      [NAME]: 'GTON',
+      [TOKEN]: '0x01e0e2e61f554ecaaec0cc933e739ad90f24a86d',
+      [DECIMALS]: 18
+    },
+    'BEPRO': {
+      [NAME]: 'BEPRO',
+      [TOKEN]: '0xcf3c8be2e2c42331da80ef210e9b1b307c03d36a',
+      [DECIMALS]: 18
+    },
+    'POLK': {
+      [NAME]: 'POLK',
+      [TOKEN]: '0xd478161c952357f05f0292b56012cd8457f1cfbf',
+      [DECIMALS]: 18
+    },
+    'INV': {
+      [NAME]: 'INV',
+      [TOKEN]: '0x41d5d79431a913c4ae7d69a668ecdfe5ff9dfb68',
+      [DECIMALS]: 18
     }
   },
   4: {
@@ -1520,6 +1555,11 @@ export default {
     'BIFI': {
       [NAME]: 'beefy.finance',
       [TOKEN]: '0xCa3F508B8e4Dd382eE878A314789373D80A5190A',
+      [DECIMALS]: 18
+    },
+    'IF': {
+      [NAME]: 'IF',
+      [TOKEN]: '0xb0e1fc65c1a741b4662b813eb787d369b8614af1',
       [DECIMALS]: 18
     }
   },
