@@ -1066,5 +1066,77 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x65e66a61d0a8f1e686c2d6083ad611a10d84d97a': { // SHIB 
+      [NAME]: 'SHIBA INU' + config.suffix,
+      [SYMBOL]: 'SHIB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x5b1f3e89e783316250d97db2398f6630817c27aa',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    // '0x01c3d9cbcf40482ba0d5206f63e3f04ef9e134d9': { // SFI 
+    //   [NAME]: 'Spice' + config.suffix,
+    //   [SYMBOL]: 'SFI',
+    //   [DECIMALS]: 18,
+    //   [EXCHANGE_ADDRESS]: '0xd009b23194e3ce931e7c9f45e364bd6f14fc03ea',
+    //   [REDEEM_MAX_NUM]: 5000,
+    //   [REDEEM_MIN_NUM]: 0.16,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 0.8,
+    //   [MINFEE]: 0.08,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 143000,
+    //   [DEPOSIT_MIN_NUM]: 0.16,
+    //   [EXTENDOBJ]:  {
+    //     BRIDGE: [
+    //       { type: 1, isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2'
+    //   }
+    // },
+    '0xd67de0e0a0fd7b15dc8348bb9be742f3c5850454': { // BNB 
+      [NAME]: 'Binance' + config.suffix,
+      [SYMBOL]: 'BNB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x591a9374c50c0f59423e3756234f711b808d96bc',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x4b3B4120d4D7975455d8C2894228789c91a247F8',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }

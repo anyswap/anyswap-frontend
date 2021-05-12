@@ -1527,6 +1527,26 @@ export default {
       [NAME]: 'INV',
       [TOKEN]: '0x41d5d79431a913c4ae7d69a668ecdfe5ff9dfb68',
       [DECIMALS]: 18
+    },
+    'WCHI': {
+      [NAME]: 'WCHI',
+      [TOKEN]: '0x6DC02164d75651758aC74435806093E421b64605',
+      [DECIMALS]: 8
+    },
+    'UDO': {
+      [NAME]: 'UDO',
+      [TOKEN]: '0xea3983fc6d0fbbc41fb6f6091f68f3e08894dc06',
+      [DECIMALS]: 18
+    },
+    'SFI': {
+      [NAME]: 'SFI',
+      [TOKEN]: '0xb753428af26e81097e7fd17f40c88aaa3e04902c',
+      [DECIMALS]: 18
+    },
+    'SHIB': {
+      [NAME]: 'SHIB',
+      [TOKEN]: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE',
+      [DECIMALS]: 18
     }
   },
   4: {

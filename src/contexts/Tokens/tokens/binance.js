@@ -4140,6 +4140,78 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x22648c12acd87912ea1710357b1302c6a4154ebc': { // WCHI 
+      [NAME]: 'Wrapped CHI' + config.suffix,
+      [SYMBOL]: 'WCHI',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0x4d18d0f6cd1858c5f9b8e5a41ebeecd91a4cd4eb',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xd22a58f79e9481d1a88e00c343885a588b34b68b': { // UDO 
+      [NAME]: 'Unido' + config.suffix,
+      [SYMBOL]: 'UDO',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x79b44fc8158f4baa40d8ba15b07b10f3246023ac',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    // '0x01c3d9cbcf40482ba0d5206f63e3f04ef9e134d9': { // SFI 
+    //   [NAME]: 'Spice' + config.suffix,
+    //   [SYMBOL]: 'SFI',
+    //   [DECIMALS]: 18,
+    //   [EXCHANGE_ADDRESS]: '0x4faa009b28f6fd60d7044b4ca4cc878b086f76e3',
+    //   [REDEEM_MAX_NUM]: 5000,
+    //   [REDEEM_MIN_NUM]: 0.16,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 0.8,
+    //   [MINFEE]: 0.08,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 143000,
+    //   [DEPOSIT_MIN_NUM]: 0.16,
+    //   [EXTENDOBJ]:  {
+    //     BRIDGE: [
+    //       { type: 1, isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2'
+    //   }
+    // },
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT
