@@ -559,6 +559,7 @@ export default function FarmsList () {
         <img src={require('../../assets/images/banner/farm.png')} />
       </BannerBox> */}
       <FarmListBox>
+        {farmItem(1, 1, 'https://app.spiritswap.finance/#/farms', 'SPIRIT Farming', 'SPIRIT Farming', 'SPIRIT', 'FTM')}
         {farmItem(1, 1, 'https://ellipsis.finance/fusdt', 'EPS Farming', 'Ellipsis Farming', 'EPS', 'BNB')}
         {farmItem(1, 1, 'https://app.nerve.fi/pools', 'NRV Farming', 'Nerve Farming', 'NRV', 'BNB')}
         {farmItem(1, 1, 'https://dashboard.modefi.io', 'MOD Farming', 'Modefi Farming', 'MOD', 'BNB')}

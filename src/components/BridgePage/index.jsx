@@ -771,13 +771,13 @@ function formatOutName (name, extendObj) {
       } else {
         name = name + '-ERC20'
       }
-    } else if (Number(srcChainId) === 56 && name.indexOf('Binance') === -1) {
+    } else if (Number(srcChainId) === 56) {
       name = name + '-BEP20'
-    } else if (Number(srcChainId) === 128 && name.indexOf('Huobi') === -1) {
+    } else if (Number(srcChainId) === 128) {
       name = name + '-HECO'
-    } else if (Number(srcChainId) === 250 && name.indexOf('Fantom') === -1) {
+    } else if (Number(srcChainId) === 250) {
       name = name + '-FRC20'
-    } else if (Number(srcChainId) === 32659 && name.indexOf('Fusion') === -1) {
+    } else if (Number(srcChainId) === 32659) {
       name = name + '(Fusion)'
     }
   }
