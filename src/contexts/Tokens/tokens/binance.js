@@ -4188,6 +4188,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xd0660cd418a64a1d44e9214ad8e459324d8157f1': { // WOOFY 
+      [NAME]: 'Woofy' + config.suffix,
+      [SYMBOL]: 'WOOFY',
+      [DECIMALS]: 12,
+      [EXCHANGE_ADDRESS]: '0x1a586aceb7b2a387ac5dcf8fceb2cd0ed2782a66',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     // '0x01c3d9cbcf40482ba0d5206f63e3f04ef9e134d9': { // SFI 
     //   [NAME]: 'Spice' + config.suffix,
     //   [SYMBOL]: 'SFI',

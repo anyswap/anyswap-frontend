@@ -420,6 +420,7 @@ function isBaseUSD (coin) {
     (coin === 'anyUSDT' && config.symbol === 'FTM') ||
     (coin === 'HUSD' && config.symbol === 'HT') ||
     (coin === 'USDTB' && config.symbol === 'BNB') ||
+    (coin === 'USDT' && config.symbol === 'OKT') ||
     (coin === 'USDC' && config.symbol === 'ETH')
   ) {
     return true

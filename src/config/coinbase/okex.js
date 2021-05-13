@@ -9,12 +9,12 @@ const REWARDS_DAY = 33000 / 2
 // const REWARDS_DAY = 7600
 const DEPOSIT_AMOUNT = 10000
 
-const CHAIN_MAIN_INFO = chainInfo['32659']
+const CHAIN_MAIN_INFO = chainInfo['66']
 const CHAIN_TEST_INFO = chainInfo['2']
 
 const COIN_BASE ={
   symbol: 'OKT', // 符号
-  name: 'OKT', // 代币名
+  name: 'OKExChain', // 代币名
   decimals: 18, // 小数位
   networkName: 'OKT', // 网络名称
   reverseSwitch: 0,  // 是否反向禁用,
@@ -79,23 +79,21 @@ const MAIN_CONFIG = {
     lookHash: 'https://www.blockchain.com/btc/tx/', // 
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/', // 
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
-    initAddr: '1HvrEMgxsYadWGhijpfygKSqPZ5p418g45',  // 
+    initAddr: '',  // 
   },
   ltc: { // ltc配置
     lookHash: 'https://blockchair.com/litecoin/transaction/', // 
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/LTC/', // 
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
-    initAddr: 'LU8AFfxreA4srSH6rYWAoivzH3U35iBiPK',  // 
+    initAddr: '',  // 
   },
   isOpenRewards: 0, // 是否打开奖励数据
   isChangeDashboard: 1, // 是否改变资产顺序
   noSupportBridge: [
     COIN_BASE.symbol,
     ANY_MAIN_TOKEN,
-    '0x20dd2f2bfa4ce3eaec5f57629583dad8a325872a',
-    '0x35e0f7499bcb1e41b4027e26ab074108e90631a0'
   ], // 不支持的跨链合约或币种
-  queryToken: '0x25afd2058b6e5e00995467d58778a2790a0e5038' // 查询余额合约
+  queryToken: '0xfa9343c3897324496a05fc75abed6bac29f8a40f' // 查询余额合约
 }
 
 const TEST_CONFIG = {

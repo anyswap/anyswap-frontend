@@ -49,6 +49,10 @@ export const OKT_TESTNET = 'https://oktestrpc.anayswap.exchange'
 export const OKT_TEST_CHAINID = 2
 export const OKT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
 
+export const OKT_MAINNET = 'https://exchainrpc.okex.org'
+export const OKT_MAIN_CHAINID = 66
+export const OKT_MAIN_EXPLORER = 'https://www.oklink.com/okexchain'
+
 
 export const ARBITRUM_TESTNET = 'https://kovan4.arbitrum.io/rpc'
 export const ARBITRUM_TEST_CHAINID = 212984383488152
@@ -75,6 +79,18 @@ export const TRX_MAIN_CHAINID = 'TRX'
 export const TRX_MAIN_EXPLORER = 'https://tronscan.io/#'
 
 let chainInfo = {
+  [OKT_MAIN_CHAINID]: {
+    rpc: OKT_MAINNET,
+    chainID: OKT_MAIN_CHAINID,
+    lookHash: OKT_MAIN_EXPLORER + '/transaction/',
+    lookAddr: OKT_MAIN_EXPLORER + '/address/',
+    explorer: OKT_MAIN_EXPLORER,
+    symbol: 'OKT',
+    name: 'OKExChain',
+    type: 'main',
+    label: 'OKT_MAIN',
+    isSwitch: 1
+  },
   [TRX_MAIN_CHAINID]: {
     rpc: TRX_MAINNET,
     chainID: TRX_MAIN_CHAINID,
@@ -279,7 +295,8 @@ let chainList = {
     chainInfo[HT_MAIN_CHAINID],
     chainInfo[MATIC_MAIN_CHAINID],
     chainInfo[xDAI_MAIN_CHAINID],
-    chainInfo[AVAX_MAIN_CHAINID]
+    chainInfo[AVAX_MAIN_CHAINID],
+    // chainInfo[OKT_MAIN_CHAINID]
   ],
   test: [
     chainInfo[FSN_TEST_CHAINID],

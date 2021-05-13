@@ -1547,6 +1547,11 @@ export default {
       [NAME]: 'SHIB',
       [TOKEN]: '0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE',
       [DECIMALS]: 18
+    },
+    'WOOFY': {
+      [NAME]: 'WOOFY',
+      [TOKEN]: '0xd0660cd418a64a1d44e9214ad8e459324d8157f1',
+      [DECIMALS]: 18
     }
   },
   4: {

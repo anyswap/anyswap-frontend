@@ -1138,5 +1138,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xd0660cd418a64a1d44e9214ad8e459324d8157f1': { // WOOFY 
+      [NAME]: 'Woofy' + config.suffix,
+      [SYMBOL]: 'WOOFY',
+      [DECIMALS]: 12,
+      [EXCHANGE_ADDRESS]: '0x8f4591a122ef229cbd485a11dcfdebb51c3b867b',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    
   }
 }
