@@ -1551,7 +1551,7 @@ export default {
     'WOOFY': {
       [NAME]: 'WOOFY',
       [TOKEN]: '0xd0660cd418a64a1d44e9214ad8e459324d8157f1',
-      [DECIMALS]: 18
+      [DECIMALS]: 12
     }
   },
   4: {
