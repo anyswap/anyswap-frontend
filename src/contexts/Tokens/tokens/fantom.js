@@ -1162,6 +1162,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x735abe48e8782948a37c7765ecb76b98cde97b0f': { // ESWAP 
+      [NAME]: 'eSwapping' + config.suffix,
+      [SYMBOL]: 'ESWAP',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0x36f40b69c3af083446e54d805044ca8f13c1c3ed',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x4b3B4120d4D7975455d8C2894228789c91a247F8',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     
   }
 }

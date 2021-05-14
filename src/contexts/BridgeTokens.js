@@ -1552,6 +1552,16 @@ export default {
       [NAME]: 'WOOFY',
       [TOKEN]: '0xd0660cd418a64a1d44e9214ad8e459324d8157f1',
       [DECIMALS]: 12
+    },
+    'MOMA': {
+      [NAME]: 'MOMA',
+      [TOKEN]: '0xbd1848e1491d4308Ad18287A745DD4DB2A4BD55B',
+      [DECIMALS]: 18
+    },
+    'ALN': {
+      [NAME]: 'ALN',
+      [TOKEN]: '0x8185bc4757572da2a610f887561c32298f1a5748',
+      [DECIMALS]: 18
     }
   },
   4: {
@@ -1586,6 +1596,11 @@ export default {
       [NAME]: 'IF',
       [TOKEN]: '0xb0e1fc65c1a741b4662b813eb787d369b8614af1',
       [DECIMALS]: 18
+    },
+    'ESWAP': {
+      [NAME]: 'ESWAP',
+      [TOKEN]: '0x1b79708eea29900dbbbca8a5ae620ac741618ae4',
+      [DECIMALS]: 8
     }
   },
   128: {
