@@ -1562,6 +1562,11 @@ export default {
       [NAME]: 'ALN',
       [TOKEN]: '0x8185bc4757572da2a610f887561c32298f1a5748',
       [DECIMALS]: 18
+    },
+    'MLT': {
+      [NAME]: 'MLT',
+      [TOKEN]: '0x9506d37f70eb4c3d79c398d326c871abbf10521d',
+      [DECIMALS]: 18
     }
   },
   4: {

@@ -82,7 +82,7 @@ let chainInfo = {
   [OKT_MAIN_CHAINID]: {
     rpc: OKT_MAINNET,
     chainID: OKT_MAIN_CHAINID,
-    lookHash: OKT_MAIN_EXPLORER + '/transaction/',
+    lookHash: OKT_MAIN_EXPLORER + '/tx/',
     lookAddr: OKT_MAIN_EXPLORER + '/address/',
     explorer: OKT_MAIN_EXPLORER,
     symbol: 'OKT',
