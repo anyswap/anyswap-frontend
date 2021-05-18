@@ -17,10 +17,13 @@ import Swap from'./Swap'
 import Send from'./Send'
 import Pool from'./Pool'
 import Farms from'./Farms'
-import FarmsList from'./Farms/FarmsList'
+// import FarmsList from'./Farms/FarmsList'
 import Bridge from'./Bridge'
 import Dashboard from'./Dashboard'
-import Staking from'./Staking'
+
+import SpecWithdraw from '../components/BridgePage/withdraw'
+import SpecBridge from '../components/BridgePage/specBridge'
+// import Staking from'./Staking'
 
 // import { createBrowserHistory } from 'history';
 // const browserHistory = createBrowserHistory()
@@ -197,6 +200,8 @@ export default function App() {
                         />
                         <Route exact strict path="/bridge" component={() => <Bridge params={params} />} />
                         <Route exact strict path="/dashboard" component={() => <Dashboard/>} />
+                        <Route exact strict path="/specwithdraw" component={() => <SpecWithdraw/>} />
+                        <Route exact strict path="/specbridge" component={() => <SpecBridge/>} />
                         {/* <Route exact strict path="/farms/staking" component={() => <Staking/>} /> */}
                         {/* <Route exact strict path="/farms" component={() => <FarmsList/>} /> */}
                         <Route

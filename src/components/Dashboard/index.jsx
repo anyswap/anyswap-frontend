@@ -497,7 +497,7 @@ export default function DashboardDtil () {
         })
       }
     }
-    if (arr[0].symbol === config.symbol) {
+    if (arr[0] && arr[0].symbol === config.symbol) {
       arr[0].Basebalance = baseAccountBalance
       poolInfoObj[config.symbol].Basebalance = baseAccountBalance
     }

@@ -48,7 +48,7 @@ import {
 
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
-const SubCurrencySelect = styled.button`
+export const SubCurrencySelect = styled.button`
   ${({ theme }) => theme.FlexC}
   width: 110px;
   height: 1.875rem;
@@ -66,7 +66,7 @@ const SubCurrencySelect = styled.button`
   }
 `
 
-const SubCurrencySelectBox = styled.div`
+export const SubCurrencySelectBox = styled.div`
   ${({ theme }) => theme.FlexBC}
   width: 100%;
   height: 48px;
@@ -92,7 +92,7 @@ const SubCurrencySelectBox = styled.div`
   }
 `
 
-const CurrencySelect = styled.button`
+export const CurrencySelect = styled.button`
   align-items: center;
   color: ${({ selected, theme }) => (selected ? theme.textColor : '#031a6e')};
   font-size: ${({ selected, theme }) => (selected ? '1rem' : '12px')};
@@ -126,7 +126,7 @@ const CurrencySelect = styled.button`
   }
 `
 
-const Aligner = styled.span`
+export const Aligner = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,7 +139,7 @@ const Aligner = styled.span`
   }
 `
 
-const StyledDropDownBox = styled.div`
+export const StyledDropDownBox = styled.div`
   ${({ theme }) => theme.FlexC}
   width: 1.625rem;
   height: 1.625rem;
@@ -150,7 +150,7 @@ const StyledDropDownBox = styled.div`
   right: 0px;
 `
 
-const StyledDropDown = styled(DropDown)`
+export const StyledDropDown = styled(DropDown)`
   height: 35%;
 
   path {
@@ -158,11 +158,11 @@ const StyledDropDown = styled(DropDown)`
   }
 `
 
-const Container = styled.div`
+export const Container = styled.div`
   border-radius: 1.25rem;
 `
 
-const ErrorSpanBox = styled.div`
+export const ErrorSpanBox = styled.div`
   height: 70px;
   width: 220px;
   margin-left: 0.625rem;
@@ -170,7 +170,7 @@ const ErrorSpanBox = styled.div`
     display:none;
   }
 `
-const ErrorSpan = styled.span`
+export const ErrorSpan = styled.span`
   display:flex;
   align-items: center;
   padding: 1rem 1.25rem;
@@ -192,7 +192,7 @@ const ErrorSpan = styled.span`
   }
 `
 
-const ExtraText = styled.div`
+export const ExtraText = styled.div`
   width: 100%;
   font-family: 'Manrope';
   font-stretch: normal;
@@ -214,7 +214,7 @@ const ExtraText = styled.div`
   }
 `
 
-const PasteStyle = styled.div`
+export const PasteStyle = styled.div`
   width: 1rem;
   height: 1rem;
   position: absolute;
@@ -222,13 +222,13 @@ const PasteStyle = styled.div`
   right: 0;
 `
 
-const TokenModal = styled.div`
+export const TokenModal = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   width: 100%;
   padding: 1rem;
 `
 
-const ModalHeader = styled.div`
+export const ModalHeader = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
@@ -243,13 +243,13 @@ const ModalHeader = styled.div`
   }
 `
 
-const CloseColor = styled(Close)`
+export const CloseColor = styled(Close)`
   path {
     stroke: ${({ theme }) => theme.textColor};
   }
 `
 
-const CloseIcon = styled.div`
+export const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
   top: 0.875rem;
@@ -259,7 +259,7 @@ const CloseIcon = styled.div`
   }
 `
 
-const SearchContainer = styled.div`
+export const SearchContainer = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   justify-content: flex-start;
   min-height: 2.5rem;
@@ -272,7 +272,7 @@ const SearchContainer = styled.div`
   margin-bottom: 1.25rem;
 `
 
-const StyledBorderlessInput = styled(BorderlessInput)`
+export const StyledBorderlessInput = styled(BorderlessInput)`
   height: 100%;
   flex-shrink: 0;
   text-align: left;
@@ -286,7 +286,7 @@ const StyledBorderlessInput = styled(BorderlessInput)`
   }
 `
 
-const TokenModalInfo = styled.div`
+export const TokenModalInfo = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
   padding: 1rem 1.5rem;
@@ -295,14 +295,14 @@ const TokenModalInfo = styled.div`
   user-select: none;
 `
 
-const TokenList = styled.div`
+export const TokenList = styled.div`
   flex-grow: 1;
   height: 100%;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 `
 
-const TokenModalRow = styled.div`
+export const TokenModalRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
   justify-content: space-between;
@@ -326,12 +326,12 @@ const TokenModalRow = styled.div`
   `}
 `
 
-const TokenRowLeft = styled.div`
+export const TokenRowLeft = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items : center;
 `
 
-const TokenSymbolGroup = styled.div`
+export const TokenSymbolGroup = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
   margin-left: 1rem;
   font-family: 'Manrope';
@@ -346,7 +346,7 @@ const TokenSymbolGroup = styled.div`
   }
 `
 
-const TokenFullName = styled.div`
+export const TokenFullName = styled.div`
   color: ${({ theme }) => theme.chaliceGray};
   font-family: 'Manrope';
   font-size: 0.75rem;
@@ -359,10 +359,10 @@ const TokenFullName = styled.div`
   margin-top: 0.125rem;
 `
 
-const FadedSpan = styled.span`
+export const FadedSpan = styled.span`
   color: ${({ theme }) => theme.royalBlue};
 `
-const TokenRowBalanceText = styled.span`
+export const TokenRowBalanceText = styled.span`
   width: 100%;
   display:block;
   font-family: 'Manrope';
@@ -376,7 +376,7 @@ const TokenRowBalanceText = styled.span`
   margin-bottom: 5px;
   color: ${({theme}) => theme.textColorBold};
 `
-const TokenRowBalance = styled.div`
+export const TokenRowBalance = styled.div`
 font-family: 'Manrope';
   font-size: 0.875rem;
   font-weight: 800;
@@ -388,19 +388,19 @@ font-family: 'Manrope';
   color: ${({theme}) => theme.textColorBold};
 `
 
-const TokenRowUsd = styled.div`
+export const TokenRowUsd = styled.div`
 font-family: 'Manrope';
   font-size: 1rem;
   line-height: 1.5rem;
   color: ${({ theme }) => theme.chaliceGray};
 `
 
-const TokenRowRight = styled.div`
+export const TokenRowRight = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
   align-items: flex-end;
 `
 
-const StyledTokenName = styled.span`
+export const StyledTokenName = styled.span`
   text-align:left;
   width: 100%;
   h3 {
@@ -427,13 +427,13 @@ const StyledTokenName = styled.span`
   }
 `
 
-const SpinnerWrapper = styled(Spinner)`
+export const SpinnerWrapper = styled(Spinner)`
   margin: 0 0.25rem 0 0.25rem;
   color: ${({ theme }) => theme.chaliceGray};
   opacity: 0.6;
 `
 
-const TokenLogoBox = styled.div`
+export const TokenLogoBox = styled.div`
   ${({ theme }) => theme.FlexC};
   width: 46px;
   height: 46px;
@@ -442,13 +442,13 @@ const TokenLogoBox = styled.div`
   border-radius: 100%;
   margin-right: 1.25rem;
 `
-const TokenLogoBox1 = styled(TokenLogoBox)`
+export const TokenLogoBox1 = styled(TokenLogoBox)`
   position:absolute;
   top:0.625rem;
   left:0;
 `
 
-const InputRangeRow = styled.div`
+export const InputRangeRow = styled.div`
   ${({ theme }) => theme.FlexBC};
   width: 50%;
   padding-right: 86px;
@@ -470,7 +470,7 @@ const InputRangeRow = styled.div`
     color: ${({ theme }) => theme.textColorBold};
   }
 `
-const InputRangeBox = styled.div`
+export const InputRangeBox = styled.div`
   position:relative;
   width:100%;
   height: 36px;
@@ -502,7 +502,7 @@ const InputRangeBox = styled.div`
     margin-left:-0.75rem;
   }
 `
-const InputRange = styled(BorderlessInput)`
+export const InputRange = styled(BorderlessInput)`
   width: 100%;
   height: 36px;
   position:absolute;
@@ -511,7 +511,7 @@ const InputRange = styled(BorderlessInput)`
   opacity: 0;
 `
 
-const InputRangeNum = styled(BorderlessInput)`
+export const InputRangeNum = styled(BorderlessInput)`
   width: 56px;
   height: 36px;
   position:absolute;
@@ -535,7 +535,7 @@ const InputRangeNum = styled(BorderlessInput)`
   color: #062536;
 `
 
-const ComineSoon = styled.div`
+export const ComineSoon = styled.div`
 ${({theme}) => theme.FlexC}
 font-family: 'Manrope';
   font-size: 0.75rem;
@@ -553,14 +553,14 @@ font-family: 'Manrope';
   }
 `
 
-const BigScreenView = styled.div`
+export const BigScreenView = styled.div`
   display: block;
   @media screen and (max-width: 960px) {
     display: none;
   }
 `
 
-const SmallScreenView = styled.div`
+export const SmallScreenView = styled.div`
   display: none;
   @media screen and (max-width: 960px) {
     display: block;
