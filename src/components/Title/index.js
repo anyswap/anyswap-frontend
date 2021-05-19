@@ -185,6 +185,17 @@ export default function Title({ title, tabList = [] , isNavLink = false, current
       <>
         <TabLinkBox>
           {tabList.map((item, index) => {
+            if (item.isNavLink) {
+              return <StyledNavLink
+                key={item.path}
+                to={item.path}
+              > 
+                <div className='icon'>
+                  <img alt={''} src={item.iconUrl}/>
+                </div>
+                {item.name}
+              </StyledNavLink>
+            }
             return (
               <li
                 key={index}

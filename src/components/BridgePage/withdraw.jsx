@@ -42,17 +42,23 @@ import AddressInputPanel from '../AddressInputPanel'
 import ModalContent from '../Modal/ModalContent'
 import Modal from '../Modal'
 
+import {
+  SubCurrencySelectBox
+} from './index'
+
 import { useWalletModalToggle } from '../../contexts/Application'
 
 import NoCoinIcon from '../../assets/images/icon/no-coin.svg'
 import Paste from '../../assets/images/icon/paste.svg'
 import BirdgeIcon from '../../assets/images/icon/bridge-white.svg'
+import BulbIcon from '../../assets/images/icon/bulb.svg'
 
-import tokenlist from './data/tokenlist'
+// import tokenlist from './data/tokenlist'
 
 import { amountFormatter, isAddress } from '../../utils'
 import { getTokenBalance} from '../../utils/birdge/getOutBalance'
-import {formatDecimal} from '../../utils/tools'
+import {getDislineInfo} from '../../utils/birdge/getServerInfo'
+import {formatCoin, formatDecimal, thousandBit} from '../../utils/tools'
 
 import { useWeb3React, useSwapTokenContract } from '../../hooks'
 
@@ -75,7 +81,7 @@ export default function SpecialWithdraw() {
 
   const walletType = sessionStorage.getItem('walletType')
 
-  const [selectToken, setSelectToken] = useState('0x1b27a9de6a775f98aaa5b90b62a4e2a0b84dbdd9')
+  const [selectToken, setSelectToken] = useState('')
   const [errorMessage, setErrorMessage] = useState()
   const [value, setValue] = useState()
   const [outValue, setOutValue] = useState()
@@ -86,16 +92,13 @@ export default function SpecialWithdraw() {
   })
   const [recipientError, setRecipientError] = useState()
   const [modelView, setModelView] = useState(false)
+  const [tokenlist, setTokenlist] = useState({})
 
-  const TokenList = useMemo(() => {
-    if (tokenlist[chainId]) return tokenlist[chainId]
-    return {}
-  }, [chainId])
 
   const TokenInfo = useMemo(() => {
-    if (TokenList[selectToken]) return TokenList[selectToken]
+    if (tokenlist[selectToken]) return tokenlist[selectToken]
     return ''
-  }, [TokenList, selectToken])
+  }, [tokenlist, selectToken])
 
   const recipientCount = useMemo(() => {
     return Date.now() + selectToken
@@ -128,6 +131,24 @@ export default function SpecialWithdraw() {
       setBalance('')
     }
   }, [account, chainId, selectToken, TokenInfo])
+
+  useEffect(() => {
+    getDislineInfo(account, chainId).then(res => {
+      // console.log(res)
+      if (res.msg === 'Success') {
+        setTokenlist(res.info)
+        if (!selectToken) {
+          for (const token in res.info) {
+            setSelectToken(token)
+            break
+          }
+        }
+      } else {
+        setTokenlist({})
+        setSelectToken('')
+      }
+    })
+  }, [account, chainId, selectToken])
 
   function sendTxns () {
     const node = TokenInfo.destChain
@@ -187,7 +208,7 @@ export default function SpecialWithdraw() {
         <ModalContent onClose={() => {setModelView(false)}}>
           <TokenListBox style={{marginTop: '40px'}}>
             {
-              Object.keys(TokenList).map(tokenEntryKey => {
+              Object.keys(tokenlist).map(tokenEntryKey => {
                 return (
                   <TokenModalRow key={tokenEntryKey} onClick={() => {
                     setSelectToken(tokenEntryKey)
@@ -195,10 +216,10 @@ export default function SpecialWithdraw() {
                   }}>
                     <TokenRowLeft>
                       <TokenLogoBox style={ {'border': '0.0625rem solid rgba(0, 0, 0, 0.1)'}}>
-                        <TokenLogo address={TokenList[tokenEntryKey].symbol} size={'2rem'} />
+                        <TokenLogo address={tokenlist[tokenEntryKey].symbol} size={'2rem'} />
                       </TokenLogoBox>
                       <TokenSymbolGroup>
-                        <TokenFullName> {TokenList[tokenEntryKey].name}</TokenFullName>
+                        <TokenFullName> {tokenlist[tokenEntryKey].name}</TokenFullName>
                       </TokenSymbolGroup>
                     </TokenRowLeft>
                   </TokenModalRow>
@@ -210,6 +231,36 @@ export default function SpecialWithdraw() {
       </Modal>
       <Title
         title={t('redeem')}
+        tabList={[
+          {
+            name: t('deposit1'),
+            onTabClick: name => {
+            },
+            isNavLink: 1,
+            path: '/bridge',
+            iconUrl: require('../../assets/images/icon/deposit.svg'),
+            iconActiveUrl: require('../../assets/images/icon/deposit-purple.svg')
+          },
+          {
+            name: t('redeem'),
+            onTabClick: name => {
+            },
+            isNavLink: 1,
+            path: '/bridge',
+            iconUrl: require('../../assets/images/icon/withdraw.svg'),
+            iconActiveUrl: require('../../assets/images/icon/withdraw-purple.svg')
+          },
+          {
+            name: t('disline'),
+            onTabClick: () => {
+            },
+            isNavLink: 1,
+            path: '/specwithdraw',
+            iconUrl: require('../../assets/images/icon/withdraw.svg'),
+            iconActiveUrl: require('../../assets/images/icon/withdraw-purple.svg')
+          }
+        ]}
+        currentTab={2}
       ></Title>
       <InputPanel error={!!errorMessage}>
         <Container>
@@ -416,6 +467,28 @@ export default function SpecialWithdraw() {
       </InputPanel>
 
       <AddressInputPanel title={t('recipient') + ' ' + TokenInfo.symbol  + ' ' + t('address')} onChange={setRecipient} onError={setRecipientError} initialInput={recipient} isValid={true} disabled={false} changeCount={recipientCount}/>
+
+      <SubCurrencySelectBox>
+        <dl className='list'>
+          <dt>
+            <img src={BulbIcon} alt='' />
+            {t('Reminder')}:
+          </dt>
+          <dd><i></i>{t('redeemTip1', {
+            minFee: TokenInfo.minFee,
+            coin: formatCoin(TokenInfo.symbol),
+            maxFee: TokenInfo.maxFee,
+            fee: TokenInfo.fee * 100
+          })}</dd>
+          <dd><i></i>{t('redeemTip2')} {thousandBit(TokenInfo.redeemMinNum, 'no')} {formatCoin(TokenInfo.symbol)}</dd>
+          <dd><i></i>{t('redeemTip3')} {thousandBit(TokenInfo.redeemMaxNum, 'no')} {formatCoin(TokenInfo.symbol)}</dd>
+          <dd><i></i>{t('redeemTip4')}</dd>
+          <dd><i></i>{t('redeemTip5', {
+            redeemBigValMoreTime: thousandBit(TokenInfo.redeemBigValMoreTime, 'no'),
+            coin: formatCoin(TokenInfo.symbol),
+          })}</dd>
+        </dl>
+      </SubCurrencySelectBox>
 
       <Flex>
         {

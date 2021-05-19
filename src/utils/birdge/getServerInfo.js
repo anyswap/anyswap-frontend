@@ -93,7 +93,7 @@ export function removeRegisterInfo (account, token, chainID) {
   }
 }
 
-function setLocalinfo (account, res, chainID, version, coin, pairid) {
+function setLocalinfo (account, res, chainID, version, coin, pairid, localtype) {
   const dObj = res.SrcToken, // 充值信息
       rObj = res.DestToken // 提现信息
   const token = rObj.DelegateToken ? rObj.DelegateToken.toLowerCase() : (rObj.ContractAddress ? rObj.ContractAddress.toLowerCase() : '')
@@ -121,7 +121,7 @@ function setLocalinfo (account, res, chainID, version, coin, pairid) {
     pairid: pairid,
     p2pAddress: getRegisterInfo(account, token, chainID, version, coin).p2pAddress
   }
-  setLocalConfig(account, token, bridgeData, chainID, SERVER_BRIDGE_CONFIG)
+  setLocalConfig(account, token, bridgeData, chainID, localtype)
 
   // if (chainID === 56) {
   //   const bridgeData1 = {
@@ -193,7 +193,7 @@ function getServerData (account, chainID, version, coin) {
         }
         let serverData = res.data
         for (let obj in serverData) {
-          setLocalinfo(account, serverData[obj], chainID, version, coin, obj)
+          setLocalinfo(account, serverData[obj], chainID, version, coin, obj, SERVER_BRIDGE_CONFIG)
         }
       }
       resolve(data)
@@ -205,42 +205,6 @@ function getServerData (account, chainID, version, coin) {
   })
 }
 
-// function RegisterAddress(account, token, coin, chainID, version) {
-//   return new Promise(resolve => {
-//     let data = {
-//       msg: 'Error',
-//       info: ''
-//     }
-//     let url = config.serverInfoUrl['V1'] + '/register/' + account + '/' + chainID + '/' + coin
-//     if (version === 'V2') {
-//       url = config.serverInfoUrl['V2'] + '/register/' + account + '/' + chainID + '/' + coin
-//     }
-//     axios.get(url).then(res => {
-//       let rsData = res.data
-//       if ( 
-//         (rsData.msg === 'Success' && rsData.info && rsData.info.P2shAddress)
-//         || (rsData.error && rsData.error.indexOf('mgoError: Item is duplicate') !== -1)
-//         || (rsData.msg === 'Success' && rsData.info === 'Success')
-//       ) {
-//         setRegisterInfo(account, token, {
-//           isRegister: true,
-//           p2pAddress: rsData.info && rsData.info.P2shAddress
-//         }, chainID, version, coin)
-//         resolve({
-//           msg: 'Success',
-//           info: ''
-//         })
-//       } else {
-//         data.error = 'Register error!'
-//         resolve(data)
-//       }
-//     }).catch(err => {
-//       console.log(err)
-//       data.error = err
-//       resolve(data)
-//     })
-//   })
-// }
 export function RegisterAddress(account, token, coin, chainID, version) {
   return new Promise(resolve => {
     let data = {
@@ -306,53 +270,76 @@ export function getServerInfo (account, token, coin, chainID, version) {
     }
   })
 }
-// export function getServerInfo (account, token, coin, chainID, version) {
-//   getInfoObj = {account, token, coin}
-//   // count ++
-//   return new Promise(resolve => {
-//     if (!account) {
-//       resolve('')
-//     } else {
-//       let lrInfo = getRegisterInfo(account, token, chainID, version, coin)
-//       // console.log(lrInfo)
-//       if (!lrInfo) {
-//         RegisterAddress(account, token, coin, chainID, version).then(res => {
-//           if (res.msg === 'Success') {
-//             let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
-//             if (lData) {
-//               resolve(lData)
-//             } else {
-//               getServerData(account, chainID, version, coin).then(result => {
-//                 let lData1 = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
-//                 if (lData1) {
-//                   resolve(lData1)
-//                 } else {
-//                   resolve({
-//                     msg: 'Null'
-//                   })
-//                 }
-//               })
-//             }
-//           } else {
-//             resolve(res)
-//           }
-//         })
-//       } else {
-//         if (!getLocalConfig(account, token, chainID, SERVER_BRIDGE_CONFIG)) {
-//           getServerData(account, chainID, version, coin).then(result => {
-//             let lData = getLocalConfig(getInfoObj.account, getInfoObj.token, chainID, SERVER_BRIDGE_CONFIG)
-//             if (lData) {
-//               resolve(lData)
-//             } else {
-//               resolve({
-//                 msg: 'Null'
-//               })
-//             }
-//           })
-//         } else {
-//           resolve(getLocalConfig(account, token, chainID, SERVER_BRIDGE_CONFIG))
-//         }
-//       }
-//     }
-//   })
-// }
+
+let getIDislineObj = {}
+const DISLINE_BRIDGE_CONFIG = 'DISLINE_BRIDGE_CONFIG'
+function getDislineData (account, chainID) {
+  return new Promise(resolve => {
+    let url = config.serverInfoUrl['V2'] + '/disline/' + chainID
+    let data = {
+      msg: 'Error',
+      info: ''
+    }
+    axios.get(url).then(res => {
+      if(res.status === 200){
+        data = {
+          msg: 'Success',
+          info: res.data.result
+        }
+        let serverData = res.data
+        const serverList = {}
+        for (const pairid in serverData) {
+          const obj = serverData[pairid]
+          const rObj = obj.DestToken // 提现信息
+          const token = rObj.DelegateToken ? rObj.DelegateToken.toLowerCase() : (rObj.ContractAddress ? rObj.ContractAddress.toLowerCase() : '')
+          // console.log(token)
+          serverList[token] = {
+            name: rObj.Name,
+            symbol: rObj.Symbol,
+            decimals: rObj.Decimals,
+            logo: rObj.Symbol,
+            redeemMaxNum: rObj.MaximumSwap,
+            redeemMinNum: rObj.MinimumSwap,
+            maxFee: rObj.MaximumSwapFee,
+            minFee: rObj.MinimumSwapFee,
+            fee: rObj.SwapFeeRate,
+            destChain: obj.destChainID,
+            redeemBigValMoreTime: rObj.BigValueThreshold,
+          }
+        }
+        setLocalConfig(account, DISLINE_BRIDGE_CONFIG, serverList, chainID, DISLINE_BRIDGE_CONFIG)
+      }
+      resolve(data)
+    }).catch(err => {
+      console.log(err)
+      data.error = err
+      resolve(data)
+    })
+  })
+}
+
+export function getDislineInfo (account, chainID) {
+  getIDislineObj = {account}
+  // count ++
+  return new Promise(resolve => {
+    if (!account) {
+      resolve('')
+    } else {
+      const lData = getLocalConfig(getIDislineObj.account, DISLINE_BRIDGE_CONFIG, chainID, DISLINE_BRIDGE_CONFIG)
+      if (lData) {
+        resolve(lData)
+      } else {
+        getDislineData(account, chainID).then(result => {
+          const lData1 = getLocalConfig(getIDislineObj.account, DISLINE_BRIDGE_CONFIG, chainID, DISLINE_BRIDGE_CONFIG)
+          if (lData1) {
+            resolve(lData1)
+          } else {
+            resolve({
+              msg: 'Null'
+            })
+          }
+        })
+      }
+    }
+  })
+}

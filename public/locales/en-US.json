@@ -246,5 +246,6 @@
   "htSwapTip": "HTswap early bird farming",
   "htSwapTitle": "You will be redirected to Third Party DApp",
   "htSwapContent": "Note: You will be redirected to a third party DApp. Please go through the User Agreement and Privacy Policy of the third party DApp carefully. DApp will resume full responsiblity for all actions and usage on the DApp.",
-  "approveNoBalance": "The liquidity of the cross chain bridge is insufficient, please try again later. Balance: "
+  "approveNoBalance": "The liquidity of the cross chain bridge is insufficient, please try again later. Balance: ",
+  "disline": "Disline"
 }

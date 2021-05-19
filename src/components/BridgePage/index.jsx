@@ -264,7 +264,7 @@ const StyledBirdgeIcon = styled.div`
   }
 `
 
-const SubCurrencySelectBox = styled.div`
+export const SubCurrencySelectBox = styled.div`
   width: 100%;
   object-fit: contain;
   border-radius: 0.5625rem;
@@ -2278,6 +2278,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             onTabClick: name => {
               changeMorR('redeem')
             },
+            iconUrl: require('../../assets/images/icon/withdraw.svg'),
+            iconActiveUrl: require('../../assets/images/icon/withdraw-purple.svg')
+          },
+          {
+            name: t('disline'),
+            onTabClick: () => {
+            },
+            isNavLink: 1,
+            path: '/specwithdraw',
             iconUrl: require('../../assets/images/icon/withdraw.svg'),
             iconActiveUrl: require('../../assets/images/icon/withdraw-purple.svg')
           }
