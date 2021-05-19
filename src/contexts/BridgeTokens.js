@@ -1567,6 +1567,36 @@ export default {
       [NAME]: 'MLT',
       [TOKEN]: '0x9506d37f70eb4c3d79c398d326c871abbf10521d',
       [DECIMALS]: 18
+    },
+    'KISHU': {
+      [NAME]: 'KISHU',
+      [TOKEN]: '0xa2b4c0af19cc16a6cfacce81f192b024d625817d',
+      [DECIMALS]: 9
+    },
+    'SIG': {
+      [NAME]: 'SIG',
+      [TOKEN]: '0x7777777777697cfeecf846a76326da79cc606517',
+      [DECIMALS]: 18
+    },
+    'KSF': {
+      [NAME]: 'KSF',
+      [TOKEN]: '0x049e119413ab1f1b0fd836e657e3e4ba3ad9cab8',
+      [DECIMALS]: 18
+    },
+    'MVP': {
+      [NAME]: 'MVP',
+      [TOKEN]: '0x65fC94d99Cb301C5630c485D312e6Ff5EDdE13d0',
+      [DECIMALS]: 18
+    },
+    'YFT': {
+      [NAME]: 'YFT',
+      [TOKEN]: '0x9cd39da8f25ec50cf2ee260e464ac23ea23f6bb0',
+      [DECIMALS]: 18
+    },
+    'MOOV': {
+      [NAME]: 'MOOV',
+      [TOKEN]: '0x24ec2ca132abf8f6f8a6e24a1b97943e31f256a7',
+      [DECIMALS]: 18
     }
   },
   4: {
@@ -1606,6 +1636,16 @@ export default {
       [NAME]: 'ESWAP',
       [TOKEN]: '0x1b79708eea29900dbbbca8a5ae620ac741618ae4',
       [DECIMALS]: 8
+    },
+    'BCP': {
+      [NAME]: 'BCP',
+      [TOKEN]: '0xb44a9b6905af7c801311e8f4e76932ee959c663c',
+      [DECIMALS]: 8
+    },
+    'BUSD': {
+      [NAME]: 'BUSD',
+      [TOKEN]: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+      [DECIMALS]: 18
     }
   },
   128: {

@@ -4284,6 +4284,126 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xbfc044a234e45412ecfec2cd6aae2dd0c083a7cd': { // SIG 
+      [NAME]: 'xSigma' + config.suffix,
+      [SYMBOL]: 'SIG',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x79ba818d2ba469bfd36b474325b5913c1b67d6a0',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x1c019af5b059f4473289c1ddeea02cc4993478ea': { // KSF 
+      [NAME]: 'KESEF.FINANCE' + config.suffix,
+      [SYMBOL]: 'KSF',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xcb5a478fcb0680a955828e87c840c3c03223f328',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xb0731d50c681c45856bfc3f7539d5f61d4be81d8': { // MVP 
+      [NAME]: 'MVP Token' + config.suffix,
+      [SYMBOL]: 'MVP',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x681877a46639b73e20b54f7942e2d214a0c5f703',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x6633c083f54bb65f702f9f276319bb24b65fec18': { // YFT 
+      [NAME]: 'TOSHIFY.FINANCE' + config.suffix,
+      [SYMBOL]: 'YFT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x3d11f66d7ae979fc2a5a254535e413c92cdbce39',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x0ebd9537a25f56713e34c45b38f421a1e7191469': { // MOOV 
+      [NAME]: 'dotmoovs' + config.suffix,
+      [SYMBOL]: 'MOOV',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x2d34c35ec562d9e890678bc8f28ad5c833150cd9',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     // '0x01c3d9cbcf40482ba0d5206f63e3f04ef9e134d9': { // SFI 
     //   [NAME]: 'Spice' + config.suffix,
     //   [SYMBOL]: 'SFI',

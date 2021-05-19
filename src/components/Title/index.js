@@ -187,7 +187,7 @@ export default function Title({ title, tabList = [] , isNavLink = false, current
           {tabList.map((item, index) => {
             if (item.isNavLink) {
               return <StyledNavLink
-                key={item.path}
+                key={index}
                 to={item.path}
               > 
                 <div className='icon'>

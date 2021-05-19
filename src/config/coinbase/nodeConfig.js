@@ -1,6 +1,7 @@
 const navLang = navigator.language
 
 export const BNB_MAINNET1 = 'https://bsc-dataseed1.binance.org/'
+// export const BNB_MAINNET = 'https://bsc-dataseed1.binance.org/'
 // export const BNB_MAINNET = 'https://bsc-dataseed3.defibit.io/'
 export const BNB_MAINNET = 'https://bsc-dataseed1.ninicoin.io/'
 export const BNB_MAIN_CHAINID = 56

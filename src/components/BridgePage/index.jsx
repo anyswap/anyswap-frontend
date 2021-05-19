@@ -2281,15 +2281,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             iconUrl: require('../../assets/images/icon/withdraw.svg'),
             iconActiveUrl: require('../../assets/images/icon/withdraw-purple.svg')
           },
-          {
-            name: t('disline'),
-            onTabClick: () => {
-            },
-            isNavLink: 1,
-            path: '/specwithdraw',
-            iconUrl: require('../../assets/images/icon/withdraw.svg'),
-            iconActiveUrl: require('../../assets/images/icon/withdraw-purple.svg')
-          }
+          // {
+          //   name: t('disline'),
+          //   onTabClick: () => {
+          //   },
+          //   isNavLink: 1,
+          //   path: '/specwithdraw',
+          //   iconUrl: require('../../assets/images/icon/withdraw.svg'),
+          //   iconActiveUrl: require('../../assets/images/icon/withdraw-purple.svg')
+          // }
         ]}
         currentTab={bridgeType && bridgeType === 'redeem' ? 1 : 0}
         // currentTab={bridgeType}

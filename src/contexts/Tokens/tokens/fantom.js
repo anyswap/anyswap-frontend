@@ -1186,6 +1186,78 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xc931f61b1534eb21d8c11b24f3f5ab2471d4ab50': { // BNB 
+      [NAME]: 'Binance USD' + config.suffix,
+      [SYMBOL]: 'BUSD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x34ccdc12957ca185d2ea77e5daeab09491972490',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x4b3B4120d4D7975455d8C2894228789c91a247F8',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xd6070ae98b8069de6b494332d1a1a81b6179d960': { // BIFI 
+      [NAME]: 'Beefy.Finance' + config.suffix,
+      [SYMBOL]: 'BIFI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xa570f5cdc745b4c67cc409a85b56fd358dca176f',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x4b3B4120d4D7975455d8C2894228789c91a247F8',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x97513e975a7fa9072c72c92d8000b0db90b163c5': { // KISHU 
+      [NAME]: 'Kishu Inu' + config.suffix,
+      [SYMBOL]: 'KISHU',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0x9270131263f743945c6ca851d70097353c4b8f75',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     
   }
 }

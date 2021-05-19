@@ -303,7 +303,7 @@ function getDislineData (account, chainID) {
             maxFee: rObj.MaximumSwapFee,
             minFee: rObj.MinimumSwapFee,
             fee: rObj.SwapFeeRate,
-            destChain: obj.destChainID,
+            srcChain: obj.srcChainID,
             redeemBigValMoreTime: rObj.BigValueThreshold,
           }
         }

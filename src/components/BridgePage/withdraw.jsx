@@ -74,6 +74,30 @@ const StyledBirdgeIcon = styled.div`
   }
 `
 
+function formatOutName (name, srcChainId) {
+  name = name.replace(config.namePrefix, '').replace(config.suffix, '')
+
+  if (srcChainId) {
+    if (Number(srcChainId) === 1 && name.indexOf('Ethereum') === -1) {
+      if (name === 'Frapped USDT') {
+        name = 'Tether-ERC20'
+      } else {
+        name = name + '-ERC20'
+      }
+    } else if (Number(srcChainId) === 56) {
+      name = name + '-BEP20'
+    } else if (Number(srcChainId) === 128) {
+      name = name + '-HECO'
+    } else if (Number(srcChainId) === 250) {
+      name = name + '-FRC20'
+    } else if (Number(srcChainId) === 32659) {
+      name = name + '(Fusion)'
+    }
+  }
+  // console.log(name)
+  return name
+}
+
 export default function SpecialWithdraw() {
   const { t } = useTranslation()
   const { account, chainId } = useWeb3React()
@@ -122,6 +146,7 @@ export default function SpecialWithdraw() {
 
   useEffect(() => {
     if (account && chainId && selectToken) {
+      // console.log(selectToken)
       getTokenBalance(chainId, selectToken, account, 1).then(res => {
         console.log(res)
         const val = ethers.utils.parseUnits(res.toString(), TokenInfo.decimals)
@@ -139,6 +164,7 @@ export default function SpecialWithdraw() {
         setTokenlist(res.info)
         if (!selectToken) {
           for (const token in res.info) {
+            if (!isAddress(token)) continue
             setSelectToken(token)
             break
           }
@@ -151,7 +177,7 @@ export default function SpecialWithdraw() {
   }, [account, chainId, selectToken])
 
   function sendTxns () {
-    const node = TokenInfo.destChain
+    const node = TokenInfo.srcChain
     if (
       !recipient.address
       || (isSpecialCoin(TokenInfo.symbol) && !isBTCAddress(recipient.address, TokenInfo.symbol))
@@ -341,7 +367,7 @@ export default function SpecialWithdraw() {
                         TokenInfo.symbol ? (
                           <>
                             <h3>{TokenInfo.symbol}</h3>
-                            <p>{TokenInfo.name}</p>
+                            <p>{formatOutName(TokenInfo.name, chainId)}</p>
                           </>
                         ) : (
                           t('selectToken')
@@ -433,7 +459,7 @@ export default function SpecialWithdraw() {
                         TokenInfo.symbol ? (
                           <>
                             <h3>{TokenInfo.symbol}</h3>
-                            <p>{TokenInfo.name}</p>
+                            <p>{formatOutName(TokenInfo.name, TokenInfo.srcChain)}</p>
                           </>
                         ) : (
                           t('selectToken')
