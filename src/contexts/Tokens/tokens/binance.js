@@ -1040,9 +1040,9 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0xc417b45e6090bd4201d9400b48f84c9f34f4d0a5': { // Premia
+    '0xc417b45e6090bd4201d9400b48f84c9f34f4d0a5': { // PREMIA
       [NAME]: 'Premia' + config.suffix,
-      [SYMBOL]: 'Premia',
+      [SYMBOL]: 'PREMIA',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xb673955c27f676870797323ca8cdd7750df2d924',
       [REDEEM_MAX_NUM]: 25000,
@@ -4400,6 +4400,127 @@ export default {
       [EXTENDOBJ]:  {
         BRIDGE: [
           { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    
+    '0x99415856b37be9e75c0153615c7954f9ddb97a6e': { // ROYA 
+      [NAME]: 'Royale' + config.suffix,
+      [SYMBOL]: 'ROYA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x03862278ed12d6b5276113883f7d3d0a4ab9d5af',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xe6bf0e14e33a469f2b0640b53949a9f90e675135': { // PRARE 
+      [NAME]: 'PolkaRareToken' + config.suffix,
+      [SYMBOL]: 'PRARE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x333424447d87a6c2999c8f69191813b2043599c2',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x3d4e1981f822e87a1a4c05f2e4b3bcade5406ae3': { // OHM 
+      [NAME]: 'Olympus' + config.suffix,
+      [SYMBOL]: 'OHM',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0x4c7298da2303d01acdb8ccf12182c962982d35c5',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x4e840aadd28da189b9906674b4afcb77c128d9ea': { // HTB 
+      [NAME]: 'Hotbit Token' + config.suffix,
+      [SYMBOL]: 'HTB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x4b7effeb9e29d9520591442ee88aac3bd728fee8',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xcc9b1f919282c255eb9ad2c0757e8036165e0cad': { // PTT 
+      [NAME]: 'OpenLand' + config.suffix,
+      [SYMBOL]: 'PTT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x73a482aed0730e53cea808b4a76ac3474057fd48',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x0FD4E376C6C125C276D4020EFc1842a495cb1cF3',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 128, isSwitch: 1 }
         ],
         VERSION: 'V2'
       }

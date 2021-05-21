@@ -888,8 +888,8 @@ export default {
       [TOKEN]: '0x7b69d465c0f9fb22affae56aa86149973e9b0966',
       [DECIMALS]: 18
     },
-    'Premia': {
-      [NAME]: 'Premia',
+    'PREMIA': {
+      [NAME]: 'PREMIA',
       [TOKEN]: '0x6399c842dd2be3de30bf99bc7d1bbf6fa3650e70',
       [DECIMALS]: 18
     },
@@ -1391,7 +1391,7 @@ export default {
     'BCP ': {
       [NAME]: 'BitcashPay',
       [TOKEN]: '0xe047705117Eb07e712C3d684f5B18E74577e83aC',
-      [DECIMALS]: 18
+      [DECIMALS]: 8
     },
     'CBC': {
       [NAME]: 'CashBetCoin',
@@ -1597,7 +1597,37 @@ export default {
       [NAME]: 'MOOV',
       [TOKEN]: '0x24ec2ca132abf8f6f8a6e24a1b97943e31f256a7',
       [DECIMALS]: 18
-    }
+    },
+    'ROYA': {
+      [NAME]: 'ROYA',
+      [TOKEN]: '0x7eaf9c89037e4814dc0d9952ac7f888c784548db',
+      [DECIMALS]: 18
+    },
+    'PRARE': {
+      [NAME]: 'PRARE',
+      [TOKEN]: '0x2C2f7e7C5604D162d75641256b80F1Bf6f4dC796',
+      [DECIMALS]: 18
+    },
+    'OHM': {
+      [NAME]: 'OHM',
+      [TOKEN]: '0x383518188c0c6d7730d91b2c03a03c837814a899',
+      [DECIMALS]: 9
+    },
+    'HTB': {
+      [NAME]: 'HTB',
+      [TOKEN]: '0x6be61833fc4381990e82d7d4a9f4c9b3f67ea941',
+      [DECIMALS]: 18
+    },
+    'PTT': {
+      [NAME]: 'PTT',
+      [TOKEN]: '0x7eed8a3ccfe3d507ec4df443773eae792b9ef2d7',
+      [DECIMALS]: 18
+    },
+    'EURS': {
+      [NAME]: 'EURS',
+      [TOKEN]: '0xdb25f211ab05b1c97d595516f45794528a807ad8',
+      [DECIMALS]: 2
+    },
   },
   4: {
     'USDT': {
@@ -1646,6 +1676,16 @@ export default {
       [NAME]: 'BUSD',
       [TOKEN]: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
       [DECIMALS]: 18
+    },
+    'BTD': {
+      [NAME]: 'BTD',
+      [TOKEN]: '0xd1102332a213e21faf78b69c03572031f3552c33',
+      [DECIMALS]: 18
+    },
+    'DFD': {
+      [NAME]: 'DFD',
+      [TOKEN]: '0x9899a98b222fcb2f3dbee7df45d943093a4ff9ff',
+      [DECIMALS]: 18
     }
   },
   128: {
@@ -1653,6 +1693,11 @@ export default {
       [NAME]: 'PLF',
       [TOKEN]: '0x601464Aa0Df93e1FcB4afc96C0a615d546BAdC9f',
       [DECIMALS]: 18,
+    },
+    'PTT': {
+      [NAME]: 'PTT',
+      [TOKEN]: '0x7eed8a3ccfe3d507ec4df443773eae792b9ef2d7',
+      [DECIMALS]: 18
     },
   },
   250: {

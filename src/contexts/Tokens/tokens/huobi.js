@@ -580,6 +580,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b': { // PKG
+      [NAME]: 'PKG Token',
+      [SYMBOL]: 'PKG',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xb0b6dbc518ea64d34a07911a343b7fb65d8f979c',
+      [REDEEM_MAX_NUM]: 1000,
+      [REDEEM_MIN_NUM]: 0.05,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.1,
+      [MINFEE]: 0.008,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xd779967f8b511c5edf39115341b310022900efed',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 1000,
+      [DEPOSIT_MIN_NUM]: 0.01,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [HT_TEST_CHAINID]: {
     '0x4373ca233c17b8bf1bf8159d56019d3394a0670d': { // ANY

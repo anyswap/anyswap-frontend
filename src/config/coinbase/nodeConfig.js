@@ -1,9 +1,19 @@
 const navLang = navigator.language
 
 export const BNB_MAINNET1 = 'https://bsc-dataseed1.binance.org/'
-// export const BNB_MAINNET = 'https://bsc-dataseed1.binance.org/'
+export const BNB_MAINNET = 'https://bsc-dataseed2.defibit.io/'
 // export const BNB_MAINNET = 'https://bsc-dataseed3.defibit.io/'
-export const BNB_MAINNET = 'https://bsc-dataseed1.ninicoin.io/'
+// export const BNB_MAINNET = 'https://bsc-dataseed4.defibit.io/'
+
+// export const BNB_MAINNET = 'https://bsc-dataseed1.ninicoin.io/'
+// export const BNB_MAINNET = 'https://bsc-dataseed2.ninicoin.io/'
+// export const BNB_MAINNET = 'https://bsc-dataseed3.ninicoin.io/'
+// export const BNB_MAINNET = 'https://bsc-dataseed4.ninicoin.io/'
+
+// export const BNB_MAINNET = 'https://bsc-dataseed1.binance.org/'
+// export const BNB_MAINNET = 'https://bsc-dataseed2.binance.org/'
+// export const BNB_MAINNET = 'https://bsc-dataseed3.binance.org/'
+// export const BNB_MAINNET = 'https://bsc-dataseed4.binance.org/'
 export const BNB_MAIN_CHAINID = 56
 export const BNB_MAIN_EXPLORER = 'https://bscscan.com'
 
@@ -75,7 +85,7 @@ export const DEV_TESTNET = 'https://rpc.testnet.moonbeam.network'
 export const DEV_TEST_CHAINID = 1287
 export const DEV_TEST_EXPLORER = ''
 
-export const TRX_MAINNET = 'https://api.avax.network/ext/bc/C/rpc'
+export const TRX_MAINNET = ''
 export const TRX_MAIN_CHAINID = 'TRX'
 export const TRX_MAIN_EXPLORER = 'https://tronscan.io/#'
 

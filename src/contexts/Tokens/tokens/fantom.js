@@ -1258,6 +1258,54 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x3028b4395f98777123c7da327010c40f3c7cc4ef': { // PREMIA 
+      [NAME]: 'Premia' + config.suffix,
+      [SYMBOL]: 'PREMIA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x4f1c093bc1af4f6dd350e50be9f4adc01e685197',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x4792c1ecb969b036eb51330c63bd27899a13d84e': { // BTD 
+      [NAME]: 'Bat True Dollar' + config.suffix,
+      [SYMBOL]: 'BTD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x7817956a7c92690120004ba3de1a77426f2e86aa',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x4b3B4120d4D7975455d8C2894228789c91a247F8',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     
   }
 }

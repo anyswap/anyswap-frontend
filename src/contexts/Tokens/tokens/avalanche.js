@@ -189,5 +189,29 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xbbc4a8d076f4b1888fec42581b6fc58d242cf2d5': { // BCP
+      [NAME]: 'BitcashPay',
+      [SYMBOL]: config.prefix + 'BCP ',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xa600ba777db67fac3f8c9dbc8b0fa1f55c743b84',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }
