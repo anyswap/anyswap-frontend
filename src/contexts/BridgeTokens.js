@@ -1388,7 +1388,7 @@ export default {
       [TOKEN]: '0x3A8cCCB969a61532d1E6005e2CE12C200caeCe87',
       [DECIMALS]: 18
     },
-    'BCP ': {
+    'BCP(BitcashPay)': {
       [NAME]: 'BitcashPay',
       [TOKEN]: '0xe047705117Eb07e712C3d684f5B18E74577e83aC',
       [DECIMALS]: 8

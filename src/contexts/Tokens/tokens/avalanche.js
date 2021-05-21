@@ -191,7 +191,7 @@ export default {
     },
     '0xbbc4a8d076f4b1888fec42581b6fc58d242cf2d5': { // BCP
       [NAME]: 'BitcashPay',
-      [SYMBOL]: config.prefix + 'BCP ',
+      [SYMBOL]: config.prefix + 'BCP(BitcashPay)',
       [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0xa600ba777db67fac3f8c9dbc8b0fa1f55c743b84',
       [REDEEM_MAX_NUM]: 200000,
