@@ -8,6 +8,7 @@ import Web3Status from '../Web3Status'
 // import { darken } from 'polished'
 import { useTranslation } from 'react-i18next'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
+import { useNetworkModalToggle, useNetworkModalOpen } from '../../contexts/Application'
 
 import config from '../../config'
 import {ReactComponent as ANYLogo} from '../../assets/images/logo.svg'
@@ -22,6 +23,7 @@ import { createBrowserHistory } from 'history'
 import {chainList} from '../../config/coinbase/nodeConfig'
 import TokenLogo from '../TokenLogo'
 import Modal from '../Modal'
+
 
 // import web3Fn from '../../utils/web3'
 
@@ -301,8 +303,11 @@ font-family: 'Manrope';
 export default function Header() {
   const { t } = useTranslation()
   const [isDark, toggleDarkMode] = useDarkModeManager()
-  const [networkView, setNetworkView] = useState(false)
+  // const [networkView, setNetworkView] = useState(false)
   const history = createBrowserHistory()
+
+  const networkView = useNetworkModalOpen()
+  const toggleNetworkModal = useNetworkModalToggle()
   // console.log(window.location)
 
 
@@ -408,13 +413,13 @@ export default function Header() {
     return (
       <Modal
         isOpen={networkView}
-        onDismiss={() => { setNetworkView(false) }}
+        onDismiss={() => { toggleNetworkModal() }}
         minHeight={null}
         maxHeight={300}
       >
         <Wrapper>
           <UpperSection>
-            <CloseIcon onClick={() => {setNetworkView(false)}}>
+            <CloseIcon onClick={() => {toggleNetworkModal()}}>
               <CloseColor alt={'close icon'} />
             </CloseIcon>
             <HeaderRow>
@@ -455,7 +460,7 @@ export default function Header() {
             }
           </HeaderElement>
           <HeaderElement>
-            <NetworkBox onClick={() => {setNetworkView(true)}}>
+            <NetworkBox onClick={() => {toggleNetworkModal()}}>
               {/* <span>{t('onTestnet')}</span> */}
               <TokenLogo address={config.symbol} size={'24px'} style={{marginRight: '10px'}}></TokenLogo>
               {config.networkName} {config.env === 'test' ?  t('testnet') : t('mainnet')}

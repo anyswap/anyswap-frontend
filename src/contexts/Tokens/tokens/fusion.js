@@ -24,6 +24,25 @@ import {dirSwitch} from '../methods/common'
 
 export default {
   [FSN_MAIN_CHAINID]: {
+    '0xed0294dbd2a0e52a09c3f38a09f6e03de2c44fcf': { // CHNG
+      [NAME]: 'ChaingeFinance',
+      [SYMBOL]: 'CHNG',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x4d0caf7bad07667d27ce13cb820c39fb60e9e1b9',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 0.1,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {},
+    },
     '0x0c74199d22f732039e843366a236ff4f61986b32': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',

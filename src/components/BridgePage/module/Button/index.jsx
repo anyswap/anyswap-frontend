@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Deposit from './deposit'
-// import Withdraw from './withdraw'
+import Withdraw from './withdraw'
 import Send from './send'
 
 import { useWeb3React } from '../../../../hooks'
@@ -42,7 +42,7 @@ export default function BridgeButton ({
   } else if (type === 'withdraw') {
     ButtonView = (
       <>
-        {/* <Withdraw
+        <Withdraw
           selectToken={selectToken}
           dec={dec}
           inputVaule={inputVaule}
@@ -50,7 +50,7 @@ export default function BridgeButton ({
           isDisabled={isDisabled}
           receiveAddress={receiveAddress}
           srcChain={srcChain}
-        /> */}
+        />
       </>
     )
   } else if (type === 'send') {

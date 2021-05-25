@@ -1,4 +1,5 @@
 import {formatCoin} from '../../../utils/tools'
+import config from '../../../config'
 
 export function isSpecialCoin (coin) {
   if (formatCoin(coin) === 'BTC') {
@@ -10,4 +11,27 @@ export function isSpecialCoin (coin) {
   } else {
     return 0
   }
+}
+
+export function formatLabel (name, chainId) {
+  name = name.replace(config.namePrefix, '').replace(config.suffix, '')
+
+  if (chainId) {
+    if (Number(chainId) === 1 && name.indexOf('Ethereum') === -1) {
+      if (name === 'Frapped USDT') {
+        name = 'Tether-ERC20'
+      } else {
+        name = name + '-ERC20'
+      }
+    } else if (Number(chainId) === 56) {
+      name = name + '-BEP20'
+    } else if (Number(chainId) === 128) {
+      name = name + '-HECO'
+    } else if (Number(chainId) === 250) {
+      name = name + '-FRC20'
+    } else if (Number(chainId) === 32659) {
+      name = name + '(Fusion)'
+    }
+  }
+  return name
 }

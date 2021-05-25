@@ -229,6 +229,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x04068da6c83afcfa0e13ba15a6696662335d5b75': { // USDC
+      [NAME]: 'USD Coin' + config.suffix,
+      [SYMBOL]: 'USDC',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x4ae30b4d12c356aa53694e439a71c6cbafa0a493',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xC564EE9f21Ed8A2d8E7e76c085740d5e4c5FaFbE',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     '0xbcacf1c62202a07e6107f250b788b10677045833': { // LTC 5
       [NAME]: 'Litecoin' + config.suffix,
       [SYMBOL]: 'anyLTC',

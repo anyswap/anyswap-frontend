@@ -6,9 +6,11 @@ import { safeAccess } from '../utils'
 const BLOCK_NUMBER = 'BLOCK_NUMBER'
 const USD_PRICE = 'USD_PRICE'
 const WALLET_MODAL_OPEN = 'WALLET_MODAL_OPEN'
+const NETWORK_MODAL_OPEN = 'NETWORK_MODAL_OPEN'
 
 const UPDATE_BLOCK_NUMBER = 'UPDATE_BLOCK_NUMBER'
 const TOGGLE_WALLET_MODAL = 'TOGGLE_WALLET_MODAL'
+const TOGGLE_NETWORK_MODAL = 'TOGGLE_NETWORK_MODAL'
 
 const ApplicationContext = createContext()
 
@@ -32,6 +34,11 @@ function reducer(state, { type, payload }) {
     case TOGGLE_WALLET_MODAL: {
       return { ...state, [WALLET_MODAL_OPEN]: !state[WALLET_MODAL_OPEN] }
     }
+
+    case TOGGLE_NETWORK_MODAL: {
+      return { ...state, [NETWORK_MODAL_OPEN]: !state[NETWORK_MODAL_OPEN] }
+    }
+
     default: {
       throw Error(`Unexpected action type in ApplicationContext reducer: '${type}'.`)
     }
@@ -42,7 +49,8 @@ export default function Provider({ children }) {
   const [state, dispatch] = useReducer(reducer, {
     [BLOCK_NUMBER]: {},
     [USD_PRICE]: {},
-    [WALLET_MODAL_OPEN]: false
+    [WALLET_MODAL_OPEN]: false,
+    [NETWORK_MODAL_OPEN]: false
   })
 
   const updateBlockNumber = useCallback((networkId, blockNumber) => {
@@ -52,13 +60,18 @@ export default function Provider({ children }) {
   const toggleWalletModal = useCallback(() => {
     dispatch({ type: TOGGLE_WALLET_MODAL })
   }, [])
+  
+  const toggleNetworkModal = useCallback(() => {
+    dispatch({ type: TOGGLE_NETWORK_MODAL })
+  }, [])
 
   return (
     <ApplicationContext.Provider
-      value={useMemo(() => [state, { updateBlockNumber, toggleWalletModal }], [
+      value={useMemo(() => [state, { updateBlockNumber, toggleWalletModal, toggleNetworkModal }], [
         state,
         updateBlockNumber,
-        toggleWalletModal
+        toggleWalletModal,
+        toggleNetworkModal
       ])}
     >
       {children}
@@ -122,4 +135,16 @@ export function useWalletModalToggle() {
   const [, { toggleWalletModal }] = useApplicationContext()
 
   return toggleWalletModal
+}
+
+export function useNetworkModalOpen() {
+  const [state] = useApplicationContext()
+
+  return state[NETWORK_MODAL_OPEN]
+}
+
+export function useNetworkModalToggle() {
+  const [, { toggleNetworkModal }] = useApplicationContext()
+
+  return toggleNetworkModal
 }

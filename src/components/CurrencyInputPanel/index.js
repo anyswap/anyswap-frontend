@@ -262,6 +262,7 @@ export const CloseIcon = styled.div`
 export const SearchContainer = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   justify-content: flex-start;
+  align-items:center;
   min-height: 2.5rem;
   padding: 0 1rem;
   border-radius: 0.5625rem;
@@ -270,6 +271,9 @@ export const SearchContainer = styled.div`
   overflow:hidden;
   box-sizing: border-box;
   margin-bottom: 1.25rem;
+  img {
+    max-height: 28px
+  }
 `
 
 export const StyledBorderlessInput = styled(BorderlessInput)`

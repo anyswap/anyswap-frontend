@@ -295,6 +295,42 @@ let chainInfo = {
     label: 'ARBITRUM_TEST',
     isSwitch: 1
   },
+  'BTC': {
+    rpc: '',
+    chainID: 'BTC',
+    lookHash: '',
+    lookAddr: '',
+    explorer: '',
+    symbol: 'BTC',
+    name: 'Bitcoin',
+    type: 'main',
+    label: '',
+    isSwitch: 1
+  },
+  'LTC': {
+    rpc: '',
+    chainID: 'LTC',
+    lookHash: '',
+    lookAddr: '',
+    explorer: '',
+    symbol: 'Litecoin',
+    name: 'Bitcoin',
+    type: 'main',
+    label: '',
+    isSwitch: 1
+  },
+  'BLOCK': {
+    rpc: '',
+    chainID: 'BLOCK',
+    lookHash: '',
+    lookAddr: '',
+    explorer: '',
+    symbol: 'BLOCK',
+    name: 'Blocknet',
+    type: 'main',
+    label: '',
+    isSwitch: 1
+  },
 }
 
 let chainList = {

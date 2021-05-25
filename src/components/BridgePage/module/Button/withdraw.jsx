@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import {buildSwapoutData, signSwapoutData, Status} from 'anyswapsdk'
+import {buildSwapoutData, signSwapoutData, Status, isAddress} from 'anyswapsdk'
 
 import { Button } from '../../../../theme'
 
@@ -46,8 +46,6 @@ export default function BridgeWithdraw ({
   
   const [isIntervalDisabled, setIsIntervalDisableed] = useState(false)
 
-  // const tokenETHContract = useSwapTokenContract(selectToken, swapETHABI)
-
   const btnDisabled = useMemo(() => {
     if (isIntervalDisabled && isDisabled) {
       return false
@@ -58,8 +56,7 @@ export default function BridgeWithdraw ({
 
   const bridgeWithdraw = useCallback(() => {
     if (
-      (isSpecialCoin(cointype) && !isBTCAddress(receiveAddress, cointype))
-      || (srcChain === 'TRX' && !isTRXAddress(receiveAddress))
+      !isAddress(receiveAddress, srcChain)
     ) {
       alert('Illegal address!')
       return
@@ -78,13 +75,14 @@ export default function BridgeWithdraw ({
     const formatAddress = srcChain === 'TRX' ? toHexAddress(receiveAddress) : receiveAddress
     const token = selectToken
     // console.log(formatAddress)
+    const params = {value: amountVal, address: formatAddress, token: token, srcChain: srcChain}
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
       setHardwareTxnsInfo(amountFormatter(amountVal, dec, dec) + " "  + cointype)
       
       // let web3Contract = getWeb3ConTract(swapETHABI, token)
-      const data = buildSwapoutData({value: amountVal, address: formatAddress, token: token, srcChain: srcChain})
+      const data = buildSwapoutData(params)
       getWeb3BaseInfo(token, data, account).then(res => {
         if (res.msg === 'Success') {
           onCallback('Success', res.info, amountVal, formatAddress, srcChain)
@@ -95,7 +93,7 @@ export default function BridgeWithdraw ({
       return
     }
 
-    signSwapoutData({value: amountVal, address: formatAddress, token: token, srcChain: srcChain}).then(res => {
+    signSwapoutData(params).then(res => {
       if (res.msg === Status.Success) {
         onCallback('Success', res.info, amountVal, formatAddress, srcChain)
       } else {
