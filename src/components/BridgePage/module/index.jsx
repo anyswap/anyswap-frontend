@@ -118,7 +118,7 @@ export default function BridgeViews ({
 
       {bridgeType && bridgeType === 'swapout' ? (
           <>
-            <AddressInputPanel title={t('recipient') + ' ' + (useToken && useToken.symbol ? useToken.symbol : '')  + ' ' + t('address')} onChange={setRecipient} initialInput={recipient} isValid={true} disabled={false}/>
+            <AddressInputPanel title={t('recipient') + ' ' + (useToken && useToken.symbol ? useToken.symbol : '')  + ' ' + t('address')} onChange={setRecipient} initialInput={recipient} onError={() => {}} isValid={true} disabled={false}/>
           </>
         ) : ''
       }
