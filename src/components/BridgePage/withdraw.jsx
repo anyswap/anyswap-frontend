@@ -159,7 +159,7 @@ export default function SpecialWithdraw() {
 
   useEffect(() => {
     getDislineInfo(account, chainId).then(res => {
-      // console.log(res)
+      console.log(res)
       if (res.msg === 'Success') {
         setTokenlist(res.info)
         if (!selectToken) {
@@ -235,6 +235,7 @@ export default function SpecialWithdraw() {
           <TokenListBox style={{marginTop: '40px'}}>
             {
               Object.keys(tokenlist).map(tokenEntryKey => {
+                if (!isAddress(tokenEntryKey)) return ''
                 return (
                   <TokenModalRow key={tokenEntryKey} onClick={() => {
                     setSelectToken(tokenEntryKey)
