@@ -75,8 +75,10 @@ const StyledBirdgeIcon = styled.div`
 `
 
 function formatOutName (name, srcChainId) {
+  console.log(name)
   name = name.replace(config.namePrefix, '').replace(config.suffix, '')
-
+  const n = name.split('-')
+  name = n[0]
   if (srcChainId) {
     if (Number(srcChainId) === 1 && name.indexOf('Ethereum') === -1) {
       if (name === 'Frapped USDT') {
