@@ -25,6 +25,7 @@ export const BNB_TEST_EXPLORER = 'https://testnet.bscscan.com'
 // export const FSN_MAINNET = 'https://fsnmainnet2.anyswap.exchange'
 export const FSN_MAINNET = 'https://mainnet.anyswap.exchange'
 export const FSN_MAINNET1 = 'https://mainnet.anyswap.exchange'
+// export const FSN_MAINNET = 'https://fsnmainnet3.anyswwap.exchange'
 export const FSN_MAIN_CHAINID = 32659
 export const FSN_MAIN_EXPLORER = 'https://fsnex.com'
 

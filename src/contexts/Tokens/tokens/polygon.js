@@ -287,5 +287,29 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xacd7b3d9c10e97d0efa418903c0c7669e702e4c0': { // ELE
+      [NAME]: 'Eleven.finance',
+      [SYMBOL]: 'ELE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x91e17a6aa559da5d48825e05ede9bcea65f330c2',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

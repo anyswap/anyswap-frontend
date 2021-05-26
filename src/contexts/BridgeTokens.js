@@ -1686,6 +1686,11 @@ export default {
       [NAME]: 'DFD',
       [TOKEN]: '0x9899a98b222fcb2f3dbee7df45d943093a4ff9ff',
       [DECIMALS]: 18
+    },
+    'ELE': {
+      [NAME]: 'ELE',
+      [TOKEN]: '0xacd7b3d9c10e97d0efa418903c0c7669e702e4c0',
+      [DECIMALS]: 18
     }
   },
   128: {
