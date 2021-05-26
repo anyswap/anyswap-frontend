@@ -76,13 +76,13 @@ export default function SelectCurrency ({
   useEffect(() => {
     if (!selectChain && useToken.list) {
       for (const item of useToken.list) {
-        const curChainId = bridgeType === 'swapin' ? item.destChainID : item.srcChainID
+        const curChainId = item.destChainID
         // console.log(curChainId)
         onSelectedChain(curChainId)
         break
       }
     }
-  }, [useToken, selectChain, onSelectedChain, bridgeType])
+  }, [useToken, selectChain, onSelectedChain])
 
   const chainList = useMemo(() => {
     if (useToken && useToken.list && useToken.list.length > 0) {
@@ -116,8 +116,8 @@ export default function SelectCurrency ({
             {
               // Object.keys(tokenList).map(tokenEntryKey => {
               chainList.map((item, index) => {
-                const curChainId = bridgeType === 'swapin' ? item.destChainID : item.srcChainID
-                const curToken = bridgeType === 'swapin' ? item.DestToken.ContractAddress : item.SrcToken.ContractAddress
+                const curChainId = item.destChainID
+                const curToken = item.DestToken.ContractAddress
                 return (
                   <TokenModalRow key={index} onClick={() => {
                     onSelectedChain(curChainId)

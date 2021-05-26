@@ -314,8 +314,8 @@ let chainInfo = {
     lookHash: '',
     lookAddr: '',
     explorer: '',
-    symbol: 'Litecoin',
-    name: 'Bitcoin',
+    symbol: 'LTC',
+    name: 'Litecoin',
     type: 'main',
     label: '',
     isSwitch: 1
