@@ -41,6 +41,7 @@ import polygon from './tokens/polygon'
 import xDAI from './tokens/xDAI'
 import avalanche from './tokens/avalanche'
 import moonbase from './tokens/moonbase'
+import harmony from './tokens/harmony'
 
 
 const UPDATE = 'UPDATE'
@@ -78,7 +79,8 @@ export const INITIAL_TOKENS_CONTEXT = {
   ...polygon,
   ...xDAI,
   ...avalanche,
-  ...moonbase
+  ...moonbase,
+  ...harmony
 }
 
 const TokensContext = createContext()

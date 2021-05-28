@@ -94,6 +94,8 @@ function formatOutName (name, srcChainId) {
       name = name + '-FRC20'
     } else if (Number(srcChainId) === 32659) {
       name = name + '(Fusion)'
+    } else if (Number(srcChainId) === 1666600000) {
+      name = name + '(Harmony)'
     }
   }
   // console.log(name)

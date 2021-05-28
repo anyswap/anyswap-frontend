@@ -36,7 +36,7 @@ const Tx  = require("ethereumjs-tx")
 //   //     console.log(res)
 //   //   })
 //   // }
-//   const token = '0xacd7b3d9c10e97d0efa418903c0c7669e702e4c0'
+//   const token = '0x03732a1b4297ec285999402a9129cfad62a65463'
 //   factory.methods.getExchange(token).call((err, res) => {
 //     console.log('token:' + token)
 //     if (err) {
@@ -58,7 +58,7 @@ const CUR_TOKEN = INITIAL_TOKENS_CONTEXT[config.chainID]
 // console.log(CUR_TOKEN)
 
 
-// console.log(web3.eth.accounts.recoverTransaction('0xf8763b844190ab008301ec309406cadd991f2ec8e156c0ae66116c5604fdcdc5b592313030303030303030303030303030303030802ba02f22fa4a0876de138c096496a6500e8489c44757ad1d5fa64510ba21191ece49a051a30d66a9accbe384bf56bc461d1630ecb2b46e96af310e46b96dd2955b345b'))
+
 let mmWeb3
 if (typeof window.ethereum !== 'undefined'|| (typeof window.web3 !== 'undefined')) {
   // Web3 browser user detected. You can now use the provider.
@@ -336,7 +336,8 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage, node) {
     (coin === 'FSN' && (node === 32659 || node === 46688)) ||
     (coin === 'BNB' && (node === 97 || node === 56)) ||
     (coin === 'HT' && (node === 128 || node === 256)) ||
-    (coin === 'FTM' && (node === 250))
+    (coin === 'FTM' && (node === 250)) ||
+    (coin === 'ONE' && (node === 1666600000))
   ) {
     isBridgeBaseCoin = true
   }

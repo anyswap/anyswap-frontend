@@ -311,5 +311,77 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xf480f38c366daac4305dc484b2ad7a496ff00cea': { // GTON
+      [NAME]: 'Graviton',
+      [SYMBOL]: 'GTON',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x9da1214c5152994a870033d1881ea90c21235aa6',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x668b9734FfE9eE8a01d4Ade3362De71E8989EA87',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x3405a1bd46b85c5c029483fbecf2f3e611026e45': { // BTD
+      [NAME]: 'Bat True Dollar',
+      [SYMBOL]: 'BTD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xb108c1cf59b30801c805e1b76fc2497cc5998082',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x6b7a87899490ece95443e979ca9485cbe7e71522': { // ONE
+      [NAME]: 'Harmony',
+      [SYMBOL]: 'ONE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1b8d25143706a94471a9b08f753dc4215811a40a',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x49d1ACc5695e7bBCFFd6063974Cd8ceca5Aa8b69',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1666600000, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

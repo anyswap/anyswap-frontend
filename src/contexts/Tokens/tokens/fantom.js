@@ -1354,6 +1354,29 @@ export default {
         VERSION: 'V2'
       }
     },
-    
+    '0xbbc4a8d076f4b1888fec42581b6fc58d242cf2d5': { // FONT 
+      [NAME]: 'Font' + config.suffix,
+      [SYMBOL]: 'FONT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xc194f68bfcc8dcb507ff54461e8ce24a15c87719',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }

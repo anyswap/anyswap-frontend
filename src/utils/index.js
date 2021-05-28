@@ -122,34 +122,6 @@ export function checkSupportedTheme(themeName) {
   return null
 }
 
-export function getNetworkName(networkId) {
-  switch (networkId) {
-    case 1: {
-      return 'the Main Etherscan Network'
-    }
-    case 3: {
-      return 'the Ropsten Test Network'
-    }
-    case 4: {
-      return 'the Rinkeby Test Network'
-    }
-    case 5: {
-      return 'the Görli Test Network'
-    }
-    case 32659: {
-      return 'the Main Fusion Network'
-    }
-    case 46688: {
-      return 'the Fusion Test Network'
-    }
-    case 42: {
-      return 'the Kovan Test Network'
-    }
-    default: {
-      return 'the correct network'
-    }
-  }
-}
 
 export function shortenAddress(address, digits = 4) {
   if (!isAddress(address)) {

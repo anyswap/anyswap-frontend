@@ -152,6 +152,7 @@ function getOutTokenBalance (chainId, account, tokenList) {
         || (coin === 'BNB' && (chainId === 56 || chainId === 97))
         || (coin === 'HT' && (chainId === 128 || chainId === 256))
         || (coin === 'FTM' && (chainId === 250))
+        || (coin === 'ONE' && (chainId === 1666600000))
       ) {
         isHaveoutBaseCoin = false
         batch.add(web3.eth.getBalance.request(account, 'latest', (err, res) => {

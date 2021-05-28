@@ -31,6 +31,8 @@ export function formatLabel (name, chainId) {
       name = name + '-FRC20'
     } else if (Number(chainId) === 32659) {
       name = name + '(Fusion)'
+    } else if (Number(chainId) === 1666600000) {
+      name = name + '(Harmony)'
     }
   }
   return name

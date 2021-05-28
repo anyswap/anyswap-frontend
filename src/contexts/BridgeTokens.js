@@ -1628,6 +1628,51 @@ export default {
       [TOKEN]: '0xdb25f211ab05b1c97d595516f45794528a807ad8',
       [DECIMALS]: 2
     },
+    'LABS': {
+      [NAME]: 'LABS',
+      [TOKEN]: '0x8b0e42f366ba502d787bb134478adfae966c8798',
+      [DECIMALS]: 18
+    },
+    'GMEE': {
+      [NAME]: 'GMEE',
+      [TOKEN]: '0xd9016a907dc0ecfa3ca425ab20b6b785b42f2373',
+      [DECIMALS]: 18
+    },
+    'SHO': {
+      [NAME]: 'SHO',
+      [TOKEN]: '0xCc0014cCb39F6e86b1BE0f17859A783B6722722F',
+      [DECIMALS]: 18
+    },
+    'DEXT': {
+      [NAME]: 'DEXT',
+      [TOKEN]: '0x26ce25148832c04f3d7f26f32478a9fe55197166',
+      [DECIMALS]: 18
+    },
+    'FONT': {
+      [NAME]: 'FONT',
+      [TOKEN]: '0x4c25bdf026ea05f32713f00f73ca55857fbf6342',
+      [DECIMALS]: 18
+    },
+    'ORME': {
+      [NAME]: 'ORME',
+      [TOKEN]: '0xc96df921009b790dffca412375251ed1a2b75c60',
+      [DECIMALS]: 8
+    },
+    'METRIC': {
+      [NAME]: 'METRIC',
+      [TOKEN]: '0xefc1c73a3d8728dc4cf2a18ac5705fe93e5914ac',
+      [DECIMALS]: 18
+    },
+    'MIX': {
+      [NAME]: 'MIX',
+      [TOKEN]: '0x5d285f735998f36631f678ff41fb56a10a4d0429',
+      [DECIMALS]: 18
+    },
+    'DSLA': {
+      [NAME]: 'DSLA',
+      [TOKEN]: '0x3affcca64c2a6f4e3b6bd9c64cd2c969efd1ecbe',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -1690,6 +1735,11 @@ export default {
     'ELE': {
       [NAME]: 'ELE',
       [TOKEN]: '0xacd7b3d9c10e97d0efa418903c0c7669e702e4c0',
+      [DECIMALS]: 18
+    },
+    'SFUND': {
+      [NAME]: 'SFUND',
+      [TOKEN]: '0x477bc8d23c634c154061869478bce96be6045d12',
       [DECIMALS]: 18
     }
   },
@@ -1780,5 +1830,8 @@ export default {
       [TOKEN]: 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t',
       [DECIMALS]: 6
     },
+  },
+  '1666600000': {
+    
   }
 }

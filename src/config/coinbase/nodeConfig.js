@@ -1,8 +1,8 @@
 const navLang = navigator.language
 
 export const BNB_MAINNET1 = 'https://bsc-dataseed1.binance.org/'
-export const BNB_MAINNET = 'https://bsc-dataseed2.defibit.io/'
-// export const BNB_MAINNET = 'https://bsc-dataseed3.defibit.io/'
+// export const BNB_MAINNET = 'https://bsc-dataseed2.defibit.io/'
+export const BNB_MAINNET = 'https://bsc-dataseed3.defibit.io/'
 // export const BNB_MAINNET = 'https://bsc-dataseed4.defibit.io/'
 
 // export const BNB_MAINNET = 'https://bsc-dataseed1.ninicoin.io/'
@@ -89,7 +89,23 @@ export const TRX_MAINNET = ''
 export const TRX_MAIN_CHAINID = 'TRX'
 export const TRX_MAIN_EXPLORER = 'https://tronscan.io/#'
 
+export const ONE_MAINNET = 'https://api.harmony.one'
+export const ONE_MAIN_CHAINID = 1666600000
+export const ONE_MAIN_EXPLORER = 'https://explorer.harmony.one/#'
+
 let chainInfo = {
+  [ONE_MAIN_CHAINID]: {
+    rpc: ONE_MAINNET,
+    chainID: ONE_MAIN_CHAINID,
+    lookHash: ONE_MAIN_EXPLORER + '/tx/',
+    lookAddr: ONE_MAIN_EXPLORER + '/address/',
+    explorer: ONE_MAIN_EXPLORER,
+    symbol: 'ONE',
+    name: 'Harmony',
+    type: 'main',
+    label: 'ONE_MAIN',
+    isSwitch: 1
+  },
   [OKT_MAIN_CHAINID]: {
     rpc: OKT_MAINNET,
     chainID: OKT_MAIN_CHAINID,
@@ -343,6 +359,7 @@ let chainList = {
     chainInfo[MATIC_MAIN_CHAINID],
     chainInfo[xDAI_MAIN_CHAINID],
     chainInfo[AVAX_MAIN_CHAINID],
+    chainInfo[ONE_MAIN_CHAINID],
     // chainInfo[OKT_MAIN_CHAINID]
   ],
   test: [
