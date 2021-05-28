@@ -1,5 +1,7 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import {isAddress} from 'anyswapsdk'
+import { ethers } from 'ethers'
 import { useWeb3React } from '../../../hooks'
 
 import Title from '../../Title'
@@ -11,9 +13,12 @@ import {
 
 import ResertSvg from '../../../assets/images/icon/revert.svg'
 
+import {formatDecimal} from '../../../utils/tools'
+
 import SelectToken from './SelectToken'
 import SelectChain from './SelectChain'
 import BridgeButton from './Button'
+import Reminder from './Reminder'
 
 export default function BridgeViews ({
   onSelectBridge = () => {},
@@ -25,13 +30,23 @@ export default function BridgeViews ({
 
   const [selectToken, setSelectToken] = useState('')
   const [selectChain, setSelectChain] = useState('')
+  const [selectChainInfo, setSelectChainInfo] = useState('')
   const [modalView, setModalView] = useState(false)
   const [bridgeType, setBridgeType] = useState(initBridgeType)
   const [value, setValue] = useState('')
+  const [isError, setIsError] = useState(0) // 0：初始；1：正确；2：错误
   const [recipient, setRecipient] = useState({
     address: '',
     name: ''
   })
+  // console.log(selectToken)
+  const dec = selectChainInfo ? selectChainInfo.SrcToken.Decimals : ''
+  const inputVaule = useMemo(() => {
+    if (value && dec) {
+      return ethers.utils.parseUnits(value.toString(), dec)
+    }
+    return '0x0'
+  }, [value, dec])
 
   const useToken = useMemo(() => {
     if (selectToken && tokenList) {
@@ -42,18 +57,52 @@ export default function BridgeViews ({
   }, [selectToken, tokenList])
 
   const outValue = useMemo(() => {
-    if (value) {
+    if (value && selectChainInfo) {
+      
+      const val = Number(value)
+      const fee = Number(selectChainInfo.SrcToken.SwapFeeRate) * value
+      const maxFee = Number(selectChainInfo.SrcToken.MaximumSwapFee)
+      const minFee = Number(selectChainInfo.SrcToken.MinimumSwapFee)
 
+      const maxNum = Number(selectChainInfo.SrcToken.MaximumSwap)
+      const minNum = Number(selectChainInfo.SrcToken.MinimumSwap)
+      if (maxNum < val || minNum > val) {
+        setIsError(2)
+        return ''
+      } else {
+        setIsError(1)
+        if (fee > maxFee) {
+          return formatDecimal(val - maxFee, dec)
+        } else if (fee < minFee) {
+          return formatDecimal(val - minFee, dec)
+        } else {
+          return formatDecimal(val - fee, dec)
+        }
+      }
     } else {
+      setIsError(0)
       return ''
     }
-  }, [value])
+  }, [value, selectChainInfo, dec])
+
+  const isDisabled = useMemo(() => {
+    if (
+      (isError === 1 && recipient.address && isAddress(recipient.address, selectChain) && bridgeType === 'swapout')
+      || (isError === 1 && bridgeType === 'swapin')
+    ) {
+      return false
+    } else {
+      return true
+    }
+  }, [isError, recipient, selectChain, bridgeType])
 
   function changeTab (type) {
     setBridgeType(type)
     onSelectBridge(type)
     setSelectToken('')
     setSelectChain('')
+    setSelectChainInfo('')
+    setValue('')
   }
 
   return (
@@ -88,6 +137,7 @@ export default function BridgeViews ({
         onSelectedToken={token => {
           setSelectToken(token)
           setSelectChain('')
+          setSelectChainInfo('')
         }}
         onToggleModal={val => {
           setModalView(val)
@@ -95,6 +145,7 @@ export default function BridgeViews ({
         value={value}
         selectToken={selectToken}
         modalView={modalView}
+        isError={isError}
       ></SelectToken>
 
       <OversizedPanel>
@@ -111,9 +162,13 @@ export default function BridgeViews ({
         onSelectedChain={chainID => {
           setSelectChain(chainID)
         }}
+        onSelectedChainInfo={data => {
+          setSelectChainInfo(data)
+        }}
         onOpenTokenModal={val => {
           setModalView(val)
         }}
+        value={outValue}
       ></SelectChain>
 
       {bridgeType && bridgeType === 'swapout' ? (
@@ -123,9 +178,20 @@ export default function BridgeViews ({
         ) : ''
       }
 
+      <Reminder
+        bridgeType={bridgeType}
+        bridgeConfig={selectChainInfo}
+      ></Reminder>
+
       <BridgeButton
-        type="withdraw"
-        isDisabled={true}
+        bridgeType={bridgeType}
+        isDisabled={isDisabled}
+        inputVaule={inputVaule}
+        symbol={useToken?.symbol}
+        receiveAddress={recipient.address}
+        destChain={selectChain}
+        dec={dec}
+        selectToken={selectToken}
       />
     </>
   )

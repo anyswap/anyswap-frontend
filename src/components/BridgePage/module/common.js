@@ -14,7 +14,7 @@ export function isSpecialCoin (coin) {
 }
 
 export function formatLabel (name, chainId) {
-  name = name.replace(config.namePrefix, '').replace(config.suffix, '')
+  name = name === config.namePrefix || name === config.suffix ? name : name.replace(config.namePrefix, '').replace(config.suffix, '')
 
   if (chainId) {
     if (Number(chainId) === 1 && name.indexOf('Ethereum') === -1) {

@@ -56,7 +56,6 @@ export const HT_TESTNET = 'https://http-testnet.hecochain.com'
 export const HT_TEST_CHAINID = 256
 export const HT_TEST_EXPLORER = 'https://testnet.hecoinfo.com'
 
-// export const OKT_TESTNET = 'http://13.230.73.12:8545'
 export const OKT_TESTNET = 'https://oktestrpc.anayswap.exchange'
 export const OKT_TEST_CHAINID = 2
 export const OKT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'

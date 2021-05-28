@@ -1,25 +1,17 @@
 import React, {useCallback, useMemo, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import {buildSwapoutData, signSwapoutData, Status, isAddress} from 'anyswapsdk'
+import {buildSwapoutData, signSwapoutData, Status, isAddress, toHexAddress} from 'anyswapsdk'
 
 import { Button } from '../../../../theme'
 
-
 import config from '../../../../config'
-// import {formatCoin, formatDecimal, thousandBit} from '../../utils/tools'
-import {getWeb3ConTract, getWeb3BaseInfo} from '../../../../utils/web3/txns'
-import {isBTCAddress} from '../../../../utils/birdge/BTC'
-import {sendTRXTxns, isTRXAddress, toHexAddress} from '../../../../utils/birdge/TRX'
 
-// import swapBTCABI from '../../../../constants/abis/swapBTCABI'
-// import swapETHABI from '../../../../constants/abis/swapETHABI'
-
-import {isSpecialCoin} from '../common'
+import {getWeb3BaseInfo} from '../../../../utils/web3/txns'
 
 import BirdgeIcon from '../../../../assets/images/icon/bridge-white.svg'
 
-import { useWeb3React, useSwapTokenContract } from '../../../../hooks'
+import { useWeb3React } from '../../../../hooks'
 
 
 
@@ -30,24 +22,25 @@ const StyledBirdgeIcon = styled.div`
   }
 `
 
-export default function BridgeWithdraw ({
+export default function SwapoutView ({
   selectToken,
   dec,
   inputVaule,
-  cointype,
+  symbol,
   isDisabled,
   receiveAddress,
-  srcChain,
+  destChain,
   onCallback = () => {}
 }) {
   const { account } = useWeb3React()
   const { t } = useTranslation()
-
+  const walletType = sessionStorage.getItem('walletType')
   
-  const [isIntervalDisabled, setIsIntervalDisableed] = useState(false)
+  const [isIntervalDisabled, setIsIntervalDisableed] = useState(true)
 
   const btnDisabled = useMemo(() => {
-    if (isIntervalDisabled && isDisabled) {
+    // console.log(isDisabled)
+    if (isIntervalDisabled && !isDisabled) {
       return false
     } else {
       return true
@@ -56,7 +49,7 @@ export default function BridgeWithdraw ({
 
   const bridgeWithdraw = useCallback(() => {
     if (
-      !isAddress(receiveAddress, srcChain)
+      !isAddress(receiveAddress, destChain)
     ) {
       alert('Illegal address!')
       return
@@ -67,25 +60,25 @@ export default function BridgeWithdraw ({
       setIsIntervalDisableed(true)
     }, 3000)
     
-    let amountVal = ethers.utils.parseUnits(inputVaule.toString(), dec)
-    if (amountVal.gt(inputBalance)) {
-      amountVal = inputBalance
-    }
+    let amountVal = inputVaule
+    // if (amountVal.gt(inputBalance)) {
+    //   amountVal = inputBalance
+    // }
     amountVal = amountVal.toString()
-    const formatAddress = srcChain === 'TRX' ? toHexAddress(receiveAddress) : receiveAddress
+    const formatAddress = destChain === 'TRX' ? toHexAddress(receiveAddress) : receiveAddress
     const token = selectToken
     // console.log(formatAddress)
-    const params = {value: amountVal, address: formatAddress, token: token, srcChain: srcChain}
+    const params = {value: amountVal, address: formatAddress, token: token, destChain: destChain}
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
       setIsHardwareTip(true)
-      setHardwareTxnsInfo(amountFormatter(amountVal, dec, dec) + " "  + cointype)
+      setHardwareTxnsInfo(amountFormatter(amountVal, dec, dec) + " "  + symbol)
       
       // let web3Contract = getWeb3ConTract(swapETHABI, token)
       const data = buildSwapoutData(params)
       getWeb3BaseInfo(token, data, account).then(res => {
         if (res.msg === 'Success') {
-          onCallback('Success', res.info, amountVal, formatAddress, srcChain)
+          onCallback('Success', res.info, amountVal, formatAddress, destChain)
         } else {
           onCallback('Error', res.error)
         }
@@ -95,12 +88,12 @@ export default function BridgeWithdraw ({
 
     signSwapoutData(params).then(res => {
       if (res.msg === Status.Success) {
-        onCallback('Success', res.info, amountVal, formatAddress, srcChain)
+        onCallback('Success', res.info, amountVal, formatAddress, destChain)
       } else {
-        onCallback('Error', err)
+        onCallback('Error', res.error)
       }
     })
-  }, [cointype, account, dec, inputVaule, btnDisabled, receiveAddress, srcChain, onCallback, selectToken])
+  }, [symbol, account, dec, inputVaule, btnDisabled, receiveAddress, destChain, onCallback, selectToken, walletType])
 
   return (
     <Button disabled={btnDisabled} onClick={() => {bridgeWithdraw()}}>

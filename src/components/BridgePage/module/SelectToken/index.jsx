@@ -60,13 +60,13 @@ export default function SelectToken ({
   onToggleModal = () => {},
   value = '',
   selectToken,
-  modalView
+  modalView,
+  isError
 }) {
   const { chainId } = useWeb3React()
   const { t } = useTranslation()
   const toggleNetworkModal = useNetworkModalToggle()
 
-  const [errorMessage, setErrorMessage] = useState()
   const [balance, setBalance] = useState()
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -151,7 +151,7 @@ export default function SelectToken ({
           </TokenListBox>
         </TokenModal>
       </Modal>
-      <InputPanel error={!!errorMessage}>
+      <InputPanel error={!!(isError === 2)}>
         <Container>
           <LabelRow>
             <LabelContainer>
@@ -165,7 +165,7 @@ export default function SelectToken ({
               type="number"
               min="0"
               step="0.000000000000000001"
-              error={!!errorMessage}
+              error={!!(isError === 2)}
               placeholder="0.0"
               onChange={e => {
                 onValueChange(e.target.value)
@@ -244,44 +244,6 @@ export default function SelectToken ({
                 <StyledDropDownBox><StyledDropDown selected={!!chainId} /></StyledDropDownBox>
               </Aligner>
             </CurrencySelect>
-            {/* <ErrorSpanBox>
-              <ErrorSpan
-                data-tip={'Enter max'}
-                error={!!errorMessage}
-                onClick={() => {
-                  extraTextClickHander()
-                }}
-              >
-                <Tooltip
-                  label={t('enterMax')}
-                  style={{
-                    background: 'hsla(0, 0%, 0%, 0.75)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '24px',
-                    padding: '0.5em 1em',
-                    marginTop: '-64px'
-                  }}
-                >
-                  <ExtraText>
-                    {balance ? (
-                      <>
-                        <h5>{t('balances')}:</h5>
-                        <p>{balance}</p>
-                      </>
-                    ) : (
-                      <>
-                        <h5>{t('balances')}:</h5>
-                        <p>--</p>
-                      </>
-                    )}
-                    <PasteStyle>
-                      <img src={Paste} alt={''} />
-                    </PasteStyle>
-                  </ExtraText>
-                </Tooltip>
-              </ErrorSpan>
-            </ErrorSpanBox> */}
           </InputRow>
         </Container>
       </InputPanel>

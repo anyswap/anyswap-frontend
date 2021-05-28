@@ -249,5 +249,6 @@
   "approveNoBalance": "The liquidity of the cross chain bridge is insufficient, please try again later. Balance: ",
   "disline": "Delisted",
 
-  "selectChain": "Select Chain"
+  "selectChain": "Select Chain",
+  "CrossChain": "Cross Chain"
 }

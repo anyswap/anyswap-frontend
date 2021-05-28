@@ -247,5 +247,6 @@
   "approveNoBalance": "跨链桥流动性不足，请稍后再试。剩余额度：",
   "disline": "下线",
 
-  "selectChain": "选择网络"
+  "selectChain": "选择网络",
+  "CrossChain": "跨链"
 }

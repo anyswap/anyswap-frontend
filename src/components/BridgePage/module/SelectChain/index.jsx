@@ -55,6 +55,7 @@ export default function SelectCurrency ({
   selectToken,
   selectChain,
   onSelectedChain = () => {},
+  onSelectedChainInfo = () => {},
   onOpenTokenModal = () => {},
   value = '',
   bridgeType
@@ -79,10 +80,11 @@ export default function SelectCurrency ({
         const curChainId = item.destChainID
         // console.log(curChainId)
         onSelectedChain(curChainId)
+        onSelectedChainInfo(item)
         break
       }
     }
-  }, [useToken, selectChain, onSelectedChain])
+  }, [useToken, selectChain, onSelectedChain, onSelectedChainInfo])
 
   const chainList = useMemo(() => {
     if (useToken && useToken.list && useToken.list.length > 0) {
@@ -121,6 +123,7 @@ export default function SelectCurrency ({
                 return (
                   <TokenModalRow key={index} onClick={() => {
                     onSelectedChain(curChainId)
+                    onSelectedChainInfo(item)
                     onCloseModal()
                   }}>
                     <TokenRowLeft title={curToken}>

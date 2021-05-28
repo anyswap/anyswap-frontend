@@ -2,8 +2,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Deposit from './deposit'
-import Withdraw from './withdraw'
-import Send from './send'
+import Swapout from './Swapout'
+import Swapin from './Swapin'
 
 import { useWeb3React } from '../../../../hooks'
 
@@ -16,22 +16,17 @@ import {
 } from '../../../Styled'
 
 export default function BridgeButton ({
-  type,
+  bridgeType,
   selectToken,
-  fee,
-  maxFee,
-  minFee,
-  maxNum,
-  minNum,
   dec,
   inputVaule,
-  cointype,
+  symbol,
   isDisabled,
   receiveAddress,
-  srcChain
+  destChain
 }) {
   const { account } = useWeb3React()
-
+  // console.log(isDisabled)
   const toggleWalletModal = useWalletModalToggle()
   const { t } = useTranslation()
   let ButtonView = ''
@@ -39,23 +34,31 @@ export default function BridgeButton ({
     ButtonView = <Button onClick={toggleWalletModal} >
       {t('connectToWallet')}
     </Button>
-  } else if (type === 'withdraw') {
+  } else if (bridgeType === 'swapout') {
     ButtonView = (
       <>
-        <Withdraw
+        <Swapout
           selectToken={selectToken}
           dec={dec}
           inputVaule={inputVaule}
-          cointype={cointype}
+          symbol={symbol}
           isDisabled={isDisabled}
           receiveAddress={receiveAddress}
-          srcChain={srcChain}
+          destChain={destChain}
         />
       </>
     )
-  } else if (type === 'send') {
+  } else if (bridgeType === 'swapin') {
     ButtonView = (
-      <Send />
+      <Swapin
+        selectToken={selectToken}
+        dec={dec}
+        inputVaule={inputVaule}
+        symbol={symbol}
+        isDisabled={isDisabled}
+        receiveAddress={receiveAddress}
+        destChain={destChain}
+      />
     )
   } else {
     ButtonView = (
