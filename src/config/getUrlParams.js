@@ -8,12 +8,14 @@ import {
   FTM_MAIN_CHAINID,
   HT_MAIN_CHAINID,
   HT_TEST_CHAINID,
+  OKT_MAIN_CHAINID,
   OKT_TEST_CHAINID,
   ARBITRUM_TEST_CHAINID,
   MATIC_MAIN_CHAINID,
   xDAI_MAIN_CHAINID,
   AVAX_MAIN_CHAINID,
-  DEV_TEST_CHAINID
+  DEV_TEST_CHAINID,
+  ONE_MAIN_CHAINID
 } from './coinbase/nodeConfig'
 
 
@@ -53,6 +55,8 @@ function getParamNode (type, INIT_NODE) {
       return chainInfo[HT_MAIN_CHAINID].label
     case 'huobitestnet':
       return chainInfo[HT_TEST_CHAINID].label
+    case 'okb':
+      return chainInfo[OKT_MAIN_CHAINID].label
     case 'okbtest':
       return chainInfo[OKT_TEST_CHAINID].label
     case 'arbitrumtestnet':
@@ -65,6 +69,8 @@ function getParamNode (type, INIT_NODE) {
       return chainInfo[AVAX_MAIN_CHAINID].label
     case 'moonbeamtest':
       return chainInfo[DEV_TEST_CHAINID].label
+    case 'harmony':
+      return chainInfo[ONE_MAIN_CHAINID].label
     default:
       return INIT_NODE
   }

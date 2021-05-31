@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import {isAddress} from 'anyswapsdk'
+import {isAddress, Status} from 'anyswapsdk'
 import { ethers } from 'ethers'
 import { useWeb3React } from '../../../hooks'
+import { useTransactionAdder } from '../../../contexts/Transactions'
 
 import Title from '../../Title'
 import OversizedPanel from '../../OversizedPanel'
@@ -27,6 +28,7 @@ export default function BridgeViews ({
 }) {
   const { account, chainId } = useWeb3React()
   const { t } = useTranslation()
+  const addTransaction = useTransactionAdder()
 
   const [selectToken, setSelectToken] = useState('')
   const [selectChain, setSelectChain] = useState('')
@@ -192,6 +194,14 @@ export default function BridgeViews ({
         destChain={selectChain}
         dec={dec}
         selectToken={selectToken}
+        
+        onCallback={(status, info) => {
+          if (status === Status.Success) {
+            addTransaction(info)
+          } else {
+            alert(info)
+          }
+        }}
       />
     </>
   )

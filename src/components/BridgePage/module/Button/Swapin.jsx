@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-import {buildSwapinData, signSwapinData, Status, isAddress, toHexAddress} from 'anyswapsdk'
+import {buildSwapinData, signSwapinData, Status} from 'anyswapsdk'
 
 import { Button } from '../../../../theme'
 
@@ -66,10 +66,10 @@ export default function BridgeSend ({
       // let web3Contract = getWeb3ConTract(swapETHABI, token)
       const data = buildSwapinData(params)
       getWeb3BaseInfo(token, data, account).then(res => {
-        if (res.msg === 'Success') {
-          onCallback('Success', res.info, amountVal, formatAddress)
+        if (res.msg === Status.Success) {
+          onCallback(Status.Success, res.info, amountVal, formatAddress)
         } else {
-          onCallback('Error', res.error)
+          onCallback(Status.Error, res.error)
         }
       })
       return
@@ -78,9 +78,9 @@ export default function BridgeSend ({
     signSwapinData(params).then(res => {
       console.log(res)
       if (res.msg === Status.Success) {
-        onCallback('Success', res.info, amountVal, formatAddress)
+        onCallback(Status.Success, res.info, amountVal, formatAddress)
       } else {
-        onCallback('Error', res.error)
+        onCallback(Status.Error, res.error)
       }
     })
   }, [symbol, account, dec, inputVaule, btnDisabled, onCallback, selectToken, walletType])

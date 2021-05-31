@@ -77,10 +77,10 @@ export default function SwapoutView ({
       // let web3Contract = getWeb3ConTract(swapETHABI, token)
       const data = buildSwapoutData(params)
       getWeb3BaseInfo(token, data, account).then(res => {
-        if (res.msg === 'Success') {
-          onCallback('Success', res.info, amountVal, formatAddress, destChain)
+        if (res.msg === Status.Success) {
+          onCallback(Status.Success, res.info, amountVal, formatAddress, destChain)
         } else {
-          onCallback('Error', res.error)
+          onCallback(Status.Error, res.error)
         }
       })
       return
@@ -88,9 +88,9 @@ export default function SwapoutView ({
 
     signSwapoutData(params).then(res => {
       if (res.msg === Status.Success) {
-        onCallback('Success', res.info, amountVal, formatAddress, destChain)
+        onCallback(Status.Success, res.info, amountVal, formatAddress, destChain)
       } else {
-        onCallback('Error', res.error)
+        onCallback(Status.Error, res.error)
       }
     })
   }, [symbol, account, dec, inputVaule, btnDisabled, receiveAddress, destChain, onCallback, selectToken, walletType])

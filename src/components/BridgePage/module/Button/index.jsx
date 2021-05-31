@@ -23,7 +23,8 @@ export default function BridgeButton ({
   symbol,
   isDisabled,
   receiveAddress,
-  destChain
+  destChain,
+  onCallback = () => {}
 }) {
   const { account } = useWeb3React()
   // console.log(isDisabled)
@@ -45,6 +46,7 @@ export default function BridgeButton ({
           isDisabled={isDisabled}
           receiveAddress={receiveAddress}
           destChain={destChain}
+          onCallback={onCallback}
         />
       </>
     )
@@ -58,6 +60,7 @@ export default function BridgeButton ({
         isDisabled={isDisabled}
         receiveAddress={receiveAddress}
         destChain={destChain}
+        onCallback={onCallback}
       />
     )
   } else {
