@@ -4765,6 +4765,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xe069af87450fb51fc0d0e044617f1c134163e591': { // VPP 
+      [NAME]: 'Virtue Player Points' + config.suffix,
+      [SYMBOL]: 'VPP',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xff46465fc9033ebcc893bb0000400bcfcf4c3b9f',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT

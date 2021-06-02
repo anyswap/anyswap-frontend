@@ -1673,6 +1673,11 @@ export default {
       [TOKEN]: '0x3affcca64c2a6f4e3b6bd9c64cd2c969efd1ecbe',
       [DECIMALS]: 18
     },
+    'VPP': {
+      [NAME]: 'VPP',
+      [TOKEN]: '0x5eeaa2dcb23056f4e8654a349e57ebe5e76b5e6e',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
