@@ -2,7 +2,7 @@ const navLang = navigator.language
 
 export const BNB_MAINNET1 = 'https://bsc-dataseed1.binance.org/'
 // export const BNB_MAINNET = 'https://bsc-dataseed2.defibit.io/'
-export const BNB_MAINNET = 'https://bsc-dataseed3.defibit.io/'
+// export const BNB_MAINNET = 'https://bsc-dataseed3.defibit.io/'
 // export const BNB_MAINNET = 'https://bsc-dataseed4.defibit.io/'
 
 // export const BNB_MAINNET = 'https://bsc-dataseed1.ninicoin.io/'
@@ -12,7 +12,7 @@ export const BNB_MAINNET = 'https://bsc-dataseed3.defibit.io/'
 
 // export const BNB_MAINNET = 'https://bsc-dataseed1.binance.org/'
 // export const BNB_MAINNET = 'https://bsc-dataseed2.binance.org/'
-// export const BNB_MAINNET = 'https://bsc-dataseed3.binance.org/'
+export const BNB_MAINNET = 'https://bsc-dataseed3.binance.org/'
 // export const BNB_MAINNET = 'https://bsc-dataseed4.binance.org/'
 export const BNB_MAIN_CHAINID = 56
 export const BNB_MAIN_EXPLORER = 'https://bscscan.com'
@@ -343,6 +343,18 @@ let chainInfo = {
     explorer: '',
     symbol: 'BLOCK',
     name: 'Blocknet',
+    type: 'main',
+    label: '',
+    isSwitch: 1
+  },
+  'COLX': {
+    rpc: '',
+    chainID: 'COLX',
+    lookHash: '',
+    lookAddr: '',
+    explorer: '',
+    symbol: 'COLX',
+    name: 'ColossusXT',
     type: 'main',
     label: '',
     isSwitch: 1

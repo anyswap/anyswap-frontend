@@ -8,6 +8,8 @@ export function isSpecialCoin (coin) {
     return 2
   } else if (formatCoin(coin) === 'BLOCK') {
     return 3
+  } else if (formatCoin(coin) === 'COLX') {
+    return 4
   } else {
     return 0
   }

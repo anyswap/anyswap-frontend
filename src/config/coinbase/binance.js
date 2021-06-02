@@ -83,6 +83,12 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
     initAddr: 'Lf2GpJmz2FZM1xW5V8xo1ZvA3Rh7ZX51iQ',  // 
   },
+  colx: { // colx配置
+    lookHash: 'https://chainz.cryptoid.info/colx/tx.dws?', // 
+    queryTxns: '', // 
+    queryHashStatus: 'https://chainz.cryptoid.info/colx/api.dws?q=txinfo&t=', // 
+    initAddr: 'DD7AMhT66bK3TpDUKdq6AsUBj8gt6pSd2o',  // 
+  },
   isOpenRewards: 0,
   isChangeDashboard: 1,
   noSupportBridge: [

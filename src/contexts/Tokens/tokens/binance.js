@@ -4789,6 +4789,27 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xf8acf86194443dcde55fc5b9e448e183c290d8cb': { // COLX
+      [NAME]: 'ColossusXT' + config.suffix,
+      [SYMBOL]: 'COLX',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xfc1f336c36a3bdce13c169f380362ce7f1a81181',
+      [REDEEM_MAX_NUM]: 20000,
+      [REDEEM_MIN_NUM]: 0.2,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.5,
+      [MINFEE]: 0.07,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: 'DD7AMhT66bK3TpDUKdq6AsUBj8gt6pSd2o',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20000,
+      [DEPOSIT_MIN_NUM]: 0.1,
+      [EXTENDOBJ]: {
+        VERSION: 'V2'
+      },
+    },
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT

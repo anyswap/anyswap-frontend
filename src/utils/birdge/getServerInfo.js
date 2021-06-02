@@ -23,6 +23,7 @@ export function getRegisterInfo (account, token, chainID, version, coin) {
     && coin.indexOf('BTC') === -1
     && coin.indexOf('LTC') === -1
     && coin.indexOf('BLOCK') === -1
+    && coin.indexOf('COLX') === -1
   ) {
     token = 'V2'
   }
@@ -48,6 +49,7 @@ function setRegisterInfo (account, token, localInfo, chainID, version, coin) {
     && coin.indexOf('BTC') === -1
     && coin.indexOf('LTC') === -1
     && coin.indexOf('BLOCK') === -1
+    && coin.indexOf('COLX') === -1
   ) {
     token = 'V2'
   }

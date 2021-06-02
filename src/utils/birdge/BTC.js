@@ -30,6 +30,17 @@ const BLOCK = {
   wif: 0x9a,
 }
 
+const COLOSSUSXT = {
+  messagePrefix: '\x19ColossusXT Signed Message:\n',
+  bip32: {
+    public: 0x019da462,
+    private: 0x019d9cfe,
+  },
+  pubKeyHash: 0x1e,
+  scriptHash: 0x0d,
+  wif: 0xd4,
+}
+
 function getNetwork (coin) {
   let network = NETWORK
   if (coin.indexOf('BTC') !== -1) {
@@ -38,6 +49,8 @@ function getNetwork (coin) {
     network = LITECOIN
   } else if (coin.indexOf('BLOCK') !== -1) {
     network = BLOCK
+  } else if (coin.indexOf('COLX') !== -1) {
+    network = COLOSSUSXT
   } 
   return network
 }
@@ -48,6 +61,8 @@ function getType (coin) {
     type = 'ltc'
   } else if (coin.indexOf('BLOCK') !== -1) {
     type = 'block'
+  } else if (coin.indexOf('COLX') !== -1) {
+    type = 'colx'
   } 
   return type
 }
@@ -117,6 +132,21 @@ function GetBlockTxnsAPI (address) {
     })
   })
 }
+
+function GetCOLXTxnsAPI (address) {
+  let url = `https://chainz.cryptoid.info/colx/api.dws?q=unspent&active=${address}&key=419ab2ed72c2`
+
+  return new Promise(resolve => {
+    axios.get(url).then(res => {
+      console.log(res.data)
+      resolve(res.data)
+    }).catch(err => {
+      console.log(err)
+      resolve(err)
+    })
+  })
+}
+GetCOLXTxnsAPI('6aNy3Yz21H6QpFQF5oxATQ4cn1Vt7XBXiR')
 // GetBlockTxnsAPI('BqeAD3u6T9yCvgbXizqPcYNBTSCq9RtWrR')
 
 function GetBlockhashStatus (hash) {
