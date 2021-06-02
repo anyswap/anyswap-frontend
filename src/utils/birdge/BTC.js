@@ -133,20 +133,20 @@ function GetBlockTxnsAPI (address) {
   })
 }
 
-function GetCOLXTxnsAPI (address) {
-  let url = `https://chainz.cryptoid.info/colx/api.dws?q=unspent&active=${address}&key=419ab2ed72c2`
+// function GetCOLXTxnsAPI (address) {
+//   let url = `https://chainz.cryptoid.info/colx/api.dws?q=unspent&active=${address}&key=419ab2ed72c2`
 
-  return new Promise(resolve => {
-    axios.get(url).then(res => {
-      console.log(res.data)
-      resolve(res.data)
-    }).catch(err => {
-      console.log(err)
-      resolve(err)
-    })
-  })
-}
-GetCOLXTxnsAPI('6aNy3Yz21H6QpFQF5oxATQ4cn1Vt7XBXiR')
+//   return new Promise(resolve => {
+//     axios.get(url).then(res => {
+//       console.log(res.data)
+//       resolve(res.data)
+//     }).catch(err => {
+//       console.log(err)
+//       resolve(err)
+//     })
+//   })
+// }
+// GetCOLXTxnsAPI('6aNy3Yz21H6QpFQF5oxATQ4cn1Vt7XBXiR')
 // GetBlockTxnsAPI('BqeAD3u6T9yCvgbXizqPcYNBTSCq9RtWrR')
 
 function GetBlockhashStatus (hash) {
