@@ -1,6 +1,7 @@
 const navLang = navigator.language
 
 export const BNB_MAINNET1 = 'https://bsc-dataseed1.binance.org/'
+export const BNB_MAINNET = 'https://bscnode1.anyswap.exchange'
 // export const BNB_MAINNET = 'https://bsc-dataseed2.defibit.io/'
 // export const BNB_MAINNET = 'https://bsc-dataseed3.defibit.io/'
 // export const BNB_MAINNET = 'https://bsc-dataseed4.defibit.io/'
@@ -12,7 +13,7 @@ export const BNB_MAINNET1 = 'https://bsc-dataseed1.binance.org/'
 
 // export const BNB_MAINNET = 'https://bsc-dataseed1.binance.org/'
 // export const BNB_MAINNET = 'https://bsc-dataseed2.binance.org/'
-export const BNB_MAINNET = 'https://bsc-dataseed3.binance.org/'
+// export const BNB_MAINNET = 'https://bsc-dataseed3.binance.org/'
 // export const BNB_MAINNET = 'https://bsc-dataseed4.binance.org/'
 export const BNB_MAIN_CHAINID = 56
 export const BNB_MAIN_EXPLORER = 'https://bscscan.com'
@@ -22,10 +23,12 @@ export const BNB_TEST_CHAINID = 97
 export const BNB_TEST_EXPLORER = 'https://testnet.bscscan.com'
 
 
+// export const FSN_MAINNET = 'https://fsn.dev/api'
+// export const FSN_MAINNET = 'https://fsn.dev/api'
 // export const FSN_MAINNET = 'https://fsnmainnet2.anyswap.exchange'
 export const FSN_MAINNET = 'https://mainnet.anyswap.exchange'
-export const FSN_MAINNET1 = 'https://mainnet.anyswap.exchange'
 // export const FSN_MAINNET = 'https://fsnmainnet3.anyswwap.exchange'
+export const FSN_MAINNET1 = 'https://mainnet.anyswap.exchange'
 export const FSN_MAIN_CHAINID = 32659
 export const FSN_MAIN_EXPLORER = 'https://fsnex.com'
 

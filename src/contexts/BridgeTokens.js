@@ -1678,6 +1678,21 @@ export default {
       [TOKEN]: '0x5eeaa2dcb23056f4e8654a349e57ebe5e76b5e6e',
       [DECIMALS]: 18
     },
+    'STAR': {
+      [NAME]: 'STAR',
+      [TOKEN]: '0xf70a642bd387f94380ffb90451c2c81d4eb82cbc',
+      [DECIMALS]: 18
+    },
+    'LIX': {
+      [NAME]: 'LIX',
+      [TOKEN]: '0xd0345d30fd918d7682398acbcdf139c808998709',
+      [DECIMALS]: 18
+    },
+    'SMBSWAP': {
+      [NAME]: 'SMBSWAP',
+      [TOKEN]: '0x53bd789f2cdb846b227d8ffc7b46ed4263231fdf',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -1746,7 +1761,12 @@ export default {
       [NAME]: 'SFUND',
       [TOKEN]: '0x477bc8d23c634c154061869478bce96be6045d12',
       [DECIMALS]: 18
-    }
+    },
+    'DPET': {
+      [NAME]: 'DPET',
+      [TOKEN]: '0xfb62ae373aca027177d1c18ee0862817f9080d08',
+      [DECIMALS]: 18
+    },
   },
   128: {
     'PLF': { // 
@@ -1769,6 +1789,11 @@ export default {
     'fKRW': { // 
       [NAME]: 'fKRW',
       [TOKEN]: '0x2b9c073ec670b70f417bbaf3bbb052aa563a0a23',
+      [DECIMALS]: 18,
+    },
+    'SPIRIT': { // 
+      [NAME]: 'SPIRIT',
+      [TOKEN]: '0x5cc61a78f164885776aa610fb0fe1257df78e59b',
       [DECIMALS]: 18,
     },
   },

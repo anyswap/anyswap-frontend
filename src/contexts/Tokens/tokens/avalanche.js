@@ -71,7 +71,6 @@ export default {
         VERSION: 'V2'
       },
     },
-    
     '0xc931f61b1534eb21d8c11b24f3f5ab2471d4ab50': { // BLOCK 5
       [NAME]: 'Blocknet' + config.suffix,
       [SYMBOL]: 'aaBLOCK',
@@ -194,6 +193,30 @@ export default {
       [SYMBOL]: config.prefix + 'BCP(BitcashPay)',
       [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0xa600ba777db67fac3f8c9dbc8b0fa1f55c743b84',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xd7c295e399ca928a3a14b01d760e794f1adf8990': { // DSLA
+      [NAME]: 'DSLA',
+      [SYMBOL]: config.prefix + 'DSLA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x289c4c6308fa1b8b921ebc7eef3f62a5cedaac97',
       [REDEEM_MAX_NUM]: 200000,
       [REDEEM_MIN_NUM]: 10,
       [FEE]: 0.001,

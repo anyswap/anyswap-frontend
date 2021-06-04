@@ -4810,6 +4810,102 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xae8627db72d7fc6241f2e2b87eb2bbc7cafb1661': { // STAR 
+      [NAME]: 'Starbase' + config.suffix,
+      [SYMBOL]: 'STAR',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x15e28befb0d9c39864e5f3824ae6b738cfbffa45',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x323a07f929f7c4db7631866af151248ae3912d98': { // LIX 
+      [NAME]: 'Lixir Token' + config.suffix,
+      [SYMBOL]: 'LIX',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x49c9c1ec5f466cb37823e77eb06c0c8e7a7ee7f7',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xbc2597d3f1f9565100582cde02e3712d03b8b0f6': { // SMBSWAP 
+      [NAME]: 'SIMBCOIN SWAP' + config.suffix,
+      [SYMBOL]: 'SMBSWAP',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xd83acd435b8888c84adac0a044fd5d25283e7b94',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xd98274562eb6e18f9deecff23e8164ff83861a6d': { // SPIRIT 
+      [NAME]: 'SpiritSwap Token' + config.suffix,
+      [SYMBOL]: 'SPIRIT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xd9a6d3529917d252a8fceea3ad8f87465df2fd95',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x6a0508D476B9D9b9B6502a3bEab6A94ad8b30c85',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 250, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT

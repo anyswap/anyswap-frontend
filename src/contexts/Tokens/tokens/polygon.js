@@ -383,5 +383,77 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x38389eb214c4ac1cdda7a7582ab01e8a9bb548ba': { // MFI
+      [NAME]: 'MarginSwap',
+      [SYMBOL]: 'MFI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x73159aff2beec97b8cdae2acf2b154881fc0d33e',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x668b9734FfE9eE8a01d4Ade3362De71E8989EA87',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x53098a3656de0c1ee8dcf004e6a0e886b2968a2f': { // DPET
+      [NAME]: 'My DeFi Pet Token',
+      [SYMBOL]: 'DPET',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x9527955fcfe33bf4c9d444c79591849999c7d41d',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x130966628846bfd36ff31a822705796e8cb8c18d': { // ESWAP
+      [NAME]: 'eSwapping',
+      [SYMBOL]: 'ESWAP',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0x0bb92524ad3e1882be584e4cf93c952be7a52e58',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

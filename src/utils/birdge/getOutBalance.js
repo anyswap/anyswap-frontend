@@ -167,6 +167,8 @@ function getOutTokenBalance (chainId, account, tokenList) {
           resolve('OVER')
         }))
       } else {
+        // console.log(coin)
+        // console.log(BridgeToken[coin].token)
         contract.options.address = BridgeToken[coin].token
         let etbData = contract.methods.balanceOf(account).encodeABI()
         batch.add(web3.eth.call.request({data: etbData, to: BridgeToken[coin].token, from: account}, 'latest', (err, res) => {
