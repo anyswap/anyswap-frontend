@@ -559,6 +559,7 @@ export default function FarmsList () {
         <img src={require('../../assets/images/banner/farm.png')} />
       </BannerBox> */}
       <FarmListBox>
+        {farmItem(1, 1, 'https://app.makiswap.com/farms', 'MAKI Farming', 'MAKI Farming', 'MAKI', 'HT')}
         {farmItem(1, 1, 'https://swap.cometh.io/#/stake', 'MUST Farming', 'MUST Farming', 'MUST', 'MATIC')}
         {farmItem(1, 1, 'https://openfi.land/zh/farms', 'PTT Farming', 'PTT Farming', 'PTT', 'HT')}
         {farmItem(1, 1, 'https://spookyswap.finance/', 'BOO Farming', 'BOO Farming', 'BOO', 'FTM')}
