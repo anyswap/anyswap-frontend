@@ -1693,6 +1693,21 @@ export default {
       [TOKEN]: '0x53bd789f2cdb846b227d8ffc7b46ed4263231fdf',
       [DECIMALS]: 18
     },
+    'BDP': {
+      [NAME]: 'BDP',
+      [TOKEN]: '0xf3dcbc6d72a4e1892f7917b7c43b74131df8480e',
+      [DECIMALS]: 18
+    },
+    'CBK': {
+      [NAME]: 'CBK',
+      [TOKEN]: '0x87761e886399ef8e1624cb0db3230b075a322c88',
+      [DECIMALS]: 18
+    },
+    'STARS': {
+      [NAME]: 'STARS',
+      [TOKEN]: '0xc55c2175e90a46602fd42e931f62b3acc1a013ca',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -1765,6 +1780,26 @@ export default {
     'DPET': {
       [NAME]: 'DPET',
       [TOKEN]: '0xfb62ae373aca027177d1c18ee0862817f9080d08',
+      [DECIMALS]: 18
+    },
+    'START': {
+      [NAME]: 'START',
+      [TOKEN]: '0x31d0a7ada4d4c131eb612db48861211f63e57610',
+      [DECIMALS]: 18
+    },
+    'WAULTx': {
+      [NAME]: 'WAULTx',
+      [TOKEN]: '0xb64e638e60d154b43f660a6bf8fd8a3b249a6a21',
+      [DECIMALS]: 18
+    },
+    'BANANA': {
+      [NAME]: 'BANANA',
+      [TOKEN]: '0x603c7f932ed1fc6575303d8fb018fdcbb0f39a95',
+      [DECIMALS]: 18
+    },
+    'CAS': {
+      [NAME]: 'CAS',
+      [TOKEN]: '0x780207b8c0fdc32cf60e957415bfa1f2d4d9718c',
       [DECIMALS]: 18
     },
   },
