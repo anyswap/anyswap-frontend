@@ -74,7 +74,7 @@ export const ARBITRUM_TEST_EXPLORER = 'https://explorer.arbitrum.io/#/'
 
 export const MATIC_MAINNET = 'https://rpc-mainnet.maticvigil.com'
 export const MATIC_MAIN_CHAINID = 137
-export const MATIC_MAIN_EXPLORER = 'https://explorer-mainnet.maticvigil.com'
+export const MATIC_MAIN_EXPLORER = 'https://polygonscan.com'
 
 export const xDAI_MAINNET = 'https://rpc.xdaichain.com'
 export const xDAI_MAIN_CHAINID = 100

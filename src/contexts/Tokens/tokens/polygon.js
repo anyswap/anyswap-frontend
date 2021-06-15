@@ -504,7 +504,7 @@ export default {
       },
     },
     '0x6ccf12b480a99c54b23647c995f4525d544a7e72': { // START
-      [NAME]: 'BSCstarter',
+      [NAME]: 'Starter.xyz',
       [SYMBOL]: 'START',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xd14c0fc1b207541b13163a24762a3f2fdc071161',
