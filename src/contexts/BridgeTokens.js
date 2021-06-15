@@ -1290,7 +1290,7 @@ export default {
     },
     'SURE': {
       [NAME]: 'SURE',
-      [TOKEN]: '0xb5a4ac5b04e777230ba3381195eff6a60c3934f2',
+      [TOKEN]: '0xcb86c6a22cb56b6cf40cafedb06ba0df188a416e',
       [DECIMALS]: 18
     },
     'DEC': {

@@ -2819,30 +2819,6 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0x4ac27c1b7eb76e28d1e24849c2da124790c00abc': { // SURE
-      [NAME]: 'inSure' + config.suffix,
-      [SYMBOL]: 'SURE',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0xc1a95ebc5d56207ed23f6b38fde93be21b78d8a3',
-      [REDEEM_MAX_NUM]: 200000,
-      [REDEEM_MIN_NUM]: 20,
-      [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 5,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 200000,
-      [DEPOSIT_MIN_NUM]: 0.5,
-      [EXTENDOBJ]:  {
-        BRIDGE: [
-          { type: 1, isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      }
-    },
     '0x1fe5b870bca201db77bc0a8573fdebc35ee7a114': { // DEC
       [NAME]: 'Decentr' + config.suffix,
       [SYMBOL]: 'DEC',
@@ -4959,6 +4935,30 @@ export default {
       [SYMBOL]: 'STARS',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xb07e56783a78dd626c2865273be62604189c72ba',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x9b17baadf0f21f03e35249e0e59723f34994f806': { // SURE 
+      [NAME]: 'inSure' + config.suffix,
+      [SYMBOL]: 'SURE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1d5f6ac0d2553c1aa5080440a20562d93c7f21b6',
       [REDEEM_MAX_NUM]: 5000,
       [REDEEM_MIN_NUM]: 0.16,
       [FEE]: 0.001,
