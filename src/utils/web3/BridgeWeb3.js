@@ -36,7 +36,7 @@ const Tx  = require("ethereumjs-tx")
 //   //     console.log(res)
 //   //   })
 //   // }
-//   const token = '0x9b17baadf0f21f03e35249e0e59723f34994f806'
+//   const token = '0x25a528af62e56512a19ce8c3cab427807c28cc19'
 //   factory.methods.getExchange(token).call((err, res) => {
 //     console.log('token:' + token)
 //     if (err) {

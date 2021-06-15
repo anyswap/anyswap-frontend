@@ -1708,6 +1708,11 @@ export default {
       [TOKEN]: '0xc55c2175e90a46602fd42e931f62b3acc1a013ca',
       [DECIMALS]: 18
     },
+    'FORM': {
+      [NAME]: 'FORM',
+      [TOKEN]: '0x21381e026ad6d8266244f2a583b35f9e4413fa2a',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
