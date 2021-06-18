@@ -5002,6 +5002,126 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xe95fd76cf16008c12ff3b3a937cb16cd9cc20284': { // SETS 
+      [NAME]: 'Sensitrust Token' + config.suffix,
+      [SYMBOL]: 'SETS',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x3bf0e65b993585454853c0d6b5a1525c383ae053',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xcaf5191fc480f43e4df80106c7695eca56e48b18': { // DEP 
+      [NAME]: 'DEAPCOIN' + config.suffix,
+      [SYMBOL]: 'DEP',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x732f9e5975efcc10ddd8f26dc5382864dab0ac07',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x6ff0609046a38d76bd40c5863b4d1a2dce687f73': { // MUSIC 
+      [NAME]: 'Musicoin' + config.suffix,
+      [SYMBOL]: 'MUSIC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x7efedc152dd2430cb8a798aa215d7c99b1e8da8b',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x2cf51e73c3516f3d86e9c0b4de0971dbf0766fd4': { // ABYSS 
+      [NAME]: 'Abyss' + config.suffix,
+      [SYMBOL]: 'ABYSS',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xa7e1f0651715e7d4d83fa8122a6450e337eb0aeb',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x1fe4751d9bdabac8d90067056cb45ab6823d2c12': { // APN 
+      [NAME]: 'Apron' + config.suffix,
+      [SYMBOL]: 'APN',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x5c36bb3edb3102204d6fd8c6e18bb341f1c927ad',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT

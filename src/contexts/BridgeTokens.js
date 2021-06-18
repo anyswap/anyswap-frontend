@@ -1713,6 +1713,46 @@ export default {
       [TOKEN]: '0x21381e026ad6d8266244f2a583b35f9e4413fa2a',
       [DECIMALS]: 18
     },
+    'SETS': {
+      [NAME]: 'SETS',
+      [TOKEN]: '0x04E0Af0af1b7f0023c6B12af5a94Df59B0e8cF59',
+      [DECIMALS]: 18
+    },
+    'DEP': {
+      [NAME]: 'DEP',
+      [TOKEN]: '0x1a3496c18d558bd9c6c8f609e1b129f67ab08163',
+      [DECIMALS]: 18
+    },
+    'MUSIC': {
+      [NAME]: 'MUSIC',
+      [TOKEN]: '0x35747eb4c027ebbf0a7f4e642627afcd7fd8cd7a',
+      [DECIMALS]: 18
+    },
+    'ABYSS': {
+      [NAME]: 'ABYSS',
+      [TOKEN]: '0x0e8d6b471e332f140e7d9dbb99e5e3822f728da6',
+      [DECIMALS]: 18
+    },
+    'APN': {
+      [NAME]: 'APN',
+      [TOKEN]: '0xd4342a57ecf2fe7ffa37c33cb8f63b1500e575e6',
+      [DECIMALS]: 18
+    },
+    'YEL': {
+      [NAME]: 'YEL',
+      [TOKEN]: '0x7815bda662050d84718b988735218cffd32f75ea',
+      [DECIMALS]: 18
+    },
+    'HOGE': {
+      [NAME]: 'HOGE',
+      [TOKEN]: '0xfad45e47083e4607302aa43c65fb3106f1cd7607',
+      [DECIMALS]: 9
+    },
+    'DHV': {
+      [NAME]: 'DHV',
+      [TOKEN]: '0x62Dc4817588d53a056cBbD18231d91ffCcd34b2A',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -1805,6 +1845,41 @@ export default {
     'CAS': {
       [NAME]: 'CAS',
       [TOKEN]: '0x780207b8c0fdc32cf60e957415bfa1f2d4d9718c',
+      [DECIMALS]: 18
+    },
+    'WOW': {
+      [NAME]: 'WOW',
+      [TOKEN]: '0x4da996c5fe84755c80e108cf96fe705174c5e36a',
+      [DECIMALS]: 18
+    },
+    'LAIKA': {
+      [NAME]: 'LAIKA',
+      [TOKEN]: '0x2a49De60cc6204c3AFC3e770FDB30A0554147519',
+      [DECIMALS]: 9
+    },
+    'FEED': {
+      [NAME]: 'FEED',
+      [TOKEN]: '0x67d66e8ec1fd25d98b3ccd3b19b7dc4b4b7fc493',
+      [DECIMALS]: 18
+    },
+    'JDI': {
+      [NAME]: 'JDI',
+      [TOKEN]: '0x0491648c910ad2c1afaab733faf71d30313df7fc',
+      [DECIMALS]: 18
+    },
+    'WSG': {
+      [NAME]: 'WSG',
+      [TOKEN]: '0xA58950F05FeA2277d2608748412bf9F802eA4901',
+      [DECIMALS]: 18
+    },
+    'PROPEL': {
+      [NAME]: 'PROPEL',
+      [TOKEN]: '0x9b44df3318972be845d83f961735609137c4c23c',
+      [DECIMALS]: 18
+    },
+    'BELUGA': {
+      [NAME]: 'BELUGA',
+      [TOKEN]: '0x181de8c57c4f25eba9fd27757bbd11cc66a55d31',
       [DECIMALS]: 18
     },
   },

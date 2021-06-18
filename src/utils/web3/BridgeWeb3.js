@@ -36,15 +36,21 @@ const Tx  = require("ethereumjs-tx")
 //   //     console.log(res)
 //   //   })
 //   // }
-//   const token = '0x25a528af62e56512a19ce8c3cab427807c28cc19'
-//   factory.methods.getExchange(token).call((err, res) => {
-//     console.log('token:' + token)
-//     if (err) {
-//       console.log(err)
-//     } else {
-//       console.log(res.replace(/\s/g, '').toLowerCase())
-//     }
-//   })
+//   const batch = new web3Test.BatchRequest()
+//   const arr = [
+//     '0xefaeee334f0fd1712f9a8cc375f427d9cdd40d73',
+//   ]
+//   for (const token of arr) {
+//     const plData = factory.methods.getExchange(token).encodeABI()
+  
+//     batch.add(web3Test.eth.call.request({data: plData, to: FACTORY_ADDRESSES[config.chainID]}, 'latest', (err, res) => {
+//       if (!err) {
+//         console.log('token:' + token)
+//         console.log(res.replace('0x000000000000000000000000', '0x').replace(/\s/g, '').toLowerCase())
+//       }
+//     }))
+//   }
+//   batch.execute()
 // }, 1000)
 
 

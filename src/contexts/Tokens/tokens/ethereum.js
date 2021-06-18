@@ -422,6 +422,30 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0x3405a1bd46b85c5c029483fbecf2f3e611026e45': { // WOW
+      [NAME]: 'WOWswap',
+      [SYMBOL]: 'WOW',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x15fcb391d199ae5825814df7607216d6cf4fd8fb',
+      [REDEEM_MAX_NUM]: 10000000,
+      [REDEEM_MIN_NUM]: 200,
+      [FEE]: 0.001,
+      [MAXFEE]: 800,
+      [MINFEE]: 80,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb16e3336699a636dd6c8246a3a12b813bfa0a3ad',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000000,
+      [DEPOSIT_MIN_NUM]: 200,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
 
 
 

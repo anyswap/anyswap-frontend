@@ -2,7 +2,7 @@ const navLang = navigator.language
 
 // export const BNB_MAINNET = 'https://bscnode1.anyswap.exchange'
 // export const BNB_MAINNET1 = 'https://bsc-dataseed1.binance.org/'
-export const BNB_MAINNET = 'https://bsc-dataseed2.defibit.io/'
+// export const BNB_MAINNET = 'https://bsc-dataseed2.defibit.io/'
 // export const BNB_MAINNET = 'https://bsc-dataseed3.defibit.io/'
 // export const BNB_MAINNET = 'https://bsc-dataseed4.defibit.io/'
 
@@ -12,7 +12,7 @@ export const BNB_MAINNET = 'https://bsc-dataseed2.defibit.io/'
 // export const BNB_MAINNET = 'https://bsc-dataseed4.ninicoin.io/'
 
 // export const BNB_MAINNET = 'https://bsc-dataseed1.binance.org/'
-// export const BNB_MAINNET = 'https://bsc-dataseed2.binance.org/'
+export const BNB_MAINNET = 'https://bsc-dataseed2.binance.org/'
 // export const BNB_MAINNET = 'https://bsc-dataseed3.binance.org/'
 // export const BNB_MAINNET = 'https://bsc-dataseed4.binance.org/'
 export const BNB_MAIN_CHAINID = 56
@@ -72,7 +72,8 @@ export const ARBITRUM_TESTNET = 'https://kovan4.arbitrum.io/rpc'
 export const ARBITRUM_TEST_CHAINID = 212984383488152
 export const ARBITRUM_TEST_EXPLORER = 'https://explorer.arbitrum.io/#/'
 
-export const MATIC_MAINNET = 'https://rpc-mainnet.maticvigil.com'
+// export const MATIC_MAINNET = 'https://rpc-mainnet.maticvigil.com'
+export const MATIC_MAINNET = 'https://rpc-mainnet.matic.network'
 export const MATIC_MAIN_CHAINID = 137
 export const MATIC_MAIN_EXPLORER = 'https://polygonscan.com'
 
