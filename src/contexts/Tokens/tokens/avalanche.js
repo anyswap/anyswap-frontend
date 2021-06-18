@@ -236,30 +236,30 @@ export default {
         VERSION: 'V2'
       },
     },
-    '0xdae6c2a48bfaa66b43815c5548b10800919c993e': { // BUSD
-      [NAME]: 'Binance USD',
-      [SYMBOL]: config.prefix + 'BUSD',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x4b5d4874a239d4b1ddfe2c006c3c708e198081d4',
-      [REDEEM_MAX_NUM]: 200000,
-      [REDEEM_MIN_NUM]: 10,
-      [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 200000,
-      [DEPOSIT_MIN_NUM]: 0.5,
-      [EXTENDOBJ]: {
-        BRIDGE: [
-          { type: 1, isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      },
-    },
+    // '0xdae6c2a48bfaa66b43815c5548b10800919c993e': { // BUSD
+    //   [NAME]: 'Binance USD',
+    //   [SYMBOL]: config.prefix + 'BUSD',
+    //   [DECIMALS]: 18,
+    //   [EXCHANGE_ADDRESS]: '0x4b5d4874a239d4b1ddfe2c006c3c708e198081d4',
+    //   [REDEEM_MAX_NUM]: 200000,
+    //   [REDEEM_MIN_NUM]: 10,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 50,
+    //   [MINFEE]: 1,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 200000,
+    //   [DEPOSIT_MIN_NUM]: 0.5,
+    //   [EXTENDOBJ]: {
+    //     BRIDGE: [
+    //       { type: 1, isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2'
+    //   },
+    // },
     '0x1ccca1ce62c62f7be95d4a67722a8fdbed6eecb4': { // LAIKA
       [NAME]: 'LaikaProtocol',
       [SYMBOL]: config.prefix + 'LAIKA',
