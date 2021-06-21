@@ -1753,6 +1753,11 @@ export default {
       [TOKEN]: '0x62Dc4817588d53a056cBbD18231d91ffCcd34b2A',
       [DECIMALS]: 18
     },
+    'LEO': {
+      [NAME]: 'LEO',
+      [TOKEN]: '0x2af5d2ad76741191d15dfe7bf6ac92d4bd912ca3',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -1880,6 +1885,11 @@ export default {
     'BELUGA': {
       [NAME]: 'BELUGA',
       [TOKEN]: '0x181de8c57c4f25eba9fd27757bbd11cc66a55d31',
+      [DECIMALS]: 18
+    },
+    'HERO': {
+      [NAME]: 'HERO',
+      [TOKEN]: '0x9b26e16377ad29a6ccc01770bcfb56de3a36d8b2',
       [DECIMALS]: 18
     },
   },

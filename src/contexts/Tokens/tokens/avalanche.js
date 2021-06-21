@@ -236,7 +236,7 @@ export default {
         VERSION: 'V2'
       },
     },
-    // '0xdae6c2a48bfaa66b43815c5548b10800919c993e': { // BUSD
+    // '0x9610b01aaa57ec026001f7ec5cface51bfea0ba6': { // BUSD
     //   [NAME]: 'Binance USD',
     //   [SYMBOL]: config.prefix + 'BUSD',
     //   [DECIMALS]: 18,
@@ -289,6 +289,30 @@ export default {
       [SYMBOL]: config.prefix + 'BNB',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xbd7a75830e954103e8c54abab5daa83feae3371c',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb1CB88B1a1992deB4189Ea4f566b594c13392Ada',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x9610b01aaa57ec026001f7ec5cface51bfea0ba6': { // BUSD
+      [NAME]: 'Binance-Peg BUSD Token',
+      [SYMBOL]: config.prefix + 'BUSD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x07c4dcc5bb314ab270c3ba943fcaeadcb4b2ccbf',
       [REDEEM_MAX_NUM]: 200000,
       [REDEEM_MIN_NUM]: 10,
       [FEE]: 0.001,

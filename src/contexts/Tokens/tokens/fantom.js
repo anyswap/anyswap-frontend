@@ -1426,5 +1426,29 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x0b322577569418b166cd98ea8ae7c681e4a820eb': { // LEO 
+      [NAME]: 'Bitfinex LEO Token' + config.suffix,
+      [SYMBOL]: 'LEO',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xe075674f46d9d3fc2bbf9d6c83592a02f4f62de9',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }

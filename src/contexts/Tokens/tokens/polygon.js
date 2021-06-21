@@ -767,5 +767,29 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x6afcff9189e8ed3fcc1cffa184feb1276f6a82a5': { // HERO
+      [NAME]: 'HERO',
+      [SYMBOL]: 'HERO',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xf16ace4d778bf6ed6c777148dc2d1b05d5ea55c8',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }
