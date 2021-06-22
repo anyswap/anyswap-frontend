@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 
-// import { Link } from '../../theme'
+import { Link } from '../../theme'
 import Web3Status from '../Web3Status'
 // import Toggle from 'react-switch'
 // import { transparentize } from 'polished'
@@ -18,6 +18,7 @@ import IconDay from '../../assets/images/icon/day.svg'
 import IconNight from '../../assets/images/icon/night.svg'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
+import V3Icon from '../../assets/images/icon/V3.png'
 import { createBrowserHistory } from 'history'
 
 import {chainList} from '../../config/coinbase/nodeConfig'
@@ -300,6 +301,18 @@ font-family: 'Manrope';
   background-color: ${({ theme }) => theme.CommingSoon};
   white-space: nowrap;
 `
+
+const V3LinkBox = styled(Link)`
+  // width: 20px;
+  height: 20px;
+  margin-top: 18px;
+`
+
+const V3LinkImg = styled.img`
+  height:20px;
+  display:block;
+`
+
 export default function Header() {
   const { t } = useTranslation()
   const [isDark, toggleDarkMode] = useDarkModeManager()
@@ -378,6 +391,7 @@ export default function Header() {
             <IconWrapper active={config.symbol === item.symbol && item.type === config.env}>
               {/* <img src={icon} alt={'Icon'} /> */}
               <TokenLogo address={item.symbol} size={'46px'}></TokenLogo>
+              
             </IconWrapper>
             <OptionCardLeft>
               <HeaderText>
@@ -458,6 +472,9 @@ export default function Header() {
                 <StyleAnyLogo></StyleAnyLogo>
               )
             }
+            <V3LinkBox href='https://sushi.anyswap.exchange/#/swap'>
+              <V3LinkImg src={V3Icon} alt={'V3'}/>
+            </V3LinkBox>
           </HeaderElement>
           <HeaderElement>
             <NetworkBox onClick={() => {toggleNetworkModal()}}>
