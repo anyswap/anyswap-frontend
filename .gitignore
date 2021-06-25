@@ -53,3 +53,4 @@ notes.txt
 
 package-lock.json
 yarn.lock
+.env
