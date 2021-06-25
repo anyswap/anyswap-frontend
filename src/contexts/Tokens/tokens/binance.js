@@ -5122,6 +5122,79 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x3b79a28264fc52c7b4cea90558aa0b162f7faf57': { // PIN 
+      [NAME]: 'Public Index Network' + config.suffix,
+      [SYMBOL]: 'PIN',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x4b96bb424d2d1f3d222af8f238ca6b9db6726422',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xd21d29b38374528675c34936bf7d5dd693d2a577': { // PRQ 
+      [NAME]: 'Parsiq Token' + config.suffix,
+      [SYMBOL]: 'PRQ',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8dddf292959794e4303b5d46d980c640e7a7475b',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        APPROVE: '0x5976779ffb61193a44329ae62d232611e7ec9ad9',
+        VERSION: 'V2'
+      }
+    },
+    '0x790cfdc6ab2e0ee45a433aac5434f183be1f6a20': { // PLR 
+      [NAME]: 'PILLAR' + config.suffix,
+      [SYMBOL]: 'PLR',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xdb09c2042750edc81ef61c8127bd9f788d566dc7',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT

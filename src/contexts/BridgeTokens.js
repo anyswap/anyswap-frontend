@@ -1758,6 +1758,21 @@ export default {
       [TOKEN]: '0x2af5d2ad76741191d15dfe7bf6ac92d4bd912ca3',
       [DECIMALS]: 18
     },
+    'PIN': {
+      [NAME]: 'PIN',
+      [TOKEN]: '0xc1f976B91217E240885536aF8b63bc8b5269a9BE',
+      [DECIMALS]: 18
+    },
+    'PRQ': {
+      [NAME]: 'PRQ',
+      [TOKEN]: '0x362bc847A3a9637d3af6624EeC853618a43ed7D2',
+      [DECIMALS]: 18
+    },
+    'PLR': {
+      [NAME]: 'PLR',
+      [TOKEN]: '0xe3818504c1b32bf1557b16c238b2e01fd3149c17',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -1890,6 +1905,46 @@ export default {
     'HERO': {
       [NAME]: 'HERO',
       [TOKEN]: '0x9b26e16377ad29a6ccc01770bcfb56de3a36d8b2',
+      [DECIMALS]: 18
+    },
+    'TAPE': {
+      [NAME]: 'TAPE',
+      [TOKEN]: '0xf63400ee0420ce5b1ebdee0c942d7de1c734a41f',
+      [DECIMALS]: 18
+    },
+    'BOGE': {
+      [NAME]: 'BOGE',
+      [TOKEN]: '0x248c45af3b2f73bc40fa159f2a90ce9cad7a77ba',
+      [DECIMALS]: 9
+    },
+    'TWIN': {
+      [NAME]: 'TWIN',
+      [TOKEN]: '0x62907ad5c2d79e2a4f048a90ae2b49d062a773f3',
+      [DECIMALS]: 18
+    },
+    'ZEFI': {
+      [NAME]: 'ZEFI',
+      [TOKEN]: '0x0288D3E353fE2299F11eA2c2e1696b4A648eCC07',
+      [DECIMALS]: 18
+    },
+    'TAKO': {
+      [NAME]: 'TAKO',
+      [TOKEN]: '0x2f3391aebe27393aba0a790aa5e1577fea0361c2',
+      [DECIMALS]: 18
+    },
+    'PEPPA': {
+      [NAME]: 'PEPPA',
+      [TOKEN]: '0x6d34f621d2a1812434ce7af6e04a344bfce9b47e',
+      [DECIMALS]: 18
+    },
+    'LAUNCH': {
+      [NAME]: 'LAUNCH',
+      [TOKEN]: '0xb5389a679151c4b8621b1098c6e0961a3cfee8d4',
+      [DECIMALS]: 18
+    },
+    'bMXX': {
+      [NAME]: 'bMXX',
+      [TOKEN]: '0x4131b87f74415190425ccd873048c708f8005823',
       [DECIMALS]: 18
     },
   },

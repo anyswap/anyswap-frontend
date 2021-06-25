@@ -332,5 +332,53 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x86b3f23b6e90f5bbfac59b5b2661134ef8ffd255': { // LAUNCH
+      [NAME]: 'Super Launcher',
+      [SYMBOL]: config.prefix + 'LAUNCH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x47af522414274bd808b1d46c731b4b57bf7c1d97',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(1),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb1CB88B1a1992deB4189Ea4f566b594c13392Ada',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x64d5baf5ac030e2b7c435add967f787ae94d0205': { // bMXX
+      [NAME]: 'Multiplier',
+      [SYMBOL]: config.prefix + 'bMXX',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x07718c4aca5ba115d69de92a97082a9859235306',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb1CB88B1a1992deB4189Ea4f566b594c13392Ada',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }
