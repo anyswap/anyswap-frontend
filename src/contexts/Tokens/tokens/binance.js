@@ -5167,7 +5167,7 @@ export default {
         BRIDGE: [
           { type: 1, isSwitch: 1 }
         ],
-        APPROVE: '0x5976779ffb61193a44329ae62d232611e7ec9ad9',
+        APPROVE: '0x43ba383b9934d8d45ea6348d00dbc1bae97d6e74',
         VERSION: 'V2'
       }
     },
