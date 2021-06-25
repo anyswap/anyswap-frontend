@@ -1,7 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import Tooltip from '@reach/tooltip'
-import { isMobile } from 'react-device-detect'
 
 import {
   InputRow,
@@ -22,7 +20,6 @@ import {
   // PasteStyle,
   CurrencySelect,
   Container,
-  SmallScreenView,
   TokenModalRow,
   TokenRowLeft,
   TokenLogoBox,
@@ -43,12 +40,16 @@ import TokenLogo from '../TokenLogo'
 import NoCoinIcon from '../../../../assets/images/icon/no-coin.svg'
 // import Paste from '../../../../assets/images/icon/paste.svg'
 // import SearchIcon from '../../../../assets/images/icon/search.svg'
+import { amountFormatter } from '../../../../utils'
 
 import Modal from '../../../Modal'
 
 import {formatLabel} from '../common'
 
 import config from '../../../../config'
+import {
+  BalanceTxt
+} from '../style'
 
 export default function SelectCurrency ({
   tokenList,
@@ -148,7 +149,7 @@ export default function SelectCurrency ({
             <LabelContainer>
               <span>{t('redeem')}</span>
             </LabelContainer>
-            <SmallScreenView>{balance}</SmallScreenView>
+            <BalanceTxt>{t('balances')}: {balance ? amountFormatter(balance, useToken.decimals, 2) : '-'}</BalanceTxt>
           </LabelRow>
           
           <InputRow>

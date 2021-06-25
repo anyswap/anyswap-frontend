@@ -1,6 +1,5 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import Tooltip from '@reach/tooltip'
 import { isMobile } from 'react-device-detect'
 
 import {
@@ -22,7 +21,6 @@ import {
   // PasteStyle,
   CurrencySelect,
   Container,
-  SmallScreenView,
   TokenModalRow,
   TokenRowLeft,
   TokenLogoBox,
@@ -46,12 +44,18 @@ import SearchIcon from '../../../../assets/images/icon/search.svg'
 
 import { useNetworkModalToggle } from '../../../../contexts/Application'
 
+import { amountFormatter } from '../../../../utils'
+
 import Modal from '../../../Modal'
 
 import { useWeb3React } from '../../../../hooks'
 
 import {formatLabel} from '../common'
 import config from '../../../../config'
+
+import {
+  BalanceTxt
+} from '../style'
 
 export default function SelectToken ({
   tokenList,
@@ -61,13 +65,13 @@ export default function SelectToken ({
   value = '',
   selectToken,
   modalView,
-  isError
+  isError,
+  balance
 }) {
-  const { chainId } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const { t } = useTranslation()
   const toggleNetworkModal = useNetworkModalToggle()
 
-  const [balance, setBalance] = useState()
   const [searchQuery, setSearchQuery] = useState('')
 
   const useToken = useMemo(() => {
@@ -77,7 +81,7 @@ export default function SelectToken ({
       return {}
     }
   }, [selectToken, tokenList])
-
+  // console.log(amountFormatter(balance, useToken.decimals))
   useEffect(() => {
     if (!selectToken) {
       for (const token in tokenList) {
@@ -157,7 +161,8 @@ export default function SelectToken ({
             <LabelContainer>
               <span>{t('redeem')}</span>
             </LabelContainer>
-            <SmallScreenView>{balance}</SmallScreenView>
+            {/* <SmallScreenView>{balance ? amountFormatter(balance, useToken.decimals) : ''}</SmallScreenView> */}
+            <BalanceTxt>{t('balances')}: {balance ? amountFormatter(balance, useToken.decimals, 2) : '-'}</BalanceTxt>
           </LabelRow>
           
           <InputRow>

@@ -4,6 +4,7 @@ import {isAddress, Status} from 'anyswapsdk'
 import { ethers } from 'ethers'
 import { useWeb3React } from '../../../hooks'
 import { useTransactionAdder } from '../../../contexts/Transactions'
+import { useAddressBalance } from '../../../contexts/Balances'
 
 import Title from '../../Title'
 import OversizedPanel from '../../OversizedPanel'
@@ -15,6 +16,7 @@ import {
 import ResertSvg from '../../../assets/images/icon/revert.svg'
 
 import {formatDecimal} from '../../../utils/tools'
+import { amountFormatter } from '../../../utils'
 
 import SelectToken from './SelectToken'
 import SelectChain from './SelectChain'
@@ -42,7 +44,9 @@ export default function BridgeViews ({
     name: ''
   })
   // console.log(selectToken)
-  const dec = selectChainInfo ? selectChainInfo.SrcToken.Decimals : ''
+  const dec = selectChainInfo ? selectChainInfo.decimals : ''
+  const balance = useAddressBalance(account, selectToken)
+  const formatBalance = balance && dec ? amountFormatter(balance, dec) : ''
   const inputVaule = useMemo(() => {
     if (value && dec) {
       return ethers.utils.parseUnits(value.toString(), dec)
@@ -68,7 +72,7 @@ export default function BridgeViews ({
 
       const maxNum = Number(selectChainInfo.SrcToken.MaximumSwap)
       const minNum = Number(selectChainInfo.SrcToken.MinimumSwap)
-      if (maxNum < val || minNum > val) {
+      if (maxNum < val || minNum > val || (formatBalance && val > Number(formatBalance))) {
         setIsError(2)
         return ''
       } else {
@@ -85,7 +89,7 @@ export default function BridgeViews ({
       setIsError(0)
       return ''
     }
-  }, [value, selectChainInfo, dec])
+  }, [value, selectChainInfo, dec, formatBalance])
 
   const isDisabled = useMemo(() => {
     if (
@@ -148,6 +152,7 @@ export default function BridgeViews ({
         selectToken={selectToken}
         modalView={modalView}
         isError={isError}
+        balance={balance}
       ></SelectToken>
 
       <OversizedPanel>
