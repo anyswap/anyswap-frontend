@@ -131,8 +131,8 @@ export default function SelectCurrency ({
                         <SymbolLogo address={config.bridgeAll[curChainId].symbol} size={'2rem'} />
                       </TokenLogoBox>
                       <TokenSymbolGroup>
-                        {/* <TokenFullName> {config.bridgeAll[curChainId].symbol}</TokenFullName> */}
-                        <TokenFullName> {formatLabel(useToken.symbol, curChainId)}</TokenFullName>
+                        <TokenFullName> {config.bridgeAll[curChainId].name}</TokenFullName>
+                        {/* <TokenFullName> {formatLabel(useToken.symbol, curChainId)}</TokenFullName> */}
                       </TokenSymbolGroup>
                     </TokenRowLeft>
                   </TokenModalRow>
@@ -179,7 +179,7 @@ export default function SelectCurrency ({
               <Aligner>
                 {
                   <>
-                    {selectChain ? <TokenLogoBox1><TokenLogo url={useToken && useToken.logoUrl ? useToken.logoUrl : ''} size={'1.625rem'} /></TokenLogoBox1> : (
+                    {selectChain ? <TokenLogoBox1><TokenLogo url={useToken && useToken.logoUrl ? useToken.logoUrl : ''} symbol={useToken && useToken.symbol ? useToken.symbol : ''} size={'1.625rem'} /></TokenLogoBox1> : (
                       <TokenLogoBox1>
                         <img alt={''} src={NoCoinIcon} />
                       </TokenLogoBox1>

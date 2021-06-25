@@ -32,11 +32,42 @@ const Image = styled.img`
 
 const initPath = require('../../../../assets/images/question.svg')
 
+function getSourcePath (symbol) {
+  let path = ''
+  // console.log(symbol)
+  try {
+    path = require('../../../../assets/images/coin/source/' + symbol + '.svg')
+  } catch (error) {
+    try {
+      path = require('../../../../assets/images/coin/source/' + symbol + '.png')
+    } catch (error) {
+      path = initPath
+    }
+  }
+  return path
+}
+function getAnyPath (symbol) {
+  let path = ''
+  try {
+    path = require('../../../../assets/images/coin/any/' + symbol + '.svg')
+  } catch (error) {
+    try {
+      path = require('../../../../assets/images/coin/any/' + symbol + '.png')
+    } catch (error) {
+      path = initPath
+    }
+  }
+  return path
+}
 
-export default function TokenLogo({ url, size = '1rem', ...rest }) {
+export default function TokenLogo({ url, symbol, size = '1rem', ...rest }) {
   let path = initPath
   if (url) {
     path = url
+  } else if (symbol) {
+    // console.log(symbol)
+    symbol = symbol.replace('any', '').replace('a', '')
+    path = getSourcePath(symbol)
   }
   return (
     <ImageBox

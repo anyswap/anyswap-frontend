@@ -22,23 +22,10 @@ const Tx  = require("ethereumjs-tx")
 
 // const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
 // const factory = new web3Test.eth.Contract(FACTORY_ABI, FACTORY_ADDRESSES[config.chainID])
-// // const factory = new web3Test.eth.Contract(FACTORY_ABI, '0xc35DADB65012eC5796536bD9864eD8773aBc74C4')
 // setTimeout(() => {
-//   // factory.methods.tokenCount().call((err, res) => {
-//   //   console.log(err)
-//   //   console.log(res)
-//   // })
-//   // factory.methods.getTokenWithId(10).call((err, res) => {
-//   //   console.log(res)
-//   // })
-//   // for (let i = 0 ; i< 10; i++) {
-//   //   factory.methods.getTokenWithId(i).call((err, res) => {
-//   //     console.log(res)
-//   //   })
-//   // }
 //   const batch = new web3Test.BatchRequest()
 //   const arr = [
-//     '0x0b322577569418b166cd98ea8ae7c681e4a820eb',
+//     '0x7815bda662050d84718b988735218cffd32f75ea',
 //   ]
 //   for (const token of arr) {
 //     const plData = factory.methods.getExchange(token).encodeABI()

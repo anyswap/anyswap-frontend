@@ -136,7 +136,7 @@ export default function SelectToken ({
                     }}>
                       <TokenRowLeft>
                         <TokenLogoBox style={ {'border': '0.0625rem solid rgba(0, 0, 0, 0.1)'}}>
-                          <TokenLogo url={tokenList[tokenEntryKey].logoUrl} size={'2rem'} />
+                          <TokenLogo url={tokenList[tokenEntryKey].logoUrl} symbol={tokenList[tokenEntryKey].symbol} size={'2rem'} />
                         </TokenLogoBox>
                         <TokenSymbolGroup>
                           <TokenFullName> {tokenList[tokenEntryKey].symbol}</TokenFullName>
@@ -190,7 +190,7 @@ export default function SelectToken ({
               <Aligner>
                 {
                   <>
-                    {selectToken ? <TokenLogoBox1><TokenLogo url={useToken && useToken.logoUrl ? useToken.logoUrl : ''} size={'1.625rem'} /></TokenLogoBox1> : (
+                    {selectToken ? <TokenLogoBox1><TokenLogo url={useToken && useToken.logoUrl ? useToken.logoUrl : ''} symbol={useToken && useToken.symbol ? useToken.symbol : ''} size={'1.625rem'} /></TokenLogoBox1> : (
                       <TokenLogoBox1>
                         <img alt={''} src={NoCoinIcon} />
                       </TokenLogoBox1>
