@@ -446,6 +446,27 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0x95bf7e307bc1ab0ba38ae10fc27084bc36fcd605': { // COLX
+      [NAME]: 'ColossusXT' + config.suffix,
+      [SYMBOL]: 'COLX',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xb42c0c1ef5c08d59f17ab337a6e2a596726e643e',
+      [REDEEM_MAX_NUM]: 20000,
+      [REDEEM_MIN_NUM]: 0.2,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.5,
+      [MINFEE]: 0.07,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: 'DNBysEzKALzp4oJWiX9ucqhEGCKDMF3RVF',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 20000,
+      [DEPOSIT_MIN_NUM]: 0.1,
+      [EXTENDOBJ]: {
+        VERSION: 'V2'
+      },
+    },
 
 
 

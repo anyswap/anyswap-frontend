@@ -90,6 +90,12 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://block.ccore.online/api/getrawtransaction?txid=', // 
     initAddr: 'BoXzhY6SQ2Zorj8ha8RamvRiKK16q6PRW3',  // 
   },
+  colx: { // colx配置
+    lookHash: 'https://chainz.cryptoid.info/colx/tx.dws?', // 
+    queryTxns: '', // 
+    queryHashStatus: 'https://chainz.cryptoid.info/colx/api.dws?q=txinfo&t=', // 
+    initAddr: 'DNBysEzKALzp4oJWiX9ucqhEGCKDMF3RVF',  // 
+  },
   isOpenRewards: 0, // 是否打开奖励数据
   isChangeDashboard: 1, // 是否改变资产顺序
   noSupportBridge: [
