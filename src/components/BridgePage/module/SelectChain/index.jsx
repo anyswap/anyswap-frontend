@@ -50,6 +50,7 @@ import config from '../../../../config'
 import {
   BalanceTxt
 } from '../style'
+import { ethers } from 'ethers'
 
 export default function SelectCurrency ({
   tokenList,
@@ -59,12 +60,12 @@ export default function SelectCurrency ({
   onSelectedChainInfo = () => {},
   onOpenTokenModal = () => {},
   value = '',
-  bridgeType
+  bridgeType,
+  balance
 }) {
   const { t } = useTranslation()
 
   const [errorMessage, setErrorMessage] = useState()
-  const [balance, setBalance] = useState()
   const [modelView, setModelView] = useState(false)
 
   const useToken = useMemo(() => {
@@ -76,20 +77,20 @@ export default function SelectCurrency ({
   }, [selectToken, tokenList])
   // console.log(useToken)
   useEffect(() => {
-    if (!selectChain && useToken.list) {
-      for (const item of useToken.list) {
-        const curChainId = item.destChainID
+    if (!selectChain && useToken.destChains) {
+      for (const item in useToken.destChains) {
+        const curChainId = item
         // console.log(curChainId)
         onSelectedChain(curChainId)
-        onSelectedChainInfo(item)
+        onSelectedChainInfo(useToken.destChains[curChainId])
         break
       }
     }
   }, [useToken, selectChain, onSelectedChain, onSelectedChainInfo])
 
   const chainList = useMemo(() => {
-    if (useToken && useToken.list && useToken.list.length > 0) {
-      return useToken.list
+    if (useToken && useToken.destChains) {
+      return useToken.destChains
     } else {
       return []
     }
@@ -118,13 +119,13 @@ export default function SelectCurrency ({
           <TokenListBox>
             {
               // Object.keys(tokenList).map(tokenEntryKey => {
-              chainList.map((item, index) => {
-                const curChainId = item.destChainID
-                const curToken = item.DestToken.ContractAddress
+                Object.keys(chainList).map((item, index) => {
+                const curChainId = item
+                const curToken = chainList[item].address
                 return (
                   <TokenModalRow key={index} onClick={() => {
                     onSelectedChain(curChainId)
-                    onSelectedChainInfo(item)
+                    onSelectedChainInfo(chainList[item])
                     onCloseModal()
                   }}>
                     <TokenRowLeft title={curToken}>
@@ -133,7 +134,6 @@ export default function SelectCurrency ({
                       </TokenLogoBox>
                       <TokenSymbolGroup>
                         <TokenFullName> {config.bridgeAll[curChainId].name}</TokenFullName>
-                        {/* <TokenFullName> {formatLabel(useToken.symbol, curChainId)}</TokenFullName> */}
                       </TokenSymbolGroup>
                     </TokenRowLeft>
                   </TokenModalRow>
@@ -149,7 +149,7 @@ export default function SelectCurrency ({
             <LabelContainer>
               <span>{t('to')}</span>
             </LabelContainer>
-            <BalanceTxt>{t('balances')}: {balance ? amountFormatter(balance, useToken.decimals, 2) : '-'}</BalanceTxt>
+            <BalanceTxt>{t('balances')}: {balance ? amountFormatter(ethers.utils.bigNumberify(balance), useToken.decimals, 2) : '-'}</BalanceTxt>
           </LabelRow>
           
           <InputRow>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import {isAddress, Status} from 'anyswapsdk'
 import { ethers } from 'ethers'
@@ -17,6 +17,7 @@ import ResertSvg from '../../../assets/images/icon/revert.svg'
 
 import {formatDecimal} from '../../../utils/tools'
 import { amountFormatter } from '../../../utils'
+import {getAllOutBalance1, getLocalOutBalance, getTokenBalance} from '../../../utils/birdge/getOutBalance'
 
 import SelectToken from './SelectToken'
 import SelectChain from './SelectChain'
@@ -45,9 +46,43 @@ export default function BridgeViews ({
     name: ''
   })
   // console.log(selectChainInfo)
-  const dec = selectChainInfo ? (selectChainInfo.decimals ? selectChainInfo.decimals : selectChainInfo.SrcToken.Decimals) : ''
+  const dec = selectChainInfo && selectChainInfo.decimals ? selectChainInfo.decimals : ''
   const balance = useAddressBalance(account, selectToken)
   const formatBalance = balance && dec ? amountFormatter(balance, dec) : ''
+
+  const getAllOutBalanceFn = useCallback(() => {
+    let tokenClass = {}
+
+    for (const token in tokenList) {
+      const obj = tokenList[token]
+      for (const c in obj.destChains) {
+        const tStr = obj.destChains[c].address
+        if (!tokenClass[c]) tokenClass[c] = {}
+        tokenClass[c][tStr] = obj.destChains[c]
+      }
+    }
+    // console.log(tokenList)
+    // console.log(tokenClass)
+    getAllOutBalance1(tokenClass, account)
+  }, [tokenList, account])
+
+  // console.log(getLocalOutBalance(node, account, inputCurrency))
+
+  useEffect(() => {
+    if (account) {
+      getAllOutBalanceFn()
+    }
+  }, [account, getAllOutBalanceFn])
+
+  const outBalance = useMemo(() => {
+    const bl = getLocalOutBalance(selectChain, account, selectChainInfo.address)
+    // console.log(bl)
+    if (bl.msg === 'Success') {
+      return bl.info.balance
+    } 
+    return ''
+  }, [account, selectChain, selectChainInfo])
+  // console.log(outBalance)
 
   const inputVaule = useMemo(() => {
     if (value && dec) {
@@ -68,12 +103,12 @@ export default function BridgeViews ({
     if (value && selectChainInfo) {
       
       const val = Number(value)
-      const fee = Number(selectChainInfo.SrcToken.SwapFeeRate) * value
-      const maxFee = Number(selectChainInfo.SrcToken.MaximumSwapFee)
-      const minFee = Number(selectChainInfo.SrcToken.MinimumSwapFee)
+      const fee = Number(selectChainInfo.SwapFeeRate) * value
+      const maxFee = Number(selectChainInfo.MaximumSwapFee)
+      const minFee = Number(selectChainInfo.MinimumSwapFee)
 
-      const maxNum = Number(selectChainInfo.SrcToken.MaximumSwap)
-      const minNum = Number(selectChainInfo.SrcToken.MinimumSwap)
+      const maxNum = Number(selectChainInfo.MaximumSwap)
+      const minNum = Number(selectChainInfo.MinimumSwap)
       // console.log(val)
       // console.log(formatBalance)
       if (maxNum < val || minNum > val || !formatBalance || (formatBalance && val > Number(formatBalance))) {
@@ -180,6 +215,7 @@ export default function BridgeViews ({
           setModalView(val)
         }}
         value={outValue}
+        balance={outBalance}
       ></SelectChain>
 
       {bridgeType && bridgeType === 'swapout' ? (
@@ -191,7 +227,7 @@ export default function BridgeViews ({
 
       <Reminder
         bridgeType={bridgeType}
-        bridgeConfig={selectChainInfo}
+        bridgeConfig={useToken}
       ></Reminder>
 
       <BridgeButton

@@ -71,6 +71,7 @@ const SubCurrencySelectBox = styled.div`
 
 function SwapinView (bridgeConfig) {
   const { t } = useTranslation()
+  // console.log(bridgeConfig)
   if (!bridgeConfig) {
     return (
       <></>
@@ -85,16 +86,16 @@ function SwapinView (bridgeConfig) {
           {t('Reminder')}:
         </dt>
         <dd><i></i>{t('mintTip1', {
-          dMinFee: bridgeConfig.SrcToken.MinimumSwapFee,
+          dMinFee: bridgeConfig.MinimumSwapFee,
           coin: viewSymbol,
-          dMaxFee: bridgeConfig.SrcToken.MaximumSwapFee,
-          dFee: Number(bridgeConfig.SrcToken.SwapFeeRate)
+          dMaxFee: bridgeConfig.MaximumSwapFee,
+          dFee: Number(bridgeConfig.SwapFeeRate)
         })}</dd>
-        <dd><i></i>{t('mintTip2')} {thousandBit(bridgeConfig.SrcToken.MinimumSwap, 'no')} {viewSymbol}</dd>
-        <dd><i></i>{t('mintTip3')} {thousandBit(bridgeConfig.SrcToken.MaximumSwap, 'no')} {viewSymbol}</dd>
+        <dd><i></i>{t('mintTip2')} {thousandBit(bridgeConfig.MinimumSwap, 'no')} {viewSymbol}</dd>
+        <dd><i></i>{t('mintTip3')} {thousandBit(bridgeConfig.MaximumSwap, 'no')} {viewSymbol}</dd>
         <dd><i></i>{t('mintTip4')}</dd>
         <dd><i></i>{t('mintTip5', {
-          depositBigValMoreTime: thousandBit(bridgeConfig.SrcToken.BigValueThreshold, 'no'),
+          depositBigValMoreTime: thousandBit(bridgeConfig.BigValueThreshold, 'no'),
           coin: viewSymbol,
         }) + (viewSymbol ? '' : '')}</dd>
       </dl>
@@ -118,16 +119,16 @@ function SwapoutView (bridgeConfig) {
           {t('Reminder')}:
         </dt>
         <dd><i></i>{t('redeemTip1', {
-          minFee: bridgeConfig.SrcToken.MinimumSwapFee,
+          minFee: bridgeConfig.MinimumSwapFee,
           coin: viewSymbol,
-          maxFee: bridgeConfig.SrcToken.MaximumSwapFee,
-          fee: Number(bridgeConfig.SrcToken.SwapFeeRate)
+          maxFee: bridgeConfig.MaximumSwapFee,
+          fee: Number(bridgeConfig.SwapFeeRate)
         })}</dd>
-        <dd><i></i>{t('redeemTip2')} {thousandBit(bridgeConfig.SrcToken.MinimumSwap, 'no')} {viewSymbol}</dd>
-        <dd><i></i>{t('redeemTip3')} {thousandBit(bridgeConfig.SrcToken.MaximumSwap, 'no')} {viewSymbol}</dd>
+        <dd><i></i>{t('redeemTip2')} {thousandBit(bridgeConfig.MinimumSwap, 'no')} {viewSymbol}</dd>
+        <dd><i></i>{t('redeemTip3')} {thousandBit(bridgeConfig.MaximumSwap, 'no')} {viewSymbol}</dd>
         <dd><i></i>{t('redeemTip4')}</dd>
         <dd><i></i>{t('redeemTip5', {
-          redeemBigValMoreTime: thousandBit(bridgeConfig.SrcToken.BigValueThreshold, 'no'),
+          redeemBigValMoreTime: thousandBit(bridgeConfig.BigValueThreshold, 'no'),
           coin: viewSymbol,
         })}</dd>
       </dl>

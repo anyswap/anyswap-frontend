@@ -6,6 +6,7 @@ import TOKEN from '../../contexts/BridgeTokens'
 import {getNodeRpc} from '../../config/getNodeRpc'
 import {formatCoin, getLocalConfig, setLocalConfig} from '../tools'
 import {getTRXBalance} from './TRX'
+import { isAddress } from '..'
 
 const Web3 = require('web3')
 const web3 = new Web3()
@@ -181,6 +182,79 @@ function getOutTokenBalance (chainId, account, tokenList) {
     batch.execute()
   })
 }
+
+function getOutTokenBalance1 (chainId, account, tokenList) {
+  return new Promise(resolve => {
+    const batch = new web3.BatchRequest()
+    chainId = Number(chainId)
+    web3.setProvider(getNodeRpc(chainId))
+    let isHaveoutBaseCoin = true
+    for (let token in tokenList) {
+      let coin = formatCoin(tokenList[token].symbol)
+      // if () continue
+      if (!isAddress(token)) {
+        isHaveoutBaseCoin = false
+        batch.add(web3.eth.getBalance.request(account, 'latest', (err, res) => {
+          let bl
+          if (err) {
+            bl = ZERO
+          } else {
+            bl = ethers.utils.bigNumberify(res)
+            setLocalOutBalance(chainId, account, token, {balance: bl.toString()})
+            setLocalOutBalance(chainId, account, 'BASE', {balance: bl.toString()})
+          }
+          resolve('OVER')
+        }))
+      } else {
+        contract.options.address = token
+        let etbData = contract.methods.balanceOf(account).encodeABI()
+        batch.add(web3.eth.call.request({data: etbData, to: token, from: account}, 'latest', (err, res) => {
+          let bl
+          if (err) {
+            bl = ZERO
+          } else {
+            bl = ethers.utils.bigNumberify(res)
+            setLocalOutBalance(chainId, account, token, {balance: bl.toString()})
+          }
+        }))
+      }
+    }
+    if (isHaveoutBaseCoin) {
+      batch.add(web3.eth.getBalance.request(account, 'latest', (err, res) => {
+        let bl
+        if (err) {
+          bl = ZERO
+        } else {
+          bl = ethers.utils.bigNumberify(res)
+          setLocalOutBalance(chainId, account, 'BASE', {balance: bl.toString()})
+        }
+        resolve('OVER')
+      }))
+    }
+    batch.execute()
+  })
+}
+let getBalanceInterval1 = ''
+function getAllOutBalanceFn1 (allToken, account) {
+  if (getBalanceInterval1) clearTimeout(getBalanceInterval1) 
+  let arr = []
+  for (let chainId in allToken) {
+    if (chainId === 'TRX') {
+      // console.log(allToken[chainId])
+      getTRXBalance(account, allToken[chainId])
+    } else {
+      arr.push(getOutTokenBalance1(chainId, account, allToken[chainId]))
+    }
+  }
+  Promise.all(arr).then(res => {
+    // console.log(res)
+    getBalanceInterval1 = setTimeout(() => {
+      getAllOutBalance1(allToken, account)
+    }, 12000)
+  })
+}
+export const getAllOutBalance1 = getAllOutBalanceFn1
+
 
 let getBalanceInterval = ''
 
