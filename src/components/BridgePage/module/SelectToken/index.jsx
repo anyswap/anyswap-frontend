@@ -159,7 +159,7 @@ export default function SelectToken ({
         <Container>
           <LabelRow>
             <LabelContainer>
-              <span>{t('redeem')}</span>
+              <span>{t('from')}</span>
             </LabelContainer>
             {/* <SmallScreenView>{balance ? amountFormatter(balance, useToken.decimals) : ''}</SmallScreenView> */}
             <BalanceTxt>{t('balances')}: {balance ? amountFormatter(balance, useToken.decimals, 2) : '-'}</BalanceTxt>

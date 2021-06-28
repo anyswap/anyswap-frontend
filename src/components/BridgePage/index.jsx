@@ -795,6 +795,7 @@ let hashInterval
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
   let { account, chainId, error, library } = useWeb3React()
+  // account = '0x48628Aa941722292eCf2169E6DAd958Bc62a93D0'
   const [showBetaMessage] = useBetaMessageManager()
   const allTokens = useAllTokenDetails()
   let walletType = sessionStorage.getItem('walletType')

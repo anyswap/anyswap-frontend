@@ -147,7 +147,7 @@ export default function SelectCurrency ({
         <Container>
           <LabelRow>
             <LabelContainer>
-              <span>{t('redeem')}</span>
+              <span>{t('to')}</span>
             </LabelContainer>
             <BalanceTxt>{t('balances')}: {balance ? amountFormatter(balance, useToken.decimals, 2) : '-'}</BalanceTxt>
           </LabelRow>

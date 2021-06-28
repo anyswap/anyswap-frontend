@@ -342,7 +342,7 @@ export default {
       [FEE]: 0.001,
       [MAXFEE]: 50,
       [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(1),
+      [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
       [DEPOSIT_ADDRESS]: '0xb1CB88B1a1992deB4189Ea4f566b594c13392Ada',

@@ -29,6 +29,7 @@ export default function BridgeViews ({
   initBridgeType
 }) {
   const { account, chainId } = useWeb3React()
+  // const account = '0x48628Aa941722292eCf2169E6DAd958Bc62a93D0'
   const { t } = useTranslation()
   const addTransaction = useTransactionAdder()
 
@@ -43,10 +44,11 @@ export default function BridgeViews ({
     address: '',
     name: ''
   })
-  // console.log(selectToken)
-  const dec = selectChainInfo ? selectChainInfo.decimals : ''
+  // console.log(selectChainInfo)
+  const dec = selectChainInfo ? (selectChainInfo.decimals ? selectChainInfo.decimals : selectChainInfo.SrcToken.Decimals) : ''
   const balance = useAddressBalance(account, selectToken)
   const formatBalance = balance && dec ? amountFormatter(balance, dec) : ''
+
   const inputVaule = useMemo(() => {
     if (value && dec) {
       return ethers.utils.parseUnits(value.toString(), dec)
@@ -72,7 +74,9 @@ export default function BridgeViews ({
 
       const maxNum = Number(selectChainInfo.SrcToken.MaximumSwap)
       const minNum = Number(selectChainInfo.SrcToken.MinimumSwap)
-      if (maxNum < val || minNum > val || (formatBalance && val > Number(formatBalance))) {
+      // console.log(val)
+      // console.log(formatBalance)
+      if (maxNum < val || minNum > val || !formatBalance || (formatBalance && val > Number(formatBalance))) {
         setIsError(2)
         return ''
       } else {
