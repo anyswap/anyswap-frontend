@@ -472,7 +472,7 @@ export default function Header() {
                 <StyleAnyLogo></StyleAnyLogo>
               )
             }
-            <V3LinkBox href='https://sushi.anyswap.exchange/#/swap'>
+            <V3LinkBox href='https://stable.anyswap.exchange/#/swap'>
               <V3LinkImg src={V3Icon} alt={'V3'}/>
             </V3LinkBox>
           </HeaderElement>
