@@ -18,7 +18,7 @@ import IconDay from '../../assets/images/icon/day.svg'
 import IconNight from '../../assets/images/icon/night.svg'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import ScheduleIcon from '../../assets/images/icon/schedule.svg'
-import V3Icon from '../../assets/images/icon/V3.png'
+// import V3Icon from '../../assets/images/icon/V3.png'
 import { createBrowserHistory } from 'history'
 
 import {chainList} from '../../config/coinbase/nodeConfig'
@@ -304,14 +304,18 @@ font-family: 'Manrope';
 
 const V3LinkBox = styled(Link)`
   // width: 20px;
-  height: 20px;
-  margin-top: 18px;
+  // height: 20px;
+  ${({theme}) => theme.FlexSC}
+  line-height: 26px;
+  margin-top: 17px;
+  font-size: 18px;
+  font-weight:bold;
 `
 
-const V3LinkImg = styled.img`
-  height:20px;
-  display:block;
-`
+// const V3LinkImg = styled.img`
+//   height:20px;
+//   display:block;
+// `
 
 export default function Header() {
   const { t } = useTranslation()
@@ -473,7 +477,8 @@ export default function Header() {
               )
             }
             <V3LinkBox href='https://stable.anyswap.exchange/#/swap'>
-              <V3LinkImg src={V3Icon} alt={'V3'}/>
+              V3↗
+              {/* <V3LinkImg src={V3Icon} alt={'V3'}/> */}
             </V3LinkBox>
           </HeaderElement>
           <HeaderElement>
