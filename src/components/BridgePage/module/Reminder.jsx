@@ -89,7 +89,7 @@ function SwapinView (bridgeConfig) {
           dMinFee: bridgeConfig.MinimumSwapFee,
           coin: viewSymbol,
           dMaxFee: bridgeConfig.MaximumSwapFee,
-          dFee: Number(bridgeConfig.SwapFeeRate)
+          dFee: Number(bridgeConfig.SwapFeeRatePerMillion)
         })}</dd>
         <dd><i></i>{t('mintTip2')} {thousandBit(bridgeConfig.MinimumSwap, 'no')} {viewSymbol}</dd>
         <dd><i></i>{t('mintTip3')} {thousandBit(bridgeConfig.MaximumSwap, 'no')} {viewSymbol}</dd>
@@ -122,7 +122,7 @@ function SwapoutView (bridgeConfig) {
           minFee: bridgeConfig.MinimumSwapFee,
           coin: viewSymbol,
           maxFee: bridgeConfig.MaximumSwapFee,
-          fee: Number(bridgeConfig.SwapFeeRate)
+          fee: Number(bridgeConfig.SwapFeeRatePerMillion)
         })}</dd>
         <dd><i></i>{t('redeemTip2')} {thousandBit(bridgeConfig.MinimumSwap, 'no')} {viewSymbol}</dd>
         <dd><i></i>{t('redeemTip3')} {thousandBit(bridgeConfig.MaximumSwap, 'no')} {viewSymbol}</dd>
@@ -140,6 +140,7 @@ export default function Reminder ({
   bridgeConfig,
   bridgeType
 }) {
+  // console.log(bridgeType)
   // console.log(bridgeConfig)
   if (bridgeType === 'swapin') {
     return SwapinView(bridgeConfig)

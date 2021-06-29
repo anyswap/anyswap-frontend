@@ -100,17 +100,15 @@ export default function BridgeViews ({
   }, [selectToken, tokenList])
 
   const outValue = useMemo(() => {
-    if (value && selectChainInfo) {
+    if (value && useToken) {
       
       const val = Number(value)
-      const fee = Number(selectChainInfo.SwapFeeRate) * value
-      const maxFee = Number(selectChainInfo.MaximumSwapFee)
-      const minFee = Number(selectChainInfo.MinimumSwapFee)
+      const fee = Number(useToken.SwapFeeRatePerMillion) * value
+      const maxFee = Number(useToken.MaximumSwapFee)
+      const minFee = Number(useToken.MinimumSwapFee)
 
-      const maxNum = Number(selectChainInfo.MaximumSwap)
-      const minNum = Number(selectChainInfo.MinimumSwap)
-      // console.log(val)
-      // console.log(formatBalance)
+      const maxNum = Number(useToken.MaximumSwap)
+      const minNum = Number(useToken.MinimumSwap)
       if (maxNum < val || minNum > val || !formatBalance || (formatBalance && val > Number(formatBalance))) {
         setIsError(2)
         return ''
@@ -128,7 +126,7 @@ export default function BridgeViews ({
       setIsError(0)
       return ''
     }
-  }, [value, selectChainInfo, dec, formatBalance])
+  }, [value, useToken, dec, formatBalance])
 
   const isDisabled = useMemo(() => {
     if (
