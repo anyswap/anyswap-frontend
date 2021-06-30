@@ -124,57 +124,6 @@ function setLocalinfo (account, res, chainID, version, coin, pairid, localtype) 
     p2pAddress: getRegisterInfo(account, token, chainID, version, coin).p2pAddress
   }
   setLocalConfig(account, token, bridgeData, chainID, localtype)
-
-  // if (chainID === 56) {
-  //   const bridgeData1 = {
-  //     depositAddress: 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX',
-  //     PlusGasPricePercentage: '',
-  //     isDeposit: 1,
-  //     depositMaxNum: 100000,
-  //     depositMinNum: 0.05,
-  //     depositBigValMoreTime: 500,
-  //     dMaxFee: 0,
-  //     dMinFee: 0,
-  //     dFee: 0,
-  //     outnetToken: '',
-  //     dcrmAddress: 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX',
-  //     isRedeem: 1,
-  //     redeemMaxNum: 100000,
-  //     redeemMinNum: 0.1,
-  //     maxFee: 50,
-  //     minFee: 0.01,
-  //     fee: 0.001,
-  //     redeemBigValMoreTime: 500,
-  //     token: '0x0e6ddf2a953842fb8efaada167bd3e7a2496aa08',
-  //     pairid: 'trx',
-  //     p2pAddress: ''
-  //   }
-  //   setLocalConfig(account, '0x0e6ddf2a953842fb8efaada167bd3e7a2496aa08', bridgeData1, chainID, SERVER_BRIDGE_CONFIG)
-  //   const bridgeData2 = {
-  //     depositAddress: 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX',
-  //     PlusGasPricePercentage: '',
-  //     isDeposit: 1,
-  //     depositMaxNum: 100000,
-  //     depositMinNum: 0.05,
-  //     depositBigValMoreTime: 500,
-  //     dMaxFee: 0,
-  //     dMinFee: 0,
-  //     dFee: 0,
-  //     outnetToken: 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t',
-  //     dcrmAddress: 'TXSxUhgSoHkHNLgip2kQRHXVT6BqoaqtvX',
-  //     isRedeem: 1,
-  //     redeemMaxNum: 100000,
-  //     redeemMinNum: 0.1,
-  //     maxFee: 50,
-  //     minFee: 0.01,
-  //     fee: 0.001,
-  //     redeemBigValMoreTime: 500,
-  //     token: '0x611134123e01699a5f0eda6379c6a52df87db472',
-  //     pairid: 'trc20usdt',
-  //     p2pAddress: ''
-  //   }
-  //   setLocalConfig(account, '0x611134123e01699a5f0eda6379c6a52df87db472', bridgeData2, chainID, SERVER_BRIDGE_CONFIG)
-  // }
 }
 
 function getServerData (account, chainID, version, coin) {
@@ -213,34 +162,46 @@ export function RegisterAddress(account, token, coin, chainID, version) {
       msg: 'Error',
       info: ''
     }
-    let url = config.serverInfoUrl['V1'] + '/register/' + account + '/' + chainID + '/' + coin
-    if (version === 'V2') {
-      url = config.serverInfoUrl['V2'] + '/register/' + account + '/' + chainID + '/' + coin
-    }
-    axios.get(url).then(res => {
-      let rsData = res.data
-      if ( 
-        (rsData.msg === 'Success' && rsData.info && rsData.info.P2shAddress)
-        || (rsData.error && rsData.error.indexOf('mgoError: Item is duplicate') !== -1)
-        || (rsData.msg === 'Success' && rsData.info === 'Success')
-      ) {
-        setRegisterInfo(account, token, {
-          isRegister: true,
-          p2pAddress: rsData.info && rsData.info.P2shAddress
-        }, chainID, version, coin)
-        resolve({
-          msg: 'Success',
-          info: ''
-        })
-      } else {
-        data.error = 'Register error!'
-        resolve(data)
+    let lData = getRegisterInfo (account, token, chainID, version, coin)
+    // console.log(lData)
+    if (lData && lData.isRegister) {
+      // console.log(lData)
+      // resolve(lData)
+      resolve({
+        msg: 'Success',
+        info: ''
+      })
+    } else {
+      
+      let url = config.serverInfoUrl['V1'] + '/register/' + account + '/' + chainID + '/' + coin
+      if (version === 'V2') {
+        url = config.serverInfoUrl['V2'] + '/register/' + account + '/' + chainID + '/' + coin
       }
-    }).catch(err => {
-      console.log(err)
-      data.error = err
-      resolve(data)
-    })
+      axios.get(url).then(res => {
+        let rsData = res.data
+        if ( 
+          (rsData.msg === 'Success' && rsData.info && rsData.info.P2shAddress)
+          || (rsData.error && rsData.error.indexOf('mgoError: Item is duplicate') !== -1)
+          || (rsData.msg === 'Success' && rsData.info === 'Success')
+        ) {
+          setRegisterInfo(account, token, {
+            isRegister: true,
+            p2pAddress: rsData.info && rsData.info.P2shAddress
+          }, chainID, version, coin)
+          resolve({
+            msg: 'Success',
+            info: ''
+          })
+        } else {
+          data.error = 'Register error!'
+          resolve(data)
+        }
+      }).catch(err => {
+        console.log(err)
+        data.error = err
+        resolve(data)
+      })
+    }
   })
 }
 

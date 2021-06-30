@@ -185,6 +185,9 @@ export default function BridgeViews ({
         onToggleModal={val => {
           setModalView(val)
         }}
+        onMax={val => {
+          setValue(val)
+        }}
         value={value}
         selectToken={selectToken}
         modalView={modalView}

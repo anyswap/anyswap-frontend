@@ -966,10 +966,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   const fetchPoolTokens = useCallback(() => {
     // console.log(123)
-    if (extendObj && extendObj.APPROVE && account) {
-    // if (true) {
-      // getAllowanceInfo(account, '', chainId, inputCurrency).then(res => {
-      getAllowanceInfo(account, extendObj.APPROVE, chainId, inputCurrency).then(res => {
+    if (extendObj && extendObj.APPROVE && !extendObj.APPROVE.isApprove && account) {
+      getAllowanceInfo(account, extendObj.APPROVE.token, chainId, inputCurrency).then(res => {
         // console.log(res)
         if (res.msg === 'Success') {
           setApproveNum(res.info.approve)
@@ -1170,7 +1168,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [limitAmount, setLimitAmount] = useState(0)
   
   useEffect(() => {
-    if (extendObj && extendObj.APPROVE) {
+    if (extendObj && extendObj.APPROVE && !extendObj.APPROVE.isApprove) {
       let node = extendObj && extendObj.BRIDGE ? extendObj.BRIDGE[0].type : ''
       if (bridgeType && bridgeType === 'redeem') {
         let coin = formatCoin(inputSymbol)
@@ -1189,7 +1187,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           }
         })
       } else {
-        getTokenBalance(config.nodeRpc, inputCurrency, extendObj.APPROVE, 1).then(res => {
+        getTokenBalance(config.nodeRpc, inputCurrency, extendObj.APPROVE.token, 1).then(res => {
           console.log(res)
           let amount = amountFormatter(ethers.utils.bigNumberify(res), inputDecimals)
           amount = Number(amount)
@@ -1232,8 +1230,8 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
 
   const addTransaction = useTransactionAdder()
 
-  const tokenContract = useSwapTokenContract(extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency, swapBTCABI)
-  const tokenETHContract = useSwapTokenContract(extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency, swapETHABI)
+  const tokenContract = useSwapTokenContract(extendObj && extendObj.APPROVE ? extendObj.APPROVE.token : inputCurrency, swapBTCABI)
+  const tokenETHContract = useSwapTokenContract(extendObj && extendObj.APPROVE ? extendObj.APPROVE.token : inputCurrency, swapETHABI)
   const tokenERC20Contract = useSwapTokenContract(inputCurrency, erc20)
 
   
@@ -1252,7 +1250,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         && isLimitAction
       ) {
         if (isSpecialCoin(inputSymbol) && isBTCAddress(recipient.address, inputSymbol)) {
-          if (extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum))) {
+          if (extendObj && extendObj.APPROVE && !extendObj.APPROVE.isApprove && (!approveNum || !Number(approveNum))) {
             setIsRedeem(true)
           } else {
             setIsRedeem(false)
@@ -1260,7 +1258,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           setBalanceError('')
         } else if (!isSpecialCoin(inputSymbol) && (isAddress(recipient.address) || isTRXAddress(recipient.address))) {
           console.log(1)
-          if (extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum))) {
+          if (extendObj && extendObj.APPROVE && !extendObj.APPROVE.isApprove && (!approveNum || !Number(approveNum))) {
             setIsRedeem(true)
           } else {
             setIsRedeem(false)
@@ -1414,7 +1412,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
     let address = recipient.address
     const formatAddress = node === 'TRX' ? toHexAddress(address) : address
-    let token = extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency
+    let token = extendObj && extendObj.APPROVE ? extendObj.APPROVE.token : inputCurrency
     console.log(formatAddress)
     if (config.supportWallet.includes(walletType)) {
       setIsHardwareError(false)
@@ -1508,7 +1506,6 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   function mintAmount (mintAddress, mintCoin) {
     let coin = formatCoin(mintCoin)
 
-    // let token = extendObj && extendObj.APPROVE ? extendObj.APPROVE : inputCurrency
     let token = inputCurrency
     
     if (walletType === 'Ledger') {
@@ -1909,7 +1906,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   function approve () {
     let _userTokenBalance = ethers.constants.MaxUint256.toString()
     
-    let token = extendObj.APPROVE
+    let token = extendObj.APPROVE.token
     let sourceToken = inputCurrency
     setApproveNumBtnView('')
     // let token = '0xe23edd629f264c14333b1d7cb3374259e9df5d55'
@@ -2308,6 +2305,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           let inputVal
           let value = ''
           let _swapMinNum, _swapMaxNum, _fee ,_minFee, _maxFee
+          if (!redeemMinNum) {
+            return
+          }
           if (bridgeType && bridgeType === 'redeem' && inputBalance && inputDecimals) {
             inputVal = inputBalance
             _swapMinNum = ethers.utils.parseUnits(redeemMinNum.toString(), inputDecimals)
@@ -2437,7 +2437,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       }
       
       {
-        bridgeType && bridgeType === 'redeem' && extendObj && extendObj.APPROVE && (!approveNum || !Number(approveNum))  ? (
+        bridgeType && bridgeType === 'redeem' && extendObj && extendObj.APPROVE && !extendObj.APPROVE.isApprove && (!approveNum || !Number(approveNum))  ? (
           <SubCurrencySelectBox1>
             <div>
               <img src={Warning} alt={''}/>

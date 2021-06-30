@@ -62,11 +62,12 @@ export default function SelectToken ({
   onValueChange = () => {},
   onSelectedToken = () => {},
   onToggleModal = () => {},
+  onMax = () => {},
   value = '',
   selectToken,
   modalView,
   isError,
-  balance
+  balance,
 }) {
   const { account, chainId } = useWeb3React()
   const { t } = useTranslation()
@@ -162,7 +163,11 @@ export default function SelectToken ({
               <span>{t('from')}</span>
             </LabelContainer>
             {/* <SmallScreenView>{balance ? amountFormatter(balance, useToken.decimals) : ''}</SmallScreenView> */}
-            <BalanceTxt>{t('balances')}: {balance ? amountFormatter(balance, useToken.decimals, 2) : '-'}</BalanceTxt>
+            <BalanceTxt onClick={() => {
+              if (balance) {
+                onMax(amountFormatter(balance, useToken.decimals, 2))
+              }
+            }}>{t('balances')}: {balance ? amountFormatter(balance, useToken.decimals, 2) : '-'}</BalanceTxt>
           </LabelRow>
           
           <InputRow>

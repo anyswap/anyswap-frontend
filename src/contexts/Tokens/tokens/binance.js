@@ -1638,7 +1638,9 @@ export default {
           { type: 1, isSwitch: 1 }
         ],
         VERSION: 'V2',
-        APPROVE: '0xc4f7ed85546486f7579fd59e2ea3f6684820c7c0',
+        APPROVE: {
+          token: '0xc4f7ed85546486f7579fd59e2ea3f6684820c7c0'
+        },
         APPROVELIMIT: 0
       },
     },
@@ -5167,10 +5169,38 @@ export default {
         BRIDGE: [
           { type: 1, isSwitch: 1 }
         ],
-        APPROVE: '0x43ba383b9934d8d45ea6348d00dbc1bae97d6e74',
+        APPROVE: {
+          token: '0x43ba383b9934d8d45ea6348d00dbc1bae97d6e74',
+          isApprove: 1
+        },
         VERSION: 'V2'
       }
     },
+    
+    // '0x43ba383b9934d8d45ea6348d00dbc1bae97d6e74': { // PRQ 
+    //   [NAME]: 'Parsiq Token' + config.suffix,
+    //   [SYMBOL]: 'PRQ',
+    //   [DECIMALS]: 18,
+    //   [EXCHANGE_ADDRESS]: '',
+    //   [REDEEM_MAX_NUM]: 5000,
+    //   [REDEEM_MIN_NUM]: 0.16,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 0.8,
+    //   [MINFEE]: 0.08,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 143000,
+    //   [DEPOSIT_MIN_NUM]: 0.16,
+    //   [EXTENDOBJ]:  {
+    //     BRIDGE: [
+    //       { type: 1, isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2'
+    //   }
+    // },
     '0x790cfdc6ab2e0ee45a433aac5434f183be1f6a20': { // PLR 
       [NAME]: 'PILLAR' + config.suffix,
       [SYMBOL]: 'PLR',

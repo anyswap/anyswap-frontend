@@ -268,7 +268,9 @@ export default {
           { type: 250, isSwitch: 1 }
         ],
         VERSION: 'V2',
-        APPROVE: '0x5cbe98480a790554403694b98bff71a525907f5d',
+        APPROVE: {
+          token: '0x5cbe98480a790554403694b98bff71a525907f5d'
+        },
         APPROVELIMIT: 0
       },
     },
@@ -543,7 +545,9 @@ export default {
           { type: 250, isSwitch: 1 }
         ],
         VERSION: 'V2',
-        APPROVE: '0xe23edd629f264c14333b1d7cb3374259e9df5d55'
+        APPROVE: {
+          token: '0xe23edd629f264c14333b1d7cb3374259e9df5d55'
+        }
       },
     },
   }

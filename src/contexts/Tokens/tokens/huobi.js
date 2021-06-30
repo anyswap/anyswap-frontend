@@ -528,7 +528,9 @@ export default {
           { type: 56, isSwitch: 1 }
         ],
         VERSION: 'V2',
-        APPROVE: '0x7b058df35a14b3dd48f148ecbb5753e9281d1fae',
+        APPROVE: {
+          token: '0x7b058df35a14b3dd48f148ecbb5753e9281d1fae'
+        },
         APPROVELIMIT: 0
       },
     },
