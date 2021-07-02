@@ -380,5 +380,53 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x0b32357430fe98c24b2b245b815af68bc9ecfdad': { // AGA
+      [NAME]: 'AGA Token',
+      [SYMBOL]: config.prefix + 'AGA',
+      [DECIMALS]: 4,
+      [EXCHANGE_ADDRESS]: '0x3788e06695b6280ab2c67497e67640a24d192e3d',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x7d3b448c1242b563c65e8dafcc13557c3069b5b6': { // AGAr
+      [NAME]: 'AGA Rewards',
+      [SYMBOL]: config.prefix + 'AGAr',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xfd89e0255a60609e14819eafe9e85eda0d61cdb4',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

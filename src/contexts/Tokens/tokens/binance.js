@@ -5176,6 +5176,78 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xa4fffc757e8c4f24e7b209c033c123d20983ad40': { // HOGE 
+      [NAME]: 'hoge.finance' + config.suffix,
+      [SYMBOL]: 'HOGE',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0xad385bb5e8f42954dd257a53a46890015ff0ed82',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x758d08864fb6cce3062667225ca10b8f00496cc2': { // NAOS 
+      [NAME]: 'NAOS Token' + config.suffix,
+      [SYMBOL]: 'NAOS',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x7bca58cdda719800656e5ba08f7dadc3367a20b9',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x40d4c6ceca870a0439dc0232d40cf8be8b425baf': { // BMI 
+      [NAME]: 'Bridge Mutual' + config.suffix,
+      [SYMBOL]: 'BMI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x10b560257b814d5469fa136eb5e8ed4077b303dd',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
     
     // '0x43ba383b9934d8d45ea6348d00dbc1bae97d6e74': { // PRQ 
     //   [NAME]: 'Parsiq Token' + config.suffix,

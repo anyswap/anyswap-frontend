@@ -1773,6 +1773,16 @@ export default {
       [TOKEN]: '0xe3818504c1b32bf1557b16c238b2e01fd3149c17',
       [DECIMALS]: 18
     },
+    'NAOS': {
+      [NAME]: 'NAOS',
+      [TOKEN]: '0x4a615bb7166210cce20e6642a6f8fb5d4d044496',
+      [DECIMALS]: 18
+    },
+    'BMI': {
+      [NAME]: 'BMI',
+      [TOKEN]: '0x725c263e32c72ddc3a19bea12c5a0479a81ee688',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -1947,6 +1957,21 @@ export default {
       [TOKEN]: '0x4131b87f74415190425ccd873048c708f8005823',
       [DECIMALS]: 18
     },
+    'INKU': {
+      [NAME]: 'INKU',
+      [TOKEN]: '0xb37cad62441ef8b866f3e36f12fd42062b6c0f33',
+      [DECIMALS]: 18
+    },
+    'Scam': {
+      [NAME]: 'Scam',
+      [TOKEN]: '0x00aa85e010204068b7cc2235800b2d8036bdbf2e',
+      [DECIMALS]: 10
+    },
+    'VEST': {
+      [NAME]: 'VEST',
+      [TOKEN]: '0x5ff584f11b3dc5bc26cd099239ced7eaa2d4e581',
+      [DECIMALS]: 10
+    },
   },
   128: {
     'PLF': { // 
@@ -1957,6 +1982,16 @@ export default {
     'PTT': {
       [NAME]: 'PTT',
       [TOKEN]: '0x7eed8a3ccfe3d507ec4df443773eae792b9ef2d7',
+      [DECIMALS]: 18
+    },
+    'MAKI': {
+      [NAME]: 'MAKI',
+      [TOKEN]: '0x5fad6fbba4bba686ba9b8052cf0bd51699f38b93',
+      [DECIMALS]: 18
+    },
+    'SOY': {
+      [NAME]: 'SOY',
+      [TOKEN]: '0xfb4c85b31b888e4f84ac131667865e029d6486f7',
       [DECIMALS]: 18
     },
   },

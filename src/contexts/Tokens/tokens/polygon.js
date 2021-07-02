@@ -935,5 +935,125 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x89d45ccdae300e9a2a725eec8ec76dda571d6e2b': { // MAKI
+      [NAME]: 'MakiSwap',
+      [SYMBOL]: 'MAKI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xf1a62f84d07ff89faca6300e18f6875f8a00049f',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x421fce3f51619c6652cf9c595cafbb87c2056c2d',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 128, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x993163cad35162fb579d7b64e6695cb076ef5064': { // SOY
+      [NAME]: 'SoyBar Token',
+      [SYMBOL]: 'SOY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xc87ef53d57f05fc8c3285f855c0540d02353f11e',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x421fce3f51619c6652cf9c595cafbb87c2056c2d',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 128, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x1dd9e9e142f3f84d90af1a9f2cb617c7e08420a4': { // INKU
+      [NAME]: 'INKU Token',
+      [SYMBOL]: 'INKU',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x94efe79ca3da7af66ddba5d70d6ba68c20d51f7d',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x8ae1f939b6f12fc017dfc6510010dae9dad28d68': { // Scam
+      [NAME]: 'Simple Cool Automatic Money',
+      [SYMBOL]: 'Scam',
+      [DECIMALS]: 10,
+      [EXCHANGE_ADDRESS]: '0x019d90255dc0a236de7d2a9ff80264c897db7737',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xa56c978be266b1a9ab7b8982050d500505eeae61': { // VEST
+      [NAME]: 'START Vesting',
+      [SYMBOL]: 'VEST',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x9193186e41bc6cb7d737e3b3629b6583b4261aba',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

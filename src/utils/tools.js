@@ -31,7 +31,12 @@ export function formatCoin (coin) {
     if (coin === 'aaBLOCK') {
       return 'BLOCK'
     }
-    return coin.replace('any', '').replace(config.prefix, '')
+    if (coin.indexOf('any') === 0) {
+      return coin.replace('any', '')
+    } else if (coin.indexOf(config.prefix) === 0) {
+      return coin.replace(config.prefix, '')
+    }
+    return coin
   } else {
     return coin
   }
