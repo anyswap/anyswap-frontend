@@ -358,7 +358,7 @@ export default {
     },
     '0x64d5baf5ac030e2b7c435add967f787ae94d0205': { // bMXX
       [NAME]: 'Multiplier',
-      [SYMBOL]: 'bMXX',
+      [SYMBOL]: config.prefix + 'bMXX',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x07718c4aca5ba115d69de92a97082a9859235306',
       [REDEEM_MAX_NUM]: 200000,

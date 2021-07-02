@@ -22,7 +22,7 @@ const COIN_BASE ={
   networkName: 'AVAX', // 网络名称
   reverseSwitch: 0,  // 是否反向禁用,
   suffix: '', // 后缀
-  prefix: 'any',
+  prefix: '',
   keepDec: 6, // 保留小数位
   namePrefix: NAME_PREFIX, // 币名前缀
   marketsUrl: 'https://markets.anyswap.exchange/?trade=ANY_FSN', // K线图地址
