@@ -1378,11 +1378,11 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0x7815bda662050d84718b988735218cffd32f75ea': { // YEL 
+    '0xd3b71117e6c1558c1553305b44988cd944e97300': { // YEL 
       [NAME]: 'YEL Token' + config.suffix,
       [SYMBOL]: 'YEL',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x14d9a3f2b7734c319f2bd799262dc1ab6c361d76',
+      [EXCHANGE_ADDRESS]: '0xfa48134380a7e409c3d505509afd16fdf7de6e69',
       [REDEEM_MAX_NUM]: 5000,
       [REDEEM_MIN_NUM]: 0.16,
       [FEE]: 0.001,
