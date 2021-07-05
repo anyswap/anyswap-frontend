@@ -46,7 +46,8 @@ export const ETH_TESTNET = 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea842
 export const ETH_TEST_CHAINID = 4
 export const ETH_TEST_EXPLORER = 'https://rinkeby.etherscan.io'
 
-export const FTM_MAINNET = 'https://rpcapi.fantom.network'
+// export const FTM_MAINNET = 'https://rpcapi.fantom.network'
+export const FTM_MAINNET = 'https://rpc3.fantom.network'
 export const FTM_MAIN_CHAINID = 250
 export const FTM_MAIN_EXPLORER = 'https://ftmscan.com'
 

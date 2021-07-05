@@ -1970,7 +1970,7 @@ export default {
     'VEST': {
       [NAME]: 'VEST',
       [TOKEN]: '0x5ff584f11b3dc5bc26cd099239ced7eaa2d4e581',
-      [DECIMALS]: 10
+      [DECIMALS]: 18
     },
   },
   128: {
