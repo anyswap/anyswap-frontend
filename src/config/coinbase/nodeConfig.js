@@ -42,7 +42,7 @@ export const ETH_MAINNET = process.env.NODE_ENV === 'development' ? process.env.
 export const ETH_MAIN_CHAINID = 1
 export const ETH_MAIN_EXPLORER = navLang === 'zh-CN' ? 'https://cn.etherscan.com' : 'https://etherscan.io'
 
-export const ETH_TESTNET = 'https://rinkeby.infura.io/v3/0e40cfd5e7a64b2d9aea8427e4bd52a0'
+export const ETH_TESTNET = 'https://rinkeby.infura.io/v3/613a4ccfe37f4870a2c3d922e58fa2bd'
 export const ETH_TEST_CHAINID = 4
 export const ETH_TEST_EXPLORER = 'https://rinkeby.etherscan.io'
 
