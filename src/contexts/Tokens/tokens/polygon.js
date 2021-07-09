@@ -1055,5 +1055,101 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xecb6d48e04d1df057e398b98ac8b3833eb3839ec': { // CHIPS
+      [NAME]: 'Cookie Finance',
+      [SYMBOL]: 'CHIPS',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x0f9d24fb27d8c9600e468298bdac9fad3d8b1b08',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xae8627db72d7fc6241f2e2b87eb2bbc7cafb1661': { // OMT
+      [NAME]: 'Onion Mixer Token',
+      [SYMBOL]: 'OMT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x00216fef9435591e8297feab0de77b9934836e95',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x323a07f929f7c4db7631866af151248ae3912d98': { // PIRATE
+      [NAME]: 'Pirate Token',
+      [SYMBOL]: 'PIRATE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xd6f491ba5db2e5c0b128f3ae07ae3d9dfe7ca8e9',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xbc2597d3f1f9565100582cde02e3712d03b8b0f6': { // CCAKE
+      [NAME]: 'CheesecakeSwap Token',
+      [SYMBOL]: 'CCAKE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x04b0ba62554198465fa7d22169825ab5bc3803ef',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

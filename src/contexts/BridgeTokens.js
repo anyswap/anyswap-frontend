@@ -1783,6 +1783,16 @@ export default {
       [TOKEN]: '0x725c263e32c72ddc3a19bea12c5a0479a81ee688',
       [DECIMALS]: 18
     },
+    '0xMR': {
+      [NAME]: '0xMR',
+      [TOKEN]: '0x035dF12E0F3ac6671126525f1015E47D79dFEDDF',
+      [DECIMALS]: 18
+    },
+    'LIMIT': {
+      [NAME]: 'LIMIT',
+      [TOKEN]: '0x1712aad2c773ee04bdc9114b32163c058321cd85',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -1970,6 +1980,26 @@ export default {
     'VEST': {
       [NAME]: 'VEST',
       [TOKEN]: '0x5ff584f11b3dc5bc26cd099239ced7eaa2d4e581',
+      [DECIMALS]: 18
+    },
+    'CHIPS': {
+      [NAME]: 'CHIPS',
+      [TOKEN]: '0x1e584d356db17decfa474fb9669fa7d2f181ee4e',
+      [DECIMALS]: 18
+    },
+    'OMT': {
+      [NAME]: 'OMT',
+      [TOKEN]: '0x943978707717d4d73da6f74312aef59feafe368c',
+      [DECIMALS]: 18
+    },
+    'PIRATE': {
+      [NAME]: 'PIRATE',
+      [TOKEN]: '0x63041a8770c4cfe8193d784f3dc7826eab5b7fd2',
+      [DECIMALS]: 18
+    },
+    'CCAKE': {
+      [NAME]: 'CCAKE',
+      [TOKEN]: '0xc7091aa18598b87588e37501b6ce865263cd67ce',
       [DECIMALS]: 18
     },
   },
