@@ -795,7 +795,7 @@ let hashInterval
 export default function ExchangePage({ initialCurrency, sending = false, params }) {
   const { t } = useTranslation()
   let { account, chainId, error, library } = useWeb3React()
-  // account = '0x48628Aa941722292eCf2169E6DAd958Bc62a93D0'
+  // account = '0x628937d426B4DA17e12a3152c3023b9CB41FD51B'
   const [showBetaMessage] = useBetaMessageManager()
   const allTokens = useAllTokenDetails()
   let walletType = sessionStorage.getItem('walletType')
@@ -2422,7 +2422,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           <MintWarningTip>
             <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
             <span dangerouslySetInnerHTML = { 
-              {__html: t('FSNnoBalance')}
+              {__html: t('FSNnoBalance', {symbol: config.symbol})}
             }></span>
           </MintWarningTip>
         ) : ('')

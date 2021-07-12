@@ -22,7 +22,7 @@ import Bridge from'./Bridge'
 import Dashboard from'./Dashboard'
 
 import SpecWithdraw from '../components/BridgePage/withdraw'
-import SpecBridge from '../components/BridgePage/specBridge'
+// import SpecBridge from '../components/BridgePage/specBridge'
 // import Staking from'./Staking'
 
 // import { createBrowserHistory } from 'history';
@@ -201,7 +201,7 @@ export default function App() {
                         <Route exact strict path="/bridge" component={() => <Bridge params={params} />} />
                         <Route exact strict path="/dashboard" component={() => <Dashboard/>} />
                         <Route exact strict path="/specwithdraw" component={() => <SpecWithdraw/>} />
-                        <Route exact strict path="/specbridge" component={() => <SpecBridge/>} />
+                        {/* <Route exact strict path="/specbridge" component={() => <SpecBridge/>} /> */}
                         {/* <Route exact strict path="/farms/staking" component={() => <Staking/>} /> */}
                         {/* <Route exact strict path="/farms" component={() => <FarmsList/>} /> */}
                         <Route

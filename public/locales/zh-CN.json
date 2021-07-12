@@ -189,7 +189,7 @@
   "txnsDtil": "交易明细",
   "sendTip": "不要直接发送代币充值到交易所(不支持合约充值)，请使用metamask钱包充值到交易所。",
   "brStopTip": "节点维护中，暂停充提！",
-  "FSNnoBalance": "余额不足",
+  "FSNnoBalance": "{{symbol}}余额不足",
   "BTCmintTip": "没有查询到新的充值交易，请先发送{{coin}}至充值地址。",
   "tokenByUserTip": "Anyswap智能合约旨在支持Fusion上的任何ERC20代币。可以加载任何令牌通过在搜索字段中输入其融合地址或将其作为URL传递到接口中参数。在与导入的令牌交互时要小心，因为它们尚未被验证。",
   "validTxnsTip": "请在进行任何交易之前验证此代币的合法性。",
