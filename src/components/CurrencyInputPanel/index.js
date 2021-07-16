@@ -933,7 +933,13 @@ export default function CurrencyInputPanel({
             <BigScreenView>
               {renderUnlockButton()}
             </BigScreenView>
-            <SmallScreenView>{extraText}</SmallScreenView>
+            <SmallScreenView
+                  onClick={() => {
+                    extraTextClickHander()
+                    if (isRange) {
+                      setValueRange(100)
+                    }
+                  }}>{extraText}</SmallScreenView>
           </LabelRow>
           {_renderInput()}
         </Container>
