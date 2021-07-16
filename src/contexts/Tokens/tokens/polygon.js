@@ -1151,5 +1151,53 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x5f006745a9a192a7cd1236089f704f9b35d3b9cd': { // NALIS
+      [NAME]: 'Nalis Token',
+      [SYMBOL]: 'NALIS',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xcfc1933827542fd0b3eaffe0d02bfb934d52739b',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x316772cfec9a3e976fde42c3ba21f5a13aaaff12': { // CIFI
+      [NAME]: 'citizen finance',
+      [SYMBOL]: 'CIFI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x070a8fbe9535b096ce182b3b27ed579c344f0048',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

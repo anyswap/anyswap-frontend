@@ -630,6 +630,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x461d52769884ca6235b685ef2040f47d30c94eb5': { // SAFEMOON
+      [NAME]: 'SafeMoon' + config.suffix,
+      [SYMBOL]: 'SAFEMOON',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0x210aaa219ace3aaadb8e69d164ac01a0a2ec5807',
+      [REDEEM_MAX_NUM]: 10000,
+      [REDEEM_MIN_NUM]: 0.5,
+      [FEE]: 0.001,
+      [MAXFEE]: 2,
+      [MINFEE]: 0.2,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xe09c98f97dafb1f954cea0ce550383e2bd0c8829',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000,
+      [DEPOSIT_MIN_NUM]: 0.2,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [HT_TEST_CHAINID]: {
     '0x4373ca233c17b8bf1bf8159d56019d3394a0670d': { // ANY

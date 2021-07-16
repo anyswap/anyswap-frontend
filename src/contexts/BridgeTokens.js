@@ -1793,6 +1793,11 @@ export default {
       [TOKEN]: '0x1712aad2c773ee04bdc9114b32163c058321cd85',
       [DECIMALS]: 18
     },
+    'GUSD': {
+      [NAME]: 'GUSD',
+      [TOKEN]: '0x056fd409e1d7a124bd7017459dfea2f387b6d5cd',
+      [DECIMALS]: 2
+    },
   },
   4: {
     'USDT': {
@@ -2002,6 +2007,26 @@ export default {
       [TOKEN]: '0xc7091aa18598b87588e37501b6ce865263cd67ce',
       [DECIMALS]: 18
     },
+    'AGS': {
+      [NAME]: 'AGS',
+      [TOKEN]: '0x73ffdf2d2afb3def5b10bf967da743f2306a51db',
+      [DECIMALS]: 18
+    },
+    'NALIS': {
+      [NAME]: 'NALIS',
+      [TOKEN]: '0xB2EbAa0aD65e9c888008bF10646016f7FcDd73C3',
+      [DECIMALS]: 18
+    },
+    'CIFI': {
+      [NAME]: 'CIFI',
+      [TOKEN]: '0x89f2a5463ef4e4176e57eef2b2fdd256bf4bc2bd',
+      [DECIMALS]: 18
+    },
+    'SAFEMOON': {
+      [NAME]: 'SAFEMOON',
+      [TOKEN]: '0x8076c74c5e3f5852037f31ff0093eeb8c8add8d3',
+      [DECIMALS]: 9
+    },
   },
   128: {
     'PLF': { // 
@@ -2023,6 +2048,18 @@ export default {
       [NAME]: 'SOY',
       [TOKEN]: '0xfb4c85b31b888e4f84ac131667865e029d6486f7',
       [DECIMALS]: 18
+    },
+  },
+  137: {
+    'YAMP': { // 
+      [NAME]: 'YAMP',
+      [TOKEN]: '0x87f654c4b347230C60CAD8d7ea9cF0D7238bcc79',
+      [DECIMALS]: 18,
+    },
+    'GAJ': { // 
+      [NAME]: 'GAJ',
+      [TOKEN]: '0xf4b0903774532aee5ee567c02aab681a81539e92',
+      [DECIMALS]: 18,
     },
   },
   250: {

@@ -428,5 +428,53 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x4e720dd3ac5cfe1e1fbde4935f386bb1c66f4642': { // GTON
+      [NAME]: 'Graviton',
+      [SYMBOL]: config.prefix + 'GTON',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xcc0cc2f422ff71bc7f0968424452f8361f5f724e',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x595c8481c48894771ce8fade54ac6bf59093f9e8': { // GAJ
+      [NAME]: 'PolyGaj Token',
+      [SYMBOL]: config.prefix + 'GAJ',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xcc849f9bb7ebe7236b4956f8750617c49a07cf7f',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x5A3eD12E6E6928182dc402d8530087b956Ce8fdb',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

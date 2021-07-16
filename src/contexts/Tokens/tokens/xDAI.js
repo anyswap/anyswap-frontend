@@ -95,6 +95,30 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x6ab6d61428fde76768d7b45d8bfeec19c6ef91a8': { // GTON
+      [NAME]: 'Graviton',
+      [SYMBOL]: 'GTON',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x0df4e9feee6c41e6849a044dd647bd67c3fff351',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x2F10c5eE93ac666dA72195abA8a49FD6D27fA02F',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
     // '0x47eaf5f54d79d5c2b6537a90a0c58a534ab51c8c': { // BAO
     //   [NAME]: 'BaoToken',
     //   [SYMBOL]: 'BAO',
