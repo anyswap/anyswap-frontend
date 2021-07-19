@@ -12,7 +12,7 @@ const REWARDS_DAY = 33000 / 2
 // const REWARDS_DAY = 7600
 const DEPOSIT_AMOUNT = 10000
 
-const CHAIN_MAIN_INFO = chainInfo['32659']
+// const CHAIN_MAIN_INFO = chainInfo['32659']
 const CHAIN_TEST_INFO = chainInfo[DEV_TEST_CHAINID]
 
 const COIN_BASE ={
@@ -69,34 +69,34 @@ const COIN_BASE ={
 const INIT_MAIN_TOKEN = ANY_MAIN_TOKEN
 const INIT_TEST_TOKEN = ANY_TEST_TOKEN
 
-const MAIN_CONFIG = {
-  ...COIN_BASE,
-  nodeRpc: CHAIN_MAIN_INFO.rpc, // 节点地址
-  nodeRpc1: CHAIN_MAIN_INFO.rpc1, // 节点地址
-  chainID: CHAIN_MAIN_INFO.chainID, // 节点chainID
-  initToken: INIT_MAIN_TOKEN, // 交易默认合约
-  initBridge: '0xcfd6a2af722dc41e6a16bcfb73c43252144782df', // 跨链桥默认合约
-  explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
-  document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
-  btc: { // btc配置
-    lookHash: 'https://www.blockchain.com/btc/tx/', // 
-    queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/', // 
-    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
-    initAddr: '1HvrEMgxsYadWGhijpfygKSqPZ5p418g45',  // 
-  },
-  ltc: { // ltc配置
-    lookHash: 'https://blockchair.com/litecoin/transaction/', // 
-    queryTxns: 'https://sochain.com/api/v2/get_tx_received/LTC/', // 
-    queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
-    initAddr: 'LU8AFfxreA4srSH6rYWAoivzH3U35iBiPK',  // 
-  },
-  isOpenRewards: 0, // 是否打开奖励数据
-  isChangeDashboard: 1, // 是否改变资产顺序
-  noSupportBridge: [
-    COIN_BASE.symbol,
-  ], // 不支持的跨链合约或币种
-  queryToken: '0x25afd2058b6e5e00995467d58778a2790a0e5038' // 查询余额合约
-}
+// const MAIN_CONFIG = {
+//   ...COIN_BASE,
+//   nodeRpc: CHAIN_MAIN_INFO.rpc, // 节点地址
+//   nodeRpc1: CHAIN_MAIN_INFO.rpc1, // 节点地址
+//   chainID: CHAIN_MAIN_INFO.chainID, // 节点chainID
+//   initToken: INIT_MAIN_TOKEN, // 交易默认合约
+//   initBridge: '0xcfd6a2af722dc41e6a16bcfb73c43252144782df', // 跨链桥默认合约
+//   explorerUrl: CHAIN_MAIN_INFO.explorer, // 浏览器地址
+//   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html', // 文档地址
+//   btc: { // btc配置
+//     lookHash: 'https://www.blockchain.com/btc/tx/', // 
+//     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTC/', // 
+//     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTC/', // 
+//     initAddr: '1HvrEMgxsYadWGhijpfygKSqPZ5p418g45',  // 
+//   },
+//   ltc: { // ltc配置
+//     lookHash: 'https://blockchair.com/litecoin/transaction/', // 
+//     queryTxns: 'https://sochain.com/api/v2/get_tx_received/LTC/', // 
+//     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/LTC/', // 
+//     initAddr: 'LU8AFfxreA4srSH6rYWAoivzH3U35iBiPK',  // 
+//   },
+//   isOpenRewards: 0, // 是否打开奖励数据
+//   isChangeDashboard: 1, // 是否改变资产顺序
+//   noSupportBridge: [
+//     COIN_BASE.symbol,
+//   ], // 不支持的跨链合约或币种
+//   queryToken: '0x25afd2058b6e5e00995467d58778a2790a0e5038' // 查询余额合约
+// }
 
 const TEST_CONFIG = {
   ...COIN_BASE,
@@ -104,14 +104,14 @@ const TEST_CONFIG = {
   nodeRpc1: CHAIN_TEST_INFO.rpc, // 节点地址
   chainID: CHAIN_TEST_INFO.chainID,
   initToken: INIT_TEST_TOKEN,
-  initBridge: '0x149e0adb3ceac41f2ce952c4b835407cf73b35f5',
+  initBridge: '',
   explorerUrl: CHAIN_TEST_INFO.explorer,
   document: 'https://anyswap-faq.readthedocs.io/en/latest/index.html',
   btc: {
     lookHash: 'https://sochain.com/tx/BTCTEST/',
     queryTxns: 'https://sochain.com/api/v2/get_tx_received/BTCTEST/',
     queryHashStatus: 'https://sochain.com/api/v2/get_confidence/BTCTEST/',
-    initAddr: 'mmBUP62PJNDndtSvH4ef65gUAucgQY5dqA'
+    initAddr: ''
   },
   ltc: {
 
@@ -119,13 +119,13 @@ const TEST_CONFIG = {
   isOpenRewards: 0,
   isChangeDashboard: 1,
   noSupportBridge: [COIN_BASE.symbol, ANY_TEST_TOKEN],
-  queryToken: '0xd8e95abcce8901cc2640d2ff4444c85506fb829d' // 查询余额合约
+  queryToken: '0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c' // 查询余额合约
 }
 
 function getDEVConfig (type) {
-  if (type.toLowerCase() === 'main') {
-    return MAIN_CONFIG
-  }
+  // if (type.toLowerCase() === 'main') {
+  //   return MAIN_CONFIG
+  // }
   return TEST_CONFIG
 }
 

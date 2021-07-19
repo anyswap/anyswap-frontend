@@ -15,7 +15,8 @@ import {
   xDAI_MAIN_CHAINID,
   AVAX_MAIN_CHAINID,
   DEV_TEST_CHAINID,
-  ONE_MAIN_CHAINID
+  ONE_MAIN_CHAINID,
+  KCS_MAIN_CHAINID,
 } from './coinbase/nodeConfig'
 
 
@@ -71,6 +72,8 @@ function getParamNode (type, INIT_NODE) {
       return chainInfo[DEV_TEST_CHAINID].label
     case 'harmony':
       return chainInfo[ONE_MAIN_CHAINID].label
+    case 'kcs':
+      return chainInfo[KCS_MAIN_CHAINID].label
     default:
       return INIT_NODE
   }

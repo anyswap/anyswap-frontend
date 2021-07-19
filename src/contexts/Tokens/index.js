@@ -42,6 +42,7 @@ import xDAI from './tokens/xDAI'
 import avalanche from './tokens/avalanche'
 import moonbase from './tokens/moonbase'
 import harmony from './tokens/harmony'
+import kcs from './tokens/kcs'
 
 
 const UPDATE = 'UPDATE'
@@ -80,7 +81,8 @@ export const INITIAL_TOKENS_CONTEXT = {
   ...xDAI,
   ...avalanche,
   ...moonbase,
-  ...harmony
+  ...harmony,
+  ...kcs,
 }
 
 const TokensContext = createContext()

@@ -23,7 +23,7 @@ import {dirSwitch} from '../methods/common'
 
 export default {
   [DEV_TEST_CHAINID]: {
-    '0x149e0adb3ceac41f2ce952c4b835407cf73b35f5': { // ANY
+    '0x765277eebeca2e31912c9946eae1021199b39c61': { // ANY
       [NAME]: 'Anyswap',
       [SYMBOL]: 'ANY',
       [DECIMALS]: 18,
@@ -40,7 +40,12 @@ export default {
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
-      [EXTENDOBJ]: {},
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 4, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
     },
   }
 }

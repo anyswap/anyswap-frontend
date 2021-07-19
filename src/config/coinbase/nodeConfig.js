@@ -1,20 +1,20 @@
 const navLang = navigator.language
 
-// export const BNB_MAINNET = 'https://bscnode1.anyswap.exchange'
-// export const BNB_MAINNET1 = 'https://bsc-dataseed1.binance.org/'
-// export const BNB_MAINNET = 'https://bsc-dataseed2.defibit.io/'
-// export const BNB_MAINNET = 'https://bsc-dataseed3.defibit.io/'
-// export const BNB_MAINNET = 'https://bsc-dataseed4.defibit.io/'
+const UseBSCRPC = 'https://bsc-dataseed1.binance.org/'
+// const UseBSCRPC = 'https://bsc-dataseed2.defibit.io/'
+// const UseBSCRPC = 'https://bsc-dataseed3.defibit.io/'
+// const UseBSCRPC = 'https://bsc-dataseed4.defibit.io/'
 
-// export const BNB_MAINNET = 'https://bsc-dataseed1.ninicoin.io/'
-export const BNB_MAINNET = 'https://bsc-dataseed2.ninicoin.io/'
-// export const BNB_MAINNET = 'https://bsc-dataseed3.ninicoin.io/'
-// export const BNB_MAINNET = 'https://bsc-dataseed4.ninicoin.io/'
+// const UseBSCRPC = 'https://bsc-dataseed1.ninicoin.io/'
+// const UseBSCRPC = 'https://bsc-dataseed2.ninicoin.io/'
+// const UseBSCRPC = 'https://bsc-dataseed3.ninicoin.io/'
+// const UseBSCRPC = 'https://bsc-dataseed4.ninicoin.io/'
 
-// export const BNB_MAINNET = 'https://bsc-dataseed1.binance.org/'
-// export const BNB_MAINNET = 'https://bsc-dataseed2.binance.org/'
-// export const BNB_MAINNET = 'https://bsc-dataseed3.binance.org/'
-// export const BNB_MAINNET = 'https://bsc-dataseed4.binance.org/'
+// const UseBSCRPC = 'https://bsc-dataseed1.binance.org/'
+// const UseBSCRPC = 'https://bsc-dataseed2.binance.org/'
+// const UseBSCRPC = 'https://bsc-dataseed3.binance.org/'
+// const UseBSCRPC = 'https://bsc-dataseed4.binance.org/'
+export const BNB_MAINNET = process.env.NODE_ENV === 'development' ? UseBSCRPC : 'https://bscnode1.anyswap.exchange'
 export const BNB_MAIN_CHAINID = 56
 export const BNB_MAIN_EXPLORER = 'https://bscscan.com'
 
@@ -22,7 +22,7 @@ export const BNB_TESTNET = 'https://data-seed-prebsc-1-s1.binance.org:8545'
 export const BNB_TEST_CHAINID = 97
 export const BNB_TEST_EXPLORER = 'https://testnet.bscscan.com'
 
-
+// console.log(process.env.NODE_ENV)
 // export const FSN_MAINNET = 'https://fsn.dev/api'
 // export const FSN_MAINNET = 'https://fsn.dev/api'
 // export const FSN_MAINNET = 'https://fsnmainnet2.anyswap.exchange'
@@ -47,7 +47,7 @@ export const ETH_TEST_CHAINID = 4
 export const ETH_TEST_EXPLORER = 'https://rinkeby.etherscan.io'
 
 // export const FTM_MAINNET = 'https://rpcapi.fantom.network'
-export const FTM_MAINNET = 'https://rpc3.fantom.network'
+export const FTM_MAINNET = process.env.NODE_ENV === 'development' ? 'https://rpc3.fantom.network' : 'https://ftmnode1.anyswap.exchange'
 export const FTM_MAIN_CHAINID = 250
 export const FTM_MAIN_EXPLORER = 'https://ftmscan.com'
 
@@ -73,7 +73,7 @@ export const ARBITRUM_TEST_CHAINID = 212984383488152
 export const ARBITRUM_TEST_EXPLORER = 'https://explorer.arbitrum.io/#/'
 
 // export const MATIC_MAINNET = 'https://rpc-mainnet.maticvigil.com'
-export const MATIC_MAINNET = 'https://rpc-mainnet.matic.network'
+export const MATIC_MAINNET = process.env.NODE_ENV === 'development' ? 'https://rpc-mainnet.matic.network' : 'https://maticnode1.anyswap.exchange'
 export const MATIC_MAIN_CHAINID = 137
 export const MATIC_MAIN_EXPLORER = 'https://polygonscan.com'
 
@@ -87,7 +87,7 @@ export const AVAX_MAIN_EXPLORER = 'https://cchain.explorer.avax.network/'
 
 export const DEV_TESTNET = 'https://rpc.testnet.moonbeam.network'
 export const DEV_TEST_CHAINID = 1287
-export const DEV_TEST_EXPLORER = ''
+export const DEV_TEST_EXPLORER = 'https://moonbeam-explorer.netlify.app/'
 
 export const TRX_MAINNET = ''
 export const TRX_MAIN_CHAINID = 'TRX'
@@ -97,7 +97,23 @@ export const ONE_MAINNET = 'https://api.harmony.one'
 export const ONE_MAIN_CHAINID = 1666600000
 export const ONE_MAIN_EXPLORER = 'https://explorer.harmony.one/#'
 
+export const KCS_MAINNET = 'https://rpc-mainnet.kcc.network'
+export const KCS_MAIN_CHAINID = 321
+export const KCS_MAIN_EXPLORER = 'https://explorer.kcc.io/cn'
+
 let chainInfo = {
+  [KCS_MAIN_CHAINID]: {
+    rpc: KCS_MAINNET,
+    chainID: KCS_MAIN_CHAINID,
+    lookHash: KCS_MAIN_EXPLORER + '/tx/',
+    lookAddr: KCS_MAIN_EXPLORER + '/address/',
+    explorer: KCS_MAIN_EXPLORER,
+    symbol: 'KCS',
+    name: 'KuCoin',
+    type: 'main',
+    label: 'KCS_MAIN',
+    isSwitch: 1
+  },
   [ONE_MAIN_CHAINID]: {
     rpc: ONE_MAINNET,
     chainID: ONE_MAIN_CHAINID,
@@ -376,6 +392,7 @@ let chainList = {
     chainInfo[xDAI_MAIN_CHAINID],
     chainInfo[AVAX_MAIN_CHAINID],
     chainInfo[ONE_MAIN_CHAINID],
+    chainInfo[KCS_MAIN_CHAINID],
     // chainInfo[OKT_MAIN_CHAINID]
   ],
   test: [
