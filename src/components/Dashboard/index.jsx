@@ -501,6 +501,7 @@ export default function DashboardDtil () {
       arr[0].Basebalance = baseAccountBalance
       poolInfoObj[config.symbol].Basebalance = baseAccountBalance
     }
+    // console.log(poolInfoObj)
     setPoolObj(poolInfoObj)
     return arr
   }
@@ -811,7 +812,9 @@ export default function DashboardDtil () {
           break
         }
       }
-      tokenList.unshift(ANYItem)
+      if (ANYItem.symbol) {
+        tokenList.unshift(ANYItem)
+      }
     }
     const start = pagecount * pagesize
     const end = start + pagesize

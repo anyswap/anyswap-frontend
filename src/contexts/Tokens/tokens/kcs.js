@@ -23,29 +23,53 @@ import {dirSwitch} from '../methods/common'
 
 export default {
   [KCS_MAIN_CHAINID]: {
-    // '0xb44a9b6905af7c801311e8f4e76932ee959c663c': { // ANY
-    //   [NAME]: 'Anyswap',
-    //   [SYMBOL]: 'ANY',
-    //   [DECIMALS]: 18,
-    //   [EXCHANGE_ADDRESS]: '0x781f19e8e6132d02ff6b47d6856eba7eda393310',
-    //   [REDEEM_MAX_NUM]: 200000,
-    //   [REDEEM_MIN_NUM]: 10,
-    //   [FEE]: 0.001,
-    //   [MAXFEE]: 50,
-    //   [MINFEE]: 1,
-    //   [ISSWITCH]: dirSwitch(0),
-    //   [ISDEPOSIT]: 1,
-    //   [ISREDEEM]: 1,
-    //   [DEPOSIT_ADDRESS]: '0xa2F8a1d03A3ccce38f59f539F131F296276E9fCb',
-    //   [DEPOSIT_TYPE]: 1,
-    //   [DEPOSIT_MAX_NUM]: 200000,
-    //   [DEPOSIT_MIN_NUM]: 0.5,
-    //   [EXTENDOBJ]: {
-    //     BRIDGE: [
-    //       { type: 32659, isSwitch: 1 }
-    //     ],
-    //     VERSION: 'V2'
-    //   },
-    // },
+    '0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c': { // BNB
+      [NAME]: 'Binance',
+      [SYMBOL]: 'BNB',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xfb7a243c50dde28d88f97e12db3495ff8b7660bf',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x88036021b39759Fc46aD79850679282cb2353372',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d': { // BUSD
+      [NAME]: 'Binance USD',
+      [SYMBOL]: 'BUSD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x9482fea150de0fe8972e0d46ee3e85b3a5078fe7',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x88036021b39759Fc46aD79850679282cb2353372',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

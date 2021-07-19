@@ -493,6 +493,30 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0x173fd7434b8b50df08e3298f173487ebdb35fd14': { // XDO
+      [NAME]: 'xDollar',
+      [SYMBOL]: 'XDO',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8cad506d8f6a0b615bc8297a06efbf999ef58370',
+      [REDEEM_MAX_NUM]: 10000000,
+      [REDEEM_MIN_NUM]: 200,
+      [FEE]: 0.001,
+      [MAXFEE]: 800,
+      [MINFEE]: 80,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xeA2368b69d09cEf7C8b1817A930b8e2185253F53',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000000,
+      [DEPOSIT_MIN_NUM]: 200,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
 
 
 
