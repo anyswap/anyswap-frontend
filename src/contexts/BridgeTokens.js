@@ -1058,6 +1058,11 @@ export default {
       [TOKEN]: '0xa283aA7CfBB27EF0cfBcb2493dD9F4330E0fd304',
       [DECIMALS]: 18
     },
+    'MM(Million)': {
+      [NAME]: 'MM(Million)',
+      [TOKEN]: '0x6b4c7a5e3f0b99fcd83e9c089bddd6c7fce5c611',
+      [DECIMALS]: 18
+    },
     'FXS': {
       [NAME]: 'Frax Share',
       [TOKEN]: '0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0',
@@ -1797,6 +1802,16 @@ export default {
       [NAME]: 'GUSD',
       [TOKEN]: '0x056fd409e1d7a124bd7017459dfea2f387b6d5cd',
       [DECIMALS]: 2
+    },
+    'DEXT(DEXTools)': {
+      [NAME]: 'DEXT(DEXTools)',
+      [TOKEN]: '0xfb7b4564402e5500db5bb6d63ae671302777c75a',
+      [DECIMALS]: 18
+    },
+    'BTBS': {
+      [NAME]: 'BTBS',
+      [TOKEN]: '0x32e6c34cd57087abbd59b5a4aecc4cb495924356',
+      [DECIMALS]: 18
     },
   },
   4: {

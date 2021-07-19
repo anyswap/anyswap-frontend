@@ -654,6 +654,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x922d641a426dcffaef11680e5358f34d97d112e1': { // GTON
+      [NAME]: 'Graviton' + config.suffix,
+      [SYMBOL]: 'GTON',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xae38141bdc80cc8ed8654bfe7fd8f527573de8d4',
+      [REDEEM_MAX_NUM]: 10000,
+      [REDEEM_MIN_NUM]: 0.5,
+      [FEE]: 0.001,
+      [MAXFEE]: 2,
+      [MINFEE]: 0.2,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xD779967F8B511C5edf39115341B310022900eFED',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000,
+      [DEPOSIT_MIN_NUM]: 0.2,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [HT_TEST_CHAINID]: {
     '0x4373ca233c17b8bf1bf8159d56019d3394a0670d': { // ANY
