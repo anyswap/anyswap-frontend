@@ -92,6 +92,7 @@ const MAIN_CONFIG = {
   noSupportBridge: [
     COIN_BASE.symbol,
   ], // 不支持的跨链合约或币种
+  logoIcon: "KCC",
   queryToken: '0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b' // 查询余额合约
 }
 
