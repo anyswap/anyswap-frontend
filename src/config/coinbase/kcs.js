@@ -16,7 +16,7 @@ const COIN_BASE ={
   symbol: 'KCS', // 符号
   name: 'KuCoin', // 代币名
   decimals: 18, // 小数位
-  networkName: 'KCS', // 网络名称
+  networkName: 'KCC', // 网络名称
   reverseSwitch: 0,  // 是否反向禁用,
   suffix: '', // 后缀
   prefix: '',
@@ -92,7 +92,7 @@ const MAIN_CONFIG = {
   noSupportBridge: [
     COIN_BASE.symbol,
   ], // 不支持的跨链合约或币种
-  logoIcon: "KCC",
+  logoIcon: CHAIN_MAIN_INFO.logoIcon,
   queryToken: '0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b' // 查询余额合约
 }
 
