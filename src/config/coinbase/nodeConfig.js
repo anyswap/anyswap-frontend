@@ -109,9 +109,10 @@ let chainInfo = {
     lookAddr: KCS_MAIN_EXPLORER + '/address/',
     explorer: KCS_MAIN_EXPLORER,
     symbol: 'KCS',
-    name: 'KuCoin',
+    name: 'KCC',
     type: 'main',
     label: 'KCS_MAIN',
+    logoIcon: 'KCC',
     isSwitch: 1
   },
   [ONE_MAIN_CHAINID]: {

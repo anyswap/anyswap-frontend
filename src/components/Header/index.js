@@ -394,7 +394,7 @@ export default function Header() {
           <WalletLogoBox2>
             <IconWrapper active={config.symbol === item.symbol && item.type === config.env}>
               {/* <img src={icon} alt={'Icon'} /> */}
-              <TokenLogo address={item.symbol} size={'46px'}></TokenLogo>
+              <TokenLogo address={item.logoIcon ? item.logoIcon : item.symbol} size={'46px'}></TokenLogo>
               
             </IconWrapper>
             <OptionCardLeft>

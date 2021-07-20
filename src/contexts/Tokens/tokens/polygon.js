@@ -1199,5 +1199,29 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xd3b71117e6c1558c1553305b44988cd944e97300': { // YEL
+      [NAME]: 'YEL Token',
+      [SYMBOL]: 'YEL',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xe1b6d3a7f785aee8b08d1f35424724e7f1e4a748',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x668b9734FfE9eE8a01d4Ade3362De71E8989EA87',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }
