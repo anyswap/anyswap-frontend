@@ -433,7 +433,7 @@ export default function Header() {
         isOpen={networkView}
         onDismiss={() => { toggleNetworkModal() }}
         minHeight={null}
-        maxHeight={300}
+        maxHeight={100}
       >
         <Wrapper>
           <UpperSection>

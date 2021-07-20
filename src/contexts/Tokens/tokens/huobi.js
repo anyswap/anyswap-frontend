@@ -678,6 +678,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x7c598c96d02398d89fbcb9d41eab3df0c16f227d': { // LAIKA
+      [NAME]: 'LaikaProtocol' + config.suffix,
+      [SYMBOL]: 'LAIKA',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0xf95cbc972ce9a5092c240bd4889cb366feec8577',
+      [REDEEM_MAX_NUM]: 10000,
+      [REDEEM_MIN_NUM]: 0.5,
+      [FEE]: 0.001,
+      [MAXFEE]: 2,
+      [MINFEE]: 0.2,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xe09c98f97dafb1f954cea0ce550383e2bd0c8829',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000,
+      [DEPOSIT_MIN_NUM]: 0.2,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [HT_TEST_CHAINID]: {
     '0x4373ca233c17b8bf1bf8159d56019d3394a0670d': { // ANY
