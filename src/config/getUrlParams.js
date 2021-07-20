@@ -39,45 +39,26 @@ function getParams (param) {
 }
 
 function getParamNode (type, INIT_NODE) {
-  switch (type) {
-    case 'fusion':
-      return chainInfo[FSN_MAIN_CHAINID].label
-    case 'fusiontestnet':
-      return chainInfo[FSN_TEST_CHAINID].label
-    case 'bsc':
-      return chainInfo[BNB_MAIN_CHAINID].label
-    case 'bsctestnet':
-      return chainInfo[BNB_TEST_CHAINID].label
-    case 'fantom':
-      return chainInfo[FTM_MAIN_CHAINID].label
-    case 'eth':
-      return chainInfo[ETH_MAIN_CHAINID].label
-    case 'huobi':
-      return chainInfo[HT_MAIN_CHAINID].label
-    case 'huobitestnet':
-      return chainInfo[HT_TEST_CHAINID].label
-    case 'okb':
-      return chainInfo[OKT_MAIN_CHAINID].label
-    case 'okbtest':
-      return chainInfo[OKT_TEST_CHAINID].label
-    case 'arbitrumtestnet':
-      return chainInfo[ARBITRUM_TEST_CHAINID].label
-    case 'polygon':
-      return chainInfo[MATIC_MAIN_CHAINID].label
-    case 'xdai':
-      return chainInfo[xDAI_MAIN_CHAINID].label
-    case 'avax':
-      return chainInfo[AVAX_MAIN_CHAINID].label
-    case 'moonbeamtest':
-      return chainInfo[DEV_TEST_CHAINID].label
-    case 'harmony':
-      return chainInfo[ONE_MAIN_CHAINID].label
-    case 'kcs':
-      return chainInfo[KCS_MAIN_CHAINID].label
-    default:
-      return INIT_NODE
-  }
+  if (type === 'fusion' || type === 'fsn' || type.toString() === FSN_MAIN_CHAINID.toString()) return chainInfo[FSN_MAIN_CHAINID].label
+  if (type === 'fusiontestnet' || type === 'fsntestnet' || type.toString() === FSN_TEST_CHAINID.toString()) return chainInfo[FSN_TEST_CHAINID].label
+  if (type === 'bsc' || type.toString() === BNB_MAIN_CHAINID.toString()) return chainInfo[BNB_MAIN_CHAINID].label
+  if (type === 'bsctestnet' || type.toString() === BNB_TEST_CHAINID.toString()) return chainInfo[BNB_TEST_CHAINID].label
+  if (type === 'fantom' || type === 'ftm' || type.toString() === FTM_MAIN_CHAINID.toString()) return chainInfo[FTM_MAIN_CHAINID].label
+  if (type === 'eth' || type.toString() === ETH_MAIN_CHAINID.toString()) return chainInfo[ETH_MAIN_CHAINID].label
+  if (type === 'huobi' || type === 'ht' || type.toString() === HT_MAIN_CHAINID.toString()) return chainInfo[HT_MAIN_CHAINID].label
+  if (type === 'huobitestnet' || type === 'httestnet' || type.toString() === HT_TEST_CHAINID.toString()) return chainInfo[HT_TEST_CHAINID].label
+  if (type === 'okb' || type.toString() === OKT_MAIN_CHAINID.toString()) return chainInfo[OKT_MAIN_CHAINID].label
+  if (type === 'okbtest' || type.toString() === OKT_TEST_CHAINID.toString()) return chainInfo[OKT_TEST_CHAINID].label
+  if (type === 'arbitrumtestnet' || type.toString() === ARBITRUM_TEST_CHAINID.toString()) return chainInfo[ARBITRUM_TEST_CHAINID].label
+  if (type === 'polygon' || type === 'natic' || type.toString() === MATIC_MAIN_CHAINID.toString()) return chainInfo[MATIC_MAIN_CHAINID].label
+  if (type === 'xdai' || type.toString() === xDAI_MAIN_CHAINID.toString()) return chainInfo[xDAI_MAIN_CHAINID].label
+  if (type === 'avax' || type.toString() === AVAX_MAIN_CHAINID.toString()) return chainInfo[AVAX_MAIN_CHAINID].label
+  if (type === 'moonbeamtest' || type.toString() === DEV_TEST_CHAINID.toString()) return chainInfo[DEV_TEST_CHAINID].label
+  if (type === 'harmony' || type.toString() === ONE_MAIN_CHAINID.toString()) return chainInfo[ONE_MAIN_CHAINID].label
+  if (type === 'kcs' || type.toString() === KCS_MAIN_CHAINID.toString()) return chainInfo[KCS_MAIN_CHAINID].label
+  return INIT_NODE
 }
+
 function getNode (type, INIT_NODE) {
   if (type.indexOf('fsn') !== -1) {
     return chainInfo[FSN_MAIN_CHAINID].label
