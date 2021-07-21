@@ -559,6 +559,7 @@ export default function FarmsList () {
         <img src={require('../../assets/images/banner/farm.png')} />
       </BannerBox> */}
       <FarmListBox>
+        {farmItem(1, 1, 'https://kuswap.io/#/farms', 'KUS Farming', 'KUS Farming', 'KUS', 'KCC')}
         {farmItem(1, 1, 'https://pancakeswap.info/pool/0xB87b857670A44356f2b70337E0F218713D2378e8', 'ORBS Farming', 'ORBS Farming', 'ORBS', 'BNB')}
         {farmItem(1, 1, 'https://app.makiswap.com/farms', 'MAKI Farming', 'MAKI Farming', 'MAKI', 'HT')}
         {farmItem(1, 1, 'https://swap.cometh.io/#/stake', 'MUST Farming', 'MUST Farming', 'MUST', 'MATIC')}
