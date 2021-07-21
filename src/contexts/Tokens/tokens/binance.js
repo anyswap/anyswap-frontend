@@ -5491,7 +5491,7 @@ export default {
     },
     '0x873801ae2ff12d816db9a7b082f5796bec64c82c': { // VEST
       [NAME]: 'DAO Invest' + config.suffix,
-      [SYMBOL]: 'VEST',
+      [SYMBOL]: 'VEST(DAO Invest)',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x965e1651d3b1b14aeb4d0d6f47a522cef9425fd2',
       [REDEEM_MAX_NUM]: 5000,

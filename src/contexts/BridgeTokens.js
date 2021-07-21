@@ -1823,7 +1823,7 @@ export default {
       [TOKEN]: '0xf2f9a7e93f845b3ce154efbeb64fb9346fcce509',
       [DECIMALS]: 18
     },
-    'VEST': {
+    'VEST(DAO Invest)': {
       [NAME]: 'VEST',
       [TOKEN]: '0x1f19f83fC9a25F3C861260143E36c17706257986',
       [DECIMALS]: 18
