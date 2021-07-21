@@ -95,5 +95,29 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x461d52769884ca6235b685ef2040f47d30c94eb5': { // ZDEX
+      [NAME]: 'Zeedex',
+      [SYMBOL]: 'ZDEX',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x2104caa5286c32074fec9b61c9414bc41b563085',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x923e0a17F49Fb03d936F2af2D59D379C615f5447',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

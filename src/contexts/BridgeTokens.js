@@ -1813,6 +1813,26 @@ export default {
       [TOKEN]: '0x32e6c34cd57087abbd59b5a4aecc4cb495924356',
       [DECIMALS]: 18
     },
+    'RSD': {
+      [NAME]: 'RSD',
+      [TOKEN]: '0x73627974adea82397bcf7fac5848207cce88938d',
+      [DECIMALS]: 18
+    },
+    'POWER': {
+      [NAME]: 'POWER',
+      [TOKEN]: '0xf2f9a7e93f845b3ce154efbeb64fb9346fcce509',
+      [DECIMALS]: 18
+    },
+    'VEST': {
+      [NAME]: 'VEST',
+      [TOKEN]: '0x1f19f83fC9a25F3C861260143E36c17706257986',
+      [DECIMALS]: 18
+    },
+    'ZDEX': {
+      [NAME]: 'ZDEX',
+      [TOKEN]: '0x5150956E082C748Ca837a5dFa0a7C10CA4697f9c',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -2041,6 +2061,21 @@ export default {
       [NAME]: 'SAFEMOON',
       [TOKEN]: '0x8076c74c5e3f5852037f31ff0093eeb8c8add8d3',
       [DECIMALS]: 9
+    },
+    'WATCH': {
+      [NAME]: 'WATCH',
+      [TOKEN]: '0x7a9f28eb62c791422aa23ceae1da9c847cbec9b0',
+      [DECIMALS]: 18
+    },
+    'PNIXS': {
+      [NAME]: 'PNIXS',
+      [TOKEN]: '0x509949c4ee0c1c2c765cf9b23c75d823981e22ae',
+      [DECIMALS]: 18
+    },
+    'Dove': {
+      [NAME]: 'Dove',
+      [TOKEN]: '0x2Bf56908B0f2440Ad11169d281967EB76665F8c6',
+      [DECIMALS]: 18
     },
   },
   128: {

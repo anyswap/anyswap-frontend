@@ -1247,5 +1247,77 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x09211dc67f9fe98fb7bbb91be0ef05f4a12fa2b2': { // WATCH
+      [NAME]: 'yieldwatch',
+      [SYMBOL]: 'WATCH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xbeaba0e1923d4661c270e7695e7576f596e106c4',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x685b63cfe0179b3efb70a01dcb1d648549aa192d': { // PNIXS
+      [NAME]: 'PhoenixSwap',
+      [SYMBOL]: 'PNIXS',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x861586f69fd0882eb24f95cec59a0f0f106162cd',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x4f60a160d8c2dddaafe16fcc57566db84d674bd6': { // Dove
+      [NAME]: 'DoveSwap',
+      [SYMBOL]: 'Dove',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x388c61a98d1143c245d2f677cd726f94b27d474e',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }
