@@ -119,5 +119,77 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xfbdd194376de19a88118e84e279b977f165d01b8': { // ETH
+      [NAME]: 'Ethereum',
+      [SYMBOL]: 'ETH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x78c37ac5675cf764641c735b8a80e356c02eb9f8',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x923e0a17F49Fb03d936F2af2D59D379C615f5447',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x218c3c3d49d0e7b37aff0d8bb079de36ae61a4c0': { // WBTC
+      [NAME]: 'Wrapped BTC',
+      [SYMBOL]: 'WBTC',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0x6bfc2c4177cea0f05834426bb538976e8103805b',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x923e0a17F49Fb03d936F2af2D59D379C615f5447',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xc9baa8cfdde8e328787e29b4b078abf2dadc2055': { // DAI
+      [NAME]: 'Dai Stablecoin',
+      [SYMBOL]: 'DAI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x3290ce90e6c9ebf47281de1cf08c51d801c36516',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x923e0a17F49Fb03d936F2af2D59D379C615f5447',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }
