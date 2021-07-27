@@ -937,6 +937,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
   const [bridgeNode, setBridgeNode] = useState()
   const [approveNum, setApproveNum] = useState()
   const [approveBtnView, setApproveNumBtnView] = useState(1)
+  const [tokenStatus, setTokenStatus] = useState(0)
 
   function setInit (disabled) {
     setIsRedeem(true)
@@ -997,10 +998,11 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     let tokenOnlyOne = inputCurrency
 
     setInit('')
+    setTokenStatus(0)
     let coin = formatCoin(inputSymbol)
     if (account && initIsDeposit && initIsRedeem) {
       getServerInfo(account, tokenOnlyOne, inputSymbol, chainId, version).then(res => {
-        // console.log(res)
+        console.log(res)
         if (res.msg === 'Success' && res.info) {
           let serverInfo = res.info
           // setIsRegister(true)
@@ -1083,11 +1085,13 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           }
         } else {
           setInit('')
+          setTokenStatus(1)
           // setIsRegister(false)
         }
       })
     } else {
       setInit('')
+      setTokenStatus(1)
     }
   }, [inputCurrency, account, initDepositAddress, initIsDeposit, initIsRedeem, inputSymbol, isRegister, chainId, extendObj])
 
@@ -2509,7 +2513,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       )}
       {
         // isDeposit ? (
-        (isDeposit === 0 || isRedeem === 0 ? 
+        (isDeposit === 0 || isRedeem === 0 || tokenStatus ? 
           (
             <MintWarningTip>
               <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
