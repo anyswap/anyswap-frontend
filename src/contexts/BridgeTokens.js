@@ -1083,8 +1083,8 @@ export default {
       [TOKEN]: '0x0c7D5ae016f806603CB1782bEa29AC69471CAb9c',
       [DECIMALS]: 18
     },
-    'BIFI': {
-      [NAME]: 'BIFI',
+    'BIFI(BiFi)': {
+      [NAME]: 'BIFI(BiFi)',
       [TOKEN]: '0x2791bfd60d232150bff86b39b7146c0eaaa2ba81',
       [DECIMALS]: 18
     },

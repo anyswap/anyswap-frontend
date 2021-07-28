@@ -1783,9 +1783,9 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0xad260f380c9a30b1d60e4548a75010ede630b665': { // BIFI
-      [NAME]: 'BIFI' + config.suffix,
-      [SYMBOL]: 'BIFI',
+    '0xad260f380c9a30b1d60e4548a75010ede630b665': { // BIFI(BiFi)
+      [NAME]: 'BiFi' + config.suffix,
+      [SYMBOL]: 'BIFI(BiFi)',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x159815cd8f629194f326ceb486322cc80d12453d',
       [REDEEM_MAX_NUM]: 200000,
