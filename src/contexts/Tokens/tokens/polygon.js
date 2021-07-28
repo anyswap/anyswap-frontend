@@ -1319,5 +1319,77 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xcaf5191fc480f43e4df80106c7695eca56e48b18': { // DNXC
+      [NAME]: 'DinoX Coin',
+      [SYMBOL]: 'DNXC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x025133e57763b28d27e07a6f8df0ee2b5cef92c3',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x668b9734FfE9eE8a01d4Ade3362De71E8989EA87',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x350fa8f62e50f8ac20a840c3dc570ebc5bdffc4c': { // SISTA
+      [NAME]: 'srnArtGallery Tokenized Arts',
+      [SYMBOL]: 'SISTA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x036772cc4394ba0d36b3c29a01cdcbfb23c03b8c',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xe95fd76cf16008c12ff3b3a937cb16cd9cc20284': { // PERA
+      [NAME]: 'PERA',
+      [SYMBOL]: 'PERA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x677c856175724a298237b758dba05778689fe3d2',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

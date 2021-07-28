@@ -1833,6 +1833,26 @@ export default {
       [TOKEN]: '0x5150956E082C748Ca837a5dFa0a7C10CA4697f9c',
       [DECIMALS]: 18
     },
+    'REVV': {
+      [NAME]: 'REVV',
+      [TOKEN]: '0x557b933a7c2c45672b610f8954a3deb39a51a8ca',
+      [DECIMALS]: 18
+    },
+    'PDOGE': {
+      [NAME]: 'PDOGE',
+      [TOKEN]: '0x1be66c15731788bae659b4bdd40d4aa9b3bbca94',
+      [DECIMALS]: 9
+    },
+    'DNXC': {
+      [NAME]: 'DNXC',
+      [TOKEN]: '0x20a8cec5fffea65be7122bcab2ffe32ed4ebf03a',
+      [DECIMALS]: 18
+    },
+    'UNIDX': {
+      [NAME]: 'UNIDX',
+      [TOKEN]: '0x95b3497bbcccc46a8f45f5cf54b0878b39f8d96c',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -2077,6 +2097,16 @@ export default {
       [TOKEN]: '0x2Bf56908B0f2440Ad11169d281967EB76665F8c6',
       [DECIMALS]: 18
     },
+    'SISTA': {
+      [NAME]: 'SISTA',
+      [TOKEN]: '0xca6d25c10dad43ae8be0bc2af4d3cd1114583c08',
+      [DECIMALS]: 18
+    },
+    'PERA': {
+      [NAME]: 'PERA',
+      [TOKEN]: '0xb9d8592e16a9c1a3ae6021cddb324eac1cbc70d6',
+      [DECIMALS]: 18
+    },
   },
   128: {
     'PLF': { // 
@@ -2097,6 +2127,11 @@ export default {
     'SOY': {
       [NAME]: 'SOY',
       [TOKEN]: '0xfb4c85b31b888e4f84ac131667865e029d6486f7',
+      [DECIMALS]: 18
+    },
+    'HYN': {
+      [NAME]: 'HYN',
+      [TOKEN]: '0x3ac19481face71565155f370b3e34a1178745382',
       [DECIMALS]: 18
     },
   },

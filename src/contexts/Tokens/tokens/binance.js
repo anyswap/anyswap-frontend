@@ -5513,6 +5513,102 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x833f307ac507d47309fd8cdd1f835bef8d702a93': { // REVV
+      [NAME]: 'REVV' + config.suffix,
+      [SYMBOL]: 'REVV',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xd7938f45d749c7c086db2a57b4ad223b713a1b66',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xa58663faef461761e44066ea26c1fcddf2927b80': { // PDOGE
+      [NAME]: 'PolkaDoge' + config.suffix,
+      [SYMBOL]: 'PDOGE',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0xde25aecb079469cb5e3add85450680284b8ea764',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x3c1748d647e6a56b37b66fcd2b5626d0461d3aa0': { // DNXC
+      [NAME]: 'DinoX Coin' + config.suffix,
+      [SYMBOL]: 'DNXC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xc806876c35c8fd69bbeac68df5b43c281e89f989',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x84ae7b0ff2bc523969fb3162e04149a419196f4b': { // HYN
+      [NAME]: 'Hyperion Token' + config.suffix,
+      [SYMBOL]: 'HYN',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x0667223d1c259759fee14e79b28e5ca901ea7fc6',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x0FD4E376C6C125C276D4020EFc1842a495cb1cF3',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 128, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT
