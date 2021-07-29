@@ -394,7 +394,7 @@ let chainList = {
     chainInfo[AVAX_MAIN_CHAINID],
     chainInfo[ONE_MAIN_CHAINID],
     chainInfo[KCS_MAIN_CHAINID],
-    // chainInfo[OKT_MAIN_CHAINID]
+    chainInfo[OKT_MAIN_CHAINID]
   ],
   test: [
     chainInfo[FSN_TEST_CHAINID],

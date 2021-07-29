@@ -2513,7 +2513,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
       )}
       {
         // isDeposit ? (
-        (isDeposit === 0 || isRedeem === 0 || tokenStatus ? 
+        (isDeposit === 0 || isRedeem === 0 || (tokenStatus && account) ? 
           (
             <MintWarningTip>
               <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>

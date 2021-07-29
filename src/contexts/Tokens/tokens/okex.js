@@ -24,11 +24,11 @@ import {dirSwitch} from '../methods/common'
 export default {
   //
   [OKT_MAIN_CHAINID]: {
-    '0x382bb369d343125bfb2117af9c149795c6c65c50': { // USDT
-      [NAME]: 'Tether',
-      [SYMBOL]: 'USDT',
+    '0x218c3c3d49d0e7b37aff0d8bb079de36ae61a4c0': { // BNB
+      [NAME]: 'Binance',
+      [SYMBOL]: 'BNB',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x91ec267c6f126abfbc2c4e49fc43c06f6db677f3',
+      [EXCHANGE_ADDRESS]: '0xa040f70b6eaf57554dfd6eba96eac67666922a0c',
       [REDEEM_MAX_NUM]: 1000000,
       [REDEEM_MIN_NUM]: 0.1,
       [FEE]: 0.001,
@@ -37,11 +37,40 @@ export default {
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_ADDRESS]: '0x63a3d28bB9187809553dD16981C73f498B6b2687',
       [DEPOSIT_TYPE]: 0,
       [DEPOSIT_MAX_NUM]: 0,
       [DEPOSIT_MIN_NUM]: 0,
-      [EXTENDOBJ]: {},
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
+    '0x332730a4f6e03d9c55829435f10360e13cfa41ff': { // BUSD
+      [NAME]: 'Binance-Peg BUSD Token',
+      [SYMBOL]: 'BUSD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x16ecf3678b5bbce7f2c41e2472c46978ced27c12',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 0.1,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x63a3d28bB9187809553dD16981C73f498B6b2687',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
     },
   },
   [OKT_TEST_CHAINID]: {
