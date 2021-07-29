@@ -47,7 +47,6 @@ function getParamNode (type, INIT_NODE) {
   if (type === 'eth' || type.toString() === ETH_MAIN_CHAINID.toString()) return chainInfo[ETH_MAIN_CHAINID].label
   if (type === 'huobi' || type === 'ht' || type.toString() === HT_MAIN_CHAINID.toString()) return chainInfo[HT_MAIN_CHAINID].label
   if (type === 'huobitestnet' || type === 'httestnet' || type.toString() === HT_TEST_CHAINID.toString()) return chainInfo[HT_TEST_CHAINID].label
-  if (type === 'okb' || type.toString() === OKT_MAIN_CHAINID.toString()) return chainInfo[OKT_MAIN_CHAINID].label
   if (type === 'okbtest' || type.toString() === OKT_TEST_CHAINID.toString()) return chainInfo[OKT_TEST_CHAINID].label
   if (type === 'arbitrumtestnet' || type.toString() === ARBITRUM_TEST_CHAINID.toString()) return chainInfo[ARBITRUM_TEST_CHAINID].label
   if (type === 'polygon' || type === 'natic' || type.toString() === MATIC_MAIN_CHAINID.toString()) return chainInfo[MATIC_MAIN_CHAINID].label
@@ -56,6 +55,7 @@ function getParamNode (type, INIT_NODE) {
   if (type === 'moonbeamtest' || type.toString() === DEV_TEST_CHAINID.toString()) return chainInfo[DEV_TEST_CHAINID].label
   if (type === 'harmony' || type.toString() === ONE_MAIN_CHAINID.toString()) return chainInfo[ONE_MAIN_CHAINID].label
   if (type === 'kcs' || type.toString() === KCS_MAIN_CHAINID.toString()) return chainInfo[KCS_MAIN_CHAINID].label
+  if (type === 'okt' || type === 'okex' || type.toString() === OKT_MAIN_CHAINID.toString()) return chainInfo[OKT_MAIN_CHAINID].label
   return INIT_NODE
 }
 
