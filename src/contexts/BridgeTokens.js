@@ -2107,6 +2107,11 @@ export default {
       [TOKEN]: '0xb9d8592e16a9c1a3ae6021cddb324eac1cbc70d6',
       [DECIMALS]: 18
     },
+    'BabyDoge': {
+      [NAME]: 'BabyDoge',
+      [TOKEN]: '0xc748673057861a797275cd8a068abb95a902e8de',
+      [DECIMALS]: 9
+    },
   },
   128: {
     'PLF': { // 

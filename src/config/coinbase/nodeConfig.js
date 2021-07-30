@@ -65,7 +65,7 @@ export const OKT_TEST_EXPLORER = 'https://scan-testnet.hecochain.com'
 
 export const OKT_MAINNET = 'https://exchainrpc.okex.org'
 export const OKT_MAIN_CHAINID = 66
-export const OKT_MAIN_EXPLORER = 'https://www.oklink.com/okexchain'
+export const OKT_MAIN_EXPLORER = 'https://www.oklink.com/okexchain/eth'
 
 
 export const ARBITRUM_TESTNET = 'https://kovan4.arbitrum.io/rpc'

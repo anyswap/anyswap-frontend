@@ -72,6 +72,30 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0x97513e975a7fa9072c72c92d8000b0db90b163c5': { // BabyDoge
+      [NAME]: 'Baby Doge Coin',
+      [SYMBOL]: 'BabyDoge',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0x2bdfdfcefd8f9ed7b5bfe4cb6c655b572752b3a1',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 0.1,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x63a3d28bB9187809553dD16981C73f498B6b2687',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
   },
   [OKT_TEST_CHAINID]: {
     '0x40af41149a6e82e378fe8ad7e1ae11e42c78a985': { // ANY
