@@ -1853,6 +1853,11 @@ export default {
       [TOKEN]: '0x95b3497bbcccc46a8f45f5cf54b0878b39f8d96c',
       [DECIMALS]: 18
     },
+    'DERC': {
+      [NAME]: 'DERC',
+      [TOKEN]: '0x9fa69536d1cda4a04cfb50688294de75b505a9ae',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
