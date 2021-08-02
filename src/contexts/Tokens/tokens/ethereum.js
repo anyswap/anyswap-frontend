@@ -541,6 +541,30 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0xd22a58f79e9481d1a88e00c343885a588b34b68b': { // IVN
+      [NAME]: 'Investintoken',
+      [SYMBOL]: 'IVN',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xf816e5149b9ee73a733e333d37c2bce0cedd5889',
+      [REDEEM_MAX_NUM]: 10000000,
+      [REDEEM_MIN_NUM]: 200,
+      [FEE]: 0.001,
+      [MAXFEE]: 800,
+      [MINFEE]: 80,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb16e3336699a636dd6c8246a3a12b813bfa0a3ad',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000000,
+      [DEPOSIT_MIN_NUM]: 200,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
 
 
 

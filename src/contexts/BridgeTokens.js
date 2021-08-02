@@ -2112,6 +2112,11 @@ export default {
       [TOKEN]: '0xc748673057861a797275cd8a068abb95a902e8de',
       [DECIMALS]: 9
     },
+    'IVN': {
+      [NAME]: 'IVN',
+      [TOKEN]: '0x6a46d878401f46b4c7f665f065e0667580e031ec',
+      [DECIMALS]: 18
+    },
   },
   128: {
     'PLF': { // 
