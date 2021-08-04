@@ -1546,5 +1546,53 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x6ed51c44d0a9e1c23f729fcd00b5a06051c502a5': { // ZEFI 
+      [NAME]: 'ZCore Finance' + config.suffix,
+      [SYMBOL]: 'ZEFI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1088358cadcbf4b65ca67514d6193442ff2d5dd7',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x4b3B4120d4D7975455d8C2894228789c91a247F8',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xe069af87450fb51fc0d0e044617f1c134163e591': { // MORPH 
+      [NAME]: 'Morphose Token' + config.suffix,
+      [SYMBOL]: 'MORPH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x585e1d15f951ab1bbf2e2a14b150f8fa228922c7',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x4b3B4120d4D7975455d8C2894228789c91a247F8',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }

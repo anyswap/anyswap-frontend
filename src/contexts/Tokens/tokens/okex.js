@@ -96,6 +96,54 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0x3405a1bd46b85c5c029483fbecf2f3e611026e45': { // LAIKA
+      [NAME]: 'LaikaProtocol',
+      [SYMBOL]: 'LAIKA',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0x5da30287f6cd6e3b71af4411ac484733c1dd5306',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 0.1,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x63a3d28bB9187809553dD16981C73f498B6b2687',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
+    '0x6b7a87899490ece95443e979ca9485cbe7e71522': { // HERO
+      [NAME]: 'HERO',
+      [SYMBOL]: 'HERO',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x68d3c153d531eeeae40ce983282073365efabc1c',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 0.1,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x63a3d28bB9187809553dD16981C73f498B6b2687',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
   },
   [OKT_TEST_CHAINID]: {
     '0x40af41149a6e82e378fe8ad7e1ae11e42c78a985': { // ANY

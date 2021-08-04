@@ -565,6 +565,30 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0x1d7ca62f6af49ec66f6680b8606e634e55ef22c1': { // START
+      [NAME]: 'BSCstarter',
+      [SYMBOL]: 'START',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x4e503ff86390482202ba60569f88c315225e6bda',
+      [REDEEM_MAX_NUM]: 10000000,
+      [REDEEM_MIN_NUM]: 200,
+      [FEE]: 0.001,
+      [MAXFEE]: 800,
+      [MINFEE]: 80,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb16e3336699a636dd6c8246a3a12b813bfa0a3ad',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000000,
+      [DEPOSIT_MIN_NUM]: 200,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
 
 
 

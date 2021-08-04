@@ -1858,6 +1858,21 @@ export default {
       [TOKEN]: '0x9fa69536d1cda4a04cfb50688294de75b505a9ae',
       [DECIMALS]: 18
     },
+    'BACON': {
+      [NAME]: 'BACON',
+      [TOKEN]: '0x34f797e7190c131cf630524655a618b5bd8738e7',
+      [DECIMALS]: 18
+    },
+    'CPD': {
+      [NAME]: 'CPD',
+      [TOKEN]: '0x9b31bb425d8263fa1b8b9d090b83cf0c31665355',
+      [DECIMALS]: 18
+    },
+    'PPAY': {
+      [NAME]: 'PPAY',
+      [TOKEN]: '0x054d64b73d3d8a21af3d764efd76bcaa774f3bb2',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -2120,6 +2135,11 @@ export default {
     'IVN': {
       [NAME]: 'IVN',
       [TOKEN]: '0x6a46d878401f46b4c7f665f065e0667580e031ec',
+      [DECIMALS]: 18
+    },
+    'MORPH': {
+      [NAME]: 'MORPH',
+      [TOKEN]: '0x2b15bc62d1FB46ADE4763A3c5ea0917460bb25F1',
       [DECIMALS]: 18
     },
   },
