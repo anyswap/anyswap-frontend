@@ -454,10 +454,10 @@ export default function FarmsList () {
     getBSCStakingAPY('FTM', 8500)
   }, [])
 
-  function openThirdWeb (url, type) {
+  function openThirdWeb (url, type, isTip) {
     let isJump = localStorage.getItem(JUMPMODALTIP + type)
     // console.log(isJump)
-    if (!isJump) {
+    if (!isJump && !isTip) {
       setJumpTip({
         title: t('htSwapTitle'),
         content: t('htSwapContent'),
@@ -470,7 +470,7 @@ export default function FarmsList () {
     }
   }
 
-  function farmItem (isDoubleLogo, isOutLink, url, title, info, coin1, coin2, coin3) {
+  function farmItem (isDoubleLogo, isOutLink, url, title, info, coin1, coin2, coin3, isTip) {
     let coinLogo = isDoubleLogo ? (
       <DoubleLogo>
         <div className="logo left"><TokenLogo1 address={coin1} size='100%'/></div>
@@ -505,7 +505,7 @@ export default function FarmsList () {
       return (
         <FarmList>
           <LinkBox onClick={() => {
-            openThirdWeb(url, coin1)
+            openThirdWeb(url, coin1, isTip)
           }}>
             <div className='default'>
               {coinLogo}
@@ -559,8 +559,9 @@ export default function FarmsList () {
         <img src={require('../../assets/images/banner/farm.png')} />
       </BannerBox> */}
       <FarmListBox>
-        {farmItem(1, 1, 'https://stable.anyswap.exchange/#/farm/bsc', 'ANY Farming', 'ANY Farming', 'ANY', 'BNB')}
-        {farmItem(1, 1, 'https://app.wault.finance/bsc/#farm', 'WAULTx Farming', 'WAULTx Farming', 'DEP1', 'BNB')}
+        {farmItem(1, 1, 'https://www.cherryswap.net/farms/', 'CHE Farming', 'CHE Farming', 'CHE', 'OKT')}
+        {farmItem(1, 1, 'https://stable.anyswap.exchange/#/farm/bsc', 'DEP Farming', 'DEP Farming', 'DEP1', 'BNB','', 1)}
+        {farmItem(1, 1, 'https://app.wault.finance/bsc/#farm', 'WAULTx Farming', 'WAULTx Farming', 'WAULTx', 'BNB')}
         {farmItem(1, 1, 'https://kuswap.io/#/farms', 'KUS Farming', 'KUS Farming', 'KUS', 'KCC')}
         {farmItem(1, 1, 'https://pancakeswap.info/pool/0xB87b857670A44356f2b70337E0F218713D2378e8', 'ORBS Farming', 'ORBS Farming', 'ORBS', 'BNB')}
         {farmItem(1, 1, 'https://app.makiswap.com/farms', 'MAKI Farming', 'MAKI Farming', 'MAKI', 'HT')}
