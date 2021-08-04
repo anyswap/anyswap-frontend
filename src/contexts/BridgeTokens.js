@@ -2186,6 +2186,11 @@ export default {
       [TOKEN]: '0x3Dc7B06dD0B1f08ef9AcBbD2564f8605b4868EEA',
       [DECIMALS]: 18,
     },
+    'GAJ': { // 
+      [NAME]: 'GAJ',
+      [TOKEN]: '0xf4b0903774532aee5ee567c02aab681a81539e92',
+      [DECIMALS]: 18,
+    },
   },
   250: {
     'fUSD': { // 

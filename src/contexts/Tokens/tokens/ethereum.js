@@ -589,6 +589,30 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0x9fda7ceec4c18008096c2fe2b85f05dc300f94d0': { // GAJ
+      [NAME]: 'PolyGaj Token',
+      [SYMBOL]: 'GAJ',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x855b76336a9483175586b2c3916edc244538353b',
+      [REDEEM_MAX_NUM]: 10000000,
+      [REDEEM_MIN_NUM]: 200,
+      [FEE]: 0.001,
+      [MAXFEE]: 800,
+      [MINFEE]: 80,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xeA2368b69d09cEf7C8b1817A930b8e2185253F53',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000000,
+      [DEPOSIT_MIN_NUM]: 200,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
 
 
 
