@@ -476,5 +476,29 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x7ae97042a4a0eb4d1eb370c34bfec71042a056b7': { // SGAJ
+      [NAME]: 'StableGaj Token',
+      [SYMBOL]: config.prefix + 'SGAJ',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x21acef97f8f7add632efb74e49be9b783daaeb4a',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x5A3eD12E6E6928182dc402d8530087b956Ce8fdb',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

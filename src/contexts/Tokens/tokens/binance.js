@@ -5705,6 +5705,99 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x273a4ffceb31b8473d51051ad2a2edbb7ac8ce02': { // POL 
+      [NAME]: 'Polars' + config.suffix,
+      [SYMBOL]: 'POL',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x75ae8dddf749d61a19906954cc78fcf6df3fb453',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x75e0eb8e6d92ab832bb11e46c041d06a89ac5f0d': { // PBI 
+      [NAME]: 'Polars BSC Incentives token' + config.suffix,
+      [SYMBOL]: 'PBI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8e4114c4e4894afb3c2f95bcef4c347bcfecbd8c',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x944a05c5acc46c9777aca7d8dd92b048b1b6d3e0': { // TRO 
+      [NAME]: 'Troland' + config.suffix,
+      [SYMBOL]: 'TRO',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x6ec14fb4b7add63fe5aaf39d09a8147d13cef0ec',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x0802d66f029c46e042b74d543fc43b6705ccb4ba': { // BLOCK 5
+      [NAME]: 'Blocknet' + config.suffix,
+      [SYMBOL]: 'abBLOCK',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xea904efb6d8a367a894aa8993c9365ca8db13ac4',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 2,
+      [FEE]: 0.001,
+      [MAXFEE]: 40,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 1000000,
+      [DEPOSIT_MIN_NUM]: 1,
+      [EXTENDOBJ]: {
+        VERSION: 'V2'
+      },
+    },
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT

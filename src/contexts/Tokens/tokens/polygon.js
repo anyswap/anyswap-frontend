@@ -1391,5 +1391,122 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0xa0b20decbc557e3f68e140ed5a0c69bc865f865a': { // BREW
+      [NAME]: 'CafeSwap Token',
+      [SYMBOL]: 'BREW',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x26541c77de41e8d63229822c756d9ed1e76d4a9f',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xb01371072fdcb9b4433b855e16a682b461f94ab3': { // MOCHA
+      [NAME]: 'MochaToken',
+      [SYMBOL]: 'MOCHA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xdb0fe10ed92c6ce92dcf54970c9ff21860ec245b',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x3129662808bec728a27ab6a6b9afd3cbaca8a43c': { // FTS
+      [NAME]: 'Fortress',
+      [SYMBOL]: 'FTS',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8537b4ef617d2cf0745e13a0825822d5f4d093d4',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x171a9377C5013bb06Bca8CfE22B9C007f2C319F1',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x95555e4e4cb2c094914af53598eff14b9340881f': { // BLOCK 5
+      [NAME]: 'Blocknet' + config.suffix,
+      [SYMBOL]: 'apBLOCK',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0xb28f53fd531932277957ddcbaf643a45e452691b',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 2,
+      [FEE]: 0.001,
+      [MAXFEE]: 40,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 1000000,
+      [DEPOSIT_MIN_NUM]: 1,
+      [EXTENDOBJ]: {
+        VERSION: 'V2'
+      },
+    },
+    '0x58c1bbb508e96cfec1787acf6afe1c7008a5b064': { // HOGE
+      [NAME]: 'hoge.finance',
+      [SYMBOL]: 'HOGE',
+      [DECIMALS]: 9,
+      [EXCHANGE_ADDRESS]: '0x44fadccff925d1108fe53dcafac9186d5a34f1eb',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x668b9734FfE9eE8a01d4Ade3362De71E8989EA87',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

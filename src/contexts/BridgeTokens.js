@@ -1873,6 +1873,26 @@ export default {
       [TOKEN]: '0x054d64b73d3d8a21af3d764efd76bcaa774f3bb2',
       [DECIMALS]: 18
     },
+    'POL': {
+      [NAME]: 'POL',
+      [TOKEN]: '0xc17fbe1d709dDf6C0B6665Dd0591046815AC7554',
+      [DECIMALS]: 18
+    },
+    'PBI': {
+      [NAME]: 'PBI',
+      [TOKEN]: '0x123ab66587361bebd0141f1dde69d8075f073450',
+      [DECIMALS]: 18
+    },
+    'RAI': {
+      [NAME]: 'RAI',
+      [TOKEN]: '0x03ab458634910aad20ef5f1c8ee96f1d6ac54919',
+      [DECIMALS]: 18
+    },
+    'TRO': {
+      [NAME]: 'TRO',
+      [TOKEN]: '0xc065a04ed30471a0200da2e583bac120b129f0c5',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -2142,6 +2162,26 @@ export default {
       [TOKEN]: '0x2b15bc62d1FB46ADE4763A3c5ea0917460bb25F1',
       [DECIMALS]: 18
     },
+    'BREW': {
+      [NAME]: 'BREW',
+      [TOKEN]: '0x790be81c3ca0e53974be2688cdb954732c9862e1',
+      [DECIMALS]: 18
+    },
+    'MOCHA': {
+      [NAME]: 'MOCHA',
+      [TOKEN]: '0xb0611177bb3ce464c512d84bfab0b9b33b01f534',
+      [DECIMALS]: 18
+    },
+    'FTS': {
+      [NAME]: 'FTS',
+      [TOKEN]: '0x4437743ac02957068995c48e08465e0ee1769fbe',
+      [DECIMALS]: 18
+    },
+    'APAD': {
+      [NAME]: 'APAD',
+      [TOKEN]: '0x366d71ab095735b7dae83ce2b82d5262ef655f10',
+      [DECIMALS]: 18
+    },
   },
   128: {
     'PLF': { // 
@@ -2184,6 +2224,16 @@ export default {
     'XDO': { // 
       [NAME]: 'XDO',
       [TOKEN]: '0x3Dc7B06dD0B1f08ef9AcBbD2564f8605b4868EEA',
+      [DECIMALS]: 18,
+    },
+    'SGAJ': { // 
+      [NAME]: 'SGAJ',
+      [TOKEN]: '0x94c7d657f1c8be06a4dc009d2d475bb559d858cb',
+      [DECIMALS]: 18,
+    },
+    'HONOR': { // 
+      [NAME]: 'HONOR',
+      [TOKEN]: '0xb82A20B4522680951F11c94c54B8800c1C237693',
       [DECIMALS]: 18,
     },
   },

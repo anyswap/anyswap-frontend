@@ -1594,5 +1594,29 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xa71353bb71dda105d383b02fc2dd172c4d39ef8b': { // RAI 
+      [NAME]: 'Rai Reflex Index' + config.suffix,
+      [SYMBOL]: 'RAI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x15d1c2f19ce945e5b2da9c803ac79c0d290d210b',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }

@@ -559,6 +559,7 @@ export default function FarmsList () {
         <img src={require('../../assets/images/banner/farm.png')} />
       </BannerBox> */}
       <FarmListBox>
+        {farmItem(1, 1, 'https://stable.anyswap.exchange/#/farm/bsc/hero', 'HERO Farming', 'HERO Farming', 'HERO', 'BNB','', 1)}
         {farmItem(1, 1, 'https://www.cherryswap.net/farms/', 'CHE Farming', 'CHE Farming', 'CHE', 'OKT')}
         {farmItem(1, 1, 'https://stable.anyswap.exchange/#/farm/bsc', 'DEP Farming', 'DEP Farming', 'DEP1', 'BNB','', 1)}
         {farmItem(1, 1, 'https://app.wault.finance/bsc/#farm', 'WAULTx Farming', 'WAULTx Farming', 'WAULTx', 'BNB')}

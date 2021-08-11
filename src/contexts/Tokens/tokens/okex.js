@@ -144,6 +144,30 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0xdae6c2a48bfaa66b43815c5548b10800919c993e': { // HONOR
+      [NAME]: 'HONOR',
+      [SYMBOL]: 'HONOR',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xfb829138c59fa8619699fb33a874d1f7d5d4d5a5',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 0.1,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb44022e04fd4A1219E58aB0A773bf34181c35c59',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
   },
   [OKT_TEST_CHAINID]: {
     '0x40af41149a6e82e378fe8ad7e1ae11e42c78a985': { // ANY

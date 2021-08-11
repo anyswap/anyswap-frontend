@@ -18,7 +18,7 @@ import {chainInfo} from './coinbase/nodeConfig'
 import farmConfig from './farming'
 
 // console.log(location.href)
-const ENV_NODE_CONFIG = 'ENV_NODE_CONFIG'
+const ENV_NODE_CONFIG = 'ANYSWAP_DEX_ENV_NODE_CONFIG'
 // const INIT_NODE = 'FSN_MAIN'
 // const INIT_NODE = 'BNB_MAIN'
 // const INIT_NODE = 'FTM_MAIN'
