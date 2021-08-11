@@ -20,25 +20,25 @@ const Web3 = require('web3')
 const Tx  = require("ethereumjs-tx")
 
 
-const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
-const factory = new web3Test.eth.Contract(FACTORY_ABI, FACTORY_ADDRESSES[config.chainID])
-setTimeout(() => {
-  const batch = new web3Test.BatchRequest()
-  const arr = [
-    '0x2c78f1b70ccf63cdee49f9233e9faa99d43aa07e',
-  ]
-  for (const token of arr) {
-    const plData = factory.methods.getExchange(token).encodeABI()
+// const web3Test = new Web3(new Web3.providers.HttpProvider(config.nodeRpc))
+// const factory = new web3Test.eth.Contract(FACTORY_ABI, FACTORY_ADDRESSES[config.chainID])
+// setTimeout(() => {
+//   const batch = new web3Test.BatchRequest()
+//   const arr = [
+//     '0x2c78f1b70ccf63cdee49f9233e9faa99d43aa07e',
+//   ]
+//   for (const token of arr) {
+//     const plData = factory.methods.getExchange(token).encodeABI()
   
-    batch.add(web3Test.eth.call.request({data: plData, to: FACTORY_ADDRESSES[config.chainID]}, 'latest', (err, res) => {
-      if (!err) {
-        console.log('token:' + token)
-        console.log(res.replace('0x000000000000000000000000', '0x').replace(/\s/g, '').toLowerCase())
-      }
-    }))
-  }
-  batch.execute()
-}, 1000)
+//     batch.add(web3Test.eth.call.request({data: plData, to: FACTORY_ADDRESSES[config.chainID]}, 'latest', (err, res) => {
+//       if (!err) {
+//         console.log('token:' + token)
+//         console.log(res.replace('0x000000000000000000000000', '0x').replace(/\s/g, '').toLowerCase())
+//       }
+//     }))
+//   }
+//   batch.execute()
+// }, 1000)
 
 
 
