@@ -5790,7 +5790,7 @@ export default {
       [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 1,
       [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_ADDRESS]: 'BdoLAaBkUrJmrNwApnwqwLwdFETNLMeX3c',
       [DEPOSIT_TYPE]: 1,
       [DEPOSIT_MAX_NUM]: 1000000,
       [DEPOSIT_MIN_NUM]: 1,
