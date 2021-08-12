@@ -2100,11 +2100,11 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0x96058f8c3e16576d9bd68766f3836d9a33158f89': { // BONDLY   
+    '0xa097c96acc9587d140ad8aeaac13d9db2c6cc07f': { // BONDLY   
       [NAME]: 'Bondly Token' + config.suffix,
       [SYMBOL]: 'BONDLY',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x34ce782178354928b86588516cebec19734595fd',
+      [EXCHANGE_ADDRESS]: '0x89959d46d59f0ef2da57cc4cd4f37568ce6b8bf0',
       [REDEEM_MAX_NUM]: 200000,
       [REDEEM_MIN_NUM]: 20,
       [FEE]: 0.001,

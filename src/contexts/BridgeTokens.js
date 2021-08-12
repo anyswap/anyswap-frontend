@@ -1155,7 +1155,7 @@ export default {
     },
     'BONDLY': {
       [NAME]: 'Bondly Token',
-      [TOKEN]: '0xd2dda223b2617cb616c1580db421e4cfae6a8a85',
+      [TOKEN]: '0x676cdc3312d0350749bed17cd3eb3b90e5917f42',
       [DECIMALS]: 18
     },
     'HGET': {
