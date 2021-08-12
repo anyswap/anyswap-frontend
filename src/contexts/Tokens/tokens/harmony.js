@@ -44,11 +44,11 @@ export default {
         VERSION: 'V2'
       },
     },
-    '0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b': { // BIFI
+    '0x6ab6d61428fde76768d7b45d8bfeec19c6ef91a8': { // BIFI
       [NAME]: 'beefy.finance',
       [SYMBOL]: 'BIFI',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x2bdfdfcefd8f9ed7b5bfe4cb6c655b572752b3a1',
+      [EXCHANGE_ADDRESS]: '0xf63c230e2aec830c9e424e79049cc1376b1ec3b4',
       [REDEEM_MAX_NUM]: 200000,
       [REDEEM_MIN_NUM]: 10,
       [FEE]: 0.001,
