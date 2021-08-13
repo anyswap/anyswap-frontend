@@ -28,7 +28,7 @@ export function formatCoin (coin) {
     if (coin === 'fUSDT') {
       return 'USDT'
     }
-    if (coin === 'aaBLOCK') {
+    if (coin.indexOf('BLOCK') !== -1 ) {
       return 'BLOCK'
     }
     if (coin.indexOf('any') === 0) {

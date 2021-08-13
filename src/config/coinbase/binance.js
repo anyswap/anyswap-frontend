@@ -89,6 +89,12 @@ const MAIN_CONFIG = {
     queryHashStatus: 'https://chainz.cryptoid.info/colx/api.dws?q=txinfo&t=', // 
     initAddr: 'DD7AMhT66bK3TpDUKdq6AsUBj8gt6pSd2o',  // 
   },
+  block: { // block配置
+    lookHash: 'https://block.ccore.online/transaction/', // 
+    queryTxns: 'https://block.ccore.online/ext/getaddress/', // 
+    queryHashStatus: 'https://block.ccore.online/api/getrawtransaction?txid=', // 
+    initAddr: 'BdoLAaBkUrJmrNwApnwqwLwdFETNLMeX3c',  // 
+  },
   isOpenRewards: 0,
   isChangeDashboard: 1,
   noSupportBridge: [
