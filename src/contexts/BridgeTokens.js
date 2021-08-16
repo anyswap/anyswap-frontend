@@ -2182,6 +2182,11 @@ export default {
       [TOKEN]: '0x366d71ab095735b7dae83ce2b82d5262ef655f10',
       [DECIMALS]: 18
     },
+    'PLAY': {
+      [NAME]: 'PLAY',
+      [TOKEN]: '0x9a3077f34cc30f9bf8e93a0369119bae0113d9cc',
+      [DECIMALS]: 18
+    },
   },
   128: {
     'PLF': { // 
