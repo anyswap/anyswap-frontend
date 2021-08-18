@@ -1893,6 +1893,16 @@ export default {
       [TOKEN]: '0xc065a04ed30471a0200da2e583bac120b129f0c5',
       [DECIMALS]: 18
     },
+    'SPO': {
+      [NAME]: 'SPO',
+      [TOKEN]: '0xcbE771323587EA16dACB6016e269D7F08A7ACC4E',
+      [DECIMALS]: 18
+    },
+    'BILL': {
+      [NAME]: 'BILL',
+      [TOKEN]: '0x0239d3a3485ec54511bee9d77d92695e443bf060',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -2187,6 +2197,21 @@ export default {
       [TOKEN]: '0x9a3077f34cc30f9bf8e93a0369119bae0113d9cc',
       [DECIMALS]: 18
     },
+    'KAMPAY': {
+      [NAME]: 'KAMPAY',
+      [TOKEN]: '0x8e984e03ab35795c60242c902ece2450242c90e9',
+      [DECIMALS]: 18
+    },
+    'EGGP': {
+      [NAME]: 'EGGP',
+      [TOKEN]: '0x21adB1c644663069e83059AC3f9d9Ca1133D29e4',
+      [DECIMALS]: 18
+    },
+    'BSCR': {
+      [NAME]: 'BSCR',
+      [TOKEN]: '0x9198bbbd8201584a630f93b83fbda70a5ee1970d',
+      [DECIMALS]: 8
+    },
   },
   128: {
     'PLF': { // 
@@ -2212,6 +2237,11 @@ export default {
     'HYN': {
       [NAME]: 'HYN',
       [TOKEN]: '0x3ac19481face71565155f370b3e34a1178745382',
+      [DECIMALS]: 18
+    },
+    'PIPI': {
+      [NAME]: 'PIPI',
+      [TOKEN]: '0xaaae746b5e55d14398879312660e9fde07fbc1dc',
       [DECIMALS]: 18
     },
   },

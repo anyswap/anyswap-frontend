@@ -1618,5 +1618,53 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x8ca2ecbce34c322fcea6db912d9dbfd2dda5920d': { // START 
+      [NAME]: 'BSCstarter' + config.suffix,
+      [SYMBOL]: 'START',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x876890818853e06bafe412a324ce21b4a4b92d69',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x4b3B4120d4D7975455d8C2894228789c91a247F8',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x133bf038277fda5eaa2b5fc4cc4e6e15bc5cace3': { // BSCR 
+      [NAME]: 'Binance Scorum' + config.suffix,
+      [SYMBOL]: 'BSCR',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0x918c07c29a9466fe8024375bf031f341431a0c44',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x4b3B4120d4D7975455d8C2894228789c91a247F8',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }

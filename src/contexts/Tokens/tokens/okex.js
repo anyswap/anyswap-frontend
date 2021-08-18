@@ -192,6 +192,30 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0x264c1383ea520f73dd837f915ef3a732e204a493': { // PIPI
+      [NAME]: 'Pippi Shrimp Token',
+      [SYMBOL]: 'PIPI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xeaa5c6783bfb962b0ea00643ad8b007daa351449',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 0.1,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x379b34979617Dae937c2ABDE0EBFF7b6571621F8',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 128, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
   },
   [OKT_TEST_CHAINID]: {
     '0x40af41149a6e82e378fe8ad7e1ae11e42c78a985': { // ANY
