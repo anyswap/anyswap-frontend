@@ -2212,6 +2212,11 @@ export default {
       [TOKEN]: '0x9198bbbd8201584a630f93b83fbda70a5ee1970d',
       [DECIMALS]: 8
     },
+    'CPO': {
+      [NAME]: 'CPO',
+      [TOKEN]: '0x9198bbbd8201584a630f93b83fbda70a5ee1970d',
+      [DECIMALS]: 18
+    },
   },
   128: {
     'PLF': { // 
