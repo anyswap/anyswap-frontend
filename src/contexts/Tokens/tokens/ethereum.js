@@ -637,7 +637,7 @@ export default {
         VERSION: 'V2',
       },
     },
-    '0x9fB83c0635De2E815fd1c21b3a292277540C2e8d': { // FEVR
+    '0x9fb83c0635de2e815fd1c21b3a292277540c2e8d': { // FEVR
       [NAME]: 'FevrToken',
       [SYMBOL]: 'FEVR',
       [DECIMALS]: 18,

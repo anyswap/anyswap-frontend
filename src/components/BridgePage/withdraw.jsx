@@ -105,6 +105,8 @@ function formatOutName (name, srcChainId) {
 export default function SpecialWithdraw() {
   const { t } = useTranslation()
   const { account, chainId } = useWeb3React()
+  // const { chainId } = useWeb3React()
+  // const account = '0x0ACAaBa122781945b004C61BB856e859E4894c79'
   const toggleWalletModal = useWalletModalToggle()
 
   const walletType = sessionStorage.getItem('walletType')
@@ -152,8 +154,12 @@ export default function SpecialWithdraw() {
     if (account && chainId && selectToken) {
       // console.log(selectToken)
       getTokenBalance(chainId, selectToken, account, 1).then(res => {
-        console.log(res)
-        const val = ethers.utils.parseUnits(res.toString(), TokenInfo.decimals)
+        // console.log(res)
+        // console.log(TokenInfo)
+        // const val = ethers.utils.parseUnits(res.toString(), TokenInfo.decimals)
+        const val = ethers.utils.bigNumberify(res)
+        // console.log(val)
+        // console.log(amountFormatter(val, TokenInfo.decimals, Math.min(10, TokenInfo.decimals)))
         setBalance(amountFormatter(val, TokenInfo.decimals, Math.min(10, TokenInfo.decimals)))
       })
     } else {
