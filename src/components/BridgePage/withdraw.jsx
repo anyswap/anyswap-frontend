@@ -75,7 +75,7 @@ const StyledBirdgeIcon = styled.div`
 `
 
 function formatOutName (name, srcChainId) {
-  console.log(name)
+  // console.log(name)
   name = name.replace(config.namePrefix, '').replace(config.suffix, '')
   const n = name.split('-')
   name = n[0]
@@ -201,13 +201,13 @@ export default function SpecialWithdraw() {
       return
     }
     let amountVal = ethers.utils.parseUnits(value.toString(), TokenInfo.decimals)
-    if (amountVal.gt(balance)) {
-      amountVal = balance
-    }
+    // if (amountVal.gt(balance)) {
+    //   amountVal = balance
+    // }
     let address = recipient.address
     const formatAddress = node === 'TRX' ? toHexAddress(address) : address
     let token = selectToken
-    console.log(formatAddress)
+    // console.log(formatAddress)
     if (config.supportWallet.includes(walletType)) {
       let web3Contract = getWeb3ConTract(swapETHABI, token)
       if (isSpecialCoin(TokenInfo.symbol)) {
@@ -485,14 +485,15 @@ export default function SpecialWithdraw() {
             <ErrorSpanBox>
               <ErrorSpan>
                 <ExtraText>
-                  {balance ? (
+                  {/* {balance ? (
                     <>
                       <h5>{t('balances')}:</h5>
                       <p>{balance}</p>
                     </>
                   ) : (
                     <p>{balance}</p>
-                  )}
+                  )} */}
+                  <p>-</p>
                   <PasteStyle>
                     <img src={Paste} alt={''} />
                   </PasteStyle>
