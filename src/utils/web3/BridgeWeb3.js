@@ -25,7 +25,7 @@ const Tx  = require("ethereumjs-tx")
 // setTimeout(() => {
 //   const batch = new web3Test.BatchRequest()
 //   const arr = [
-//     '0x64bc7724c2e591dfc32c9630dfef6d06e75e8d4b',
+//     '0x9fB83c0635De2E815fd1c21b3a292277540C2e8d',
 //   ]
 //   for (const token of arr) {
 //     const plData = factory.methods.getExchange(token).encodeABI()

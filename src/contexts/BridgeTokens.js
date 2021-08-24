@@ -1912,6 +1912,11 @@ export default {
     },
   },
   56: {
+    'FEVR': { // 
+      [NAME]: 'FEVR',
+      [TOKEN]: '0x82030cdbd9e4b7c5bb0b811a61da6360d69449cc',
+      [DECIMALS]: 18,
+    },
     'UNI': { // 
       [NAME]: 'Uniswap',
       [TOKEN]: '0x99c5a2fcc97b59fe6d0b56e21e72b002f644123f',
