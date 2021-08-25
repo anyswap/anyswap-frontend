@@ -1903,6 +1903,46 @@ export default {
       [TOKEN]: '0x0239d3a3485ec54511bee9d77d92695e443bf060',
       [DECIMALS]: 18
     },
+    'MITx': {
+      [NAME]: 'MITx',
+      [TOKEN]: '0x4a527d8fc13c5203ab24ba0944f4cb14658d1db6',
+      [DECIMALS]: 18
+    },
+    'DHC': {
+      [NAME]: 'DHC',
+      [TOKEN]: '0x152687Bc4A7FCC89049cF119F9ac3e5aCF2eE7ef',
+      [DECIMALS]: 18
+    },
+    'DGCL': {
+      [NAME]: 'DGCL',
+      [TOKEN]: '0x63B8b7d4A3EFD0735c4BFFBD95B332a55e4eB851',
+      [DECIMALS]: 18
+    },
+    'LUA': {
+      [NAME]: 'LUA',
+      [TOKEN]: '0xB1f66997A5760428D3a87D68b90BfE0aE64121cC',
+      [DECIMALS]: 18
+    },
+    'FORCE': {
+      [NAME]: 'FORCE',
+      [TOKEN]: '0x2c31b10ca416b82cec4c5e93c615ca851213d48d',
+      [DECIMALS]: 18
+    },
+    'MAX': {
+      [NAME]: 'MAX',
+      [TOKEN]: '0xe7976c4Efc60d9f4C200Cc1bCEF1A1e3B02c73e7',
+      [DECIMALS]: 18
+    },
+    'LMY': {
+      [NAME]: 'LMY',
+      [TOKEN]: '0x66fd97a78d8854fec445cd1c80a07896b0b4851f',
+      [DECIMALS]: 18
+    },
+    'SWAP': {
+      [NAME]: 'SWAP',
+      [TOKEN]: '0xCC4304A31d09258b0029eA7FE63d032f52e44EFe',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -1912,6 +1952,16 @@ export default {
     },
   },
   56: {
+    'ORBX': { // 
+      [NAME]: 'ORBX',
+      [TOKEN]: '0x49969019255D948Dc2F1D9E4485AAeA8cF701487',
+      [DECIMALS]: 6,
+    },
+    'IDIA': { // 
+      [NAME]: 'IDIA',
+      [TOKEN]: '0x0b15ddf19d47e6a86a56148fb4afffc6929bcb89',
+      [DECIMALS]: 18,
+    },
     'FEVR': { // 
       [NAME]: 'FEVR',
       [TOKEN]: '0x82030cdbd9e4b7c5bb0b811a61da6360d69449cc',
@@ -2256,6 +2306,11 @@ export default {
     },
   },
   137: {
+    'KABY': { // 
+      [NAME]: 'KABY',
+      [TOKEN]: '0x5198E7cC1640049dE37D1Bd10b03Fa5A3AFDA120',
+      [DECIMALS]: 18,
+    },
     'YAMP': { // 
       [NAME]: 'YAMP',
       [TOKEN]: '0x87f654c4b347230C60CAD8d7ea9cF0D7238bcc79',
