@@ -25,14 +25,15 @@ const Tx  = require("ethereumjs-tx")
 // setTimeout(() => {
 //   const batch = new web3Test.BatchRequest()
 //   const arr = [
-//     '0x9fB83c0635De2E815fd1c21b3a292277540C2e8d',
+//     '0x0b15ddf19d47e6a86a56148fb4afffc6929bcb89',
+//     '0x442b153f6f61c0c99a33aa4170dcb31e1abda1d0',
 //   ]
 //   for (const token of arr) {
 //     const plData = factory.methods.getExchange(token).encodeABI()
   
 //     batch.add(web3Test.eth.call.request({data: plData, to: FACTORY_ADDRESSES[config.chainID]}, 'latest', (err, res) => {
 //       if (!err) {
-//         console.log('token:' + token)
+//         console.log('token:' + token.replace(/\s/g, '').toLowerCase())
 //         console.log(res.replace('0x000000000000000000000000', '0x').replace(/\s/g, '').toLowerCase())
 //       }
 //     }))

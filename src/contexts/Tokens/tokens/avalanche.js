@@ -500,5 +500,125 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x9fda7ceec4c18008096c2fe2b85f05dc300f94d0': { // MFI
+      [NAME]: 'MarginSwap',
+      [SYMBOL]: config.prefix + 'MFI',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xc303e6a2387b785466788cbed117d589fd0c0f82',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xb72842d6f5fedf91d22d56202802bb9a79c6322e': { // FORCE
+      [NAME]: 'Force DAO',
+      [SYMBOL]: config.prefix + 'FORCE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x41945d1e1b375dab37e71e3afb047e9a4c0678a5',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xf44fb887334fa17d2c5c0f970b5d320ab53ed557': { // START
+      [NAME]: 'BSCstarter',
+      [SYMBOL]: config.prefix + 'START',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x0c79c0f7f4a6b96d18b74caeb48fa10ed6ff90e6',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb1CB88B1a1992deB4189Ea4f566b594c13392Ada',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x4518231a8fdf6ac553b9bbd51bbb86825b583263': { // ELE
+      [NAME]: 'Eleven.finance',
+      [SYMBOL]: config.prefix + 'ELE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x67d6b7361e5e2d2b68916bc6e76aff9209d9ac20',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb1CB88B1a1992deB4189Ea4f566b594c13392Ada',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xbfc044a234e45412ecfec2cd6aae2dd0c083a7cd': { // XDO
+      [NAME]: 'xDollar',
+      [SYMBOL]: config.prefix + 'XDO',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x34a34dd81144601e4769ee2818b130dd070d1c45',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x5A3eD12E6E6928182dc402d8530087b956Ce8fdb',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

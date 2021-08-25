@@ -1556,5 +1556,29 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x515fa05c767309b93f6b41e282934f05c628cc75': { // DHC
+      [NAME]: 'DeltaHub Community',
+      [SYMBOL]: 'DHC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1965830488104f6f0671e03ad684e85cf777461f',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x668b9734FfE9eE8a01d4Ade3362De71E8989EA87',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }

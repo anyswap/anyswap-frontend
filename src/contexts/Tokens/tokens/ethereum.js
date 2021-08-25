@@ -661,6 +661,54 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0x0b15ddf19d47e6a86a56148fb4afffc6929bcb89': { // IDIA
+      [NAME]: 'Impossible Decentralized Incubator Access Token',
+      [SYMBOL]: 'IDIA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x8c0bf07eb690ad2f55405893ae7c1743dbe320e0',
+      [REDEEM_MAX_NUM]: 10000000,
+      [REDEEM_MIN_NUM]: 200,
+      [FEE]: 0.001,
+      [MAXFEE]: 800,
+      [MINFEE]: 80,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb16e3336699a636dd6c8246a3a12b813bfa0a3ad',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000000,
+      [DEPOSIT_MIN_NUM]: 200,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
+    '0x442b153f6f61c0c99a33aa4170dcb31e1abda1d0': { // AVA
+      [NAME]: 'Travala.com Token',
+      [SYMBOL]: 'AVA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x67dd044ea1ade17858c6d0caf3facc5cfbd50d34',
+      [REDEEM_MAX_NUM]: 10000000,
+      [REDEEM_MIN_NUM]: 200,
+      [FEE]: 0.001,
+      [MAXFEE]: 800,
+      [MINFEE]: 80,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb16e3336699a636dd6c8246a3a12b813bfa0a3ad',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000000,
+      [DEPOSIT_MIN_NUM]: 200,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
 
 
 

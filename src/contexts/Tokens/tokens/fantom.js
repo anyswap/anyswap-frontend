@@ -1666,5 +1666,53 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x9d3e3624b3de482331f4f091fd8b76d3f344bd8c': { // KIF 
+      [NAME]: 'KittenFinance' + config.suffix,
+      [SYMBOL]: 'KIF',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1e28caba2ce03a29febdc50aff5c608f0e7478f6',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x05e481b19129b560e921e487adb281e70bdba463': { // VEST 
+      [NAME]: 'START Vesting' + config.suffix,
+      [SYMBOL]: 'VEST',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x5d196eb40eb67c5ba6b55b3392e49552529166cc',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x4b3B4120d4D7975455d8C2894228789c91a247F8',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }

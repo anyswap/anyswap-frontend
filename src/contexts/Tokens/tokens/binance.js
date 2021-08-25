@@ -5870,6 +5870,174 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x7c96ed505d77f82b1229220d96ee9feeea7c1fe7': { // MITx 
+      [NAME]: 'Morpheus Infrastructure Token' + config.suffix,
+      [SYMBOL]: 'MITx',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x3a71515848d27626e047728d1549e96c888009a9',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x5e0691ba91e21f3fdc88a0550aa4f7304ed89b5c': { // DGCL 
+      [NAME]: 'DigiCol Token' + config.suffix,
+      [SYMBOL]: 'DGCL',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xe9a56ca2e1d5a2448bcfb632dc87da7683b70369',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x51688bf5b9c87c61af3fe18c94281cfbc872a119': { // LUA 
+      [NAME]: 'LuaToken' + config.suffix,
+      [SYMBOL]: 'LUA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x7ecf4e78c402dcbe151a00904f83ec9810eb1f9d',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x3cbc101e0ab2ef6fed8eb9bea24e7ec97bfca98f': { // LMY 
+      [NAME]: 'Lunch Money' + config.suffix,
+      [SYMBOL]: 'LMY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x2b9bb69e8dc282c5b280eaf9e41efe6110ce08c1',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x82443a77684a7da92fdcb639c8d2bd068a596245': { // SWAP 
+      [NAME]: 'TrustSwap Token' + config.suffix,
+      [SYMBOL]: 'SWAP',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xf5b4c46d612c5885208ca6e2d149232148accf80',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x21a0433662c36028e0bb9537ccd768d7c0017b48': { // MAX 
+      [NAME]: 'MAX Token' + config.suffix,
+      [SYMBOL]: 'MAX',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x68bcc118d350f64189faa260ddc48baa0f827509',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x02A40C048eE2607B5f5606e445CFc3633Fb20b58': { // KABY 
+      [NAME]: 'Kaby Arena' + config.suffix,
+      [SYMBOL]: 'KABY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x7d08e095db3c653470f3cdd4d0eb66eae1504b5d',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xDe829c03b442912D0e29822dE06032e937F172BB',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT

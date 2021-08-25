@@ -216,6 +216,54 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0x752e04640d4298dc1adb9e03670826676c144fe4': { // GAJ
+      [NAME]: 'PolyGaj Token',
+      [SYMBOL]: 'GAJ',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x7a963c46ce9d22285d646b614bcfaf54c73e646a',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 0.1,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb44022e04fd4A1219E58aB0A773bf34181c35c59',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
+    '0xb657e86395db6b1165cebd89c23ae84d4f3d29b7': { // ORBX
+      [NAME]: 'Orbital Coin',
+      [SYMBOL]: 'ORBX',
+      [DECIMALS]: 6,
+      [EXCHANGE_ADDRESS]: '0x5b953a1a7a85d09f4af053bf8423fe229d35edcc',
+      [REDEEM_MAX_NUM]: 1000000,
+      [REDEEM_MIN_NUM]: 0.1,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x63a3d28bB9187809553dD16981C73f498B6b2687',
+      [DEPOSIT_TYPE]: 0,
+      [DEPOSIT_MAX_NUM]: 0,
+      [DEPOSIT_MIN_NUM]: 0,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
   },
   [OKT_TEST_CHAINID]: {
     '0x40af41149a6e82e378fe8ad7e1ae11e42c78a985': { // ANY

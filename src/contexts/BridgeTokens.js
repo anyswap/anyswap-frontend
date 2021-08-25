@@ -1952,6 +1952,11 @@ export default {
     },
   },
   56: {
+    'AVA': { // 
+      [NAME]: 'AVA',
+      [TOKEN]: '0x13616F44Ba82D63c8C0DC3Ff843D36a8ec1c05a9',
+      [DECIMALS]: 18,
+    },
     'ORBX': { // 
       [NAME]: 'ORBX',
       [TOKEN]: '0x49969019255D948Dc2F1D9E4485AAeA8cF701487',
