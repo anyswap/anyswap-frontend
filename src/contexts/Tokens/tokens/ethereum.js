@@ -709,6 +709,30 @@ export default {
         VERSION: 'V2',
       },
     },
+    '0x3907e6ff436e2b2b05d6b929fb05f14c0ee18d90': { // KAMPAY
+      [NAME]: 'Kampay',
+      [SYMBOL]: 'KAMPAY',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x15bfc5b1d499e58b42b93b75ac29e4b0f15a2273',
+      [REDEEM_MAX_NUM]: 10000000,
+      [REDEEM_MIN_NUM]: 200,
+      [FEE]: 0.001,
+      [MAXFEE]: 800,
+      [MINFEE]: 80,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb16e3336699a636dd6c8246a3a12b813bfa0a3ad',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000000,
+      [DEPOSIT_MIN_NUM]: 200,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2',
+      },
+    },
 
 
 
