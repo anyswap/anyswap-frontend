@@ -596,29 +596,29 @@ export default {
         VERSION: 'V2'
       },
     },
-    '0xbfc044a234e45412ecfec2cd6aae2dd0c083a7cd': { // XDO
-      [NAME]: 'xDollar',
-      [SYMBOL]: config.prefix + 'XDO',
-      [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x34a34dd81144601e4769ee2818b130dd070d1c45',
-      [REDEEM_MAX_NUM]: 200000,
-      [REDEEM_MIN_NUM]: 10,
-      [FEE]: 0.001,
-      [MAXFEE]: 50,
-      [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(0),
-      [ISDEPOSIT]: 1,
-      [ISREDEEM]: 1,
-      [DEPOSIT_ADDRESS]: '0x5A3eD12E6E6928182dc402d8530087b956Ce8fdb',
-      [DEPOSIT_TYPE]: 1,
-      [DEPOSIT_MAX_NUM]: 200000,
-      [DEPOSIT_MIN_NUM]: 0.5,
-      [EXTENDOBJ]: {
-        BRIDGE: [
-          { type: 137, isSwitch: 1 }
-        ],
-        VERSION: 'V2'
-      },
-    },
+    // '0xbfc044a234e45412ecfec2cd6aae2dd0c083a7cd': { // XDO
+    //   [NAME]: 'xDollar',
+    //   [SYMBOL]: config.prefix + 'XDO',
+    //   [DECIMALS]: 18,
+    //   [EXCHANGE_ADDRESS]: '0x34a34dd81144601e4769ee2818b130dd070d1c45',
+    //   [REDEEM_MAX_NUM]: 200000,
+    //   [REDEEM_MIN_NUM]: 10,
+    //   [FEE]: 0.001,
+    //   [MAXFEE]: 50,
+    //   [MINFEE]: 1,
+    //   [ISSWITCH]: dirSwitch(0),
+    //   [ISDEPOSIT]: 1,
+    //   [ISREDEEM]: 1,
+    //   [DEPOSIT_ADDRESS]: '0x5A3eD12E6E6928182dc402d8530087b956Ce8fdb',
+    //   [DEPOSIT_TYPE]: 1,
+    //   [DEPOSIT_MAX_NUM]: 200000,
+    //   [DEPOSIT_MIN_NUM]: 0.5,
+    //   [EXTENDOBJ]: {
+    //     BRIDGE: [
+    //       { type: 137, isSwitch: 1 }
+    //     ],
+    //     VERSION: 'V2'
+    //   },
+    // },
   }
 }
