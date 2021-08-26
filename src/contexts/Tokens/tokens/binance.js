@@ -6014,7 +6014,7 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0x02A40C048eE2607B5f5606e445CFc3633Fb20b58': { // KABY 
+    '0x02a40c048ee2607b5f5606e445cfc3633fb20b58': { // KABY 
       [NAME]: 'Kaby Arena' + config.suffix,
       [SYMBOL]: 'KABY',
       [DECIMALS]: 18,
