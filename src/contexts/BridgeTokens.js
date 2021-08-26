@@ -2341,6 +2341,21 @@ export default {
       [TOKEN]: '0xb82A20B4522680951F11c94c54B8800c1C237693',
       [DECIMALS]: 18,
     },
+    'WETH': { // 
+      [NAME]: 'WETH',
+      [TOKEN]: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+      [DECIMALS]: 18,
+    },
+    'WBTC': { // 
+      [NAME]: 'WBTC',
+      [TOKEN]: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6',
+      [DECIMALS]: 8,
+    },
+    'WMATIC': { // 
+      [NAME]: 'WMATIC',
+      [TOKEN]: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
+      [DECIMALS]: 18,
+    },
   },
   250: {
     'fUSD': { // 

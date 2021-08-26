@@ -68,5 +68,77 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x2bf9b864cdc97b08b6d79ad4663e71b8ab65c45c': { // WETH
+      [NAME]: 'Wrapped Ether',
+      [SYMBOL]: 'WETH',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x213f52d058bb57a74cd420a933b7ce73b0c60ca3',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x01aeFAC4A308FbAeD977648361fBAecFBCd380C7',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x5d9ab5522c64e1f6ef5e3627eccc093f56167818': { // WBTC
+      [NAME]: '(PoS) Wrapped BTC',
+      [SYMBOL]: 'WBTC',
+      [DECIMALS]: 8,
+      [EXCHANGE_ADDRESS]: '0x7bcfb9b75d1ae4cbc26ebd2d6f0e7f4fce8e2b41',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x01aeFAC4A308FbAeD977648361fBAecFBCd380C7',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xfbdd194376de19a88118e84e279b977f165d01b8': { // WMATIC
+      [NAME]: 'Wrapped Matic',
+      [SYMBOL]: 'WMATIC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x5da30287f6cd6e3b71af4411ac484733c1dd5306',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x01aeFAC4A308FbAeD977648361fBAecFBCd380C7',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
   }
 }
