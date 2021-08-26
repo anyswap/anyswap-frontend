@@ -572,11 +572,11 @@ export default {
         VERSION: 'V2'
       },
     },
-    '0x4518231a8fdf6ac553b9bbd51bbb86825b583263': { // ELE
+    '0xacd7b3d9c10e97d0efa418903c0c7669e702e4c0': { // ELE
       [NAME]: 'Eleven.finance',
       [SYMBOL]: config.prefix + 'ELE',
       [DECIMALS]: 18,
-      [EXCHANGE_ADDRESS]: '0x67d6b7361e5e2d2b68916bc6e76aff9209d9ac20',
+      [EXCHANGE_ADDRESS]: '0x9031cbdcf82bebae93b165d571b8ca5bce2287bf',
       [REDEEM_MAX_NUM]: 200000,
       [REDEEM_MIN_NUM]: 10,
       [FEE]: 0.001,

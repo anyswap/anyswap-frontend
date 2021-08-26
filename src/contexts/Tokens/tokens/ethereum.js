@@ -686,7 +686,7 @@ export default {
       },
     },
     '0x442b153f6f61c0c99a33aa4170dcb31e1abda1d0': { // AVA
-      [NAME]: 'Travala.com Token',
+      [NAME]: 'Travala.com Token-ERC20',
       [SYMBOL]: 'AVA',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x67dd044ea1ade17858c6d0caf3facc5cfbd50d34',
