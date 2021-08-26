@@ -128,9 +128,13 @@ function setLocalinfo (account, res, chainID, version, coin, pairid, localtype) 
 
 function getServerData (account, chainID, version, coin) {
   return new Promise(resolve => {
-    let url = config.serverInfoUrl['V1'] + '/serverInfo/' + chainID
+    // let url = config.serverInfoUrl['V1'] + '/serverInfo/' + chainID
+    // if (version === 'V2') {
+    //   url = config.serverInfoUrl['V2'] + '/serverInfo/' + chainID
+    // }
+    let url = config.serverInfoUrl['V1'] + '/serverInfoFull/' + chainID
     if (version === 'V2') {
-      url = config.serverInfoUrl['V2'] + '/serverInfo/' + chainID
+      url = config.serverInfoUrl['V2'] + '/serverInfoFull/' + chainID
     }
     let data = {
       msg: 'Error',

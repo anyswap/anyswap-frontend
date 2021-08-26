@@ -2088,6 +2088,17 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
   }
 
+  function stopTip () {
+    return (
+      <MintWarningTip>
+        <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
+        <span dangerouslySetInnerHTML = { 
+          {__html: t('brStopTip')}
+        }></span>
+      </MintWarningTip>
+    )
+  }
+
   // console.log(hashArr)
   return (
     <>
@@ -2512,7 +2523,15 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         ) : ''
       )}
       {
-        // isDeposit ? (
+        isDeposit === 0 && bridgeType !== 'redeem' ? stopTip() : ''
+      }
+      {
+        isRedeem === 0 && bridgeType === 'redeem' ? stopTip() : ''
+      }
+      {
+        tokenStatus && account ? stopTip() : ''
+      }
+      {/* {
         (isDeposit === 0 || isRedeem === 0 || (tokenStatus && account) ? 
           (
             <MintWarningTip>
@@ -2525,9 +2544,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
           : 
           ''
         )
-        // isDeposit === 0 || isRedeem === 0 ? (
-        // ) : ''
-      }
+      } */}
       {
         registerAddress ? (
           <SubCurrencySelectBox>
