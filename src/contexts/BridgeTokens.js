@@ -1943,6 +1943,11 @@ export default {
       [TOKEN]: '0xCC4304A31d09258b0029eA7FE63d032f52e44EFe',
       [DECIMALS]: 18
     },
+    'OOE': {
+      [NAME]: 'OOE',
+      [TOKEN]: '0x7778360f035c589fce2f4ea5786cbd8b36e5396b',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {

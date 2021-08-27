@@ -596,6 +596,30 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x0ebd9537a25f56713e34c45b38f421a1e7191469': { // OOE
+      [NAME]: 'OpenOcean',
+      [SYMBOL]: config.prefix + 'OOE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x93315460ea77c0a932140b1979f0f8df8caac28d',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
     // '0xbfc044a234e45412ecfec2cd6aae2dd0c083a7cd': { // XDO
     //   [NAME]: 'xDollar',
     //   [SYMBOL]: config.prefix + 'XDO',
