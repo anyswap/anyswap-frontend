@@ -6038,6 +6038,102 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x1b41a1ba7722e6431b1a782327dbe466fe1ee9f9': { // KFT 
+      [NAME]: 'Knit Finance' + config.suffix,
+      [SYMBOL]: 'KFT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xa22137547c0b8f59df952b39282c05f83f4ca5d4',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x92df60c51c710a1b1c20e42d85e221f3a1bfc7f2': { // OCT 
+      [NAME]: 'Octopus Network Token' + config.suffix,
+      [SYMBOL]: 'OCT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x4fbea755e9696d9b13a60f61985b420fb0464f17',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xcea59dce6a6d73a24e6d6944cfabc330814c098a': { // TORG 
+      [NAME]: 'TORG' + config.suffix,
+      [SYMBOL]: 'TORG',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x9fa5558134a3bb8370c78dc845eca17614421e70',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xe7f04e0fbde4b16feb4a67747133f251e4dbccd7': { // XNFT 
+      [NAME]: 'XNFT' + config.suffix,
+      [SYMBOL]: 'XNFT',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xbad4a895de59a9d4cbcde547f681c746daec95bb',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x0FD4E376C6C125C276D4020EFc1842a495cb1cF3',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 128, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT

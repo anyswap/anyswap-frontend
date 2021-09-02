@@ -1,6 +1,7 @@
 import {
   chainInfo,
-  ARBITRUM_TEST_CHAINID
+  ARBITRUM_TEST_CHAINID,
+  ARBITRUM_MAIN_CHAINID
 } from './nodeConfig'
 
 const NAME_PREFIX = 'ANY'
@@ -12,11 +13,11 @@ const REWARDS_DAY = 33000 / 2
 // const REWARDS_DAY = 7600
 const DEPOSIT_AMOUNT = 10000
 
-const CHAIN_MAIN_INFO = chainInfo['32659']
+const CHAIN_MAIN_INFO = chainInfo[ARBITRUM_MAIN_CHAINID]
 const CHAIN_TEST_INFO = chainInfo[ARBITRUM_TEST_CHAINID]
 
 const COIN_BASE ={
-  symbol: 'ARBITRUM', // 符号
+  symbol: 'ETH', // 符号
   name: 'Arbitrum', // 代币名
   decimals: 18, // 小数位
   networkName: 'Arbitrum', // 网络名称
@@ -95,7 +96,7 @@ const MAIN_CONFIG = {
   noSupportBridge: [
     COIN_BASE.symbol,
   ], // 不支持的跨链合约或币种
-  queryToken: '0x25afd2058b6e5e00995467d58778a2790a0e5038' // 查询余额合约
+  queryToken: '0x9e73d56dd1942743ffdf055449b052a806b854be' // 查询余额合约
 }
 
 const TEST_CONFIG = {
@@ -122,11 +123,11 @@ const TEST_CONFIG = {
   queryToken: '0xf6df868069bd24cd91528b4748ee6e764599eda9' // 查询余额合约
 }
 
-function getFSNConfig (type) {
+function getConfig (type) {
   if (type.toLowerCase() === 'main') {
     return MAIN_CONFIG
   }
   return TEST_CONFIG
 }
 
-export default getFSNConfig
+export default getConfig

@@ -101,7 +101,24 @@ export const KCS_MAINNET = 'https://rpc-mainnet.kcc.network'
 export const KCS_MAIN_CHAINID = 321
 export const KCS_MAIN_EXPLORER = 'https://explorer.kcc.io/cn'
 
+export const ARBITRUM_MAINNET = 'https://arb-mainnet.g.alchemy.com/v2/u04Uw5dp98OohbK6fylEVaEd2OD2Rxaj'
+export const ARBITRUM_MAIN_CHAINID = 42161
+export const ARBITRUM_MAIN_EXPLORER = 'https://mainnet-arb-explorer.netlify.app'
+
 let chainInfo = {
+  [ARBITRUM_MAIN_CHAINID]: {
+    rpc: ARBITRUM_MAINNET,
+    chainID: ARBITRUM_MAIN_CHAINID,
+    lookHash: ARBITRUM_MAIN_EXPLORER + '/tx/',
+    lookAddr: ARBITRUM_MAIN_EXPLORER + '/address/',
+    explorer: ARBITRUM_MAIN_EXPLORER,
+    symbol: 'ETH',
+    name: 'Arbitrum',
+    type: 'main',
+    label: 'ARBITRUM_MAIN',
+    logoIcon: 'ARBITRUM',
+    isSwitch: 1
+  },
   [KCS_MAIN_CHAINID]: {
     rpc: KCS_MAINNET,
     chainID: KCS_MAIN_CHAINID,
@@ -394,7 +411,8 @@ let chainList = {
     chainInfo[AVAX_MAIN_CHAINID],
     chainInfo[ONE_MAIN_CHAINID],
     chainInfo[KCS_MAIN_CHAINID],
-    chainInfo[OKT_MAIN_CHAINID]
+    chainInfo[OKT_MAIN_CHAINID],
+    // chainInfo[ARBITRUM_MAIN_CHAINID],
   ],
   test: [
     chainInfo[FSN_TEST_CHAINID],

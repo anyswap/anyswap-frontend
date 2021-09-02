@@ -620,6 +620,54 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x3d4e1981f822e87a1a4c05f2e4b3bcade5406ae3': { // BACON
+      [NAME]: 'BaconDAO',
+      [SYMBOL]: config.prefix + 'BACON',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xd88df6958afda6055bb45ea900d0f792f4bfa0a4',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0x4e840aadd28da189b9906674b4afcb77c128d9ea': { // SISTA
+      [NAME]: 'srnArtGallery Tokenized Arts',
+      [SYMBOL]: config.prefix + 'SISTA',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xccaa8144102b9ded09aa5c926f211abf7f4332c9',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xb1CB88B1a1992deB4189Ea4f566b594c13392Ada',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
     // '0xbfc044a234e45412ecfec2cd6aae2dd0c083a7cd': { // XDO
     //   [NAME]: 'xDollar',
     //   [SYMBOL]: config.prefix + 'XDO',

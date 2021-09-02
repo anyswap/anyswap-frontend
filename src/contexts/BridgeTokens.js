@@ -1948,6 +1948,26 @@ export default {
       [TOKEN]: '0x7778360f035c589fce2f4ea5786cbd8b36e5396b',
       [DECIMALS]: 18
     },
+    'KFT': {
+      [NAME]: 'KFT',
+      [TOKEN]: '0xEF53462838000184F35f7D991452e5f25110b207',
+      [DECIMALS]: 18
+    },
+    'UST': {
+      [NAME]: 'UST',
+      [TOKEN]: '0xa47c8bf37f92abed4a126bda807a7b7498661acd',
+      [DECIMALS]: 18
+    },
+    'OCT': {
+      [NAME]: 'OCT',
+      [TOKEN]: '0xf5cfbc74057c610c8ef151a439252680ac68c6dc',
+      [DECIMALS]: 18
+    },
+    'TORG': {
+      [NAME]: 'TORG',
+      [TOKEN]: '0xcfa0885131f602d11d4da248d2c65a62063567a9',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -1957,6 +1977,16 @@ export default {
     },
   },
   56: {
+    'DEFY': { // 
+      [NAME]: 'DEFY',
+      [TOKEN]: '0x0acbb2c3d3826b82b17c09e2dfa605b5279e0c63',
+      [DECIMALS]: 18,
+    },
+    'PTLKX': { // 
+      [NAME]: 'PTLKX',
+      [TOKEN]: '0xe821ff93acd958d8ef637ff9627217d28a5b6845',
+      [DECIMALS]: 18,
+    },
     'AVA': { // 
       [NAME]: 'AVA',
       [TOKEN]: '0x13616F44Ba82D63c8C0DC3Ff843D36a8ec1c05a9',
@@ -2284,6 +2314,11 @@ export default {
     },
   },
   128: {
+    'XNFT': { // 
+      [NAME]: 'XNFT',
+      [TOKEN]: '0xE5944B50DF84001a36c7DE0d5Cb4da7ab21407D2',
+      [DECIMALS]: 18,
+    },
     'PLF': { // 
       [NAME]: 'PLF',
       [TOKEN]: '0x601464Aa0Df93e1FcB4afc96C0a615d546BAdC9f',

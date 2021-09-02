@@ -750,6 +750,30 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xa649325aa7c5093d12d6f98eb4378deae68ce23f': { // XEND
+      [NAME]: 'XEND' + config.suffix,
+      [SYMBOL]: 'XEND',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x726b230d171451014730f396807b474ee6770a7e',
+      [REDEEM_MAX_NUM]: 10000,
+      [REDEEM_MIN_NUM]: 0.5,
+      [FEE]: 0.001,
+      [MAXFEE]: 2,
+      [MINFEE]: 0.2,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xD779967F8B511C5edf39115341B310022900eFED',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 10000,
+      [DEPOSIT_MIN_NUM]: 0.2,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [HT_TEST_CHAINID]: {
     '0x4373ca233c17b8bf1bf8159d56019d3394a0670d': { // ANY
