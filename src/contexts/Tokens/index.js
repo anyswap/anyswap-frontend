@@ -43,6 +43,7 @@ import avalanche from './tokens/avalanche'
 import moonbase from './tokens/moonbase'
 import harmony from './tokens/harmony'
 import kcs from './tokens/kcs'
+import moon from './tokens/moon'
 
 
 const UPDATE = 'UPDATE'
@@ -83,6 +84,7 @@ export const INITIAL_TOKENS_CONTEXT = {
   ...moonbase,
   ...harmony,
   ...kcs,
+  ...moon
 }
 
 const TokensContext = createContext()

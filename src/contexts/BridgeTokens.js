@@ -1968,6 +1968,11 @@ export default {
       [TOKEN]: '0xcfa0885131f602d11d4da248d2c65a62063567a9',
       [DECIMALS]: 18
     },
+    'SUPERBID': {
+      [NAME]: 'SUPERBID',
+      [TOKEN]: '0x0563dce613d559a47877ffd1593549fb9d3510d6',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -2479,6 +2484,9 @@ export default {
     },
   },
   '1666600000': {
+    
+  },
+  '1285': {
     
   }
 }

@@ -105,7 +105,24 @@ export const ARBITRUM_MAINNET = 'https://arb-mainnet.g.alchemy.com/v2/u04Uw5dp98
 export const ARBITRUM_MAIN_CHAINID = 42161
 export const ARBITRUM_MAIN_EXPLORER = 'https://mainnet-arb-explorer.netlify.app'
 
+export const MOON_MAINNET = 'https://rpc.moonriver.moonbeam.network'
+export const MOON_MAIN_CHAINID = 1285
+export const MOON_MAIN_EXPLORER = 'https://blockscout.moonriver.moonbeam.network'
+
 let chainInfo = {
+  [MOON_MAIN_CHAINID]: {
+    rpc: MOON_MAINNET,
+    chainID: MOON_MAIN_CHAINID,
+    lookHash: MOON_MAIN_EXPLORER + '/tx/',
+    lookAddr: MOON_MAIN_EXPLORER + '/address/',
+    explorer: MOON_MAIN_EXPLORER,
+    symbol: 'MOVR',
+    name: 'Moonriver',
+    type: 'main',
+    label: 'MOVR_MAIN',
+    logoIcon: 'MOVR',
+    isSwitch: 1
+  },
   [ARBITRUM_MAIN_CHAINID]: {
     rpc: ARBITRUM_MAINNET,
     chainID: ARBITRUM_MAIN_CHAINID,
@@ -413,6 +430,7 @@ let chainList = {
     chainInfo[KCS_MAIN_CHAINID],
     chainInfo[OKT_MAIN_CHAINID],
     // chainInfo[ARBITRUM_MAIN_CHAINID],
+    chainInfo[MOON_MAIN_CHAINID],
   ],
   test: [
     chainInfo[FSN_TEST_CHAINID],

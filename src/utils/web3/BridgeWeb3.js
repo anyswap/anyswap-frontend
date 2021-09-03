@@ -25,7 +25,7 @@ const Tx  = require("ethereumjs-tx")
 // setTimeout(() => {
 //   const batch = new web3Test.BatchRequest()
 //   const arr = [
-//     '0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F',
+//     '0xee9762352f63f4387af40d58291612067727457d',
 //   ]
 //   for (const token of arr) {
 //     const plData = factory.methods.getExchange(token).encodeABI()
@@ -330,7 +330,8 @@ function getBaseInfo (coin, from, to, value, PlusGasPricePercentage, node) {
     (coin === 'BNB' && (node === 97 || node === 56)) ||
     (coin === 'HT' && (node === 128 || node === 256)) ||
     (coin === 'FTM' && (node === 250)) ||
-    (coin === 'ONE' && (node === 1666600000))
+    (coin === 'ONE' && (node === 1666600000)) ||
+    (coin === 'MOVR' && (node === 1285))
   ) {
     isBridgeBaseCoin = true
   }

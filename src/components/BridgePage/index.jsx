@@ -783,6 +783,8 @@ function formatOutName (name, extendObj) {
       name = name + '(Fusion)'
     } else if (Number(srcChainId) === 1666600000) {
       name = name + '(Harmony)'
+    } else if (Number(srcChainId) === 1285) {
+      name = name + '(Moonriver)'
     }
   }
   // console.log(name)

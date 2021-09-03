@@ -35,6 +35,8 @@ export function formatLabel (name, chainId) {
       name = name + '(Fusion)'
     } else if (Number(chainId) === 1666600000) {
       name = name + '(Harmony)'
+    } else if (Number(srcChainId) === 1285) {
+      name = name + '(Moonriver)'
     }
   }
   return name

@@ -11,6 +11,7 @@ import getAVAXConfig from './coinbase/avalanche'
 import getDEVConfig from './coinbase/moonbase'
 import getONEConfig from './coinbase/harmony'
 import getKCSConfig from './coinbase/kcs'
+import getMOVRConfig from './coinbase/moon'
 
 import {getNetwork, getIdCode} from './getUrlParams'
 import {chainInfo} from './coinbase/nodeConfig'
@@ -61,6 +62,8 @@ if (netArr[0] === 'FSN') {
   netConfig = getONEConfig(netArr[1])
 } else if (netArr[0] === 'KCS') {
   netConfig = getKCSConfig(netArr[1])
+} else if (netArr[0] === 'MOVR') {
+  netConfig = getMOVRConfig(netArr[1])
 }
 
 let serverInfoUrl = 'https://bridgeapi.anyswap.exchange'
