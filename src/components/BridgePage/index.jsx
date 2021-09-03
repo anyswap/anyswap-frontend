@@ -1083,6 +1083,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             setInit('')
             return
           }
+        } else if (res.msg === 'Null') {
+          setInit('')
+          setTokenStatus(2)
         } else {
           setInit('')
           setTokenStatus(1)
@@ -2088,12 +2091,12 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     }
   }
 
-  function stopTip () {
+  function stopTip (txt) {
     return (
       <MintWarningTip>
         <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
         <span dangerouslySetInnerHTML = { 
-          {__html: t('brStopTip')}
+          {__html: txt}
         }></span>
       </MintWarningTip>
     )
@@ -2523,28 +2526,17 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
         ) : ''
       )}
       {
-        isDeposit === 0 && bridgeType !== 'redeem' ? stopTip() : ''
+        isDeposit === 0 && bridgeType !== 'redeem' ? stopTip(t('brStopTip')) : ''
       }
       {
-        isRedeem === 0 && bridgeType === 'redeem' ? stopTip() : ''
+        isRedeem === 0 && bridgeType === 'redeem' ? stopTip(t('brStopTip')) : ''
       }
       {
-        tokenStatus && account ? stopTip() : ''
+        tokenStatus === 1 && account ? stopTip(t('unknownError')) : ''
       }
-      {/* {
-        (isDeposit === 0 || isRedeem === 0 || (tokenStatus && account) ? 
-          (
-            <MintWarningTip>
-              <img src={WarningIcon} alt='' style={{marginRight: '8px'}}/>
-              <span dangerouslySetInnerHTML = { 
-                {__html: t('brStopTip')}
-              }></span>
-            </MintWarningTip>
-          )
-          : 
-          ''
-        )
-      } */}
+      {
+        tokenStatus === 2 && account ? stopTip(t('brStopTip')) : ''
+      }
       {
         registerAddress ? (
           <SubCurrencySelectBox>
