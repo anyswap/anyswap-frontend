@@ -2332,9 +2332,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             inputVal = inputBalance
             _swapMinNum = ethers.utils.parseUnits(redeemMinNum.toString(), inputDecimals)
             _swapMaxNum = ethers.utils.parseUnits(redeemMaxNum.toString(), inputDecimals)
-            _fee = inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
-            _minFee = ethers.utils.parseUnits(minFee.toString(), inputDecimals)
-            _maxFee = ethers.utils.parseUnits(maxFee.toString(), inputDecimals)
+            _fee = fee ? inputVal.mul(ethers.utils.parseUnits(fee.toString(), 18)).div(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18))) : ethers.utils.Zero
+            _minFee = minFee ? ethers.utils.parseUnits(minFee.toString(), inputDecimals) : ethers.utils.Zero
+            _maxFee = maxFee ? ethers.utils.parseUnits(maxFee.toString(), inputDecimals) : ethers.utils.Zero
           } else {
             if (outNetBalance && inputDecimals) {
               inputVal = ethers.utils.parseUnits(outNetBalance.toString(), inputDecimals)
@@ -2354,7 +2354,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
             }
             if (inputVal) {
               value = amountFormatter(inputVal, inputDecimals, Math.min(8, inputDecimals))
-              if (_fee.isZero()) {
+              if (!_fee ||  _fee.isZero()) {
                 // inputVal = inputVal
               } else {
                 if (_fee.lt(_minFee)) {
@@ -2551,9 +2551,9 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
                       {t('Reminder')}:
                     </dt>
                     <dd><i></i>{t('redeemTip1', {
-                      minFee,
+                      minFee: minFee ? minFee : 0 ,
                       coin: formatCoin(inputSymbol),
-                      maxFee,
+                      maxFee: maxFee ? maxFee : 0,
                       fee: fee * 100
                     })}</dd>
                     <dd><i></i>{t('redeemTip2')} {thousandBit(redeemMinNum, 'no')} {formatCoin(inputSymbol)}</dd>

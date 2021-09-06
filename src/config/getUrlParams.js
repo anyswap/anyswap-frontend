@@ -17,6 +17,7 @@ import {
   DEV_TEST_CHAINID,
   ONE_MAIN_CHAINID,
   KCS_MAIN_CHAINID,
+  MOON_MAIN_CHAINID
 } from './coinbase/nodeConfig'
 
 
@@ -56,6 +57,7 @@ function getParamNode (type, INIT_NODE) {
   if (type === 'harmony' || type.toString() === ONE_MAIN_CHAINID.toString()) return chainInfo[ONE_MAIN_CHAINID].label
   if (type === 'kcs' || type.toString() === KCS_MAIN_CHAINID.toString()) return chainInfo[KCS_MAIN_CHAINID].label
   if (type === 'okt' || type === 'okex' || type.toString() === OKT_MAIN_CHAINID.toString()) return chainInfo[OKT_MAIN_CHAINID].label
+  if (type === 'moonriver' || type === 'movr' || type.toString() === MOON_MAIN_CHAINID.toString()) return chainInfo[MOON_MAIN_CHAINID].label
   return INIT_NODE
 }
 
