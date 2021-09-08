@@ -476,7 +476,8 @@ export default function Header() {
                 <StyleAnyLogo></StyleAnyLogo>
               )
             }
-            <V3LinkBox href='https://stable.anyswap.exchange/#/swap'>
+            {/* <V3LinkBox href='https://stable.anyswap.exchange/#/swap'> */}
+            <V3LinkBox href='https://app.anyswap.exchange/#/router'>
               V3↗
               {/* <V3LinkImg src={V3Icon} alt={'V3'}/> */}
             </V3LinkBox>

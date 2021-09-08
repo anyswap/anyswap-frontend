@@ -455,25 +455,44 @@ export default {
         VERSION: 'V2'
       }
     },
-    'XRP': { // XRP
-      [NAME]: 'ANY XRP',
-      [SYMBOL]: config.prefix + 'XRP',
-      [DECIMALS]: 6,
-      [EXCHANGE_ADDRESS]: 'XRP',
-      [REDEEM_MAX_NUM]: 100,
-      [REDEEM_MIN_NUM]: 0.00001,
+    '0xb80a6c4f2a279ec91921ca30da726c534462125c': { // FMN
+      [NAME]: 'The FREEMOON Token',
+      [SYMBOL]: 'FMN',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x31c2f8ffce91918e2256faa36f3dc5e609aee1e0',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 10,
       [FEE]: 0.001,
       [MAXFEE]: 50,
-      [MINFEE]: 1,
-      [ISSWITCH]: dirSwitch(1),
+      [MINFEE]: 4,
+      [ISSWITCH]: dirSwitch(0),
       [ISDEPOSIT]: 0,
       [ISREDEEM]: 0,
       [DEPOSIT_ADDRESS]: '',
-      [DEPOSIT_TYPE]: 0,
-      [DEPOSIT_MAX_NUM]: 0,
-      [DEPOSIT_MIN_NUM]: 0,
-      [EXTENDOBJ]: {},
-    }
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {}
+    },
+    '0x6403ede3b7604ea4883670c670bea288618bd5f2': { // FREE
+      [NAME]: 'The FREE Token',
+      [SYMBOL]: 'FREE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x468d2a99bcc779fdb1f4b3b714a2757c35d6d744',
+      [REDEEM_MAX_NUM]: 100000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 4,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 0,
+      [ISREDEEM]: 0,
+      [DEPOSIT_ADDRESS]: '',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]:  {}
+    },
   },
   [FSN_TEST_CHAINID]: {
     '0xc20b5e92e1ce63af6fe537491f75c19016ea5fb4': { // ANY
