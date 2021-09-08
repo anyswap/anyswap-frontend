@@ -93,7 +93,9 @@ const MAIN_CONFIG = {
     COIN_BASE.symbol,
     ANY_MAIN_TOKEN,
     '0x20dd2f2bfa4ce3eaec5f57629583dad8a325872a',
-    '0x35e0f7499bcb1e41b4027e26ab074108e90631a0'
+    '0x35e0f7499bcb1e41b4027e26ab074108e90631a0',
+    '0xb80a6c4f2a279ec91921ca30da726c534462125c',
+    '0x6403ede3b7604ea4883670c670bea288618bd5f2',
   ], // 不支持的跨链合约或币种
   queryToken: '0x25afd2058b6e5e00995467d58778a2790a0e5038' // 查询余额合约
 }
