@@ -303,13 +303,14 @@ font-family: 'Manrope';
 `
 
 const V3LinkBox = styled(Link)`
-  // width: 20px;
-  // height: 20px;
   ${({theme}) => theme.FlexSC}
   line-height: 26px;
   margin-top: 17px;
   font-size: 18px;
   font-weight:bold;
+`
+
+const LogoLinkBox = styled(Link)`
 `
 
 // const V3LinkImg = styled.img`
@@ -469,18 +470,19 @@ export default function Header() {
       <HeaderFrame>
         <HeaderSpan>
           <HeaderElement>
-            {
-              isDark ? (
-                <StyleAnyNightLogo></StyleAnyNightLogo>
-              ) : (
-                <StyleAnyLogo></StyleAnyLogo>
-              )
-            }
+            <LogoLinkBox href='https://anyswap.exchange'>
+              {
+                isDark ? (
+                  <StyleAnyNightLogo></StyleAnyNightLogo>
+                ) : (
+                  <StyleAnyLogo></StyleAnyLogo>
+                )
+              }
+            </LogoLinkBox>
             {/* <V3LinkBox href='https://stable.anyswap.exchange/#/swap'> */}
-            <V3LinkBox href='https://app.anyswap.exchange/#/router'>
+            {/* <V3LinkBox href='https://app.anyswap.exchange/#/router'>
               V3↗
-              {/* <V3LinkImg src={V3Icon} alt={'V3'}/> */}
-            </V3LinkBox>
+            </V3LinkBox> */}
           </HeaderElement>
           <HeaderElement>
             <NetworkBox onClick={() => {toggleNetworkModal()}}>

@@ -102,7 +102,7 @@ function reducer(state, { type, payload }) {
         ...state,
         [networkId]: {
           ...(safeAccess(state, [networkId]) || {}),
-          [tokenAddress.toLowerCase()]: {
+          [tokenAddress]: {
             [NAME]: name,
             [SYMBOL]: symbol,
             [DECIMALS]: decimals,
@@ -134,7 +134,7 @@ export default function Provider({ children }) {
   const [state, dispatch] = useReducer(reducer, INITIAL_TOKENS_CONTEXT)
 
   const update = useCallback((networkId, tokenAddress, name, symbol, decimals, exchangeAddress, redeemMaxNum, redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum, extendObj) => {
-    dispatch({ type: UPDATE, payload: { networkId, tokenAddress: tokenAddress.toLowerCase(), name, symbol, decimals, exchangeAddress: exchangeAddress.toLowerCase(), redeemMaxNum, redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum, extendObj } })
+    dispatch({ type: UPDATE, payload: { networkId, tokenAddress: tokenAddress, name, symbol, decimals, exchangeAddress: exchangeAddress, redeemMaxNum, redeemMinNum, fee, maxFee, minFee, isSwitch, isDeposit, isRedeem, depositAddress, depositType, depositMaxNum, depositMinNum, extendObj } })
   }, [])
 
   return (
@@ -150,9 +150,9 @@ export function useTokenDetails(tokenAddress) {
   const [state, { update }] = useTokensContext()
   const allTokensInNetwork = { ...COIN, ...(safeAccess(state, [chainId]) || {}) }
 
-  if (isAddress(tokenAddress)) {
-    tokenAddress = tokenAddress.toLowerCase()
-  }
+  // if (isAddress(tokenAddress)) {
+  //   tokenAddress = tokenAddress
+  // }
   const {
     [NAME]: name,
     [SYMBOL]: symbol,
@@ -191,7 +191,7 @@ export function useTokenDetails(tokenAddress) {
       Promise.all([namePromise, symbolPromise, decimalsPromise, exchangeAddressPromise]).then(
         ([resolvedName, resolvedSymbol, resolvedDecimals, resolvedExchangeAddress]) => {
           if (!stale) {
-            update(chainId, tokenAddress.toLowerCase(), resolvedName, resolvedSymbol, resolvedDecimals, resolvedExchangeAddress)
+            update(chainId, tokenAddress, resolvedName, resolvedSymbol, resolvedDecimals, resolvedExchangeAddress)
           }
         }
       )

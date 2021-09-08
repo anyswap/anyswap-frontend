@@ -668,6 +668,54 @@ export default {
         VERSION: 'V2'
       },
     },
+    '0x5fc17416925789e0852fbfcd81c490ca4abc51f9': { // SURE
+      [NAME]: 'inSure',
+      [SYMBOL]: config.prefix + 'SURE',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x9615ed5a6cc8327294416b4d3a4d4ce56912edcd',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
+    '0xe6cdd3a275c976bca5d3de4f96c7514b899f0434': { // VEST(DAO Invest)
+      [NAME]: 'DAO Invest',
+      [SYMBOL]: config.prefix + 'VEST(DAO Invest)',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xd8f227da01a040afd125c0fd295770045534d01a',
+      [REDEEM_MAX_NUM]: 200000,
+      [REDEEM_MIN_NUM]: 10,
+      [FEE]: 0.001,
+      [MAXFEE]: 50,
+      [MINFEE]: 1,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x820A9eb227BF770A9dd28829380d53B76eAf1209',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 200000,
+      [DEPOSIT_MIN_NUM]: 0.5,
+      [EXTENDOBJ]: {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      },
+    },
     // '0xbfc044a234e45412ecfec2cd6aae2dd0c083a7cd': { // XDO
     //   [NAME]: 'xDollar',
     //   [SYMBOL]: config.prefix + 'XDO',

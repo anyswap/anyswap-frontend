@@ -1973,6 +1973,36 @@ export default {
       [TOKEN]: '0x0563dce613d559a47877ffd1593549fb9d3510d6',
       [DECIMALS]: 18
     },
+    'UNV': {
+      [NAME]: 'UNV',
+      [TOKEN]: '0xf009f5531de69067435e32c4b9d36077f4c4a673',
+      [DECIMALS]: 18
+    },
+    'CRD': {
+      [NAME]: 'CRD',
+      [TOKEN]: '0xcaaa93712bdac37f736c323c93d4d5fdefcc31cc',
+      [DECIMALS]: 18
+    },
+    'MYST': {
+      [NAME]: 'MYST',
+      [TOKEN]: '0x4cf89ca06ad997bc732dc876ed2a7f26a9e7f361',
+      [DECIMALS]: 18
+    },
+    'BSP': {
+      [NAME]: 'BSP',
+      [TOKEN]: '0xa1454f9c704af96636f3a7532b9a04c411f85680',
+      [DECIMALS]: 18
+    },
+    'SKYRIM': {
+      [NAME]: 'SKYRIM',
+      [TOKEN]: '0x2610f0bfc21ef389fe4d03cfb7de9ac1e6c99d6e',
+      [DECIMALS]: 18
+    },
+    'WOO': {
+      [NAME]: 'WOO',
+      [TOKEN]: '0x4691937a7508860f876c9c0a2a617e7d9e945d4b',
+      [DECIMALS]: 18
+    },
   },
   4: {
     'USDT': {
@@ -1982,6 +2012,16 @@ export default {
     },
   },
   56: {
+    'DUEL': { // 
+      [NAME]: 'DUEL',
+      [TOKEN]: '0x297817ce1a8de777e7ddbed86c3b7f9dc9349f2c',
+      [DECIMALS]: 18,
+    },
+    'BHC': { // 
+      [NAME]: 'BHC',
+      [TOKEN]: '0x6fd7c98458a943f469e1cf4ea85b173f5cd342f4',
+      [DECIMALS]: 18,
+    },
     'DEFY': { // 
       [NAME]: 'DEFY',
       [TOKEN]: '0x0acbb2c3d3826b82b17c09e2dfa605b5279e0c63',
@@ -2399,6 +2439,16 @@ export default {
     'WMATIC': { // 
       [NAME]: 'WMATIC',
       [TOKEN]: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
+      [DECIMALS]: 18,
+    },
+    'KOM': { // 
+      [NAME]: 'KOM',
+      [TOKEN]: '0xc004e2318722ea2b15499d6375905d75ee5390b8',
+      [DECIMALS]: 8,
+    },
+    'miMATIC': { // 
+      [NAME]: 'miMATIC',
+      [TOKEN]: '0xa3Fa99A148fA48D14Ed51d610c367C61876997F1',
       [DECIMALS]: 18,
     },
   },

@@ -73,7 +73,7 @@ export const ARBITRUM_TEST_CHAINID = 212984383488152
 export const ARBITRUM_TEST_EXPLORER = 'https://explorer.arbitrum.io/#/'
 
 // export const MATIC_MAINNET = 'https://rpc-mainnet.maticvigil.com'
-export const MATIC_MAINNET = process.env.NODE_ENV === 'development' ? 'https://rpc-mainnet.matic.network' : 'https://maticnode1.anyswap.exchange'
+export const MATIC_MAINNET = process.env.NODE_ENV === 'development' ? 'https://rpc-mainnet.matic.quiknode.pro' : 'https://maticnode1.anyswap.exchange'
 export const MATIC_MAIN_CHAINID = 137
 export const MATIC_MAIN_EXPLORER = 'https://polygonscan.com'
 

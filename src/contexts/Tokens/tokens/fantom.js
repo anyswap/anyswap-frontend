@@ -1786,5 +1786,77 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0x6626c47c00f1d87902fc13eecfac3ed06d5e8d8a': { // WOO 
+      [NAME]: 'Wootrade Network' + config.suffix,
+      [SYMBOL]: 'WOO',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x16346e82a39863256428e1c08cc05978fc27ef5a',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xc564ee9f21ed8a2d8e7e76c085740d5e4c5fafbe',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x7beb05cf5681f402e762f8569c2fc138a2172978': { // BHC 
+      [NAME]: 'Billion Happiness' + config.suffix,
+      [SYMBOL]: 'BHC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x2aa1be02c0ccec506f6f2c23aac0078209240795',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x4b3B4120d4D7975455d8C2894228789c91a247F8',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 56, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0xfb98b335551a418cd0737375a2ea0ded62ea213b': { // miMATIC 
+      [NAME]: 'miMATIC' + config.suffix,
+      [SYMBOL]: 'miMATIC',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0xb515025cd638415bb7aeaeadb3d8a8f75f92e25d',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x25864a712C80d33Ba1ad7c23CffA18b46F2fc00c',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   }
 }

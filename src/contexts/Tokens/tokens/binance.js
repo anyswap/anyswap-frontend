@@ -6158,6 +6158,150 @@ export default {
         VERSION: 'V2'
       }
     },
+    '0xf915fdda4c882731c0456a4214548cd13a822886': { // UNV 
+      [NAME]: 'Unvest' + config.suffix,
+      [SYMBOL]: 'UNV',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x364985e7df67d1b1d232f35b9e67287571286220',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x1a056a5fcbbe5ad69793cea8569c6dba33e4080a': { // CRD 
+      [NAME]: 'CryptalDash' + config.suffix,
+      [SYMBOL]: 'CRD',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x1645f1cac2d6c3eff03d2db12ef40ea7edc1100b',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x2ff0b946a6782190c4fe5d4971cfe79f0b6e4df2': { // MYST 
+      [NAME]: 'Mysterium' + config.suffix,
+      [SYMBOL]: 'MYST',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x3d3fc7365f4f14e2fc396af36b4d5ea028f3d1b6',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x011734f6ed20e8d011d85cf7894814b897420acf': { // BSP 
+      [NAME]: 'BallSwap' + config.suffix,
+      [SYMBOL]: 'BSP',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x86c3453dbabf673b432a69c498eaecb98e4ca994',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x4b27cd6e6a5e83d236ead376d256fe2f9e9f0d2e': { // SKYRIM 
+      [NAME]: 'Skyrim Finance' + config.suffix,
+      [SYMBOL]: 'SKYRIM',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x998953b617c33a1de59e8383dd294120d27364cd',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0x533e3c0e6b48010873b947bddc4721b1bdff9648',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 1, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
+    '0x471ea49dd8e60e697f4cac262b5fafcc307506e4': { // KOM 
+      [NAME]: 'Kommunitas' + config.suffix,
+      [SYMBOL]: 'KOM',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x766c1f6888ffe9cae13e4fdcfe4bbbd8d10ed67e',
+      [REDEEM_MAX_NUM]: 5000,
+      [REDEEM_MIN_NUM]: 0.16,
+      [FEE]: 0.001,
+      [MAXFEE]: 0.8,
+      [MINFEE]: 0.08,
+      [ISSWITCH]: dirSwitch(0),
+      [ISDEPOSIT]: 1,
+      [ISREDEEM]: 1,
+      [DEPOSIT_ADDRESS]: '0xDe829c03b442912D0e29822dE06032e937F172BB',
+      [DEPOSIT_TYPE]: 1,
+      [DEPOSIT_MAX_NUM]: 143000,
+      [DEPOSIT_MIN_NUM]: 0.16,
+      [EXTENDOBJ]:  {
+        BRIDGE: [
+          { type: 137, isSwitch: 1 }
+        ],
+        VERSION: 'V2'
+      }
+    },
   },
   [BNB_TEST_CHAINID]: {
     '0x29D827A5a08D50bD6f64bA135bCFE2C5d1108711': { // USDT
