@@ -2396,6 +2396,11 @@ export default {
     },
   },
   137: {
+    'SX': { // 
+      [NAME]: 'SX',
+      [TOKEN]: '0x840195888db4d6a99ed9f73fcd3b225bb3cb1a79',
+      [DECIMALS]: 18,
+    },
     'KABY': { // 
       [NAME]: 'KABY',
       [TOKEN]: '0x5198E7cC1640049dE37D1Bd10b03Fa5A3AFDA120',
