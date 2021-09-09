@@ -1834,9 +1834,9 @@ export default {
         VERSION: 'V2'
       }
     },
-    '0xfb98b335551a418cd0737375a2ea0ded62ea213b': { // miMATIC 
+    '0xfb98b335551a418cd0737375a2ea0ded62ea213b': { // MAI 
       [NAME]: 'miMATIC' + config.suffix,
-      [SYMBOL]: 'miMATIC',
+      [SYMBOL]: 'MAI',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xb515025cd638415bb7aeaeadb3d8a8f75f92e25d',
       [REDEEM_MAX_NUM]: 5000,

@@ -2451,8 +2451,8 @@ export default {
       [TOKEN]: '0xc004e2318722ea2b15499d6375905d75ee5390b8',
       [DECIMALS]: 8,
     },
-    'miMATIC': { // 
-      [NAME]: 'miMATIC',
+    'MAI': { // 
+      [NAME]: 'MAI',
       [TOKEN]: '0xa3Fa99A148fA48D14Ed51d610c367C61876997F1',
       [DECIMALS]: 18,
     },
