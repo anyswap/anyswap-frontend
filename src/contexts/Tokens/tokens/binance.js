@@ -6281,7 +6281,7 @@ export default {
     '0x471ea49dd8e60e697f4cac262b5fafcc307506e4': { // KOM 
       [NAME]: 'Kommunitas' + config.suffix,
       [SYMBOL]: 'KOM',
-      [DECIMALS]: 18,
+      [DECIMALS]: 8,
       [EXCHANGE_ADDRESS]: '0x766c1f6888ffe9cae13e4fdcfe4bbbd8d10ed67e',
       [REDEEM_MAX_NUM]: 5000,
       [REDEEM_MIN_NUM]: 0.16,
